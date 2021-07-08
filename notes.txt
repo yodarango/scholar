@@ -1,0 +1,8 @@
+
+The following things have been aware of and need to be improved: 
+    Daily-verse.tsx 
+        tghe 
+
+///// 07/05/2021
+**let off at comments-of-comments.tsx
+****style the comments cards to be comments on a comment no the main commnet cards 

@@ -1,0 +1,49 @@
+.loginLogo {
+   display: block;
+   width: 9.3rem;
+   height: 9.3rem;
+   margin: var(--large-spacing-mobile) auto;
+   background-image: url('../../public/Parks10.png');
+   background-size: cover;
+   background-position: center;
+}
+
+.loginTitle {
+   font: var(--rare-font-mobile);
+   color: var(--font-color);
+   width: 100%;
+   text-align: center;
+   font-size: 2rem;
+   margin: var(--medium-spacing) auto;
+}
+
+@media only screen and (min-width: 1025px) {
+   .loginLogo {
+      width: 15.6rem;
+      height: 15.6rem;
+      margin: var(--large-spacing) auto;
+   }
+
+   .loginTitle {
+      font-size: 2.83rem;
+   }
+
+   .wrapFlexRow {
+      width: 100vw;
+   }
+
+   .loginRigth,
+   .loginLeft {
+      height: 100vh;
+      width: 50%;
+   }
+
+   .loginRigth {
+      display: flex;
+   }
+
+   .loginLeft input,
+   .loginLeft > div > div {
+      display: none;
+   }
+}

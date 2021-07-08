@@ -1,0 +1,57 @@
+.logo {
+   display: block;
+   width: 9.3rem;
+   height: 9.3rem;
+   margin: var(--xlarge-spacing-mobile) auto var(--large-spacing-mobile);
+   background-image: url('../../public/Parks10.png');
+   background-size: cover;
+   background-position: center;
+}
+
+.title {
+   font: var(--rare-font-mobile);
+   color: var(--font-color);
+   width: 100%;
+   text-align: center;
+   font-size: 2rem;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.loginRigth {
+   background-color: var(--font-color);
+   display: none;
+}
+
+@media only screen and (min-width: var(--ipad-break)) {
+}
+
+@media only screen and (min-width: 1025px) {
+   .logo {
+      width: 18.75rem;
+      height: 18.75rem;
+      margin: 8rem auto var(--xlarge-spacing-mobile);
+   }
+
+   .title {
+      font-size: 2.83rem;
+   }
+
+   .wrapFlexRow {
+      width: 100vw;
+   }
+
+   .loginRigth,
+   .loginLeft {
+      height: 100vh;
+      width: 50%;
+   }
+
+   .loginRigth {
+      display: flex;
+   }
+
+   .loginLeft input,
+   .loginLeft > div > div {
+      display: none;
+   }
+}

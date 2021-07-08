@@ -1,0 +1,123 @@
+.squaredCardWrapper {
+   background-color: var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
+   width: 100%;
+}
+
+.dailyQuestion {
+   width: 100%;
+   background-color: var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
+   overflow: scroll;
+   max-height: 10rem;
+   margin-bottom: 0.5rem;
+   margin-top: var(--xsmall-spacing-mobile);
+}
+
+.topPositionWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   padding: var(--xsmall-spacing-mobile) 0;
+   width: 100%;
+}
+
+.votesWrapper {
+   display: grid;
+   grid-template-areas: "left middle right";
+   grid-template-columns: 30% 40% 30%;
+   grid-template-rows: 1fr;
+   width: 90%;
+   margin: 0 auto;
+}
+
+.voteCountDown {
+   grid-area: left;
+}
+
+.voteCountUp {
+   grid-area: right;
+}
+
+.voteCountUpSpan,
+.voteCountDownSpan {
+   margin: 0.3rem auto 0;
+   display: block;
+   font: var(--widget-font-mobile);
+}
+
+.votePositionUp {
+   width: 5.5rem;
+   height: 5.5rem;
+   grid-area: middle;
+   border-radius: 50%;
+   background-color: #147432;
+   background-image: url("../../../public/images/likke.svg");
+   background-size: 80%;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin: 0 auto;
+}
+
+.votePositionDown {
+   width: 5.5rem;
+   height: 5.5rem;
+   grid-area: middle;
+   border-radius: 50%;
+   background-color: #a72020;
+   background-image: url("../../../public/images/dislike.svg");
+   background-size: 80%;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin: 0 auto;
+}
+
+.squaredCardWrapperFooter {
+   display: grid;
+   width: 100%;
+   height: auto;
+   grid-template-areas: "right left";
+   border-top: 1px solid var(--fourth-color);
+   padding-top: 1rem;
+   border-top: 1px solid var(--fourth-color);
+}
+
+.iconAgreeWrapperRight {
+   grid-area: right;
+   background-color: #a72020;
+   padding: 0.5rem 0;
+   border-bottom-left-radius: var(--input-radius-mobile);
+}
+
+.iconAgreeWrapperLeft {
+   grid-area: left;
+   background-color: #147432;
+   padding: 0.5rem 0;
+   border-bottom-right-radius: var(--input-radius-mobile);
+}
+
+.iconAgree {
+   border-radius: 50%;
+   background-size: 90%;
+   margin: 0 auto;
+   display: block;
+   background-image: url("../../../public/images/likke.svg");
+}
+
+.iconDisagree {
+   border-radius: 50%;
+   background-size: 80%;
+   margin: 0 auto;
+   display: block;
+   background-image: url("../../../public/images/dislike.svg");
+}
+
+.iconAgree:hover,
+.iconDisagree:hover {
+   transition: background-color 300ms ease-in, transform 300ms ease-in;
+   display: block;
+   cursor: pointer;
+   transform: scale(1.1);
+   background-color: rgba(255, 255, 255, 0.3);
+}
