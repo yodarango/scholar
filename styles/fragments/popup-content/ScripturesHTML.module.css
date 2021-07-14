@@ -1,0 +1,65 @@
+.readScripturesHeader {
+   position: fixed;
+   background-color: var(--third-color);
+   top: 0;
+   width: 100%;
+   height: 3.125rem;
+   left: 0;
+   z-index: 11;
+}
+
+.closeModal {
+   top: 3.5rem;
+}
+.chapterHTMLWrapper p {
+}
+
+.reference {
+   color: var(--fourth-color);
+   size: 8rem;
+   display: inline;
+}
+
+.chapter {
+   color: var(--graient-one);
+   font: var(--secondary-font-mobile);
+}
+.title {
+   color: var(--graient-one);
+   font: var(--secondary-font-mobile);
+   font-size: 1.2rem;
+}
+.verse {
+   font: var(--primary-font-mobile);
+   color: (--font-color);
+   line-height: 2em;
+}
+.verseNumber {
+   font: var(--primary-font-mobile);
+   font-weight: 600;
+   color: var(--graient-one);
+   margin: 0 0.5rem 0 0;
+}
+.noteCTA {
+   position: relative;
+   color: var(--gradient-two);
+   font: var(--widget-font-mobile);
+   font-size: 0.6rem;
+   display: inline-block;
+   border: 1px solid var(--gradient-two);
+   padding: 0.1rem;
+   top: -0.2rem;
+   margin: 0 0.3rem;
+   cursor: pointer;
+}
+.note {
+   color: yellow;
+   /* display: inline-block; */
+}
+.verseSpacer {
+   width: 100%;
+   height: 0.5rem;
+}
+.noteCTATrigger:checked + .note {
+   display: block;
+}

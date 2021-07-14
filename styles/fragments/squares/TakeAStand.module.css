@@ -12,6 +12,7 @@
    max-height: 10rem;
    margin-bottom: 0.5rem;
    margin-top: var(--xsmall-spacing-mobile);
+   padding: 0 var(--xsmall-spacing-mobile);
 }
 
 .topPositionWrapper {
@@ -19,7 +20,7 @@
    align-items: center;
    justify-content: center;
    flex-wrap: wrap;
-   padding: var(--xsmall-spacing-mobile) 0;
+   padding: var(--small-spacing-mobile) 0;
    width: 100%;
 }
 
@@ -28,7 +29,8 @@
    grid-template-areas: "left middle right";
    grid-template-columns: 30% 40% 30%;
    grid-template-rows: 1fr;
-   width: 90%;
+   padding: 0 var(--xsmall-spacing-mobile);
+   width: 100%;
    margin: 0 auto;
 }
 
@@ -71,6 +73,32 @@
    background-repeat: no-repeat;
    background-position: center;
    margin: 0 auto;
+}
+
+.votePositionEqual {
+   width: 5.5rem;
+   height: 5.5rem;
+   grid-area: middle;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: var(--fourth-color);
+   font: var(--rare-font-mobile);
+   background-size: 80%;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin: 0 auto;
+}
+.counterWrapper {
+   margin: 0 auto var(--xsmall-spacing-mobile);
+   width: 100%;
+}
+.counterWrapper {
+}
+
+.stdTextBlockDigit {
+   margin: 0.5rem auto;
 }
 
 .squaredCardWrapperFooter {

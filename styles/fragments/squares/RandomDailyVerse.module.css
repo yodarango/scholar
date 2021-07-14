@@ -9,13 +9,9 @@
 
 .dailyVerse {
    width: 100%;
-   border-radius: var(--input-radius-mobile);
    max-height: 13rem;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 3;
-   -webkit-box-orient: vertical;
+   overflow: scroll;
+   padding: 0 var(--xsmall-spacing-mobile);
 }
 
 .squaredCardWrapperFooter {
