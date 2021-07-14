@@ -9,7 +9,7 @@ import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-c
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
-export default function Comment() {
+export default function Comments() {
    // ========== fetch all comments for the selected comment
    interface CommentInt {
       userId: number;

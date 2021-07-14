@@ -10,6 +10,7 @@
    --rare-font-mobile: 700 2.83rem acumin-pro, sans-serif;
    --small-primary-font-mobile: 400 1.1rem acumin-pro, sans-serif;
    --widget-font-mobile: 300 0.8rem acumin-pro, sans-serif;
+   --digit-font-mobile: 300 1rem roboto-slab, serif;
 
    /*** Desktop */
    --primary-font-desktop: 400 1.35rem acumin-pro, sans-serif;
@@ -240,6 +241,20 @@ a:active {
 .std-text-block--small-title {
    font: var(--secondary-font-mobile);
 }
+
+.std-text-block--digit {
+   margin: var(--small-spacing-mobile) auto;
+   width: 100%;
+   display: block;
+   color: var(--font-color);
+   font: var(--digit-font-mobile);
+   text-align: center;
+}
+
+.std-text-block--no-margin {
+   margin: 0 auto;
+}
+
 .std-block {
    margin: var(--medium-spacing-mobile) auto;
    display: block;
@@ -273,17 +288,17 @@ a:active {
 
 .small-spacer {
    width: 100%;
-   margin: var(--small-spacing-mobile);
+   height: var(--small-spacing-mobile);
 }
 
 .medium-spacer {
    width: 100%;
-   margin: var(--medium-spacing-mobile);
+   height: var(--medium-spacing-mobile);
 }
 
 .large-spacer {
    width: 100%;
-   margin: var(--xlarge-spacing-mobile);
+   height: var(--xlarge-spacing-mobile);
 }
 
 .header {
@@ -489,6 +504,41 @@ a:active {
 .notification-wrapper--Yellow .closeModal:hover {
    background-color: rgba(32, 0, 58, 0.3);
 }
+
+/* ScripturesHTML Styles */
+/*** -------currently using JSON Format
+.c /*chapter  {
+   color: var(--graient-one);
+}
+.s1 /*subtitle {
+   color: var(--graient-one);
+   font: var(--secondary-font-mobile);
+}
+.v /*verse {
+   color: var(--graient-one);
+   margin: 0 0.3rem 0 0;
+}
+.f /*reference wrapper {
+}
+.fr /*reference {
+   font-size: 0.6em;
+   color: var(--gradient-two);
+
+   display: inline-block;
+   margin: 0 0.3rem 0 0.5rem;
+   position: relative;
+   top: -0.5rem;
+   text-align: center;
+   display: inline-block;
+}
+.ft /*reference text {
+   font-size: 0.8em;
+   font-style: italic;
+}
+.verse-span {
+   /* display: block; 
+}
+********/
 @media only screen and (min-width: 800px) {
    .main-wrapper {
       max-width: 1000px;

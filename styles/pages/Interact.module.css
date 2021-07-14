@@ -1,19 +1,25 @@
 .gridWrapper {
-   margin: calc(5rem + var(--medium-spacing-mobile)) 0 0;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-wrap: wrap;
+   margin: var(--medium-spacing-mobile) 0 0;
+   display: grid;
+   grid-template-areas:
+      "A"
+      "B";
+   grid-template-rows: 1fr 50rem;
    width: 100%;
 }
 
-.gridWrapperRight {
-   width: 15.75rem;
-   height: 40rem;
-   flex-grow: 1;
-   display: flex;
-   align-items: flex-start;
-   justify-content: center;
-   flex-direction: column;
-   flex-wrap: nowrap;
+.gridWrapperRight,
+.gridWrapperLeft {
+   width: 100%;
+   grid-area: A;
+   position: relative;
+   /* margin: 0 0 var(--medium-spacing-mobile); */
+}
+
+.gridWrapperLeft {
+   grid-area: B;
+}
+.commentsWrapper {
+   overflow-y: scroll;
+   height: 85%;
 }
