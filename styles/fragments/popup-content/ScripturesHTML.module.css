@@ -14,31 +14,40 @@
 .chapterHTMLWrapper p {
 }
 
+.referenceWrapper{
+   margin: var(--xsmall-spacing-mobile) 0;
+   display: inline-block;
+}
+
 .reference {
    color: var(--fourth-color);
    size: 8rem;
-   display: inline;
+   display: inline-block;
 }
 
 .chapter {
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
+   display: inline-block;
 }
 .title {
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
    font-size: 1.2rem;
+   display: inline-block;
 }
 .verse {
    font: var(--primary-font-mobile);
    color: (--font-color);
    line-height: 2em;
+
 }
 .verseNumber {
    font: var(--primary-font-mobile);
    font-weight: 600;
    color: var(--graient-one);
    margin: 0 0.5rem 0 0;
+   display: inline-block;
 }
 .noteCTA {
    position: relative;
@@ -54,7 +63,16 @@
 }
 .note {
    color: yellow;
-   /* display: inline-block; */
+   display: inline-block;
+   height: 1.5rem;
+   width: 1.5rem;
+   overflow: hidden;
+   position: relative;
+   top: .3rem;
+   margin-left: -2rem;
+   cursor: pointer;
+   color: rgba(0, 0, 0, 0);
+
 }
 .verseSpacer {
    width: 100%;

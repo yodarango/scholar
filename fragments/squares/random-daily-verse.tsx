@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 
 // components
-import FetchChapter from "../../helpers/fetch-bible-chapter2";
+import Chapter from "../../helpers/fetch-bible-chapter2";
 
 // styles
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";
@@ -104,7 +104,7 @@ const RandomDailyVerse = () => {
                </div>
                <div className='medium-spacer'></div>
                <div className={`dark-bkg_content-holder`}>
-                  {<FetchChapter chapterId={verseIdState.chapterId} />}
+                  {<Chapter chapterId={verseIdState.chapterId} />}
                </div>
             </div>
          </>
