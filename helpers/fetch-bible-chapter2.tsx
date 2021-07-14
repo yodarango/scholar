@@ -1,88 +1,19 @@
 // core
 import React, { useState, useEffect } from "react";
 
+// components
+import PopupWrapper from "../layouts/popup-wrapper";
+import NotificationPopup from "../fragments/notification-popup";
+
 // styles
 import scripturesHTMLStyles from "../styles/fragments/popup-content/ScripturesHTML.module.css";
 
 // helpers
 import { bibleApi } from "../env";
 
-const Chapter = ({ content }: any) => {
-   const checkParenthesis = /^\($$/gm;
-   const checkForLastParenthesis = /^\)$/gm;
-   const checkTitle = /^[0-9]$/gm;
-   const semiColon = /^; {1,1}$/gm;
-   const checkForReference = /^([0-9]) |([A-Z])[a-z]{3,} [0-9]{1,3}:[0-9]{1,3}/gm;
-   const checkForVerseNum = /^[0-9]{1,2}$/gm;
-   const checkForNotesCTA = /(^[0-9]{1,2}):([0-9])/gm;
-   const checkForNotes = /^([A-Z])([a-zA-Z]){1,7} ([a-zA-Z])/;
+const Chapter = ({ chapterId }: any) => {
+
    /*===========check if ther is a title or chapter Number===========*/
-   return (
-      <div className={scripturesHTMLStyles.mainWrapper}>
-     {    for(let i = 0; i < content.length; i++)
-         { content[i].map((el: any) => {
-            if (el.text) {
-               {
-                  checkParenthesis.test(el.text) ||
-                     (semiColon.test(el.text) && (
-                        <span className={scripturesHTMLStyles.reference}>{el.text}</span>
-                     ));
-               }
-
-               {
-                  checkForLastParenthesis.test(el.text) && (
-                     <span className={scripturesHTMLStyles.reference}>{el.text}</span>
-                  );
-               }
-               {
-                  checkTitle.test(el.text) && (
-                     <h2 className={scripturesHTMLStyles.chapter}>Chapter {el.text}</h2>
-                  );
-               }
-
-               <h2 className={scripturesHTMLStyles.title}>{el.text}</h2>;
-            } else if (!el.text && el.items) {
-               /*=====check if the string is a a ref====*/
-               el.items.map((el: any) => {
-                  if (el.text) {
-                     {
-                        checkForReference.test(el.text) && (
-                           <span className={scripturesHTMLStyles.reference}>{el.text}</span>
-                        );
-                     }
-                     <span className={scripturesHTMLStyles.verse}>{el.text}</span>;
-                  } else if (!el.text && el.items) {
-                     /*=====check if the string is a verse or note====*/
-                     el.items.map((el: any) => {
-                        if (el.text) {
-                           {
-                              checkForVerseNum.test(el.text) && (
-                                 <span className={scripturesHTMLStyles.verseNumber}>{el.text}</span>
-                              );
-                           }
-
-                           {
-                              checkForNotesCTA.test(el.text) && (
-                                 <span className={scripturesHTMLStyles.noteCTA}>{el.text}</span>
-                              );
-                           }
-                           {
-                              checkForNotes.test(el.text) && (
-                                 <span className={scripturesHTMLStyles.note}>{el.text}</span>
-                              );
-                           }
-                           <span className={scripturesHTMLStyles.verse}>{el.text}</span>;
-                        }
-                     });
-                  }
-               });
-            }
-         })}
-      }</div>
-   );
-};
-
-const FetchChapter = ({ chapterId }: any) => {
    const [contentState, setContentState] = useState<any[]>([]);
 
    const readDailyWholeChapter = async () => {
@@ -98,18 +29,46 @@ const FetchChapter = ({ chapterId }: any) => {
       const chapterData = chapterJson.data;
       const content = chapterData.content;
       setContentState(content);
-      console.log(content);
    };
 
    useEffect(() => {
       readDailyWholeChapter();
-   }, []);
+   }, []); 
+
+   console.log(contentState)
+   const [openRefState, setOpenRefState] = useState<JSX.Element | boolean>(false)
+   const openReference = (e: any)=>{
+      console.log(e.target.textContent)
+      setOpenRefState(<NotificationPopup title="Reference" closeModal={()=> setOpenRefState(false)} contentString={e.target.textContent} />)
+   }
 
    return (
       <>
-         <Chapter content={contentState} />
+      {openRefState}
+      <div key={`${Math.random()}`} className={scripturesHTMLStyles.mainWrapper}>
+         {/* CHAPTER NUM AND TITLES: distinguish the type of contents in the first array of objects in the "content" property where c = chapter, s1 = subtitle, and m= message*/}
+         {contentState.map((content:any) => ( content.attrs && content.attrs.style !== "r"  ? 
+               content.items.map((chapter:any) => ( <span><span  className={scripturesHTMLStyles.chapter}>{chapter.text}</span>{chapter.items?
+               
+               /* VERSES: check the second array of objects inside the "items" property of the first array */
+               chapter.items.map((verse:any)=> <span> {verse.items && verse.name === "verse"?
+
+                  /* NOTES: check the third array of objects inside the "items" property of the first array */
+                     // check if the text is a verse number
+                     verse.items.map((verseNum:any)=> <span><div className={scripturesHTMLStyles.verseSpacer}></div><span key={verseNum.text} className={scripturesHTMLStyles.verseNumber}>{verseNum.text}</span></span>): verse.items && verse.attrs.style === "ft" ?
+                     // check if the text is a note reference
+                     verse.items.map((notes:any) => <span className={scripturesHTMLStyles.note} onClick={openReference}>{notes.text}</span>): verse.items && verse.attrs.style ==="fr" ? 
+                     // check if the text is a note text
+                     verse.items.map((notes:any) => <span className={scripturesHTMLStyles.noteCTA} >{notes.text}</span>):null}<span>{verse.text}</span></span>) :null} 
+            </span>)): 
+
+         /* distinguish the type of contents in the first array of objects in the "content" property where c = chapter, s1 = subtitle, and m= message*/
+        <div className={scripturesHTMLStyles.referenceWrapper}>{content.items.map((chapter:any) => (<><span className={scripturesHTMLStyles.reference}>{chapter.text}</span>
+         {chapter.items? chapter.items.map((referenceText:any)=> <span className={scripturesHTMLStyles.reference}>{referenceText.text}</span>):null}</> ))}</div>))}
+      </div>
       </>
    );
 };
 
-export default FetchChapter;
+
+export default Chapter;
