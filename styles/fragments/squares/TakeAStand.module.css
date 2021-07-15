@@ -148,7 +148,7 @@
    background-color: rgba(255, 255, 255, 0.3);
 }
 
-@media only screen and (min-width: 1000){
+@media only screen and (min-width: 1000px){
    .squaredCardWrapper {
       border-radius: var(--input-radius-desktop);
    }
@@ -160,7 +160,7 @@
    }
    
    .topPositionWrapper {
-      padding: var(--small-spacing-desktop) 0;
+      padding: var(--small-spacing-desktop) 0 0;
    }
    
    .votesWrapper {
