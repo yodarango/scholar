@@ -8,13 +8,10 @@
    z-index: 11;
 }
 
-.closeModal {
-   top: 3.5rem;
-}
 .chapterHTMLWrapper p {
 }
 
-.referenceWrapper{
+.referenceWrapper {
    margin: var(--xsmall-spacing-mobile) 0;
    display: inline-block;
 }
@@ -23,12 +20,17 @@
    color: var(--fourth-color);
    size: 8rem;
    display: inline-block;
+   text-decoration: underline;
 }
 
 .chapter {
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
    display: inline-block;
+}
+
+.chapter:nth-child(1) {
+   width: 100%;
 }
 .title {
    color: var(--graient-one);
@@ -40,7 +42,6 @@
    font: var(--primary-font-mobile);
    color: (--font-color);
    line-height: 2em;
-
 }
 .verseNumber {
    font: var(--primary-font-mobile);
@@ -62,17 +63,15 @@
    cursor: pointer;
 }
 .note {
-   color: yellow;
    display: inline-block;
    height: 1.5rem;
-   width: 1.5rem;
+   width: 2rem;
    overflow: hidden;
    position: relative;
-   top: .3rem;
+   top: 0.3rem;
    margin-left: -2rem;
    cursor: pointer;
    color: rgba(0, 0, 0, 0);
-
 }
 .verseSpacer {
    width: 100%;
@@ -80,4 +79,13 @@
 }
 .noteCTATrigger:checked + .note {
    display: block;
+}
+.verseRefPopup {
+   background-color: var(--third-color);
+}
+.refVerseId {
+   color: yellow;
+   display: inline-block;
+   position: relative;
+   margin-left: -5rem;
 }
