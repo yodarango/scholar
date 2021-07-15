@@ -2,9 +2,9 @@
    background-color: var(--secondary-color);
    border-radius: var(--input-radius-mobile);
    background-color: var(--secondary-color);
-   padding: 0;
+   padding: .5rem 0 0;
    width: 100%;
-   margin: 0;
+   margin: 0 auto;
 }
 
 .dailyVerse {
@@ -59,4 +59,17 @@
    cursor: pointer;
    transform: scale(1.1);
    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+@media only screen and (min-width: 1000px)
+{
+   .squaredCardWrapper {
+      border-radius: var(--input-radius-desktop);
+   }
+   
+   .dailyVerse {
+      padding: 0 var(--xsmall-spacing-desktop);
+   }
+
 }

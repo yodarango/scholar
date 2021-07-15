@@ -8,9 +8,6 @@
    z-index: 11;
 }
 
-.chapterHTMLWrapper p {
-}
-
 .referenceWrapper {
    margin: var(--xsmall-spacing-mobile) 0;
    display: inline-block;
@@ -27,16 +24,18 @@
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
    display: inline-block;
+   width: 100%;
+   font-size: 1.5rem;
+   margin: 0 0 var(--small-spacing-mobile);
 }
 
-.chapter:nth-child(1) {
-   width: 100%;
-}
 .title {
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
    font-size: 1.2rem;
    display: inline-block;
+   width: 100%;
+   margin: var(--small-spacing-mobile) 0 0;
 }
 .verse {
    font: var(--primary-font-mobile);
@@ -85,4 +84,48 @@
 }
 .refVerseId:hover {
 cursor: pointer;
+}
+
+@media only screen and (min-width: 800px) {
+   .chapter {
+      font: var(--secondary-font-mobile);
+      margin: var(--medium-spacing-ipad) 0 var(--small-spacing-ipad);
+   }
+}
+
+@media only screen and (min-width: 1000px) {
+   .chapter {
+      font: var(--secondary-font-desktop);
+      font-size: 2rem;
+      margin: var(--medium-spacing-desktop) 0 var(--small-spacing-desktop);
+   }
+   
+   .title {
+      font: var(--secondary-font-desktop);
+      font-size: 1.4rem;
+      display: inline-block;
+      width: 100%;
+      margin: var(--small-spacing-desktop) 0 0;
+   }
+   .verse {
+      font: var(--primary-font-desktop);
+      line-height: 2em;
+   }
+   .verseNumber {
+      font: var(--primary-font-desktop);
+   }
+   
+   .noteCTA {
+      font: var(--widget-font-desktop);
+      font-size: 0.75rem;
+      padding: 0.2rem;
+      inset: -0.3rem 0 0 0;
+      margin: 0 0.3rem 0 .6rem;
+   }
+   .note {
+      height: 1.7rem;
+      width: 2rem;
+      inset: 0.3rem 0 0 0;
+      margin-left: -2.5rem;
+   }
 }
