@@ -149,3 +149,129 @@
    transform: scale(1.1);
    background-color: rgba(255, 255, 255, 0.3);
 }
+
+@media only screen and (min-width: 1000){
+   .squaredCardWrapper {
+      border-radius: var(--input-radius-desktop);
+   }
+   
+   .dailyQuestion {
+      border-radius: var(--input-radius-desktop);
+      margin-top: var(--xsmall-spacing-desktop);
+      padding: 0 var(--xsmall-spacing-desktop);
+   }
+   
+   .topPositionWrapper {
+      padding: var(--small-spacing-desktop) 0;
+   }
+   
+   .votesWrapper {
+      padding: 0 var(--xsmall-spacing-desktop);
+   }
+   
+   .voteCountUpSpan,
+   .voteCountDownSpan {
+      font: var(--widget-font-mobile);
+   }
+   
+   .votePositionUp {
+      width: 5.5rem;
+      height: 5.5rem;
+      grid-area: middle;
+      border-radius: 50%;
+      background-color: #147432;
+      background-image: url("../../../public/images/likke.svg");
+      background-size: 80%;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
+   }
+   
+   .votePositionDown {
+      width: 5.5rem;
+      height: 5.5rem;
+      grid-area: middle;
+      border-radius: 50%;
+      background-color: #a72020;
+      background-image: url("../../../public/images/dislike.svg");
+      background-size: 80%;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
+   }
+   
+   .votePositionEqual {
+      width: 5.5rem;
+      height: 5.5rem;
+      grid-area: middle;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--fourth-color);
+      font: var(--rare-font-mobile);
+      background-size: 80%;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
+   }
+   .counterWrapper {
+      margin: 0 auto var(--xsmall-spacing-mobile);
+      width: 100%;
+   }
+   .counterWrapper {
+   }
+   
+   .stdTextBlockDigit {
+      margin: 0.5rem auto;
+   }
+   
+   .squaredCardWrapperFooter {
+      display: grid;
+      width: 100%;
+      height: auto;
+      grid-template-areas: "right left";
+      border-top: 1px solid var(--fourth-color);
+      padding-top: 1rem;
+      border-top: 1px solid var(--fourth-color);
+   }
+   
+   .iconAgreeWrapperRight {
+      grid-area: right;
+      background-color: #a72020;
+      padding: 0.5rem 0;
+      border-bottom-left-radius: var(--input-radius-mobile);
+   }
+   
+   .iconAgreeWrapperLeft {
+      grid-area: left;
+      background-color: #147432;
+      padding: 0.5rem 0;
+      border-bottom-right-radius: var(--input-radius-mobile);
+   }
+   
+   .iconAgree {
+      border-radius: 50%;
+      background-size: 90%;
+      margin: 0 auto;
+      display: block;
+      background-image: url("../../../public/images/likke.svg");
+   }
+   
+   .iconDisagree {
+      border-radius: 50%;
+      background-size: 80%;
+      margin: 0 auto;
+      display: block;
+      background-image: url("../../../public/images/dislike.svg");
+   }
+   
+   .iconAgree:hover,
+   .iconDisagree:hover {
+      transition: background-color 300ms ease-in, transform 300ms ease-in;
+      display: block;
+      cursor: pointer;
+      transform: scale(1.1);
+      background-color: rgba(255, 255, 255, 0.3);
+   }
+}
