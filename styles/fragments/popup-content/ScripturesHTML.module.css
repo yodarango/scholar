@@ -27,11 +27,10 @@
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
    display: inline-block;
+   width: 100%;
+   margin: var(--small-spacing-mobile) 0 0;
 }
 
-.chapter:nth-child(1) {
-   width: 100%;
-}
 .title {
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
