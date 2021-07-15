@@ -83,9 +83,6 @@
 .verseRefPopup {
    background-color: var(--third-color);
 }
-.refVerseId {
-   color: yellow;
-   display: inline-block;
-   position: relative;
-   margin-left: -5rem;
+.refVerseId:hover {
+cursor: pointer;
 }

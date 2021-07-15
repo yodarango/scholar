@@ -505,22 +505,22 @@ a:active {
    background-color: rgba(32, 0, 58, 0.3);
 }
 
-/* ScripturesHTML Styles */
-/*** -------currently using JSON Format
-.c /*chapter  {
+/* ScripturesHTML Styles for popup references */
+
+.c /*chapter*/  {
    color: var(--graient-one);
 }
-.s1 /*subtitle {
+.s1 /*subtitle*/ {
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
 }
-.v /*verse {
+
+.v /*verse*/ {
    color: var(--graient-one);
    margin: 0 0.3rem 0 0;
 }
-.f /*reference wrapper {
-}
-.fr /*reference {
+
+.fr /*reference*/ {
    font-size: 0.6em;
    color: var(--gradient-two);
 
@@ -531,14 +531,20 @@ a:active {
    text-align: center;
    display: inline-block;
 }
-.ft /*reference text {
+
+.ft /*reference text*/ {
    font-size: 0.8em;
    font-style: italic;
 }
-.verse-span {
-   /* display: block; 
+
+.scriptures-copyright{
+font: var(--third-font-mobile);
+font-size: .7rem;
+color: rgba(255, 255, 255, 0.6);
 }
-********/
+/* .verse-span {
+   display: block; 
+} */
 @media only screen and (min-width: 800px) {
    .main-wrapper {
       max-width: 1000px;

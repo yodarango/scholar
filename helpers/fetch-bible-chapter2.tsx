@@ -12,7 +12,7 @@ import scripturesHTMLStyles from "../styles/fragments/popup-content/ScripturesHT
 import { bibleApi } from "../env";
 
 const Chapter = ({ chapterId }: any) => {
-   /*===========check if ther is a title or chapter Number===========*/
+   // FUNCTION: ===========  get the netire chapter by passing a chaoter Id  ===========
    const [contentState, setContentState] = useState<any[]>([]);
 
    const readDailyWholeChapter = async () => {
@@ -28,13 +28,14 @@ const Chapter = ({ chapterId }: any) => {
       const chapterData = chapterJson.data;
       const content = chapterData.content;
       setContentState(content);
+      console.log(chapterData);
    };
 
    useEffect(() => {
       readDailyWholeChapter();
    }, []);
 
-   console.log(contentState);
+   // ==============FUNCTION:  Get a referenced scripture =================
    const [openRefState, setOpenRefState] = useState<JSX.Element | boolean>(false);
    const openNote = (e: any) => {
       console.log(e.target.textContent);
@@ -50,7 +51,7 @@ const Chapter = ({ chapterId }: any) => {
 
    const openReference = async (verseRef: string) => {
       const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${verseRef}?content-type=text&include-verse-numbers=false`,
+         `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${verseRef}?content-type=html&include-verse-numbers=true`,
          {
             method: "GET",
             headers: {
@@ -61,11 +62,12 @@ const Chapter = ({ chapterId }: any) => {
 
       const verseData = await req.json();
       console.log(verseData.data);
+      
       setOpenRefState(
          <NotificationPopup
-            title='Reference'
+            title={verseData.data.reference}
             closeModal={() => setOpenRefState(false)}
-            contentString={verseData.data.content}
+            contentString={<><div dangerouslySetInnerHTML={{__html: verseData.data.content}}></div> <span className="scriptures-copyright">{verseData.data.copyright}</span></>}
             newClass={scripturesHTMLStyles.verseRefPopup}
          />
       );
