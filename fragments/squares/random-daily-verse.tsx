@@ -58,40 +58,7 @@ const RandomDailyVerse = () => {
 
    // ===============   FUNCTION: read the entire chapter based on the daily verse
    const [readFullChapterSrtate, setReadFullChapterSrtate] = useState<JSX.Element | boolean>(false);
-   // const readDailyVerse = async () => {
-   //    // 1. call the function that will fetch the entire chapter and return an array in a promise
-   //    const data = await readDailyWholeChapter(verseIdState.chapterId);
-
-   //    // 2. map through the promise array and return it in a functional component so you can pass then wrap it in the Popup component
-   //    const ChapterJSON = () => {
-   //       return (
-   //          <>
-   //             <div className={scripturesHTMLStyles.readScripturesHeader}>
-   //                <label>
-   //                   <input type='checkbox' className={scripturesHTMLStyles.noteCTATrigger} />
-   //                </label>
-   //             </div>
-   //             {data.map((el) => (
-   //                <span dangerouslySetInnerHTML={{ __html: el }}></span>
-   //             ))}
-   //          </>
-   //       );
-   //    };
-   //    // Wrap the json data in the PopupWrapper and set the corresponding state
-   //    setReadFullChapterSrtate(
-   //       <>
-   //          <div className='dark-bkg'>
-   //             <div
-   //                className={`closeModal ${scripturesHTMLStyles.closeModal}`}
-   //                onClick={() => setReadFullChapterSrtate(false)}>
-   //                X
-   //             </div>
-   //             <div className='medium-spacer'></div>
-   //             <div className={`dark-bkg_content-holder `}>{<ChapterJSON />}</div>
-   //          </div>
-   //       </>
-   //    );
-   // };
+ 
    const readDailyVerse = () => {
       console.log(verseIdState.chapterId);
       setReadFullChapterSrtate(
@@ -127,8 +94,8 @@ const RandomDailyVerse = () => {
                      <a className={`std-vector-icon ${randomDailyVerseStyles.commentIcon}`}></a>
                   </Link>
                </div>
-               <div className={randomDailyVerseStyles.footerWrapLeft} onClick={readDailyVerse}>
-                  <div className={`std-vector-icon ${randomDailyVerseStyles.readIcon}`}></div>
+               <div className={randomDailyVerseStyles.footerWrapLeft} >
+                  <div className={`std-vector-icon ${randomDailyVerseStyles.readIcon}`} onClick={readDailyVerse}></div>
                </div>
             </div>
          </div>

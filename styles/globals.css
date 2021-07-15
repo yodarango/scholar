@@ -621,6 +621,10 @@ color: rgba(255, 255, 255, 0.6);
       display: block;
    }
 
+   .std-text-block--no-margin {
+      margin: 0 auto;
+   }
+   
    .std-vector-icon {
       background-position: center;
       background-size: cover;

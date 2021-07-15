@@ -1,11 +1,12 @@
 .gridWrapper {
-   margin: var(--medium-spacing-mobile) 0 0;
+   margin: var(--medium-spacing-mobile) auto 0;
    display: grid;
    grid-template-areas:
       "A"
       "B";
    grid-template-rows: 1fr 50rem;
    width: 100%;
+   max-width: 43.75rem;
 }
 
 .gridWrapperRight,
@@ -22,4 +23,27 @@
 .commentsWrapper {
    overflow-y: scroll;
    height: 85%;
+}
+
+@media only screen and (min-width: 1000px){
+   .gridWrapper {
+      margin: var(--medium-spacing-desktop) 0 0;
+      display: grid;
+      grid-template-areas:"A B";
+      grid-template-columns: 1fr 50%;
+      width: 100%;
+      max-width: 100%
+   }
+   
+   .gridWrapperRight,
+   .gridWrapperLeft {
+      width: 80%;
+      margin: 0 auto; 
+   }
+   
+   .commentsWrapper {
+      overflow-y: scroll;
+      height: 85%;
+      height: 55rem;
+   }
 }

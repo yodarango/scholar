@@ -53,7 +53,7 @@ const Chapter = ({ chapterId }: any) => {
 
    const openReference = async (verseRef: string) => {
       const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${verseRef}?content-type=html&include-verse-numbers=true`,
+         `https://api.scripture.api.bible/v1/bibles/bba9f40183526463-01/verses/${verseRef}?content-type=html&include-verse-numbers=true`,
          {
             method: "GET",
             headers: {
@@ -80,11 +80,11 @@ const Chapter = ({ chapterId }: any) => {
          <div key={`${Math.random()}`} className={scripturesHTMLStyles.mainWrapper}>
             {/* CHAPTER NUM AND TITLES: distinguish the type of contents in the first array of objects in the "content" property where c = chapter, s1 = subtitle, and m= message*/}
             {contentState.map((content: any) =>
-               content.attrs && content.attrs.style !== "r" && content.attrs.style !== "b" ? (
+               content.attrs && content.attrs.style !== "r" && content.attrs.style !== "b" && content.attrs.style !== "c" ? (
                   content.items.map((chapter: any) => (
                      <>
                         {/* not all objects will have a title, render a tag for it onlyif it exists */}
-                        {chapter.text && <span className={scripturesHTMLStyles.chapter}>{chapter.text}</span>}
+                        {chapter.text && <span className={scripturesHTMLStyles.title}>{chapter.text}</span>}
                         {chapter.items
                            ? /* VERSES: check the second array of objects inside the "items" property of the first array */
                              chapter.items.map((verse: any) => (
@@ -120,7 +120,7 @@ const Chapter = ({ chapterId }: any) => {
                                            </span>
                                         ))
                                       : null}
-                                   <span className={scripturesHTMLStyles.verse}>{verse.text}</span>
+                                   <span className={scripturesHTMLStyles.verse}> {verse.text}</span>
                                 </span>
                              ))
                            : null}
@@ -148,7 +148,9 @@ const Chapter = ({ chapterId }: any) => {
                         </>
                      ))}
                   </div>
-               ) : content.attrs && content.attrs.style === "b" ? null :null
+               ) : content.attrs && content.attrs.style === "b" ? null : content.attrs && content.attrs.style === "c"? 
+               // check it the text is a chapter number
+               <div className ={scripturesHTMLStyles.chapter}>Chapter {content.attrs.number}</div> : null
             )}
          </div>
          <div className="small-spacer"></div>
