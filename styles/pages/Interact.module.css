@@ -25,22 +25,23 @@
    height: 85%;
 }
 
-@media only screen and (min-width: 1000px){
+@media only screen and (min-width: 1000px) {
    .gridWrapper {
       margin: var(--medium-spacing-desktop) 0 0;
       display: grid;
-      grid-template-areas:"A B";
+      grid-template-areas: "A B";
       grid-template-columns: 1fr 50%;
+      grid-template-rows: 1fr;
       width: 100%;
-      max-width: 100%
+      max-width: 100%;
    }
-   
+
    .gridWrapperRight,
    .gridWrapperLeft {
       width: 80%;
-      margin: 0 auto; 
+      margin: 0 auto;
    }
-   
+
    .commentsWrapper {
       overflow-y: scroll;
       height: 85%;
