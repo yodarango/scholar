@@ -1,12 +1,15 @@
 import React from "react";
 import GeneralDropdownStyles from "../../styles/buttons/GeneralDropDown.module.css";
 
-const GeneralDropdown = ({ version }) => {
+
+type generalDropdownProps = {
+   dropdownOptions: JSX.Element[] | string[];
+   //CTA: React.MouseEventHandler
+}
+const GeneralDropdown = ({ dropdownOptions }:generalDropdownProps) => {
    return (
       <div className={GeneralDropdownStyles.mainWrapper}>
-         <div className={GeneralDropdownStyles.chapter}>Version</div>
-         <div className={GeneralDropdownStyles.chapter}>Chapter</div>
-         <div className={GeneralDropdownStyles.Color}>Color</div>
+         {dropdownOptions && dropdownOptions.map((option: JSX.Element | string)=> ( <>{option}</>))}
       </div>
    );
 };

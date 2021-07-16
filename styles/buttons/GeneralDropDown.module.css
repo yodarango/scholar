@@ -1,3 +1,6 @@
 .mainWrapper {
    width: 100%;
+   position: relative;
+   margin: var(--large-spacing-mobile) 0 0;
 }
+

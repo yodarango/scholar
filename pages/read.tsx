@@ -1,19 +1,20 @@
 import React from "react";
 import Head from "next/head";
+
+//components
 import ReadingCollage from "../layouts/reading-collage";
 import Header from "../layouts/header";
-import PostsWrapper from "../layouts/posts-wrapper";
-import DailyVerse from "../posts/daily-verse";
-import homeStyles from "../styles/pages/Home.module.css";
+
+// styles
+import readStyles from "../styles/pages/Read.module.css";
 //import styles from '../styles/pages/Home.module.css';
 
 const Read = () => {
    return (
-      <div className='main-wrapper'>
+      <div className={`main-wrapper ${readStyles.mainWrapper}`}>
          <Head>
             <meta name='keyword' content='tags' />
          </Head>
-         <Header currPage={"READ"} />
          <ReadingCollage />
       </div>
    );

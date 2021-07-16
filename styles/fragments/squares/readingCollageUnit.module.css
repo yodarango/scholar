@@ -1,0 +1,59 @@
+.optionUnit{
+    text-align: left;
+    margin: 0;
+    padding: .3rem;
+    transition: 200ms background-color ease-in;
+    border-bottom: 1px solid var(--fourth-color);
+}
+
+.optionUnit:hover{
+    background-color: var(--fourth-color);
+    cursor: pointer;
+}
+
+.header{
+    width: 100%;
+    padding: var(--button-padding-mobile);
+    transition: background-color 300ms ease-in;
+    display: grid;
+    grid-template-areas: "Lang TransChap Sett";
+    grid-template-columns: 20% 65% 15%;
+    grid-template-rows: 1fr;
+    padding: .8rem 0;
+}
+
+.versionChapterDropDownWrapper{
+grid-area: TransChap;
+display: grid;
+grid-template-areas: "Left Right";
+grid-template-columns: 30% 70%;
+grid-template-rows: 1fr;
+margin: var(--xsmall-spacing-mobile) 0;
+}
+
+
+.versionDropDownWrapper{
+background-color: var(--primary-color);
+border-top-left-radius: 2rem;
+border-bottom-left-radius: 2rem;
+padding: .3rem;
+grid-area: Left;
+box-shadow: inset 1.5px 1.5px 3px 3px rgba(32, 0, 58, 0.3),
+inset -1.5px -1.5px 3px 2px rgba(185, 128, 211, 0.3);
+background-color: var(--third-color);
+}
+
+.chapterDropDownWrapper{
+    background-color: var(--primary-color);
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    padding: .3rem;
+    grid-area: Right;
+    box-shadow: inset 1.5px 1.5px 3px 3px rgba(32, 0, 58, 0.3),
+    inset -1.5px -1.5px 3px 2px rgba(185, 128, 211, 0.3);
+    background-color: var(--third-color);
+}
+
+.versionDropDownWrapper:hover, .chapterDropDownWrapper:hover{
+background-color: var(--secondary-color);
+}

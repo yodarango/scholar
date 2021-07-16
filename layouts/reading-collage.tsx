@@ -5,7 +5,7 @@ import readingCollageStyles from "../styles/layouts/ReadingCollage.module.css";
 const ReadingCollage = () => {
    return (
       <div className={readingCollageStyles.mainWrapper}>
-         <ReadingCollageUnit />
+         <ReadingCollageUnit  />
       </div>
    );
 };
