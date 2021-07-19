@@ -10,3 +10,8 @@ The following things have been aware of and need to be improved:
 ////// 07/12/2021
 the timers that schedule the daily questions and the daily verse will have to be done from the back end
 - start the timer in node and save it to the databse
+
+///// 07/19/2021 
+Reading-collage-units.tsx and all places where an inital bible version is required
+
+//// small edit to see if git works

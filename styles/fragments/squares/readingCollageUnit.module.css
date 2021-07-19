@@ -57,3 +57,8 @@ background-color: var(--third-color);
 .versionDropDownWrapper:hover, .chapterDropDownWrapper:hover{
 background-color: var(--secondary-color);
 }
+
+.currentChapterWrapper{
+    width: 90%;
+    margin: 1rem auto;
+}
