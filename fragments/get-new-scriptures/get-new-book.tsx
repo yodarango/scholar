@@ -6,7 +6,8 @@ import { bibleApi } from "../../env";
 
 type getNewBookProps = {
    closeModal: MouseEventHandler;
-   openGetNewChapterFunc: MouseEventHandler;
+   openGetNewChapterFunc: any;
+   versionId: string;
 };
 
 type bibleBooks = {
@@ -16,12 +17,12 @@ type bibleBooks = {
    name?: string;
    nameLong?: string;
 };
-const GetNewBook = ({ closeModal, openGetNewChapterFunc }: getNewBookProps) => {
+const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBookProps) => {
    const [getnewChapter, setGetnewChapter] = useState<bibleBooks[]>([]);
 
    const getNewBook = async () => {
       const requ = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/books`,
+         `https://api.scripture.api.bible/v1/bibles/${versionId}/books`,
          {
             method: "GET",
             headers: {
@@ -52,7 +53,7 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc }: getNewBookProps) => {
                   key={el.id}
                   data-book={`${el.id}`}
                   className={selectNewScriptureStyles.bibleBookRow}
-                  onClick={openGetNewChapterFunc}>
+                  onClick={()=>openGetNewChapterFunc(el.id)}>
                   <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
                      {el.name}
                   </p>

@@ -5,8 +5,9 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 type getNewChapterProps = {
    closeModal: React.MouseEventHandler;
    goBackModal: React.MouseEventHandler;
-   openGetNewVerse: React.MouseEventHandler;
+   openGetNewVerse: any;
    bookId?: string;
+   versionId: string;
 };
 
 type INewVerse = {
@@ -20,14 +21,15 @@ const GetNewChapter = ({
    closeModal,
    bookId,
    goBackModal,
-   openGetNewVerse
+   openGetNewVerse,
+   versionId
 }: getNewChapterProps) => {
    const [getNewVerse, setGetNewVerse] = useState<INewVerse[]>([]);
    const currentWrapper = useRef<HTMLDivElement>(null);
 
    const getNewChapterFunct = async () => {
       const resp = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/books/${bookId}/chapters`,
+         `https://api.scripture.api.bible/v1/bibles/${versionId}/books/${bookId}/chapters`,
          {
             method: "GET",
             headers: {
@@ -62,7 +64,7 @@ const GetNewChapter = ({
                   key={el.id}
                   data-chapter={`${el.id}`}
                   className={selectNewScriptureStyles.bibleBookChapter}
-                  onClick={openGetNewVerse}>
+                  onClick={()=>openGetNewVerse(el)}>
                   <p className={`std-text-block`}>{el.number}</p>
                </div>
             ))}

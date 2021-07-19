@@ -7,6 +7,7 @@ type getNewVerseProps = {
    goBackModal: React.MouseEventHandler;
    renderSelectedVerse: React.MouseEventHandler;
    chapterId?: string;
+   versionId: string;
 };
 
 type InewVerse = {
@@ -20,13 +21,14 @@ const GetNewVerse = ({
    chapterId,
    closeModal,
    goBackModal,
-   renderSelectedVerse
+   renderSelectedVerse, 
+   versionId
 }: getNewVerseProps) => {
    const [getNewVerse, setGetNewVerse] = useState<InewVerse[]>([]);
 
    const getNewChapterFunct = async () => {
       const resp = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/chapters/${chapterId}/verses`,
+         `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}/verses`,
          {
             method: "GET",
             headers: {
