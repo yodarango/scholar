@@ -21,15 +21,12 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
    const [getnewChapter, setGetnewChapter] = useState<bibleBooks[]>([]);
 
    const getNewBook = async () => {
-      const requ = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/${versionId}/books`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": bibleApi
-            }
+      const requ = await fetch(`https://api.scripture.api.bible/v1/bibles/${versionId}/books`, {
+         method: "GET",
+         headers: {
+            "api-key": bibleApi
          }
-      );
+      });
 
       const json = await requ.json();
       setGetnewChapter(json.data);
@@ -53,7 +50,7 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
                   key={el.id}
                   data-book={`${el.id}`}
                   className={selectNewScriptureStyles.bibleBookRow}
-                  onClick={()=>openGetNewChapterFunc(el.id)}>
+                  onClick={() => openGetNewChapterFunc(el.id)}>
                   <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
                      {el.name}
                   </p>
