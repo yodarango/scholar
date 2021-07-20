@@ -13,5 +13,3 @@ the timers that schedule the daily questions and the daily verse will have to be
 
 ///// 07/19/2021 
 Reading-collage-units.tsx and all places where an inital bible version is required
-
-//// small edit to see if git works
