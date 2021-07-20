@@ -23,7 +23,7 @@ const ReadingCollageUnit = () => {
    };
    // this is the state for the version on initial load which can be updated- Eventually I would like  to pass this value from the db for each user
    const [currVersionState, setCurrVersionState] = useState<IOpenVersionState>({
-      id: "c315fa9f71d4af3a-01",
+      id: "de4e12af7f28f599-02",
       initials: "KJV"
    });
 
@@ -36,6 +36,8 @@ const ReadingCollageUnit = () => {
                <div className={GeneralDropdownStyles.mainWrapper}>
                   {dropdownOptions &&
                      dropdownOptions.map((option) => (
+                        /* as='read'*/
+
                         <div
                            key={option.id}
                            // pass the acronym and the bible version id
@@ -56,6 +58,13 @@ const ReadingCollageUnit = () => {
    const selectVersion = (version: IOpenVersionState) => {
       setCurrVersionState({ id: version.id, initials: version.initials });
       setOpenVersionState(false);
+
+      // setCurrentChapter({
+      //    currChapterLoaded: false,
+      //    currentReferenceSelected: false,
+      //    currentChapterId: false
+      // });
+
       setCurrentChapter({
          currChapterLoaded: (
             <Chapter chapterId={currentChapter.currentChapterId} versionId={currVersionState.id} />
@@ -84,11 +93,14 @@ const ReadingCollageUnit = () => {
 
    // 1. Initial popoup which will call the "GetNewChapter" component with the current Version id in the state
    const openChapterPopup = () => {
+      //// 1.1 Clear out previous state
       setCurrentChapter({
          currChapterLoaded: false,
          currentReferenceSelected: false,
          currentChapterId: false
       });
+
+      //// 1.2 set the new state
       setOpenBookState(
          <GetNewBook
             openGetNewChapterFunc={openGetNewChapterFunc}
@@ -125,14 +137,12 @@ const ReadingCollageUnit = () => {
       setOpenChapterState(false);
    };
 
-   // 4. Diasplay a the chapter according to the selected bible versin on bible versin change
-   // useEffect(() => {
-   //    showSelectedBook({
-   //       id: currVersionState.id,
-   //       reference: currentChapter.currentReferenceSelected,
-   //       chapterId: currentChapter.currentChapterId
-   //    });
-   // }, [currVersionState]);
+   // ==================   3 FUNCTION: set the desire language    =========================
+   type IcurrLanguage = {
+      icon: string;
+      id?: string;
+   };
+   const [currLanguage, setCurrLanguage] = useState<IcurrLanguage>({ icon: "🇺🇸" });
    return (
       <>
          {openVersionState}
@@ -140,6 +150,7 @@ const ReadingCollageUnit = () => {
          {openChapterState}
          <div className={readingCollageUnitStyles.mainWrapper}>
             <div className={readingCollageUnitStyles.header}>
+               <div className={readingCollageUnitStyles.langugageButton}>{currLanguage.icon}</div>
                <div className={readingCollageUnitStyles.versionChapterDropDownWrapper}>
                   <div
                      className={readingCollageUnitStyles.versionDropDownWrapper}
@@ -155,6 +166,7 @@ const ReadingCollageUnit = () => {
                      </p>
                   </div>
                </div>
+               <div className={readingCollageUnitStyles.settingsButton}>⚙️</div>
             </div>
             <div className={readingCollageUnitStyles.currentChapterWrapper}>
                {currentChapter.currChapterLoaded}

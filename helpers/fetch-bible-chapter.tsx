@@ -12,9 +12,9 @@ import scripturesHTMLStyles from "../styles/fragments/popup-content/ScripturesHT
 import { bibleApi } from "../env";
 
 type chapterProps = {
-   chapterId: string;
-   versionId: string;
-}
+   chapterId: string | boolean;
+   versionId: string | boolean;
+};
 const Chapter = ({ chapterId, versionId }: chapterProps) => {
    // FUNCTION: ===========  get the netire chapter by passing a chaoter Id  ===========
    const [contentState, setContentState] = useState<any[]>([]);
