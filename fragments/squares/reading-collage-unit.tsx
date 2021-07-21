@@ -1,5 +1,7 @@
 // core
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import Cookie from "js-cookie";
 
 // components
 import PopupWrapper from "../../layouts/popup-wrapper";
@@ -7,17 +9,31 @@ import GetNewBook from "../get-new-scriptures/get-new-book";
 import GetNewChapter from "../get-new-scriptures/get-new-chapter";
 import Chapter from "../../helpers/fetch-bible-chapter";
 import GeneralDropdown from "../buttons/general-dropdown";
+import ReadingColleageSettingsPopup from "../../fragments/squares/reading-colleage-settings-popup";
 
 // styles
 import readingCollageUnitStyles from "../../styles/fragments/squares/readingCollageUnit.module.css";
 import GeneralDropdownStyles from "../../styles/buttons/GeneralDropDown.module.css";
 
-// others
-import { dropdownOptions as engilshVersions } from "../../helpers/english-bible-versions";
-import { dropdownOptions as spanishVersions } from "../../helpers/spanish-bible-versoins";
+//types
+import { IdropdownObjectSingleOption } from "../../fragments/buttons/general-dropdown";
 
+// helpers
+///// bible translations supported
+import { dropdownOptions as english } from "../../helpers/supported-bible-languages/english-bible-versions";
+import { dropdownOptions as greek } from "../../helpers/supported-bible-languages/greek-bible-versions";
+import { dropdownOptions as spanish } from "../../helpers/supported-bible-languages/spanish-bible-versoins";
+import { dropdownOptions as german } from "../../helpers/supported-bible-languages/german-bible-versions";
+import { dropdownOptions as polish } from "../../helpers/supported-bible-languages/polish-bible-versions";
+import { dropdownOptions as czech } from "../../helpers/supported-bible-languages/czech-bible-versions";
+import { dropdownOptions as italian } from "../../helpers/supported-bible-languages/czech-bible-versions";
+import { dropdownOptions as dutch } from "../../helpers/supported-bible-languages/dutch-bible-versions";
+import { dropdownOptions as urdu } from "../../helpers/supported-bible-languages/urdu-bible-versions";
+import { dropdownOptions as thai } from "../../helpers/supported-bible-languages/thai-bible-version";
+
+// ==================   1 FUNCTION: set the desire language    =========================
 const ReadingCollageUnit = () => {
-   // ==================   1 FUNCTION: set the desire language    =========================
+   //// handles the dropdown popup wrappin glist of bible translations
    type IlangListDropdown = {
       dropdown: JSX.Element | boolean;
       openCta: boolean;
@@ -26,32 +42,49 @@ const ReadingCollageUnit = () => {
       dropdown: false,
       openCta: false
    });
-   const [currLangIcon, setCurrLangIcon] = useState<string>("🇺🇸");
-   const selectLanguage = (e: any) => {
-      const newIcon = e.target.textContent;
-      setCurrLangIcon(newIcon);
+   //// handles the current bible translatons and icon supported based on current selection
+   type IcurrLangIcon = {
+      icon: string;
+      lang: any;
+   };
+   const [currLangIcon, setCurrLangIcon] = useState<IcurrLangIcon>({ icon: "🇺🇸", lang: english });
+
+   // 2. handles the click on each individual option on the dropdown
+   const selectLanguage = (selectedOption: any) => {
+      setCurrLangIcon({ icon: selectedOption.textContent, lang: selectedOption.funcParams });
       setLangListDropdown({
          dropdown: false,
          openCta: false
       });
+      console.log(currLangIcon.lang, selectedOption.textContent);
    };
+   // 3. opens the "openLangOption" dropdown right after the language changes
+   useEffect(() => {
+      openVerChapPopup();
+   }, [currLangIcon]);
+
+   // 4. keep dropdown from rendering on initial load
+   useEffect(() => {
+      setOpenVersionState(false);
+   }, []);
+   // 1. opens the language dropdown
    const openLangOption = () => {
-      const supportedLanguages: JSX.Element[] = [
-         <span data-language='english'>🇺🇸</span>,
-         <span data-language='greek'>🇬🇷</span>,
-         <span data-language='spanish'>🇲🇽</span>,
-         <span data-language='german'>🇩🇪</span>,
-         <span data-language='poland'>🇵🇱</span>,
-         <span data-language='czech'>🇨🇿</span>,
-         <span data-language='italian'>🇮🇹</span>,
-         <span data-language='dutch'>🇳🇱</span>,
-         <span data-language='urdu'>🇵🇰</span>,
-         <span data-language='thai'>🇹🇭</span>
+      const supportedLanguages: IdropdownObjectSingleOption[] = [
+         { textContent: "🇺🇸", funcParams: english },
+         { textContent: "🇬🇷", funcParams: greek },
+         { textContent: "🇲🇽", funcParams: spanish },
+         { textContent: "🇩🇪", funcParams: german },
+         { textContent: "🇵🇱", funcParams: polish },
+         { textContent: "🇨🇿", funcParams: czech },
+         { textContent: "🇮🇹", funcParams: italian },
+         { textContent: "🇳🇱", funcParams: dutch },
+         { textContent: "🇵🇰", funcParams: urdu },
+         { textContent: "🇹🇭", funcParams: thai }
       ];
       setLangListDropdown({
          dropdown: (
             <GeneralDropdown
-               dropdownOptions={supportedLanguages}
+               dropdownOptionsObject={supportedLanguages}
                mainNewClass={readingCollageUnitStyles.laguageDropdown}
                optionNewClass={readingCollageUnitStyles.languageDropdownOption}
                cta={selectLanguage}
@@ -60,6 +93,7 @@ const ReadingCollageUnit = () => {
          openCta: true
       });
    };
+
    const closeLangOption = () => {
       setLangListDropdown({
          dropdown: false,
@@ -80,15 +114,15 @@ const ReadingCollageUnit = () => {
    });
 
    // 1. on "Version" button click call th elist of all available options availabe from the "dropdownOptions" file on the Popup Component
-   const openVerChapPopup = (e: any) => {
+   const openVerChapPopup = () => {
       console.log(currLangIcon);
       setOpenVersionState(
          <PopupWrapper
             closeModal={() => setOpenVersionState(false)}
             content={
                <div className={GeneralDropdownStyles.mainWrapper}>
-                  {dropdownOptions &&
-                     dropdownOptions.map((option) => (
+                  {currLangIcon.lang &&
+                     currLangIcon.lang.map((option: any) => (
                         /* as='read'*/
                         <div
                            key={option.id}
@@ -182,19 +216,66 @@ const ReadingCollageUnit = () => {
       setOpenBookState(false);
       setOpenChapterState(false);
    };
+
+   // ============================  4 FUNCTION: handle settings popup   =============================
+   const [settingsPopUp, setSettingsPopUp] = useState<JSX.Element | boolean>(false);
+   // 1. open the settings popup
+   const openSettingsPopup = () => {
+      setSettingsPopUp(
+         <ReadingColleageSettingsPopup
+            closeModal={() => setSettingsPopUp(false)}
+            handleColorChange={changeBkgColor}
+            handleFontSize={changeFontSize}
+         />
+      );
+   };
+
+   type IreadingSettings = {
+      color?: string;
+      fontSize?: string;
+   };
+   const [readingSettings, setReadingSettings] = useState<IreadingSettings>({
+      color: Cookie.get("color"),
+      fontSize: ""
+   });
+   // 2. handle color change
+   const collageUnitBkg = useRef<HTMLDivElement>(null);
+   const changeBkgColor = (color: string) => {
+      if (collageUnitBkg.current) {
+         collageUnitBkg.current.style.backgroundColor = color;
+      }
+      setReadingSettings({ color: color });
+      Cookie.set("color", color, { expires: 7, path: "/read" });
+   };
+
+   // useEffect(() => {
+   //    if (collageUnitBkg.current) {
+   //       collageUnitBkg.current.style.backgroundColor = Cookie.get("color");
+   //    }
+   // }, []);
+   const chapterBody = useRef<HTMLDivElement>(null);
+   // 3. Handle font change
+   const changeFontSize = (size: string) => {
+      const verse = document.querySelectorAll(".ScripturesHTML_verse__1Gbv-");
+      verse.forEach((el: HTMLSpanElement) => (el.style.fontSize = `${size}`));
+   };
    return (
       <>
          {openVersionState}
          {openBookState}
          {openChapterState}
-         <div className={readingCollageUnitStyles.mainWrapper}>
+         {settingsPopUp}
+         <div
+            className={readingCollageUnitStyles.mainWrapper}
+            ref={collageUnitBkg}
+            style={{ background: readingSettings.color }}>
             <div className={readingCollageUnitStyles.header}>
                {langListDropdown.openCta === false && (
                   <div className={readingCollageUnitStyles.langugageButtonWrapper}>
                      <div
                         className={readingCollageUnitStyles.langugageButton}
                         onClick={openLangOption}>
-                        {currLangIcon}
+                        {currLangIcon.icon}
                      </div>
                      {langListDropdown.dropdown}
                   </div>
@@ -204,7 +285,7 @@ const ReadingCollageUnit = () => {
                      <div
                         className={readingCollageUnitStyles.langugageButton}
                         onClick={closeLangOption}>
-                        {currLangIcon}
+                        {currLangIcon.icon}
                      </div>
                      {langListDropdown.dropdown}
                   </div>
@@ -224,9 +305,11 @@ const ReadingCollageUnit = () => {
                      </p>
                   </div>
                </div>
-               <div className={readingCollageUnitStyles.settingsButton}>⚙️</div>
+               <div className={readingCollageUnitStyles.settingsButton} onClick={openSettingsPopup}>
+                  ⚙️
+               </div>
             </div>
-            <div className={readingCollageUnitStyles.currentChapterWrapper}>
+            <div className={readingCollageUnitStyles.currentChapterWrapper} ref={chapterBody}>
                {currentChapter.currChapterLoaded}
             </div>
          </div>
@@ -234,4 +317,5 @@ const ReadingCollageUnit = () => {
    );
 };
 
-export default ReadingCollageUnit;
+export default dynamic(() => Promise.resolve(ReadingCollageUnit), { ssr: false });
+//export default ReadingCollageUnit;

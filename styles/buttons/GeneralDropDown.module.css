@@ -4,11 +4,11 @@
    margin: var(--large-spacing-mobile) 0 0;
 }
 
-.option {
+.singleOption {
    border-bottom: 1px solid var(--fourth-color);
 }
 
-.option:hover {
+.singleOption:hover {
    background-color: var(--fourth-color);
    cursor: pointer;
 }
