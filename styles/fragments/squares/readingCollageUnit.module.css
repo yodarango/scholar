@@ -20,6 +20,7 @@
    grid-template-columns: 20% 65% 15%;
    grid-template-rows: 1fr;
    padding: 0.8rem 0;
+   position: relative;
 }
 
 .versionChapterDropDownWrapper {
@@ -70,6 +71,12 @@
    margin: 1rem auto;
 }
 
+.langugageButtonWrapper {
+   grid-area: Lang;
+   width: 100%;
+   margin: auto;
+}
+
 .langugageButton,
 .settingsButton {
    background-color: var(--third-color);
@@ -88,4 +95,19 @@
    cursor: pointer;
    background-color: var(--fourth-color);
    transform: scale(1.1);
+}
+
+.laguageDropdown {
+   width: 80%;
+   position: absolute;
+   background-color: var(--secondary-color);
+   z-index: 3;
+   top: 0;
+   left: 1rem;
+   grid-area: Lang;
+}
+
+.languageDropdownOption {
+   width: 100%;
+   text-align: center;
 }
