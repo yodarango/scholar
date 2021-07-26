@@ -61,6 +61,7 @@
    white-space: nowrap;
    font-size: 1rem;
 }
+
 .versionDropDownWrapper:hover,
 .chapterDropDownWrapper:hover {
    background-color: var(--fourth-color);
@@ -110,4 +111,21 @@
 .languageDropdownOption {
    width: 100%;
    text-align: center;
+}
+
+/* DARK THEME SETTINGS */
+.versionDropDownWrapper__DarkTheme {
+   border: 1px solid #f2f2f2;
+   box-shadow: none;
+   background-color: rgba(32, 0, 58, 0);
+}
+
+.versionDropDownWrapper__DarkTheme > p {
+   color: #f2f2f2;
+   -webkit-text-fill-color: #f2f2f2;
+   background-image: none;
+}
+
+.versionDropDownWrapper__DarkTheme:hover {
+   background-color: rgba(255, 255, 255, 0.3);
 }

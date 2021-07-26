@@ -1,7 +1,7 @@
 // core
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import Cookie from "js-cookie";
+const Cookie = require("js-cookie");
 
 // components
 import PopupWrapper from "../../layouts/popup-wrapper";
@@ -226,39 +226,57 @@ const ReadingCollageUnit = () => {
             closeModal={() => setSettingsPopUp(false)}
             handleColorChange={changeBkgColor}
             handleFontSize={changeFontSize}
+            handleResetColor={handleColorReset}
          />
       );
    };
 
    type IreadingSettings = {
       color?: string;
-      fontSize?: string;
+      darkTheme?: string;
    };
    const [readingSettings, setReadingSettings] = useState<IreadingSettings>({
-      color: Cookie.get("color"),
-      fontSize: ""
+      color: Cookie.get("bkgColor"),
+      darkTheme: Cookie.get("darkTheme")
    });
+
    // 2. handle color change
+   ///// The following list of useRefs is used instead in documentgetElementBy... to stay more within react protocol
    const collageUnitBkg = useRef<HTMLDivElement>(null);
+   const collageUnitBorder0 = useRef<HTMLDivElement>(null);
+   const collageUnitBorder1 = useRef<HTMLDivElement>(null);
+   const collageUnitBorder2 = useRef<HTMLDivElement>(null);
+   const collageUnitBorder3 = useRef<HTMLDivElement>(null);
    const changeBkgColor = (color: string) => {
-      if (collageUnitBkg.current) {
-         collageUnitBkg.current.style.backgroundColor = color;
-      }
-      setReadingSettings({ color: color });
-      Cookie.set("color", color, { expires: 7, path: "/read" });
+      //////// handle the useState and update cookie on click
+      setReadingSettings({
+         color: color,
+         darkTheme: readingCollageUnitStyles.versionDropDownWrapper__DarkTheme
+      });
+      Cookie.set("darkTheme", readingCollageUnitStyles.versionDropDownWrapper__DarkTheme, {
+         expires: 7,
+         path: "/read"
+      });
+      Cookie.set("bkgColor", color, { expires: 7, path: "/read" });
    };
 
-   // useEffect(() => {
-   //    if (collageUnitBkg.current) {
-   //       collageUnitBkg.current.style.backgroundColor = Cookie.get("color");
-   //    }
-   // }, []);
-   const chapterBody = useRef<HTMLDivElement>(null);
    // 3. Handle font change
+   ///// 3.1 No cookies are set for font change
+   const chapterBody = useRef<HTMLDivElement>(null);
    const changeFontSize = (size: string) => {
       const verse = document.querySelectorAll(".ScripturesHTML_verse__1Gbv-");
-      verse.forEach((el: HTMLSpanElement) => (el.style.fontSize = `${size}`));
+      verse.forEach((el: any) => (el.style.fontSize = `${size}`));
    };
+
+   // 4. handle color reset
+   const handleColorReset = () => {
+      setReadingSettings({
+         color: "#2a2438",
+         darkTheme: ""
+      });
+      Cookie.remove("darkTheme", { path: "/read" });
+   };
+
    return (
       <>
          {openVersionState}
@@ -273,15 +291,17 @@ const ReadingCollageUnit = () => {
                {langListDropdown.openCta === false && (
                   <div className={readingCollageUnitStyles.langugageButtonWrapper}>
                      <div
-                        className={readingCollageUnitStyles.langugageButton}
-                        onClick={openLangOption}>
+                        className={`${readingCollageUnitStyles.langugageButton} ${readingSettings.darkTheme}`}
+                        onClick={openLangOption}
+                        ref={collageUnitBorder0}>
                         {currLangIcon.icon}
                      </div>
                      {langListDropdown.dropdown}
                   </div>
                )}
                {langListDropdown.openCta === true && (
-                  <div className={readingCollageUnitStyles.langugageButtonWrapper}>
+                  <div
+                     className={`${readingCollageUnitStyles.langugageButtonWrapper} ${readingSettings.darkTheme}`}>
                      <div
                         className={readingCollageUnitStyles.langugageButton}
                         onClick={closeLangOption}>
@@ -292,20 +312,25 @@ const ReadingCollageUnit = () => {
                )}
                <div className={readingCollageUnitStyles.versionChapterDropDownWrapper}>
                   <div
-                     className={readingCollageUnitStyles.versionDropDownWrapper}
-                     onClick={openVerChapPopup}>
-                     <p className='std-button_gradient-text'>{currVersionState.initials}</p>
+                     className={`${readingCollageUnitStyles.versionDropDownWrapper} ${readingSettings.darkTheme}`}
+                     onClick={openVerChapPopup}
+                     ref={collageUnitBorder1}>
+                     <p className={`std-button_gradient-text`}>{currVersionState.initials}</p>
                   </div>
                   <div
                      data-currentversion='JHN'
-                     className={readingCollageUnitStyles.chapterDropDownWrapper}
-                     onClick={openChapterPopup}>
+                     className={`${readingCollageUnitStyles.chapterDropDownWrapper} ${readingSettings.darkTheme}`}
+                     onClick={openChapterPopup}
+                     ref={collageUnitBorder2}>
                      <p className={`std-button_gradient-text`}>
                         {currentChapter.currentReferenceSelected}
                      </p>
                   </div>
                </div>
-               <div className={readingCollageUnitStyles.settingsButton} onClick={openSettingsPopup}>
+               <div
+                  className={`${readingCollageUnitStyles.settingsButton} ${readingSettings.darkTheme}`}
+                  onClick={openSettingsPopup}
+                  ref={collageUnitBorder3}>
                   ⚙️
                </div>
             </div>

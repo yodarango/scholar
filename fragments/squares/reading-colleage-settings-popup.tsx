@@ -5,11 +5,13 @@ type ReadingColleageSettingsPopupProps = {
    closeModal: React.MouseEventHandler;
    handleColorChange: any;
    handleFontSize: any;
+   handleResetColor: React.MouseEventHandler;
 };
 const ReadingColleageSettingsPopup = ({
    closeModal,
    handleColorChange,
-   handleFontSize
+   handleFontSize,
+   handleResetColor
 }: ReadingColleageSettingsPopupProps) => {
    return (
       <div className={readingColleageSettingsPopupStyles.mainWrapper}>
@@ -19,19 +21,19 @@ const ReadingColleageSettingsPopup = ({
          <div className={readingColleageSettingsPopupStyles.themeColorWrapper}>
             <div
                className={readingColleageSettingsPopupStyles.firstTheme}
-               onClick={() => handleColorChange("#edf6f9")}></div>
+               onClick={handleResetColor}></div>
             <div
                className={readingColleageSettingsPopupStyles.secondTheme}
-               onClick={() => handleColorChange("#f7ede2")}></div>
+               onClick={() => handleColorChange("#363062")}></div>
             <div
                className={readingColleageSettingsPopupStyles.thirdTheme}
-               onClick={() => handleColorChange("#b1a7a6")}></div>
+               onClick={() => handleColorChange("#1d2d50")}></div>
             <div
                className={readingColleageSettingsPopupStyles.fourthTheme}
                onClick={() => handleColorChange("#433b55")}></div>
             <div
                className={readingColleageSettingsPopupStyles.fifthTheme}
-               onClick={() => handleColorChange("#495057")}></div>
+               onClick={() => handleColorChange("#393e46")}></div>
             <div
                className={readingColleageSettingsPopupStyles.sixthTheme}
                onClick={() => handleColorChange("#242424")}></div>

@@ -38,15 +38,15 @@
 }
 
 .firstTheme {
-   background-color: var(--primary-color);
+   background-color: #edf6f9;
 }
 
 .secondTheme {
-   background-color: #363062;
+   background-color: #f7ede2;
 }
 
 .thirdTheme {
-   background-color: #1d2d50;
+   background-color: #b1a7a6;
 }
 
 .fourthTheme {
@@ -55,7 +55,7 @@
 }
 
 .fifthTheme {
-   background-color: #393e46;
+   background-color: #495057;
 }
 
 .sixthTheme {
