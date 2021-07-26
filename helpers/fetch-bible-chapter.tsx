@@ -133,6 +133,12 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                               {notes.text}
                                            </span>
                                         ))
+                                      : verse.items && verse.attrs.style !== "fr"
+                                      ? verse.items.map((notes: any) => (
+                                           <span className={scripturesHTMLStyles.verse}>
+                                              {notes.text}
+                                           </span>
+                                        ))
                                       : null}
                                    <span className={scripturesHTMLStyles.verse}> {verse.text}</span>
                                 </span>

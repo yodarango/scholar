@@ -42,6 +42,12 @@
    color: (--font-color);
    line-height: 2em;
 }
+.jesusWords {
+   font: var(--primary-font-mobile);
+   color: rgb(255, 36, 36);
+   line-height: 2em;
+}
+
 .verseNumber {
    font: var(--primary-font-mobile);
    font-weight: 600;
@@ -83,7 +89,7 @@
    background-color: var(--third-color);
 }
 .refVerseId:hover {
-cursor: pointer;
+   cursor: pointer;
 }
 
 @media only screen and (min-width: 800px) {
@@ -99,7 +105,7 @@ cursor: pointer;
       font-size: 2rem;
       margin: var(--medium-spacing-desktop) 0 var(--small-spacing-desktop);
    }
-   
+
    .title {
       font: var(--secondary-font-desktop);
       font-size: 1.4rem;
@@ -114,13 +120,13 @@ cursor: pointer;
    .verseNumber {
       font: var(--primary-font-desktop);
    }
-   
+
    .noteCTA {
       font: var(--widget-font-desktop);
       font-size: 0.75rem;
       padding: 0.2rem;
       inset: -0.3rem 0 0 0;
-      margin: 0 0.3rem 0 .6rem;
+      margin: 0 0.3rem 0 0.6rem;
    }
    .note {
       height: 1.7rem;
