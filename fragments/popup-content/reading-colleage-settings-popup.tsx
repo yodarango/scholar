@@ -1,5 +1,5 @@
 import React from "react";
-import readingColleageSettingsPopupStyles from "../../styles/fragments/squares/ReadingCollegeSettingsPopup.module.css";
+import readingColleageSettingsPopupStyles from "../../styles/fragments/popup-content/ReadingCollegeSettingsPopup.module.css";
 
 type ReadingColleageSettingsPopupProps = {
    closeModal: React.MouseEventHandler;
@@ -21,7 +21,9 @@ const ReadingColleageSettingsPopup = ({
          <div className={readingColleageSettingsPopupStyles.themeColorWrapper}>
             <div
                className={readingColleageSettingsPopupStyles.firstTheme}
-               onClick={handleResetColor}></div>
+               onClick={handleResetColor}>
+               Default
+            </div>
             <div
                className={readingColleageSettingsPopupStyles.secondTheme}
                onClick={() => handleColorChange("#363062")}></div>
@@ -37,6 +39,9 @@ const ReadingColleageSettingsPopup = ({
             <div
                className={readingColleageSettingsPopupStyles.sixthTheme}
                onClick={() => handleColorChange("#242424")}></div>
+            <div
+               className={readingColleageSettingsPopupStyles.seventhTheme}
+               onClick={() => handleColorChange("#003545")}></div>
          </div>
          <div className={readingColleageSettingsPopupStyles.fontSizeWrapper}>
             <div
@@ -53,6 +58,11 @@ const ReadingColleageSettingsPopup = ({
                className={readingColleageSettingsPopupStyles.thirdSize}
                onClick={() => handleFontSize("1.6rem")}>
                bigger
+            </div>
+            <div
+               className={readingColleageSettingsPopupStyles.fourthSize}
+               onClick={() => handleFontSize("1.9rem")}>
+               giant
             </div>
          </div>
       </div>

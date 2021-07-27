@@ -1,3 +1,8 @@
+.mainWrapper {
+   width: 100%;
+   max-width: 700px;
+   margin: auto;
+}
 .optionUnit {
    text-align: left;
    margin: 0;
@@ -12,12 +17,12 @@
 }
 
 .header {
-   width: 100%;
+   width: 90%;
    padding: var(--button-padding-mobile);
    transition: background-color 300ms ease-in;
    display: grid;
    grid-template-areas: "Lang TransChap Sett";
-   grid-template-columns: 20% 65% 15%;
+   grid-template-columns: 15% 70% 15%;
    grid-template-rows: 1fr;
    padding: 0.8rem 0;
    position: relative;
@@ -128,4 +133,10 @@
 
 .versionDropDownWrapper__DarkTheme:hover {
    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      max-width: 900px;
+   }
 }
