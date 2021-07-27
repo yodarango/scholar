@@ -1,0 +1,48 @@
+.mainWrapper {
+   width: 5rem;
+   background-color: var(--secondary-color);
+   position: absolute;
+   top: 3.5rem;
+   right: 0.5rem;
+   z-index: 5;
+}
+
+.viewsWrapper {
+   width: 100%;
+   overflow-y: scroll;
+}
+
+.viewsWrapper:hover {
+   cursor: pointer;
+}
+
+.viewsWrapper > div {
+   width: 100%;
+   height: 1.5rem;
+   margin: auto;
+   padding: 1rem 0;
+   background-repeat: no-repeat;
+   background-size: 1.3rem;
+   background-position: center;
+   border-bottom: 1px solid var(--fourth-color);
+}
+
+.viewsWrapper > div:hover {
+   background-color: var(--fourth-color);
+}
+
+.oneView {
+   background-image: url("../../../public/images/Page-read/gridView--One.svg");
+}
+
+.twoView {
+   background-image: url("../../../public/images/Page-read/gridView--Two.svg");
+}
+
+.threeView {
+   background-image: url("../../../public/images/Page-read/gridView--three.svg");
+}
+
+.fourView {
+   background-image: url("../../../public/images/Page-read/gridView--four.svg");
+}

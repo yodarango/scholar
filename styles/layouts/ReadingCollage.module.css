@@ -1,3 +1,21 @@
 .mainWrapper {
    margin: 0;
 }
+
+.multiView {
+   width: 1.5rem;
+   height: 1.5rem;
+   background-color: var(--third-color);
+   border-radius: 50%;
+   background-image: url("../../public/images/Page-read/gridView--four.svg");
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 80%;
+   position: absolute;
+   top: 2rem;
+   right: 0.2rem;
+}
+
+.multiView:hover {
+   cursor: pointer;
+}
