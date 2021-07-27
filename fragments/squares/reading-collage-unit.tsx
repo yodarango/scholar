@@ -275,6 +275,7 @@ const ReadingCollageUnit = () => {
          darkTheme: ""
       });
       Cookie.remove("darkTheme", { path: "/read" });
+      Cookie.remove("bkgColor", { path: "/read" });
    };
 
    return (

@@ -1,6 +1,6 @@
 // core
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 
 // components
 import NotificationPopup from "../fragments/notification-popup";
@@ -97,7 +97,10 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                      <>
                         {/* not all objects will have a title, render a tag for it onlyif it exists */}
                         {chapter.text && (
-                           <span className={scripturesHTMLStyles.title}>{chapter.text}</span>
+                           <span
+                              /*id={chapter.attrs.style}*/ className={scripturesHTMLStyles.title}>
+                              {chapter.text}
+                           </span>
                         )}
                         {chapter.items
                            ? /* VERSES: check the second array of objects inside the "items" property of the first array */
@@ -112,15 +115,19 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                                  className={scripturesHTMLStyles.verseSpacer}></div>
                                               <span
                                                  key={verseNum.text}
-                                                 className={scripturesHTMLStyles.verseNumber}>
+                                                 className={scripturesHTMLStyles.verseNumber}
+                                                 id={verse.attrs.style}>
                                                  {verseNum.text}
                                               </span>
                                            </span>
                                         ))
-                                      : verse.items && verse.attrs.style === "ft"
+                                      : (verse.items && verse.attrs.style === "ft") ||
+                                        (verse.items && verse.attrs.style === "fl") ||
+                                        (verse.items && verse.attrs.style === "fqa")
                                       ? // check if the text is a note reference
                                         verse.items.map((notes: any) => (
                                            <span
+                                              id={verse.attrs.style}
                                               className={scripturesHTMLStyles.note}
                                               onClick={openNote}>
                                               {notes.text}
@@ -129,18 +136,37 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                       : verse.items && verse.attrs.style === "fr"
                                       ? // check if the text is a note text
                                         verse.items.map((notes: any) => (
-                                           <span className={scripturesHTMLStyles.noteCTA}>
+                                           <span
+                                              id={verse.attrs.style}
+                                              className={scripturesHTMLStyles.noteCTA}>
                                               {notes.text}
                                            </span>
                                         ))
-                                      : verse.items && verse.attrs.style !== "fr"
+                                      : (verse.items && verse.attrs.style === "xt") ||
+                                        verse.attrs.style === "xo"
+                                      ? // some older translations have odd notes, these will be hidden
+                                        verse.items.map((notes: any) => (
+                                           <span
+                                              id={verse.attrs.style}
+                                              className={scripturesHTMLStyles.hideElement}>
+                                              {notes.text}
+                                           </span>
+                                        ))
+                                      : /*changed*/ verse.items && verse.attrs.style !== "fr"
                                       ? verse.items.map((notes: any) => (
-                                           <span className={scripturesHTMLStyles.verse}>
+                                           <span
+                                              id={verse.attrs.style}
+                                              className={scripturesHTMLStyles.verse}>
                                               {notes.text}
                                            </span>
                                         ))
                                       : null}
-                                   <span className={scripturesHTMLStyles.verse}> {verse.text}</span>
+                                   <span
+                                      id={verse.attrs.style}
+                                      className={scripturesHTMLStyles.verse}>
+                                      {" "}
+                                      {verse.text}
+                                   </span>
                                 </span>
                              ))
                            : null}
@@ -151,10 +177,15 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                   <div className={scripturesHTMLStyles.referenceWrapper}>
                      {content.items.map((chapter: any) => (
                         <>
-                           <span className={scripturesHTMLStyles.reference}>{chapter.text}</span>
+                           <span
+                              id={content.attrs.style}
+                              className={scripturesHTMLStyles.reference}>
+                              {chapter.text}
+                           </span>
                            {chapter.items ? (
                               <span className={scripturesHTMLStyles.refwrapper}>
                                  <span
+                                    id={chapter.attrs.style}
                                     onClick={() => openReference(chapter.attrs.id)}
                                     className={scripturesHTMLStyles.refVerseId}>
                                     {chapter.items.map((referenceText: any) => (
@@ -171,7 +202,9 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                ) : content.attrs && content.attrs.style === "b" ? null : content.attrs &&
                  content.attrs.style === "c" ? (
                   // check it the text is a chapter number
-                  <div className={scripturesHTMLStyles.chapter}>Chapter {content.attrs.number}</div>
+                  <div id={content.attrs.style} className={scripturesHTMLStyles.chapter}>
+                     Chapter {content.attrs.number}
+                  </div>
                ) : null
             )}
          </div>
@@ -181,4 +214,5 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
    );
 };
 
-export default Chapter;
+export default dynamic(() => Promise.resolve(Chapter), { ssr: false });
+//export default Chapter;

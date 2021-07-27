@@ -67,6 +67,7 @@
    margin: 0 0.3rem;
    cursor: pointer;
 }
+
 .note {
    display: inline-block;
    height: 1.5rem;
@@ -78,6 +79,12 @@
    cursor: pointer;
    color: rgba(0, 0, 0, 0);
 }
+
+/* it is basically a parenthesis */
+.hideElement {
+   display: none;
+}
+
 .verseSpacer {
    width: 100%;
    height: 0.5rem;
