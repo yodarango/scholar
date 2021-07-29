@@ -10,6 +10,9 @@ import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
 
+// dinamic values
+const versionId: string = "de4e12af7f28f599-01";
+
 export default function Home() {
    return (
       <div className='main-wrapper'>
@@ -21,7 +24,7 @@ export default function Home() {
          <div className={interactStyles.gridWrapper}>
             <div className={`${interactStyles.gridWrapperRight}`}>
                <h2 className='std-text-block--small-title'>Today's Verse</h2>
-               <RandomDailyVerse />
+               <RandomDailyVerse versionId={versionId} />
                <h2 className='std-text-block--small-title'>Take A Stand</h2>
                <TakeAStand />
             </div>
