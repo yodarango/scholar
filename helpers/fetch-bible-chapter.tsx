@@ -1,6 +1,7 @@
 // core
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 // components
 import NotificationPopup from "../fragments/notification-popup";
@@ -113,12 +114,18 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                            <span>
                                               <div
                                                  className={scripturesHTMLStyles.verseSpacer}></div>
-                                              <span
-                                                 key={verseNum.text}
-                                                 className={scripturesHTMLStyles.verseNumber}
-                                                 id={verse.attrs.style}>
-                                                 {verseNum.text}
-                                              </span>
+                                              <Link
+                                                 href={`/?verse=${verse.attrs.sid.replace(
+                                                    /[\s:]/g,
+                                                    "."
+                                                 )}`}>
+                                                 <a
+                                                    key={verseNum.text}
+                                                    className={scripturesHTMLStyles.verseNumber}
+                                                    id={verse.attrs.style}>
+                                                    {verseNum.text}
+                                                 </a>
+                                              </Link>
                                            </span>
                                         ))
                                       : (verse.items && verse.attrs.style === "ft") ||

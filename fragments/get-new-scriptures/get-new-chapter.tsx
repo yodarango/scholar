@@ -10,7 +10,7 @@ type getNewChapterProps = {
    versionId: string;
 };
 
-type INewVerse = {
+export type InewChapter = {
    id?: string;
    bibleId: string;
    bookId: string;
@@ -24,7 +24,7 @@ const GetNewChapter = ({
    openGetNewVerse,
    versionId
 }: getNewChapterProps) => {
-   const [getNewVerse, setGetNewVerse] = useState<INewVerse[]>([]);
+   const [getNewVerse, setGetNewVerse] = useState<InewChapter[]>([]);
    const currentWrapper = useRef<HTMLDivElement>(null);
 
    const getNewChapterFunct = async () => {
@@ -64,7 +64,7 @@ const GetNewChapter = ({
                   key={el.id}
                   data-chapter={`${el.id}`}
                   className={selectNewScriptureStyles.bibleBookChapter}
-                  onClick={()=>openGetNewVerse(el)}>
+                  onClick={() => openGetNewVerse(el)}>
                   <p className={`std-text-block`}>{el.number}</p>
                </div>
             ))}

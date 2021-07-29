@@ -14,7 +14,10 @@ import scripturesHTMLStyles from "../../styles/fragments/popup-content/Scripture
 import { getNewVerseId } from "../../helpers/random-daily-verses";
 import { bibleApi } from "../../env";
 
-const RandomDailyVerse = () => {
+type randomDailyVerseProps = {
+   versionId: string;
+};
+const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
    // ========== Fetch random verse every 24hrs the
    type IverseId = {
       bibleId?: string;
@@ -34,7 +37,7 @@ const RandomDailyVerse = () => {
    const dailyVerse = async () => {
       try {
          const requ = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${verseIdState.id}?content-type=text&include-verse-numbers=false`,
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseIdState.id}?content-type=text&include-verse-numbers=false`,
             {
                method: "GET",
                headers: {
@@ -47,7 +50,6 @@ const RandomDailyVerse = () => {
          setVerseIdState(json.data);
          return json.data;
       } catch (error) {
-         setVerseIdState({ content: "Oh no! An error ocurred! We are on it! " });
          console.log(error);
       }
    };
@@ -58,7 +60,7 @@ const RandomDailyVerse = () => {
 
    // ===============   FUNCTION: read the entire chapter based on the daily verse
    const [readFullChapterSrtate, setReadFullChapterSrtate] = useState<JSX.Element | boolean>(false);
- 
+
    const readDailyVerse = () => {
       console.log(verseIdState.chapterId);
       setReadFullChapterSrtate(
@@ -71,7 +73,7 @@ const RandomDailyVerse = () => {
                </div>
                <div className='medium-spacer'></div>
                <div className={`dark-bkg_content-holder`}>
-                  {<Chapter chapterId={verseIdState.chapterId} />}
+                  {<Chapter versionId={versionId} chapterId={verseIdState.chapterId} />}
                </div>
             </div>
          </>
@@ -94,8 +96,10 @@ const RandomDailyVerse = () => {
                      <a className={`std-vector-icon ${randomDailyVerseStyles.commentIcon}`}></a>
                   </Link>
                </div>
-               <div className={randomDailyVerseStyles.footerWrapLeft} >
-                  <div className={`std-vector-icon ${randomDailyVerseStyles.readIcon}`} onClick={readDailyVerse}></div>
+               <div className={randomDailyVerseStyles.footerWrapLeft}>
+                  <div
+                     className={`std-vector-icon ${randomDailyVerseStyles.readIcon}`}
+                     onClick={readDailyVerse}></div>
                </div>
             </div>
          </div>

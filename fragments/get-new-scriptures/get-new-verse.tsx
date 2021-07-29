@@ -5,12 +5,12 @@ import { bibleApi } from "../../env";
 type getNewVerseProps = {
    closeModal: React.MouseEventHandler;
    goBackModal: React.MouseEventHandler;
-   renderSelectedVerse: React.MouseEventHandler;
+   renderSelectedVerse: any;
    chapterId?: string;
    versionId: string;
 };
 
-type InewVerse = {
+export type InewVerse = {
    id: string;
    orgId: string;
    bibleId: string;
@@ -21,7 +21,7 @@ const GetNewVerse = ({
    chapterId,
    closeModal,
    goBackModal,
-   renderSelectedVerse, 
+   renderSelectedVerse,
    versionId
 }: getNewVerseProps) => {
    const [getNewVerse, setGetNewVerse] = useState<InewVerse[]>([]);
@@ -64,7 +64,7 @@ const GetNewVerse = ({
                      data-verse={`${el.id}`}
                      data-name={`${el.reference}`}
                      className={selectNewScriptureStyles.bibleBookRow}
-                     onClick={renderSelectedVerse}>
+                     onClick={() => renderSelectedVerse(el)}>
                      <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
                         {el.reference}
                      </p>

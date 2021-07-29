@@ -1,6 +1,7 @@
 // core
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 // components
 import TextEditor from "../../fragments/text-editor";
@@ -27,8 +28,8 @@ const Commentary = () => {
 
    // ===========FUNCTION: Get verse from link ===============================
    // API to get the params in the Link and set it as the initial state for 'initialverse'
-   const params = new URLSearchParams(window.location.search);
-   const initialVerseFromRedirect = params.get("verse");
+   const { query } = useRouter();
+   const initialVerseFromRedirect = query.verse;
 
    const [verse, setverse] = useState<IInitialVerse>({ content: "", reference: "" });
    const [initialVerse, setInitialVerse] = useState<string>(`${initialVerseFromRedirect}`);

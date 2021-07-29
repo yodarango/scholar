@@ -50,11 +50,24 @@
 
 .verseNumber {
    font: var(--primary-font-mobile);
+   font-size: 1rem;
    font-weight: 600;
-   color: var(--graient-one);
+   color: var(--font-color);
    margin: 0 0.5rem 0 0;
    display: inline-block;
+   height: 1.5rem;
+   width: 1.5rem;
+   border-radius: 50%;
+   text-align: center;
+   background-color: var(--graient-one);
+   transition: transform 300ms ease-in;
 }
+
+.verseNumber:hover {
+   cursor: pointer;
+   transform: scale(1.1);
+}
+
 .noteCTA {
    position: relative;
    color: var(--gradient-two);
@@ -125,7 +138,11 @@
       line-height: 2em;
    }
    .verseNumber {
-      font: var(--primary-font-desktop);
+      height: 1rem;
+      width: 1rem;
+      border-radius: 50%;
+      text-align: center;
+      background-color: var(--primary-font-desktop);
    }
 
    .noteCTA {

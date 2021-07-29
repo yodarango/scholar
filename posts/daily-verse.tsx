@@ -2,6 +2,9 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import Link from "next/link";
 
+//import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+
 // components
 import GetNewBook from "../fragments/get-new-scriptures/get-new-book";
 import GetNewChapter from "../fragments/get-new-scriptures/get-new-chapter";
@@ -12,10 +15,15 @@ import cardStyles from "../styles/components/Cards.module.css";
 import homeStyles from "../styles/pages/Home.module.css";
 import selectNewScriptureStyles from "../styles/layouts/SelectNewScripture.module.css";
 
-// others
+// types and others
+import { InewChapter } from "../fragments/get-new-scriptures/get-new-chapter";
+import { InewVerse } from "../fragments/get-new-scriptures/get-new-verse";
 import { bibleApi } from "../env";
 
-export default function DailyVerse(): JSX.Element {
+//dynamic values
+const versionId: string = "de4e12af7f28f599-01";
+
+const DailyVerse = () => {
    type IInitialVerse = {
       content: string;
       reference: string;
@@ -34,15 +42,21 @@ export default function DailyVerse(): JSX.Element {
    });
 
    // On Load of Home Page and upon change of Verse:
-   /// calls default verse upon component rendering
+   /// calls default verse upon component rendering from the link url
+   const { query } = useRouter();
+   let fetchVerse: any = query.verse;
+   console.log(fetchVerse);
+   if (query.verse === undefined) {
+      fetchVerse = "JHN.3.16";
+   }
    type ISwitchVerse = {
       previousVerseId: string;
       nextVerseId: string;
    };
-   const [initialVerse, setInitialVerse] = useState<string>("JHN.3.16");
+   const [initialVerse, setInitialVerse] = useState<string>(fetchVerse);
    const [switchVerse, setSwitchVerse] = useState<ISwitchVerse>({
-      previousVerseId: "JHN.3.15",
-      nextVerseId: "JHN.3.17"
+      previousVerseId: "",
+      nextVerseId: ""
    });
 
    const callBibleApi: () => void = async () => {
@@ -82,6 +96,7 @@ export default function DailyVerse(): JSX.Element {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
@@ -96,12 +111,14 @@ export default function DailyVerse(): JSX.Element {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
          ),
          newChapter: (
             <GetNewChapter
+               versionId={versionId}
                closeModal={closeGetNewBook}
                goBackModal={goBackFunc}
                openGetNewVerse={openGetNewVerseFunc}
@@ -116,6 +133,7 @@ export default function DailyVerse(): JSX.Element {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
@@ -125,17 +143,19 @@ export default function DailyVerse(): JSX.Element {
    };
 
    /// 2. open the list of chapter per book modal
-   const openGetNewChapterFunc = (e: any) => {
-      const selectedBookId = e.currentTarget.dataset.book;
+   const openGetNewChapterFunc = (bookId: string) => {
+      const selectedBookId = bookId;
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
          ),
          newChapter: (
             <GetNewChapter
+               versionId={versionId}
                closeModal={closeGetNewBook}
                bookId={selectedBookId}
                goBackModal={goBackFunc}
@@ -147,19 +167,21 @@ export default function DailyVerse(): JSX.Element {
    };
 
    /// 3. Open the list of verses per chapter modal
-   const openGetNewVerseFunc = (e: any) => {
-      const selectedChapterId = e.currentTarget.dataset.chapter;
+   const openGetNewVerseFunc = (chapter: InewChapter) => {
+      const selectedChapterId = chapter.id;
       console.log(selectedChapterId);
 
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
          ),
          newChapter: (
             <GetNewChapter
+               versionId={versionId}
                closeModal={closeGetNewBook}
                goBackModal={goBackFunc}
                openGetNewVerse={openGetNewVerseFunc}
@@ -167,6 +189,7 @@ export default function DailyVerse(): JSX.Element {
          ),
          newVerse: (
             <GetNewVerse
+               versionId={versionId}
                closeModal={closeGetNewBook}
                chapterId={selectedChapterId}
                goBackModal={goBackVerseFunc}
@@ -177,8 +200,8 @@ export default function DailyVerse(): JSX.Element {
    };
 
    /// 4. Open the new verse
-   const renderSelectedVerseFunc = (e: any) => {
-      const selectedVerseId = e.currentTarget.dataset.verse;
+   const renderSelectedVerseFunc = (verse: InewVerse) => {
+      const selectedVerseId = verse.id;
       setInitialVerse(selectedVerseId);
       closeGetNewBook();
    };
@@ -219,4 +242,7 @@ export default function DailyVerse(): JSX.Element {
          </div>
       </div>
    );
-}
+};
+
+//export default dynamic(() => Promise.resolve(DailyVerse), { ssr: false });
+export default DailyVerse;
