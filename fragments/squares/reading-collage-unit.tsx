@@ -32,7 +32,10 @@ import { dropdownOptions as urdu } from "../../helpers/supported-bible-languages
 import { dropdownOptions as thai } from "../../helpers/supported-bible-languages/thai-bible-version";
 
 // ==================   1 FUNCTION: set the desire language    =========================
-const ReadingCollageUnit = () => {
+type ReadingCollageUnitProps = {
+   multiViewClass: string;
+};
+const ReadingCollageUnit = ({ multiViewClass }: ReadingCollageUnitProps) => {
    //// handles the dropdown popup wrappin glist of bible translations
    type IlangListDropdown = {
       dropdown: JSX.Element | boolean;
@@ -285,7 +288,7 @@ const ReadingCollageUnit = () => {
          {openChapterState}
          {settingsPopUp}
          <div
-            className={readingCollageUnitStyles.mainWrapper}
+            className={`${readingCollageUnitStyles.mainWrapper} ${multiViewClass}`}
             ref={collageUnitBkg}
             style={{ background: readingSettings.color }}>
             <div className={readingCollageUnitStyles.header}>

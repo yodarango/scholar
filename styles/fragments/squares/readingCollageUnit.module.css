@@ -1,3 +1,4 @@
+/*UNIT*/
 .mainWrapper {
    width: 100%;
    max-width: 700px;
@@ -135,8 +136,76 @@
    background-color: rgba(255, 255, 255, 0.3);
 }
 
-@media only screen and (min-width: 1000px) {
-   .mainWrapper {
-      max-width: 900px;
+/*================ GRID DIV PLACEMENT   ============= */
+.twoViewerClass,
+.threeViewerClass,
+.fourViewerClass {
+   width: 350px;
+   flex-grow: 1;
+   flex-shrink: 1;
+   margin: 1rem 0;
+   overflow-y: scroll;
+}
+.twoViewerClass {
+   height: 55vh;
+}
+
+.threeViewerClass {
+   height: 35vh;
+}
+
+.fourViewerClass {
+   height: 28vh;
+}
+
+@media only screen and (min-width: 770px) {
+   .twoViewerClass,
+   .threeViewerClass,
+   .fourViewerClass {
+      margin: 1rem 0.3rem;
+   }
+
+   .twoViewerClass {
+      height: 100vh;
+      max-width: 500px;
+   }
+
+   .threeViewerClass {
+      height: 50vh;
+      max-width: 500px;
+   }
+
+   .fourViewerClass {
+      height: 50vh;
+   }
+}
+
+@media only screen and (min-width: 1200px) {
+   .twoViewerClass {
+      height: 100vh;
+   }
+
+   .threeViewerClass {
+      height: 100vh;
+   }
+
+   .fourViewerClass {
+      height: 50vh;
+      width: 500px;
+   }
+}
+
+@media only screen and (min-width: 1605px) {
+   .twoViewerClass {
+      height: 100vh;
+   }
+
+   .threeViewerClass {
+      height: 100vh;
+   }
+
+   .fourViewerClass {
+      height: 100vh;
+      width: 350px;
    }
 }
