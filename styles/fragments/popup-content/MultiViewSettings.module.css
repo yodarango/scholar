@@ -5,6 +5,7 @@
    top: 3.5rem;
    right: 0.5rem;
    z-index: 5;
+   border-radius: var(--button-radius-mobile);
 }
 
 .viewsWrapper {
@@ -25,6 +26,7 @@
    background-size: 1.3rem;
    background-position: center;
    border-bottom: 1px solid var(--fourth-color);
+   border-radius: var(--button-radius-mobile);
 }
 
 .viewsWrapper > div:hover {

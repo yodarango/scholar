@@ -14,21 +14,18 @@ const ReadingCollage = () => {
       false
    );
    const openMultiViewPopup = () => {
-      setViewSettingsPopUpState(<MultiViewSettings handleMultiverseView={handleMultiverseView} />);
+      setViewSettingsPopUpState(
+         <MultiViewSettings
+            handleMultiverseView={handleMultiverseView}
+            closeMultiView={closeMultiView}
+         />
+      );
    };
    const closeMultiViewPopup = () => {
       setViewSettingsPopUpState(false);
    };
 
    // ========================   FUNCTION 2 : set the multiviewer screen based on user selection   ============///
-   // const [multiViewerOpenState, setMultiViewerOpenState] = useState<any>(
-   //    <ReadingCollageUnit multiViewClass='' />
-   // );
-   // const handleMultiverseView = (numberOfWindows: string[]) => {
-   //    setMultiViewerOpenState(
-   //       numberOfWindows.map((window: string) => <ReadingCollageUnit multiViewClass={window} />)
-   //    );
-   // };
 
    type ImultiViewerOpenClassState = {
       screenOne: string;
@@ -37,12 +34,13 @@ const ReadingCollage = () => {
       screenFour: string;
    };
 
-   const [multiViewerOpenClassState, setmultiViewerOpenClassState] = useState({
-      screenOne: "",
-      screenTwo: readingCollageStyles.hiddenScreenTwo,
-      screenThree: readingCollageStyles.hiddenScreenThree,
-      screenFour: readingCollageStyles.hiddenScreenFour
-   });
+   const [multiViewerOpenClassState, setmultiViewerOpenClassState] =
+      useState<ImultiViewerOpenClassState>({
+         screenOne: "",
+         screenTwo: readingCollageStyles.hiddenScreenTwo,
+         screenThree: readingCollageStyles.hiddenScreenThree,
+         screenFour: readingCollageStyles.hiddenScreenFour
+      });
 
    const handleMultiverseView = (numberOfWindows: string[]) => {
       setmultiViewerOpenClassState({
@@ -50,6 +48,15 @@ const ReadingCollage = () => {
          screenTwo: numberOfWindows[1],
          screenThree: numberOfWindows[2],
          screenFour: numberOfWindows[3]
+      });
+   };
+
+   const closeMultiView = () => {
+      setmultiViewerOpenClassState({
+         screenOne: "",
+         screenTwo: readingCollageStyles.hiddenScreenTwo,
+         screenThree: readingCollageStyles.hiddenScreenThree,
+         screenFour: readingCollageStyles.hiddenScreenFour
       });
    };
    return (

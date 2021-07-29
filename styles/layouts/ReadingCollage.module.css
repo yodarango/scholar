@@ -1,5 +1,10 @@
 .mainWrapper {
-   margin: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   width: 90%;
+   margin: auto;
 }
 
 .multiView {
@@ -16,6 +21,34 @@
    right: 0.2rem;
 }
 
+.hiddenScreenTwo,
+.hiddenScreenThree,
+.hiddenScreenFour {
+   display: none;
+}
+
 .multiView:hover {
    cursor: pointer;
+}
+
+@media only screen and (min-width: 750px) {
+   .multiView {
+      width: 2rem;
+      height: 2rem;
+      background-size: 80%;
+      position: absolute;
+      top: 2rem;
+      right: 1rem;
+   }
+}
+
+@media only screen and (min-width: 1050px) {
+   .multiView {
+      width: 2.5rem;
+      height: 2.5rem;
+      background-size: 80%;
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+   }
 }

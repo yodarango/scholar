@@ -172,11 +172,20 @@
 
    .threeViewerClass {
       height: 50vh;
+      width: 300px;
       max-width: 500px;
    }
 
    .fourViewerClass {
       height: 50vh;
+   }
+}
+
+@media only screen and (min-width: 1035px) {
+   .threeViewerClass {
+      height: 100vh;
+      width: 300px;
+      max-width: 500px;
    }
 }
 
