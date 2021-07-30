@@ -13,7 +13,7 @@ import scripturesHTMLStyles from "../styles/fragments/popup-content/ScripturesHT
 import { bibleApi } from "../env";
 
 type chapterProps = {
-   chapterId: string | boolean;
+   chapterId: string | boolean | undefined;
    versionId: string | boolean;
 };
 const Chapter = ({ chapterId, versionId }: chapterProps) => {
