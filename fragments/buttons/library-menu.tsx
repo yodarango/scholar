@@ -1,5 +1,6 @@
 // core
 import React, { useState } from "react";
+import Link from "next/link";
 
 //styles
 import libraryMenuStyles from "../../styles/buttons/LibraryMenu.module.css";
@@ -15,12 +16,14 @@ type libraryMenuProps = {
    includeCategory?: boolean;
    includeContent?: boolean;
    contentCta: Function;
+   contentButtonIcon: string;
 };
 const libraryMenu = ({
    includeCategory,
    includeContent,
    includeSearch,
-   contentCta
+   contentCta,
+   contentButtonIcon
 }: libraryMenuProps) => {
    // ====================   FUNCTION 1: Open the Content Dorpdown   ================//
    const [openContentDropDState, setOpenContentDropDState] = useState<boolean>(false);
@@ -33,7 +36,8 @@ const libraryMenu = ({
    };
 
    // ====================   FUNCTION 2: set current Icon based onCLick  ================//
-   const [currentContentIconState, setcurrentContentIconState] = useState<string>("🔥");
+   const [currentContentIconState, setcurrentContentIconState] =
+      useState<string>(contentButtonIcon);
    const handleContentItemClick = (value: string) => {
       setcurrentContentIconState(value);
    };
@@ -57,62 +61,30 @@ const libraryMenu = ({
                )}
                {openContentDropDState && (
                   <section className={`${libraryMenuStyles.contentDropDWrapper}`}>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("popular"), handleContentItemClick("🔥");
-                        }}>
-                        🔥
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("sermons"), handleContentItemClick("🗣️");
-                        }}>
-                        🗣️
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("articles"), handleContentItemClick("📃");
-                        }}>
-                        📃
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("podcast"), handleContentItemClick("🎧");
-                        }}>
-                        🎧
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("youtube"), handleContentItemClick("📺");
-                        }}>
-                        📺
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("blogs"), handleContentItemClick("📑");
-                        }}>
-                        📑
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("congregations"), handleContentItemClick("⛪");
-                        }}>
-                        ⛪
-                     </span>
-                     <span
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        onClick={() => {
-                           contentCta("congregations"), handleContentItemClick("📚");
-                        }}>
-                        📚
-                     </span>
+                     <Link href={"/library"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>🔥</a>
+                     </Link>
+                     <Link href={"/library/sermon-notes"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>🗣️</a>
+                     </Link>
+                     <Link href='/library/articles'>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>📃</a>
+                     </Link>
+                     <Link href={"/library/podcast"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>🎧</a>
+                     </Link>
+                     <Link href={"/library/youtube"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>📺</a>
+                     </Link>
+                     <Link href={"/library/blogs"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>📑</a>
+                     </Link>
+                     <Link href={"/library/churches"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>⛪</a>
+                     </Link>
+                     <Link href={"/library/books"}>
+                        <a className={`${libraryMenuStyles.contentSingleItem}`}>📚</a>
+                     </Link>
                   </section>
                )}
             </>
