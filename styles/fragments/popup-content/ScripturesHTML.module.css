@@ -137,12 +137,20 @@
       font: var(--primary-font-desktop);
       line-height: 2em;
    }
+
    .verseNumber {
-      height: 1rem;
-      width: 1rem;
+      font: var(--primary-font-mobile);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--font-color);
+      margin: 0 0.5rem 0 0;
+      display: inline-block;
+      height: 1.5rem;
+      width: 1.5rem;
       border-radius: 50%;
       text-align: center;
-      background-color: var(--primary-font-desktop);
+      background-color: var(--graient-one);
+      transition: transform 300ms ease-in;
    }
 
    .noteCTA {

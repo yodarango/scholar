@@ -1,0 +1,80 @@
+.mainWrapper {
+   width: 100%;
+   display: grid;
+   grid-template-areas: "Cont Search DropD";
+   grid-template-columns: 15% 60% 25%;
+   grid-template-rows: 1fr;
+   position: relative;
+}
+
+.contentDropDownButton {
+   height: 2rem;
+   width: 2rem;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: var(--secondary-color);
+   grid-area: Cont;
+   margin: 0 auto;
+   cursor: pointer;
+}
+
+.contentDropDWrapper {
+   position: relative;
+   grid-area: Cont;
+   top: 2.3rem;
+   z-index: 2;
+   height: 12rem;
+   overflow-y: scroll;
+   border-radius: var(--button-radius-mobile);
+}
+
+.contentSingleItem {
+   display: block;
+   width: 100%;
+   padding: 0.5rem 0;
+   text-align: center;
+   font-size: 1.2rem;
+   background-color: var(--secondary-color);
+   border-bottom: 1px solid var(--fourth-color);
+}
+
+.contentSingleItem:hover {
+   cursor: pointer;
+   background-color: var(--fourth-color);
+}
+
+.searchWapper {
+   grid-area: Search;
+}
+
+.search {
+   width: 100%;
+   font-size: 0.9rem;
+   margin: 0 0.5rem;
+   box-sizing: border-box;
+}
+
+.categoryButton {
+   width: 80%;
+   margin: 0 0 0 auto;
+   height: 2.5rem;
+   background-color: var(--secondary-color);
+   grid-area: DropD;
+   text-align: center;
+   border-radius: var(--button-radius-mobile);
+   box-shadow: inset 1.5px 1.5px 3px 3px rgba(0, 0, 0, 0.3),
+      inset -1.5px -1.5px 3px 2px rgba(255, 255, 255, 0.2);
+   cursor: pointer;
+}
+
+.categoryDropDWrapper {
+   width: 100%;
+   grid-area: DropD;
+   position: relative;
+   top: 3rem;
+   height: 12rem;
+   overflow-y: scroll;
+   border-radius: var(--button-radius-mobile);
+}
