@@ -5,6 +5,8 @@ import Head from "next/head";
 // components
 import Header from "../../layouts/header";
 import LibraryMenu from "../../fragments/buttons/library-menu";
+import LibraryContentCarrousel from "../../layouts/library-podcast-carrousel";
+import LibraryBlogsCarrousel from "../../layouts/library-blogs-carrousel";
 
 // styles
 import libraryStyles from "../../styles/pages/Library.module.css";
@@ -28,6 +30,8 @@ const Library = () => {
             contentCta={handleContentRequest}
             contentButtonIcon={"🔥"}
          />
+         <LibraryContentCarrousel />
+         <LibraryBlogsCarrousel />
       </div>
    );
 };
