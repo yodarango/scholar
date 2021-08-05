@@ -21,10 +21,11 @@
 }
 
 .contentDropDWrapper {
-   position: relative;
+   position: absolute;
    grid-area: Cont;
-   top: 2.3rem;
+   top: 2.4rem;
    z-index: 2;
+   width: 5rem;
    height: 12rem;
    overflow-y: scroll;
    border-radius: var(--button-radius-mobile);

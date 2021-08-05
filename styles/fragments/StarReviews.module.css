@@ -3,17 +3,18 @@
 }
 .mainWrapper > div {
    width: 100%;
-   height: 2rem;
-   background-position: center;
-   background-size: contain;
+   height: 1rem;
+   margin: var(--xsmall-spacing-mobile) 0;
+   background-position: left;
    background-repeat: no-repeat;
-   background-image: url("../../public/images/temporary/5-Star-Rating-PNG.png");
 }
 
 .noReviews {
    font-size: 0.8rem;
    text-align: left;
    margin: 0 0.3rem;
+   height: 1rem;
+   margin: var(--xsmall-spacing-mobile) 0;
 }
 
 .zeroStar {
@@ -21,37 +22,37 @@
 }
 
 .halfStar {
-   background-color: rgb(255, 177, 9);
+   background-image: url("../../public/images/Page-library/stars-1-stars.svg");
 }
 
 .oneStar {
-   background-color: rgb(251, 255, 9);
+   background-image: url("../../public/images/Page-library/stars-1-stars.svg");
 }
 
 .twoStar {
-   background-color: rgb(107, 255, 9);
+   background-image: url("../../public/images/Page-library/stars-2-stars.svg");
 }
 
 .twoHalfStar {
-   background-color: rgb(8, 255, 152);
+   background-image: url("../../public/images/Page-library/stars-2.5-stars.svg");
 }
 
 .threeStar {
-   background-color: rgb(8, 226, 255);
+   background-image: url("../../public/images/Page-library/stars-3-stars.svg");
 }
 
 .threeHalfStar {
-   background-color: rgb(8, 144, 255);
+   background-image: url("../../public/images/Page-library/stars-3.5-stars.svg");
 }
 
 .fourStar {
-   background-color: rgb(8, 33, 255);
+   background-image: url("../../public/images/Page-library/stars-4-stars.svg");
 }
 
 .fourHalfStar {
-   background-color: rgb(185, 8, 255);
+   background-image: url("../../public/images/Page-library/stars-4.5-stars.svg");
 }
 
 .fiveStar {
-   background-color: rgb(255, 8, 82);
+   background-image: url("../../public/images/Page-library/stars-5-stars.svg");
 }
