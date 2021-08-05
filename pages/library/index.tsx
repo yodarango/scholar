@@ -9,6 +9,7 @@ import LibraryPodcastCarrousel from "../../layouts/library-podcast-carrousel";
 import LibraryBlogsCarrousel from "../../layouts/library-blogs-carrousel";
 import LibrarySermonCarrousel from "../../layouts/library-sermon-carrousel";
 import LibraryArticleCarrousel from "../../layouts/library-article-carrousel";
+import LibraryBooksCarrousel from "../../layouts/library-books-carrousel";
 
 // styles
 import libraryStyles from "../../styles/pages/Library.module.css";
@@ -19,6 +20,7 @@ import { PodcastsProps } from "../../fragments/library-items/podcast";
 import { blogProps } from "../../fragments/library-items/blog";
 import { sermonProps } from "../../fragments/library-items/sermon";
 import { articleProps } from "../../fragments/library-items/article";
+import { bookProps } from "../../fragments/library-items/book";
 
 const Library = () => {
    // ============== FUNCTION 1: Make a call to the library API to get all the content to load
@@ -28,13 +30,15 @@ const Library = () => {
       blogs: blogProps[];
       sermons: sermonProps[];
       articles: articleProps[];
+      books: bookProps[];
    };
    ///   ====== 1.2 Initial state
    const [fetchContentState, setfetchContentState] = useState<IfetchContentState>({
       podcasts: [],
       blogs: [],
       sermons: [],
-      articles: []
+      articles: [],
+      books: []
    });
    const fetchConent = async () => {
       const data = await fetch("https://scholar-be.herokuapp.com/library");
@@ -44,7 +48,8 @@ const Library = () => {
          podcasts: parsedData.podcast,
          blogs: parsedData.blogs,
          sermons: parsedData.sermons,
-         articles: parsedData.articles
+         articles: parsedData.articles,
+         books: parsedData.books
       });
    };
    useEffect(() => {
@@ -63,10 +68,17 @@ const Library = () => {
             includeSearch={false}
             contentButtonIcon={"🔥"}
          />
-         <LibrarySermonCarrousel sermon={fetchContentState.sermons} />
-         <LibraryPodcastCarrousel podcasts={fetchContentState.podcasts} />
-         <LibraryBlogsCarrousel blogs={fetchContentState.blogs} />
-         <LibraryArticleCarrousel articles={fetchContentState.articles} />
+         {fetchContentState.sermons && (
+            <LibrarySermonCarrousel sermon={fetchContentState.sermons} />
+         )}
+         {fetchContentState.podcasts && (
+            <LibraryPodcastCarrousel podcasts={fetchContentState.podcasts} />
+         )}
+         {fetchContentState.blogs && <LibraryBlogsCarrousel blogs={fetchContentState.blogs} />}
+         {fetchContentState.articles && (
+            <LibraryArticleCarrousel articles={fetchContentState.articles} />
+         )}
+         {fetchContentState.books && <LibraryBooksCarrousel books={fetchContentState.books} />}
       </div>
    );
 };

@@ -1,5 +1,6 @@
 // core
 import React from "react";
+import Link from "next/link";
 
 // components
 import Article from "../fragments/library-items/article";

@@ -18,7 +18,6 @@ export type PodcastsProps = {
    spotifyLink: string;
    googleLink: string;
    overcastLink: string;
-   fetchUrl: string;
 };
 
 const Podcasts = ({

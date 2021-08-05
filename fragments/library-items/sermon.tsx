@@ -22,7 +22,7 @@ export type sermonProps = {
    file: string;
 };
 
-const Sermon = ({ id, tags, colors, title, author, reviews, stars, file }: sermonProps) => {
+const Sermon = ({ id, tags, colors, title, author, reviews, stars, file, userId }: sermonProps) => {
    return (
       <div className={`${sermonStyles.mainWrapper}`} key={id}>
          <div
@@ -36,7 +36,9 @@ const Sermon = ({ id, tags, colors, title, author, reviews, stars, file }: sermo
                <div className={sermonStyles.outerCover} style={{ backgroundColor: colors[0] }}>
                   <div className={sermonStyles.textWrapper}>
                      <h1 className={sermonStyles.title}>{title}</h1>
+
                      <h3 className={sermonStyles.author}>by: {author}</h3>
+
                      <span className={sermonStyles.Category}>Category: {tags[0]}</span>
                   </div>
                </div>
