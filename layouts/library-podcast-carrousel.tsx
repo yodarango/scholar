@@ -33,7 +33,6 @@ const LibraryPodcastCarrousel = ({ podcasts }: LibraryPodcastCarrouselProps) => 
                   spotifyLink={podcast.spotifyLink}
                   googleLink={podcast.googleLink}
                   overcastLink={podcast.overcastLink}
-                  fetchUrl={"https://scholar-be.herokuapp.com/library"}
                />
             ))}
          </div>

@@ -1,0 +1,21 @@
+.mainWrapper {
+   width: 100%;
+   overflow-x: hidden;
+   margin-top: var(--medium-spacing-mobile);
+}
+
+.title {
+   font: var(--secondary-font-mobile);
+   color: var(--fourth-color);
+   padding: 0 0 0.5rem 0;
+   border-bottom: 3px solid var(--fourth-color);
+}
+
+.scrollSection {
+   min-width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   flex-wrap: nowrap;
+   align-items: flex-start;
+   justify-content: flex-start;
+}

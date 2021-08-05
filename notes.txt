@@ -24,3 +24,7 @@ all types of new posts.
 
 //////// 08/04/21
 after finishing the Library page finsih up the home page
+
+
+///////// 08/05/21
+Imlement Lazy loading please!!!!!!!

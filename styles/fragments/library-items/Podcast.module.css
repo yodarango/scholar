@@ -93,7 +93,7 @@
    bottom: 2rem;
    margin: 6rem auto 0;
    padding: var(--small-spacing-mobile);
-   z-index: 2;
+   z-index: 5;
    overflow-y: scroll;
    border-bottom: 1rem solid var(--secondary-color);
 }
