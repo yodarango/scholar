@@ -102,7 +102,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Orange",
       key: "Orange",
-      tag: "OR",
+      tag: "#OR",
       color: "rgb(247, 99, 0)",
       subjects: [
          "Prophesy",

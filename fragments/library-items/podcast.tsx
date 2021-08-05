@@ -7,6 +7,7 @@ import podcastStyles from "../../styles/fragments/library-items/Podcast.module.c
 import StarReviews from "../star-reviews";
 
 export type PodcastsProps = {
+   id?: string;
    thumbnail: string;
    podcastName: string;
    host: string;
@@ -17,9 +18,11 @@ export type PodcastsProps = {
    spotifyLink: string;
    googleLink: string;
    overcastLink: string;
+   fetchUrl: string;
 };
 
 const Podcasts = ({
+   id,
    thumbnail,
    podcastName,
    host,
@@ -36,7 +39,7 @@ const Podcasts = ({
 
    const handleOpenDescription = () => {
       setOpenPodcastDescState(
-         <div className={`${podcastStyles.descPopup}`}>
+         <div className={`${podcastStyles.descPopup}`} key={id}>
             <div
                className={`${podcastStyles.descPopupCloseModal} closeModal`}
                onClick={() => setOpenPodcastDescState(false)}>

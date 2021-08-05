@@ -8,6 +8,7 @@ import StarReviews from "../star-reviews";
 import blogStyles from "../../styles/fragments/library-items/Blog.module.css";
 
 export type blogProps = {
+   id?: string;
    thumbnail: string;
    blogName: string;
    author: string;
@@ -17,13 +18,13 @@ export type blogProps = {
    url: string;
 };
 
-const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description }: blogProps) => {
+const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description, id }: blogProps) => {
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
    const [openBlogDescState, setOpenBlogDescState] = useState<JSX.Element | boolean>(false);
 
    const handleOpenDescription = () => {
       setOpenBlogDescState(
-         <div className={`${blogStyles.descPopup}`}>
+         <div className={`${blogStyles.descPopup}`} key={id}>
             <div
                className={`${blogStyles.descPopupCloseModal} closeModal`}
                onClick={() => setOpenBlogDescState(false)}>

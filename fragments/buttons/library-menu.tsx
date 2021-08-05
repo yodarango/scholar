@@ -15,14 +15,12 @@ type libraryMenuProps = {
    includeSearch?: boolean;
    includeCategory?: boolean;
    includeContent?: boolean;
-   contentCta: Function;
    contentButtonIcon: string;
 };
 const libraryMenu = ({
    includeCategory,
    includeContent,
    includeSearch,
-   contentCta,
    contentButtonIcon
 }: libraryMenuProps) => {
    // ====================   FUNCTION 1: Open the Content Dorpdown   ================//

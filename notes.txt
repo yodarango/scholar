@@ -16,3 +16,11 @@ Reading-collage-units.tsx and all places where an inital bible version is requir
 
 /////// 07/20/2021
 reload current chapter upon version change on fragments/squares/reading challenge.
+
+
+//////// 08/04/21
+instead of having a totally new "create new post" page just render it as a popup fpr 
+all types of new posts. 
+
+//////// 08/04/21
+after finishing the Library page finsih up the home page
