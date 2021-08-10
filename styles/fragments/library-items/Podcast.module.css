@@ -135,3 +135,109 @@
    font-size: 0.8rem;
    text-align: left;
 }
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      width: 12rem;
+      margin: 0 var(--medium-spacing-desktop) 0 0;
+   }
+
+   .thumbnailWrapper {
+      height: 12rem;
+   }
+   .thumbnail {
+      height: 12rem;
+   }
+
+   .name {
+      font: var(--secondary-font-desktop);
+      font-size: 1.2rem;
+   }
+
+   .host {
+      font: var(--widget-font-desktop);
+   }
+
+   .links {
+      margin: var(--xsmall-spacing-desktop) 0 0;
+   }
+
+   .links > a > span {
+      width: 1.2rem;
+      height: 1.2rem;
+   }
+
+   /* ======   PODCAST DESC POPUP ================= */
+   .descPopup {
+      width: 90vw;
+      max-width: 800px;
+      bottom: 4rem;
+      margin: 8rem auto 0;
+      padding: var(--small-spacing-desktop);
+      border-bottom: 1.2rem solid var(--secondary-color);
+      display: grid;
+      grid-template-areas:
+         "Title Desc"
+         "Author Desc"
+         "Image Desc"
+         "Reviews Desc"
+         "Footer Desc"
+         "Links Desc";
+      grid-template-columns: 50% 50%;
+      grid-template-rows: 5rem 2rem 12rem 3rem 4rem 3rem;
+   }
+
+   .descPopupCloseModal {
+      top: 2rem;
+      right: 1.5rem;
+   }
+
+   .descPopupTitle {
+      grid-area: Title;
+      font-size: 1.5rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      overflow-y: scroll;
+   }
+
+   .popUpHost {
+      grid-area: Author;
+      font: var(--widget-font-desktop);
+      width: 100%;
+      margin: 0;
+      overflow-y: scroll;
+   }
+
+   .popupDescription {
+      grid-area: Desc;
+      font-size: 1.2rem;
+      margin: var(--medium-spacing-desktop) 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-y: scroll;
+      padding-left: 1rem;
+   }
+
+   .descPopupImg {
+      grid-area: Image;
+      width: 12rem;
+      height: 12rem;
+      margin: 0;
+   }
+
+   .starReviewWrapper {
+      grid-area: Reviews;
+      width: 100%;
+   }
+
+   .descPopUpFooter {
+      grid-area: Footer;
+      font-size: 1rem;
+      text-align: left;
+      width: 90%;
+      display: block;
+   }
+   .links {
+      grid-area: Links;
+   }
+}

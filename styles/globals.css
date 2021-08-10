@@ -314,6 +314,10 @@ a:active {
    width: 100%;
    height: var(--xlarge-spacing-mobile);
 }
+.x-large-spacer {
+   width: 100%;
+   height: calc(2rem + var(--xlarge-spacing-mobile));
+}
 
 .header {
    width: 100vw;

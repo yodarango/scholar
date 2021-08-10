@@ -2,6 +2,7 @@
    border-top: 3px solid var(--fourth-color);
    margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
    width: 100%;
+   max-width: 900px;
 }
 
 .mainWrapper > p {
@@ -13,10 +14,16 @@
    margin: var(--medium-spacing-mobile) 0;
 }
 
+/* ============= FORM WRAPPER POPUP ============= */
+.formWrapper {
+   width: 90%;
+   max-width: 500px;
+   margin: auto;
+}
+
 .formDropDownButton {
    position: relative;
    width: 85%;
-   max-width: 15rem;
    display: block;
    padding: var(--input-padding-mobile) 0 0 0.3rem;
    border-bottom: 2px solid var(--fourth-color);
@@ -61,8 +68,8 @@
 }
 
 .stdInput {
-   display: 80%;
-   max-width: 20rem;
+   width: 100%;
+   max-width: 100%;
    display: block;
    margin-left: 0;
 }
@@ -73,11 +80,65 @@
 }
 
 .stdTextArea {
-   max-width: 20rem;
+   width: 100%;
+   max-width: 100%;
    display: block;
-   margin-left: 0;
 }
 
 .stdButton {
    margin-left: 0;
+}
+
+@media only screen and (min-width: 700px) {
+   .formWrapper {
+      margin: var(--medium-spacing-ipad) auto;
+      max-width: 600px;
+   }
+}
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      margin: var(--large-spacing-desktop) auto var(--small-spacing-desktop);
+   }
+
+   .mainWrapper > p {
+      font-size: 1.2rem;
+      line-height: 2em;
+   }
+
+   .button {
+      margin: var(--medium-spacing-desktop) 0;
+   }
+
+   /* ========= FORM WRAPPE POPUP =============== */
+   .formWrapper {
+      max-width: 700px;
+   }
+
+   .formDropDownButton {
+      padding: var(--input-padding-desktop) 0 0 0.5rem;
+   }
+
+   .dropdownArrow {
+      border-top: 0.8rem solid var(--fourth-color);
+      border-right: 0.8rem solid transparent;
+      border-left: 0.8rem solid transparent;
+      width: 1.5rem;
+      height: 2.5rem;
+      top: 55%;
+      right: 0.5rem;
+   }
+
+   .dropDownWrapper {
+      border-radius: var(--button-radius-desktop);
+      padding: 0 var(--xsmall-spacing-desktop);
+   }
+
+   .dropDownWrapper > span {
+      padding: var(--xsmall-spacing-desktop) 0;
+   }
+
+   .stdTextArea {
+      height: 12rem;
+   }
 }

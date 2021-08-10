@@ -51,7 +51,9 @@ const Podcasts = ({
                alt='podcast thumbnail'
                className={`${podcastStyles.descPopupImg}`}
             />
-            <StarReviews contentId={id} reviews={reviews} stars={stars} />
+            <div className={podcastStyles.starReviewWrapper}>
+               <StarReviews contentId={id} reviews={reviews} stars={stars} />
+            </div>
             <section className={podcastStyles.popupDescription}>{description}</section>
             <p className={`std-text-block--info ${podcastStyles.descPopupFooter}`}>
                You can find {podcastName} in all the following platforms:
