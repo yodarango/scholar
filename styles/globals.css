@@ -166,6 +166,10 @@ a:active {
    border-radius: var(--input-radius-mobile);
 }
 
+.std-input::placeholder {
+   color: #f2f2f27a;
+}
+
 .std-input:focus {
    outline: none;
 }
@@ -286,6 +290,10 @@ a:active {
    padding: var(--input-padding-mobile);
    resize: none;
    overflow-y: scroll;
+}
+
+.std-text-area::placeholder {
+   color: #f2f2f27a;
 }
 
 .std-text-area:focus {
@@ -513,7 +521,7 @@ a:active {
 
 /* ScripturesHTML Styles for popup references */
 
-.c /*chapter*/  {
+.c /*chapter*/ {
    color: var(--graient-one);
 }
 .s1 /*subtitle*/ {
@@ -543,10 +551,10 @@ a:active {
    font-style: italic;
 }
 
-.scriptures-copyright{
-font: var(--third-font-mobile);
-font-size: .7rem;
-color: rgba(255, 255, 255, 0.6);
+.scriptures-copyright {
+   font: var(--third-font-mobile);
+   font-size: 0.7rem;
+   color: rgba(255, 255, 255, 0.6);
 }
 /* .verse-span {
    display: block; 
@@ -609,7 +617,7 @@ color: rgba(255, 255, 255, 0.6);
 
    .std-text-block,
    .std-text-block--info,
-   .std-text-block--small-title, 
+   .std-text-block--small-title,
    .std-text-block--widget {
       margin: var(--medium-spacing-desktop) auto;
       font: var(--primary-font-desktop);
@@ -646,7 +654,7 @@ color: rgba(255, 255, 255, 0.6);
    .std-text-block--no-margin {
       margin: 0 auto;
    }
-   
+
    .std-vector-icon {
       background-position: center;
       background-size: cover;

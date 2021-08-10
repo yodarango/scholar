@@ -1,5 +1,6 @@
 .mainWrapper {
    width: 100%;
+   cursor: pointer;
 }
 .mainWrapper > div {
    width: 100%;

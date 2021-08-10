@@ -10,9 +10,11 @@ import LibraryBlogsCarrousel from "../../layouts/library-blogs-carrousel";
 import LibrarySermonCarrousel from "../../layouts/library-sermon-carrousel";
 import LibraryArticleCarrousel from "../../layouts/library-article-carrousel";
 import LibraryBooksCarrousel from "../../layouts/library-books-carrousel";
+import LibraryRecommendContennt from "../../fragments/buttons/library-recommend-contennt";
 
 // styles
 import libraryStyles from "../../styles/pages/Library.module.css";
+import libraryMenu from "../../styles/buttons/LibraryMenu.module.css";
 //import styles from '../styles/pages/Home.module.css';
 
 // types
@@ -43,7 +45,6 @@ const Library = () => {
    const fetchConent = async () => {
       const data = await fetch("https://scholar-be.herokuapp.com/library");
       const parsedData = await data.json();
-      console.log(parsedData);
       setfetchContentState({
          podcasts: parsedData.podcast,
          blogs: parsedData.blogs,
@@ -67,6 +68,7 @@ const Library = () => {
             includeContent={true}
             includeSearch={false}
             contentButtonIcon={"🔥"}
+            currentSlectedContentPage={libraryMenu.currentPagePopular}
          />
          {fetchContentState.sermons && (
             <LibrarySermonCarrousel sermon={fetchContentState.sermons} />
@@ -79,6 +81,7 @@ const Library = () => {
             <LibraryArticleCarrousel articles={fetchContentState.articles} />
          )}
          {fetchContentState.books && <LibraryBooksCarrousel books={fetchContentState.books} />}
+         <LibraryRecommendContennt />
       </div>
    );
 };

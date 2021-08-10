@@ -1,0 +1,150 @@
+.mainWrapper {
+   width: 96%;
+   max-width: 600px;
+   height: 15rem;
+   padding: 2rem 0 0;
+   position: fixed;
+   top: 40vh;
+   right: 0;
+   left: 0;
+   bottom: 0;
+   margin: 0 auto;
+   z-index: 10;
+   border-radius: var(--input-radius-mobile);
+   background-color: var(--secondary-color);
+}
+
+.title {
+   font: var(--secondary-font-mobile);
+   font-size: 1.2rem;
+   margin: 0 auto;
+   text-align: left;
+   width: 90%;
+}
+
+.starWrapper {
+   width: 95%;
+   background-color: var(--third-color);
+   height: 5rem;
+   position: relative;
+   margin: var(--medium-spacing-mobile) auto;
+   z-index: 11;
+   border-radius: var(--input-radius-mobile);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.starWrapperBehind {
+   position: absolute;
+   background-color: rgba(255, 255, 255, 0.404);
+   width: 95%;
+   height: 5rem;
+   transform: rotate(0.98turn);
+   border-radius: var(--input-radius-mobile);
+   z-index: 10;
+   top: 4rem;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.slidingLine {
+   position: relative;
+   width: 90%;
+   background-color: var(--font-color);
+   border-radius: 2rem;
+   height: 0.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   cursor: pointer;
+}
+
+.slidingLine span {
+   font: var(--widget-font-mobile);
+   font-size: 0.8rem;
+   color: #242424;
+   height: 1.5rem;
+   width: 1.5rem;
+   display: block;
+   background-color: rgb(255, 217, 0);
+   border: 2px solid rgb(255, 166, 0);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+   );
+}
+
+.slidingLine span:hover {
+   transform: scale(1.5);
+}
+.halfStar {
+}
+
+.oneStar {
+}
+
+.slidingLine .halfStar,
+.slidingLine .oneHalfStar,
+.slidingLine .threeHalfStar,
+.slidingLine .twoHalfStar,
+.slidingLine .fourHalfStar {
+   font-size: 0.5rem;
+   height: 0.5rem;
+   width: 0.5rem;
+   clip-path: none;
+}
+
+.selectionClassHalf {
+   background-color: var(--font-color);
+}
+
+.selectionClassOne {
+   background-image: linear-gradient(90deg, var(--fourth-color) 11.11%, var(--font-color) 10%);
+}
+
+.selectionClassOneHalf {
+   background-image: linear-gradient(90deg, var(--fourth-color) 22.22%, var(--font-color) 10%);
+}
+
+.selectionClassTwo {
+   background-image: linear-gradient(90deg, var(--fourth-color) 33.33%, var(--font-color) 10%);
+}
+
+.selectionClassTwoHalf {
+   background-image: linear-gradient(90deg, var(--fourth-color) 44.44%, var(--font-color) 10%);
+}
+
+.selectionClassThree {
+   background-image: linear-gradient(90deg, var(--fourth-color) 55.55%, var(--font-color) 10%);
+}
+
+.selectionClassThreeHalf {
+   background-image: linear-gradient(90deg, var(--fourth-color) 66.66%, var(--font-color) 10%);
+}
+
+.selectionClassFour {
+   background-image: linear-gradient(90deg, var(--fourth-color) 77.77%, var(--font-color) 10%);
+}
+
+.selectionClassFourHalf {
+   background-image: linear-gradient(90deg, var(--fourth-color) 88.88%, var(--font-color) 10%);
+}
+
+.selectionClassFive {
+   background-color: var(--fourth-color);
+}

@@ -7,7 +7,7 @@ import podcastStyles from "../../styles/fragments/library-items/Podcast.module.c
 import StarReviews from "../star-reviews";
 
 export type PodcastsProps = {
-   id?: string;
+   id: string;
    thumbnail: string;
    podcastName: string;
    host: string;
@@ -51,7 +51,7 @@ const Podcasts = ({
                alt='podcast thumbnail'
                className={`${podcastStyles.descPopupImg}`}
             />
-            <StarReviews reviews={reviews} stars={stars} />
+            <StarReviews contentId={id} reviews={reviews} stars={stars} />
             <section className={podcastStyles.popupDescription}>{description}</section>
             <p className={`std-text-block--info ${podcastStyles.descPopupFooter}`}>
                You can find {podcastName} in all the following platforms:
@@ -88,7 +88,7 @@ const Podcasts = ({
             <div className={podcastStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <img src={thumbnail} alt='podcast thumbnail' className={podcastStyles.thumbnail} />
             </div>
-            <StarReviews reviews={reviews} stars={stars} />
+            <StarReviews contentId={id} reviews={reviews} stars={stars} />
             <h2 className={podcastStyles.name}>{podcastName}</h2>
             <h3 className={podcastStyles.host}>{host}</h3>
             <div className={podcastStyles.links}>

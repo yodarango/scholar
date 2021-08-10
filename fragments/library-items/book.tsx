@@ -25,14 +25,19 @@ const Book = ({ id, title, author, tags, colors, reviews, stars, description, ur
    // calling unsplash api will be great in the future, i have the dev keys.
    return (
       <div className={`${bookStyles.mainWrapper}`} key={id} style={{ backgroundColor: colors[0] }}>
-         <Link href={url}>
-            <a>
-               <h1 className={`${bookStyles.title}`}>{title}</h1>
-               <h3 className={`${bookStyles.author}`}>{author}</h3>
-               <p className={`${bookStyles.category}`}>Category: {tags[0]}</p>
-               <StarReviews reviews={reviews} stars={stars} />
-            </a>
-         </Link>
+         <a>
+            <div className={bookStyles.bookImgInfoWrapper}>
+               <Link href={url}>
+                  <div className={bookStyles.bookInfoWrapper}>
+                     <h1 className={`${bookStyles.title}`}>{title}</h1>
+                     <h3 className={`${bookStyles.author}`}>{author}</h3>
+                     <p className={`${bookStyles.category}`}>Category: {tags[0]}</p>
+                  </div>
+               </Link>
+               <div className={bookStyles.bookImg}></div>
+            </div>
+            <StarReviews contentId={id} reviews={reviews} stars={stars} />
+         </a>
       </div>
    );
 };

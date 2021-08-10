@@ -1,12 +1,20 @@
-import React from "react";
+// core
+import React, { useState } from "react";
+
+// components
+import LibraryReviewContent from "./buttons/library-review-content";
+
+// styles
 import starReviewsStyles from "../styles/fragments/StarReviews.module.css";
 
 type starReviewsProps = {
    stars: number[];
    reviews: string[];
+   contentId: string;
 };
 
-const starReviews = ({ stars, reviews }: starReviewsProps) => {
+// handle the review calculation to display the right amount of stars
+const starReviews = ({ stars, reviews, contentId }: starReviewsProps) => {
    const possibleStars: number = reviews.length * 5;
    let actualStars: number = 0;
    stars.map((star: number) => (actualStars = actualStars + star));
@@ -28,13 +36,28 @@ const starReviews = ({ stars, reviews }: starReviewsProps) => {
    totalWholeStars > 4 && totalWholeStars < 5 ? (starClass = starReviewsStyles.fourHalfStar) : null; // 4.5 stars
    totalWholeStars === 5 ? (starClass = starReviewsStyles.fiveStar) : null; // 5 stars
 
+   // ==============   FUNCTION: 1 open the popup that will allow users to submit their review ====== //
+   const [openReviewPopupState, setOpenReviewPopupState] = useState<boolean | JSX.Element>(false);
+   const handleOpenReviewPopup = () => {
+      setOpenReviewPopupState(
+         <LibraryReviewContent
+            contentId={contentId}
+            closeModal={() => setOpenReviewPopupState(false)}
+         />
+      );
+   };
    return (
-      <div className={starReviewsStyles.mainWrapper}>
-         {totalWholeStars === 0 && (
-            <p className={`${starReviewsStyles.noReviews} std-text-block--info`}>No reviews yet!</p>
-         )}
-         <div className={starClass}></div>
-      </div>
+      <>
+         {openReviewPopupState}
+         <div className={starReviewsStyles.mainWrapper} onClick={handleOpenReviewPopup}>
+            {totalWholeStars === 0 && (
+               <p className={`${starReviewsStyles.noReviews} std-text-block--info`}>
+                  No reviews yet!
+               </p>
+            )}
+            <div className={starClass}></div>
+         </div>
+      </>
    );
 };
 
