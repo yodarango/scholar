@@ -68,7 +68,7 @@ const Library = () => {
             includeContent={true}
             includeSearch={false}
             contentButtonIcon={"🔥"}
-            currentSlectedContentPage={libraryMenu.currentPagePopular}
+            currentSlectedContentPage={{ popular: "#f2f2f2" }}
          />
          {fetchContentState.sermons && (
             <LibrarySermonCarrousel sermon={fetchContentState.sermons} />

@@ -11,12 +11,23 @@ import { valuesCat } from "../../helpers/dropdown-values";
 //types
 import { IvaluesCat } from "../../helpers/dropdown-values";
 
+type currentPageNewClass = {
+   popular?: string;
+   sermons?: string;
+   articles?: string;
+   podcasts?: string;
+   youtubeChannel?: string;
+   blogs?: string;
+   books?: string;
+   congregations?: string;
+};
+
 type libraryMenuProps = {
    includeSearch?: boolean;
    includeCategory?: boolean;
    includeContent?: boolean;
    contentButtonIcon: string;
-   currentSlectedContentPage: string;
+   currentSlectedContentPage: currentPageNewClass;
 };
 const libraryMenu = ({
    includeCategory,
@@ -35,40 +46,84 @@ const libraryMenu = ({
       setOpenContentDropDState(false);
    };
 
+   // ====================   FUNCTION 2: Open the Category DropDown    ===============//
+   const [openCatDropdownState, setopenCatDropdownState] = useState<boolean>(false);
+   const handleOpenCategoryDropDown = () => {
+      setopenCatDropdownState(true);
+   };
+
+   const handleCloseCategoryDropDown = () => {
+      setopenCatDropdownState(false);
+   };
+
+   // ====================   FUNCTION 2: Fetch Data and change the Category Choice button value  ===============//
+   const [currentCategorySelectedState, setCurrentCategorySelectedState] = useState<{
+      color: string;
+      tag: string;
+   }>({ color: "", tag: "#ALL" });
+   const handleCategoryChoice = (color: string, tag: string) => {
+      setCurrentCategorySelectedState({ color, tag });
+      setopenCatDropdownState(false);
+   };
    return (
       <>
          <div className={`${libraryMenuStyles.mainWrapperDesktop}`}>
             <div className={`${libraryMenuStyles.linksWrapperDesktop}`}>
                <Link href={"/library"}>
                   <a
-                     className={`${libraryMenuStyles.contentSingleItemDesktop} ${currentSlectedContentPage}`}>
+                     style={{ color: currentSlectedContentPage.popular }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
                      🔥 Popular
                   </a>
                </Link>
                <Link href={"/library/sermon-notes"}>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>🗣️ Sermons</a>
+                  <a
+                     style={{ color: currentSlectedContentPage.sermons }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                     🗣️ Sermons
+                  </a>
                </Link>
                <Link href='/library/articles'>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>📃 Articles</a>
+                  <a
+                     style={{ color: currentSlectedContentPage.articles }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                     📃 Articles
+                  </a>
                </Link>
                <Link href={"/library/podcast"}>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>🎧 Podcasts</a>
+                  <a
+                     style={{ color: currentSlectedContentPage.podcasts }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                     🎧 Podcasts
+                  </a>
                </Link>
                <Link href={"/library/youtube"}>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                  <a
+                     style={{ color: currentSlectedContentPage.youtubeChannel }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
                      📺 Youtube Channels
                   </a>
                </Link>
                <Link href={"/library/blogs"}>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>📑 Blogs</a>
-               </Link>
-               <Link href={"/library/churches"}>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
-                     ⛪ Congregations
+                  <a
+                     style={{ color: currentSlectedContentPage.blogs }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                     📑 Blogs
                   </a>
                </Link>
                <Link href={"/library/books"}>
-                  <a className={`${libraryMenuStyles.contentSingleItemDesktop}`}>📚 Books</a>
+                  <a
+                     style={{ color: currentSlectedContentPage.books }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                     📚 Books
+                  </a>
+               </Link>
+               <Link href={"/library/congregations"}>
+                  <a
+                     style={{ color: currentSlectedContentPage.congregations }}
+                     className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
+                     ⛪ Congregations
+                  </a>
                </Link>
             </div>
          </div>
@@ -109,11 +164,11 @@ const libraryMenu = ({
                         <Link href={"/library/blogs"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>📑</a>
                         </Link>
-                        <Link href={"/library/churches"}>
-                           <a className={`${libraryMenuStyles.contentSingleItem}`}>⛪</a>
-                        </Link>
                         <Link href={"/library/books"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>📚</a>
+                        </Link>
+                        <Link href={"/library/congregations"}>
+                           <a className={`${libraryMenuStyles.contentSingleItem}`}>⛪</a>
                         </Link>
                      </section>
                   )}
@@ -131,17 +186,35 @@ const libraryMenu = ({
             )}
             {includeCategory && (
                <>
-                  <div className={`${libraryMenuStyles.categoryButton}`}>#FR</div>
-                  <section className={`${libraryMenuStyles.categoryDropDWrapper}`}>
-                     {valuesCat.map((value: IvaluesCat) => (
-                        <span
-                           key={value.key}
-                           className={`${libraryMenuStyles.contentSingleItem} ${value.key}`}
-                           style={{ backgroundColor: value.color }}>
-                           {value.tag}
-                        </span>
-                     ))}
-                  </section>
+                  {!openCatDropdownState && (
+                     <div
+                        style={{ backgroundColor: currentCategorySelectedState.color }}
+                        className={`${libraryMenuStyles.categoryButton}`}
+                        onClick={handleOpenCategoryDropDown}>
+                        {currentCategorySelectedState.tag}
+                     </div>
+                  )}
+                  {openCatDropdownState && (
+                     <div
+                        style={{ backgroundColor: currentCategorySelectedState.color }}
+                        className={`${libraryMenuStyles.categoryButton}`}
+                        onClick={handleCloseCategoryDropDown}>
+                        {currentCategorySelectedState.tag}
+                     </div>
+                  )}
+                  {openCatDropdownState && (
+                     <section className={`${libraryMenuStyles.categoryDropDWrapper}`}>
+                        {valuesCat.map((value: IvaluesCat) => (
+                           <span
+                              key={value.key}
+                              className={`${libraryMenuStyles.contentSingleItem}`}
+                              style={{ backgroundColor: value.color }}
+                              onClick={() => handleCategoryChoice(value.color, value.tag)}>
+                              {value.tag}
+                           </span>
+                        ))}
+                     </section>
+                  )}
                </>
             )}
          </div>

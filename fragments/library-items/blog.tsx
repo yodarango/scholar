@@ -33,14 +33,16 @@ const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description, i
             <h1 className={`${blogStyles.descPopupTitle}`}>{blogName}</h1>
             <h3 className={blogStyles.popUpHost}>Blog authored By: {author}</h3>
             <img src={thumbnail} alt='podcast thumbnail' className={`${blogStyles.descPopupImg}`} />
-            <StarReviews contentId={id} reviews={reviews} stars={stars} />
+            <div className={`${blogStyles.starReviewWrapper}`}>
+               <StarReviews contentId={id} reviews={reviews} stars={stars} />
+            </div>
             <section className={blogStyles.popupDescription}>{description}</section>
             {url && (
                <a
                   href={url}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className={blogStyles.blogUrl}>
+                  className={`${blogStyles.descPopUpFooter} ${blogStyles.blogUrl}`}>
                   Visit {blogName} Now!
                </a>
             )}

@@ -7,9 +7,10 @@ import StarReviews from "../star-reviews";
 
 // styles
 import sermonStyles from "../../styles/fragments/library-items/Sermon.module.css";
+import { Style } from "util";
 
 export type sermonProps = {
-   id?: string;
+   id: string;
    userId?: string;
    userSignature?: string;
    tags: string[];
@@ -20,11 +21,23 @@ export type sermonProps = {
    stars: number[];
    description?: string;
    file: string;
+   newClass?: string;
 };
 
-const Sermon = ({ id, tags, colors, title, author, reviews, stars, file, userId }: sermonProps) => {
+const Sermon = ({
+   id,
+   tags,
+   colors,
+   title,
+   author,
+   reviews,
+   stars,
+   file,
+   userId,
+   newClass
+}: sermonProps) => {
    return (
-      <div className={`${sermonStyles.mainWrapper}`} key={id}>
+      <div className={`${sermonStyles.mainWrapper} ${newClass}`} key={id}>
          <div
             className={sermonStyles.innerpages}
             style={{
@@ -36,15 +49,13 @@ const Sermon = ({ id, tags, colors, title, author, reviews, stars, file, userId 
                <div className={sermonStyles.outerCover} style={{ backgroundColor: colors[0] }}>
                   <div className={sermonStyles.textWrapper}>
                      <h1 className={sermonStyles.title}>{title}</h1>
-
                      <h3 className={sermonStyles.author}>by: {author}</h3>
-
-                     <span className={sermonStyles.Category}>Category: {tags[0]}</span>
+                     <span className={sermonStyles.category}>Category: {tags[0]}</span>
                   </div>
                </div>
             </a>
          </Link>
-         <StarReviews stars={stars} reviews={reviews} />
+         <StarReviews contentId={id} stars={stars} reviews={reviews} />
       </div>
    );
 };

@@ -1,0 +1,26 @@
+.mainWrapper {
+   width: 100%;
+   max-width: 900px;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.gridWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   width: 100%;
+}
+.sermonWRapper {
+   width: 8rem;
+   margin: var(--small-spacing-mobile) 0.8rem 0 0;
+   flex-grow: 0.5;
+}
+
+@media only screen and (min-width: 500px) {
+   .sermonWRapper {
+      width: 9.3rem;
+      margin: var(--small-spacing-mobile) 1.8rem 0 0;
+      flex-grow: 0;
+   }
+}

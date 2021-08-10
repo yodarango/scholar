@@ -57,3 +57,25 @@
    display: block;
    margin: 0;
 }
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      width: 15rem;
+      margin: 0 var(--medium-spacing-desktop) 0 0;
+      padding: 1rem 1rem 0;
+   }
+
+   .title {
+      font: var(--secondary-font-desktop);
+      font-size: 1.2rem;
+   }
+
+   .author {
+      font: var(--primary-font-desktop);
+      font-size: 1rem;
+   }
+
+   .category {
+      font: var(--widget-font-desktop);
+   }
+}

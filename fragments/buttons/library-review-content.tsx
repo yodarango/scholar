@@ -26,6 +26,9 @@ const LibraryReviewContent = ({ contentId, closeModal }: libraryReviewContentPro
       newHeight: ""
    });
    const handleReviewClick = async (review: number, newclass: string, id: string) => {
+      // change the color of the bar on click
+      setSlidingLineClassState(newclass);
+
       await fetch("https://scholar-be.herokuapp.com/recommend-new-resource", {
          method: "POST",
          headers: {
@@ -33,9 +36,6 @@ const LibraryReviewContent = ({ contentId, closeModal }: libraryReviewContentPro
          },
          body: JSON.stringify({ contentId: id, review: review, userId: "1245" })
       });
-
-      // change the color of the bar on click
-      setSlidingLineClassState(newclass);
 
       // notify the user about the successful submission
       setTimeout(() => {
@@ -45,7 +45,7 @@ const LibraryReviewContent = ({ contentId, closeModal }: libraryReviewContentPro
             bkgColor: "green",
             newHeight: "10rem"
          });
-      }, 1500);
+      }, 1000);
    };
 
    return (
@@ -55,7 +55,9 @@ const LibraryReviewContent = ({ contentId, closeModal }: libraryReviewContentPro
             backgroundColor: hideReviewSliderState.bkgColor,
             height: hideReviewSliderState.newHeight
          }}>
-         <div className={`closeModal`} onClick={closeModal}>
+         <div
+            className={`closeModal ${libraryRecommendContenntStyles.closeModal}`}
+            onClick={closeModal}>
             X
          </div>
          <h2

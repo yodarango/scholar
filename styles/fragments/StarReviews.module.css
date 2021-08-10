@@ -57,3 +57,14 @@
 .fiveStar {
    background-image: url("../../public/images/Page-library/stars-5-stars.svg");
 }
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper > div {
+      height: 1.4rem;
+   }
+
+   .noReviews {
+      font-size: 1rem;
+      height: 1.4rem;
+   }
+}
