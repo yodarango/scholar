@@ -5,6 +5,7 @@
    grid-template-columns: 15% 60% 25%;
    grid-template-rows: 1fr;
    position: relative;
+   z-index: 5;
 }
 
 .contentDropDownButton {
@@ -78,4 +79,66 @@
    height: 12rem;
    overflow-y: scroll;
    border-radius: var(--button-radius-mobile);
+}
+.mainWrapperDesktop {
+   display: none;
+}
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      display: none;
+   }
+
+   .mainWrapperDesktop {
+      display: block;
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+   }
+
+   .linksWrapperDesktop {
+      border-bottom: 3px solid var(--fourth-color);
+      padding: 0 0 var(--xsmall-spacing-desktop);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--medium-spacing-desktop) 0 0;
+   }
+
+   .contentSingleItemDesktop {
+      font: var(--widget-font-desktop);
+      font-size: 1rem;
+      color: var(--fourth-color);
+   }
+
+   /* color text #f2f2f2 based on which page menu is loaded by */
+   .currentPagePopular {
+      color: var(--font-color);
+   }
+
+   .currentPageSermons {
+      color: var(--font-color);
+   }
+
+   .currentPageArticles {
+      color: var(--font-color);
+   }
+
+   .currentPagePodcasts {
+      color: var(--font-color);
+   }
+
+   .currentPageYoutube {
+      color: var(--font-color);
+   }
+
+   .currentPageBlogs {
+      color: var(--font-color);
+   }
+   .currentPageCongregations {
+      color: var(--font-color);
+   }
+
+   .currentPageBooks {
+      color: var(--font-color);
+   }
 }

@@ -1,0 +1,83 @@
+.mainWrapper {
+   border-top: 3px solid var(--fourth-color);
+   margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
+   width: 100%;
+}
+
+.mainWrapper > p {
+   font-size: 1rem;
+   font-style: italic;
+}
+.button {
+   width: 15rem;
+   margin: var(--medium-spacing-mobile) 0;
+}
+
+.formDropDownButton {
+   position: relative;
+   width: 85%;
+   max-width: 15rem;
+   display: block;
+   padding: var(--input-padding-mobile) 0 0 0.3rem;
+   border-bottom: 2px solid var(--fourth-color);
+   color: #f2f2f27a;
+   cursor: pointer;
+}
+
+.dropdownArrow {
+   display: block;
+   position: absolute;
+   border-top: 0.5rem solid var(--fourth-color);
+   border-right: 0.5rem solid transparent;
+   border-left: 0.5rem solid transparent;
+   width: 1rem;
+   height: 2rem;
+   top: 55%;
+   right: 0.5rem;
+}
+
+.dropDownWrapper {
+   display: none;
+   width: 90%;
+   max-width: 20rem;
+   margin-top: 0.3rem;
+   background-color: var(--secondary-color);
+   border-radius: var(--button-radius-mobile);
+   padding: 0 var(--xsmall-spacing-mobile);
+   cursor: pointer;
+}
+
+.dropDownWrapper > span {
+   display: block;
+   width: 100%;
+   color: #f2f2f27a;
+   border-bottom: 2px solid var(--fourth-color);
+   padding: var(--xsmall-spacing-mobile) 0;
+}
+
+.dropDownWrapper > span:hover {
+   cursor: pointer;
+   color: var(--font-color);
+}
+
+.stdInput {
+   display: 80%;
+   max-width: 20rem;
+   display: block;
+   margin-left: 0;
+}
+
+.newClassPodcast,
+.newClassBook {
+   color: var(--font-color);
+}
+
+.stdTextArea {
+   max-width: 20rem;
+   display: block;
+   margin-left: 0;
+}
+
+.stdButton {
+   margin-left: 0;
+}

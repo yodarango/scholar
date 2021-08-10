@@ -56,7 +56,7 @@ const Article = ({
                </div>
             </a>
          </Link>
-         <StarReviews reviews={reviews} stars={stars} />
+         <StarReviews contentId={id} reviews={reviews} stars={stars} />
       </div>
    );
 };

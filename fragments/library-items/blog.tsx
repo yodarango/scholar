@@ -8,7 +8,7 @@ import StarReviews from "../star-reviews";
 import blogStyles from "../../styles/fragments/library-items/Blog.module.css";
 
 export type blogProps = {
-   id?: string;
+   id: string;
    thumbnail: string;
    blogName: string;
    author: string;
@@ -33,7 +33,7 @@ const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description, i
             <h1 className={`${blogStyles.descPopupTitle}`}>{blogName}</h1>
             <h3 className={blogStyles.popUpHost}>Blog authored By: {author}</h3>
             <img src={thumbnail} alt='podcast thumbnail' className={`${blogStyles.descPopupImg}`} />
-            <StarReviews reviews={reviews} stars={stars} />
+            <StarReviews contentId={id} reviews={reviews} stars={stars} />
             <section className={blogStyles.popupDescription}>{description}</section>
             {url && (
                <a
@@ -54,7 +54,7 @@ const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description, i
             <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <img src={thumbnail} alt='podcast thumbnail' className={blogStyles.thumbnail} />
             </div>
-            <StarReviews reviews={reviews} stars={stars} />
+            <StarReviews contentId={id} reviews={reviews} stars={stars} />
             <h2 className={blogStyles.name}>{blogName}</h2>
             <h3 className={blogStyles.author}>{author}</h3>
             {url && (
