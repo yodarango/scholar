@@ -24,3 +24,11 @@
       flex-grow: 0;
    }
 }
+
+@media only screen and (min-width: 1000px) {
+   .sermonWRapper {
+      width: 12rem;
+      margin: var(--small-spacing-mobile) 1.8rem 0 0;
+      flex-grow: 0;
+   }
+}

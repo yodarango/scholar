@@ -12,7 +12,7 @@ import FormattingRules from "../../fragments/buttons/formatting-rules";
 import cardStyles from "../../styles/components/Cards.module.css";
 import commentaryStiles from "../../styles/pages/Commentary.module.css";
 
-//others
+// //others
 import { bibleApi } from "../../env";
 
 const Commentary = () => {
@@ -38,13 +38,14 @@ const Commentary = () => {
       nextVerseId: "JHN.3.17"
    });
 
-   const callBibleApi: () => void = async () => {
+   // getStaicProps instead
+   const callbibleApi: () => void = async () => {
       const requ = await fetch(
          `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${initialVerse}?content-type=text&include-verse-numbers=false`,
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );
@@ -58,9 +59,9 @@ const Commentary = () => {
       });
    };
 
-   // call the BibleAPI on verse change render
+   // call the bibleApi on verse change render
    useEffect(() => {
-      callBibleApi();
+      callbibleApi;
    }, [initialVerse]);
 
    /// go a verse forward

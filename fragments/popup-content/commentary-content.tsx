@@ -34,7 +34,7 @@ const CommentaryContent = ({
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );

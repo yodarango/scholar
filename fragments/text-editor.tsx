@@ -203,7 +203,7 @@ const TextEditor = ({
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );
@@ -219,7 +219,7 @@ const TextEditor = ({
          />
       );
    };
-   /*=========================== eturn JSX Element =========================================*/
+   /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
          {/*===  states  ======*/}

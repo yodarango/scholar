@@ -2,13 +2,13 @@
 import React from "react";
 
 // compnents
-import Blog from "../fragments/library-items/blog";
+import Blog from "../../fragments/library-items/blog";
 
 // styles
-import LibraryBlogsCarrouselStyles from "../styles/layouts/LibraryBlogsCarrousel.module.css";
+import LibraryBlogsCarrouselStyles from "../../styles/layouts/library-home-page/LibraryBlogsCarrousel.module.css";
 
 //types
-import { blogProps } from "../fragments/library-items/blog";
+import { blogProps } from "../../fragments/library-items/blog";
 
 type LibraryBlogsCarrouselProps = {
    blogs: blogProps[];

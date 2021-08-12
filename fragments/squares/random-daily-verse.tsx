@@ -41,7 +41,7 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
             {
                method: "GET",
                headers: {
-                  "api-key": bibleApi
+                  "api-key": `${bibleApi}`
                }
             }
          );

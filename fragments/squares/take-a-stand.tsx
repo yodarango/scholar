@@ -156,5 +156,5 @@ const TakeAStand = () => {
    );
 };
 
-//export default dynamic(() => Promise.resolve(TakeAStand));
-export default TakeAStand;
+export default dynamic(() => Promise.resolve(TakeAStand));
+//export default TakeAStand;

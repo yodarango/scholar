@@ -27,8 +27,12 @@ after finishing the Library page finsih up the home page
 
 
 ///////// 08/05/21
-Imlement Lazy loading please!!!!!!!
+Imlement Lazy loading please!!!!!!! next SWR
 
 
 /////// 08/09/2021
 Add user authorization to all forms being submitted to avoid vendors  -__-
+
+
+///////// 08/11/2021
+convert fetch requests to getStaticProps

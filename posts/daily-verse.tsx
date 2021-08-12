@@ -59,13 +59,14 @@ const DailyVerse = () => {
       nextVerseId: ""
    });
 
-   const callBibleApi: () => void = async () => {
+   // convert to getstaticProps instead
+   const callbibleApi: () => void = async () => {
       const requ = await fetch(
          `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${initialVerse}?content-type=text&include-verse-numbers=false`,
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );
@@ -81,7 +82,7 @@ const DailyVerse = () => {
    };
 
    useEffect(() => {
-      callBibleApi();
+      callbibleApi();
    }, [initialVerse]);
 
    // close all modals

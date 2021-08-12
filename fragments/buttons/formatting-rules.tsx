@@ -9,6 +9,9 @@ import NotificationPopup from "../notification-popup";
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 
+// dynamic values
+const versionId: string = "de4e12af7f28f599-01";
+
 type FormattingRulesProps = {
    renderSelectedVerseFunc: React.MouseEventHandler;
 };
@@ -162,6 +165,7 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
@@ -176,12 +180,14 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
          ),
          newChapter: (
             <GetNewChapter
+               versionId={versionId}
                closeModal={closeGetNewBook}
                goBackModal={goBackFunc}
                openGetNewVerse={openGetNewVerseFunc}
@@ -196,6 +202,7 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
@@ -210,12 +217,14 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
          ),
          newChapter: (
             <GetNewChapter
+               versionId={versionId}
                closeModal={closeGetNewBook}
                bookId={selectedBookId}
                goBackModal={goBackFunc}
@@ -234,12 +243,14 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
       setgetNewVerseState({
          newBook: (
             <GetNewBook
+               versionId={versionId}
                closeModal={closeGetNewBook}
                openGetNewChapterFunc={openGetNewChapterFunc}
             />
          ),
          newChapter: (
             <GetNewChapter
+               versionId={versionId}
                closeModal={closeGetNewBook}
                goBackModal={goBackFunc}
                openGetNewVerse={openGetNewVerseFunc}
@@ -247,6 +258,7 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
          ),
          newVerse: (
             <GetNewVerse
+               versionId={versionId}
                closeModal={closeGetNewBook}
                chapterId={selectedChapterId}
                goBackModal={goBackVerseFunc}

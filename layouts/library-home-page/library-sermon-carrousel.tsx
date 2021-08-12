@@ -2,13 +2,13 @@
 import React from "react";
 
 // components
-import Sermon from "../fragments/library-items/sermon";
+import Sermon from "../../fragments/library-items/sermon";
 
 // styles
-import librarySermonCarrouselStyles from "../styles/layouts/LibrarySermonsCarrousel.module.css";
+import librarySermonCarrouselStyles from "../../styles/layouts/library-home-page/LibrarySermonsCarrousel.module.css";
 
 // types
-import { sermonProps } from "../fragments/library-items/sermon";
+import { sermonProps } from "../../fragments/library-items/sermon";
 type librarySermonCarrouselProps = {
    sermon: sermonProps[];
 };

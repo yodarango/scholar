@@ -1,5 +1,9 @@
+// core
 import React, { useEffect, useState, useRef } from "react";
+
 import { bibleApi } from "../../env";
+
+// styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
 
 type getNewChapterProps = {
@@ -33,7 +37,7 @@ const GetNewChapter = ({
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );

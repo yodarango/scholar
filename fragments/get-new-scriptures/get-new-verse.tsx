@@ -1,4 +1,7 @@
+// core
 import React, { useEffect, useState } from "react";
+
+// styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
 import { bibleApi } from "../../env";
 
@@ -32,7 +35,7 @@ const GetNewVerse = ({
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );
