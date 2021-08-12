@@ -1,13 +1,38 @@
+// core
 import React from "react";
 import Head from "next/head";
+import { GetServerSideProps } from "next";
+
+// components
 import CommentFilter from "../fragments/buttons/comment-filter";
 import Header from "../layouts/header";
 import PostsWrapper from "../layouts/posts-wrapper";
-import DailyVerse from "../posts/daily-verse";
-import homeStyles from "../styles/pages/Home.module.css";
-//import styles from '../styles/pages/Home.module.css';
+import DailyVerse from "../fragments/squares/daily-verse";
 
-export default function Home() {
+// styles
+import homeStyles from "../styles/pages/Home.module.css";
+import { bibleApi } from "../env";
+
+// others
+
+export type TverseContent = {
+   id: string;
+   orgId: string;
+   bookId: string;
+   chapterId: string;
+   bibleId: string;
+   reference: string;
+   content: string;
+   verseCount: number;
+   copyright: string;
+   next: { id: string; number: string };
+   previous: { id: string; number: string };
+};
+type homeProps = {
+   verseContent: TverseContent;
+};
+
+export default function Home({ verseContent }: homeProps) {
    return (
       <div className='main-wrapper'>
          <Head>
@@ -16,7 +41,7 @@ export default function Home() {
          <Header currPage={"HOME"} />
          <div className={homeStyles.majorGridWrapper}>
             <div className={homeStyles.majorGridWrapperLeft}>
-               <DailyVerse />
+               <DailyVerse verseContent={verseContent} />
             </div>
             <div className={homeStyles.majorGridWrapperRight}>
                <h3
@@ -30,3 +55,26 @@ export default function Home() {
       </div>
    );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+   !query.verse ? (query.verse = "JHN.3.16") : null;
+   const requ = await fetch(
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${query.verse}?content-type=text&include-verse-numbers=false`,
+      {
+         method: "GET",
+         headers: {
+            "api-key": `${process.env.BIBLE_API}`
+         }
+      }
+   );
+   console.log(query.verse);
+   const json = await requ.json();
+   const content = json.data;
+
+   console.log(content);
+   return {
+      props: {
+         verseContent: content
+      }
+   };
+};
