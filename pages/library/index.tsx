@@ -5,16 +5,15 @@ import Head from "next/head";
 // components
 import Header from "../../layouts/header";
 import LibraryMenu from "../../fragments/buttons/library-menu";
-import LibraryPodcastCarrousel from "../../layouts/library-podcast-carrousel";
-import LibraryBlogsCarrousel from "../../layouts/library-blogs-carrousel";
-import LibrarySermonCarrousel from "../../layouts/library-sermon-carrousel";
-import LibraryArticleCarrousel from "../../layouts/library-article-carrousel";
-import LibraryBooksCarrousel from "../../layouts/library-books-carrousel";
+import LibraryPodcastCarrousel from "../../layouts/library-home-page/library-podcast-carrousel";
+import LibraryBlogsCarrousel from "../../layouts/library-home-page/library-blogs-carrousel";
+import LibrarySermonCarrousel from "../../layouts/library-home-page/library-sermon-carrousel";
+import LibraryArticleCarrousel from "../../layouts/library-home-page/library-article-carrousel";
+import LibraryBooksCarrousel from "../../layouts/library-home-page/library-books-carrousel";
 import LibraryRecommendContennt from "../../fragments/buttons/library-recommend-contennt";
 
 // styles
-import libraryStyles from "../../styles/pages/Library.module.css";
-import libraryMenu from "../../styles/buttons/LibraryMenu.module.css";
+import libraryStyles from "../../styles/pages/library/Library.module.css";
 //import styles from '../styles/pages/Home.module.css';
 
 // types

@@ -2,13 +2,13 @@
 import React from "react";
 
 // components
-import Book from "../fragments/library-items/book";
+import Book from "../../fragments/library-items/book";
 
 // styles
-import libraryBooksCarrousel from "../styles/layouts/LibraryBooksCarrousel.module.css";
+import libraryBooksCarrousel from "../../styles/layouts/library-home-page/LibraryBooksCarrousel.module.css";
 
 // types
-import { bookProps } from "../fragments/library-items/book";
+import { bookProps } from "../../fragments/library-items/book";
 
 type libraryBookCarrouselProps = {
    books: bookProps[];

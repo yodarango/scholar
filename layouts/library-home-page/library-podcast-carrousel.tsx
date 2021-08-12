@@ -2,13 +2,13 @@
 import React from "react";
 
 // components
-import Podcast from "../fragments/library-items/podcast";
+import Podcast from "../../fragments/library-items/podcast";
 
 // styles
-import libraryContentCarrouselStyles from "../styles/layouts/LibraryContentCarrousel.module.css";
+import libraryContentCarrouselStyles from "../../styles/layouts/library-home-page/LibraryContentCarrousel.module.css";
 
 // types
-import { PodcastsProps } from "../fragments/library-items/podcast";
+import { PodcastsProps } from "../../fragments/library-items/podcast";
 
 type LibraryPodcastCarrouselProps = {
    podcasts: PodcastsProps[];

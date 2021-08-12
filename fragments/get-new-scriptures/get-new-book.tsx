@@ -24,7 +24,7 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
       const requ = await fetch(`https://api.scripture.api.bible/v1/bibles/${versionId}/books`, {
          method: "GET",
          headers: {
-            "api-key": bibleApi
+            "api-key": `${bibleApi}`
          }
       });
 

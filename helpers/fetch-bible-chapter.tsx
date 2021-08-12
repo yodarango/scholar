@@ -26,7 +26,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
          `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}?content-type=json&include-notes=true&include-chapter-numbers=true&include-verse-spans=true`,
          {
             method: "GET",
-            headers: { "api-key": bibleApi }
+            headers: { "api-key": `${bibleApi}` }
          }
       );
 
@@ -62,7 +62,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
          {
             method: "GET",
             headers: {
-               "api-key": bibleApi
+               "api-key": `${bibleApi}`
             }
          }
       );

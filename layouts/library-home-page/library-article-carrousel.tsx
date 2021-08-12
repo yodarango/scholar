@@ -1,15 +1,14 @@
 // core
 import React from "react";
-import Link from "next/link";
 
 // components
-import Article from "../fragments/library-items/article";
+import Article from "../../fragments/library-items/article";
 
 // styles
-import libraryArticlesCarrouselStyles from "../styles/layouts/LibraryArticlesCarrousel.module.css";
+import libraryArticlesCarrouselStyles from "../../styles/layouts/library-home-page/LibraryArticlesCarrousel.module.css";
 
 // types
-import { articleProps } from "../fragments/library-items/article";
+import { articleProps } from "../../fragments/library-items/article";
 
 type LibraryArticleCarrouselProps = {
    articles: articleProps[];

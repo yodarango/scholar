@@ -3,19 +3,20 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 
 // components
-import LibraryMenu from "../../fragments/buttons/library-menu";
-import Header from "../../layouts/header";
-import SermonCarrousel from "../../layouts/sermons-carrousel";
+import LibraryMenu from "../../../fragments/buttons/library-menu";
+import Header from "../../../layouts/header";
+import SermonCarrousel from "../../../layouts/sermons-carrousel";
+import LibraryFilter from "../../../fragments/buttons/library-filter";
 
 // styles
-import librarySermonsPage from "../../styles/pages/LibrarySermons.module.css";
+import librarySermonsPage from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
 
 // types
-import { PodcastsProps } from "../../fragments/library-items/podcast";
-import { blogProps } from "../../fragments/library-items/blog";
-import { sermonProps } from "../../fragments/library-items/sermon";
-import { articleProps } from "../../fragments/library-items/article";
-import { bookProps } from "../../fragments/library-items/book";
+import { PodcastsProps } from "../../../fragments/library-items/podcast";
+import { blogProps } from "../../../fragments/library-items/blog";
+import { sermonProps } from "../../../fragments/library-items/sermon";
+import { articleProps } from "../../../fragments/library-items/article";
+import { bookProps } from "../../../fragments/library-items/book";
 
 const Sermons = () => {
    // ============== FUNCTION 1: Make a call to the library API to get all the content to load
@@ -63,6 +64,7 @@ const Sermons = () => {
             contentButtonIcon={"🗣️"}
             currentSlectedContentPage={{ sermons: "#f2f2f2" }}
          />
+         <LibraryFilter params={`sermons`} />
          {fetchContentState.sermons && <SermonCarrousel sermon={fetchContentState.sermons} />}
       </div>
    );
