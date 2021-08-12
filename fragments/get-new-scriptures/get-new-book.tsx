@@ -1,7 +1,17 @@
-// Thi component calls for a list of all bible books;
+// **************************  PURPOSE ******************************* //
+// *** Thi component calls for a list of all bible books ************* //
 
-import React, { MouseEventHandler, useEffect, useState, useRef } from "react";
+// core
+import React, { MouseEventHandler, useEffect, useState } from "react";
+
+//components
+
+// styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+
+//helpers
+
+// others
 import { bibleApi } from "../../env";
 
 type getNewBookProps = {

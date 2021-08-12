@@ -1,14 +1,26 @@
+// **************************  PURPOSE ******************************* //
+// *** Thi component calls for a list of all bible verses ************ //
+// *** based on the result obtained from the "get-new-chapter ******** //
+// *** component call ************************************************ //
+
 // core
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+
+//components
 
 // styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+
+// helpers
+
+// others
 import { bibleApi } from "../../env";
 
 type getNewVerseProps = {
    closeModal: React.MouseEventHandler;
    goBackModal: React.MouseEventHandler;
-   renderSelectedVerse: any;
+   renderSelectedVerse: React.MouseEventHandler;
    chapterId?: string;
    versionId: string;
 };
@@ -62,16 +74,18 @@ const GetNewVerse = ({
                   {"<"}
                </div>
                {getNewVerse.map((el) => (
-                  <div
-                     key={el.id}
-                     data-verse={`${el.id}`}
-                     data-name={`${el.reference}`}
-                     className={selectNewScriptureStyles.bibleBookRow}
-                     onClick={() => renderSelectedVerse(el)}>
-                     <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
-                        {el.reference}
-                     </p>
-                  </div>
+                  <Link href={`/?verse=${el.id}`}>
+                     <a
+                        key={el.id}
+                        data-verse={`${el.id}`}
+                        data-name={`${el.reference}`}
+                        className={selectNewScriptureStyles.bibleBookRow}
+                        onClick={renderSelectedVerse}>
+                        <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
+                           {el.reference}
+                        </p>
+                     </a>
+                  </Link>
                ))}
             </div>
          </div>

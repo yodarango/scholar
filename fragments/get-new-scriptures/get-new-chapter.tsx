@@ -1,10 +1,20 @@
+// **************************  PURPOSE ******************************* //
+// *** Thi component calls for a list of all bible chapters ********** //
+// *** based on the result obtained from the "get-new-book" ********** //
+// *** component call ************************************************ //
+
 // core
 import React, { useEffect, useState, useRef } from "react";
 
-import { bibleApi } from "../../env";
+// components
 
 // styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+
+//helpers
+
+// others
+import { bibleApi } from "../../env";
 
 type getNewChapterProps = {
    closeModal: React.MouseEventHandler;
