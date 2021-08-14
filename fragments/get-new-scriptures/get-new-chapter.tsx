@@ -14,7 +14,7 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 //helpers
 
 // others
-import { bibleApi } from "../../env";
+//import { bibleApi } from "../../env";
 
 type getNewChapterProps = {
    closeModal: React.MouseEventHandler;
@@ -24,7 +24,7 @@ type getNewChapterProps = {
    versionId: string;
 };
 
-export type InewChapter = {
+export type TnewChapter = {
    id?: string;
    bibleId: string;
    bookId: string;
@@ -38,7 +38,7 @@ const GetNewChapter = ({
    openGetNewVerse,
    versionId
 }: getNewChapterProps) => {
-   const [getNewVerse, setGetNewVerse] = useState<InewChapter[]>([]);
+   const [getNewVerse, setGetNewVerse] = useState<TnewChapter[]>([]);
    const currentWrapper = useRef<HTMLDivElement>(null);
 
    const getNewChapterFunct = async () => {
@@ -47,7 +47,7 @@ const GetNewChapter = ({
          {
             method: "GET",
             headers: {
-               "api-key": `${bibleApi}`
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
             }
          }
       );

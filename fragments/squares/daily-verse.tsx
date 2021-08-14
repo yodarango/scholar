@@ -5,12 +5,8 @@
 // *** the proper additional components ****************************** //
 
 // core
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import Link from "next/link";
-import { GetStaticProps } from "next";
-
-//import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 
 // components
 import GetNewBook from "../get-new-scriptures/get-new-book";
@@ -23,142 +19,68 @@ import homeStyles from "../../styles/pages/Home.module.css";
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
 
 // helpers: types
-import { InewChapter } from "../get-new-scriptures/get-new-chapter";
-import { InewVerse } from "../get-new-scriptures/get-new-verse";
+import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
 
 // helpers: Types
 import { TverseContent } from "../../pages/index";
 
-// other (might pull form the DB using user preferences)
-const versionId: string = "de4e12af7f28f599-01";
-
 type dailyVerseProps = {
    verseContent: TverseContent;
+   versionId: string;
 };
 
-const DailyVerse = ({ verseContent }: dailyVerseProps) => {
-   type TChapter = {
-      newBook?: ReactElement | boolean;
-      newChapter?: ReactElement | boolean;
-      newVerse?: ReactElement | boolean;
-   };
-   const [getNewVerseState, setgetNewVerseState] = useState<TChapter>({
-      newBook: false,
-      newChapter: false,
-      newVerse: false
-   });
+const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
+   const [getNewBookState, setGetNewBookState] = useState<JSX.Element | boolean>(false);
+   const [getNewChapterState, setGetNewChapterState] = useState<JSX.Element | boolean>(false);
+   const [getNewVerseState, setGetNewVerseState] = useState<JSX.Element | boolean>(false);
    // ****************************   FUNCTIONS FOR CLOSING THE PUPUPS  ************************* //
-   // close all modals
+   // close all modals and hide the body overflow so users cant scroll
+   // while the popup is open as it will cause some funiky effects
    const closeGetNewBook = () => {
-      setgetNewVerseState({ newBook: false, newChapter: false, newVerse: false });
+      setGetNewBookState(false);
+      setGetNewChapterState(false);
+      setGetNewVerseState(false);
       document.body.style.overflow = "scroll";
-   };
-
-   // 1. Go back from chapter modal:
-   /// change the z-index on the current modal to mimic a "goback" move
-   const goBackFunc = () => {
-      setgetNewVerseState({
-         newBook: (
-            <GetNewBook
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               openGetNewChapterFunc={openGetNewChapterFunc}
-            />
-         ),
-         newChapter: false
-      });
-   };
-
-   // 2. Go back from verse modal:
-   /// change the z-index on the current modal to mimic a "goback" move
-   const goBackVerseFunc = () => {
-      setgetNewVerseState({
-         newBook: (
-            <GetNewBook
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               openGetNewChapterFunc={openGetNewChapterFunc}
-            />
-         ),
-         newChapter: (
-            <GetNewChapter
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               goBackModal={goBackFunc}
-               openGetNewVerse={openGetNewVerseFunc}
-            />
-         ),
-         newVerse: false
-      });
    };
 
    // *********************** FUNCTIONS TO SELECT A NEW VERSE  **************************** //
    /// 1. open the list of books modal
    const openGetNewBook = () => {
-      setgetNewVerseState({
-         newBook: (
-            <GetNewBook
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               openGetNewChapterFunc={openGetNewChapterFunc}
-            />
-         )
-      });
+      setGetNewBookState(
+         <GetNewBook
+            versionId={versionId}
+            closeModal={closeGetNewBook}
+            openGetNewChapterFunc={openGetNewChapter}
+         />
+      );
       document.body.style.overflow = "hidden";
    };
 
    /// 2. open the list of chapter per book modal
-   const openGetNewChapterFunc = (bookId: string) => {
+   const openGetNewChapter = (bookId: string) => {
       const selectedBookId = bookId;
-      setgetNewVerseState({
-         newBook: (
-            <GetNewBook
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               openGetNewChapterFunc={openGetNewChapterFunc}
-            />
-         ),
-         newChapter: (
-            <GetNewChapter
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               bookId={selectedBookId}
-               goBackModal={goBackFunc}
-               openGetNewVerse={openGetNewVerseFunc}
-            />
-         )
-      });
-      document.body.style.overflow = "hidden";
+      setGetNewChapterState(
+         <GetNewChapter
+            versionId={versionId}
+            closeModal={closeGetNewBook}
+            bookId={selectedBookId}
+            goBackModal={() => setGetNewChapterState(false)}
+            openGetNewVerse={openGetNewVerse}
+         />
+      );
    };
 
    /// 3. Open the list of verses per chapter modal
-   const openGetNewVerseFunc = (chapter: InewChapter) => {
-      setgetNewVerseState({
-         newBook: (
-            <GetNewBook
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               openGetNewChapterFunc={openGetNewChapterFunc}
-            />
-         ),
-         newChapter: (
-            <GetNewChapter
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               goBackModal={goBackFunc}
-               openGetNewVerse={openGetNewVerseFunc}
-            />
-         ),
-         newVerse: (
-            <GetNewVerse
-               versionId={versionId}
-               closeModal={closeGetNewBook}
-               chapterId={chapter.id}
-               goBackModal={goBackVerseFunc}
-               renderSelectedVerse={renderSelectedVerseFunc}
-            />
-         )
-      });
+   const openGetNewVerse = (chapter: TnewChapter) => {
+      setGetNewVerseState(
+         <GetNewVerse
+            versionId={versionId}
+            closeModal={closeGetNewBook}
+            chapterId={chapter.id}
+            goBackModal={() => setGetNewVerseState(false)}
+            renderSelectedVerse={renderSelectedVerseFunc}
+         />
+      );
    };
 
    /// 4. Open the new verse and close the Book and Chapter popups
@@ -168,9 +90,9 @@ const DailyVerse = ({ verseContent }: dailyVerseProps) => {
 
    return (
       <div data-book='books' className={selectNewScriptureStyles.selectScriptureWrapper}>
-         {getNewVerseState.newBook}
-         {getNewVerseState.newChapter}
-         {getNewVerseState.newVerse}
+         {getNewBookState}
+         {getNewChapterState}
+         {getNewVerseState}
          <div className={`std-button ${homeStyles.stdButtonDefaultVerse}`} onClick={openGetNewBook}>
             <div className='std-button_gradient-text'>Select Verse</div>
          </div>
@@ -196,7 +118,5 @@ const DailyVerse = ({ verseContent }: dailyVerseProps) => {
       </div>
    );
 };
-
-//export default dynamic(() => Promise.resolve(DailyVerse), { ssr: false });
 
 export default DailyVerse;
