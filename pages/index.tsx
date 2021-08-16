@@ -11,9 +11,9 @@ import DailyVerse from "../fragments/squares/daily-verse";
 
 // styles
 import homeStyles from "../styles/pages/Home.module.css";
-import { bibleApi } from "../env";
 
-// others
+// other (might pull form the DB using user preferences)
+const versionId: string = "de4e12af7f28f599-01";
 
 export type TverseContent = {
    id: string;
@@ -41,7 +41,7 @@ export default function Home({ verseContent }: homeProps) {
          <Header currPage={"HOME"} />
          <div className={homeStyles.majorGridWrapper}>
             <div className={homeStyles.majorGridWrapperLeft}>
-               <DailyVerse verseContent={verseContent} />
+               <DailyVerse verseContent={verseContent} versionId={versionId} />
             </div>
             <div className={homeStyles.majorGridWrapperRight}>
                <h3
@@ -63,15 +63,13 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       {
          method: "GET",
          headers: {
-            "api-key": `${process.env.BIBLE_API}`
+            "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
          }
       }
    );
-   console.log(query.verse);
    const json = await requ.json();
    const content = json.data;
 
-   console.log(content);
    return {
       props: {
          verseContent: content

@@ -12,7 +12,6 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 //helpers
 
 // others
-import { bibleApi } from "../../env";
 
 type getNewBookProps = {
    closeModal: MouseEventHandler;
@@ -34,7 +33,7 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
       const requ = await fetch(`https://api.scripture.api.bible/v1/bibles/${versionId}/books`, {
          method: "GET",
          headers: {
-            "api-key": `${bibleApi}`
+            "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
          }
       });
 
