@@ -64,7 +64,7 @@ const Sermons = () => {
             contentButtonIcon={"🗣️"}
             currentSlectedContentPage={{ sermons: "#f2f2f2" }}
          />
-         <LibraryFilter params={`sermons`} />
+         <LibraryFilter params={`sermon-notes`} />
          {fetchContentState.sermons && <SermonCarrousel sermon={fetchContentState.sermons} />}
       </div>
    );

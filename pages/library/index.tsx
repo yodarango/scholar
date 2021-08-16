@@ -1,3 +1,10 @@
+// ********************************  PURPOSE  **************** //
+// *** This page will load all the available sermon-notes *** //
+// *** if no parameters are passed to the link, however, **** //
+// *** users can opt to organize the content by Authros ***** //
+// *** going to the /authors page and redirecting back to *** //
+// *** this page with the content type and userid/signatu *** //
+
 // core
 import React, { useEffect, useState } from "react";
 import Head from "next/head";

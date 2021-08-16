@@ -34,8 +34,9 @@ import { dropdownOptions as thai } from "../../helpers/supported-bible-languages
 // ==================   1 FUNCTION: set the desire language    =========================
 type ReadingCollageUnitProps = {
    multiViewClass: string;
+   versionId: string;
 };
-const ReadingCollageUnit = ({ multiViewClass }: ReadingCollageUnitProps) => {
+const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitProps) => {
    //// handles the dropdown popup wrappin glist of bible translations
    type IlangListDropdown = {
       dropdown: JSX.Element | boolean;
@@ -112,7 +113,7 @@ const ReadingCollageUnit = ({ multiViewClass }: ReadingCollageUnitProps) => {
    };
    // this is the state for the version on initial load which can be updated- Eventually I would like  to pass this value from the db for each user
    const [currVersionState, setCurrVersionState] = useState<IOpenVersionState>({
-      id: "de4e12af7f28f599-02",
+      id: versionId,
       initials: "KJV"
    });
 
@@ -169,7 +170,7 @@ const ReadingCollageUnit = ({ multiViewClass }: ReadingCollageUnitProps) => {
       currentChapterId: string | boolean;
    };
    const [currentChapter, setCurrentChapter] = useState<IcurrentChapter>({
-      currChapterLoaded: <Chapter versionId={`de4e12af7f28f599-02`} chapterId='JHN.3' />,
+      currChapterLoaded: <Chapter versionId={`${versionId}`} chapterId='JHN.3' />,
       currentReferenceSelected: "John 3",
       currentChapterId: "JHN.3"
    });
@@ -214,7 +215,6 @@ const ReadingCollageUnit = ({ multiViewClass }: ReadingCollageUnitProps) => {
          currentReferenceSelected: chapData.reference,
          currentChapterId: chapData.chapterId
       });
-      console.log("this is the chapData " + chapData);
       setOpenVersionState(false);
       setOpenBookState(false);
       setOpenChapterState(false);

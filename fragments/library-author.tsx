@@ -17,14 +17,14 @@ export type IuserData = {
 
 type libraryAuthorProps = {
    userData: IuserData;
-   content: string;
+   content: string | undefined | string[];
 };
 
 const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
    return (
       <div className={`${libraryAuthorStyles.mainWrapper}`}>
          <Link href={`/library/${content}?userid=${userData.id}`}>
-            <a>
+            <a className={`${libraryAuthorStyles.avatarWrapper}`}>
                <img
                   src={userData.avatar}
                   alt='user avatar'
@@ -32,9 +32,11 @@ const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
                />
             </a>
          </Link>
-         <h1 className={`std-button_gradient-text`}>{userData.signature}</h1>
+         <h3 className={`std-button_gradient-text ${libraryAuthorStyles.userSignature}`}>
+            {userData.signature}
+         </h3>
          <Link href={`/profile?userid=${userData.id}`}>
-            <a>visit {userData.signature} profile </a>
+            <a className={`${libraryAuthorStyles.userProfile}`}>profile </a>
          </Link>
       </div>
    );
