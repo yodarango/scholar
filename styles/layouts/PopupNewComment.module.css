@@ -1,6 +1,7 @@
 .commentaryVerseWrapper {
    width: 100%;
-   margin: calc(5rem + var(--medium-spacing-mobile)) auto var(--medium-spacing-mobile);
+   max-width: 500px;
+   margin: var(--large-spacing-mobile) auto var(--medium-spacing-mobile);
 }
 
 .commentaryVerseWrapperFooter {

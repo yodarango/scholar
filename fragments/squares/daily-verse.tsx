@@ -12,6 +12,8 @@ import Link from "next/link";
 import GetNewBook from "../get-new-scriptures/get-new-book";
 import GetNewChapter from "../get-new-scriptures/get-new-chapter";
 import GetNewVerse from "../get-new-scriptures/get-new-verse";
+import PopupWrapper from "../../layouts/popup-wrapper";
+import Commentary from "../../layouts/popup-new-comment";
 
 // styles
 import cardStyles from "../../styles/components/Cards.module.css";
@@ -88,34 +90,49 @@ const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
       closeGetNewBook();
    };
 
-   return (
-      <div data-book='books' className={selectNewScriptureStyles.selectScriptureWrapper}>
-         {getNewBookState}
-         {getNewChapterState}
-         {getNewVerseState}
-         <div className={`std-button ${homeStyles.stdButtonDefaultVerse}`} onClick={openGetNewBook}>
-            <div className='std-button_gradient-text'>Select Verse</div>
-         </div>
-         <div className={cardStyles.squaredCardWrapper}>
-            <p className='std-text-block--info'>{verseContent.reference}</p>
-            <p className='std-text-block'>{verseContent.content}</p>
+   // =============== FUNCTION 2: Opben the comment component on opup =============== //
+   const [openCommentModalState, setOpenCommentModalState] = useState<JSX.Element | boolean>(false);
+   const handleOpenCommentPopup = () => {
+      setOpenCommentModalState(
+         <PopupWrapper
+            closeModal={() => setOpenCommentModalState(false)}
+            content={<Commentary verseData={verseContent} />}
+         />
+      );
+   };
 
-            <div className={`${cardStyles.squaredCardWrapperFooter}`}>
-               <Link href={`/?verse=${verseContent.next.id}`}>
-                  <a
-                     className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseBackward}`}></a>
-               </Link>
-               <Link
-                  href={{ pathname: "new-post/commentary", query: { verse: verseContent.orgId } }}>
-                  <a className={`std-vector-icon ${cardStyles.dailyVerseIcon}`}></a>
-               </Link>
-               <Link href={`/?verse=${verseContent.previous.id}`}>
-                  <a
-                     className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseForward}`}></a>
-               </Link>
+   return (
+      <>
+         {openCommentModalState}
+         <div data-book='books' className={selectNewScriptureStyles.selectScriptureWrapper}>
+            {getNewBookState}
+            {getNewChapterState}
+            {getNewVerseState}
+            <div
+               className={`std-button ${homeStyles.stdButtonDefaultVerse}`}
+               onClick={openGetNewBook}>
+               <div className='std-button_gradient-text'>Select Verse</div>
+            </div>
+            <div className={cardStyles.squaredCardWrapper}>
+               <p className='std-text-block--info'>{verseContent.reference}</p>
+               <p className='std-text-block'>{verseContent.content}</p>
+
+               <div className={`${cardStyles.squaredCardWrapperFooter}`}>
+                  <Link href={`/?verse=${verseContent.next.id}`}>
+                     <a
+                        className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseBackward}`}></a>
+                  </Link>
+                  <div
+                     className={`std-vector-icon ${cardStyles.dailyVerseIcon}`}
+                     onClick={handleOpenCommentPopup}></div>
+                  <Link href={`/?verse=${verseContent.previous.id}`}>
+                     <a
+                        className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseForward}`}></a>
+                  </Link>
+               </div>
             </div>
          </div>
-      </div>
+      </>
    );
 };
 
