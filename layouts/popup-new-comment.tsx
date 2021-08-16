@@ -1,3 +1,9 @@
+// **************************  PURPOSE ******************************* //
+// *** This component loads a specific bible verse which ************* //
+// *** is passed through the props and attaches it to the "popup" **** //
+// *** component. This component does not therefore make any calls *** //
+// *** to the bible API ********************************************** //
+
 // core
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
@@ -41,7 +47,7 @@ const Commentary = ({ verseData }: commentaryProps) => {
       setreferencedVerseIdState(nodeletedValues);
    };
    return (
-      <div className={`${popNewCommentStyles.commentaryVerseWrapper}`}>
+      <div className={`${popNewCommentStyles.mainWrapper}`}>
          <div>
             <div className={popNewCommentStyles.commentaryVerseWrapper}>
                <p className='std-text-block--info'>{verseData.reference}</p>

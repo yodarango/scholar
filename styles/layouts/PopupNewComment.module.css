@@ -1,4 +1,4 @@
-.commentaryVerseWrapper {
+.mainWrapper {
    width: 100%;
    max-width: 500px;
    margin: var(--large-spacing-mobile) auto var(--medium-spacing-mobile);
@@ -16,7 +16,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      max-width: 1200px;
+      max-width: 1000px;
+      margin: auto;
    }
 
    .mainWrapper > div:nth-child(2),
