@@ -1,6 +1,6 @@
 // core
 import React, { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
+//import dynamic from "next/dynamic";
 import Link from "next/link";
 
 // components
@@ -10,7 +10,6 @@ import NotificationPopup from "../fragments/notification-popup";
 import scripturesHTMLStyles from "../styles/fragments/popup-content/ScripturesHTML.module.css";
 
 // helpers
-import { bibleApi } from "../env";
 
 type chapterProps = {
    chapterId: string | boolean | undefined;
@@ -26,16 +25,15 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
          `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}?content-type=json&include-notes=true&include-chapter-numbers=true&include-verse-spans=true`,
          {
             method: "GET",
-            headers: { "api-key": `${bibleApi}` }
+            headers: { "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}` }
          }
       );
-
+      console.log(versionId);
       const chapterJson = await req.json();
       const chapterData = chapterJson.data;
       const content = chapterData.content;
       setContentState(content);
       setCopyrightState(chapterData.copyright);
-      console.log(content);
    };
 
    useEffect(() => {
@@ -45,7 +43,6 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
    // ==============FUNCTION:  Get a referenced scripture =================
    const [openRefState, setOpenRefState] = useState<JSX.Element | boolean>(false);
    const openNote = (e: any) => {
-      console.log(e.target.textContent);
       setOpenRefState(
          <NotificationPopup
             title='Note'
@@ -62,7 +59,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
          {
             method: "GET",
             headers: {
-               "api-key": `${bibleApi}`
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
             }
          }
       );
@@ -221,5 +218,5 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
    );
 };
 
-export default dynamic(() => Promise.resolve(Chapter), { ssr: false });
-//export default Chapter;
+//export default dynamic(() => Promise.resolve(Chapter), { ssr: false });
+export default Chapter;

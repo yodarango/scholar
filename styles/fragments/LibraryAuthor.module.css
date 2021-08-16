@@ -1,0 +1,39 @@
+.mainWrapper {
+   width: 7rem;
+   flex-grow: 0;
+   flex-shrink: 0;
+   margin: var(--xsmall-spacing-mobile);
+}
+
+.avatarWrapper {
+   width: 7rem;
+   height: 8rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+}
+
+.avatar {
+   width: 90%;
+   height: 90%;
+   object-fit: cover;
+   object-position: center;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.userSignature {
+   font-size: 1rem;
+   text-align: center;
+   width: 80%;
+   margin: auto;
+   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+}
+
+.userProfile {
+   font-size: 0.8rem;
+   width: 100%;
+   display: block;
+   text-align: center;
+}

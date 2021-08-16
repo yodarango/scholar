@@ -1,5 +1,5 @@
 // core
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 const Cookie = require("js-cookie");
 
 //Components
@@ -8,9 +8,15 @@ import MultiViewSettings from "../fragments/popup-content/multi-view-settings";
 
 // Styles
 import readingCollageStyles from "../styles/layouts/ReadingCollage.module.css";
-//import ReadingCollageUnitStyles from "../styles/fragments/squares/readingCollageUnit.module.css";
 
-const ReadingCollage = () => {
+//helpers
+
+// others
+
+type readingCollageProps = {
+   versionId: string;
+};
+const ReadingCollage = ({ versionId }: readingCollageProps) => {
    // =====================   FUNCTION 1 : open the settings popup for Multiview  =================///
    const [viewSettingsPopUpState, setViewSettingsPopUpState] = useState<JSX.Element | boolean>(
       false
@@ -36,7 +42,7 @@ const ReadingCollage = () => {
       Cookie.set("mvThree", readingCollageStyles.hiddenScreenThree, { path: "/read" });
       Cookie.set("mvFour", readingCollageStyles.hiddenScreenFour, { path: "/read" });
    }
-   type ImultiViewerOpenClassState = {
+   type TmultiViewerOpenClassState = {
       screenOne: string;
       screenTwo: string;
       screenThree: string;
@@ -44,7 +50,7 @@ const ReadingCollage = () => {
    };
 
    const [multiViewerOpenClassState, setmultiViewerOpenClassState] =
-      useState<ImultiViewerOpenClassState>({
+      useState<TmultiViewerOpenClassState>({
          screenOne: Cookie.get("mvOne"),
          screenTwo: Cookie.get("mvTwo"),
          screenThree: Cookie.get("mvThree"),
@@ -94,10 +100,22 @@ const ReadingCollage = () => {
                   onClick={closeMultiViewPopup}></div>
             )}
             {/* {multiViewerOpenState} */}
-            <ReadingCollageUnit multiViewClass={`${multiViewerOpenClassState.screenOne}`} />
-            <ReadingCollageUnit multiViewClass={`${multiViewerOpenClassState.screenTwo}`} />
-            <ReadingCollageUnit multiViewClass={`${multiViewerOpenClassState.screenThree}`} />
-            <ReadingCollageUnit multiViewClass={`${multiViewerOpenClassState.screenFour}`} />
+            <ReadingCollageUnit
+               versionId={versionId}
+               multiViewClass={`${multiViewerOpenClassState.screenOne}`}
+            />
+            <ReadingCollageUnit
+               versionId={versionId}
+               multiViewClass={`${multiViewerOpenClassState.screenTwo}`}
+            />
+            <ReadingCollageUnit
+               versionId={versionId}
+               multiViewClass={`${multiViewerOpenClassState.screenThree}`}
+            />
+            <ReadingCollageUnit
+               versionId={versionId}
+               multiViewClass={`${multiViewerOpenClassState.screenFour}`}
+            />
          </div>
       </>
    );
