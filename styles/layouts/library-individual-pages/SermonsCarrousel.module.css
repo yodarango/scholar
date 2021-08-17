@@ -32,3 +32,10 @@
       flex-grow: 0;
    }
 }
+
+@media only screen and (min-width: 1200px) {
+   .mainWrapper {
+      max-width: 1100px;
+      margin: var(--medium-spacing-desktop) auto;
+   }
+}

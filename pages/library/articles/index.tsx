@@ -1,47 +1,48 @@
 // ************************** PURPOSE **************************** //
-// *** This page component will fetch all the sermon-notes ******* //
+// *** This page component will fetch all the articles found ***** //
 // *** in the library if no param is pased in the query. ********* //
 // *** however, users can filter the results by author by ******** //
 // *** going to the /library/authors page, and returnng to ******* //
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
-import SermonCarrousel from "../../../layouts/library-individual-pages/sermons-carrousel";
 import LibraryFilter from "../../../fragments/buttons/library-filter";
+import ArticlesCarrousel from "../../../layouts/library-individual-pages/articles-carrousel";
 
 // styles
-import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
+import libraryArticlesPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
 
 // types
-import { sermonProps } from "../../../fragments/library-items/sermon";
+import { articleProps } from "../../../fragments/library-items/article";
 
-type sermonsPageProps = {
-   sermons: sermonProps[];
+type articlePageProps = {
+   articles: articleProps[];
 };
-const Sermons = ({ sermons }: sermonsPageProps) => {
+
+const Articles = ({ articles }: articlePageProps) => {
    return (
-      <div className={`${librarySermonsPageStyles.mainWrapper}`}>
+      <div className={`${libraryArticlesPageStyles.mainWrapper}`}>
          <Head>
             <meta name='keyword' content='tags' />
          </Head>
-         <Header currPage={"SERMONS"} />
-         <div className='x-large-spacer '></div>
+         <Header currPage={"ARTICLES"} />
+         <div className='x-large-spacer'></div>
          <LibraryMenu
             includeCategory={true}
             includeContent={true}
             includeSearch={true}
-            contentButtonIcon={"🗣️"}
-            currentSlectedContentPage={{ sermons: "#f2f2f2" }}
+            contentButtonIcon={"📃"}
+            currentSlectedContentPage={{ articles: "#f2f2f2" }}
          />
-         <LibraryFilter params={`sermon-notes`} />
-         {sermons && <SermonCarrousel sermon={sermons} />}
+         <LibraryFilter params={`articles`} />
+         {articles && <ArticlesCarrousel articles={articles} />}
       </div>
    );
 };
@@ -53,9 +54,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
    return {
       props: {
-         sermons: parsedData.sermons,
+         articles: parsedData.articles,
          revalidate: 60 * 50 * 24 //everyday
       }
    };
 };
-export default Sermons;
+
+export default Articles;
