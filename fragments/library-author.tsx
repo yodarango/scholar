@@ -23,21 +23,36 @@ type libraryAuthorProps = {
 const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
    return (
       <div className={`${libraryAuthorStyles.mainWrapper}`}>
-         <Link href={`/library/${content}?userid=${userData.id}`}>
-            <a className={`${libraryAuthorStyles.avatarWrapper}`}>
-               <img
-                  src={userData.avatar}
-                  alt='user avatar'
-                  className={`${libraryAuthorStyles.avatar}`}
-               />
-            </a>
-         </Link>
+         {content && (
+            <Link href={`/library/${content}?userid=${userData.id}`}>
+               <a className={`${libraryAuthorStyles.avatarWrapper}`}>
+                  <img
+                     src={userData.avatar}
+                     alt='user avatar'
+                     className={`${libraryAuthorStyles.avatar}`}
+                  />
+               </a>
+            </Link>
+         )}
+         {!content && (
+            <Link href={`/profile?userid=${userData.id}`}>
+               <a className={`${libraryAuthorStyles.avatarWrapper}`}>
+                  <img
+                     src={userData.avatar}
+                     alt='user avatar'
+                     className={`${libraryAuthorStyles.avatar}`}
+                  />
+               </a>
+            </Link>
+         )}
          <h3 className={`std-button_gradient-text ${libraryAuthorStyles.userSignature}`}>
             {userData.signature}
          </h3>
-         <Link href={`/profile?userid=${userData.id}`}>
-            <a className={`${libraryAuthorStyles.userProfile}`}>profile </a>
-         </Link>
+         {content && (
+            <Link href={`/profile?userid=${userData.id}`}>
+               <a className={`${libraryAuthorStyles.userProfile}`}>profile </a>
+            </Link>
+         )}
       </div>
    );
 };
