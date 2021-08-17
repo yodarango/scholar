@@ -155,4 +155,30 @@
    .currentPageBooks {
       color: var(--font-color);
    }
+
+   /* content category dropdown */
+   .categoryButtonDesktop {
+      width: 7rem;
+      margin: var(--small-spacing-mobile) auto 0.3rem 0;
+      height: 2.5rem;
+      background-color: var(--secondary-color);
+      grid-area: DropD;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--button-radius-mobile);
+      box-shadow: inset 1.5px 1.5px 3px 3px rgba(0, 0, 0, 0.3),
+         inset -1.5px -1.5px 3px 2px rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+   }
+
+   .categoryDropDWrapperDesktop {
+      width: 7rem;
+      position: absolute;
+      top: 15rem;
+      height: 12rem;
+      overflow-y: scroll;
+      border-radius: var(--button-radius-desktop);
+      z-index: 5;
+   }
 }

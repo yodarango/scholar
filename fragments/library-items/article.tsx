@@ -8,16 +8,17 @@ import StarReviews from "../star-reviews";
 
 export type articleProps = {
    id: string;
-   userId: string;
-   userSignature: string;
+   userId?: string;
+   userSignature?: string;
    tags: string[];
    colors: string;
    title: string;
    author: string;
    reviews: string[];
    stars: number[];
-   description: string;
+   description?: string;
    file: string;
+   newClass?: string;
 };
 
 const Article = ({
@@ -31,10 +32,11 @@ const Article = ({
    reviews,
    stars,
    description,
-   file
+   file,
+   newClass
 }: articleProps) => {
    return (
-      <div className={articleStyles.mainWrapper}>
+      <div className={`${articleStyles.mainWrapper} ${newClass}`}>
          <Link href={file}>
             <a>
                <div className={articleStyles.paperSheet}>

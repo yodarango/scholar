@@ -1,7 +1,13 @@
+// ************************** PURPOSE **************************** //
+// *** This page component will load all the authorixed ********** //
+// *** users that are allowed to submit content to the  ********** //
+// *** library. The users are selected by the Product owner ****** //
+
 // core
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { GetStaticProps } from "next";
 
 // components
 import Header from "../../layouts/header";
@@ -39,7 +45,7 @@ const SermonsByAuthor = ({ users }: sermonsByAuthorProps) => {
 export default SermonsByAuthor;
 
 // fetch data
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
    const req = await fetch("https://scholar-be.herokuapp.com/users");
    const users = await req.json();
 
