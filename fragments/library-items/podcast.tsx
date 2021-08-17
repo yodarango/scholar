@@ -6,7 +6,7 @@ import podcastStyles from "../../styles/fragments/library-items/Podcast.module.c
 // components
 import StarReviews from "../star-reviews";
 
-export type PodcastsProps = {
+export type podcastsProps = {
    id: string;
    thumbnail: string;
    podcastName: string;
@@ -18,6 +18,7 @@ export type PodcastsProps = {
    spotifyLink: string;
    googleLink: string;
    overcastLink: string;
+   newClass: string;
 };
 
 const Podcasts = ({
@@ -31,8 +32,9 @@ const Podcasts = ({
    appleLink,
    spotifyLink,
    googleLink,
-   overcastLink
-}: PodcastsProps) => {
+   overcastLink,
+   newClass
+}: podcastsProps) => {
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
    const [openPodcastDescState, setOpenPodcastDescState] = useState<JSX.Element | boolean>(false);
 
@@ -86,7 +88,7 @@ const Podcasts = ({
    return (
       <>
          {openPodcastDescState}
-         <div className={`${podcastStyles.mainWrapper}`}>
+         <div className={`${podcastStyles.mainWrapper} ${newClass}`}>
             <div className={podcastStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <img src={thumbnail} alt='podcast thumbnail' className={podcastStyles.thumbnail} />
             </div>
