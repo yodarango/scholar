@@ -126,34 +126,38 @@ const libraryMenu = ({
                   </a>
                </Link>
             </div>
-            {!openCatDropdownState && (
-               <div
-                  style={{ backgroundColor: currentCategorySelectedState.color }}
-                  className={`${libraryMenuStyles.categoryButtonDesktop}`}
-                  onClick={handleOpenCategoryDropDown}>
-                  {currentCategorySelectedState.tag}
-               </div>
-            )}
-            {openCatDropdownState && (
-               <div
-                  style={{ backgroundColor: currentCategorySelectedState.color }}
-                  className={`${libraryMenuStyles.categoryButtonDesktop}`}
-                  onClick={handleCloseCategoryDropDown}>
-                  {currentCategorySelectedState.tag}
-               </div>
-            )}
-            {openCatDropdownState && (
-               <section className={`${libraryMenuStyles.categoryDropDWrapperDesktop}`}>
-                  {valuesCat.map((value: IvaluesCat) => (
-                     <span
-                        key={value.key}
-                        className={`${libraryMenuStyles.contentSingleItem}`}
-                        style={{ backgroundColor: value.color }}
-                        onClick={() => handleCategoryChoice(value.color, value.tag)}>
-                        {value.tag}
-                     </span>
-                  ))}
-               </section>
+            {includeCategory && (
+               <>
+                  {!openCatDropdownState && (
+                     <div
+                        style={{ backgroundColor: currentCategorySelectedState.color }}
+                        className={`${libraryMenuStyles.categoryButtonDesktop}`}
+                        onClick={handleOpenCategoryDropDown}>
+                        {currentCategorySelectedState.tag}
+                     </div>
+                  )}
+                  {openCatDropdownState && (
+                     <div
+                        style={{ backgroundColor: currentCategorySelectedState.color }}
+                        className={`${libraryMenuStyles.categoryButtonDesktop}`}
+                        onClick={handleCloseCategoryDropDown}>
+                        {currentCategorySelectedState.tag}
+                     </div>
+                  )}
+                  {openCatDropdownState && (
+                     <section className={`${libraryMenuStyles.categoryDropDWrapperDesktop}`}>
+                        {valuesCat.map((value: IvaluesCat) => (
+                           <span
+                              key={value.key}
+                              className={`${libraryMenuStyles.contentSingleItem}`}
+                              style={{ backgroundColor: value.color }}
+                              onClick={() => handleCategoryChoice(value.color, value.tag)}>
+                              {value.tag}
+                           </span>
+                        ))}
+                     </section>
+                  )}
+               </>
             )}
          </div>
 
