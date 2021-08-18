@@ -16,7 +16,7 @@ type currentPageNewClass = {
    sermons?: string;
    articles?: string;
    podcasts?: string;
-   youtubeChannel?: string;
+   watch?: string;
    blogs?: string;
    books?: string;
    congregations?: string;
@@ -97,11 +97,11 @@ const libraryMenu = ({
                      🎧 Podcasts
                   </a>
                </Link>
-               <Link href={"/library/youtube"}>
+               <Link href={"/library/watch"}>
                   <a
-                     style={{ color: currentSlectedContentPage.youtubeChannel }}
+                     style={{ color: currentSlectedContentPage.watch }}
                      className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
-                     📺 Youtube Channels
+                     📺 Watch
                   </a>
                </Link>
                <Link href={"/library/blogs"}>
@@ -193,7 +193,7 @@ const libraryMenu = ({
                         <Link href={"/library/podcast"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>🎧</a>
                         </Link>
-                        <Link href={"/library/youtube"}>
+                        <Link href={"/library/watch"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>📺</a>
                         </Link>
                         <Link href={"/library/blogs"}>

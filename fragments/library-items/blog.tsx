@@ -16,9 +16,20 @@ export type blogProps = {
    stars: number[];
    description: string;
    url: string;
+   newClass?: string;
 };
 
-const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description, id }: blogProps) => {
+const Blog = ({
+   thumbnail,
+   blogName,
+   author,
+   reviews,
+   stars,
+   url,
+   description,
+   id,
+   newClass
+}: blogProps) => {
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
    const [openBlogDescState, setOpenBlogDescState] = useState<JSX.Element | boolean>(false);
 
@@ -52,7 +63,7 @@ const Blog = ({ thumbnail, blogName, author, reviews, stars, url, description, i
    return (
       <>
          {openBlogDescState}
-         <div className={`${blogStyles.mainWrapper}`}>
+         <div className={`${blogStyles.mainWrapper} ${newClass}`}>
             <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <img src={thumbnail} alt='podcast thumbnail' className={blogStyles.thumbnail} />
             </div>
