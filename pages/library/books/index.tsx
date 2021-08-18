@@ -1,8 +1,8 @@
 // ************************** PURPOSE **************************** //
-// *** This page component will fetch all the podcasts found ***** //
+// *** This page component will fetch all the books found ******** //
 // *** in the library if no param is pased in the query. ********* //
 // *** however, users can filter the results by author by ******** //
-// *** going to the /library/podcast page, and returnng to ******* //
+// *** going to the /library/books page, and returnng to ********* //
 // *** same page with the userId and content type in the query *** //
 
 // core
@@ -13,35 +13,34 @@ import { GetStaticProps } from "next";
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
-import LibraryFilter from "../../../fragments/buttons/library-filter";
-import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-carrousel";
+import BooksCarrousel from "../../../layouts/library-individual-pages/books-carrousel";
 
 // styles
-import libraryPodcastStyles from "../../../styles/pages/library/podcasts/LibraryPodcasts.module.css";
+import libraryBooksStyles from "../../../styles/pages/library/books/LibraryBooks.module.css";
 
 // types
-import { podcastsProps } from "../../../fragments/library-items/podcast";
+import { bookProps } from "../../../fragments/library-items/book";
 
-type podcastPageProps = {
-   podcast: podcastsProps[];
+type booksPageProps = {
+   books: bookProps[];
 };
 
-const Podcast = ({ podcast }: podcastPageProps) => {
+const Blogs = ({ books }: booksPageProps) => {
    return (
-      <div className={`${libraryPodcastStyles.mainWrapper}`}>
+      <div className={`${libraryBooksStyles.mainWrapper}`}>
          <Head>
             <meta name='keyword' content='tags' />
          </Head>
-         <Header currPage={"PODCASTS"} />
+         <Header currPage={"BOOKS"} />
          <div className='x-large-spacer'></div>
          <LibraryMenu
             includeCategory={true}
             includeContent={true}
             includeSearch={true}
-            contentButtonIcon={"🎧"}
-            currentSlectedContentPage={{ podcasts: "#f2f2f2" }}
+            contentButtonIcon={"📚"}
+            currentSlectedContentPage={{ books: "#f2f2f2" }}
          />
-         {podcast && <PodcastCarrousel podcast={podcast} />}
+         {books && <BooksCarrousel books={books} />}
       </div>
    );
 };
@@ -53,10 +52,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
    return {
       props: {
-         podcast: parsedData.podcast,
+         books: parsedData.books,
          revalidate: 60 * 50 * 24 //everyday
       }
    };
 };
 
-export default Podcast;
+export default Blogs;

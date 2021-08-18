@@ -20,11 +20,26 @@ export type bookProps = {
    stars: number[];
    description: string;
    url: string;
+   newClass?: string;
 };
-const Book = ({ id, title, author, tags, colors, reviews, stars, description, url }: bookProps) => {
+const Book = ({
+   id,
+   title,
+   author,
+   tags,
+   colors,
+   reviews,
+   stars,
+   description,
+   url,
+   newClass
+}: bookProps) => {
    // calling unsplash api will be great in the future, i have the dev keys.
    return (
-      <div className={`${bookStyles.mainWrapper}`} key={id} style={{ backgroundColor: colors[0] }}>
+      <div
+         className={`${bookStyles.mainWrapper} ${newClass}`}
+         key={id}
+         style={{ backgroundColor: colors[0] }}>
          <a>
             <div className={bookStyles.bookImgInfoWrapper}>
                <Link href={url}>
