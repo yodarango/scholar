@@ -74,7 +74,7 @@ const Dropdown = ({
          </div>
          <div className={`${ctaStyles.hiddenDropdown}`} ref={hiddenDropdownType}>
             {valuesType?.map((el) => (
-               <div data-value={el.key}>
+               <div data-value={el.key} key={el.key}>
                   {el.title} <span className={`std-vector-icon ${ctaStyles.iconInfo}`}></span>
                </div>
             ))}

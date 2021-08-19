@@ -13,7 +13,6 @@ import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
 import { valuesType, valuesCat } from "../helpers/dropdown-values";
-import { referencedScriptures } from "../helpers/referenced-scriptures";
 import { bibleApi } from "../env";
 
 // Component Props
@@ -48,18 +47,6 @@ const TextEditor = ({
       if (textArea && textArea.current) {
          let currSscrollHeight = textArea.current.scrollHeight;
          textArea.current.style.height = `${currSscrollHeight}px`;
-      }
-   };
-
-   /*==================  FUNCTION: Check for bible Verses in textarea  ===========*/
-   const markDown = () => {
-      const target = textArea.current;
-      if (target) {
-         setTextAreaValue(`${target.value}`);
-
-         const currValue = target.value;
-         const x = referencedScriptures.filter((el) => currValue.includes(el.name));
-         console.log(x);
       }
    };
 
@@ -144,16 +131,6 @@ const TextEditor = ({
       setCategoryInfoState(false);
    };
 
-   /*==================  FUNCTION: Open Editor Instructions  ===========*/
-   // const [editorInstructionsState, setEditorInstructionsState] = useState<JSX.Element | boolean>(
-   //    false
-   // );
-   // const openEditorInstructions = () => {
-   //    setEditorInstructionsState(
-   //       <PopupWrapper closeModal={closeModals} content={<EditorInstructions />} />
-   //    );
-   // };
-
    /*==================  FUNCTION: open category popup info  ===========*/
    const [categoryInfoState, setCategoryInfoState] = useState<JSX.Element | boolean>(false);
    const openCategoryInfo = (subjects: [], key: string) => {
@@ -222,18 +199,13 @@ const TextEditor = ({
    /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
-         {/*===  states  ======*/}
          {hiddenTextAreaState.preview}
-         {/* {editorInstructionsState} */}
          {categoryInfoState}
          {openReferencePopUpState}
+
          {/*===  title  ======*/}
          <div className={textEditorStyles.titleWrapper}>
             <h2 className={`std-text-block--small-title ${textEditorStyles.title}`}>{title}</h2>
-            {/* This opens a table that used to replace the individual text formating buttons in the editor */}
-            {/*<span
-               className={`std-vector-icon ${textEditorStyles.iconInfo}`}
-            onClick={openEditorInstructions}></span>*/}
          </div>
          {/*===  Dropdown  ======*/}
          <div>
@@ -254,7 +226,6 @@ const TextEditor = ({
                   ref={textArea}
                   onChange={() => {
                      growTextArea();
-                     markDown();
                   }}></textarea>
 
                {/*===  Tags Wrapper  ======*/}

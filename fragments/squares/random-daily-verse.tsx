@@ -1,100 +1,69 @@
 // core
-import React, { useState, useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
+import React, { useState } from "react";
 
 // components
 import Chapter from "../../layouts/fetch-bible-chapter";
+import PopupWrapper from "../../layouts/popup-wrapper";
+import Commentary from "../../layouts/popup-new-comment";
 
 // styles
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";
-import scripturesHTMLStyles from "../../styles/fragments/popup-content/ScripturesHTML.module.css";
+import fetchNewChapterStyles from "../../styles/layouts/FetchNewChapter.module.css";
 
 // helpers
-import { getNewVerseId } from "../../helpers/random-daily-verses";
-import { bibleApi } from "../../env";
+import { TverseContent } from "../../pages/index";
 
 type randomDailyVerseProps = {
+   verseContent: TverseContent;
    versionId: string;
 };
-const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
-   // ========== Fetch random verse every 24hrs the
-   type IverseId = {
-      bibleId?: string;
-      bookId?: string;
-      chapterId?: string;
-      content?: string;
-      copyright?: string;
-      id?: string;
-      next?: { id: string; number: string };
-      orgId?: string;
-      previous?: { id: string; number: string };
-      reference?: string;
-      verseCount?: number;
-   };
-
-   const [verseIdState, setVerseIdState] = useState<IverseId>({ id: getNewVerseId() });
-   const dailyVerse = async () => {
-      try {
-         const requ = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseIdState.id}?content-type=text&include-verse-numbers=false`,
-            {
-               method: "GET",
-               headers: {
-                  "api-key": `${bibleApi}`
-               }
-            }
-         );
-
-         const json = await requ.json();
-         setVerseIdState(json.data);
-         return json.data;
-      } catch (error) {
-         console.log(error);
-      }
-   };
-
-   useEffect(() => {
-      dailyVerse();
-   }, []);
-
-   // ===============   FUNCTION: read the entire chapter based on the daily verse
+const RandomDailyVerse = ({ verseContent, versionId }: randomDailyVerseProps) => {
+   // ===============   FUNCTION 1: read the entire chapter based on the daily verse
    const [readFullChapterSrtate, setReadFullChapterSrtate] = useState<JSX.Element | boolean>(false);
-
    const readDailyVerse = () => {
-      console.log(verseIdState.chapterId);
       setReadFullChapterSrtate(
          <>
             <div className='dark-bkg'>
                <div
-                  className={`closeModal ${scripturesHTMLStyles.closeModal}`}
+                  className={`closeModal ${fetchNewChapterStyles.closeModal}`}
                   onClick={() => setReadFullChapterSrtate(false)}>
                   X
                </div>
                <div className='medium-spacer'></div>
                <div className={`dark-bkg_content-holder`}>
-                  {<Chapter versionId={versionId} chapterId={verseIdState.chapterId} />}
+                  {<Chapter versionId={versionId} chapterId={verseContent.chapterId} />}
                </div>
             </div>
          </>
       );
    };
 
+   // =============== FUNCTION 2: Opben the comment component on opup =============== //
+   const [openCommentModalState, setOpenCommentModalState] = useState<JSX.Element | boolean>(false);
+   const handleOpenCommentPopup = () => {
+      setOpenCommentModalState(
+         <PopupWrapper
+            closeModal={() => setOpenCommentModalState(false)}
+            content={<Commentary verseData={verseContent} />}
+         />
+      );
+   };
+
    return (
       <>
          {readFullChapterSrtate}
+         {openCommentModalState}
          <div className={randomDailyVerseStyles.squaredCardWrapper}>
-            <p className='std-text-block--info'>{verseIdState.reference}</p>
+            <p className='std-text-block--info'>{verseContent.reference}</p>
             <p className={`std-text-block ${randomDailyVerseStyles.dailyVerse}`}>
-               {verseIdState.content}
+               {verseContent.content}
             </p>
 
             <div className={`${randomDailyVerseStyles.squaredCardWrapperFooter}`}>
                <div className={randomDailyVerseStyles.footerWrapRight}>
-                  <Link
-                     href={{ pathname: "new-post/commentary", query: { verse: verseIdState.id } }}>
-                     <a className={`std-vector-icon ${randomDailyVerseStyles.commentIcon}`}></a>
-                  </Link>
+                  <div
+                     className={`std-vector-icon ${randomDailyVerseStyles.commentIcon}`}
+                     onClick={handleOpenCommentPopup}></div>
                </div>
                <div className={randomDailyVerseStyles.footerWrapLeft}>
                   <div
@@ -107,5 +76,4 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
    );
 };
 
-export default dynamic(() => Promise.resolve(RandomDailyVerse), { ssr: false });
-//export default RandomDailyVerse;
+export default RandomDailyVerse;

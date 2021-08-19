@@ -384,6 +384,7 @@ a:active {
    height: 100vh;
    background-color: var(--primary-color);
    z-index: 10;
+   overflow-y: scroll;
 }
 
 .closeModal,

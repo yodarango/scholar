@@ -14,7 +14,7 @@
 }
 
 .reference {
-   color: var(--fourth-color);
+   color: var(--graient-one);
    size: 8rem;
    display: inline-block;
    text-decoration: underline;
