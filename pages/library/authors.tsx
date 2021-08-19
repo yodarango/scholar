@@ -22,7 +22,7 @@ import { IuserData } from "../../fragments/library-author";
 type sermonsByAuthorProps = {
    users: IuserData[];
 };
-const SermonsByAuthor = ({ users }: sermonsByAuthorProps) => {
+const Authors = ({ users }: sermonsByAuthorProps) => {
    const router = useRouter();
    const { content } = router.query;
 
@@ -42,8 +42,6 @@ const SermonsByAuthor = ({ users }: sermonsByAuthorProps) => {
    );
 };
 
-export default SermonsByAuthor;
-
 // fetch data
 export const getStaticProps: GetStaticProps = async () => {
    const req = await fetch("https://scholar-be.herokuapp.com/users");
@@ -54,3 +52,5 @@ export const getStaticProps: GetStaticProps = async () => {
       revalidate: 60 * 60 * 24 // refresh data every day
    };
 };
+
+export default Authors;

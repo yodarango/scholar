@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 
 // components
-import Chapter from "../../helpers/fetch-bible-chapter";
+import Chapter from "../../layouts/fetch-bible-chapter";
 
 // styles
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";

@@ -84,7 +84,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
    return (
       <>
          {openRefState}
-         <div key={`${Math.random()}`} className={scripturesHTMLStyles.mainWrapper}>
+         <div className={scripturesHTMLStyles.mainWrapper}>
             {/* CHAPTER NUM AND TITLES: distinguish the type of contents in the first array of objects in the "content" property where c = chapter, s1 = subtitle, and m= message*/}
             {contentState.map((content: any) =>
                content.attrs &&
@@ -96,6 +96,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                         {/* not all objects will have a title, render a tag for it onlyif it exists */}
                         {chapter.text && (
                            <span
+                              key={chapter.text}
                               /*id={chapter.attrs.style}*/ className={scripturesHTMLStyles.title}>
                               {chapter.text}
                            </span>
@@ -108,21 +109,23 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                       ? /* NOTES: check the third array of objects inside the "items" property of the first array */
                                         // check if the text is a verse number
                                         verse.items.map((verseNum: any) => (
-                                           <span>
+                                           <span key={verse.attrs.sid}>
                                               <div
                                                  className={scripturesHTMLStyles.verseSpacer}></div>
-                                              <Link
-                                                 href={`/?verse=${verse.attrs.sid.replace(
-                                                    /[\s:]/g,
-                                                    "."
-                                                 )}`}>
-                                                 <a
-                                                    key={verseNum.text}
-                                                    className={scripturesHTMLStyles.verseNumber}
-                                                    id={verse.attrs.style}>
-                                                    {verseNum.text}
-                                                 </a>
-                                              </Link>
+                                              {verse.attrs.sid && (
+                                                 <Link
+                                                    href={`/?verse=${verse.attrs.sid.replace(
+                                                       /[\s:]/g,
+                                                       "."
+                                                    )}`}>
+                                                    <a
+                                                       key={verseNum.text}
+                                                       className={scripturesHTMLStyles.verseNumber}
+                                                       id={verse.attrs.style}>
+                                                       {verseNum.text}
+                                                    </a>
+                                                 </Link>
+                                              )}
                                            </span>
                                         ))
                                       : (verse.items && verse.attrs.style === "ft") ||

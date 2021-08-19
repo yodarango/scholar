@@ -15,7 +15,7 @@ type librarySermonCarrouselProps = {
 const LibrarySermonCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
    return (
       <div className={`${librarySermonCarrouselStyles.mainWrapper}`}>
-         <h1 className={librarySermonCarrouselStyles.title}>SERMONS</h1>
+         <h1 className={librarySermonCarrouselStyles.title}>SERMON NOTES</h1>
          <div className={librarySermonCarrouselStyles.scrollSection}>
             {sermon.map((sermon: sermonProps) => (
                <Sermon

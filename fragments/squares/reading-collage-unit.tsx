@@ -7,7 +7,7 @@ const Cookie = require("js-cookie");
 import PopupWrapper from "../../layouts/popup-wrapper";
 import GetNewBook from "../get-new-scriptures/get-new-book";
 import GetNewChapter from "../get-new-scriptures/get-new-chapter";
-import Chapter from "../../helpers/fetch-bible-chapter";
+import Chapter from "../../layouts/fetch-bible-chapter";
 import GeneralDropdown from "../buttons/general-dropdown";
 import ReadingColleageSettingsPopup from "../popup-content/reading-colleage-settings-popup";
 
