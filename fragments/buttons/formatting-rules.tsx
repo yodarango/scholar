@@ -3,7 +3,7 @@ import React, { useState, ReactElement } from "react";
 // Components
 import GetNewBook from "../get-new-scriptures/get-new-book";
 import GetNewChapter from "../get-new-scriptures/get-new-chapter";
-import GetNewVerse from "../get-new-scriptures/get-new-verse";
+import GetNewVerseTextEditor from "../get-new-scriptures/get-new-verse-text-editor";
 import NotificationPopup from "../notification-popup";
 
 // styles
@@ -16,7 +16,7 @@ import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
 const versionId: string = "de4e12af7f28f599-01";
 
 type FormattingRulesProps = {
-   renderSelectedVerseFunc: React.MouseEventHandler;
+   renderSelectedVerseFunc: any;
 };
 
 const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
@@ -188,20 +188,20 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
    /// 3. Open the list of verses per chapter modal
    const openGetNewVerse = (chapter: TnewChapter) => {
       setGetNewVerseState(
-         <GetNewVerse
+         <GetNewVerseTextEditor
             versionId={versionId}
             closeModal={closeGetNewBook}
             chapterId={chapter.id}
             goBackModal={() => setGetNewVerseState(false)}
-            renderSelectedVerse={renderSelectedVerseFunc1}
+            renderSelectedVerse={renderSelectedVerseFunc}
          />
       );
    };
 
    /// 4. Open the new verse and close the Book and Chapter popups
-   const renderSelectedVerseFunc1 = () => {
-      closeGetNewBook();
-   };
+   // const renderSelectedVerseFunc = () => {
+   //    closeGetNewBook();
+   // };
    return (
       <>
          {getNewBookState}

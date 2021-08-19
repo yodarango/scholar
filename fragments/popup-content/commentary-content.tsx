@@ -10,8 +10,6 @@ import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // others
-import { bibleApi } from "../../env";
-//import commentary from "../../pages/new-post/commentary";
 
 type CommentaryContentProps = {
    title: string;
@@ -34,7 +32,7 @@ const CommentaryContent = ({
          {
             method: "GET",
             headers: {
-               "api-key": `${bibleApi}`
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
             }
          }
       );

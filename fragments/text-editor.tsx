@@ -13,23 +13,22 @@ import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
 import { valuesType, valuesCat } from "../helpers/dropdown-values";
-import { bibleApi } from "../env";
 
 // Component Props
 type editorProps = {
    title: string;
    commentary: string;
    formattingRules?: JSX.Element;
-   referencedVerses?: any;
    removeVerse?: any;
+   referencedVerses: any;
 };
 
 const TextEditor = ({
    title,
    commentary,
    formattingRules,
-   referencedVerses,
-   removeVerse
+   removeVerse,
+   referencedVerses
 }: editorProps) => {
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
@@ -174,13 +173,13 @@ const TextEditor = ({
 
    // ===============  FUNCTION: Open Referenced Verse Tags  =================
    const [openReferencePopUpState, setOpenReferencePopUp] = useState<JSX.Element | boolean>(false);
-   const openReferencedVerse = async (e: string) => {
+   const openReferencedVerse = async (verseId: string) => {
       const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${e}?content-type=text&include-verse-numbers=false`,
+         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${verseId}?content-type=text&include-verse-numbers=false`,
          {
             method: "GET",
             headers: {
-               "api-key": `${bibleApi}`
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
             }
          }
       );
