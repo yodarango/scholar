@@ -5,7 +5,7 @@
 // *** the proper additional components ****************************** //
 
 // core
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 // components
@@ -35,7 +35,7 @@ const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
    const [getNewBookState, setGetNewBookState] = useState<JSX.Element | boolean>(false);
    const [getNewChapterState, setGetNewChapterState] = useState<JSX.Element | boolean>(false);
    const [getNewVerseState, setGetNewVerseState] = useState<JSX.Element | boolean>(false);
-   // ****************************   FUNCTIONS FOR CLOSING THE PUPUPS  ************************* //
+   // ****************************   FUNCTIONS FOR CLOSING THE POPUPS  ************************* //
    // close all modals and hide the body overflow so users cant scroll
    // while the popup is open as it will cause some funiky effects
    const closeGetNewBook = () => {

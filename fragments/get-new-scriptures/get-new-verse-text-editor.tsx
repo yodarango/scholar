@@ -1,11 +1,10 @@
 // **************************  PURPOSE ******************************* //
 // *** Thi component calls for a list of all bible verses ************ //
 // *** based on the result obtained from the "get-new-chapter ******** //
-// *** component call ************************************************ //
+// *** component call for the textEditor comp only ******************* //
 
 // core
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 
 //components
 
@@ -19,7 +18,7 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 type getNewVerseProps = {
    closeModal: React.MouseEventHandler;
    goBackModal: React.MouseEventHandler;
-   renderSelectedVerse: React.MouseEventHandler;
+   renderSelectedVerse: any;
    chapterId?: string;
    versionId: string;
 };
@@ -31,7 +30,7 @@ export type TnewVerse = {
    chapterId: string;
    reference: string;
 };
-const GetNewVerse = ({
+const GetNewVerseTextEdito = ({
    chapterId,
    closeModal,
    goBackModal,
@@ -72,18 +71,18 @@ const GetNewVerse = ({
                   {"<"}
                </div>
                {getNewVerse.map((el) => (
-                  <Link href={`/?verse=${el.id}`}>
-                     <a
+                  <div onClick={(e: any) => (e.target.style.color = "#ff9214")}>
+                     <div
                         key={el.id}
                         data-verse={`${el.id}`}
                         data-name={`${el.reference}`}
                         className={selectNewScriptureStyles.bibleBookRow}
-                        onClick={renderSelectedVerse}>
+                        onClick={() => renderSelectedVerse(el)}>
                         <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
                            {el.reference}
                         </p>
-                     </a>
-                  </Link>
+                     </div>{" "}
+                  </div>
                ))}
             </div>
          </div>
@@ -91,4 +90,4 @@ const GetNewVerse = ({
    );
 };
 
-export default GetNewVerse;
+export default GetNewVerseTextEdito;

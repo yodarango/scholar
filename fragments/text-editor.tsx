@@ -13,24 +13,22 @@ import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
 import { valuesType, valuesCat } from "../helpers/dropdown-values";
-import { referencedScriptures } from "../helpers/referenced-scriptures";
-import { bibleApi } from "../env";
 
 // Component Props
 type editorProps = {
    title: string;
    commentary: string;
    formattingRules?: JSX.Element;
-   referencedVerses?: any;
    removeVerse?: any;
+   referencedVerses: any;
 };
 
 const TextEditor = ({
    title,
    commentary,
    formattingRules,
-   referencedVerses,
-   removeVerse
+   removeVerse,
+   referencedVerses
 }: editorProps) => {
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
@@ -48,18 +46,6 @@ const TextEditor = ({
       if (textArea && textArea.current) {
          let currSscrollHeight = textArea.current.scrollHeight;
          textArea.current.style.height = `${currSscrollHeight}px`;
-      }
-   };
-
-   /*==================  FUNCTION: Check for bible Verses in textarea  ===========*/
-   const markDown = () => {
-      const target = textArea.current;
-      if (target) {
-         setTextAreaValue(`${target.value}`);
-
-         const currValue = target.value;
-         const x = referencedScriptures.filter((el) => currValue.includes(el.name));
-         console.log(x);
       }
    };
 
@@ -144,16 +130,6 @@ const TextEditor = ({
       setCategoryInfoState(false);
    };
 
-   /*==================  FUNCTION: Open Editor Instructions  ===========*/
-   // const [editorInstructionsState, setEditorInstructionsState] = useState<JSX.Element | boolean>(
-   //    false
-   // );
-   // const openEditorInstructions = () => {
-   //    setEditorInstructionsState(
-   //       <PopupWrapper closeModal={closeModals} content={<EditorInstructions />} />
-   //    );
-   // };
-
    /*==================  FUNCTION: open category popup info  ===========*/
    const [categoryInfoState, setCategoryInfoState] = useState<JSX.Element | boolean>(false);
    const openCategoryInfo = (subjects: [], key: string) => {
@@ -197,13 +173,13 @@ const TextEditor = ({
 
    // ===============  FUNCTION: Open Referenced Verse Tags  =================
    const [openReferencePopUpState, setOpenReferencePopUp] = useState<JSX.Element | boolean>(false);
-   const openReferencedVerse = async (e: string) => {
+   const openReferencedVerse = async (verseId: string) => {
       const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${e}?content-type=text&include-verse-numbers=false`,
+         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${verseId}?content-type=text&include-verse-numbers=false`,
          {
             method: "GET",
             headers: {
-               "api-key": `${bibleApi}`
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
             }
          }
       );
@@ -222,18 +198,13 @@ const TextEditor = ({
    /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
-         {/*===  states  ======*/}
          {hiddenTextAreaState.preview}
-         {/* {editorInstructionsState} */}
          {categoryInfoState}
          {openReferencePopUpState}
+
          {/*===  title  ======*/}
          <div className={textEditorStyles.titleWrapper}>
             <h2 className={`std-text-block--small-title ${textEditorStyles.title}`}>{title}</h2>
-            {/* This opens a table that used to replace the individual text formating buttons in the editor */}
-            {/*<span
-               className={`std-vector-icon ${textEditorStyles.iconInfo}`}
-            onClick={openEditorInstructions}></span>*/}
          </div>
          {/*===  Dropdown  ======*/}
          <div>
@@ -254,7 +225,6 @@ const TextEditor = ({
                   ref={textArea}
                   onChange={() => {
                      growTextArea();
-                     markDown();
                   }}></textarea>
 
                {/*===  Tags Wrapper  ======*/}

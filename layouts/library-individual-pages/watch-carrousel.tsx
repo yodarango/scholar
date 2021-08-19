@@ -27,12 +27,14 @@ const WatchCarrousel = ({ watch }: watchCarrouselProps) => {
             {watch.map((video: watchProps) => (
                <Watch
                   id={video.id}
+                  key={video.id}
                   thumbnail={video.thumbnail}
                   title={video.title}
                   by={video.by}
                   reviews={video.reviews}
                   stars={video.stars}
                   url={video.url}
+                  newClass={watchCarrouselStyles.watchMainWrapper}
                />
             ))}
 
@@ -40,12 +42,14 @@ const WatchCarrousel = ({ watch }: watchCarrouselProps) => {
             {watch.map((video: watchProps) => (
                <Watch
                   id={video.id}
+                  key={video.id}
                   thumbnail={video.thumbnail}
                   title={video.title}
                   by={video.by}
                   reviews={video.reviews}
                   stars={video.stars}
                   url={video.url}
+                  newClass={watchCarrouselStyles.watchMainWrapper}
                />
             ))}
          </div>

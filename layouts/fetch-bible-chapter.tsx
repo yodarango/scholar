@@ -7,7 +7,7 @@ import Link from "next/link";
 import NotificationPopup from "../fragments/notification-popup";
 
 // styles
-import scripturesHTMLStyles from "../styles/fragments/popup-content/ScripturesHTML.module.css";
+import fetchNewChapterStyles from "../styles/layouts/FetchNewChapter.module.css";
 
 // helpers
 
@@ -22,7 +22,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
 
    const readDailyWholeChapter = async () => {
       const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}?content-type=json&include-notes=true&include-chapter-numbers=true&include-verse-spans=true`,
+         `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}?content-type=json&include-notes=true&include-chapter-numbers=true&include-verse-spans=true&include-titles=true`,
          {
             method: "GET",
             headers: { "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}` }
@@ -48,14 +48,14 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
             title='Note'
             closeModal={() => setOpenRefState(false)}
             contentString={e.target.textContent}
-            newClass={scripturesHTMLStyles.verseRefPopup}
+            newClass={fetchNewChapterStyles.verseRefPopup}
          />
       );
    };
 
    const openReference = async (verseRef: string) => {
       const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseRef}?content-type=html&include-verse-numbers=true`,
+         `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseRef}?content-type=html&include-verse-numbers=true&include-titles=true`,
          {
             method: "GET",
             headers: {
@@ -77,14 +77,14 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                   <span className='scriptures-copyright'>{verseData.data.copyright}</span>
                </>
             }
-            newClass={scripturesHTMLStyles.verseRefPopup}
+            newClass={fetchNewChapterStyles.verseRefPopup}
          />
       );
    };
    return (
       <>
          {openRefState}
-         <div key={`${Math.random()}`} className={scripturesHTMLStyles.mainWrapper}>
+         <div className={fetchNewChapterStyles.mainWrapper}>
             {/* CHAPTER NUM AND TITLES: distinguish the type of contents in the first array of objects in the "content" property where c = chapter, s1 = subtitle, and m= message*/}
             {contentState.map((content: any) =>
                content.attrs &&
@@ -96,7 +96,8 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                         {/* not all objects will have a title, render a tag for it onlyif it exists */}
                         {chapter.text && (
                            <span
-                              /*id={chapter.attrs.style}*/ className={scripturesHTMLStyles.title}>
+                              key={chapter.text}
+                              /*id={chapter.attrs.style}*/ className={fetchNewChapterStyles.title}>
                               {chapter.text}
                            </span>
                         )}
@@ -108,21 +109,25 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                       ? /* NOTES: check the third array of objects inside the "items" property of the first array */
                                         // check if the text is a verse number
                                         verse.items.map((verseNum: any) => (
-                                           <span>
+                                           <span key={verse.attrs.sid}>
                                               <div
-                                                 className={scripturesHTMLStyles.verseSpacer}></div>
-                                              <Link
-                                                 href={`/?verse=${verse.attrs.sid.replace(
-                                                    /[\s:]/g,
-                                                    "."
-                                                 )}`}>
-                                                 <a
-                                                    key={verseNum.text}
-                                                    className={scripturesHTMLStyles.verseNumber}
-                                                    id={verse.attrs.style}>
-                                                    {verseNum.text}
-                                                 </a>
-                                              </Link>
+                                                 className={
+                                                    fetchNewChapterStyles.verseSpacer
+                                                 }></div>
+                                              {verse.attrs.sid && (
+                                                 <Link
+                                                    href={`/?verse=${verse.attrs.sid.replace(
+                                                       /[\s:]/g,
+                                                       "."
+                                                    )}`}>
+                                                    <a
+                                                       key={verseNum.text}
+                                                       className={fetchNewChapterStyles.verseNumber}
+                                                       id={verse.attrs.style}>
+                                                       {verseNum.text}
+                                                    </a>
+                                                 </Link>
+                                              )}
                                            </span>
                                         ))
                                       : (verse.items && verse.attrs.style === "ft") ||
@@ -132,7 +137,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                         verse.items.map((notes: any) => (
                                            <span
                                               id={verse.attrs.style}
-                                              className={scripturesHTMLStyles.note}
+                                              className={fetchNewChapterStyles.note}
                                               onClick={openNote}>
                                               {notes.text}
                                            </span>
@@ -142,7 +147,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                         verse.items.map((notes: any) => (
                                            <span
                                               id={verse.attrs.style}
-                                              className={scripturesHTMLStyles.noteCTA}>
+                                              className={fetchNewChapterStyles.noteCTA}>
                                               {notes.text}
                                            </span>
                                         ))
@@ -152,7 +157,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                         verse.items.map((notes: any) => (
                                            <span
                                               id={verse.attrs.style}
-                                              className={scripturesHTMLStyles.hideElement}>
+                                              className={fetchNewChapterStyles.hideElement}>
                                               {notes.text}
                                            </span>
                                         ))
@@ -160,14 +165,14 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                                       ? verse.items.map((notes: any) => (
                                            <span
                                               id={verse.attrs.style}
-                                              className={scripturesHTMLStyles.verse}>
+                                              className={fetchNewChapterStyles.verse}>
                                               {notes.text}
                                            </span>
                                         ))
                                       : null}
                                    <span
                                       id={verse.attrs.style}
-                                      className={scripturesHTMLStyles.verse}>
+                                      className={fetchNewChapterStyles.verse}>
                                       {" "}
                                       {verse.text}
                                    </span>
@@ -178,22 +183,22 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                   ))
                ) : content.attrs && content.attrs.style === "r" ? (
                   /* distinguish the type of contents in the first array of objects in the "content" property where c = chapter, s1 = subtitle, and m= message*/
-                  <div className={scripturesHTMLStyles.referenceWrapper}>
+                  <div className={fetchNewChapterStyles.referenceWrapper}>
                      {content.items.map((chapter: any) => (
                         <>
                            <span
                               id={content.attrs.style}
-                              className={scripturesHTMLStyles.reference}>
+                              className={fetchNewChapterStyles.reference}>
                               {chapter.text}
                            </span>
                            {chapter.items ? (
-                              <span className={scripturesHTMLStyles.refwrapper}>
+                              <span className={fetchNewChapterStyles.refwrapper}>
                                  <span
                                     id={chapter.attrs.style}
                                     onClick={() => openReference(chapter.attrs.id)}
-                                    className={scripturesHTMLStyles.refVerseId}>
+                                    className={fetchNewChapterStyles.refVerseId}>
                                     {chapter.items.map((referenceText: any) => (
-                                       <span className={scripturesHTMLStyles.reference}>
+                                       <span className={fetchNewChapterStyles.reference}>
                                           {referenceText.text}
                                        </span>
                                     ))}
@@ -206,7 +211,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
                ) : content.attrs && content.attrs.style === "b" ? null : content.attrs &&
                  content.attrs.style === "c" ? (
                   // check it the text is a chapter number
-                  <div id={content.attrs.style} className={scripturesHTMLStyles.chapter}>
+                  <div id={content.attrs.style} className={fetchNewChapterStyles.chapter}>
                      Chapter {content.attrs.number}
                   </div>
                ) : null

@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 // components
 import TextEditor from "../fragments/text-editor";
 import FormattingRules from "../fragments/buttons/formatting-rules";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import popNewCommentStyles from "../styles/layouts/PopupNewComment.module.css";
@@ -28,14 +29,11 @@ const Commentary = ({ verseData }: commentaryProps) => {
       name: string;
    };
    const [referencedVerseState, setreferencedVerseIdState] = useState<IreferencedVerseState[]>([]);
-   const renderSelectedVerseFunc = (e: any) => {
-      const newVerseId = e.currentTarget.dataset.verse;
-      const newVerseName = e.currentTarget.dataset.name;
-      e.target.style.color = "orange";
+   const renderSelectedVerseFunc = (verse: any) => {
       document.body.style.overflow = "scroll";
       setreferencedVerseIdState((referencedVersesState) => [
          ...referencedVersesState,
-         { id: newVerseId, name: newVerseName }
+         { id: verse.id, name: verse.reference }
       ]);
    };
 
@@ -47,25 +45,27 @@ const Commentary = ({ verseData }: commentaryProps) => {
       setreferencedVerseIdState(nodeletedValues);
    };
    return (
-      <div className={`${popNewCommentStyles.mainWrapper}`}>
-         <div>
-            <div className={popNewCommentStyles.commentaryVerseWrapper}>
-               <p className='std-text-block--info'>{verseData.reference}</p>
-               <p className='std-text-block'>{verseData.content}</p>
+      <>
+         <div className={`${popNewCommentStyles.mainWrapper}`}>
+            <div>
+               <div className={popNewCommentStyles.commentaryVerseWrapper}>
+                  <p className='std-text-block--info'>{verseData.reference}</p>
+                  <p className='std-text-block'>{verseData.content}</p>
+               </div>
+            </div>
+            <div>
+               <TextEditor
+                  title='Your Commentary'
+                  commentary={`Commentary`}
+                  formattingRules={
+                     <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
+                  }
+                  referencedVerses={referencedVerseState}
+                  removeVerse={removeVerse}
+               />
             </div>
          </div>
-         <div>
-            <TextEditor
-               title='Your Commentary'
-               commentary={`Commentary`}
-               formattingRules={
-                  <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
-               }
-               referencedVerses={referencedVerseState}
-               removeVerse={removeVerse}
-            />
-         </div>
-      </div>
+      </>
    );
 };
 

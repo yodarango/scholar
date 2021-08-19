@@ -6,13 +6,15 @@
 // *** this page with the content type and userid/signatu *** //
 
 // core
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Head from "next/head";
+import { GetStaticProps } from "next";
 
 // components
 import Header from "../../layouts/header";
 import LibraryMenu from "../../fragments/buttons/library-menu";
 import LibraryPodcastCarrousel from "../../layouts/library-home-page/library-podcast-carrousel";
+import LibraryWatchCarrousel from "../../layouts/library-home-page/library-watch-carrousel";
 import LibraryBlogsCarrousel from "../../layouts/library-home-page/library-blogs-carrousel";
 import LibrarySermonCarrousel from "../../layouts/library-home-page/library-sermon-carrousel";
 import LibraryArticleCarrousel from "../../layouts/library-home-page/library-article-carrousel";
@@ -21,48 +23,24 @@ import LibraryRecommendContennt from "../../fragments/buttons/library-recommend-
 
 // styles
 import libraryStyles from "../../styles/pages/library/Library.module.css";
-//import styles from '../styles/pages/Home.module.css';
 
-// types
-import { PodcastsProps } from "../../fragments/library-items/podcast";
+// helpers: types
+import { podcastsProps } from "../../fragments/library-items/podcast";
 import { blogProps } from "../../fragments/library-items/blog";
 import { sermonProps } from "../../fragments/library-items/sermon";
 import { articleProps } from "../../fragments/library-items/article";
 import { bookProps } from "../../fragments/library-items/book";
+import { watchProps } from "../../fragments/library-items/watch";
 
-const Library = () => {
-   // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-   ///   ====== 1.1 load all the types for the data being fetched
-   type IfetchContentState = {
-      podcasts: PodcastsProps[];
-      blogs: blogProps[];
-      sermons: sermonProps[];
-      articles: articleProps[];
-      books: bookProps[];
-   };
-   ///   ====== 1.2 Initial state
-   const [fetchContentState, setfetchContentState] = useState<IfetchContentState>({
-      podcasts: [],
-      blogs: [],
-      sermons: [],
-      articles: [],
-      books: []
-   });
-   const fetchConent = async () => {
-      const data = await fetch("https://scholar-be.herokuapp.com/library");
-      const parsedData = await data.json();
-      setfetchContentState({
-         podcasts: parsedData.podcast,
-         blogs: parsedData.blogs,
-         sermons: parsedData.sermons,
-         articles: parsedData.articles,
-         books: parsedData.books
-      });
-   };
-   useEffect(() => {
-      fetchConent();
-   }, []);
-
+type libraryProps = {
+   podcasts: podcastsProps[];
+   blogs: blogProps[];
+   sermons: sermonProps[];
+   articles: articleProps[];
+   books: bookProps[];
+   watch: watchProps[];
+};
+const Library = ({ podcasts, blogs, sermons, articles, books, watch }: libraryProps) => {
    return (
       <div className={`${libraryStyles.mainWrapper}`}>
          <Head>
@@ -76,19 +54,30 @@ const Library = () => {
             contentButtonIcon={"🔥"}
             currentSlectedContentPage={{ popular: "#f2f2f2" }}
          />
-         {fetchContentState.sermons && (
-            <LibrarySermonCarrousel sermon={fetchContentState.sermons} />
-         )}
-         {fetchContentState.podcasts && (
-            <LibraryPodcastCarrousel podcasts={fetchContentState.podcasts} />
-         )}
-         {fetchContentState.blogs && <LibraryBlogsCarrousel blogs={fetchContentState.blogs} />}
-         {fetchContentState.articles && (
-            <LibraryArticleCarrousel articles={fetchContentState.articles} />
-         )}
-         {fetchContentState.books && <LibraryBooksCarrousel books={fetchContentState.books} />}
+         {sermons && <LibrarySermonCarrousel sermon={sermons} />}
+         {podcasts && <LibraryPodcastCarrousel podcasts={podcasts} />}
+         {watch && <LibraryWatchCarrousel watch={watch} />}
+         {blogs && <LibraryBlogsCarrousel blogs={blogs} />}
+         {articles && <LibraryArticleCarrousel articles={articles} />}
+         {books && <LibraryBooksCarrousel books={books} />}
          <LibraryRecommendContennt />
       </div>
    );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+   const data = await fetch("https://scholar-be.herokuapp.com/library");
+   const parsedData = await data.json();
+   return {
+      props: {
+         podcasts: parsedData.podcast,
+         blogs: parsedData.blogs,
+         sermons: parsedData.sermons,
+         articles: parsedData.articles,
+         books: parsedData.books,
+         watch: parsedData.watch
+      },
+      revalidate: 60 * 60 * 24 // everyday
+   };
 };
 export default Library;

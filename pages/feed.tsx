@@ -1,5 +1,6 @@
 // core
 import React from "react";
+import { GetStaticProps } from "next";
 
 // components
 import Head from "next/head";
@@ -11,10 +12,18 @@ import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
 
-// dinamic values
+// helpers
+import { getNewVerseId } from "../helpers/random-daily-verses";
+import { TverseContent } from "./index";
+
+// others
 const versionId: string = "de4e12af7f28f599-01";
 
-export default function Home() {
+type feedProps = {
+   verseContent: TverseContent;
+};
+
+const Feed = ({ verseContent }: feedProps) => {
    return (
       <div className='main-wrapper'>
          <Head>
@@ -25,7 +34,7 @@ export default function Home() {
          <div className={interactStyles.gridWrapper}>
             <div className={`${interactStyles.gridWrapperRight}`}>
                <h2 className='std-text-block--small-title'>Today's Verse</h2>
-               <RandomDailyVerse versionId={versionId} />
+               <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
                <h2 className='std-text-block--small-title'>Take A Stand</h2>
                <TakeAStand />
             </div>
@@ -38,4 +47,27 @@ export default function Home() {
          </div>
       </div>
    );
-}
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+   const requ = await fetch(
+      `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
+      {
+         method: "GET",
+         headers: {
+            "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+         }
+      }
+   );
+
+   const json = await requ.json();
+   const content = json.data;
+   return {
+      props: {
+         verseContent: content
+      },
+      revalidate: 60 * 60 * 24 // everyday
+   };
+};
+
+export default Feed;
