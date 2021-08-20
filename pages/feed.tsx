@@ -8,6 +8,7 @@ import TakeAStand from "../fragments/squares/take-a-stand";
 import Header from "../layouts/header";
 import Comments from "../posts/comment";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
+import StoriesCarrousel from "../posts/stories-carrousel";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -31,6 +32,7 @@ const Feed = ({ verseContent }: feedProps) => {
          </Head>
          <Header currPage={"INTERACT"} />
          <div className='large-spacer'></div>
+         <StoriesCarrousel />
          <div className={interactStyles.gridWrapper}>
             <div className={`${interactStyles.gridWrapperRight}`}>
                <h2 className='std-text-block--small-title'>Today's Verse</h2>

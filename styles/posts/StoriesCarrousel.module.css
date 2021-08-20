@@ -1,0 +1,8 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-self: start;
+   flex-wrap: nowrap;
+   width: 100%;
+   overflow-x: scroll;
+}
