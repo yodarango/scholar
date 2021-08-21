@@ -365,6 +365,7 @@ a:active {
 .header-curr-page {
    font: var(--secondary-font-mobile);
    color: var(--font-color);
+   font-size: 1.3rem;
 }
 
 .std-vector-icon {

@@ -1,10 +1,15 @@
+// core
 import React, { useState, useRef } from "react";
+
+// components
+
+// styles
 import ctaStyles from "../../styles/components/CTA.module.css";
 
 type dropdownProps = {
-   initialValueType: string;
+   //initialValueType: string;
    initialValueCat: string;
-   valuesType?: IdropdownTypesValues[];
+   //valuesType?: IdropdownTypesValues[];
    valuesCat?: IdropdownCatValues[];
    openCategoryInfo: any;
    addTag: any;
@@ -16,14 +21,14 @@ type IdropdownCatValues = {
    tag: string;
    subjects: string[];
 };
-type IdropdownTypesValues = {
-   title: string;
-   key: string;
-};
+// type IdropdownTypesValues = {
+//    title: string;
+//    key: string;
+// };
 const Dropdown = ({
-   initialValueType,
+   //initialValueType,
    initialValueCat,
-   valuesType,
+   //valuesType,
    valuesCat,
    openCategoryInfo,
    addTag
@@ -32,41 +37,44 @@ const Dropdown = ({
       type?: string;
       cat?: string;
       catFunc?: React.MouseEventHandler;
-      typeFunc?: React.MouseEventHandler;
+      // typeFunc?: React.MouseEventHandler;
    };
 
    const hiddenDropdownCat = useRef<HTMLDivElement>(null);
-   const hiddenDropdownType = useRef<HTMLDivElement>(null);
+   // const hiddenDropdownType = useRef<HTMLDivElement>(null);
 
-   const openDropdownType = () => {
-      setdisplayDropdown({ type: "block", typeFunc: closeDropdownType, catFunc: openDropdownCat });
-   };
+   // const openDropdownType = () => {
+   //    setdisplayDropdown({ type: "block", typeFunc: closeDropdownType, catFunc: openDropdownCat });
+   // };
 
-   const closeDropdownType = () => {
-      setdisplayDropdown({ type: "none", typeFunc: openDropdownType, catFunc: openDropdownCat });
-   };
+   // const closeDropdownType = () => {
+   //    setdisplayDropdown({ type: "none", typeFunc: openDropdownType, catFunc: openDropdownCat });
+   // };
    const openDropdownCat = () => {
-      setdisplayDropdown({ cat: "block", catFunc: closeDropdownCat, typeFunc: openDropdownType });
+      setdisplayDropdown({
+         cat: "block",
+         catFunc: closeDropdownCat /*typeFunc: openDropdownType*/
+      });
    };
 
    const closeDropdownCat = () => {
-      setdisplayDropdown({ cat: "none", catFunc: openDropdownCat, typeFunc: openDropdownType });
+      setdisplayDropdown({ cat: "none", catFunc: openDropdownCat /*typeFunc: openDropdownType*/ });
    };
 
    const [displayDropdown, setdisplayDropdown] = useState<IdropdownDisplay>({
       type: "none",
       cat: "none",
-      catFunc: openDropdownCat,
-      typeFunc: openDropdownType
+      catFunc: openDropdownCat
+      // typeFunc: openDropdownType
    });
-   if (hiddenDropdownType.current)
-      hiddenDropdownType.current.style.display = `${displayDropdown.type}`;
+   // if (hiddenDropdownType.current)
+   //    hiddenDropdownType.current.style.display = `${displayDropdown.type}`;
    if (hiddenDropdownCat.current)
       hiddenDropdownCat.current.style.display = `${displayDropdown.cat}`;
 
    return (
       <div className={ctaStyles.dropdownWrapper}>
-         <div
+         {/* <div
             id={ctaStyles.initialValueTypeCommentary}
             className={`${ctaStyles.initialValue} ${ctaStyles.initialValueType}`}
             onClick={displayDropdown.typeFunc}>
@@ -78,7 +86,7 @@ const Dropdown = ({
                   {el.title} <span className={`std-vector-icon ${ctaStyles.iconInfo}`}></span>
                </div>
             ))}
-         </div>
+         </div> */}
          <div
             className={`${ctaStyles.initialValue} ${ctaStyles.initialValueCat}`}
             onClick={displayDropdown.catFunc}>

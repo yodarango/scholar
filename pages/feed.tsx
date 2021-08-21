@@ -1,6 +1,6 @@
 // core
 import React from "react";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 
 // components
 import Head from "next/head";
@@ -9,6 +9,7 @@ import Header from "../layouts/header";
 import Comments from "../posts/comment";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 import StoriesCarrousel from "../posts/stories-carrousel";
+import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -16,22 +17,25 @@ import interactStyles from "../styles/pages/Interact.module.css";
 // helpers
 import { getNewVerseId } from "../helpers/random-daily-verses";
 import { TverseContent } from "./index";
+import { sermonProps } from "../fragments/library-items/sermon";
 
 // others
 const versionId: string = "de4e12af7f28f599-01";
 
 type feedProps = {
    verseContent: TverseContent;
+   sermons: sermonProps[];
 };
 
-const Feed = ({ verseContent }: feedProps) => {
+const Feed = ({ verseContent, sermons }: feedProps) => {
    return (
       <div className='main-wrapper'>
          <Head>
             <meta name='keyword' content='tags' />
          </Head>
-         <Header currPage={"INTERACT"} />
+         <Header currPage={"WIGO TODAY"} />
          <div className='large-spacer'></div>
+         <h2 className='std-text-block--small-title'>Quotes</h2>
          <StoriesCarrousel />
          <div className={interactStyles.gridWrapper}>
             <div className={`${interactStyles.gridWrapperRight}`}>
@@ -40,8 +44,12 @@ const Feed = ({ verseContent }: feedProps) => {
                <h2 className='std-text-block--small-title'>Take A Stand</h2>
                <TakeAStand />
             </div>
+            <div className={interactStyles.gridWrapperMiddle}>
+               <h2 className='std-text-block--small-title'>Sermon Notes</h2>
+               <SermonsPostCarrousel sermon={sermons} />
+            </div>
             <div className={`${interactStyles.gridWrapperLeft}`}>
-               <h2 className='std-text-block--small-title'>WIGO In The Last 24</h2>
+               <h2 className='std-text-block--small-title'>Commentaries</h2>
                <div className={interactStyles.commentsWrapper}>
                   <Comments />
                </div>
@@ -51,8 +59,8 @@ const Feed = ({ verseContent }: feedProps) => {
    );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-   const requ = await fetch(
+export const getServerSideProps: GetServerSideProps = async () => {
+   const verseReq = await fetch(
       `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
       {
          method: "GET",
@@ -62,13 +70,18 @@ export const getStaticProps: GetStaticProps = async () => {
       }
    );
 
-   const json = await requ.json();
-   const content = json.data;
+   const jsonReq = await verseReq.json();
+   const verseContent = jsonReq.data;
+
+   const sermonReq = await fetch("https://scholar-be.herokuapp.com/library");
+   const jsonSermon = await sermonReq.json();
+   const sermons = jsonSermon.sermons;
+
    return {
       props: {
-         verseContent: content
-      },
-      revalidate: 60 * 60 * 24 // everyday
+         verseContent,
+         sermons
+      }
    };
 };
 

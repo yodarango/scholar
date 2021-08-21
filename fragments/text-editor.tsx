@@ -5,14 +5,13 @@ import ReactMarkdown from "react-markdown";
 // components
 import Dropdown from "./buttons/dropdown";
 import PopupWrapper from "../layouts/popup-wrapper";
-//import EditorInstructions from "./editor-instructions";
 import NotificationPopup from "./notification-popup";
 
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
-import { valuesType, valuesCat } from "../helpers/dropdown-values";
+import { /*valuesType,*/ valuesCat } from "../helpers/dropdown-values";
 
 // Component Props
 type editorProps = {
@@ -209,9 +208,9 @@ const TextEditor = ({
          {/*===  Dropdown  ======*/}
          <div>
             <Dropdown
-               initialValueType={commentary}
+               //initialValueType={commentary}
                initialValueCat={`Category`}
-               valuesType={valuesType}
+               //valuesType={valuesType}
                valuesCat={valuesCat}
                openCategoryInfo={openCategoryInfo}
                addTag={addTag}

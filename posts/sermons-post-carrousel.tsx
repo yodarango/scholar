@@ -2,21 +2,20 @@
 import React from "react";
 
 // components
-import Sermon from "../../fragments/library-items/sermon";
+import Sermon from "../fragments/library-items/sermon";
 
 // styles
-import librarySermonCarrouselStyles from "../../styles/layouts/library-home-page/LibrarySermonsCarrousel.module.css";
+import librarySermonPostCarrouselStyles from "../styles/posts/SermonPostCarrousel.module.css";
 
 // types
-import { sermonProps } from "../../fragments/library-items/sermon";
+import { sermonProps } from "../fragments/library-items/sermon";
 type librarySermonCarrouselProps = {
    sermon: sermonProps[];
 };
-const LibrarySermonCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
+const LibrarySermonPostCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
    return (
-      <div className={`${librarySermonCarrouselStyles.mainWrapper}`}>
-         <h1 className={librarySermonCarrouselStyles.title}>SERMON NOTES</h1>
-         <div className={librarySermonCarrouselStyles.scrollSection}>
+      <div className={`${librarySermonPostCarrouselStyles.mainWrapper}`}>
+         <div className={librarySermonPostCarrouselStyles.scrollSection}>
             {sermon.map((sermon: sermonProps) => (
                <Sermon
                   id={sermon.id}
@@ -36,4 +35,4 @@ const LibrarySermonCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
    );
 };
 
-export default LibrarySermonCarrousel;
+export default LibrarySermonPostCarrousel;
