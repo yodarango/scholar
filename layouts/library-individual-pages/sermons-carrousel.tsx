@@ -36,6 +36,7 @@ const SermonsCarrousel = ({ sermon }: sermonCarrouselProps) => {
                   stars={sermon.stars}
                   file={sermon.file}
                   newClass={sermonsCarrouselStyles.sermonWRapper}
+                  userAvatar={sermon.userAvatar}
                />
             ))}
 
@@ -52,6 +53,7 @@ const SermonsCarrousel = ({ sermon }: sermonCarrouselProps) => {
                   stars={sermon.stars}
                   file={sermon.file}
                   newClass={sermonsCarrouselStyles.sermonWRapper}
+                  userAvatar={sermon.userAvatar}
                />
             ))}
          </div>

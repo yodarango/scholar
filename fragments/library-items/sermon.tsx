@@ -7,11 +7,12 @@ import StarReviews from "../star-reviews";
 
 // styles
 import sermonStyles from "../../styles/fragments/library-items/Sermon.module.css";
-import { Style } from "util";
+import { url } from "inspector";
 
 export type sermonProps = {
    id: string;
    userId?: string;
+   userAvatar: string;
    userSignature?: string;
    tags: string[];
    colors: string[];
@@ -34,6 +35,7 @@ const Sermon = ({
    stars,
    file,
    userId,
+   userAvatar,
    newClass
 }: sermonProps) => {
    return (
@@ -50,6 +52,13 @@ const Sermon = ({
                   <div className={sermonStyles.textWrapper}>
                      <h1 className={sermonStyles.title}>{title}</h1>
                      <h3 className={sermonStyles.author}>by: {author}</h3>
+                     <div
+                        className={`${sermonStyles.userReputation}`}
+                        style={{ backgroundImage: "linear-gradient(130deg, #ff9214ed, #ff0045)" }}>
+                        <div
+                           className={`${sermonStyles.avatar}`}
+                           style={{ backgroundImage: `url(${userAvatar})` }}></div>
+                     </div>
                      <span className={sermonStyles.category}>Category: {tags[0]}</span>
                   </div>
                </div>
