@@ -1,0 +1,181 @@
+.mainStoryWrapper {
+   width: 3.5rem;
+   margin: var(--medium-spacing-mobile) 0.4rem 0.1rem;
+   cursor: pointer;
+}
+.userReputationWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 4rem;
+   width: 3.5rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   margin: 0 0 0.1rem;
+}
+
+.avatarImage,
+.avatarImageStory {
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 3.3rem;
+   width: 2.8rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.userSignature {
+   font-size: 0.7rem;
+   margin: 0;
+   width: 100%;
+   text-align: center;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+/* story posts bakground */
+.storyPostWrapper {
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 10;
+   width: 100%;
+}
+
+.storyPost {
+   width: 100vw;
+   height: 100vh;
+   overflow-y: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   font-family: linotype-didot, serif;
+   font-weight: 700;
+   font-style: normal;
+   text-align: center;
+   position: absolute;
+   top: 0;
+   left: 0;
+   padding: var(--medium-spacing-mobile) var(--xsmall-spacing-mobile);
+}
+
+.storyContent {
+   width: 80%;
+   font-size: 2rem;
+   line-height: 2em;
+}
+
+.quotationMark {
+   display: inline-block;
+   height: 3rem;
+   width: 3rem;
+   background-image: url("/images/posts/quotationMark.svg");
+   background-size: 90%;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+.storyBy {
+   width: 100%;
+   font-size: 0.9rem;
+}
+
+.avatarImageStory {
+   position: fixed;
+   top: 2rem;
+   left: 2rem;
+   z-index: 12;
+}
+
+.count {
+   position: fixed;
+   z-index: 15;
+   background-color: rgba(255, 255, 255, 0.5);
+   width: 6rem;
+   font-size: 1rem;
+   text-align: center;
+   height: 2rem;
+   padding: 0.27rem;
+   border-radius: 2.5rem;
+   color: var(--primary-color);
+   top: 1rem;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   margin: 0 auto;
+}
+
+.closeModal {
+   z-index: 11;
+}
+
+.storyPostsControllerWrapper {
+   width: 95%;
+   margin: auto;
+   position: relative;
+   top: 40vh;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.postStoryLeft,
+.postStoryRight {
+   background-image: url("/images/dailyVerse-Back.svg");
+   z-index: 11;
+   background-color: rgba(255, 255, 255, 0.5);
+   height: 1.3rem;
+   width: 1.3rem;
+   display: block;
+   border-radius: 50%;
+   background-size: 90%;
+   background-position: center;
+   cursor: pointer;
+}
+
+.postStoryLeft:hover,
+.postStoryRight:hover {
+   cursor: pointer;
+   opacity: 0.8;
+   transform: scale(1.1);
+}
+
+.postStoryRight {
+   background-image: url("/images/dailyVerse-Forward.svg");
+}
+#LBL {
+   background-image: linear-gradient(120deg, rgba(0, 232, 238, 1) 0%, rgba(235, 2, 2, 1) 100%);
+}
+
+#YLW {
+   background-image: linear-gradient(120deg, rgba(255, 208, 2, 1) 0%, rgba(224, 67, 241, 1) 100%);
+}
+
+#PPL {
+   background-image: linear-gradient(120deg, rgba(153, 2, 237, 1) 0%, rgba(10, 207, 213, 1) 100%);
+}
+
+#RD {
+   background-image: linear-gradient(120deg, rgba(238, 3, 3, 1) 0%, rgba(10, 125, 213, 1) 100%);
+}
+
+#PNK {
+   background-image: linear-gradient(120deg, rgb(245, 89, 250) 0%, rgb(2, 255, 242) 100%);
+}
+
+#GN {
+   background-image: linear-gradient(120deg, rgba(0, 171, 22, 1) 0%, rgba(5, 188, 227, 1) 100%);
+}
+
+#BLK {
+   background-image: linear-gradient(120deg, rgba(37, 36, 36, 1) 0%, rgba(57, 60, 88, 1) 100%);
+}
+
+#BR {
+   background-image: linear-gradient(120deg, rgba(150, 75, 0, 1) 0%, rgba(31, 0, 0, 1) 100%);
+}
+
+#DBD {
+   background-image: linear-gradient(120deg, rgba(3, 8, 116, 1) 0%, rgba(203, 2, 2, 1) 100%);
+}

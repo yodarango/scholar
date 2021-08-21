@@ -1,5 +1,5 @@
 .gridWrapper {
-   margin: var(--medium-spacing-mobile) auto 0;
+   margin: 0 auto;
    display: grid;
    grid-template-areas:
       "A"
