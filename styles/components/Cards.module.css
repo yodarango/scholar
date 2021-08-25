@@ -101,7 +101,6 @@ rename it and reuse it in other instaces if needed.
    height: 1.87rem;
    width: 100%;
    padding: 0 var(--xsmall-spacing-mobile);
-   background-color: aquamarine;
    display: grid;
    grid-template-columns: 15% 75% 10%;
    grid-template-rows: 1fr;

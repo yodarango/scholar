@@ -8,7 +8,13 @@ import Thought from "../posts/thought";
 //styles
 import commentThoughtStyles from "../styles/layouts/CommentThought.module.css";
 
-const CommentThought = () => {
+// helpers
+import { Tcommentary } from "../posts/comment";
+
+type commentThoughtProps = {
+   commentaries: Tcommentary[];
+};
+const CommentThought = ({ commentaries }: commentThoughtProps) => {
    // ===========================    FUNCTION 1: filter hte posts either by commentaries or by Thought  ======== //
    const [filterThoughtCommentState, setFilterThoughtCommentState] = useState<{
       comment: boolean;
@@ -52,7 +58,7 @@ const CommentThought = () => {
             </span>
          </div>
          <div className={`large-spacer`}></div>
-         {filterThoughtCommentState.comment && <Comment />}
+         {filterThoughtCommentState.comment && <Comment commentaries={commentaries} />}
          {filterThoughtCommentState.thought && <Thought />}
       </div>
    );
