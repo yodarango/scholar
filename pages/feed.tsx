@@ -77,10 +77,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
    const jsonSermon = await sermonReq.json();
    const sermons = jsonSermon.sermons;
 
+   const commReq = await fetch("https://scholar-be.herokuapp.com/commentaries");
+   const commentaries = await commReq.json();
+
    return {
       props: {
          verseContent,
-         sermons
+         sermons,
+         commentaries
       }
    };
 };

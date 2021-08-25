@@ -50,8 +50,8 @@
    align-items: center;
    justify-content: center;
    flex-wrap: wrap;
-   font-family: linotype-didot, serif;
-   font-weight: 700;
+   font-family: poppins, sans-serif;
+   font-weight: 600;
    font-style: normal;
    text-align: center;
    position: absolute;
@@ -146,6 +146,7 @@
 .postStoryRight {
    background-image: url("/images/dailyVerse-Forward.svg");
 }
+
 #LBL {
    background-image: linear-gradient(120deg, rgba(0, 232, 238, 1) 0%, rgba(235, 2, 2, 1) 100%);
 }
@@ -180,4 +181,67 @@
 
 #DBD {
    background-image: linear-gradient(120deg, rgba(3, 8, 116, 1) 0%, rgba(203, 2, 2, 1) 100%);
+}
+
+@media only screen and (min-width: 1000px) {
+   .mainStoryWrapper {
+      width: 4rem;
+      margin: var(--medium-spacing-desktop) 0.5rem 0.2rem;
+   }
+   .userReputationWrapper {
+      height: 4.5rem;
+      width: 4rem;
+      margin: 0 0 0.1rem;
+   }
+
+   .avatarImage,
+   .avatarImageStory {
+      height: 4rem;
+      width: 3.5rem;
+   }
+
+   .userSignature {
+      font-size: 0.8rem;
+   }
+
+   /* ============    story posts bakground   ==================== */
+
+   .storyPost {
+      padding: var(--large-spacing-desktop) var(--xsmall-spacing-desktop);
+   }
+
+   .storyContent {
+      width: 80%;
+      max-width: 700px;
+      font-size: 3rem;
+   }
+
+   .quotationMark {
+      height: 3.5rem;
+      width: 3.5rem;
+   }
+
+   .storyBy {
+      width: 100%;
+      font-size: 1.2rem;
+   }
+
+   .avatarImageStory {
+      top: 2.5rem;
+      left: 2.5rem;
+   }
+
+   .count {
+      width: 8rem;
+      font-size: 1.3rem;
+      height: 2.6rem;
+      padding: 0.27rem;
+      top: 1.5rem;
+   }
+
+   .postStoryLeft,
+   .postStoryRight {
+      height: 1.8rem;
+      width: 1.8rem;
+   }
 }
