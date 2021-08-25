@@ -1,5 +1,5 @@
 // core
-import React, { useState, MouseEvent } from "react";
+import React, { useState } from "react";
 
 //components
 import Comment from "../posts/comment";

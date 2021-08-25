@@ -4,23 +4,30 @@ import React, { useEffect, useState } from "react";
 // componenets
 import CommentaryContent from "../fragments/popup-content/commentary-content";
 import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-comments-content";
+import PostReactions from "../fragments/buttons/post-reactions";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
+export type Tcommentary = {
+   id: string;
+   userId: string;
+   userSignature: string;
+   content: string;
+   referencedScriptures: [{ verseId: string; verseReferences: string }];
+   tags: string[];
+   colors: string[];
+   approves: string[];
+   disapproves: string[];
+   comments: string[];
+};
 export default function Comments() {
    // ========== fetch all comments for the selected comment
-   interface CommentInt {
-      userId: number;
-      title: string;
-      body: string;
-      id: number;
-   }
-   const [comments, setcomments] = useState<CommentInt[]>([]);
+   const [comments, setcomments] = useState<Tcommentary[]>([]);
 
    const getComments: () => void = async () => {
-      const requ = await fetch("https://jsonplaceholder.typicode.com/posts");
+      const requ = await fetch("https://scholar-be.herokuapp.com/commentaries");
       const res = await requ.json();
       setcomments(res);
       console.log(res);
@@ -30,7 +37,7 @@ export default function Comments() {
       getComments();
    }, []);
 
-   // ================= FUNCTION: See the whole post
+   // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const categories = { first: { color: "blue", tag: "DBL" }, second: { color: "red", tag: "RD" } };
    const openPost = (comment: any) => {
@@ -52,7 +59,7 @@ export default function Comments() {
       );
    };
 
-   // ================= FUNCTION: Drop down the comment imput
+   // ================= FUNCTION 2: Drop down the comment imput
 
    let openCommentState: boolean = false;
    const openComment = (id: string | number) => {
@@ -66,6 +73,12 @@ export default function Comments() {
       }
       console.log(currInput);
    };
+
+   // =================    FUNCTION 2: handle the approve click  ================== //
+   const handleApproveClick = () => {};
+
+   const handleDisapproveClick = () => {};
+
    return (
       <>
          {seeWholePost}
@@ -79,12 +92,18 @@ export default function Comments() {
                         className={cardStyles.commentCardHeaderAvatarImg}
                      />
                   </div>
-                  <h1>{comm.title}</h1>
+                  <h1>{comm.userSignature}</h1>
                   <div className={(cardStyles.cardIcon, cardStyles.cardIconType)}></div>
                </div>
                <i>{"#JBDGT commented on John 3:16"}</i>
-               <p>{comm.body}</p>
-               <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
+               <p>{comm.content}</p>
+               <PostReactions
+                  handleComment={() => openPost(comm)}
+                  handleApprove={handleApproveClick}
+                  handleDisapprove={handleDisapproveClick}
+                  handleMore={() => openPost(comm)}
+               />
+               {/* <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
                   <div>
                      <span>232</span>
                      <div
@@ -103,7 +122,7 @@ export default function Comments() {
                      }}>
                      <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
                   </div>
-               </div>
+               </div> */}
                <div id={`comment-${comm.id}`} className={`${cardStyles.stdInputCommentWrapper}`}>
                   <textarea
                      maxLength={150}
