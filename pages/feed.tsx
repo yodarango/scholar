@@ -18,6 +18,7 @@ import interactStyles from "../styles/pages/Interact.module.css";
 import { getNewVerseId } from "../helpers/random-daily-verses";
 import { TverseContent } from "./index";
 import { sermonProps } from "../fragments/library-items/sermon";
+import { Tcommentary } from "../posts/comment";
 
 // others
 const versionId: string = "de4e12af7f28f599-01";
@@ -25,9 +26,10 @@ const versionId: string = "de4e12af7f28f599-01";
 type feedProps = {
    verseContent: TverseContent;
    sermons: sermonProps[];
+   commentaries: Tcommentary[];
 };
 
-const Feed = ({ verseContent, sermons }: feedProps) => {
+const Feed = ({ verseContent, sermons, commentaries }: feedProps) => {
    return (
       <div className='main-wrapper'>
          <Head>
@@ -51,7 +53,7 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
             <div className={`${interactStyles.gridWrapperLeft}`}>
                <h2 className='std-text-block--small-title'>Writtings</h2>
                <div className={interactStyles.commentsWrapper}>
-                  <CommentThought />
+                  <CommentThought commentaries={commentaries} />
                </div>
             </div>
          </div>
