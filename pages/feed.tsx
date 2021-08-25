@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import TakeAStand from "../fragments/squares/take-a-stand";
 import Header from "../layouts/header";
-import Comments from "../posts/comment";
+import CommentThought from "../layouts/comment-thought";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 import StoriesCarrousel from "../posts/stories-carrousel";
 import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
@@ -49,9 +49,9 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
                <SermonsPostCarrousel sermon={sermons} />
             </div>
             <div className={`${interactStyles.gridWrapperLeft}`}>
-               <h2 className='std-text-block--small-title'>Commentaries</h2>
+               <h2 className='std-text-block--small-title'>Writtings</h2>
                <div className={interactStyles.commentsWrapper}>
-                  <Comments />
+                  <CommentThought />
                </div>
             </div>
          </div>

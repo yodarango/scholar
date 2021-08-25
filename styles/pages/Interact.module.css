@@ -16,7 +16,6 @@
    width: 100%;
    grid-area: A;
    position: relative;
-   /* margin: 0 0 var(--medium-spacing-mobile); */
 }
 
 .gridWrapperMiddle {
@@ -38,9 +37,11 @@
    .gridWrapper {
       margin: var(--medium-spacing-desktop) 0 0;
       display: grid;
-      grid-template-areas: "A B";
-      grid-template-columns: 1fr 50%;
-      grid-template-rows: 1fr;
+      grid-template-areas:
+         "A C"
+         "B B";
+      grid-template-columns: 50% 50%;
+      grid-template-rows: 1fr 1fr;
       width: 100%;
       max-width: 100%;
    }
@@ -55,5 +56,13 @@
       overflow-y: scroll;
       height: 85%;
       height: 55rem;
+   }
+
+   .gridWrapperMiddle {
+      height: 28rem;
+      overflow-y: hidden;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
    }
 }

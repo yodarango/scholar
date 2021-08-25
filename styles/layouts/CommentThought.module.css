@@ -1,0 +1,37 @@
+.mianWrapper {
+   width: 100%;
+   margin: auto;
+   position: relative;
+}
+
+.buttonWrapper {
+   width: 100%;
+   display: grid;
+   grid-template-columns: 50% 50%;
+   grid-template-rows: 1fr;
+   background-color: var(--primary-color);
+   position: absolute;
+   top: 5rem;
+   z-index: 5;
+   width: 100%;
+}
+
+.commentariesButton {
+   grid-column: 1/2;
+   border-radius: 0;
+   border-bottom-left-radius: var(--input-radius-mobile);
+   border-top-left-radius: var(--input-radius-mobile);
+   width: 100%;
+   max-width: 15rem;
+   margin: var(--medium-spacing-mobile) 0 var(--medium-spacing-mobile) auto;
+}
+
+.thoughtButton {
+   grid-column: 2/3;
+   border-radius: 0;
+   border-bottom-right-radius: var(--input-radius-mobile);
+   border-top-right-radius: var(--input-radius-mobile);
+   width: 100%;
+   max-width: 15rem;
+   margin: var(--medium-spacing-mobile) auto var(--medium-spacing-mobile) 0;
+}

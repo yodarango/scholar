@@ -1,5 +1,7 @@
-import { stringify } from "querystring";
+// core
 import React, { useState, MouseEvent } from "react";
+
+//styles
 import buttonStyles from "../../styles/components/CTA.module.css";
 
 export default function CommentFilter() {
