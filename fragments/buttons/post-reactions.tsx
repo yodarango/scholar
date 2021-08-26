@@ -25,19 +25,19 @@ const PostReactions = ({
 }: postReactionsProps) => {
    return (
       <div className={postReactionStyles.mainWrapper}>
-         {handleComment && (
+         {handleComment && postComments && (
             <div className={postReactionStyles.commentWrapper}>
                <span className={postReactionStyles.commentAmount}>{postComments.length}</span>
                <span className={postReactionStyles.commentIcon} onClick={handleComment}></span>
             </div>
          )}
-         {handleApprove && (
+         {handleApprove && postApproves && (
             <div className={postReactionStyles.approveWrapper}>
                <span className={postReactionStyles.approveAmount}>{postApproves.length}</span>
                <span className={postReactionStyles.approveIcon} onClick={handleApprove}></span>
             </div>
          )}
-         {handleDisapprove && (
+         {handleDisapprove && postDisapproves && (
             <div className={postReactionStyles.disapproveWrapper}>
                <span className={postReactionStyles.disapproveAmount}>{postDisapproves.length}</span>
                <span
