@@ -9,31 +9,37 @@ type postReactionsProps = {
    handleApprove?: any;
    handleDisapprove?: any;
    handleMore?: any;
+   postComments: any[];
+   postApproves: any[];
+   postDisapproves: any[];
 };
 
 const PostReactions = ({
    handleComment,
    handleApprove,
    handleDisapprove,
-   handleMore
+   handleMore,
+   postComments,
+   postApproves,
+   postDisapproves
 }: postReactionsProps) => {
    return (
       <div className={postReactionStyles.mainWrapper}>
          {handleComment && (
             <div className={postReactionStyles.commentWrapper}>
-               <span className={postReactionStyles.commentAmount}>3243</span>
+               <span className={postReactionStyles.commentAmount}>{postComments.length}</span>
                <span className={postReactionStyles.commentIcon} onClick={handleComment}></span>
             </div>
          )}
          {handleApprove && (
             <div className={postReactionStyles.approveWrapper}>
-               <span className={postReactionStyles.approveAmount}>343</span>
+               <span className={postReactionStyles.approveAmount}>{postApproves.length}</span>
                <span className={postReactionStyles.approveIcon} onClick={handleApprove}></span>
             </div>
          )}
          {handleDisapprove && (
             <div className={postReactionStyles.disapproveWrapper}>
-               <span className={postReactionStyles.disapproveAmount}>232</span>
+               <span className={postReactionStyles.disapproveAmount}>{postDisapproves.length}</span>
                <span
                   className={postReactionStyles.disapproveIcon}
                   onClick={handleDisapprove}></span>
