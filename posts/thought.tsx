@@ -1,117 +1,104 @@
 // core
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // components
-import CommentaryContent from "../fragments/popup-content/commentary-content";
-import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-comments-content";
+import ThoughtComment from "../fragments/popup-content/thought-content";
+import CommentsOfThoughtsContent from "../fragments/popup-content/comments-of-thoughts";
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
+import PostReactions from "../fragments/buttons/post-reactions";
 
-const Thought = () => {
-   // ====================  FUNCTION 1: fetch the thoughts   ============== //
+export type Tthought = {
+   id: string;
+   userId: string;
+   userSignature: string;
+   title: string;
+   userAvatar: string;
+   content: string;
+   referencedScriptures: [{ verseId: string; verseReferences: string }];
+   tags: string[];
+   colors: string[];
+   approves: string[];
+   disapproves: string[];
+   comments: string[];
+};
 
-   // ========== fetch all comments for the selected comment
-   interface CommentInt {
-      userId: number;
-      title: string;
-      body: string;
-      id: number;
-   }
-   const [comments, setcomments] = useState<CommentInt[]>([]);
-
-   const getComments: () => void = async () => {
-      const requ = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const res = await requ.json();
-      setcomments(res);
-      console.log(res);
-   };
-
-   useEffect(() => {
-      getComments();
-   }, []);
-
-   // ================= FUNCTION: See the whole post
+type thoughtProps = {
+   thoughts: Tthought[];
+};
+const Thought = ({ thoughts }: thoughtProps) => {
+   // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
-   const categories = { first: { color: "blue", tag: "DBL" }, second: { color: "red", tag: "RD" } };
-   const openPost = (comment: any) => {
+   const openPost = (thought: any) => {
       setseeWholePost(
          <div className='dark-bkg'>
             <div className='closeModal' onClick={() => setseeWholePost(false)}>
                X
             </div>
             <div className={popupStyles.halvesWrapper}>
-               <CommentaryContent
-                  title={comment.title}
-                  content={comment.body}
-                  categories={categories}
-                  referencedVerses={[{ id: "JHN.3.17", name: "John 3:17" }]}
-               />
-               <CommentsOfCcommentsContent />
+               <ThoughtComment thought={thought} />
+               <CommentsOfThoughtsContent postId={"123"} />
             </div>
          </div>
       );
    };
 
-   // ================= FUNCTION: Drop down the comment imput
-
-   let openCommentState: boolean = false;
-   const openComment = (id: string | number) => {
-      const currInput: HTMLDivElement | null = document.querySelector(`#comment-${id}`);
-      if (openCommentState === false) {
-         openCommentState = true;
-         currInput ? (currInput.style.display = "block") : null;
-      } else if (openCommentState === true) {
-         openCommentState = false;
-         currInput ? (currInput.style.display = "none") : null;
-      }
-      console.log(currInput);
+   // ================= FUNCTION 2: Drop down the comment imput   =============== //
+   const [commentBoxState, setCommentBoxState] = useState<string>("");
+   const openComment = (id: string) => {
+      setCommentBoxState(id);
    };
+   // ================= FUNCTION 3: Hide the Drop down the comment imput  ===================//
+   const closeComment = () => {
+      setCommentBoxState("");
+   };
+
+   const handleApproveClick = () => {};
+   const handleDisapproveClick = () => {};
    return (
       <>
          {seeWholePost}
-         {comments.map((comm) => (
-            <div className={`${cardStyles.commentCard}`} key={comm.id} id={`${comm.id}`}>
-               <div className={cardStyles.commentCardHeader}>
+         {thoughts.map((thought) => (
+            <div className={`${cardStyles.commentCard}`} key={thought.id} id={`${thought.id}`}>
+               <div
+                  className={cardStyles.commentCardHeader}
+                  style={{ backgroundColor: thought.colors[0] }}>
                   <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
                      <img
-                        src='Parks10.png'
+                        src={thought.userAvatar}
                         alt='Avatar'
                         className={cardStyles.commentCardHeaderAvatarImg}
                      />
                   </div>
-                  <h1>{comm.title}</h1>
-                  <div className={(cardStyles.cardIcon, cardStyles.cardIconType)}></div>
+                  <h1>{thought.userSignature}</h1>
+                  <div className={(cardStyles.cardIcon, cardStyles.cardIconThouth)}></div>
                </div>
-               <i>{"#JBDGT commented on John 3:16"}</i>
-               <p>{comm.body}</p>
-               <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
-                  <div>
-                     <span>232</span>
-                     <div
-                        className={(cardStyles.cardIcon, cardStyles.cardIconComment)}
-                        onClick={() => {
-                           openComment(comm.id);
-                        }}></div>
-                  </div>
-                  <div>
-                     <span>3,232</span>
-                     <div className={(cardStyles.cardIcon, cardStyles.cardIconLike)}></div>
-                  </div>
+               <i>{`${thought.userSignature} expressed a new Tought`}</i>
+               <p>{thought.content}</p>
+               <PostReactions
+                  handleComment={() => openComment(thought.id)}
+                  handleApprove={handleApproveClick}
+                  handleDisapprove={handleDisapproveClick}
+                  handleMore={() => openPost(thought)}
+                  postComments={thought.comments}
+                  postApproves={thought.approves}
+                  postDisapproves={thought.disapproves}
+               />
+               {commentBoxState === thought.id && (
                   <div
-                     onClick={() => {
-                        openPost(comm);
-                     }}>
-                     <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
+                     id={`comment-${thought.id}`}
+                     className={`${cardStyles.stdInputCommentWrapper}`}>
+                     <textarea
+                        maxLength={150}
+                        placeholder='Comment...'
+                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                     <div className={`${cardStyles.postCancelWrapper}`}>
+                        <span className={`std-button_gradient-text`}>Post</span>{" "}
+                        <span onClick={closeComment}>Cancel</span>
+                     </div>
                   </div>
-               </div>
-               <div id={`comment-${comm.id}`} className={`${cardStyles.stdInputCommentWrapper}`}>
-                  <textarea
-                     maxLength={150}
-                     placeholder='Comment...'
-                     className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                  <div className={`std-button_gradient-text`}>Post</div>
-               </div>
+               )}
             </div>
          ))}
       </>

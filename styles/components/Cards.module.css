@@ -112,7 +112,7 @@ rename it and reuse it in other instaces if needed.
    grid-row: 1/2;
    font: var(--secondary-font-mobile);
    padding: 0 var(--xsmall-spacing-mobile);
-   color: var(--secondary-color);
+   color: var(--font-color);
    overflow: hidden;
    text-overflow: ellipsis;
    display: -webkit-box;
@@ -171,6 +171,7 @@ rename it and reuse it in other instaces if needed.
 .cardIcon,
 .cardIconType,
 .cardIconMore,
+.cardIconThouth,
 .cardIconComment,
 .cardIconLike {
    height: 1rem;
@@ -192,6 +193,10 @@ rename it and reuse it in other instaces if needed.
 }
 .cardIconLike {
    background-image: url("../../public/images/likke.svg");
+}
+
+.cardIconThouth {
+   background-image: url("../../public/images/thought.svg");
 }
 .cardIconMore,
 .cardIconComment,
@@ -224,7 +229,6 @@ rename it and reuse it in other instaces if needed.
 .stdInputCommentWrapper {
    width: 95%;
    margin: var(--xsmall-spacing-mobile) auto;
-   display: none;
 }
 
 .stdInputComment {
@@ -235,7 +239,27 @@ rename it and reuse it in other instaces if needed.
    resize: none;
 }
 
+.postCancelWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   width: 80%;
+   margin: auto;
+}
+
+.postCancelWrapper span {
+   cursor: pointer;
+}
+.commentaryBodyContent {
+   height: 100vh;
+   overflow-y: scroll;
+}
 /* Comments of Comments card  */
+.LeftWidthCommentaryContent {
+   max-height: 100vh;
+   overflow-y: scroll;
+}
+
 .commentsOfCommentsImg {
    width: 2.5rem;
    height: 3rem;
@@ -271,10 +295,21 @@ rename it and reuse it in other instaces if needed.
    margin: var(--xsmall-spacing-mobile) auto 0;
 }
 
-.commentsOfCommentsBody {
+.commentOfCommentCard {
+   overflow: scroll;
+}
+
+.commentsOfCommentsBodyVisible,
+.commentsOfCommentsBodyHidden {
    margin: 0 0 0.5rem;
    text-align: left;
 }
+
+.commentsOfCommentsBodyVisible {
+   height: 18rem;
+   overflow-y: scroll;
+}
+
 @media only screen and (min-width: 800px) {
    /* Default Verse  */
    .squaredCardWrapper {

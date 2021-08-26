@@ -47,13 +47,18 @@
    padding: var(--xsmall-spacing-mobile);
    width: 100%;
    display: block;
-   color: var(--font-color);
+   color: var(--graient-one);
    font: var(--secondary-font-mobile);
    text-align: left;
 }
 
 .halfWidthRight p {
    padding: 0 var(--xsmall-spacing-mobile);
+}
+
+.commentaryBodyContent {
+   max-height: 100vh;
+   overflow-y: scroll;
 }
 /* Editor Instructions */
 /* .table {
@@ -150,6 +155,11 @@
 }
 
 @media only screen and (min-width: 800px) {
+   /* If stuff around the page is breaking remove this calss completely */
+   .halfWidth {
+      width: 650px;
+      max-width: 650px;
+   }
 }
 
 @media only screen and (min-width: 1000px) {

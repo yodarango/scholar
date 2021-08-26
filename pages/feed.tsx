@@ -19,6 +19,7 @@ import { getNewVerseId } from "../helpers/random-daily-verses";
 import { TverseContent } from "./index";
 import { sermonProps } from "../fragments/library-items/sermon";
 import { Tcommentary } from "../posts/comment";
+import { Tthought } from "../posts/thought";
 
 // others
 const versionId: string = "de4e12af7f28f599-01";
@@ -27,9 +28,10 @@ type feedProps = {
    verseContent: TverseContent;
    sermons: sermonProps[];
    commentaries: Tcommentary[];
+   thoughts: Tthought[];
 };
 
-const Feed = ({ verseContent, sermons, commentaries }: feedProps) => {
+const Feed = ({ verseContent, sermons, commentaries, thoughts }: feedProps) => {
    return (
       <div className='main-wrapper'>
          <Head>
@@ -53,7 +55,7 @@ const Feed = ({ verseContent, sermons, commentaries }: feedProps) => {
             <div className={`${interactStyles.gridWrapperLeft}`}>
                <h2 className='std-text-block--small-title'>Writtings</h2>
                <div className={interactStyles.commentsWrapper}>
-                  <CommentThought commentaries={commentaries} />
+                  <CommentThought commentaries={commentaries} thoughts={thoughts} />
                </div>
             </div>
          </div>
@@ -82,11 +84,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
    const commReq = await fetch("https://scholar-be.herokuapp.com/commentaries");
    const commentaries = await commReq.json();
 
+   const thoughtReq = await fetch("https://scholar-be.herokuapp.com/thoughts");
+   const thoughts = await thoughtReq.json();
+
    return {
       props: {
          verseContent,
          sermons,
-         commentaries
+         commentaries,
+         thoughts
       }
    };
 };

@@ -10,11 +10,13 @@ import commentThoughtStyles from "../styles/layouts/CommentThought.module.css";
 
 // helpers
 import { Tcommentary } from "../posts/comment";
+import { Tthought } from "../posts/thought";
 
 type commentThoughtProps = {
    commentaries: Tcommentary[];
+   thoughts: Tthought[];
 };
-const CommentThought = ({ commentaries }: commentThoughtProps) => {
+const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
    // ===========================    FUNCTION 1: filter hte posts either by commentaries or by Thought  ======== //
    const [filterThoughtCommentState, setFilterThoughtCommentState] = useState<{
       comment: boolean;
@@ -59,7 +61,7 @@ const CommentThought = ({ commentaries }: commentThoughtProps) => {
          </div>
          <div className={`large-spacer`}></div>
          {filterThoughtCommentState.comment && <Comment commentaries={commentaries} />}
-         {filterThoughtCommentState.thought && <Thought />}
+         {filterThoughtCommentState.thought && <Thought thoughts={thoughts} />}
       </div>
    );
 };

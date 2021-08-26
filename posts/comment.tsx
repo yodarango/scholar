@@ -32,7 +32,6 @@ type commentsProps = {
 export default function Comments({ commentaries }: commentsProps) {
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
-   const categories = { first: { color: "blue", tag: "DBL" }, second: { color: "red", tag: "RD" } };
    const openPost = (commentary: Tcommentary) => {
       setseeWholePost(
          <div className='dark-bkg'>
@@ -41,30 +40,26 @@ export default function Comments({ commentaries }: commentsProps) {
             </div>
             <div className={popupStyles.halvesWrapper}>
                <CommentaryContent commentary={commentary} />
-               <CommentsOfCcommentsContent />
+               <CommentsOfCcommentsContent postId={"123"} />
             </div>
          </div>
       );
    };
 
-   // ================= FUNCTION 2: Drop down the comment imput
-
-   let openCommentState: boolean = false;
-   const openComment = (id: string | number) => {
-      const currInput: HTMLDivElement | null = document.querySelector(`#comment-${id}`);
-      if (openCommentState === false) {
-         openCommentState = true;
-         currInput ? (currInput.style.display = "block") : null;
-      } else if (openCommentState === true) {
-         openCommentState = false;
-         currInput ? (currInput.style.display = "none") : null;
-      }
-      console.log(currInput);
+   // ================= FUNCTION 2: Drop down the comment imput   =============== //
+   const [commentBoxState, setCommentBoxState] = useState<string>("");
+   const openComment = (id: string) => {
+      setCommentBoxState(id);
+   };
+   // ================= FUNCTION 3: Hide the Drop down the comment imput  ===================//
+   const closeComment = () => {
+      setCommentBoxState("");
    };
 
-   // =================    FUNCTION 2: handle the approve click  ================== //
+   // =================    FUNCTION 4: handle the approve click  ================== //
    const handleApproveClick = () => {};
 
+   // =================    FUNCTION 5: handle the disapprove click  ================== //
    const handleDisapproveClick = () => {};
 
    return (
@@ -95,16 +90,24 @@ export default function Comments({ commentaries }: commentsProps) {
                   handleApprove={handleApproveClick}
                   handleDisapprove={handleDisapproveClick}
                   handleMore={() => openPost(commentary)}
+                  postComments={commentary.comments}
+                  postApproves={commentary.approves}
+                  postDisapproves={commentary.disapproves}
                />
-               <div
-                  id={`comment-${commentary.id}`}
-                  className={`${cardStyles.stdInputCommentWrapper}`}>
-                  <textarea
-                     maxLength={150}
-                     placeholder='Comment...'
-                     className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                  <div className={`std-button_gradient-text`}>Post</div>
-               </div>
+               {commentBoxState === commentary.id && (
+                  <div
+                     id={`comment-${commentary.id}`}
+                     className={`${cardStyles.stdInputCommentWrapper}`}>
+                     <textarea
+                        maxLength={150}
+                        placeholder='Comment...'
+                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                     <div className={`${cardStyles.postCancelWrapper}`}>
+                        <span className={`std-button_gradient-text`}>Post</span>
+                        <span onClick={closeComment}>Cancel</span>
+                     </div>
+                  </div>
+               )}
             </div>
          ))}
       </>

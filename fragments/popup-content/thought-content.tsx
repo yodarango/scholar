@@ -10,15 +10,15 @@ import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
-import { Tcommentary } from "../../posts/comment";
 import PostReactions from "../buttons/post-reactions";
+import { Tthought } from "../../posts/thought";
 
 // others
 
-type commentaryContentProps = {
-   commentary: Tcommentary;
+type thoughtContentProps = {
+   thought: Tthought;
 };
-const CommentaryContent = ({ commentary }: commentaryContentProps) => {
+const ThoughtContent = ({ thought }: thoughtContentProps) => {
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
 
@@ -45,7 +45,7 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
       );
    };
 
-   // ========= FUNCTION 1: open and close the comment text area
+   // ========= FUNCTION: open and close the comment text area
    type IopenCommentInputState = {
       status: boolean;
       func: React.MouseEventHandler;
@@ -72,10 +72,9 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
          {referencedVerseState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
-               <h1
-                  className={`${popupStyles.stdSmallTitle}`}>{`Comment on ${commentary.commentedOn.verseReferences} by ${commentary.userSignature}`}</h1>
+               <h1 className={`${popupStyles.stdSmallTitle}`}>{thought.title}</h1>
                <ReactMarkdown className={popupStyles.commentaryBodyContent}>
-                  {commentary.content}
+                  {thought.content}
                </ReactMarkdown>
 
                {/* Comment text area */}
@@ -99,24 +98,22 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
                   handleComment={openCommentInputState.func}
                   handleApprove={handleApproveClick}
                   handleDisapprove={handledisapproveClick}
-                  postComments={commentary.comments}
-                  postApproves={commentary.approves}
-                  postDisapproves={commentary.disapproves}
+                  postComments={thought.comments}
+                  postApproves={thought.approves}
+                  postDisapproves={thought.disapproves}
                />
 
                {/* Assigned Tags */}
                <div className={textEditorStyles.textEditorTags}>
-                  {commentary.tags && (
-                     <div style={{ backgroundColor: commentary.colors[0] }}>
-                        {commentary.tags[0]}
-                     </div>
+                  {thought.tags && (
+                     <div style={{ backgroundColor: thought.colors[0] }}>{thought.tags[0]}</div>
                   )}
-                  {commentary.tags && (
+                  {thought.tags && (
                      <div
                         style={{
-                           backgroundColor: commentary.colors[1]
+                           backgroundColor: thought.colors[1]
                         }}>
-                        {commentary.tags[1]}
+                        {thought.tags[1]}
                      </div>
                   )}
                </div>
@@ -124,8 +121,8 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-                  {commentary.referencedScriptures &&
-                     commentary.referencedScriptures.map(
+                  {thought.referencedScriptures &&
+                     thought.referencedScriptures.map(
                         (el: { verseId: string; verseReferences: string }) => (
                            <div
                               className={textEditorStyles.textEditorVerse}
@@ -142,4 +139,4 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
    );
 };
 
-export default CommentaryContent;
+export default ThoughtContent;

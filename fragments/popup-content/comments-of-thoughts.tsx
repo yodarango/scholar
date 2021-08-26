@@ -6,7 +6,7 @@ type commentsOfCcommentsContentProps = {
    postId: string;
 };
 const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps) => {
-   type TcommentOfComment = {
+   type TcommentOfThought = {
       id: string;
       userAvatar: string;
       userSignature: string;
@@ -14,10 +14,10 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
       content: string;
    };
 
-   const [comments, setcomments] = useState<TcommentOfComment[]>([]);
+   const [comments, setcomments] = useState<TcommentOfThought[]>([]);
 
    const getComments: () => void = async () => {
-      const requ = await fetch(`https://scholar-be.herokuapp.com/commentaries/${postId}`);
+      const requ = await fetch(`https://scholar-be.herokuapp.com/thoughts/${postId}`);
       const res = await requ.json();
       setcomments(res);
       console.log(res);
