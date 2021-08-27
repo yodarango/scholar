@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import Comment from "../posts/comment";
@@ -12,12 +12,28 @@ import commentThoughtStyles from "../styles/layouts/CommentThought.module.css";
 import { Tcommentary } from "../posts/comment";
 import { Tthought } from "../posts/thought";
 
-type commentThoughtProps = {
-   commentaries: Tcommentary[];
-   thoughts: Tthought[];
-};
-const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
-   // ===========================    FUNCTION 1: filter hte posts either by commentaries or by Thought  ======== //
+const CommentThought = () => {
+   // ====================   FUNCTION 1:  fetch the commentary data   ==========   //
+   const [commentaries, setCommentaries] = useState<Tcommentary[]>([]);
+   const fetchCommentary = async () => {
+      const commReq = await fetch("https://scholar-be.herokuapp.com/commentaries");
+      const commentaries = await commReq.json();
+      setCommentaries(commentaries);
+   };
+   // ====================   FUNCTION 2:  fetch the commentary data   ==========   //
+   const [thoughts, setThought] = useState<Tthought[]>([]);
+   const fetchThought = async () => {
+      const thoughtReq = await fetch("https://scholar-be.herokuapp.com/thoughts");
+      const thoughts = await thoughtReq.json();
+      setThought(thoughts);
+   };
+
+   useEffect(() => {
+      fetchCommentary();
+      fetchThought();
+   }, []);
+
+   // ===========================    FUNCTION 3: filter hte posts either by commentaries or by Thought  ======== //
    const [filterThoughtCommentState, setFilterThoughtCommentState] = useState<{
       comment: boolean;
       thought: boolean;
@@ -25,6 +41,7 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
       thoughtBkg: string;
    }>({ comment: true, thought: false, commentaryBkg: "", thoughtBkg: "#5c5470" });
 
+   // ===========================    FUNCTION 4: Pull only the commentary content   ======== //
    const handleFilterComment = () => {
       setFilterThoughtCommentState({
          comment: true,
@@ -34,6 +51,7 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
       });
    };
 
+   // ===========================    FUNCTION 5: Pull only the thought content   ======== //
    const handleFilterCThought = () => {
       setFilterThoughtCommentState({
          comment: false,

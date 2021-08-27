@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 // components
+import PostReactions from "../fragments/buttons/post-reactions";
 
 // stoires
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
@@ -47,6 +48,25 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
       document.body.style.overflow = "scroll";
       setHandleStoriePopupState(false);
       setCountState(0);
+   };
+
+   // ==============   FUNCTION 5: commennt on the story  =============== //
+   const [commentPopUpState, setCommentPopUpState] = useState<boolean>(false);
+   const handleComentClick = () => {
+      setCommentPopUpState(true);
+   };
+   // ==============   FUNCTION 6: approve the story   =============== //
+   const hanndleApproveClick = () => {};
+
+   // ==============   FUNCTION 7: dissaprove the stroy   =============== //
+   const handleDisapproveClick = () => {};
+
+   // ==============   FUNCTION 8: see the stroy data when the user clicks "More" =============== //
+   const handleMoreClick = () => {};
+
+   // ==============   FUNCTION 9: see the stroy data when the user clicks "More" =============== //
+   const handleCloseComment = () => {
+      setCommentPopUpState(false);
    };
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
@@ -96,6 +116,31 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
                      -By: {stories.stories[countState].by}
                   </span>
                </div>
+               <div className={quoteStoriesStyles.postReactionWrapper}>
+                  <PostReactions
+                     handleApprove={hanndleApproveClick}
+                     handleDisapprove={handleDisapproveClick}
+                     handleComment={handleComentClick}
+                     handleMore={handleMoreClick}
+                     postApproves={["sd", "sd"]}
+                     postDisapproves={["dsgds", "sdgds", "sdgds"]}
+                     postComments={["gs", "fgfdg"]}
+                  />
+               </div>
+               {commentPopUpState && (
+                  <div className={quoteStoriesStyles.commentWrapper}>
+                     <h3>Type your comment</h3>
+                     <textarea placeholder={"comment..."}></textarea>
+                     <div className={quoteStoriesStyles.postReactionWrapperComment}>
+                        <span className={"std-button_gradient-text"}>Post</span>
+                        <span
+                           className={quoteStoriesStyles.cancelButton}
+                           onClick={handleCloseComment}>
+                           Cancel
+                        </span>
+                     </div>
+                  </div>
+               )}
             </section>
          )}
       </div>

@@ -18,8 +18,8 @@
    background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
-   height: 3.3rem;
-   width: 2.8rem;
+   height: 3.5rem;
+   width: 3rem;
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
 }
 
@@ -81,6 +81,18 @@
 .storyBy {
    width: 100%;
    font-size: 0.9rem;
+   margin-top: -1rem;
+}
+
+.postReactionWrapper {
+   z-index: 10;
+   width: 80%;
+   top: 93vh;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   margin: auto;
+   position: fixed;
 }
 
 .avatarImageStory {
@@ -183,6 +195,58 @@
    background-image: linear-gradient(120deg, rgba(3, 8, 116, 1) 0%, rgba(203, 2, 2, 1) 100%);
 }
 
+/* ======================   Post Comments Wrapper     ======================= */
+.commentWrapper {
+   width: 80%;
+   margin: auto;
+   top: 35vh;
+   left: 0;
+   right: 0;
+   z-index: 15;
+   position: fixed;
+   background-color: rgba(255, 255, 255, 0.8);
+   padding: 0.5rem 0.8rem;
+   border-radius: var(--input-radius-mobile);
+}
+
+.commentWrapper h3 {
+   text-align: center;
+   color: var(--fourth-color);
+}
+
+.commentWrapper textarea {
+   width: 100%;
+   height: 10rem;
+   resize: none;
+   border-radius: var(--input-radius-mobile);
+   background-color: rgba(255, 255, 255, 0.5);
+   color: var(--fourth-color);
+   font: var(--primary-font-mobile);
+   padding: 0.5rem;
+}
+
+.commentWrapper textarea:focus {
+   outline: none;
+   background-color: rgba(255, 255, 255, 0.85);
+}
+
+.postReactionWrapperComment {
+   width: 80%;
+   margin: auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   position: relative;
+   top: 0;
+}
+.postReactionWrapperComment span {
+   cursor: pointer;
+}
+
+.cancelButton {
+   color: var(--fourth-color);
+}
+
 @media only screen and (min-width: 1000px) {
    .mainStoryWrapper {
       width: 4rem;
@@ -243,5 +307,15 @@
    .postStoryRight {
       height: 1.8rem;
       width: 1.8rem;
+   }
+}
+
+@media (max-height: 600px) {
+   .storyContent {
+      max-height: 50vh;
+   }
+
+   .commentWrapper {
+      top: 25vh;
    }
 }
