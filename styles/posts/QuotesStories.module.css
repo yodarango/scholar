@@ -198,6 +198,7 @@
 /* ======================   Post Comments Wrapper     ======================= */
 .commentWrapper {
    width: 80%;
+   max-width: 25rem;
    margin: auto;
    top: 35vh;
    left: 0;
@@ -247,6 +248,18 @@
    color: var(--fourth-color);
 }
 
+/* ============== Post Comments Carrousel Wrapper ============ */
+.commentsOfStroyWrapper {
+   width: 100ww;
+   height: 15rem;
+   background-color: rgba(255, 255, 255, 0.7);
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   position: relative;
+   top: calc(100vh - 15rem);
+   padding: 1rem;
+}
 @media only screen and (min-width: 1000px) {
    .mainStoryWrapper {
       width: 4rem;

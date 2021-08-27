@@ -2,9 +2,12 @@ import React, { useState } from "react";
 
 // components
 import PostReactions from "../fragments/buttons/post-reactions";
+import CommentsOfQuote, { TcommentType } from "../fragments/popup-content/comments-of-quote";
 
 // stoires
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
+
+// helpers
 
 export type Tstory = {
    id: string;
@@ -16,6 +19,9 @@ export type Tstory = {
          by: string;
          background: string;
          tags: string[];
+         approves: string[];
+         disapproves: string[];
+         comments: TcommentType[];
       }
    ];
 };
@@ -62,9 +68,12 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
    const handleDisapproveClick = () => {};
 
    // ==============   FUNCTION 8: see the stroy data when the user clicks "More" =============== //
-   const handleMoreClick = () => {};
+   const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
+   const handleMoreClick = () => {
+      setMorePopUpState(true);
+   };
 
-   // ==============   FUNCTION 9: see the stroy data when the user clicks "More" =============== //
+   // ==============   FUNCTION 9: see the story data when the user clicks "More" =============== //
    const handleCloseComment = () => {
       setCommentPopUpState(false);
    };
@@ -122,9 +131,9 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
                      handleDisapprove={handleDisapproveClick}
                      handleComment={handleComentClick}
                      handleMore={handleMoreClick}
-                     postApproves={["sd", "sd"]}
-                     postDisapproves={["dsgds", "sdgds", "sdgds"]}
-                     postComments={["gs", "fgfdg"]}
+                     postApproves={stories.stories.map((storie) => storie.approves)}
+                     postDisapproves={stories.stories.map((storie) => storie.disapproves)}
+                     postComments={stories.stories.map((storie) => storie.comments)}
                   />
                </div>
                {commentPopUpState && (
@@ -140,6 +149,13 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
                         </span>
                      </div>
                   </div>
+               )}
+               {morePopUpState && (
+                  <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
+                     {stories.stories.map((story) =>
+                        story.comments.map((comment) => <CommentsOfQuote comment={comment} />)
+                     )}
+                  </section>
                )}
             </section>
          )}

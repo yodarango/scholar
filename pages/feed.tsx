@@ -18,8 +18,6 @@ import interactStyles from "../styles/pages/Interact.module.css";
 import { getNewVerseId } from "../helpers/random-daily-verses";
 import { TverseContent } from "./index";
 import { sermonProps } from "../fragments/library-items/sermon";
-import { Tcommentary } from "../posts/comment";
-import { Tthought } from "../posts/thought";
 
 // others
 const versionId: string = "de4e12af7f28f599-01";
