@@ -20,7 +20,11 @@ const CommentsOfQuote = ({ comment }: commentsOfQuoteProps) => {
    return (
       <div className={commentsOfStoryStyles.mainWrapper}>
          <div className={commentsOfStoryStyles.avatarUserSignatureWrapper}>
-            <div style={{ backgroundImage: comment.userAvatar }}></div>
+            <div className={commentsOfStoryStyles.commentAvatarWrapper}>
+               <div
+                  style={{ backgroundImage: `url(${comment.userAvatar})` }}
+                  className={commentsOfStoryStyles.avatar}></div>
+            </div>
             <h4>{comment.userSignature}</h4>
          </div>
          <p className={commentsOfStoryStyles.content}>{comment.content}</p>

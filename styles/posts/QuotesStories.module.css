@@ -251,15 +251,44 @@
 /* ============== Post Comments Carrousel Wrapper ============ */
 .commentsOfStroyWrapper {
    width: 100ww;
-   height: 15rem;
+   height: 18rem;
    background-color: rgba(255, 255, 255, 0.7);
    display: flex;
    align-items: flex-start;
    justify-content: flex-start;
    position: relative;
-   top: calc(100vh - 15rem);
-   padding: 1rem;
+   top: calc(100vh - 18rem);
+   padding: 3rem 1rem 1rem 2rem;
+   overflow-x: scroll;
+   animation: slideUp 300ms ease-in;
 }
+
+@keyframes slideUp {
+   from {
+      top: 100vh;
+   }
+   to {
+      top: calc(100vh - 18rem);
+   }
+}
+.noCommentsYet {
+   color: var(--fourth-color);
+   width: 100%;
+   font-size: 1rem;
+   position: relative;
+   top: 3rem;
+   text-align: center;
+}
+
+.closeCommentsCarrousel {
+   cursor: pointer;
+   color: var(--fourth-color);
+   position: sticky;
+   margin-top: -2rem;
+   top: -2rem;
+   left: 0;
+}
+
 @media only screen and (min-width: 1000px) {
    .mainStoryWrapper {
       width: 4rem;

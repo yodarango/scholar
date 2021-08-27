@@ -152,8 +152,18 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
                )}
                {morePopUpState && (
                   <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
-                     {stories.stories.map((story) =>
-                        story.comments.map((comment) => <CommentsOfQuote comment={comment} />)
+                     <span
+                        className={quoteStoriesStyles.closeCommentsCarrousel}
+                        onClick={() => setMorePopUpState(false)}>
+                        X
+                     </span>
+                     {stories.stories[countState].comments.map((comment) => (
+                        <CommentsOfQuote comment={comment} />
+                     ))}
+                     {stories.stories[countState].comments.length === 0 && (
+                        <h3 className={quoteStoriesStyles.noCommentsYet}>
+                           Be the first one to comment! 😊
+                        </h3>
                      )}
                   </section>
                )}
