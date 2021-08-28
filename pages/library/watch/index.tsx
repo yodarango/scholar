@@ -13,7 +13,6 @@ import { GetStaticProps } from "next";
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
-import LibraryFilter from "../../../fragments/buttons/library-filter";
 import WatchCarrousel from "../../../layouts/library-individual-pages/watch-carrousel";
 
 // styles
