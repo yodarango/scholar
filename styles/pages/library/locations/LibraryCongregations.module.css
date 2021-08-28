@@ -1,0 +1,16 @@
+.mainWrapper {
+   width: 90%;
+   margin: auto;
+}
+
+.searchWapper {
+   grid-area: Search;
+}
+
+.search {
+   width: 100%;
+   max-width: 400px;
+   font-size: 0.9rem;
+   margin: var(--medium-spacing-mobile) 0.5rem 0;
+   box-sizing: border-box;
+}

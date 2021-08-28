@@ -17,7 +17,7 @@
    width: 7rem;
    flex-grow: 0.6;
    flex-shrink: 1;
-   margin: 0 0.3rem var(--medium-spacing-mobile);
+   margin: var(--medium-spacing-mobile);
 }
 
 @media only screen and (min-width: 500px) {
@@ -25,7 +25,7 @@
       width: 9.3rem;
       flex-grow: 0.6;
       flex-shrink: 1;
-      margin: 0 0.7rem var(--medium-spacing-mobile);
+      margin: var(--medium-spacing-mobile);
    }
 }
 
@@ -40,7 +40,7 @@
       width: 12rem;
       flex-grow: 0.6;
       flex-shrink: 1;
-      margin: 0 1rem var(--medium-spacing-desktop);
+      margin: var(--medium-spacing-desktop);
    }
 }
 

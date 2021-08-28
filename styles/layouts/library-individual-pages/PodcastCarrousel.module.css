@@ -15,13 +15,13 @@
 
 .podcastWrapper {
    width: 8rem;
-   margin: 0 0.2rem var(--medium-spacing-mobile);
+   margin: var(--medium-spacing-mobile);
    flex-grow: 0.7;
 }
 @media only screen and (min-width: 500px) {
    .podcastWrapper {
       width: 9.3rem;
-      margin: 0 0.4rem var(--medium-spacing-desktop);
+      margin: var(--medium-spacing-mobile);
       flex-grow: 0;
    }
 }
@@ -30,12 +30,12 @@
    .mainWrapper {
       width: 100%;
       max-width: 900px;
-      margin: 0 auto;
+      margin: var(--medium-spacing-mobile) auto;
    }
 
    .podcastWrapper {
       width: 12rem;
-      margin: 0 1rem var(--medium-spacing-desktop);
+      margin: var(--medium-spacing-desktop);
       flex-grow: 0;
    }
 }
