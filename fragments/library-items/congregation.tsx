@@ -26,7 +26,17 @@ const Congregation = ({
    state,
    zip
 }: congregationProps) => {
-   return <div></div>;
+   return (
+      <div className={congregationStyles.mainWrapper}>
+         <div style={{ backgroundImage: `url(${logo})` }} className={congregationStyles.logo}></div>
+         <h2 className={congregationStyles.name}>{name}</h2>
+         <p className={congregationStyles.address}>{address}</p>
+         <a href='https://factv.org' target='_blank' rel='noopener noreferrer'>
+            Visit website
+         </a>
+         <a href={location}>Get Directions</a>
+      </div>
+   );
 };
 
 export default Congregation;

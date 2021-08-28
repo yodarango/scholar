@@ -1,0 +1,75 @@
+.mainWrapper {
+   width: 12rem;
+   box-sizing: content-box;
+   margin: 0 0.3rem var(--medium-spacing-mobile);
+   flex-shrink: 0;
+   flex-grow: 0.6;
+}
+
+.logo {
+   width: 8rem;
+   height: 8rem;
+   margin: auto;
+   background-size: 90%;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+.name {
+   font: var(--secondary-font-mobile);
+   font-size: 1rem;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   margin: 0 auto 0.4rem;
+}
+
+.address {
+   font: var(--widget-font-mobile);
+   font-weight: 300;
+   color: var(--fourth-color);
+   margin: 0 auto;
+}
+
+.blogUrl {
+   font: var(--primary-font-mobile);
+   font-size: 0.8rem;
+   text-decoration: underline;
+   color: var(--graient-one);
+}
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      width: 15rem;
+      box-sizing: content-box;
+      margin: 0 1rem var(--medium-spacing-mobile);
+   }
+
+   .thumbnailWrapper {
+      height: 12rem;
+   }
+
+   .thumbnail {
+      height: 12rem;
+   }
+
+   .thumbnail:hover {
+      cursor: pointer;
+      opacity: 0.8;
+   }
+
+   .name {
+      font: var(--secondary-font-desktop);
+      font-size: 1.2rem;
+      margin: 0 auto 0.6rem;
+   }
+
+   .author {
+      font: var(--widget-font-desktop);
+   }
+
+   .blogUrl {
+      font: var(--primary-font-desktop);
+      font-size: 1rem;
+   }
+}
