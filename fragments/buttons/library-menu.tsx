@@ -118,14 +118,25 @@ const libraryMenu = ({
                      📚 Books
                   </a>
                </Link>
-               <Link href={"/library/congregations"}>
+               <Link href={"/library/locations"}>
                   <a
                      style={{ color: currentSlectedContentPage.congregations }}
                      className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
-                     ⛪ Congregations
+                     ⛪ Locations
                   </a>
                </Link>
             </div>
+            <div className='medium-spacer'></div>
+            {includeSearch && (
+               <div className={`${libraryMenuStyles.searchWapper}`}>
+                  <input
+                     type='text'
+                     maxLength={50}
+                     className={`${libraryMenuStyles.search} std-input`}
+                     placeholder='🔎Name or Signature'
+                  />
+               </div>
+            )}
             {includeCategory && (
                <>
                   {!openCatDropdownState && (
@@ -202,7 +213,7 @@ const libraryMenu = ({
                         <Link href={"/library/books"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>📚</a>
                         </Link>
-                        <Link href={"/library/congregations"}>
+                        <Link href={"/library/locations"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>⛪</a>
                         </Link>
                      </section>

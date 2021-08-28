@@ -13,14 +13,14 @@
 }
 .articleWRapper {
    width: 8rem;
-   margin: var(--small-spacing-mobile) 0.8rem 0 0;
+   margin: var(--medium-spacing-mobile);
    flex-grow: 0.5;
 }
 
 @media only screen and (min-width: 500px) {
    .articleWRapper {
       width: 10rem;
-      margin: var(--small-spacing-mobile) 1.8rem 0 0;
+      margin: var(--medium-spacing-mobile);
       flex-grow: 0;
    }
 }
@@ -28,7 +28,7 @@
 @media only screen and (min-width: 1000px) {
    .articleWRapper {
       width: 12rem;
-      margin: var(--small-spacing-mobile) 1.8rem 0 0;
+      margin: var(--medium-spacing-desktop);
       flex-grow: 0;
    }
 }

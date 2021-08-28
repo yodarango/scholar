@@ -37,6 +37,8 @@ const CongregationCarrousel = ({ congregation }: congregationCarrouselProps) => 
                   city={congregation.city}
                   address={congregation.address}
                   location={congregation.location}
+                  website={congregation.website}
+                  iFrame={congregation.iFrame}
                />
             ))}
 
@@ -53,6 +55,8 @@ const CongregationCarrousel = ({ congregation }: congregationCarrouselProps) => 
                   city={congregation.city}
                   address={congregation.address}
                   location={congregation.location}
+                  website={congregation.website}
+                  iFrame={congregation.iFrame}
                />
             ))}
          </div>

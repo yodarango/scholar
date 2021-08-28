@@ -15,6 +15,7 @@
 
 .watchMainWrapper {
    flex-shrink: 1;
+   margin: var(--medium-spacing-mobile);
 }
 @media only screen and (min-width: 500px) {
 }

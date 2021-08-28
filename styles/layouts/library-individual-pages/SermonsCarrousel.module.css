@@ -20,7 +20,7 @@
 @media only screen and (min-width: 500px) {
    .sermonWRapper {
       width: 9.3rem;
-      margin: var(--small-spacing-mobile) 1.8rem 0 0;
+      margin: var(--large-spacing-mobile) var(--large-spacing-mobile) 0 0;
       flex-grow: 0;
    }
 }
@@ -28,7 +28,7 @@
 @media only screen and (min-width: 1000px) {
    .sermonWRapper {
       width: 12rem;
-      margin: var(--small-spacing-mobile) 1.8rem 0 0;
+      margin: var(--large-spacing-desktop) var(--large-spacing-desktop) 0 0;
       flex-grow: 0;
    }
 }

@@ -17,7 +17,7 @@ import Header from "../../../layouts/header";
 import CongregationCarrousel from "../../../layouts/library-individual-pages/congregation-carrousel";
 
 // styles
-import libraryCongregationsStyles from "../../../styles/pages/library/congregations/LibraryCongregations.module.css";
+import libraryCongregationsStyles from "../../../styles/pages/library/locations/LibraryCongregations.module.css";
 
 // types
 import { congregationProps } from "../../../fragments/library-items/congregation";
@@ -37,10 +37,18 @@ const Congregations = ({ congregations }: congregationPageProps) => {
          <LibraryMenu
             includeCategory={false}
             includeContent={true}
-            includeSearch={true}
+            includeSearch={false}
             contentButtonIcon={"⛪"}
             currentSlectedContentPage={{ congregations: "#f2f2f2" }}
          />
+         <div className={`${libraryCongregationsStyles.searchWapper}`}>
+            <input
+               type='text'
+               maxLength={40}
+               className={`${libraryCongregationsStyles.search} std-input`}
+               placeholder='🔎 Name, City, or State '
+            />
+         </div>
          {congregations && <CongregationCarrousel congregation={congregations} />}
       </div>
    );
