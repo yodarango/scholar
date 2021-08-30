@@ -1,0 +1,199 @@
+.mainWrapper {
+   width: 90%;
+   max-width: var(--max-width-main-wrapper-desktop);
+   margin: calc(var(--medium-spacing-mobile) + 5rem) auto;
+   overflow-x: hidden;
+}
+
+.notificationBell {
+   width: 2rem;
+   height: 2rem;
+   background-image: url("/images/bell.svg");
+   background-position: center;
+   background-size: 90%;
+   background-repeat: no-repeat;
+   margin: 0.5rem auto var(--xsmall-spacing-mobile) 0;
+}
+
+.bellWnotificationWrapper {
+   width: 2rem;
+   height: 2rem;
+   position: relative;
+   margin: 0.5rem auto var(--xsmall-spacing-mobile) 0;
+}
+
+.notificationSignifier {
+   width: 0.7rem;
+   height: 0.7rem;
+   top: 0;
+   right: 0.3rem;
+   position: absolute;
+   background-color: rgb(219, 57, 57);
+   border-radius: 50%;
+   display: block;
+}
+
+.notificationBellWNotification {
+   width: 2rem;
+   height: 2rem;
+   background-image: url("/images/bellWnotification.svg");
+   background-position: center;
+   background-size: 90%;
+   background-repeat: no-repeat;
+}
+
+.userBioWrapper {
+   width: 100%;
+   display: grid;
+   grid-template-columns: 40% 60%;
+   grid-template-rows: repeat(1fr, 4, 1rem);
+}
+
+.reputationWrapper {
+   width: 6rem;
+   height: 7rem;
+   grid-column: 1/2;
+   grid-row: 1/6;
+   display: flex;
+   align-items: center;
+   margin: 0.5rem 0.3rem 0 auto;
+   justify-content: center;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.avatar {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   width: 5.3rem;
+   height: 6.3rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.reliability {
+   grid-column: 2/3;
+   grid-row: 1/2;
+}
+
+.commentaries {
+   grid-column: 2/3;
+   grid-row: 2/3;
+}
+
+.thoughts {
+   grid-column: 2/3;
+   grid-row: 3/4;
+}
+
+.quotes {
+   grid-column: 2/3;
+   grid-row: 4/5;
+}
+
+.sermons {
+   grid-column: 2/3;
+   grid-row: 5/6;
+}
+
+.userBioWrapper h2 {
+   font: var(--secondary-font-desktop);
+   font-size: 1.2rem;
+   margin: 0;
+   padding: 0 0 0.5rem 0.5rem;
+}
+
+.userBioWrapper p {
+   font: var(--primary-font-desktop);
+   font-size: 1rem;
+   margin: 0;
+   padding: 0 0 0 0.5rem;
+   color: var(--fourth-color);
+}
+
+.reliabilityA {
+   color: rgb(91, 202, 91);
+}
+
+.reliabilityB {
+   color: rgb(255, 203, 89);
+}
+
+.reliabilityC {
+   color: rgb(255, 127, 7);
+}
+
+.reliabilityF {
+   color: rgb(207, 58, 47);
+}
+
+.totalsWrapper {
+   width: 100%;
+   max-width: 600px;
+   margin: auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: nowrap;
+   border-bottom: 2px solid var(--font-color);
+}
+
+.totalsWrapper p {
+   font: var(--widget-font-mobile);
+}
+
+/* =============   about me section   ================= */
+.aboutMeWrapper {
+   border-bottom: 2px solid var(--font-color);
+   width: 100%;
+   max-width: 600px;
+   margin: 0 auto;
+}
+
+.favoriteVerseSpan {
+   text-decoration: underline;
+   color: rgb(15, 121, 192);
+}
+
+.aboutMeWrapper ul li {
+   font: var(--widget-font-mobile);
+   font-size: 1rem;
+   margin: 0.5rem auto;
+}
+
+.myStory {
+   color: var(--graient-one);
+   text-decoration: underline;
+   cursor: pointer;
+}
+
+/* =======================   my posts section    =============== */
+.myPostsWrapper {
+   width: 100%;
+   max-width: 600px;
+   margin: auto;
+}
+
+.myPostsMenu {
+   width: 100%;
+   border-bottom: 2px solid var(--fourth-color);
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   overflow-x: scroll;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.myPostsMenu > span {
+   color: var(--fourth-color);
+   margin-right: 1rem;
+   font-size: 1rem;
+   padding: 0.3rem 0;
+   cursor: pointer;
+}
+
+.storiesWrapper {
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-wrap: wrap;
+}

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 // components
 import PostReactions from "../fragments/buttons/post-reactions";
-import CommentsOfQuote, { TcommentType } from "../fragments/popup-content/comments-of-quote";
+import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 
 // stoires
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
 
 // helpers
+import { TcommentType } from "../fragments/popup-content/comments-of-quote";
 
 export type Tstory = {
    id: string;
