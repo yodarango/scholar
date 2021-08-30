@@ -1,0 +1,66 @@
+.mainWrapper {
+   width: 100%;
+   max-width: 20rem;
+   border-top-right-radius: var(--input-radius-mobile);
+   border-top-left-radius: var(--input-radius-mobile);
+   flex-grow: 0;
+   flex-shrink: 0.1;
+   margin: var(--small-spacing-mobile) var(--small-spacing-mobile);
+}
+
+.title {
+   background-color: var(--secondary-color);
+   width: 100%;
+   padding: 0.5rem;
+   font: var(--secondary-font-mobile);
+   font-size: 1.2rem;
+   border-top-right-radius: var(--input-radius-mobile);
+   border-top-left-radius: var(--input-radius-mobile);
+   margin: 0;
+}
+
+.content {
+   margin: 0;
+   padding: 0.8rem;
+   text-align: center;
+   width: 100%;
+   height: 14rem;
+   overflow-y: scroll;
+   font: var(--quotes-font);
+}
+.actionsWrapper {
+   background-color: var(--secondary-color);
+   width: 100%;
+   padding: 0.5rem;
+   border-bottom-right-radius: var(--input-radius-mobile);
+   border-bottom-left-radius: var(--input-radius-mobile);
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+}
+
+.more {
+   display: block;
+   background-image: url("/images/ellipsis.svg");
+}
+
+.delete {
+   display: block;
+   background-image: url("/images/delete.svg");
+}
+
+.edit {
+   display: block;
+   background-image: url("/images/edit.svg");
+}
+
+.actionsWrapper span {
+   border-radius: 50%;
+   transition: transform 300ms ease-in;
+}
+
+.actionsWrapper span:hover {
+   background-color: rgba(255, 255, 255, 0.5);
+   transform: scale(1.1);
+   cursor: pointer;
+}

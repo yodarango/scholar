@@ -50,9 +50,7 @@
    align-items: center;
    justify-content: center;
    flex-wrap: wrap;
-   font-family: poppins, sans-serif;
-   font-weight: 600;
-   font-style: normal;
+   font: var(--quotes-font);
    text-align: center;
    position: absolute;
    top: 0;

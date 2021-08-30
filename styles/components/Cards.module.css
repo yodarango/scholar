@@ -102,7 +102,7 @@ rename it and reuse it in other instaces if needed.
    width: 100%;
    padding: 0 var(--xsmall-spacing-mobile);
    display: grid;
-   grid-template-columns: 15% 75% 10%;
+   grid-template-columns: 11% 59% 10% 10% 10%;
    grid-template-rows: 1fr;
 }
 
@@ -111,6 +111,7 @@ rename it and reuse it in other instaces if needed.
    grid-column: 2/3;
    grid-row: 1/2;
    font: var(--secondary-font-mobile);
+   font-size: 1rem;
    padding: 0 var(--xsmall-spacing-mobile);
    color: var(--font-color);
    overflow: hidden;
@@ -171,7 +172,6 @@ rename it and reuse it in other instaces if needed.
 .cardIcon,
 .cardIconType,
 .cardIconMore,
-.cardIconThouth,
 .cardIconComment,
 .cardIconLike {
    height: 1rem;
@@ -204,6 +204,36 @@ rename it and reuse it in other instaces if needed.
    margin: 0 var(--medium-spacing-mobile) var(--xsmall-spacing-mobile) var(--xsmall-spacing-mobile);
 }
 
+.delete,
+.edit,
+.report {
+   width: 1rem;
+   height: 1rem;
+   display: inline-block;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   margin: 0.5rem 0.5rem 0 0.5rem;
+   border-radius: 50%;
+}
+
+.delete {
+   background-image: url("/images/delete.svg");
+}
+
+.edit {
+   background-image: url("/images/edit.svg");
+}
+
+.report {
+   background-image: url("/images/report.svg");
+}
+.delete:hover,
+.edit:hover,
+.report:hover {
+   cursor: pointer;
+   background-color: rgba(255, 255, 255, 0.5);
+}
 .commentCard p {
    width: 100%;
    padding: 0 0.8rem;

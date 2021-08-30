@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 
 // styles
 import podcastStyles from "../../styles/fragments/library-items/Podcast.module.css";

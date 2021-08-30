@@ -8,6 +8,7 @@ import CommentsOfThoughtsContent from "../fragments/popup-content/comments-of-th
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 import PostReactions from "../fragments/buttons/post-reactions";
+import ConfirmationPopup from "../fragments/confirmation-popup";
 
 export type Tthought = {
    id: string;
@@ -56,9 +57,21 @@ const Thought = ({ thoughts }: thoughtProps) => {
 
    const handleApproveClick = () => {};
    const handleDisapproveClick = () => {};
+
+   // ================= FUNCTION 4: Handle the delete popup  ===================//
+   const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
+   const handleDeleteConfirmation = () => {
+      setDeletePopupState(true);
+   };
    return (
       <>
          {seeWholePost}
+         {deletePopupState && (
+            <ConfirmationPopup
+               cancel={() => setDeletePopupState(false)}
+               title={"Are you sure you want to delete this Thought?"}
+            />
+         )}
          {thoughts.map((thought) => (
             <div className={`${cardStyles.commentCard}`} key={thought.id} id={`${thought.id}`}>
                <div
@@ -71,8 +84,12 @@ const Thought = ({ thoughts }: thoughtProps) => {
                         className={cardStyles.commentCardHeaderAvatarImg}
                      />
                   </div>
-                  <h1>{thought.userSignature}</h1>
-                  <div className={(cardStyles.cardIcon, cardStyles.cardIconThouth)}></div>
+                  <h1 className={cardStyles.userSignature}>{thought.userSignature}</h1>
+                  <span
+                     className={(cardStyles.cardIcon, cardStyles.delete)}
+                     onClick={handleDeleteConfirmation}></span>
+                  <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                  <span className={(cardStyles.cardIcon, cardStyles.report)}></span>
                </div>
                <i>{`${thought.userSignature} expressed a new Tought`}</i>
                <p>{thought.content}</p>
