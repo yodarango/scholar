@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import CommentaryContent from "../fragments/popup-content/commentary-content";
 import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-comments-content";
 import PostReactions from "../fragments/buttons/post-reactions";
+import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -27,9 +28,17 @@ export type Tcommentary = {
 
 type commentsProps = {
    commentaries: Tcommentary[];
+   deleteOption?: boolean;
+   editOption?: boolean;
+   reportOption?: boolean;
 };
 
-export default function Comments({ commentaries }: commentsProps) {
+export default function Comments({
+   commentaries,
+   deleteOption,
+   editOption,
+   reportOption
+}: commentsProps) {
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = (commentary: Tcommentary) => {
@@ -62,8 +71,31 @@ export default function Comments({ commentaries }: commentsProps) {
    // =================    FUNCTION 5: handle the disapprove click  ================== //
    const handleDisapproveClick = () => {};
 
+   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
+   const handleDeleteConfirmation = () => {
+      setDeletePopupState(true);
+   };
+
+   // ================= FUNCTION 7: Handle the delete popup  ===================//
+   const [reportPopupState, setReportPopupState] = useState<boolean>(false);
+   const handleReportConfirmation = () => {
+      setReportPopupState(true);
+   };
    return (
       <>
+         {deletePopupState && (
+            <ConfirmationPopup
+               title={`Are you sure you want to delete this commentary?`}
+               cancel={() => setDeletePopupState(false)}
+            />
+         )}
+         {reportPopupState && (
+            <ConfirmationPopup
+               title={`Are you sure you want to report this commentary?`}
+               cancel={() => setReportPopupState(false)}
+            />
+         )}
          {seeWholePost}
          {commentaries.map((commentary) => (
             <div
@@ -81,7 +113,17 @@ export default function Comments({ commentaries }: commentsProps) {
                      />
                   </div>
                   <h1>{commentary.userSignature}</h1>
-                  <div className={(cardStyles.cardIcon, cardStyles.cardIconType)}></div>
+                  {deleteOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.delete)}
+                        onClick={handleDeleteConfirmation}></span>
+                  )}
+                  {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
+                  {reportOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.report)}
+                        onClick={handleReportConfirmation}></span>
+                  )}
                </div>
                <i>{`${commentary.userSignature} commented on ${commentary.commentedOn.verseReferences}`}</i>
                <p>{commentary.content}</p>

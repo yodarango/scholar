@@ -27,7 +27,7 @@ const StoriesCarrousel = () => {
    return (
       <div className={StoriesCarrouselStyles.mainWrapper}>
          {storiesState.map((story: Tstory) => (
-            <QuoteStories key={story.id} stories={story} />
+            <QuoteStories key={story.id} stories={story} reportOption={true} />
          ))}
       </div>
    );
