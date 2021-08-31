@@ -7,7 +7,7 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // styles
 import quoteProfileStyles from "../styles/posts/QuotesProfile.module.css";
-import { quoteViewProfileProps } from "./quotes-view-profile";
+import cardStyles from "../styles/components/Cards.module.css";
 
 export type TsingleStory = {
    id: string;
@@ -49,6 +49,12 @@ const QuotesProfile = ({ story }: quoteProfileProps) => {
       setDeletePopUp(true);
    };
 
+   //    ==================   FUNCTION 3: Delete Popup for quote    =============  //
+   const [reportPopUp, setReportPopUp] = useState<boolean>(false);
+   const handleReportConfirmation = () => {
+      setReportPopUp(true);
+   };
+
    return (
       <>
          {morePopUpState && (
@@ -58,6 +64,12 @@ const QuotesProfile = ({ story }: quoteProfileProps) => {
             <ConfirmationPopup
                cancel={() => setDeletePopUp(false)}
                title={"Are you sure you want to delete this quote?"}
+            />
+         )}
+         {reportPopUp && (
+            <ConfirmationPopup
+               cancel={() => setReportPopUp(false)}
+               title={"Are you sure you want to report this quote?"}
             />
          )}
          <div className={quoteProfileStyles.mainWrapper}>
@@ -75,6 +87,9 @@ const QuotesProfile = ({ story }: quoteProfileProps) => {
                   className={`std-vector-icon ${quoteProfileStyles.delete}`}
                   onClick={handleDeleteQuote}></span>
                <span className={`std-vector-icon ${quoteProfileStyles.edit}`}></span>
+               <span
+                  className={(cardStyles.cardIcon, cardStyles.report)}
+                  onClick={handleReportConfirmation}></span>
             </section>
          </div>
       </>

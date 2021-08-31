@@ -27,8 +27,11 @@ export type Tthought = {
 
 type thoughtProps = {
    thoughts: Tthought[];
+   deleteOption?: boolean;
+   editOption?: boolean;
+   reportOption?: boolean;
 };
-const Thought = ({ thoughts }: thoughtProps) => {
+const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
    // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = (thought: any) => {
@@ -63,6 +66,13 @@ const Thought = ({ thoughts }: thoughtProps) => {
    const handleDeleteConfirmation = () => {
       setDeletePopupState(true);
    };
+
+   // ================= FUNCTION 5: Handle the delete popup  ===================//
+   const [reportPopupState, setReportPopupState] = useState<boolean>(false);
+   const handleReportConfirmation = () => {
+      setReportPopupState(true);
+   };
+
    return (
       <>
          {seeWholePost}
@@ -70,6 +80,12 @@ const Thought = ({ thoughts }: thoughtProps) => {
             <ConfirmationPopup
                cancel={() => setDeletePopupState(false)}
                title={"Are you sure you want to delete this Thought?"}
+            />
+         )}
+         {reportPopupState && (
+            <ConfirmationPopup
+               cancel={() => setReportPopupState(false)}
+               title={"Are you sure you want to report this Thought?"}
             />
          )}
          {thoughts.map((thought) => (
@@ -85,11 +101,17 @@ const Thought = ({ thoughts }: thoughtProps) => {
                      />
                   </div>
                   <h1 className={cardStyles.userSignature}>{thought.userSignature}</h1>
-                  <span
-                     className={(cardStyles.cardIcon, cardStyles.delete)}
-                     onClick={handleDeleteConfirmation}></span>
-                  <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
-                  <span className={(cardStyles.cardIcon, cardStyles.report)}></span>
+                  {deleteOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.delete)}
+                        onClick={handleDeleteConfirmation}></span>
+                  )}
+                  {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
+                  {reportOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.report)}
+                        onClick={handleReportConfirmation}></span>
+                  )}
                </div>
                <i>{`${thought.userSignature} expressed a new Tought`}</i>
                <p>{thought.content}</p>

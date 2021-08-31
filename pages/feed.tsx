@@ -46,12 +46,12 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
             </div>
             <div className={interactStyles.gridWrapperMiddle}>
                <h2 className='std-text-block--small-title'>Sermon Notes</h2>
-               <SermonsPostCarrousel sermon={sermons} />
+               <SermonsPostCarrousel sermon={sermons} reportOption={true} />
             </div>
             <div className={`${interactStyles.gridWrapperLeft}`}>
                <h2 className='std-text-block--small-title'>Writtings</h2>
                <div className={interactStyles.commentsWrapper}>
-                  <CommentThought /*commentaries={commentaries} thoughts={thoughts}*/ />
+                  <CommentThought />
                </div>
             </div>
          </div>

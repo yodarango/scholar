@@ -6,9 +6,11 @@ import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 
 // stoires
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
+import cardStyles from "../styles/components/Cards.module.css";
 
 // helpers
 import { TcommentType } from "../fragments/popup-content/comments-of-quote";
+import ConfirmationPopup from "../fragments/confirmation-popup";
 
 export type Tstory = {
    id: string;
@@ -29,9 +31,12 @@ export type Tstory = {
 
 export type quoteStoriesProps = {
    stories: Tstory;
+   deleteOption?: boolean;
+   editOption?: boolean;
+   reportOption?: boolean;
 };
 
-const QuoteStories = ({ stories }: quoteStoriesProps) => {
+const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quoteStoriesProps) => {
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
    const [countState, setCountState] = useState<number>(0);
@@ -78,8 +83,27 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
    const handleCloseComment = () => {
       setCommentPopUpState(false);
    };
+
+   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
+   const handleDeleteConfirmation = () => {
+      setDeletePopupState(true);
+   };
+
+   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   const [reportPopupState, setReportPopupState] = useState<boolean>(false);
+   const handleReportConfirmation = () => {
+      setReportPopupState(true);
+   };
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
+         {deletePopupState}
+         {reportPopupState && (
+            <ConfirmationPopup
+               title={`Are you sure you want to report this story`}
+               cancel={() => setReportPopupState(false)}
+            />
+         )}
          <section
             className={quoteStoriesStyles.mainStoryWrapper}
             onClick={() => handleOpenStroies(stories)}>
@@ -124,6 +148,19 @@ const QuoteStories = ({ stories }: quoteStoriesProps) => {
                   </p>
                   <span className={quoteStoriesStyles.storyBy}>
                      -By: {stories.stories[countState].by}
+                     {deleteOption && (
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.delete)}
+                           onClick={handleDeleteConfirmation}></span>
+                     )}
+                     {editOption && (
+                        <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                     )}
+                     {reportOption && (
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.report)}
+                           onClick={handleReportConfirmation}></span>
+                     )}
                   </span>
                </div>
                <div className={quoteStoriesStyles.postReactionWrapper}>

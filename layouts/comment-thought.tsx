@@ -78,8 +78,10 @@ const CommentThought = () => {
             </span>
          </div>
          <div className={`large-spacer`}></div>
-         {filterThoughtCommentState.comment && <Comment commentaries={commentaries} />}
-         {filterThoughtCommentState.thought && <Thought thoughts={thoughts} />}
+         {filterThoughtCommentState.comment && (
+            <Comment commentaries={commentaries} reportOption={true} />
+         )}
+         {filterThoughtCommentState.thought && <Thought thoughts={thoughts} reportOption={true} />}
       </div>
    );
 };

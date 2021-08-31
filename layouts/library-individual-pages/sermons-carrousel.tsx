@@ -18,9 +18,17 @@ import { sermonProps } from "../../fragments/library-items/sermon";
 
 type sermonCarrouselProps = {
    sermon: sermonProps[];
+   editOption?: boolean;
+   deleteOption?: boolean;
+   reportOption?: boolean;
 };
 
-const SermonsCarrousel = ({ sermon }: sermonCarrouselProps) => {
+const SermonsCarrousel = ({
+   sermon,
+   editOption,
+   deleteOption,
+   reportOption
+}: sermonCarrouselProps) => {
    return (
       <div className={sermonsCarrouselStyles.mainWrapper}>
          <div className={sermonsCarrouselStyles.gridWrapper}>
@@ -37,6 +45,9 @@ const SermonsCarrousel = ({ sermon }: sermonCarrouselProps) => {
                   file={sermon.file}
                   newClass={sermonsCarrouselStyles.sermonWRapper}
                   userAvatar={sermon.userAvatar}
+                  editOption={editOption}
+                  deleteOption={deleteOption}
+                  reportOption={reportOption}
                />
             ))}
 
@@ -54,6 +65,9 @@ const SermonsCarrousel = ({ sermon }: sermonCarrouselProps) => {
                   file={sermon.file}
                   newClass={sermonsCarrouselStyles.sermonWRapper}
                   userAvatar={sermon.userAvatar}
+                  editOption={editOption}
+                  deleteOption={deleteOption}
+                  reportOption={reportOption}
                />
             ))}
          </div>

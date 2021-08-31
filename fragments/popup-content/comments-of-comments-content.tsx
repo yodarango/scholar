@@ -1,6 +1,12 @@
+// core
 import React, { useEffect, useState } from "react";
+
+// styles
 import cardStyles from "../../styles/components/Cards.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
+
+// components
+import ConfirmationPopup from "../confirmation-popup";
 
 type commentsOfCcommentsContentProps = {
    postId: string;
@@ -27,7 +33,7 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
       getComments();
    }, []);
 
-   // =============  FUNCTION: see the whole Comment  =================
+   // =============  FUNCTION 1: see the whole Comment  =================
    /// === state
    const [openCommentState, setOpenCommentState] = useState<string>("");
    const [openCommentFuncState, setOpenCommentFuncState] = useState<boolean>(false);
@@ -44,8 +50,21 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
       setOpenCommentFuncState(false);
    };
 
+   // ================= FUNCTION 2: Handle the delete popup  ===================//
+   const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
+   const handleDeleteConfirmation = () => {
+      setDeletePopupState(true);
+   };
+
    return (
       <>
+         {deletePopupState}
+         {deletePopupState && (
+            <ConfirmationPopup
+               title={`Are you sure you want to delete this commentary?`}
+               cancel={() => setDeletePopupState(false)}
+            />
+         )}
          <div className={popupStyles.halfWidth}>
             <div
                className={`${popupStyles.halfWidthLeft} ${popupStyles.halfWidthLeftCommentaryContent}`}>
@@ -85,6 +104,13 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
                               <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
                            </div>
                         )}
+                     </div>
+                     <div className={cardStyles.commentsOfContentActionWrapper}>
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.delete)}
+                           onClick={handleDeleteConfirmation}></span>
+                        <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                        <span className={(cardStyles.cardIcon, cardStyles.report)}></span>
                      </div>
                   </div>
                ))}

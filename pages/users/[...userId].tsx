@@ -16,7 +16,7 @@ import userStyles from "../../styles/pages/users/User.module.css";
 import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
-import Sermon, { sermonProps } from "../../fragments/library-items/sermon";
+import { sermonProps } from "../../fragments/library-items/sermon";
 import SermonsCarrousel from "../../layouts/library-individual-pages/sermons-carrousel";
 
 export type Tuser = {
@@ -167,7 +167,7 @@ const User = ({ user }: userProps) => {
          <section className={userStyles.totalsWrapper}>
             <p>Posts: {user.posts}</p>
             <p>Agrees: {user.likes}</p>
-            <p>Diagrees: {user.dislikes}</p>
+            <p>Disagrees: {user.dislikes}</p>
          </section>
          <section className={userStyles.aboutMeWrapper}>
             <ul>
@@ -230,13 +230,34 @@ const User = ({ user }: userProps) => {
                   Sermons
                </span>
             </nav>
-            {commentaryState && <Comments commentaries={commentaryState} />}
-            {thoughtsState && <Thought thoughts={thoughtsState} />}
+            {commentaryState && (
+               <Comments
+                  commentaries={commentaryState}
+                  deleteOption={true}
+                  editOption={true}
+                  reportOption={true}
+               />
+            )}
+            {thoughtsState && (
+               <Thought
+                  thoughts={thoughtsState}
+                  deleteOption={true}
+                  editOption={true}
+                  reportOption={true}
+               />
+            )}
             <section className={userStyles.storiesWrapper}>
                {quoteState &&
                   quoteState.map((quote: TsingleStory) => <QuoteProfile story={quote} />)}
             </section>
-            {sermonState && <SermonsCarrousel sermon={sermonState} />}
+            {sermonState && (
+               <SermonsCarrousel
+                  sermon={sermonState}
+                  reportOption={true}
+                  editOption={true}
+                  deleteOption={true}
+               />
+            )}
          </section>
       </div>
    );
