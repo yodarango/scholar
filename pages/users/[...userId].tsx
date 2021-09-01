@@ -8,6 +8,9 @@ import Header from "../../layouts/header";
 import Comments from "../../posts/comment";
 import Thought from "../../posts/thought";
 import QuoteProfile from "../../posts/quotes-profile";
+import SermonsCarrousel from "../../layouts/library-individual-pages/sermons-carrousel";
+import PopupWrapper from "../../layouts/popup-wrapper";
+import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";
@@ -17,7 +20,6 @@ import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
 import { sermonProps } from "../../fragments/library-items/sermon";
-import SermonsCarrousel from "../../layouts/library-individual-pages/sermons-carrousel";
 
 export type Tuser = {
    id: string;
@@ -111,155 +113,179 @@ const User = ({ user }: userProps) => {
    };
 
    // ================  FUNCTION 5: open the My stroy popup   ================= //
-   const handleMyStoryPopUp = () => {};
-   return (
-      <div className={userStyles.mainWrapper}>
-         <Header currPage={user.signature} />
-         <div className={userStyles.notificationBell}></div>
-         {user.reliability > 100 && (
-            <div className={userStyles.bellWnotificationWrapper}>
-               <div className={userStyles.notificationBellWNotification}></div>
-               <span className={userStyles.notificationSignifier}></span>
-            </div>
-         )}
+   // const handleMyStoryPopUp = () => {};
 
-         <section className={userStyles.userBioWrapper}>
-            <div
-               className={userStyles.reputationWrapper}
-               style={{
-                  backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)`
-               }}>
-               <div
-                  className={userStyles.avatar}
-                  style={{ backgroundImage: `url(${user.avatar})` }}></div>
+   // ================  FUNCTION 5: open the notifications popup   ================= //
+   const [notificationsPopupState, setnotificationsPopupState] = useState(false);
+   const openNotificationsPopup = () => {
+      setnotificationsPopupState(true);
+   };
+   return (
+      <>
+         <div className={userStyles.mainWrapper}>
+            {notificationsPopupState && (
+               <PopupWrapper
+                  closeModal={() => setnotificationsPopupState(false)}
+                  content={<NotificationsWrapper />}
+               />
+            )}
+            <div className={userStyles.userBioGrid}>
+               <Header currPage={user.signature} />
+               <div className={userStyles.notificationBell} onClick={openNotificationsPopup}></div>
+               {user.reliability > 100 && (
+                  <div className={userStyles.bellWnotificationWrapper}>
+                     <div className={userStyles.notificationBellWNotification}></div>
+                     <span className={userStyles.notificationSignifier}></span>
+                  </div>
+               )}
+
+               <section className={userStyles.userBioWrapper}>
+                  <div
+                     className={userStyles.reputationWrapper}
+                     style={{
+                        backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)`
+                     }}>
+                     <div
+                        className={userStyles.avatar}
+                        style={{ backgroundImage: `url(${user.avatar})` }}></div>
+                  </div>
+                  {user.reliability >= 97 && (
+                     <h2 className={userStyles.reliabilityA}>Reliability: A+</h2>
+                  )}
+                  {user.reliability >= 94 && user.reliability < 97 && (
+                     <h2 className={userStyles.reliabilityA}>Reliability: A</h2>
+                  )}
+                  {user.reliability >= 90 && user.reliability < 94 && (
+                     <h2 className={userStyles.reliabilityA}>Reliability: A-</h2>
+                  )}
+                  {user.reliability >= 87 && user.reliability < 90 && (
+                     <h2 className={userStyles.reliabilityB}>Reliability: B+</h2>
+                  )}
+                  {user.reliability >= 84 && user.reliability < 87 && (
+                     <h2 className={userStyles.reliabilityB}>Reliability: B</h2>
+                  )}
+                  {user.reliability >= 80 && user.reliability < 84 && (
+                     <h2 className={userStyles.reliabilityB}>Reliability: B-</h2>
+                  )}
+                  {user.reliability >= 77 && user.reliability < 80 && (
+                     <h2 className={userStyles.reliabilityC}>Reliability: C+</h2>
+                  )}
+                  {user.reliability >= 74 && user.reliability < 77 && (
+                     <h2 className={userStyles.reliabilityC}>Reliability: C</h2>
+                  )}
+                  {user.reliability >= 70 && user.reliability < 74 && (
+                     <h2 className={userStyles.reliabilityC}>Reliability: C-</h2>
+                  )}
+                  {user.reliability < 70 && (
+                     <h2 className={userStyles.reliabilityF}>Reliability: F</h2>
+                  )}
+                  <p>Commentaries: {user.commentaries}</p>
+                  <p>Thoughts: {user.thoughts}</p>
+                  <p>Quotes: {user.quotes}</p>
+                  <p>Sermons {user.sermons}</p>
+               </section>
+               <section className={userStyles.totalsWrapper}>
+                  <p>Posts: {user.posts}</p>
+                  <p>Agrees: {user.likes}</p>
+                  <p>Disagrees: {user.dislikes}</p>
+               </section>
+               <section className={userStyles.aboutMeWrapper}>
+                  <ul>
+                     {user.name && user.gender === "male" && (
+                        <li>
+                           👨 Full name is {user.name} {user.lastName}
+                        </li>
+                     )}
+                     {user.name && user.gender === "female" && (
+                        <li>
+                           👩 Full name is {user.name} {user.lastName}
+                        </li>
+                     )}
+                     {user.church && <li>⛪ I attend {user.church}</li>}
+                     {user.favoriteVerse && (
+                        <li>
+                           📖 Favorite verse is{" "}
+                           <span className={userStyles.favoriteVerseSpan}>
+                              {user.favoriteVerse}
+                           </span>
+                        </li>
+                     )}
+                     {user.ministry && <li>🧹 My ministry is {user.ministry}</li>}
+                     {user.job && <li>👔 I am full time {user.job}</li>}
+                     {user.tcp && user.tcp === "green" && <li>🎨 True Color Personality is 🟩</li>}
+                     {user.tcp && user.tcp === "blue" && <li>🎨 True Color Personality is 🟦</li>}
+                     {user.tcp && user.tcp === "gold" && <li>🎨 True Color Personality is 🟨</li>}
+                     {user.tcp && user.tcp === "orange" && <li>🎨 True Color Personality is 🟧</li>}
+                     {user.story && (
+                        <li className={userStyles.myStory}>
+                           <Link href={`/my-story/${user.id}`}>
+                              <a> This is my sotry </a>
+                           </Link>
+                        </li>
+                     )}
+                  </ul>
+               </section>
             </div>
-            {user.reliability >= 97 && <h2 className={userStyles.reliabilityA}>Reliability: A+</h2>}
-            {user.reliability >= 94 && user.reliability < 97 && (
-               <h2 className={userStyles.reliabilityA}>Reliability: A</h2>
-            )}
-            {user.reliability >= 90 && user.reliability < 94 && (
-               <h2 className={userStyles.reliabilityA}>Reliability: A-</h2>
-            )}
-            {user.reliability >= 87 && user.reliability < 90 && (
-               <h2 className={userStyles.reliabilityB}>Reliability: B+</h2>
-            )}
-            {user.reliability >= 84 && user.reliability < 87 && (
-               <h2 className={userStyles.reliabilityB}>Reliability: B</h2>
-            )}
-            {user.reliability >= 80 && user.reliability < 84 && (
-               <h2 className={userStyles.reliabilityB}>Reliability: B-</h2>
-            )}
-            {user.reliability >= 77 && user.reliability < 80 && (
-               <h2 className={userStyles.reliabilityC}>Reliability: C+</h2>
-            )}
-            {user.reliability >= 74 && user.reliability < 77 && (
-               <h2 className={userStyles.reliabilityC}>Reliability: C</h2>
-            )}
-            {user.reliability >= 70 && user.reliability < 74 && (
-               <h2 className={userStyles.reliabilityC}>Reliability: C-</h2>
-            )}
-            {user.reliability < 70 && <h2 className={userStyles.reliabilityF}>Reliability: F</h2>}
-            <p>Commentaries: {user.commentaries}</p>
-            <p>Thoughts: {user.thoughts}</p>
-            <p>Quotes: {user.quotes}</p>
-            <p>Sermons {user.sermons}</p>
-         </section>
-         <section className={userStyles.totalsWrapper}>
-            <p>Posts: {user.posts}</p>
-            <p>Agrees: {user.likes}</p>
-            <p>Disagrees: {user.dislikes}</p>
-         </section>
-         <section className={userStyles.aboutMeWrapper}>
-            <ul>
-               {user.name && user.gender === "male" && (
-                  <li>
-                     👨 Full name is {user.name} {user.lastName}
-                  </li>
-               )}
-               {user.name && user.gender === "female" && (
-                  <li>
-                     👩 Full name is {user.name} {user.lastName}
-                  </li>
-               )}
-               {user.church && <li>⛪ I attend {user.church}</li>}
-               {user.favoriteVerse && (
-                  <li>
-                     📖 Favorite verse is{" "}
-                     <span className={userStyles.favoriteVerseSpan}>{user.favoriteVerse}</span>
-                  </li>
-               )}
-               {user.ministry && <li>🧹 My ministry is {user.ministry}</li>}
-               {user.job && <li>👔 I am full time {user.job}</li>}
-               {user.tcp && user.tcp === "green" && <li>🎨 True Color Personality is 🟩</li>}
-               {user.tcp && user.tcp === "blue" && <li>🎨 True Color Personality is 🟦</li>}
-               {user.tcp && user.tcp === "gold" && <li>🎨 True Color Personality is 🟨</li>}
-               {user.tcp && user.tcp === "orange" && <li>🎨 True Color Personality is 🟧</li>}
-               {user.story && (
-                  <li className={userStyles.myStory}>
-                     <Link href={`/my-story/${user.id}`}>
-                        <a> This is my sotry </a>
-                     </Link>
-                  </li>
-               )}
-            </ul>
-         </section>
-         <section className={userStyles.myPostsWrapper}>
-            <nav className={userStyles.myPostsMenu}>
-               <span
-                  className={userStyles.commentariesPosts}
-                  onClick={requestCommentaries}
-                  style={{ color: coloredTabState.comment }}>
-                  Commentaries
-               </span>
-               <span
-                  className={userStyles.thoughtsPosts}
-                  onClick={requestThoughts}
-                  style={{ color: coloredTabState.thought }}>
-                  Thoughts
-               </span>
-               <span
-                  className={userStyles.quotesPosts}
-                  onClick={requestQuotes}
-                  style={{ color: coloredTabState.quote }}>
-                  Quotes
-               </span>
-               <span
-                  className={userStyles.sermonsPosts}
-                  onClick={requestSermons}
-                  style={{ color: coloredTabState.sermon }}>
-                  Sermons
-               </span>
-            </nav>
-            {commentaryState && (
-               <Comments
-                  commentaries={commentaryState}
-                  deleteOption={true}
-                  editOption={true}
-                  reportOption={true}
-               />
-            )}
-            {thoughtsState && (
-               <Thought
-                  thoughts={thoughtsState}
-                  deleteOption={true}
-                  editOption={true}
-                  reportOption={true}
-               />
-            )}
-            <section className={userStyles.storiesWrapper}>
-               {quoteState &&
-                  quoteState.map((quote: TsingleStory) => <QuoteProfile story={quote} />)}
-            </section>
-            {sermonState && (
-               <SermonsCarrousel
-                  sermon={sermonState}
-                  reportOption={true}
-                  editOption={true}
-                  deleteOption={true}
-               />
-            )}
-         </section>
-      </div>
+            <div className={userStyles.postsGrid}>
+               <section className={userStyles.myPostsWrapper}>
+                  <nav className={userStyles.myPostsMenu}>
+                     <span
+                        className={userStyles.commentariesPosts}
+                        onClick={requestCommentaries}
+                        style={{ color: coloredTabState.comment }}>
+                        Commentaries
+                     </span>
+                     <span
+                        className={userStyles.thoughtsPosts}
+                        onClick={requestThoughts}
+                        style={{ color: coloredTabState.thought }}>
+                        Thoughts
+                     </span>
+                     <span
+                        className={userStyles.quotesPosts}
+                        onClick={requestQuotes}
+                        style={{ color: coloredTabState.quote }}>
+                        Quotes
+                     </span>
+                     <span
+                        className={userStyles.sermonsPosts}
+                        onClick={requestSermons}
+                        style={{ color: coloredTabState.sermon }}>
+                        Sermons
+                     </span>
+                  </nav>
+                  {commentaryState && (
+                     <Comments
+                        commentaries={commentaryState}
+                        deleteOption={true}
+                        editOption={true}
+                        reportOption={true}
+                     />
+                  )}
+                  {thoughtsState && (
+                     <Thought
+                        thoughts={thoughtsState}
+                        deleteOption={true}
+                        editOption={true}
+                        reportOption={true}
+                     />
+                  )}
+                  <section className={userStyles.storiesWrapper}>
+                     {quoteState &&
+                        quoteState.map((quote: TsingleStory) => <QuoteProfile story={quote} />)}
+                  </section>
+                  {sermonState && (
+                     <SermonsCarrousel
+                        sermon={sermonState}
+                        reportOption={true}
+                        editOption={true}
+                        deleteOption={true}
+                     />
+                  )}
+               </section>
+            </div>
+         </div>
+      </>
    );
 };
 

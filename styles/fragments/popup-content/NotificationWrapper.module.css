@@ -1,0 +1,105 @@
+.mainWrapper {
+   width: 100%;
+   max-width: 800px;
+   margin: var(--large-spacing-mobile) auto;
+   max-height: 100vh;
+}
+
+.notificationWrapper {
+   background-color: var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
+   display: grid;
+   grid-template-columns: 4rem auto 2rem;
+   grid-template-rows: 2rem 4rem;
+   margin: var(--xsmall-spacing-mobile) auto;
+   padding: 0.5rem;
+   overflow-y: scroll;
+}
+
+.notificationWrapper > a {
+   display: block;
+}
+.user {
+   grid-column: 1/3;
+   grid-row: 1/2;
+   width: 90%;
+   margin: 0;
+}
+
+.user a {
+   display: block;
+   width: 100%;
+   font: var(--secondary-font-mobile);
+   font-size: 1rem;
+   overflow-x: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+.icon {
+   display: block;
+   grid-column: 3/4;
+   grid-row: 1/2;
+   display: block;
+}
+
+.reputationRapper {
+   height: 3.7rem;
+   width: 3rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.avatar {
+   height: 3.2rem;
+   width: 2.5rem;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   grid-column: 1/2;
+   grid-row: 2/3;
+   display: block;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.content {
+   font: var(--widget-font-mobile);
+   grid-column: 2/4;
+   grid-row: 2/3;
+   display: block;
+}
+
+.noNotifications {
+   color: var(--secondary-color);
+   width: 100%;
+   text-align: center;
+   margin: 10rem auto 0;
+}
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      margin: var(--xlarge-spacing-desktop) auto;
+   }
+
+   .notificationWrapper {
+      border-radius: var(--input-radius-desktop);
+      margin: var(--xsmall-spacing-desktop) auto;
+   }
+
+   .user a {
+      font: var(--secondary-font-desktop);
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 1.25rem;
+   }
+
+   .content {
+      font: var(--widget-font-desktop);
+      grid-column: 2/4;
+      grid-row: 2/3;
+      display: block;
+   }
+}
