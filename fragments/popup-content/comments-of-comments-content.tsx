@@ -56,6 +56,12 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
       setDeletePopupState(true);
    };
 
+   // ================= FUNCTION 3: Handle the report popup  ===================//
+   const [reportPopupState, setReportPopupState] = useState<boolean>(false);
+   const handleReportConfirmation = () => {
+      setReportPopupState(true);
+   };
+
    return (
       <>
          {deletePopupState}
@@ -63,6 +69,12 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
             <ConfirmationPopup
                title={`Are you sure you want to delete this commentary?`}
                cancel={() => setDeletePopupState(false)}
+            />
+         )}
+         {reportPopupState && (
+            <ConfirmationPopup
+               title={`Are you sure you want to report this commentary?`}
+               cancel={() => setReportPopupState(false)}
             />
          )}
          <div className={popupStyles.halfWidth}>
@@ -110,7 +122,9 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
                            className={(cardStyles.cardIcon, cardStyles.delete)}
                            onClick={handleDeleteConfirmation}></span>
                         <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
-                        <span className={(cardStyles.cardIcon, cardStyles.report)}></span>
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.report)}
+                           onClick={handleReportConfirmation}></span>
                      </div>
                   </div>
                ))}

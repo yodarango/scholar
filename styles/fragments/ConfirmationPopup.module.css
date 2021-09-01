@@ -33,7 +33,7 @@
 
 .confirm,
 .cancel {
-   background-color: rgb(236, 59, 59);
+   background-color: var(--warning-color);
    font: var(--medium-spacing-mobile);
    border-radius: var(--button-radius-mobile);
    padding: 0.5rem;
@@ -47,5 +47,5 @@
 }
 
 .confirm {
-   background-color: rgb(50, 202, 70);
+   background-color: var(--proceed-color);
 }
