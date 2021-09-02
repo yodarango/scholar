@@ -28,9 +28,9 @@ const NotificationsWrapper = () => {
       setNotificationsState(notifications);
    };
 
-   //    useEffect(() => {
-   //       fetchNotifications();
-   //    }, []);
+   useEffect(() => {
+      fetchNotifications();
+   }, []);
 
    return (
       <div className={notificationsWrapperStyles.mainWrapper}>
@@ -64,7 +64,7 @@ const NotificationsWrapper = () => {
                   </Link>
                </div>
             ))}
-         {notificationsState && (
+         {notificationsState.length === 0 && (
             <h2 className={notificationsWrapperStyles.noNotifications}>
                You have no notifications!
             </h2>
