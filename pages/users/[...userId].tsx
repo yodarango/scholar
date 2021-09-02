@@ -43,6 +43,8 @@ export type Tuser = {
    ministry: string;
    tcp: string;
    story: string;
+   email: string;
+   password: string;
 };
 
 export type userProps = {
@@ -131,6 +133,9 @@ const User = ({ user }: userProps) => {
             )}
             <div className={userStyles.userBioGrid}>
                <Header currPage={user.signature} />
+               <Link href={`/users/settings/${user.id}`}>
+                  <a className={userStyles.settingsLink}></a>
+               </Link>
                <div className={userStyles.notificationBell} onClick={openNotificationsPopup}></div>
                {user.reliability > 100 && (
                   <div className={userStyles.bellWnotificationWrapper}>

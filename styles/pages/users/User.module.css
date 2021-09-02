@@ -5,7 +5,8 @@
    overflow-x: hidden;
 }
 
-.notificationBell {
+.notificationBell,
+.settingsLink {
    width: 2rem;
    height: 2rem;
    background-image: url("/images/bell.svg");
@@ -14,6 +15,12 @@
    background-repeat: no-repeat;
    margin: 0.5rem auto var(--xsmall-spacing-mobile) 0;
    cursor: pointer;
+   display: inline-block;
+}
+
+.settingsLink {
+   margin-right: var(--medium-spacing-mobile);
+   background-image: url("/images/settings.svg");
 }
 
 .bellWnotificationWrapper {
@@ -205,10 +212,15 @@
       margin: calc(var(--medium-spacing-desktop) + 7rem) auto;
    }
 
-   .notificationBell {
+   .notificationBell,
+   .settingsLink {
       width: 2.5rem;
       height: 2.5rem;
       margin: 0.5rem auto var(--xsmall-spacing-desktop) 0;
+   }
+
+   .settingsLink {
+      margin-right: var(--medium-spacing-desktop);
    }
 
    .bellWnotificationWrapper {
