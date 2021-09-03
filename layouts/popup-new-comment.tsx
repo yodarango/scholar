@@ -17,7 +17,7 @@ import NotificationPopup from "../fragments/notification-popup";
 import popNewCommentStyles from "../styles/layouts/PopupNewComment.module.css";
 
 // helpers: types
-import { TverseContent } from "../pages/index";
+import { TverseContent } from "../pages";
 
 type commentaryProps = {
    verseData: TverseContent;

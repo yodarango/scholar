@@ -21,6 +21,7 @@ import libraryArticlesPageStyles from "../../../styles/pages/library/sermon-note
 
 // types
 import { articleProps } from "../../../fragments/library-items/article";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type articlePageProps = {
    articles: articleProps[];
@@ -28,22 +29,26 @@ type articlePageProps = {
 
 const Articles = ({ articles }: articlePageProps) => {
    return (
-      <div className={`${libraryArticlesPageStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"ARTICLES"} />
-         <div className='x-large-spacer'></div>
-         <LibraryMenu
-            includeCategory={true}
-            includeContent={true}
-            includeSearch={true}
-            contentButtonIcon={"📃"}
-            currentSlectedContentPage={{ articles: "#f2f2f2" }}
-         />
-         <LibraryFilter params={`articles`} />
-         {articles && <ArticlesCarrousel articles={articles} />}
-      </div>
+      <>
+         <div className={`${libraryArticlesPageStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"ARTICLES"} />
+            <div className='x-large-spacer'></div>
+            <LibraryMenu
+               includeCategory={true}
+               includeContent={true}
+               includeSearch={true}
+               contentButtonIcon={"📃"}
+               currentSlectedContentPage={{ articles: "#f2f2f2" }}
+            />
+            <LibraryFilter params={`articles`} />
+            {articles && <ArticlesCarrousel articles={articles} />}
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

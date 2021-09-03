@@ -18,6 +18,7 @@ import sermonsByAuthorStyles from "../../styles/pages/library/Authors.module.css
 
 // types
 import { IuserData } from "../../fragments/library-author";
+import NavigationMenu from "../../layouts/navigation-menu";
 
 type sermonsByAuthorProps = {
    users: IuserData[];
@@ -27,18 +28,22 @@ const Authors = ({ users }: sermonsByAuthorProps) => {
    const { content } = router.query;
 
    return (
-      <div className={`${sermonsByAuthorStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"AUTHORS"} />
-         <h1 className={sermonsByAuthorStyles.title}>Select an author</h1>
-         <div className={`${sermonsByAuthorStyles.usersGrid}`}>
-            {users.map((user: IuserData) => {
-               return <LibraryAuthor key={user.id} userData={user} content={content} />;
-            })}
+      <>
+         <div className={`${sermonsByAuthorStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"AUTHORS"} />
+            <h1 className={sermonsByAuthorStyles.title}>Select an author</h1>
+            <div className={`${sermonsByAuthorStyles.usersGrid}`}>
+               {users.map((user: IuserData) => {
+                  return <LibraryAuthor key={user.id} userData={user} content={content} />;
+               })}
+            </div>
          </div>
-      </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

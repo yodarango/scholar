@@ -21,28 +21,33 @@ import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes
 
 // types
 import { sermonProps } from "../../../fragments/library-items/sermon";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type sermonsPageProps = {
    sermons: sermonProps[];
 };
 const Sermons = ({ sermons }: sermonsPageProps) => {
    return (
-      <div className={`${librarySermonsPageStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"SERMONS"} />
-         <div className='x-large-spacer '></div>
-         <LibraryMenu
-            includeCategory={true}
-            includeContent={true}
-            includeSearch={true}
-            contentButtonIcon={"🗣️"}
-            currentSlectedContentPage={{ sermons: "#f2f2f2" }}
-         />
-         <LibraryFilter params={`sermon-notes`} />
-         {sermons && <SermonCarrousel sermon={sermons} />}
-      </div>
+      <>
+         <div className={`${librarySermonsPageStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"SERMONS"} />
+            <div className='x-large-spacer '></div>
+            <LibraryMenu
+               includeCategory={true}
+               includeContent={true}
+               includeSearch={true}
+               contentButtonIcon={"🗣️"}
+               currentSlectedContentPage={{ sermons: "#f2f2f2" }}
+            />
+            <LibraryFilter params={`sermon-notes`} />
+            {sermons && <SermonCarrousel sermon={sermons} />}
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

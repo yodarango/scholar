@@ -11,7 +11,7 @@ import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVe
 import fetchNewChapterStyles from "../../styles/layouts/FetchNewChapter.module.css";
 
 // helpers
-import { TverseContent } from "../../pages/index";
+import { TverseContent } from "../../pages";
 
 type randomDailyVerseProps = {
    verseContent: TverseContent;

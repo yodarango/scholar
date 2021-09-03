@@ -4,6 +4,9 @@ import React from "react";
 import Header from "../../layouts/header";
 import Link from "next/link";
 
+// components
+import NavigationMenu from "../../layouts/navigation-menu";
+
 // styles
 import myStoryStyles from "../../styles/pages/my-story/MyStory.module.css";
 
@@ -15,22 +18,26 @@ type storyProps = {
 };
 const Story = ({ user }: storyProps) => {
    return (
-      <div className={myStoryStyles.mainWrapper}>
-         <Header currPage={"MY STORY"} />
-         <h1 className={myStoryStyles.title}>{user.signature}</h1>
-         <Link href={`/users/${user.id}`}>
-            <a>
-               <div
-                  className={myStoryStyles.reputationWrapper}
-                  style={{ backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)` }}>
+      <>
+         <div className={myStoryStyles.mainWrapper}>
+            <Header currPage={"MY STORY"} />
+            <h1 className={myStoryStyles.title}>{user.signature}</h1>
+            <Link href={`/users/${user.id}`}>
+               <a>
                   <div
-                     className={myStoryStyles.avatar}
-                     style={{ backgroundImage: `url(${user.avatar})` }}></div>
-               </div>
-            </a>
-         </Link>
-         <p className={myStoryStyles.content}>{user.story}</p>
-      </div>
+                     className={myStoryStyles.reputationWrapper}
+                     style={{ backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)` }}>
+                     <div
+                        className={myStoryStyles.avatar}
+                        style={{ backgroundImage: `url(${user.avatar})` }}></div>
+                  </div>
+               </a>
+            </Link>
+            <p className={myStoryStyles.content}>{user.story}</p>
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

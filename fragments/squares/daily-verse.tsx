@@ -24,7 +24,7 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
 
 // helpers: Types
-import { TverseContent } from "../../pages/index";
+import { TverseContent } from "../../pages";
 
 type dailyVerseProps = {
    verseContent: TverseContent;
