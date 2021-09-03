@@ -8,6 +8,7 @@ import CommentFilter from "../fragments/buttons/comment-filter";
 import Header from "../layouts/header";
 import PostsWrapper from "../layouts/posts-wrapper";
 import DailyVerse from "../fragments/squares/daily-verse";
+import NavigationMenu from "../layouts/navigation-menu";
 
 // styles
 import homeStyles from "../styles/pages/Home.module.css";
@@ -34,25 +35,28 @@ type homeProps = {
 
 export default function Home({ verseContent }: homeProps) {
    return (
-      <div className='main-wrapper'>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"HOME"} />
-         <div className={homeStyles.majorGridWrapper}>
-            <div className={homeStyles.majorGridWrapperLeft}>
-               <DailyVerse verseContent={verseContent} versionId={versionId} />
-            </div>
-            <div className={homeStyles.majorGridWrapperRight}>
-               <h3
-                  className={`std-text-block--small-title ${homeStyles.dailyVerseHeaderTitleComments}`}>
-                  Comments
-               </h3>
-               <CommentFilter />
-               <PostsWrapper />
+      <>
+         <div className='main-wrapper'>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"HOME"} />
+            <div className={homeStyles.majorGridWrapper}>
+               <div className={homeStyles.majorGridWrapperLeft}>
+                  <DailyVerse verseContent={verseContent} versionId={versionId} />
+               </div>
+               <div className={homeStyles.majorGridWrapperRight}>
+                  <h3
+                     className={`std-text-block--small-title ${homeStyles.dailyVerseHeaderTitleComments}`}>
+                     Comments
+                  </h3>
+                  <CommentFilter />
+                  <PostsWrapper />
+               </div>
             </div>
          </div>
-      </div>
+         <NavigationMenu />
+      </>
    );
 }
 

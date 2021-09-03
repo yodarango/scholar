@@ -10,13 +10,14 @@ import CommentThought from "../layouts/comment-thought";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 import StoriesCarrousel from "../posts/stories-carrousel";
 import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
+import NavigationMenu from "../layouts/navigation-menu";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
 
 // helpers
 import { getNewVerseId } from "../helpers/random-daily-verses";
-import { TverseContent } from "./index";
+import { TverseContent } from ".";
 import { sermonProps } from "../fragments/library-items/sermon";
 
 // others
@@ -29,33 +30,37 @@ type feedProps = {
 
 const Feed = ({ verseContent, sermons }: feedProps) => {
    return (
-      <div className='main-wrapper'>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"WIGO TODAY"} />
-         <div className='large-spacer'></div>
-         <h2 className='std-text-block--small-title'>Quotes</h2>
-         <StoriesCarrousel />
-         <div className={interactStyles.gridWrapper}>
-            <div className={`${interactStyles.gridWrapperRight}`}>
-               <h2 className='std-text-block--small-title'>Today's Verse</h2>
-               <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
-               <h2 className='std-text-block--small-title'>Take A Stand</h2>
-               <TakeAStand />
-            </div>
-            <div className={interactStyles.gridWrapperMiddle}>
-               <h2 className='std-text-block--small-title'>Sermon Notes</h2>
-               <SermonsPostCarrousel sermon={sermons} reportOption={true} />
-            </div>
-            <div className={`${interactStyles.gridWrapperLeft}`}>
-               <h2 className='std-text-block--small-title'>Writtings</h2>
-               <div className={interactStyles.commentsWrapper}>
-                  <CommentThought />
+      <>
+         <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"WIGO TODAY"} />
+            <div className='large-spacer'></div>
+            <h2 className='std-text-block--small-title'>Quotes</h2>
+            <StoriesCarrousel />
+            <div className={interactStyles.gridWrapper}>
+               <div className={`${interactStyles.gridWrapperRight}`}>
+                  <h2 className='std-text-block--small-title'>Today's Verse</h2>
+                  <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
+                  <h2 className='std-text-block--small-title'>Take A Stand</h2>
+                  <TakeAStand />
+               </div>
+               <div className={interactStyles.gridWrapperMiddle}>
+                  <h2 className='std-text-block--small-title'>Sermon Notes</h2>
+                  <SermonsPostCarrousel sermon={sermons} reportOption={true} />
+               </div>
+               <div className={`${interactStyles.gridWrapperLeft}`}>
+                  <h2 className='std-text-block--small-title'>Writtings</h2>
+                  <div className={interactStyles.commentsWrapper}>
+                     <CommentThought />
+                  </div>
                </div>
             </div>
          </div>
-      </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

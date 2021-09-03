@@ -14,3 +14,22 @@
    margin: var(--medium-spacing-mobile) 0.5rem 0;
    box-sizing: border-box;
 }
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      max-width: 900px;
+      position: relative;
+      left: 1rem;
+   }
+   .searchWapper {
+      grid-area: Search;
+      margin-left: 2rem;
+   }
+}
+
+@media only screen and (min-width: 1200px) {
+   .mainWrapper {
+      width: 90%;
+      max-width: 1000px;
+   }
+}

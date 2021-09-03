@@ -31,6 +31,7 @@ import { sermonProps } from "../../fragments/library-items/sermon";
 import { articleProps } from "../../fragments/library-items/article";
 import { bookProps } from "../../fragments/library-items/book";
 import { watchProps } from "../../fragments/library-items/watch";
+import NavigationMenu from "../../layouts/navigation-menu";
 
 type libraryProps = {
    podcasts: podcastsProps[];
@@ -42,26 +43,30 @@ type libraryProps = {
 };
 const Library = ({ podcasts, blogs, sermons, articles, books, watch }: libraryProps) => {
    return (
-      <div className={`${libraryStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"LIBRARY"} />
-         <LibraryMenu
-            includeCategory={false}
-            includeContent={true}
-            includeSearch={false}
-            contentButtonIcon={"🔥"}
-            currentSlectedContentPage={{ popular: "#f2f2f2" }}
-         />
-         {sermons && <LibrarySermonCarrousel sermon={sermons} />}
-         {podcasts && <LibraryPodcastCarrousel podcasts={podcasts} />}
-         {watch && <LibraryWatchCarrousel watch={watch} />}
-         {blogs && <LibraryBlogsCarrousel blogs={blogs} />}
-         {articles && <LibraryArticleCarrousel articles={articles} />}
-         {books && <LibraryBooksCarrousel books={books} />}
-         <LibraryRecommendContennt />
-      </div>
+      <>
+         <div className={`${libraryStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"LIBRARY"} />
+            <LibraryMenu
+               includeCategory={false}
+               includeContent={true}
+               includeSearch={false}
+               contentButtonIcon={"🔥"}
+               currentSlectedContentPage={{ popular: "#f2f2f2" }}
+            />
+            {sermons && <LibrarySermonCarrousel sermon={sermons} />}
+            {podcasts && <LibraryPodcastCarrousel podcasts={podcasts} />}
+            {watch && <LibraryWatchCarrousel watch={watch} />}
+            {blogs && <LibraryBlogsCarrousel blogs={blogs} />}
+            {articles && <LibraryArticleCarrousel articles={articles} />}
+            {books && <LibraryBooksCarrousel books={books} />}
+            <LibraryRecommendContennt />
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

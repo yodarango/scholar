@@ -21,6 +21,7 @@ import libraryCongregationsStyles from "../../../styles/pages/library/locations/
 
 // types
 import { congregationProps } from "../../../fragments/library-items/congregation";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type congregationPageProps = {
    congregations: congregationProps[];
@@ -28,29 +29,33 @@ type congregationPageProps = {
 
 const Congregations = ({ congregations }: congregationPageProps) => {
    return (
-      <div className={`${libraryCongregationsStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"CONGREGATIONS"} />
-         <div className='x-large-spacer'></div>
-         <LibraryMenu
-            includeCategory={false}
-            includeContent={true}
-            includeSearch={false}
-            contentButtonIcon={"⛪"}
-            currentSlectedContentPage={{ congregations: "#f2f2f2" }}
-         />
-         <div className={`${libraryCongregationsStyles.searchWapper}`}>
-            <input
-               type='text'
-               maxLength={40}
-               className={`${libraryCongregationsStyles.search} std-input`}
-               placeholder='🔎 Name, City, or State '
+      <>
+         <div className={`${libraryCongregationsStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"CONGREGATIONS"} />
+            <div className='x-large-spacer'></div>
+            <LibraryMenu
+               includeCategory={false}
+               includeContent={true}
+               includeSearch={false}
+               contentButtonIcon={"⛪"}
+               currentSlectedContentPage={{ congregations: "#f2f2f2" }}
             />
+            <div className={`${libraryCongregationsStyles.searchWapper}`}>
+               <input
+                  type='text'
+                  maxLength={40}
+                  className={`${libraryCongregationsStyles.search} std-input`}
+                  placeholder='🔎 Name, City, or State '
+               />
+            </div>
+            {congregations && <CongregationCarrousel congregation={congregations} />}
          </div>
-         {congregations && <CongregationCarrousel congregation={congregations} />}
-      </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

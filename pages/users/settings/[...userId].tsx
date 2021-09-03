@@ -6,6 +6,7 @@ import Link from "next/link";
 // components
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
 import NotificationPopup from "../../../fragments/notification-popup";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 // helpers
 import { Tuser } from "../[...userId]";
@@ -166,6 +167,8 @@ const UserSettings = ({ user }: userSettingsProps) => {
                </Link>
             </div>
          </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
       </>
    );
 };
