@@ -20,6 +20,7 @@ import libraryWatchStyles from "../../../styles/pages/library/watch/LibraryWatch
 
 // types
 import { watchProps } from "../../../fragments/library-items/watch";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type watchPageProps = {
    watch: watchProps[];
@@ -27,21 +28,25 @@ type watchPageProps = {
 
 const Watch = ({ watch }: watchPageProps) => {
    return (
-      <div className={`${libraryWatchStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"WATCH"} />
-         <div className='x-large-spacer'></div>
-         <LibraryMenu
-            includeCategory={true}
-            includeContent={true}
-            includeSearch={true}
-            contentButtonIcon={"📺"}
-            currentSlectedContentPage={{ watch: "#f2f2f2" }}
-         />
-         {watch && <WatchCarrousel watch={watch} />}
-      </div>
+      <>
+         <div className={`${libraryWatchStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"WATCH"} />
+            <div className='x-large-spacer'></div>
+            <LibraryMenu
+               includeCategory={true}
+               includeContent={true}
+               includeSearch={true}
+               contentButtonIcon={"📺"}
+               currentSlectedContentPage={{ watch: "#f2f2f2" }}
+            />
+            {watch && <WatchCarrousel watch={watch} />}
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

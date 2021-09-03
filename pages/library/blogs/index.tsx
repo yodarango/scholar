@@ -20,6 +20,7 @@ import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs
 
 // types
 import { blogProps } from "../../../fragments/library-items/blog";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type watchPageProps = {
    blogs: blogProps[];
@@ -27,21 +28,25 @@ type watchPageProps = {
 
 const Blogs = ({ blogs }: watchPageProps) => {
    return (
-      <div className={`${libraryBlogsStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"BLOGS"} />
-         <div className='x-large-spacer'></div>
-         <LibraryMenu
-            includeCategory={true}
-            includeContent={true}
-            includeSearch={true}
-            contentButtonIcon={"📑"}
-            currentSlectedContentPage={{ blogs: "#f2f2f2" }}
-         />
-         {blogs && <BlogCarrousel blogs={blogs} />}
-      </div>
+      <>
+         <div className={`${libraryBlogsStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"BLOGS"} />
+            <div className='x-large-spacer'></div>
+            <LibraryMenu
+               includeCategory={true}
+               includeContent={true}
+               includeSearch={true}
+               contentButtonIcon={"📑"}
+               currentSlectedContentPage={{ blogs: "#f2f2f2" }}
+            />
+            {blogs && <BlogCarrousel blogs={blogs} />}
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

@@ -20,6 +20,7 @@ import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
 import { sermonProps } from "../../fragments/library-items/sermon";
+import NavigationMenu from "../../layouts/navigation-menu";
 
 export type Tuser = {
    id: string;
@@ -134,7 +135,7 @@ const User = ({ user }: userProps) => {
             <div className={userStyles.userBioGrid}>
                <Header currPage={user.signature} />
                <Link href={`/users/settings/${user.id}`}>
-                  <a className={userStyles.settingsLink}></a>
+                  <a className={userStyles.settingsLinkIcon}></a>
                </Link>
                <div className={userStyles.notificationBell} onClick={openNotificationsPopup}></div>
                {user.reliability > 100 && (
@@ -290,6 +291,8 @@ const User = ({ user }: userProps) => {
                </section>
             </div>
          </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
       </>
    );
 };

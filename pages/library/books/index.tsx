@@ -20,6 +20,7 @@ import libraryBooksStyles from "../../../styles/pages/library/books/LibraryBooks
 
 // types
 import { bookProps } from "../../../fragments/library-items/book";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type booksPageProps = {
    books: bookProps[];
@@ -27,21 +28,25 @@ type booksPageProps = {
 
 const Blogs = ({ books }: booksPageProps) => {
    return (
-      <div className={`${libraryBooksStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"BOOKS"} />
-         <div className='x-large-spacer'></div>
-         <LibraryMenu
-            includeCategory={true}
-            includeContent={true}
-            includeSearch={true}
-            contentButtonIcon={"📚"}
-            currentSlectedContentPage={{ books: "#f2f2f2" }}
-         />
-         {books && <BooksCarrousel books={books} />}
-      </div>
+      <>
+         <div className={`${libraryBooksStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"BOOKS"} />
+            <div className='x-large-spacer'></div>
+            <LibraryMenu
+               includeCategory={true}
+               includeContent={true}
+               includeSearch={true}
+               contentButtonIcon={"📚"}
+               currentSlectedContentPage={{ books: "#f2f2f2" }}
+            />
+            {books && <BooksCarrousel books={books} />}
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

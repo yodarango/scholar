@@ -1,5 +1,8 @@
-import Link from 'next/link';
-import loginStyles from '../styles/pages/Login.module.css';
+// core
+import Link from "next/link";
+
+// styles
+import loginStyles from "../styles/pages/Login.module.css";
 
 export default function Login() {
    return (

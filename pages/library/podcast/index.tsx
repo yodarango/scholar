@@ -21,6 +21,7 @@ import libraryPodcastStyles from "../../../styles/pages/library/podcasts/Library
 
 // types
 import { podcastsProps } from "../../../fragments/library-items/podcast";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 type podcastPageProps = {
    podcast: podcastsProps[];
@@ -28,21 +29,25 @@ type podcastPageProps = {
 
 const Podcast = ({ podcast }: podcastPageProps) => {
    return (
-      <div className={`${libraryPodcastStyles.mainWrapper}`}>
-         <Head>
-            <meta name='keyword' content='tags' />
-         </Head>
-         <Header currPage={"PODCASTS"} />
-         <div className='x-large-spacer'></div>
-         <LibraryMenu
-            includeCategory={true}
-            includeContent={true}
-            includeSearch={true}
-            contentButtonIcon={"🎧"}
-            currentSlectedContentPage={{ podcasts: "#f2f2f2" }}
-         />
-         {podcast && <PodcastCarrousel podcast={podcast} />}
-      </div>
+      <>
+         <div className={`${libraryPodcastStyles.mainWrapper}`}>
+            <Head>
+               <meta name='keyword' content='tags' />
+            </Head>
+            <Header currPage={"PODCASTS"} />
+            <div className='x-large-spacer'></div>
+            <LibraryMenu
+               includeCategory={true}
+               includeContent={true}
+               includeSearch={true}
+               contentButtonIcon={"🎧"}
+               currentSlectedContentPage={{ podcasts: "#f2f2f2" }}
+            />
+            {podcast && <PodcastCarrousel podcast={podcast} />}
+         </div>
+         <div className={`large-spacer`}> </div>
+         <NavigationMenu />
+      </>
    );
 };
 

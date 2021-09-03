@@ -7,7 +7,7 @@
 }
 
 .majorGridWrapper {
-   margin: 8rem 0;
+   margin: 8rem 0 0;
 }
 
 .stdButtonDefaultVerse {
@@ -34,4 +34,15 @@
 }
 
 @media only screen and (min-width: 1000px) {
+   .majorGridWrapper {
+      max-width: 850px;
+      margin: var(--xlarge-spacing-mobile) auto;
+   }
+}
+
+@media only screen and (min-width: 1200px) {
+   .majorGridWrapper {
+      max-width: 1000px;
+      margin: var(--xlarge-spacing-mobile) auto;
+   }
 }
