@@ -287,6 +287,15 @@
    left: 0;
 }
 
+.selectedTagColor {
+   height: 100vh;
+   width: 1rem;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 10;
+}
+
 @media only screen and (min-width: 1000px) {
    .mainStoryWrapper {
       width: 4rem;

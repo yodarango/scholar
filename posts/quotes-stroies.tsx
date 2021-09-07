@@ -205,6 +205,11 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                      )}
                   </section>
                )}
+               <div
+                  className={quoteStoriesStyles.selectedTagColor}
+                  style={{
+                     backgroundImage: `${stories.stories[countState].background}`
+                  }}></div>
             </section>
          )}
       </div>

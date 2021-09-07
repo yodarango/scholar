@@ -94,6 +94,9 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                </section>
             )}
          </section>
+         <div
+            className={quoteStoriesStyles.selectedTagColor}
+            style={{ backgroundImage: `${story.background}` }}></div>
       </div>
    );
 };

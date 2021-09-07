@@ -2,21 +2,47 @@
 import React, { useState } from "react";
 
 // components
+import NotificationPopup from "../notification-popup";
 
 // styles
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
+
+// helpers
+import { valuesCat } from "../../helpers/dropdown-values";
+import { IvaluesCat } from "../../helpers/dropdown-values";
 
 type quoteEditorProps = {
    handleCloseStories: any;
 };
 const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
+   // ================ FUNCTION 1:  Change the Background of the story on choice  ================ ///
    const [changeBkgState, setChangeBkgState] = useState<string>("");
    const handleChangeBkgColor = (bkg: string) => {
       setChangeBkgState(bkg);
    };
 
+   // ================ FUNCTION 2:  get information about the color tag clikced so the user knows what each stands for  ================ ///
+   const [tagInfoPopupState, setTagInfoPopupState] = useState<boolean | JSX.Element>(false);
+   const openInfoAboutTagColor = (cat: IvaluesCat) => {
+      setTagInfoPopupState(
+         <NotificationPopup
+            title={cat.title}
+            closeModal={() => setTagInfoPopupState(false)}
+            contentArray={cat.subjects}
+            newClass={`notification-wrapper--${cat.title}`}
+         />
+      );
+      setCurrentChosenTagState(cat.color);
+   };
+
+   // ================ FUNCTION 3: display the current selected color by the user ================ ///
+   const [currentChosenTagState, setCurrentChosenTagState] = useState<string>("");
+   const showCurrentSelectedColor = (cat: IvaluesCat) => {
+      setCurrentChosenTagState(cat.color);
+   };
    return (
       <div className={quoteEditorStyles.mainWrapper} id={changeBkgState}>
+         {tagInfoPopupState}
          <div className={`closeModal ${quoteEditorStyles.closeModal}`} onClick={handleCloseStories}>
             X
          </div>
@@ -80,7 +106,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
             <span
                className={quoteEditorStyles.bkgSix}
                id={quoteEditorStyles.OT5}
-               onClick={() => handleChangeBkgColor(quoteEditorStyles.bkgSix)}></span>
+               onClick={() => handleChangeBkgColor(quoteEditorStyles.OT5)}></span>
             <span
                className={quoteEditorStyles.bkgSeven}
                id={quoteEditorStyles.OT6}
@@ -106,9 +132,31 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                placeholder={`Enter Your Awesome Quote In This Space"`}></textarea>
             <input className={quoteEditorStyles.storyByInput} placeholder={`Who is the author?`} />
          </div>
+         <section className={quoteEditorStyles.tagsWrapper}>
+            <span className={quoteEditorStyles.categoryTitle}>Category:</span>
+            <div className={quoteEditorStyles.categories}>
+               {valuesCat.map((cat: IvaluesCat) => (
+                  <span
+                     key={cat.key}
+                     style={{ backgroundColor: cat.color }}
+                     className={quoteEditorStyles.category}
+                     onClick={() => showCurrentSelectedColor(cat)}>
+                     {cat.tag}
+                     <span
+                        className={quoteEditorStyles.info}
+                        onClick={() => openInfoAboutTagColor(cat)}>
+                        i
+                     </span>
+                  </span>
+               ))}
+            </div>
+         </section>
          <button className={`std-button ${quoteEditorStyles.stdButton}`}>
             <p className={`std-button_gradient-text`}>POST</p>
          </button>
+         <div
+            className={quoteEditorStyles.selectedTagColor}
+            style={{ backgroundColor: currentChosenTagState }}></div>
       </div>
    );
 };

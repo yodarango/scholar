@@ -2,7 +2,7 @@ import React from "react";
 
 type notificatrionPopupProps = {
    title: string;
-   contentArray?: [];
+   contentArray?: string[];
    contentString?: string | JSX.Element | undefined;
    newClass?: string;
    closeModal: React.MouseEventHandler;
