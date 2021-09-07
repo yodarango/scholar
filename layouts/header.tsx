@@ -3,6 +3,10 @@ import React, { useState } from "react";
 // components
 import GeneralDropdown from "../fragments/buttons/general-dropdown";
 import QuoteEditor from "../fragments/post-editor/quote-editor";
+import CommentEditor from "../fragments/post-editor/comment-editor";
+import PopupWrapper from "./popup-wrapper";
+import ThoughtTextEditor from "../layouts/popup-new-thought";
+import SermonNotesPost from "../fragments/post-editor/sermon-notes-post";
 
 // styles
 import generalDropDownStyles from "../styles/buttons/GeneralDropDown.module.css";
@@ -24,9 +28,47 @@ export default function Header({ currPage }: headerProps) {
    // =================   FUNCTION 2: open the correct editor depending on selected choice   ================= //
    const [openEditorState, setOpenEditorState] = useState<boolean | JSX.Element>(false);
    const handleOpenEditor = (e: IdropdownObjectSingleOption) => {
-      e.funcParams = "com"
-         ? setOpenEditorState(<QuoteEditor handleCloseStories={() => setOpenEditorState(false)} />)
-         : setOpenEditorState(false);
+      document.body.style.overflow = "hidden";
+      e.funcParams === "quote"
+         ? setOpenEditorState(
+              <QuoteEditor
+                 handleCloseStories={() => {
+                    document.body.style.overflow = "visible";
+                    setOpenEditorState(false);
+                 }}
+              />
+           )
+         : e.funcParams === "com"
+         ? setOpenEditorState(
+              <PopupWrapper
+                 content={<CommentEditor versionId={"de4e12af7f28f599-02"} />}
+                 closeModal={() => {
+                    document.body.style.overflow = "visible";
+                    setOpenEditorState(false);
+                 }}
+              />
+           )
+         : e.funcParams === "thought"
+         ? setOpenEditorState(
+              <PopupWrapper
+                 content={<ThoughtTextEditor />}
+                 closeModal={() => {
+                    document.body.style.overflow = "visible";
+                    setOpenEditorState(false);
+                 }}
+              />
+           )
+         : e.funcParams === "sermon"
+         ? setOpenEditorState(
+              <PopupWrapper
+                 content={<SermonNotesPost />}
+                 closeModal={() => {
+                    document.body.style.overflow = "visible";
+                    setOpenEditorState(false);
+                 }}
+              />
+           )
+         : null;
       setOpenDropDownState(false);
    };
 

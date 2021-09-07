@@ -1,0 +1,46 @@
+.mainWrapper {
+   width: 90%;
+   margin: auto;
+   max-width: 700px;
+}
+
+.title {
+   text-align: center;
+}
+
+.dropdownWrapper {
+   width: 10rem;
+   margin: -1.5rem auto var(--medium-spacing-mobile);
+   background-color: var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
+   height: 10rem;
+   overflow-y: scroll;
+}
+
+.dropdownOption {
+   text-align: center;
+   padding: 0.5rem 0;
+   border-radius: var(--input-radius-mobile);
+}
+
+.stdInputLabel,
+.stdInput {
+   display: block;
+   margin: auto;
+}
+
+.stdButton,
+.stdInputLabel {
+   width: 100%;
+   max-width: 19rem;
+}
+
+.stdInputFile {
+   display: none;
+}
+
+.fileName {
+   background-color: rgb(104, 182, 104);
+   padding: 0.5rem;
+   border-radius: var(--input-radius-mobile);
+}

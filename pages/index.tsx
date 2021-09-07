@@ -55,6 +55,7 @@ export default function Home({ verseContent }: homeProps) {
                </div>
             </div>
          </div>
+         <div className={"large-spacer"}></div>
          <NavigationMenu />
       </>
    );

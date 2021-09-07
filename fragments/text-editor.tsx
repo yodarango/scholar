@@ -16,7 +16,7 @@ import { /*valuesType,*/ valuesCat } from "../helpers/dropdown-values";
 // Component Props
 type editorProps = {
    title: string;
-   commentary: string;
+   commentary?: string;
    formattingRules?: JSX.Element;
    removeVerse?: any;
    referencedVerses: any;

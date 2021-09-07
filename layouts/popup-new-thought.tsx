@@ -13,15 +13,9 @@ import TextEditor from "../fragments/text-editor";
 import FormattingRules from "../fragments/buttons/formatting-rules";
 
 // styles
-import popNewCommentStyles from "../styles/layouts/PopupNewComment.module.css";
+import popupNewThought from "../styles/layouts/PopupNewThought.module.css";
 
-// helpers: types
-import { TverseContent } from "../pages";
-
-type commentaryProps = {
-   verseData: TverseContent;
-};
-const Commentary = ({ verseData }: commentaryProps) => {
+const ThoughtTextEditor = () => {
    // ===========  FUNCTION: add the selected Verse to editor
    type IreferencedVerseState = {
       id: string;
@@ -44,28 +38,16 @@ const Commentary = ({ verseData }: commentaryProps) => {
       setreferencedVerseIdState(nodeletedValues);
    };
    return (
-      <>
-         <div className={`${popNewCommentStyles.mainWrapper}`}>
-            <div>
-               <div className={popNewCommentStyles.commentaryVerseWrapper}>
-                  <p className='std-text-block--info'>{verseData.reference}</p>
-                  <p className='std-text-block'>{verseData.content}</p>
-               </div>
-            </div>
-            <div>
-               <TextEditor
-                  title='Your Commentary'
-                  commentary={`Commentary`}
-                  formattingRules={
-                     <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
-                  }
-                  referencedVerses={referencedVerseState}
-                  removeVerse={removeVerse}
-               />
-            </div>
-         </div>
-      </>
+      <div className={`${popupNewThought.mainWrapper}`}>
+         <div className={`medium-spacer`}></div>
+         <TextEditor
+            title='What Are You Thinking'
+            formattingRules={<FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />}
+            referencedVerses={referencedVerseState}
+            removeVerse={removeVerse}
+         />
+      </div>
    );
 };
 
-export default dynamic(() => Promise.resolve(Commentary), { ssr: false });
+export default ThoughtTextEditor;
