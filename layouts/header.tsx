@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 // components
 import GeneralDropdown from "../fragments/buttons/general-dropdown";
@@ -90,7 +91,9 @@ export default function Header({ currPage }: headerProps) {
          {openEditorState}
          <div className='header'>
             <div>
-               <div className='header-logo'></div>
+               <Link href={"/"}>
+                  <a className='header-logo'></a>
+               </Link>
             </div>
             <h2 className='header-curr-page'>{currPage}</h2>
             {!openDropDownState && (
@@ -101,6 +104,9 @@ export default function Header({ currPage }: headerProps) {
                   className={"new-post-trigger"}
                   onClick={() => setOpenDropDownState(false)}></span>
             )}
+            <Link href={"/go-pro"}>
+               <a className={`go-pro-button`}></a>
+            </Link>
          </div>
       </>
    );
