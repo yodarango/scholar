@@ -338,7 +338,7 @@ a:active {
    top: 0;
    left: 0;
    display: grid;
-   grid-template-columns: 20% 50% 30%;
+   grid-template-columns: 20% 50% 15% 15%;
    grid-template-rows: 1fr;
    z-index: 10;
 }
@@ -367,16 +367,27 @@ a:active {
    text-align: center;
 }
 
-.new-post-trigger {
+.new-post-trigger,
+.go-pro-button {
    grid-column: 3/4;
    grid-row: 1/2;
    background-image: url("/images/new-post.svg");
-   width: 2rem;
-   height: 2rem;
+   width: 1.5rem;
+   height: 1.5rem;
    background-size: cover;
    background-position: center;
    margin: auto;
    cursor: pointer;
+}
+.go-pro-button {
+   grid-column: 4/5;
+   grid-row: 1/2;
+   background-image: url("/images/go-pro.png");
+}
+
+.go-pro-button:hover {
+   transform: scale(1.5);
+   transition: transform 300ms ease-in;
 }
 
 .header-title,
@@ -402,7 +413,7 @@ a:active {
    width: 100vw;
    height: 100vh;
    background-color: var(--primary-color);
-   z-index: 10;
+   z-index: 16;
    overflow-y: scroll;
 }
 
@@ -599,6 +610,12 @@ a:active {
    }
    .goBack {
       left: var(--medium-spacing-ipad);
+   }
+
+   .new-post-trigger,
+   .go-pro-button {
+      width: 2rem;
+      height: 2rem;
    }
 }
 

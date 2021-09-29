@@ -17,18 +17,20 @@ const LibraryWatchCarrousel = ({ watch }: librarySermonCarrouselProps) => {
       <div className={`${libraryWatchCarrouselStyles.mainWrapper}`}>
          <h1 className={libraryWatchCarrouselStyles.title}>VIDEOS</h1>
          <div className={libraryWatchCarrouselStyles.scrollSection}>
-            {watch.map((video: watchProps) => (
-               <Watch
-                  id={video.id}
-                  key={video.id}
-                  title={video.title}
-                  by={video.by}
-                  thumbnail={video.thumbnail}
-                  reviews={video.reviews}
-                  stars={video.stars}
-                  url={video.url}
-               />
-            ))}
+            {watch.map((video: watchProps) => {
+               return (
+                  <Watch
+                     id={video.id}
+                     key={video.id}
+                     userId={video.user.id}
+                     title={video.title}
+                     by={video.user === null ? "" : video.user.fullName}
+                     thumbnail={video.thumbnail}
+                     currentRanking={video.currentRanking}
+                     sermonUrl={video.sermonUrl}
+                  />
+               );
+            })}
          </div>
       </div>
    );

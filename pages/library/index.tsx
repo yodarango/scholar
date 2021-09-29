@@ -10,6 +10,11 @@ import React from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 
+// graphql
+import { gql } from "@apollo/client";
+import client from "../../apollo-client";
+import { GET_MOST_POPULAR } from "../../graphql/Query";
+
 // components
 import Header from "../../layouts/header";
 import LibraryMenu from "../../fragments/buttons/library-menu";
@@ -71,18 +76,19 @@ const Library = ({ podcasts, blogs, sermons, articles, books, watch }: libraryPr
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-   const data = await fetch("https://scholar-be.herokuapp.com/library");
-   const parsedData = await data.json();
+   const { data } = await client.query({
+      query: GET_MOST_POPULAR
+   });
+   console.log(data);
    return {
       props: {
-         podcasts: parsedData.podcast,
-         blogs: parsedData.blogs,
-         sermons: parsedData.sermons,
-         articles: parsedData.articles,
-         books: parsedData.books,
-         watch: parsedData.watch
-      },
-      revalidate: 60 * 60 * 24 // everyday
+         articles: data.getMostPopularArticles,
+         blogs: data.getMostPopularBlogs,
+         books: data.getMostPopularBooks,
+         podcast: data.getMostPopularPodcasts,
+         sermons: data.getMostPopularSermonNotes,
+         watch: data.getMostPopularSermons
+      }
    };
 };
 export default Library;

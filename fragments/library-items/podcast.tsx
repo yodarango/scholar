@@ -8,17 +8,18 @@ import StarReviews from "../star-reviews";
 
 export type podcastsProps = {
    id: string;
+   userId?: string;
    thumbnail: string;
    podcastName: string;
    host: string;
-   reviews: string[];
-   stars: number[];
+   currentRanking: Number;
    description: string;
    appleLink: string;
    spotifyLink: string;
    googleLink: string;
    overcastLink: string;
-   newClass: string;
+   user?: string;
+   newClass?: string;
 };
 
 const Podcasts = ({
@@ -26,8 +27,7 @@ const Podcasts = ({
    thumbnail,
    podcastName,
    host,
-   reviews,
-   stars,
+   currentRanking,
    description,
    appleLink,
    spotifyLink,
@@ -54,7 +54,7 @@ const Podcasts = ({
                className={`${podcastStyles.descPopupImg}`}
             />
             <div className={podcastStyles.starReviewWrapper}>
-               <StarReviews contentId={id} reviews={reviews} stars={stars} />
+               <StarReviews contentId={id} currentRanking={currentRanking} />
             </div>
             <section className={podcastStyles.popupDescription}>{description}</section>
             <p className={`std-text-block--info ${podcastStyles.descPopupFooter}`}>
@@ -92,7 +92,7 @@ const Podcasts = ({
             <div className={podcastStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <img src={thumbnail} alt='podcast thumbnail' className={podcastStyles.thumbnail} />
             </div>
-            <StarReviews contentId={id} reviews={reviews} stars={stars} />
+            <StarReviews contentId={id} currentRanking={currentRanking} />
             <h2 className={podcastStyles.name}>{podcastName}</h2>
             <h3 className={podcastStyles.host}>{host}</h3>
             <div className={podcastStyles.links}>
