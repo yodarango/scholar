@@ -8,10 +8,10 @@ import Podcast from "../../fragments/library-items/podcast";
 import libraryContentCarrouselStyles from "../../styles/layouts/library-home-page/LibraryContentCarrousel.module.css";
 
 // types
-import { PodcastsProps } from "../../fragments/library-items/podcast";
+import { podcastsProps } from "../../fragments/library-items/podcast";
 
 type LibraryPodcastCarrouselProps = {
-   podcasts: PodcastsProps[];
+   podcasts: podcastsProps[];
 };
 const LibraryPodcastCarrousel = ({ podcasts }: LibraryPodcastCarrouselProps) => {
    // ===============   FUNCTION 1: fetch the podcast =====================//
@@ -19,22 +19,23 @@ const LibraryPodcastCarrousel = ({ podcasts }: LibraryPodcastCarrouselProps) => 
       <div className={`${libraryContentCarrouselStyles.mainWrapper}`}>
          <h1 className={libraryContentCarrouselStyles.title}>PODCASTS</h1>
          <div className={libraryContentCarrouselStyles.scrollSection}>
-            {podcasts.map((podcast: any) => (
-               <Podcast
-                  key={podcast.id}
-                  id={podcast.id}
-                  thumbnail={podcast.thumbnail}
-                  podcastName={podcast.podcastName}
-                  host={podcast.host}
-                  reviews={podcast.reviews}
-                  stars={podcast.stars}
-                  description={podcast.description}
-                  appleLink={podcast.appleLink}
-                  spotifyLink={podcast.spotifyLink}
-                  googleLink={podcast.googleLink}
-                  overcastLink={podcast.overcastLink}
-               />
-            ))}
+            {podcasts.map((podcast: any) => {
+               return (
+                  <Podcast
+                     key={podcast.id}
+                     id={podcast.id}
+                     thumbnail={podcast.thumbnail}
+                     podcastName={podcast.podcastName}
+                     host={podcast.user === null ? "" : podcast.user.fullName}
+                     currentRanking={podcast.currentRanking}
+                     description={podcast.description}
+                     appleLink={podcast.appleLink}
+                     spotifyLink={podcast.spotifyLink}
+                     googleLink={podcast.googleLink}
+                     overcastLink={podcast.overcastLink}
+                  />
+               );
+            })}
          </div>
       </div>
    );

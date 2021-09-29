@@ -19,19 +19,20 @@ const LibraryBlogsCarrousel = ({ blogs }: LibraryBlogsCarrouselProps) => {
       <div className={`${LibraryBlogsCarrouselStyles.mainWrapper}`}>
          <h1 className={LibraryBlogsCarrouselStyles.title}>BLOGS</h1>
          <div className={LibraryBlogsCarrouselStyles.scrollSection}>
-            {blogs.map((blog: blogProps) => (
-               <Blog
-                  id={blog.id}
-                  key={blog.id}
-                  thumbnail={blog.thumbnail}
-                  author={blog.author}
-                  description={blog.description}
-                  url={blog.url}
-                  reviews={blog.reviews}
-                  stars={blog.stars}
-                  blogName={blog.blogName}
-               />
-            ))}
+            {blogs.map((blog: blogProps) => {
+               return (
+                  <Blog
+                     id={blog.id}
+                     key={blog.id}
+                     thumbnail={blog.thumbnail}
+                     author={blog.user === null ? "" : blog.user.fullName}
+                     description={blog.description}
+                     blogUrl={blog.blogUrl}
+                     currentRanking={blog.currentRanking}
+                     blogName={blog.blogName}
+                  />
+               );
+            })}
          </div>
       </div>
    );

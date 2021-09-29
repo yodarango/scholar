@@ -53,7 +53,7 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getStaticProps: GetStaticProps = async () => {
-   const data = await fetch("https://scholar-be.herokuapp.com/library");
+   const data = await fetch("https://scholar-be.herokuapp.com/library/");
    const parsedData = await data.json();
 
    return {

@@ -23,12 +23,11 @@ const LibraryBookCarrousel = ({ books }: libraryBookCarrouselProps) => {
                   id={book.id}
                   key={book.id}
                   title={book.title}
-                  colors={book.colors}
+                  tagColors={book.tagColors}
                   author={book.author}
-                  tags={book.tags}
-                  reviews={book.reviews}
-                  stars={book.stars}
-                  url={book.url}
+                  categoryTags={book.categoryTags}
+                  currentRanking={book.currentRanking}
+                  bookUrl={book.bookUrl}
                   description={book.description}
                />
             ))}

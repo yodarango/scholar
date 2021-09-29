@@ -21,6 +21,7 @@ import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs
 // types
 import { blogProps } from "../../../fragments/library-items/blog";
 import NavigationMenu from "../../../layouts/navigation-menu";
+import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
 
 type watchPageProps = {
    blogs: blogProps[];
@@ -42,6 +43,7 @@ const Blogs = ({ blogs }: watchPageProps) => {
                contentButtonIcon={"📑"}
                currentSlectedContentPage={{ blogs: "#f2f2f2" }}
             />
+            <LibraryFilterBlog />
             {blogs && <BlogCarrousel blogs={blogs} />}
          </div>
          <div className={`large-spacer`}> </div>

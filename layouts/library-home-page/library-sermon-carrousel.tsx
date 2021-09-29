@@ -17,20 +17,21 @@ const LibrarySermonCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
       <div className={`${librarySermonCarrouselStyles.mainWrapper}`}>
          <h1 className={librarySermonCarrouselStyles.title}>SERMON NOTES</h1>
          <div className={librarySermonCarrouselStyles.scrollSection}>
-            {sermon.map((sermon: sermonProps) => (
-               <Sermon
-                  id={sermon.id}
-                  key={sermon.id}
-                  title={sermon.title}
-                  colors={sermon.colors}
-                  author={sermon.author}
-                  tags={sermon.tags}
-                  reviews={sermon.reviews}
-                  stars={sermon.stars}
-                  file={sermon.file}
-                  userAvatar={sermon.userAvatar}
-               />
-            ))}
+            {sermon.map((sermon: sermonProps) => {
+               return (
+                  <Sermon
+                     id={sermon.id}
+                     key={sermon.id}
+                     title={sermon.title}
+                     tagColors={sermon.tagColors}
+                     author={sermon.user === null ? "" : sermon.user.fullName}
+                     categoryTags={sermon.categoryTags}
+                     currentRanking={sermon.currentRanking}
+                     fileUrl={sermon.fileUrl}
+                     userAvatar={sermon.user.avatar}
+                  />
+               );
+            })}
          </div>
       </div>
    );

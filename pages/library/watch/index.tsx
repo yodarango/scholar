@@ -14,6 +14,7 @@ import { GetStaticProps } from "next";
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import WatchCarrousel from "../../../layouts/library-individual-pages/watch-carrousel";
+import LibraryFilterPreachers from "../../../fragments/buttons/library-filter-preachers";
 
 // styles
 import libraryWatchStyles from "../../../styles/pages/library/watch/LibraryWatch.module.css";
@@ -42,6 +43,7 @@ const Watch = ({ watch }: watchPageProps) => {
                contentButtonIcon={"📺"}
                currentSlectedContentPage={{ watch: "#f2f2f2" }}
             />
+            <LibraryFilterPreachers />
             {watch && <WatchCarrousel watch={watch} />}
          </div>
          <div className={`large-spacer`}> </div>

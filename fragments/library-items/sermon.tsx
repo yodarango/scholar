@@ -15,15 +15,15 @@ export type sermonProps = {
    userId?: string;
    userAvatar: string;
    userSignature?: string;
-   tags: string[];
-   colors: string[];
+   categoryTags: string[];
+   tagColors: string[];
    title: string;
    author: string;
-   reviews: string[];
-   stars: number[];
+   currentRanking: Number;
    description?: string;
-   file: string;
+   fileUrl: string;
    newClass?: string;
+   user?: any;
    deleteOption?: boolean;
    editOption?: boolean;
    reportOption?: boolean;
@@ -31,13 +31,12 @@ export type sermonProps = {
 
 const Sermon = ({
    id,
-   tags,
-   colors,
+   categoryTags,
+   tagColors,
    title,
    author,
-   reviews,
-   stars,
-   file,
+   currentRanking,
+   fileUrl,
    userId,
    userAvatar,
    newClass,
@@ -107,13 +106,13 @@ const Sermon = ({
             <div
                className={sermonStyles.innerpages}
                style={{
-                  borderTop: `5px solid ${colors[0]}`,
-                  borderRight: `5px solid ${colors[0]}`
+                  borderTop: `5px solid ${tagColors[0]}`,
+                  borderRight: `5px solid ${tagColors[0]}`
                }}></div>
 
-            <div className={sermonStyles.outerCover} style={{ backgroundColor: colors[0] }}>
+            <div className={sermonStyles.outerCover} style={{ backgroundColor: tagColors[0] }}>
                <div className={sermonStyles.textWrapper}>
-                  <Link href={file}>
+                  <Link href={fileUrl}>
                      <a>
                         <h1 className={sermonStyles.title}>{title}</h1>
                         <h3 className={sermonStyles.author}>by: {author}</h3>
@@ -128,7 +127,7 @@ const Sermon = ({
                         className={`${sermonStyles.avatar}`}
                         style={{ backgroundImage: `url(${userAvatar})` }}></div>
                   </div>
-                  <span className={sermonStyles.category}>Category: {tags[0]}</span>
+                  <span className={sermonStyles.category}>Category: {categoryTags[0]}</span>
                   {reportOption && (
                      <span
                         className={`std-vector-icon ${sermonStyles.actionTrigger}`}
@@ -137,7 +136,7 @@ const Sermon = ({
                </div>
             </div>
 
-            <StarReviews contentId={id} stars={stars} reviews={reviews} />
+            <StarReviews contentId={id} currentRanking={currentRanking} />
          </div>
       </>
    );

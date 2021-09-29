@@ -13,7 +13,7 @@ import { GetStaticProps } from "next";
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
-import LibraryFilter from "../../../fragments/buttons/library-filter";
+import LibraryFilterPodcast from "../../../fragments/buttons/library-filter-podcast";
 import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-carrousel";
 
 // styles
@@ -43,6 +43,7 @@ const Podcast = ({ podcast }: podcastPageProps) => {
                contentButtonIcon={"🎧"}
                currentSlectedContentPage={{ podcasts: "#f2f2f2" }}
             />
+            <LibraryFilterPodcast />
             {podcast && <PodcastCarrousel podcast={podcast} />}
          </div>
          <div className={`large-spacer`}> </div>

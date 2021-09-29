@@ -12,10 +12,10 @@ export type blogProps = {
    thumbnail: string;
    blogName: string;
    author: string;
-   reviews: string[];
-   stars: number[];
+   currentRanking: Number;
    description: string;
-   url: string;
+   blogUrl: string;
+   user?: any;
    newClass?: string;
 };
 
@@ -23,11 +23,11 @@ const Blog = ({
    thumbnail,
    blogName,
    author,
-   reviews,
-   stars,
-   url,
+   currentRanking,
+   blogUrl,
    description,
    id,
+   user,
    newClass
 }: blogProps) => {
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
@@ -42,15 +42,15 @@ const Blog = ({
                X
             </div>
             <h1 className={`${blogStyles.descPopupTitle}`}>{blogName}</h1>
-            <h3 className={blogStyles.popUpHost}>Blog authored By: {author}</h3>
+            {author && <h3 className={blogStyles.popUpHost}>Blog authored By: {author}</h3>}
             <img src={thumbnail} alt='podcast thumbnail' className={`${blogStyles.descPopupImg}`} />
             <div className={`${blogStyles.starReviewWrapper}`}>
-               <StarReviews contentId={id} reviews={reviews} stars={stars} />
+               <StarReviews contentId={id} currentRanking={currentRanking} />
             </div>
             <section className={blogStyles.popupDescription}>{description}</section>
-            {url && (
+            {blogUrl && (
                <a
-                  href={url}
+                  href={blogUrl}
                   target='_blank'
                   rel='noopener noreferrer'
                   className={`${blogStyles.descPopUpFooter} ${blogStyles.blogUrl}`}>
@@ -67,12 +67,12 @@ const Blog = ({
             <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <img src={thumbnail} alt='podcast thumbnail' className={blogStyles.thumbnail} />
             </div>
-            <StarReviews contentId={id} reviews={reviews} stars={stars} />
+            <StarReviews contentId={id} currentRanking={currentRanking} />
             <h2 className={blogStyles.name}>{blogName}</h2>
-            <h3 className={blogStyles.author}>{author}</h3>
-            {url && (
+            {author && <h3 className={blogStyles.author}>{author}</h3>}
+            {blogUrl && (
                <a
-                  href={url}
+                  href={blogUrl}
                   target='_blank'
                   rel='noopener noreferrer'
                   className={blogStyles.blogUrl}>
