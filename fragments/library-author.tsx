@@ -7,9 +7,7 @@ import libraryAuthorStyles from "../styles/fragments/LibraryAuthor.module.css";
 
 export type IuserData = {
    id: string;
-   name: string;
-   lastName: string;
-   signature: string;
+   fullName: string;
    avatar: string;
    trusted: true;
    reputation?: 54;
@@ -35,7 +33,7 @@ const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
             </Link>
          )}
          {!content && (
-            <Link href={`/profile?userid=${userData.id}`}>
+            <Link href={`/library/authors#`}>
                <a className={`${libraryAuthorStyles.avatarWrapper}`}>
                   <img
                      src={userData.avatar}
@@ -46,7 +44,7 @@ const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
             </Link>
          )}
          <h3 className={`std-button_gradient-text ${libraryAuthorStyles.userSignature}`}>
-            {userData.signature}
+            {userData.fullName}
          </h3>
          {content && (
             <Link href={`/profile?userid=${userData.id}`}>

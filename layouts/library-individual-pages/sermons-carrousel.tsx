@@ -37,34 +37,13 @@ const SermonsCarrousel = ({
                   id={sermon.id}
                   key={sermon.id}
                   title={sermon.title}
-                  colors={sermon.colors}
-                  author={sermon.author}
-                  tags={sermon.tags}
-                  reviews={sermon.reviews}
-                  stars={sermon.stars}
-                  file={sermon.file}
+                  tagColors={sermon.tagColors}
+                  author={sermon.user === null ? "" : sermon.user.fullName}
+                  categoryTags={sermon.categoryTags}
+                  currentRanking={sermon.currentRanking}
+                  fileUrl={sermon.fileUrl}
                   newClass={sermonsCarrouselStyles.sermonWRapper}
-                  userAvatar={sermon.userAvatar}
-                  editOption={editOption}
-                  deleteOption={deleteOption}
-                  reportOption={reportOption}
-               />
-            ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {sermon.map((sermon: sermonProps) => (
-               <Sermon
-                  id={sermon.id}
-                  key={sermon.id}
-                  title={sermon.title}
-                  colors={sermon.colors}
-                  author={sermon.author}
-                  tags={sermon.tags}
-                  reviews={sermon.reviews}
-                  stars={sermon.stars}
-                  file={sermon.file}
-                  newClass={sermonsCarrouselStyles.sermonWRapper}
-                  userAvatar={sermon.userAvatar}
+                  userAvatar={sermon.user === null ? "" : sermon.user.avatar}
                   editOption={editOption}
                   deleteOption={deleteOption}
                   reportOption={reportOption}

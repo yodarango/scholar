@@ -8,7 +8,11 @@
 // core
 import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+
+// graphQl
+import { gql } from "@apollo/client";
+import client from "../../../apollo-client";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
@@ -53,14 +57,37 @@ const Watch = ({ watch }: watchPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getStaticProps: GetStaticProps = async () => {
-   const data = await fetch("https://scholar-be.herokuapp.com/library");
-   const parsedData = await data.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip } = context.query;
+   if (!skip) {
+      skip = "0";
+   }
+   const { data } = await client.query({
+      query: gql`
+         query ($skip: String!, $id: ID, $title: String!, userId: ID, category: String) {
+            sermons(skip: $skip) {
+               id
+               title
+               thumbnail
+               sermonUrl
+               categoryTags
+               tagColors
+               description
+               currentRanking
+               userId
+               user {
+                  fullName
+                  avatar
+               }
+            }
+         }
+      `,
+      variables: { skip: skip }
+   });
 
    return {
       props: {
-         watch: parsedData.watch,
-         revalidate: 60 * 50 * 24 //everyday
+         watch: data.sermons
       }
    };
 };

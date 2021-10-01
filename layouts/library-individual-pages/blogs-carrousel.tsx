@@ -31,25 +31,8 @@ const BlogCarrousel = ({ blogs }: blogCarrouselProps) => {
                   thumbnail={blog.thumbnail}
                   blogName={blog.blogName}
                   author={blog.author}
-                  reviews={blog.reviews}
-                  stars={blog.stars}
-                  url={blog.url}
-                  description={blog.description}
-                  newClass={blogCarrouselStyles.blogMainWrapper}
-               />
-            ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {blogs.map((blog: blogProps) => (
-               <Blog
-                  id={blog.id}
-                  key={blog.id}
-                  thumbnail={blog.thumbnail}
-                  blogName={blog.blogName}
-                  author={blog.author}
-                  reviews={blog.reviews}
-                  stars={blog.stars}
-                  url={blog.url}
+                  currentRanking={blog.currentRanking}
+                  blogUrl={blog.blogUrl}
                   description={blog.description}
                   newClass={blogCarrouselStyles.blogMainWrapper}
                />

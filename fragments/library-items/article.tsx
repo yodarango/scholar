@@ -35,7 +35,7 @@ const Article = ({
 }: articleProps) => {
    return (
       <div className={`${articleStyles.mainWrapper} ${newClass}`}>
-         <Link href={fileUrl}>
+         <Link href={"fileUrl"}>
             <a>
                <div className={articleStyles.paperSheet}>
                   <div className={articleStyles.paperLines}>

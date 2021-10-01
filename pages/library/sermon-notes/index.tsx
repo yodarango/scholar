@@ -6,9 +6,13 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+
+// graphql
+import { gql } from "@apollo/client";
+import client from "../../../apollo-client";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
@@ -52,14 +56,35 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getStaticProps: GetStaticProps = async () => {
-   const data = await fetch("https://scholar-be.herokuapp.com/library/");
-   const parsedData = await data.json();
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip } = context.query;
+   if (!skip) {
+      skip = "0";
+   }
+   const { data } = await client.query({
+      query: gql`
+         query ($skip: String!) {
+            sermonNotes(skip: $skip) {
+               id
+               title
+               userId
+               categoryTags
+               tagColors
+               currentRanking
+               fileUrl
+               user {
+                  fullName
+                  avatar
+               }
+            }
+         }
+      `,
+      variables: { skip: skip }
+   });
    return {
       props: {
-         sermons: parsedData.sermons,
-         revalidate: 60 * 50 * 24 //everyday
+         sermons: data.sermonNotes
       }
    };
 };

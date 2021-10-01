@@ -6,7 +6,11 @@
 // core
 import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+
+// graphql
+import { gql } from "@apollo/client";
+import client from "../../apollo-client";
 
 // components
 import Header from "../../layouts/header";
@@ -15,7 +19,7 @@ import LibraryBlogWriter from "../../fragments/library-blog-writer";
 import sermonsByAuthorStyles from "../../styles/pages/library/Authors.module.css";
 
 // types
-import { ThostData } from "../../fragments/library-podcast-hosts";
+import { ThostData } from "../../fragments/library-blog-writer";
 import NavigationMenu from "../../layouts/navigation-menu";
 
 type sermonsByAuthorProps = {
@@ -43,13 +47,31 @@ const BlogWritter = ({ users }: sermonsByAuthorProps) => {
 };
 
 // fetch data
-export const getStaticProps: GetStaticProps = async () => {
-   const req = await fetch("https://scholar-be.herokuapp.com/users");
-   const users = await req.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip } = context.query;
+   if (!skip) {
+      skip = "0";
+   }
+   const { data } = await client.query({
+      query: gql`
+         query ($skip: String!) {
+            AuthorizedContentProvider(skip: $skip, userType: BLOGWRITER) {
+               id
+               fullName
+               avatar
+               recommended
+               organization
+               userType
+            }
+         }
+      `,
+      variables: { skip: skip }
+   });
 
    return {
-      props: { users },
-      revalidate: 60 * 60 * 24 // refresh data every day
+      props: {
+         users: data.AuthorizedContentProvider
+      }
    };
 };
 

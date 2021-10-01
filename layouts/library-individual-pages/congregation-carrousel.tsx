@@ -41,24 +41,6 @@ const CongregationCarrousel = ({ congregation }: congregationCarrouselProps) => 
                   iFrame={congregation.iFrame}
                />
             ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {congregation.map((congregation: congregationProps) => (
-               <Congregation
-                  id={congregation.id}
-                  key={congregation.id}
-                  logo={congregation.logo}
-                  name={congregation.name}
-                  schedule={congregation.schedule}
-                  state={congregation.state}
-                  zip={congregation.zip}
-                  city={congregation.city}
-                  address={congregation.address}
-                  location={congregation.location}
-                  website={congregation.website}
-                  iFrame={congregation.iFrame}
-               />
-            ))}
          </div>
       </div>
    );

@@ -55,7 +55,7 @@ const starReviews = ({ currentRanking, contentId }: starReviewsProps) => {
                      No reviews yet!
                   </p>
                ))}
-            <div className={starClass}></div>
+            {currentRanking && currentRanking > 0 && <div className={starClass}></div>}
          </div>
       </>
    );

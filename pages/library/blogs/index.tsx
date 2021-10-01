@@ -8,7 +8,11 @@
 // core
 import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+
+// graphql
+import { gql } from "@apollo/client";
+import client from "../../../apollo-client";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
@@ -22,6 +26,7 @@ import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs
 import { blogProps } from "../../../fragments/library-items/blog";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
+import Podcast from "../podcast";
 
 type watchPageProps = {
    blogs: blogProps[];
@@ -53,14 +58,32 @@ const Blogs = ({ blogs }: watchPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getStaticProps: GetStaticProps = async () => {
-   const data = await fetch("https://scholar-be.herokuapp.com/library");
-   const parsedData = await data.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip } = context.query;
+   if (!skip) {
+      skip = "0";
+   }
+   const { data } = await client.query({
+      query: gql`
+         query ($skip: String!) {
+            blogs(skip: $skip) {
+               id
+               thumbnail
+               blogName
+               blogUrl
+               currentRanking
+               user {
+                  fullName
+               }
+            }
+         }
+      `,
+      variables: { skip: skip }
+   });
 
    return {
       props: {
-         blogs: parsedData.blogs,
-         revalidate: 60 * 50 * 24 //everyday
+         blogs: data.blogs
       }
    };
 };

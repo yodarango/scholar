@@ -28,7 +28,7 @@ const LibrarySermonCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
                      categoryTags={sermon.categoryTags}
                      currentRanking={sermon.currentRanking}
                      fileUrl={sermon.fileUrl}
-                     userAvatar={sermon.user.avatar}
+                     userAvatar={sermon.user === null ? "" : sermon.user.fullName}
                   />
                );
             })}
