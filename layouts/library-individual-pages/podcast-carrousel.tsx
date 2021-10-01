@@ -30,26 +30,7 @@ const PodcastCarrousel = ({ podcast }: podcastCarrouselProps) => {
                   thumbnail={podcast.thumbnail}
                   podcastName={podcast.podcastName}
                   host={podcast.host}
-                  reviews={podcast.reviews}
-                  stars={podcast.stars}
-                  description={podcast.description}
-                  appleLink={podcast.appleLink}
-                  spotifyLink={podcast.spotifyLink}
-                  googleLink={podcast.googleLink}
-                  overcastLink={podcast.overcastLink}
-                  newClass={podcastCarrouselStyles.podcastWrapper}
-               />
-            ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {podcast.map((podcast: podcastsProps) => (
-               <Podcasts
-                  id={podcast.id}
-                  thumbnail={podcast.thumbnail}
-                  podcastName={podcast.podcastName}
-                  host={podcast.host}
-                  reviews={podcast.reviews}
-                  stars={podcast.stars}
+                  currentRanking={podcast.currentRanking}
                   description={podcast.description}
                   appleLink={podcast.appleLink}
                   spotifyLink={podcast.spotifyLink}

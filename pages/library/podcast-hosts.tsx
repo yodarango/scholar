@@ -6,7 +6,11 @@
 // core
 import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+
+// graphql
+import { gql } from "@apollo/client";
+import client from "../../apollo-client";
 
 // components
 import Header from "../../layouts/header";
@@ -43,14 +47,32 @@ const PodcastHosts = ({ users }: sermonsByAuthorProps) => {
    );
 };
 
-// fetch data
-export const getStaticProps: GetStaticProps = async () => {
-   const req = await fetch("https://scholar-be.herokuapp.com/users");
-   const users = await req.json();
+// get data
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip } = context.query;
+   if (!skip) {
+      skip = "0";
+   }
+   const { data } = await client.query({
+      query: gql`
+         query ($skip: String!) {
+            AuthorizedContentProvider(skip: $skip, userType: PODCASTHOST) {
+               id
+               fullName
+               avatar
+               recommended
+               organization
+               userType
+            }
+         }
+      `,
+      variables: { skip: skip }
+   });
 
    return {
-      props: { users },
-      revalidate: 60 * 60 * 24 // refresh data every day
+      props: {
+         users: data.AuthorizedContentProvider
+      }
    };
 };
 

@@ -30,25 +30,10 @@ const WatchCarrousel = ({ watch }: watchCarrouselProps) => {
                   key={video.id}
                   thumbnail={video.thumbnail}
                   title={video.title}
-                  by={video.by}
-                  reviews={video.reviews}
-                  stars={video.stars}
-                  url={video.url}
-                  newClass={watchCarrouselStyles.watchMainWrapper}
-               />
-            ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {watch.map((video: watchProps) => (
-               <Watch
-                  id={video.id}
-                  key={video.id}
-                  thumbnail={video.thumbnail}
-                  title={video.title}
-                  by={video.by}
-                  reviews={video.reviews}
-                  stars={video.stars}
-                  url={video.url}
+                  by={video.user === null ? "" : video.user.fullName}
+                  userId={video.userId}
+                  currentRanking={video.currentRanking}
+                  sermonUrl={video.sermonUrl}
                   newClass={watchCarrouselStyles.watchMainWrapper}
                />
             ))}

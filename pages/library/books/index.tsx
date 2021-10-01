@@ -8,7 +8,11 @@
 // core
 import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+
+// graphql
+import { gql } from "@apollo/client";
+import client from "../../../apollo-client";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
@@ -26,7 +30,7 @@ type booksPageProps = {
    books: bookProps[];
 };
 
-const Blogs = ({ books }: booksPageProps) => {
+const Books = ({ books }: booksPageProps) => {
    return (
       <>
          <div className={`${libraryBooksStyles.mainWrapper}`}>
@@ -51,16 +55,33 @@ const Blogs = ({ books }: booksPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getStaticProps: GetStaticProps = async () => {
-   const data = await fetch("https://scholar-be.herokuapp.com/library");
-   const parsedData = await data.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip } = context.query;
+   if (!skip) {
+      skip = "0";
+   }
+   const { data } = await client.query({
+      query: gql`
+         query ($skip: String!) {
+            books(skip: $skip) {
+               id
+               title
+               author
+               categoryTags
+               tagColors
+               bookUrl
+               currentRanking
+            }
+         }
+      `,
+      variables: { skip: skip }
+   });
 
    return {
       props: {
-         books: parsedData.books,
-         revalidate: 60 * 50 * 24 //everyday
+         books: data.books
       }
    };
 };
 
-export default Blogs;
+export default Books;

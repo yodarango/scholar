@@ -11,9 +11,8 @@ import Head from "next/head";
 import { GetStaticProps } from "next";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../apollo-client";
-import { GET_MOST_POPULAR } from "../../graphql/Query";
+import { GET_MOST_POPULAR } from "../../graphql/MostPopular";
 
 // components
 import Header from "../../layouts/header";

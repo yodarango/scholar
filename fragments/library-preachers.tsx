@@ -7,7 +7,7 @@ import libraryAuthorStyles from "../styles/fragments/LibraryAuthor.module.css";
 
 export type TpreacherData = {
    id: string;
-   name: string;
+   fullName: string;
    avatar: string;
    recommended: boolean;
 };
@@ -30,7 +30,7 @@ const LibraryPreachers = ({ userData }: libraryPreacherProps) => {
          </Link>
 
          <h3 className={`std-button_gradient-text ${libraryAuthorStyles.userSignature}`}>
-            {userData.name}
+            {userData.fullName}
          </h3>
       </div>
    );

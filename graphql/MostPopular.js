@@ -65,7 +65,6 @@ export const GET_MOST_POPULAR = gql`
          title
          uploadedDate
          fileUrl
-         userAvatar
          categoryTags
          tagColors
          description

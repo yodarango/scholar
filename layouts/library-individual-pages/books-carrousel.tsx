@@ -30,29 +30,11 @@ const BookCarrousel = ({ books }: bookCarrouselProps) => {
                   key={book.id}
                   title={book.title}
                   author={book.author}
-                  reviews={book.reviews}
-                  stars={book.stars}
-                  url={book.url}
+                  currentRanking={book.currentRanking}
+                  bookUrl={book.bookUrl}
                   newClass={bookCarrouselStyles.bookMainWrapper}
-                  tags={book.tags}
-                  colors={book.colors}
-                  description={book.description}
-               />
-            ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {books.map((book: bookProps) => (
-               <Book
-                  id={book.id}
-                  key={book.id}
-                  title={book.title}
-                  author={book.author}
-                  reviews={book.reviews}
-                  stars={book.stars}
-                  url={book.url}
-                  newClass={bookCarrouselStyles.bookMainWrapper}
-                  tags={book.tags}
-                  colors={book.colors}
+                  categoryTags={book.categoryTags}
+                  tagColors={book.tagColors}
                   description={book.description}
                />
             ))}

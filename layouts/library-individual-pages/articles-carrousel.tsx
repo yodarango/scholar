@@ -29,28 +29,12 @@ const ArticlesCarrousel = ({ articles }: articleCarrouselProps) => {
                   id={article.id}
                   key={article.id}
                   title={article.title}
-                  colors={article.colors}
-                  author={article.author}
-                  tags={article.tags}
-                  reviews={article.reviews}
-                  stars={article.stars}
-                  file={article.file}
-                  newClass={articleCarrouselStyles.articleWRapper}
-               />
-            ))}
-
-            {/* ====== TEMPORARY data jsut to create more content ======= */}
-            {articles.map((article: articleProps) => (
-               <Article
-                  id={article.id}
-                  key={article.id}
-                  title={article.title}
-                  colors={article.colors}
-                  author={article.author}
-                  tags={article.tags}
-                  reviews={article.reviews}
-                  stars={article.stars}
-                  file={article.file}
+                  userId={article.userId}
+                  tagColors={article.tagColors}
+                  author={article.user === null ? "" : article.user.fullName}
+                  categoryTags={article.categoryTags}
+                  currentRanking={article.currentRanking}
+                  fileUrl={article.fileUrl}
                   newClass={articleCarrouselStyles.articleWRapper}
                />
             ))}
