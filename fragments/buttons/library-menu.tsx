@@ -1,6 +1,7 @@
 // core
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 //styles
 import libraryMenuStyles from "../../styles/buttons/LibraryMenu.module.css";
@@ -61,9 +62,12 @@ const libraryMenu = ({
       color: string;
       tag: string;
    }>({ color: "", tag: "#ALL" });
+   const router = useRouter();
    const handleCategoryChoice = (color: string, tag: string) => {
+      console.log(tag, color);
       setCurrentCategorySelectedState({ color, tag });
       setopenCatDropdownState(false);
+      router.replace({ pathname: router.route, query: { category: tag.replace("#", "") } });
    };
    return (
       <>

@@ -58,14 +58,17 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip } = context.query;
+   let { skip, category } = context.query;
    if (!skip) {
       skip = "0";
    }
+   if (!category) {
+      category = "";
+   }
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!) {
-            sermonNotes(skip: $skip) {
+         query ($skip: String!, $category: String!) {
+            sermonNotes(skip: $skip, category: $category) {
                id
                title
                userId
@@ -80,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip: skip }
+      variables: { skip: skip, category: category }
    });
    return {
       props: {
