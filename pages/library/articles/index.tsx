@@ -58,14 +58,18 @@ const Articles = ({ articles }: articlePageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip } = context.query;
+   let { skip, category } = context.query;
    if (!skip) {
       skip = "0";
    }
+   if (!category) {
+      category = "";
+   }
+   console.log(skip, category);
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!) {
-            articles(skip: $skip) {
+         query ($skip: String!, $category: String!) {
+            articles(skip: $skip, category: $category) {
                id
                title
                fileUrl
@@ -80,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip: skip }
+      variables: { skip: skip, category: category }
    });
 
    return {

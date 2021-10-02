@@ -59,7 +59,7 @@ const Blogs = ({ blogs }: watchPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip } = context.query;
+   let { skip, category } = context.query;
    if (!skip) {
       skip = "0";
    }
