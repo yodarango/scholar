@@ -1,6 +1,7 @@
 // core
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // styles
 import libraryFilterStyles from "../../styles/buttons/LibraryFilter.module.css";
@@ -12,14 +13,17 @@ const LibraryFilter = ({ params }: libraryFilterProps) => {
    // ====================   FUNCTINO 1: Sort contnent by letter    =========== //
    const [sortByLetterState, setSortByLetterState] = useState<boolean>(false);
 
+   const router = useRouter();
    ///// ======= fetch from A to Z
    const handleSortingByLetterAtoZ = () => {
       setSortByLetterState(true);
+      router.push({ pathname: router.route, query: { alphOrd: "desc" } });
    };
 
    //// ========= fetch from Z to A
    const handleSortingByLetterZtoA = () => {
       setSortByLetterState(false);
+      router.push({ pathname: router.route, query: { alphOrd: "asc" } });
    };
 
    // ====================   FUNCTINO 2: Sort contnent by Date    =========== //
@@ -28,11 +32,15 @@ const LibraryFilter = ({ params }: libraryFilterProps) => {
    ///// ======= fetch from A to Z
    const handleSortingByDateNtoO = () => {
       setSortByDateState(true);
+      setSortByLetterState(false);
+      router.push({ pathname: router.route, query: { dateOrd: "asc" } });
    };
 
    //// ========= fetch from Z to A
    const handleSortingByDateOtoN = () => {
       setSortByDateState(false);
+      setSortByLetterState(false);
+      router.push({ pathname: router.route, query: { dateOrd: "desc" } });
    };
 
    return (

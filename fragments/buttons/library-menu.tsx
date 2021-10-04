@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Router from "next/router";
 
 //styles
 import libraryMenuStyles from "../../styles/buttons/LibraryMenu.module.css";
@@ -47,7 +48,7 @@ const libraryMenu = ({
       setOpenContentDropDState(false);
    };
 
-   // ====================   FUNCTION 2: Open the Category DropDown    ===============//
+   // ====================   FUNCTION 2: Open and Close the Category DropDown    ===============//
    const [openCatDropdownState, setopenCatDropdownState] = useState<boolean>(false);
    const handleOpenCategoryDropDown = () => {
       setopenCatDropdownState(true);
@@ -58,16 +59,24 @@ const libraryMenu = ({
    };
 
    // ====================   FUNCTION 2: Fetch Data and change the Category Choice button value  ===============//
+   const router = useRouter();
    const [currentCategorySelectedState, setCurrentCategorySelectedState] = useState<{
       color: string;
       tag: string;
    }>({ color: "", tag: "#ALL" });
-   const router = useRouter();
+
    const handleCategoryChoice = (color: string, tag: string) => {
-      console.log(tag, color);
+      console.log(router);
       setCurrentCategorySelectedState({ color, tag });
       setopenCatDropdownState(false);
       router.replace({ pathname: router.route, query: { category: tag.replace("#", "") } });
+   };
+
+   // clear out the router from tags and fetch all resutls again
+   const resetCategorySelector = () => {
+      setCurrentCategorySelectedState({ color: "", tag: "#ALL" });
+      setopenCatDropdownState(false);
+      router.replace(router.route);
    };
    return (
       <>
@@ -254,6 +263,11 @@ const libraryMenu = ({
                   )}
                   {openCatDropdownState && (
                      <section className={`${libraryMenuStyles.categoryDropDWrapper}`}>
+                        <span
+                           onClick={resetCategorySelector}
+                           className={`${libraryMenuStyles.contentSingleItem} ${libraryMenuStyles.allOption}`}>
+                           #ALL
+                        </span>
                         {valuesCat.map((value: IvaluesCat) => (
                            <span
                               key={value.key}

@@ -42,7 +42,7 @@ const Blogs = ({ blogs }: watchPageProps) => {
             <Header currPage={"BLOGS"} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
-               includeCategory={true}
+               includeCategory={false}
                includeContent={true}
                includeSearch={true}
                contentButtonIcon={"📑"}
@@ -59,14 +59,14 @@ const Blogs = ({ blogs }: watchPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, category } = context.query;
-   if (!skip) {
-      skip = "0";
-   }
+   let { skip, alphOrd, dateOrd } = context.query;
+   !skip ? (skip = "0") : null;
+   !alphOrd ? (alphOrd = "") : null;
+   !dateOrd ? (dateOrd = "") : null;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!) {
-            blogs(skip: $skip) {
+         query ($skip: String!, $dateOrd: String!, $alphOrd: String!) {
+            blogs(skip: $skip, dateOrd: $dateOrd, alphOrd: $alphOrd) {
                id
                thumbnail
                blogName
@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip: skip }
+      variables: { skip, alphOrd, dateOrd }
    });
 
    return {
