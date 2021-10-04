@@ -40,7 +40,7 @@ const Podcast = ({ podcast }: podcastPageProps) => {
             <Header currPage={"PODCASTS"} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
-               includeCategory={true}
+               includeCategory={false}
                includeContent={true}
                includeSearch={true}
                contentButtonIcon={"🎧"}
@@ -57,14 +57,14 @@ const Podcast = ({ podcast }: podcastPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip } = context.query;
-   if (!skip) {
-      skip = "0";
-   }
+   let { skip, alphOrd, dateOrd } = context.query;
+   !skip ? (skip = "0") : null;
+   !alphOrd ? (alphOrd = "") : null;
+   !dateOrd ? (dateOrd = "") : null;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!) {
-            podcasts(skip: $skip) {
+         query ($skip: String!, $alphOrd: String!, $dateOrd: String!) {
+            podcasts(skip: $skip, alphOrd: $alphOrd, dateOrd: $dateOrd) {
                id
                thumbnail
                podcastName
@@ -81,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip }
+      variables: { skip, alphOrd, dateOrd }
    });
 
    return {

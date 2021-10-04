@@ -57,12 +57,9 @@ const Books = ({ books }: booksPageProps) => {
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, category } = context.query;
-   if (!skip) {
-      skip = "0";
-   }
-   if (!category) {
-      category = "";
-   }
+   !skip ? (skip = "0") : null;
+   !category ? (category = "") : null;
+
    console.log(skip);
    const { data } = await client.query({
       query: gql`

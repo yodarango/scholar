@@ -21,6 +21,10 @@
    cursor: pointer;
 }
 
+.allOption {
+   background-color: var(--secondary-color);
+}
+
 .contentDropDWrapper {
    position: absolute;
    grid-area: Cont;

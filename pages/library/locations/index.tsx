@@ -66,9 +66,7 @@ const Congregations = ({ congregations }: congregationPageProps) => {
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip } = context.query;
-   if (!skip) {
-      skip = "0";
-   }
+   !skip ? (skip = "0") : null;
    const { data } = await client.query({
       query: gql`
          query ($skip: String!) {
@@ -90,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip: skip }
+      variables: { skip }
    });
 
    return {
