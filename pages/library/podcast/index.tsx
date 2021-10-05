@@ -57,14 +57,11 @@ const Podcast = ({ podcast }: podcastPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd } = context.query;
-   !skip ? (skip = "0") : null;
-   !alphOrd ? (alphOrd = "") : null;
-   !dateOrd ? (dateOrd = "") : null;
+   let { skip, alphOrd, dateOrd, userId, podcastName, id } = context.query;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!, $alphOrd: String!, $dateOrd: String!) {
-            podcasts(skip: $skip, alphOrd: $alphOrd, dateOrd: $dateOrd) {
+         query ($skip: String!, $alphOrd: String!, $dateOrd: String!, $userId: ID! podcastName: String id: ID) {
+            podcasts(skip: $skip, alphOrd: $alphOrd, dateOrd: $dateOrd, userId: $userId podcastName: $podcastName id: $id) {
                id
                thumbnail
                podcastName
@@ -81,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip, alphOrd, dateOrd }
+      variables: { skip, alphOrd, dateOrd, userId, podcastName, id }
    });
 
    return {

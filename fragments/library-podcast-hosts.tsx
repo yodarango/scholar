@@ -19,7 +19,7 @@ type libraryPodcastHostsProps = {
 const LibraryPodcastHosts = ({ userData }: libraryPodcastHostsProps) => {
    return (
       <div className={`${libraryAuthorStyles.mainWrapper}`}>
-         <Link href={`/library/podcast?userid=${userData.id}`}>
+         <Link href={`/library/podcast?userId=${userData.id}`}>
             <a className={`${libraryAuthorStyles.avatarWrapper}`}>
                <img
                   src={userData.avatar}

@@ -7,9 +7,10 @@
 // *** congregationProps ***************************************** //
 
 // core
-import React from "react";
+import React, { useRef } from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // graphql
 import { gql } from "@apollo/client";
@@ -32,6 +33,21 @@ type congregationPageProps = {
 };
 
 const Congregations = ({ congregations }: congregationPageProps) => {
+   // ============ capitalize and push the new query to router to searh by title ======
+   const router = useRouter();
+   let newInput: any = "";
+   const handleInputSearchReq = (string: string) => {
+      if (string) {
+         const singleWords = string.split(" ");
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         console.log(newInput);
+      }
+
+      router.replace({ pathname: router.pathname, query: { area: newInput } });
+   };
+
+   // ====== reference to get input value ======
+   const searchInputValue = useRef<HTMLInputElement>(null);
    return (
       <>
          <div className={`${libraryCongregationsStyles.mainWrapper}`}>
@@ -52,8 +68,18 @@ const Congregations = ({ congregations }: congregationPageProps) => {
                   type='text'
                   maxLength={40}
                   className={`${libraryCongregationsStyles.search} std-input`}
-                  placeholder='🔎 Name, City, or State '
+                  placeholder='Name, City, or State '
+                  ref={searchInputValue}
                />
+               <span
+                  className={`${libraryCongregationsStyles.magnifyingGlass} std-button`}
+                  onClick={() => {
+                     searchInputValue.current
+                        ? handleInputSearchReq(searchInputValue.current.value)
+                        : null;
+                  }}>
+                  🔎
+               </span>
             </div>
             {congregations && <CongregationCarrousel congregation={congregations} />}
          </div>
@@ -65,12 +91,11 @@ const Congregations = ({ congregations }: congregationPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip } = context.query;
-   !skip ? (skip = "0") : null;
+   let { skip, id, area } = context.query;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!) {
-            congregations(skip: $skip) {
+         query ($skip: String, $id: ID, $area: String) {
+            congregations(skip: $skip, id: $id, area: $area) {
                id
                address
                city
@@ -88,9 +113,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip }
+      variables: {
+         skip,
+         id,
+         area
+      }
    });
-
+   console.log(area);
    return {
       props: {
          congregations: data.congregations

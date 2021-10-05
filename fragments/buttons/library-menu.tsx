@@ -1,8 +1,7 @@
 // core
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Router from "next/router";
 
 //styles
 import libraryMenuStyles from "../../styles/buttons/LibraryMenu.module.css";
@@ -30,13 +29,15 @@ type libraryMenuProps = {
    includeContent?: boolean;
    contentButtonIcon: string;
    currentSlectedContentPage: currentPageNewClass;
+   handleInputSearchReq?: any;
 };
 const libraryMenu = ({
    includeCategory,
    includeContent,
    includeSearch,
    contentButtonIcon,
-   currentSlectedContentPage
+   currentSlectedContentPage,
+   handleInputSearchReq
 }: libraryMenuProps) => {
    // ====================   FUNCTION 1: Open the Content Dorpdown   ================//
    const [openContentDropDState, setOpenContentDropDState] = useState<boolean>(false);
@@ -78,6 +79,9 @@ const libraryMenu = ({
       setopenCatDropdownState(false);
       router.replace(router.route);
    };
+
+   // get the value of the inout field to handl e the search
+   const searchInputValue = useRef<HTMLInputElement>(null);
    return (
       <>
          <div className={`${libraryMenuStyles.mainWrapperDesktop}`}>
@@ -239,8 +243,18 @@ const libraryMenu = ({
                      type='text'
                      maxLength={50}
                      className={`${libraryMenuStyles.search} std-input`}
-                     placeholder='🔎Name or Signature'
+                     placeholder='Search a title'
+                     ref={searchInputValue}
                   />
+                  <span
+                     className={`${libraryMenuStyles.magnifyingGlass} std-button`}
+                     onClick={() => {
+                        searchInputValue.current
+                           ? handleInputSearchReq(searchInputValue.current.value)
+                           : null;
+                     }}>
+                     🔎
+                  </span>
                </div>
             )}
             {includeCategory && (
