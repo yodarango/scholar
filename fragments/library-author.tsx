@@ -22,7 +22,7 @@ const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
    return (
       <div className={`${libraryAuthorStyles.mainWrapper}`}>
          {content && (
-            <Link href={`/library/${content}?userid=${userData.id}`}>
+            <Link href={`/library/${content}?userId=${userData.id}`}>
                <a className={`${libraryAuthorStyles.avatarWrapper}`}>
                   <img
                      src={userData.avatar}
@@ -47,7 +47,7 @@ const LibraryAuthor = ({ userData, content }: libraryAuthorProps) => {
             {userData.fullName}
          </h3>
          {content && (
-            <Link href={`/profile?userid=${userData.id}`}>
+            <Link href={`/profile?userId=${userData.id}`}>
                <a className={`${libraryAuthorStyles.userProfile}`}>profile </a>
             </Link>
          )}

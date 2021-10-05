@@ -58,15 +58,30 @@ const Watch = ({ watch }: watchPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, category } = context.query;
+   let { skip, alphOrd, dateOrd, category, userId } = context.query;
    !skip ? (skip = "0") : null;
    !category ? (category = "") : null;
    !alphOrd ? (alphOrd = "") : null;
    !dateOrd ? (dateOrd = "") : null;
+   !userId ? (userId = "") : null;
+
+   console.log(userId);
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!, $category: String, $alphOrd: String!, $dateOrd: String!) {
-            sermons(skip: $skip, category: $category, alphOrd: $alphOrd, dateOrd: $dateOrd) {
+         query (
+            $skip: String!
+            $category: String
+            $alphOrd: String!
+            $dateOrd: String!
+            $userId: ID!
+         ) {
+            sermons(
+               skip: $skip
+               category: $category
+               alphOrd: $alphOrd
+               dateOrd: $dateOrd
+               userId: $userId
+            ) {
                id
                title
                thumbnail
@@ -83,9 +98,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip, alphOrd, dateOrd, category }
+      variables: { skip, alphOrd, dateOrd, category, userId }
    });
-   console.log(data);
+   //   console.log("data");
    return {
       props: {
          watch: data.sermons

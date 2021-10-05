@@ -9,6 +9,7 @@
 import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // graphql
 import { gql } from "@apollo/client";
@@ -31,6 +32,18 @@ type booksPageProps = {
 };
 
 const Books = ({ books }: booksPageProps) => {
+   // ============ capitalize and push the new query to router to searh by title ======
+   const router = useRouter();
+   let newInput: any = "";
+   const handleInputSearchReq = (string: string) => {
+      if (string) {
+         const singleWords = string.split(" ");
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         console.log(newInput);
+      }
+
+      router.replace({ pathname: router.pathname, query: { title: newInput } });
+   };
    return (
       <>
          <div className={`${libraryBooksStyles.mainWrapper}`}>
@@ -40,6 +53,7 @@ const Books = ({ books }: booksPageProps) => {
             <Header currPage={"BOOKS"} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
+               handleInputSearchReq={handleInputSearchReq}
                includeCategory={true}
                includeContent={true}
                includeSearch={true}
@@ -56,15 +70,12 @@ const Books = ({ books }: booksPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, category } = context.query;
-   !skip ? (skip = "0") : null;
-   !category ? (category = "") : null;
+   let { skip, category, title, author } = context.query;
 
-   console.log(skip);
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!, $category: String!) {
-            books(skip: $skip, category: $category) {
+         query ($skip: String, $category: String, $author: String, $title: String) {
+            books(skip: $skip, category: $category, title: $title, author: $author) {
                id
                title
                author
@@ -75,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip: skip, category: category }
+      variables: { skip, category, author, title }
    });
 
    return {

@@ -19,7 +19,7 @@ type libraryPreacherProps = {
 const LibraryPreachers = ({ userData }: libraryPreacherProps) => {
    return (
       <div className={`${libraryAuthorStyles.mainWrapper}`}>
-         <Link href={`/library/watch?userid=${userData.id}`}>
+         <Link href={`/library/watch?userId=${userData.id}`}>
             <a className={`${libraryAuthorStyles.avatarWrapper}`}>
                <img
                   src={userData.avatar}

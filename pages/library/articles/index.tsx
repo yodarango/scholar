@@ -6,9 +6,10 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // graphql
 import { gql } from "@apollo/client";
@@ -32,6 +33,18 @@ type articlePageProps = {
 };
 
 const Articles = ({ articles }: articlePageProps) => {
+   // ============ capitalize and push the new query to router to searh by title ======
+   const router = useRouter();
+   let newInput: any = "";
+   const handleInputSearchReq = (string: string) => {
+      if (string) {
+         const singleWords = string.split(" ");
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         console.log(newInput);
+      }
+
+      router.replace({ pathname: router.pathname, query: { title: newInput } });
+   };
    return (
       <>
          <div className={`${libraryArticlesPageStyles.mainWrapper}`}>
@@ -41,6 +54,7 @@ const Articles = ({ articles }: articlePageProps) => {
             <Header currPage={"ARTICLES"} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
+               handleInputSearchReq={handleInputSearchReq}
                includeCategory={true}
                includeContent={true}
                includeSearch={true}
@@ -58,16 +72,27 @@ const Articles = ({ articles }: articlePageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, category, alphOrd, dateOrd } = context.query;
-   !skip ? (skip = "0") : null;
-   !category ? (category = "") : null;
-   !alphOrd ? (alphOrd = "") : null;
-   !dateOrd ? (dateOrd = "") : null;
-
+   let { skip, category, alphOrd, dateOrd, userId, title, id } = context.query;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!, $category: String!, $alphOrd: String!, $dateOrd: String!) {
-            articles(skip: $skip, category: $category, alphOrd: $alphOrd, dateOrd: $dateOrd) {
+         query (
+            $skip: String
+            $category: String
+            $alphOrd: String
+            $dateOrd: String
+            $userId: ID
+            $title: String
+            $id: ID
+         ) {
+            articles(
+               skip: $skip
+               category: $category
+               alphOrd: $alphOrd
+               dateOrd: $dateOrd
+               userId: $userId
+               title: $title
+               id: $id
+            ) {
                id
                title
                fileUrl
@@ -82,9 +107,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip, category, alphOrd, dateOrd }
+      variables: {
+         skip,
+         category,
+         alphOrd,
+         dateOrd,
+         userId,
+         title,
+         id
+      }
    });
 
+   console.log(context.query);
    return {
       props: {
          articles: data.articles

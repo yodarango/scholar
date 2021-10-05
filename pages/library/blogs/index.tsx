@@ -9,6 +9,7 @@
 import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // graphql
 import { gql } from "@apollo/client";
@@ -26,13 +27,24 @@ import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs
 import { blogProps } from "../../../fragments/library-items/blog";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
-import Podcast from "../podcast";
 
 type watchPageProps = {
    blogs: blogProps[];
 };
 
 const Blogs = ({ blogs }: watchPageProps) => {
+   // ============ capitalize and push the new query to router to searh by title ======
+   const router = useRouter();
+   let newInput: any = "";
+   const handleInputSearchReq = (string: string) => {
+      if (string) {
+         const singleWords = string.split(" ");
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         console.log(newInput);
+      }
+
+      router.replace({ pathname: router.pathname, query: { blogName: newInput } });
+   };
    return (
       <>
          <div className={`${libraryBlogsStyles.mainWrapper}`}>
@@ -42,6 +54,7 @@ const Blogs = ({ blogs }: watchPageProps) => {
             <Header currPage={"BLOGS"} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
+               handleInputSearchReq={handleInputSearchReq}
                includeCategory={false}
                includeContent={true}
                includeSearch={true}
@@ -59,14 +72,25 @@ const Blogs = ({ blogs }: watchPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd } = context.query;
-   !skip ? (skip = "0") : null;
-   !alphOrd ? (alphOrd = "") : null;
-   !dateOrd ? (dateOrd = "") : null;
+   let { skip, alphOrd, dateOrd, userId, id, blogName } = context.query;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!, $dateOrd: String!, $alphOrd: String!) {
-            blogs(skip: $skip, dateOrd: $dateOrd, alphOrd: $alphOrd) {
+         query (
+            $skip: String
+            $dateOrd: String
+            $alphOrd: String
+            $userId: ID
+            $blogName: String
+            $id: ID
+         ) {
+            blogs(
+               skip: $skip
+               dateOrd: $dateOrd
+               alphOrd: $alphOrd
+               userId: $userId
+               blogName: $blogName
+               id: $id
+            ) {
                id
                thumbnail
                blogName
@@ -78,9 +102,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip, alphOrd, dateOrd }
+      variables: { skip, alphOrd, dateOrd, userId, blogName, id }
    });
-
+   console.log(blogName);
    return {
       props: {
          blogs: data.blogs
