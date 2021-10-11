@@ -12,7 +12,7 @@
       "C";
    grid-template-rows: 1fr 23rem 50rem;
    width: 100%;
-   max-width: 43.75rem;
+   max-width: 35rem;
 }
 
 .gridWrapperRight,
@@ -36,6 +36,9 @@
 .commentsWrapper {
    overflow-y: scroll;
    height: 85%;
+}
+
+@media only screen and (min-width: 800px) {
 }
 
 @media only screen and (min-width: 1000px) {

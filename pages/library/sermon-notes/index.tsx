@@ -9,6 +9,7 @@
 import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // graphql
 import { gql } from "@apollo/client";
@@ -31,6 +32,18 @@ type sermonsPageProps = {
    sermons: sermonProps[];
 };
 const Sermons = ({ sermons }: sermonsPageProps) => {
+   // ============ capitalize and push the new query to router to searh by title ======
+   const router = useRouter();
+   let newInput: any = "";
+   const handleInputSearchReq = (string: string) => {
+      if (string) {
+         const singleWords = string.split(" ");
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         console.log(newInput);
+      }
+
+      router.replace({ pathname: router.pathname, query: { title: newInput } });
+   };
    return (
       <>
          <div className={`${librarySermonsPageStyles.mainWrapper}`}>
@@ -40,6 +53,7 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
             <Header currPage={"SERMONS"} />
             <div className='x-large-spacer '></div>
             <LibraryMenu
+               handleInputSearchReq={handleInputSearchReq}
                includeCategory={true}
                includeContent={true}
                includeSearch={true}
@@ -58,21 +72,18 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, category, userId } = context.query;
-   !skip ? (skip = "0") : null;
-   !category ? (category = "") : null;
-   !alphOrd ? (alphOrd = "") : null;
-   !dateOrd ? (dateOrd = "") : null;
-   !userId ? (userId = "") : null;
+   let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
 
    const { data } = await client.query({
       query: gql`
          query (
-            $skip: String!
-            $category: String!
-            $alphOrd: String!
-            $dateOrd: String!
-            $userId: ID!
+            $skip: String
+            $category: String
+            $alphOrd: String
+            $dateOrd: String
+            $userId: ID
+            $id: ID
+            $title: String
          ) {
             sermonNotes(
                skip: $skip
@@ -80,6 +91,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                alphOrd: $alphOrd
                dateOrd: $dateOrd
                userId: $userId
+               id: $id
+               title: $title
             ) {
                id
                title
@@ -95,7 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
          }
       `,
-      variables: { skip, category, alphOrd, dateOrd, userId }
+      variables: { skip, category, alphOrd, dateOrd, userId, id, title }
    });
    return {
       props: {

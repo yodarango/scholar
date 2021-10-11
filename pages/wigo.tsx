@@ -2,15 +2,21 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 
+// graphQl
+import { gql } from "@apollo/client";
+import client from "../apollo-client";
+
 // components
 import Head from "next/head";
-import TakeAStand from "../fragments/squares/take-a-stand";
 import Header from "../layouts/header";
 import CommentThought from "../layouts/comment-thought";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 import StoriesCarrousel from "../posts/stories-carrousel";
 import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
 import NavigationMenu from "../layouts/navigation-menu";
+// ----- content of the day
+import WonderingWednesday from "../fragments/wigo-content/4.wondering-wednesday";
+import SermonSunday from "../fragments/wigo-content/1.sermon-sunday";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -43,8 +49,9 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
                <div className={`${interactStyles.gridWrapperRight}`}>
                   <h2 className='std-text-block--small-title'>Today's Verse</h2>
                   <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
-                  <h2 className='std-text-block--small-title'>Take A Stand</h2>
-                  <TakeAStand />
+                  <div className='std-text-block--small-title'></div>
+                  {/*<WonderingWednesday />*/}
+                  {<SermonSunday />}
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>
@@ -64,7 +71,8 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
    );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+   let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
    const verseReq = await fetch(
       `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
       {
@@ -78,14 +86,47 @@ export const getServerSideProps: GetServerSideProps = async () => {
    const jsonReq = await verseReq.json();
    const verseContent = jsonReq.data;
 
-   const sermonReq = await fetch("https://scholar-be.herokuapp.com/library");
-   const jsonSermon = await sermonReq.json();
-   const sermons = jsonSermon.sermons;
+   const { data } = await client.query({
+      query: gql`
+         query (
+            $skip: String
+            $category: String
+            $alphOrd: String
+            $dateOrd: String
+            $userId: ID
+            $id: ID
+            $title: String
+         ) {
+            sermonNotes(
+               skip: $skip
+               category: $category
+               alphOrd: $alphOrd
+               dateOrd: $dateOrd
+               userId: $userId
+               id: $id
+               title: $title
+            ) {
+               id
+               title
+               userId
+               categoryTags
+               tagColors
+               currentRanking
+               fileUrl
+               user {
+                  fullName
+                  avatar
+               }
+            }
+         }
+      `,
+      variables: { skip, category, alphOrd, dateOrd, userId, id, title }
+   });
 
    return {
       props: {
          verseContent,
-         sermons
+         sermons: data.sermonNotes
       }
    };
 };

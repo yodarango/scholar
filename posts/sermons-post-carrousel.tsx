@@ -28,23 +28,20 @@ const LibrarySermonPostCarrousel = ({
       <div className={`${librarySermonPostCarrouselStyles.mainWrapper}`}>
          <div className={librarySermonPostCarrouselStyles.scrollSection}>
             {sermon.map((sermon: sermonProps) => (
-               <>
-                  <Sermon
-                     id={sermon.id}
-                     key={sermon.id}
-                     title={sermon.title}
-                     colors={sermon.colors}
-                     author={sermon.author}
-                     tags={sermon.tags}
-                     reviews={sermon.reviews}
-                     stars={sermon.stars}
-                     file={sermon.file}
-                     userAvatar={sermon.userAvatar}
-                     reportOption={reportOption}
-                     deleteOption={deleteOption}
-                     editOption={editOption}
-                  />
-               </>
+               <Sermon
+                  id={sermon.id}
+                  key={sermon.id}
+                  title={sermon.title}
+                  tagColors={sermon.tagColors}
+                  author={sermon.user === null ? "" : sermon.user.fullName}
+                  categoryTags={sermon.categoryTags}
+                  currentRanking={sermon.currentRanking}
+                  fileUrl={sermon.fileUrl}
+                  userAvatar={sermon.user === null ? "" : sermon.user.avatar}
+                  editOption={editOption}
+                  deleteOption={deleteOption}
+                  reportOption={reportOption}
+               />
             ))}
          </div>
       </div>
