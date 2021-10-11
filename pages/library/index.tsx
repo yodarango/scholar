@@ -78,7 +78,6 @@ export const getStaticProps: GetStaticProps = async () => {
    const { data } = await client.query({
       query: GET_MOST_POPULAR
    });
-   console.log(data);
    return {
       props: {
          articles: data.getMostPopularArticles,

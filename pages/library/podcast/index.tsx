@@ -9,6 +9,7 @@
 import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // graphQl
 import { gql } from "@apollo/client";
@@ -31,6 +32,18 @@ type podcastPageProps = {
 };
 
 const Podcast = ({ podcast }: podcastPageProps) => {
+   // ============ capitalize and push the new query to router to searh by title ======
+   const router = useRouter();
+   let newInput: any = "";
+   const handleInputSearchReq = (string: string) => {
+      if (string) {
+         const singleWords = string.split(" ");
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         console.log(newInput);
+      }
+
+      router.replace({ pathname: router.pathname, query: { podcastName: newInput } });
+   };
    return (
       <>
          <div className={`${libraryPodcastStyles.mainWrapper}`}>
@@ -40,6 +53,7 @@ const Podcast = ({ podcast }: podcastPageProps) => {
             <Header currPage={"PODCASTS"} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
+               handleInputSearchReq={handleInputSearchReq}
                includeCategory={false}
                includeContent={true}
                includeSearch={true}
@@ -60,8 +74,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, alphOrd, dateOrd, userId, podcastName, id } = context.query;
    const { data } = await client.query({
       query: gql`
-         query ($skip: String!, $alphOrd: String!, $dateOrd: String!, $userId: ID! podcastName: String id: ID) {
-            podcasts(skip: $skip, alphOrd: $alphOrd, dateOrd: $dateOrd, userId: $userId podcastName: $podcastName id: $id) {
+         query (
+            $skip: String
+            $alphOrd: String
+            $dateOrd: String
+            $userId: ID
+            $podcastName: String
+            $id: ID
+         ) {
+            podcasts(
+               skip: $skip
+               alphOrd: $alphOrd
+               dateOrd: $dateOrd
+               userId: $userId
+               podcastName: $podcastName
+               id: $id
+            ) {
                id
                thumbnail
                podcastName

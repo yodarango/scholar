@@ -40,6 +40,9 @@ const Congregations = ({ congregations }: congregationPageProps) => {
       if (string) {
          const singleWords = string.split(" ");
          newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         // if array has multiple items make it one word, therwords the search will be messed up ====
+         const replaceComma = newInput.toString();
+         newInput = replaceComma.replace(",", " ");
          console.log(newInput);
       }
 
@@ -119,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
          area
       }
    });
-   console.log(area);
+
    return {
       props: {
          congregations: data.congregations

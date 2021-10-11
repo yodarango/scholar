@@ -1,11 +1,11 @@
 // core
 import React, { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
+//import dynamic from "next/dynamic";
 
 //styles
 import takeAStandStyles from "../../styles/fragments/squares/TakeAStand.module.css";
 
-const TakeAStand = () => {
+const WonderingWednesday = () => {
    // =============== FUNCTION: counter
    const [originalDateState, setoriginalDateState] = useState<string>(`08/30/2021 00:00:00`);
    const [timerState, settimerState] = useState<string>("");
@@ -156,5 +156,5 @@ const TakeAStand = () => {
    );
 };
 
-export default dynamic(() => Promise.resolve(TakeAStand));
-//export default TakeAStand;
+//export default dynamic(() => Promise.resolve(WonderingWednesday));
+export default WonderingWednesday;
