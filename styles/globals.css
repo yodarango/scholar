@@ -482,7 +482,7 @@ a:active {
    margin: var(--small-spacing-mobile) auto;
    max-width: var(--max-width-main-wrapper-mobile);
    background-color: var(--fourth-color);
-   z-index: 15;
+   z-index: 16;
    padding: 0.8rem;
    border-radius: var(--button-radius-mobile);
    text-align: left;

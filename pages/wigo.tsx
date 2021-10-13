@@ -15,8 +15,10 @@ import StoriesCarrousel from "../posts/stories-carrousel";
 import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
 import NavigationMenu from "../layouts/navigation-menu";
 // ----- content of the day
-import WonderingWednesday from "../fragments/wigo-content/4.wondering-wednesday";
-import SermonSunday from "../fragments/wigo-content/1.sermon-sunday";
+import Sunday from "../fragments/wigo-content/1.sunday";
+import Monday from "../fragments/wigo-content/2.monday";
+import Thursday from "../fragments/wigo-content/5.thursday";
+import Wednesday from "../fragments/wigo-content/4.wednesday";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -50,8 +52,10 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
                   <h2 className='std-text-block--small-title'>Today's Verse</h2>
                   <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
                   <div className='std-text-block--small-title'></div>
-                  {/*<WonderingWednesday />*/}
-                  {<SermonSunday />}
+                  {/*<Thursday />*/}
+                  {/*<Sunday />*/}
+                  {<Monday />}
+                  {/*<Wednesday />*/}
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>

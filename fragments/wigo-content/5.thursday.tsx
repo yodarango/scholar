@@ -1,3 +1,9 @@
+/************************************************/
+/*** This componenet will onyl appear on ********/
+/*** Thursdays. For now the topic is Thought ****/
+/*** Thursday and a different song will be ******/
+/*** Selected each week *************************/
+
 // core
 import React, { useState, useEffect } from "react";
 //import dynamic from "next/dynamic";
@@ -5,7 +11,7 @@ import React, { useState, useEffect } from "react";
 //styles
 import takeAStandStyles from "../../styles/fragments/squares/TakeAStand.module.css";
 
-const WonderingWednesday = () => {
+const Thursday = () => {
    // =============== FUNCTION: counter
    const [originalDateState, setoriginalDateState] = useState<string>(`08/30/2021 00:00:00`);
    const [timerState, settimerState] = useState<string>("");
@@ -157,4 +163,4 @@ const WonderingWednesday = () => {
 };
 
 //export default dynamic(() => Promise.resolve(WonderingWednesday));
-export default WonderingWednesday;
+export default Thursday;
