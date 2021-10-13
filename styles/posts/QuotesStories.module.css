@@ -248,7 +248,7 @@
 
 /* ============== Post Comments Carrousel Wrapper ============ */
 .commentsOfStroyWrapper {
-   width: 100ww;
+   width: 100vw;
    height: 18rem;
    background-color: rgba(255, 255, 255, 0.7);
    display: flex;
@@ -311,6 +311,7 @@
    .avatarImageStory {
       height: 4rem;
       width: 3.5rem;
+      left: 5rem;
    }
 
    .userSignature {
@@ -321,6 +322,8 @@
 
    .storyPost {
       padding: var(--large-spacing-desktop) var(--xsmall-spacing-desktop);
+      width: calc(100vw - 3.5rem);
+      margin: 0 0 0 3.5rem;
    }
 
    .storyContent {
@@ -339,11 +342,6 @@
       font-size: 1.2rem;
    }
 
-   .avatarImageStory {
-      top: 2.5rem;
-      left: 2.5rem;
-   }
-
    .count {
       width: 8rem;
       font-size: 1.3rem;
@@ -356,6 +354,20 @@
    .postStoryRight {
       height: 1.8rem;
       width: 1.8rem;
+   }
+   .commentsOfStroyWrapper {
+      width: calc(100vw - 3.5rem);
+      margin: 0 0 0 3.5rem;
+      height: 18rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      position: relative;
+      top: calc(100vh - 18rem);
+      padding: 3rem 1rem 1rem 2rem;
+      overflow-x: scroll;
+      animation: slideUp 300ms ease-in;
    }
 }
 

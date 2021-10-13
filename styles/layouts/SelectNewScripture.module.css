@@ -6,6 +6,7 @@
    overflow: scroll;
 }
 
+/*  delete after a while if useless
 .wrapperChapter {
    display: flex;
    width: 90%;
@@ -18,7 +19,7 @@
    flex-wrap: wrap;
    z-index: inherit;
    overflow: scroll;
-}
+} */
 
 .wrapperChapter {
    display: flex;
@@ -73,11 +74,11 @@
    text-align: left;
 }
 .majorWrapperChapter {
-   z-index: 11;
+   z-index: 16;
 }
 
 .majorWrapperVerse {
-   z-index: 12;
+   z-index: 16;
 }
 
 .modalTitle {

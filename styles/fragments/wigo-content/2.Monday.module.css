@@ -1,0 +1,97 @@
+.mainWrapper {
+   width: 100%;
+   border-radius: var(--input-radius-mobile);
+   background-color: var(--secondary-color);
+   padding: var(--xsmall-spacing-mobile);
+}
+
+.title {
+   font: var(--secondary-font-mobile);
+   text-align: center;
+   padding: var(--xsmall-spacing-mobile);
+   margin: 0;
+}
+
+.contentHtml {
+   width: 100%;
+}
+
+.image {
+   width: 100%;
+   height: 57vw;
+   object-fit: cover;
+   object-position: center;
+}
+
+.buttonWrapper {
+   width: 100%;
+   margin: var(--small-spacing-mobile) auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.buttonWrapper div,
+.buttonWrapper div:nth-child(2) {
+   width: 2rem;
+   height: 2rem;
+   border-radius: 50%;
+   background-position: center;
+   background-size: 90%;
+   background-color: rgba(255, 255, 255, 0.8);
+   background-image: url("/images/dailyVerse-Back.svg");
+   cursor: pointer;
+   margin: 0 var(--small-spacing-mobile);
+}
+.buttonWrapper div:hover,
+.buttonWrapper div:nth-child(2):hover {
+   background-color: rgba(255, 255, 255, 1);
+   transform: scale(0.9);
+}
+
+.buttonWrapper div:nth-child(2) {
+   background-image: url("/images/dailyVerse-Forward.svg");
+}
+
+#emptyButton {
+   width: 2rem;
+   height: 2rem;
+   background-color: transparent;
+   background-image: none;
+}
+
+/* ============== video content  ==================*/
+.videoContentWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+}
+.videoContentWrapper video {
+   width: 50%;
+   overflow: hidden;
+   border-radius: var(--input-radius-mobile);
+   border: 1px solid var(--font-color);
+}
+.videoContentWrapper p {
+   width: 50%;
+   overflow: hidden;
+   padding: 0 0 0 0.5rem;
+   margin: 0;
+}
+
+/* ============= NO Content ============ */
+.noContentWrapper {
+}
+
+@media only screen and (min-width: 800px) {
+   .image {
+      height: 45vw;
+   }
+}
+
+@media only screen and (min-width: 1000px) {
+   .image {
+      height: 30vw;
+   }
+}
