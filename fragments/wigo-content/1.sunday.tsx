@@ -12,12 +12,16 @@ import PopupWrapper from "../../layouts/popup-wrapper";
 // styles
 import sermonSundayStyles from "../../styles/fragments/wigo-content/1.Sunday.module.css";
 
-const Sunday = () => {
+export type sundayProps = {
+   sundayContent: { videoLink?: string; sermonTitle?: string; preacher?: string };
+};
+
+const Sunday = ({ sundayContent }: sundayProps) => {
    //================ FUNCTION 1: fetch the video data
    const [fetchVodeoState, setFetchVodeoState] = useState<any>(false);
    const fetchVideoData = async () => {
       const request = await fetch(
-         `https://www.youtube.com/oembed?url=https://youtu.be/6YrOGKmGTCY&format=json`
+         `https://www.youtube.com/oembed?url=${sundayContent.videoLink}&format=json`
       );
       const jsonData = await request.json();
       setFetchVodeoState(jsonData);
@@ -48,10 +52,10 @@ const Sunday = () => {
    return (
       <div className={`${sermonSundayStyles.mainWrapper}`}>
          {videoPopupState}
-         <h2 className={`${sermonSundayStyles.title}`}>Today's Fatured Sermon</h2>
+         <h2 className={`${sermonSundayStyles.title}`}>Today's Featured Sermon</h2>
          <p className={`std-text-block ${sermonSundayStyles.parragraph}`}>
-            This week the fatured sermon is <b>{`Sermon Title`}</b> by <b>{`Preacher`}</b>. We hope
-            it is a blessing to your sunday! 😊
+            This week the fatured sermon is <b>{sundayContent.sermonTitle}</b> by{" "}
+            <b>{sundayContent.preacher}</b>. We hope it is a blessing to your sunday! 🙇‍♂️ 🙏
          </p>
          <div
             className={sermonSundayStyles.videoThumbnail}
@@ -62,13 +66,6 @@ const Sunday = () => {
                <span></span>
             </span>
          </div>
-         {/* <iframe
-            className={`${sermonSundayStyles.iframe}`}
-            id='ytplayer'
-            typeof={"text/html"}
-            src='https://www.youtube.com/embed/6wA5tfK48io?autoplay=1&loop=1&modestbranding=1&playsinline=1'
-            frameBorder='0'
-            allowFullScreen></iframe> */}
       </div>
    );
 };

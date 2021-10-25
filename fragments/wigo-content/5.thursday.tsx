@@ -11,10 +11,22 @@ import React, { useState, useEffect } from "react";
 //styles
 import takeAStandStyles from "../../styles/fragments/squares/TakeAStand.module.css";
 
-const Thursday = () => {
+type thursdayProps = {
+   thursdayContent: {
+      poll: string;
+      countdownLimit: string;
+   };
+};
+
+const Thursday = ({ thursdayContent }: thursdayProps) => {
    // =============== FUNCTION: counter
-   const [originalDateState, setoriginalDateState] = useState<string>(`08/30/2021 00:00:00`);
-   const [timerState, settimerState] = useState<string>("");
+   const [originalDateState, setoriginalDateState] = useState<string>(
+      `${thursdayContent ? thursdayContent.countdownLimit : null}`
+   );
+   const [timerState, settimerState] = useState<{ advertise: string; message: string }>({
+      advertise: "Time Left To Vote",
+      message: ""
+   });
    const [updatedQuestionState, setupdatedQuestionState] = useState<boolean>(false);
 
    const setTimer = () => {
@@ -36,10 +48,10 @@ const Thursday = () => {
 
       if (orDate < 0) {
          //setoriginalDateState(new Date().getTime() + 60000);
-         settimerState("someone won!!!");
+         settimerState({ advertise: "Time Is Up!", message: "Someone Won" });
          console.log(orDate);
       } else if (orDate > 0) {
-         settimerState(`${h}:${m}:${s}`);
+         settimerState({ advertise: "Time Left To Vote", message: `${h}:${m}:${s}` });
       }
    };
 
@@ -109,55 +121,57 @@ const Thursday = () => {
    return (
       <div className={takeAStandStyles.squaredCardWrapper}>
          {/* top half: Current position */}
-         <div className={takeAStandStyles.topPositionWrapper}>
-            <div className={takeAStandStyles.votesWrapper}>
-               <div className={`std-text-block--small-title ${takeAStandStyles.voteCountUp}`}>
-                  {agreeState}
-                  <span className={`${takeAStandStyles.voteCountUpSpan}`}>Agree</span>
+         {thursdayContent && (
+            <>
+               <div className={takeAStandStyles.topPositionWrapper}>
+                  <div className={takeAStandStyles.votesWrapper}>
+                     <div className={`std-text-block--small-title ${takeAStandStyles.voteCountUp}`}>
+                        {agreeState}
+                        <span className={`${takeAStandStyles.voteCountUpSpan}`}>Agree</span>
+                     </div>
+                     {agreeState > disagreeState && (
+                        <div className={takeAStandStyles.votePositionUp}></div>
+                     )}
+                     {agreeState < disagreeState && (
+                        <div className={takeAStandStyles.votePositionDown}></div>
+                     )}
+                     {agreeState === disagreeState && (
+                        <div className={takeAStandStyles.votePositionEqual}>=</div>
+                     )}
+                     <div
+                        className={`std-text-block--small-title ${takeAStandStyles.voteCountDown}`}>
+                        {disagreeState}
+                        <span className={`${takeAStandStyles.voteCountDownSpan}`}>Disagree</span>
+                     </div>
+                  </div>
+                  <p className={`std-text-block ${takeAStandStyles.dailyQuestion}`}>
+                     {thursdayContent.poll}
+                  </p>
                </div>
-               {agreeState > disagreeState && (
-                  <div className={takeAStandStyles.votePositionUp}></div>
-               )}
-               {agreeState < disagreeState && (
-                  <div className={takeAStandStyles.votePositionDown}></div>
-               )}
-               {agreeState === disagreeState && (
-                  <div className={takeAStandStyles.votePositionEqual}>=</div>
-               )}
-               <div className={`std-text-block--small-title ${takeAStandStyles.voteCountDown}`}>
-                  {disagreeState}
-                  <span className={`${takeAStandStyles.voteCountDownSpan}`}>Disagree</span>
+               {/* counter */}
+               <div className={`${takeAStandStyles.counterWrapper} std-text-block`}>
+                  <p className={`std-text-block--small-title std-text-block--no-margin`}>
+                     {timerState.advertise}
+                  </p>
+                  <p className={`std-text-block--digit ${takeAStandStyles.stdTextBlockDigit}`}>
+                     {timerState.message}
+                  </p>
                </div>
-            </div>
-            <p className={`std-text-block ${takeAStandStyles.dailyQuestion}`}>
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-               Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-               unknown printer took a galley of type and scrambled it to make a type specimen book
-            </p>
-         </div>
-
-         {/* counter */}
-         <div className={`${takeAStandStyles.counterWrapper} std-text-block`}>
-            <p className={`std-text-block--small-title std-text-block--no-margin`}>Time left</p>
-            <p className={`std-text-block--digit ${takeAStandStyles.stdTextBlockDigit}`}>
-               {/* {timerComponents.length ? timerComponents : <span>Time's up!</span>} */}
-               {timerState}
-            </p>
-         </div>
-
-         {/* footer: Like / Dislike buttons */}
-         <div className={takeAStandStyles.squaredCardWrapperFooter}>
-            <div className={takeAStandStyles.iconAgreeWrapperLeft}>
-               <div
-                  className={`std-vector-icon ${takeAStandStyles.iconAgree}`}
-                  onClick={handleAgreeButton}></div>
-            </div>
-            <div className={takeAStandStyles.iconAgreeWrapperRight}>
-               <div
-                  className={`std-vector-icon ${takeAStandStyles.iconDisagree}`}
-                  onClick={handleDisagreeButton}></div>
-            </div>
-         </div>
+               {/* footer: Like / Dislike buttons */}
+               <div className={takeAStandStyles.squaredCardWrapperFooter}>
+                  <div className={takeAStandStyles.iconAgreeWrapperLeft}>
+                     <div
+                        className={`std-vector-icon ${takeAStandStyles.iconAgree}`}
+                        onClick={handleAgreeButton}></div>
+                  </div>
+                  <div className={takeAStandStyles.iconAgreeWrapperRight}>
+                     <div
+                        className={`std-vector-icon ${takeAStandStyles.iconDisagree}`}
+                        onClick={handleDisagreeButton}></div>
+                  </div>
+               </div>
+            </>
+         )}
       </div>
    );
 };

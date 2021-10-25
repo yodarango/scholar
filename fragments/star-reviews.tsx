@@ -16,9 +16,7 @@ type starReviewsProps = {
 const starReviews = ({ currentRanking, contentId }: starReviewsProps) => {
    let starClass: string = "";
    if (currentRanking) {
-      currentRanking === null || currentRanking === 0
-         ? (starClass = starReviewsStyles.zeroStar)
-         : null;
+      //currentRanking === 0 ? (starClass = starReviewsStyles.zeroStar) : null;
       currentRanking > 0 && currentRanking < 1 ? (starClass = starReviewsStyles.halfStar) : null; // 0.5 stars
       currentRanking === 1 ? (starClass = starReviewsStyles.oneStar) : null; // 1 star
       currentRanking > 1 && currentRanking < 2 ? (starClass = starReviewsStyles.oneHalfStar) : null; // 1.5 stars
@@ -49,13 +47,17 @@ const starReviews = ({ currentRanking, contentId }: starReviewsProps) => {
       <>
          {openReviewPopupState}
          <div className={starReviewsStyles.mainWrapper} onClick={handleOpenReviewPopup}>
-            {currentRanking === 0 ||
-               (currentRanking === null && (
-                  <p className={`${starReviewsStyles.noReviews} std-text-block--info`}>
-                     No reviews yet!
-                  </p>
-               ))}
-            {currentRanking && currentRanking > 0 && <div className={starClass}></div>}
+            {currentRanking === null && (
+               <p className={`${starReviewsStyles.noReviews} std-text-block--info`}>
+                  No reviews yet!
+               </p>
+            )}
+            {currentRanking === 0 && (
+               <p className={`${starReviewsStyles.noReviews} std-text-block--info`}>
+                  No reviews yet!
+               </p>
+            )}
+            {starClass !== "" && <div className={`${starClass}`}></div>}
          </div>
       </>
    );
