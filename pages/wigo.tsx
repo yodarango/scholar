@@ -17,8 +17,9 @@ import NavigationMenu from "../layouts/navigation-menu";
 // ----- content of the day
 import Sunday from "../fragments/wigo-content/1.sunday";
 import Monday from "../fragments/wigo-content/2.monday";
-import Thursday from "../fragments/wigo-content/5.thursday";
+import Tuesday from "../fragments/wigo-content/3.tuesday";
 import Wednesday from "../fragments/wigo-content/4.wednesday";
+import Thursday from "../fragments/wigo-content/5.thursday";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -33,10 +34,17 @@ const versionId: string = "de4e12af7f28f599-01";
 
 type feedProps = {
    verseContent: TverseContent;
-   sermons: sermonProps[];
+   content: any;
+   // sermons: sermonProps[];
+   // sundayContent: { videoLink: string; sermonTitle: string; preacher: string };
+   // mondayContent: {
+   //    imageArray: string[];
+   //    video: { videoLink: string; text: string };
+   //    rawHtml: string;
+   // };
 };
 
-const Feed = ({ verseContent, sermons }: feedProps) => {
+const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ }: feedProps) => {
    return (
       <>
          <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
@@ -52,14 +60,15 @@ const Feed = ({ verseContent, sermons }: feedProps) => {
                   <h2 className='std-text-block--small-title'>Today's Verse</h2>
                   <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
                   <div className='std-text-block--small-title'></div>
-                  {/*<Thursday />*/}
-                  {/*<Sunday />*/}
-                  {<Monday />}
-                  {/*<Wednesday />*/}
+                  {/*<Sunday sundayContent={content.sunday} />*/}
+                  {/*<Monday mondayContent={content.monday} />*/}
+                  {<Tuesday tuesdayContent={content.tuesday} />}
+                  {/*<Wednesday wednesdayContent={content.wednesday} />*/}
+                  {/*<Thursday thursdayContent={content.thursday} />*/}
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>
-                  <SermonsPostCarrousel sermon={sermons} reportOption={true} />
+                  <SermonsPostCarrousel sermon={content.sermonNotes} reportOption={true} />
                </div>
                <div className={`${interactStyles.gridWrapperLeft}`}>
                   <h2 className='std-text-block--small-title'>Writtings</h2>
@@ -122,15 +131,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                   avatar
                }
             }
+            tuesday {
+               text
+               title
+               imageUrl
+            }
          }
       `,
       variables: { skip, category, alphOrd, dateOrd, userId, id, title }
    });
-
+   console.log(data);
    return {
       props: {
          verseContent,
-         sermons: data.sermonNotes
+         content: data
       }
    };
 };
