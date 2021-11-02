@@ -1,0 +1,21 @@
+.mainWrapper {
+   width: 90%;
+   margin: auto;
+   top: 50vh;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   position: fixed;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.leftTrigger {
+   width: 2rem;
+   height: 2rem;
+   background-image: url("/images/dailyVerse-Back.svg");
+   background-position: center;
+   background-size: 80%;
+   background-repeat: no-repeat;
+}

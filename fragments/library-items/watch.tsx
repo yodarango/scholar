@@ -1,5 +1,6 @@
 // core
 import React from "react";
+import Image from "next/image";
 
 // components
 import StarReviews from "../star-reviews";
@@ -28,7 +29,12 @@ const Watch = ({ thumbnail, title, by, currentRanking, sermonUrl, id, newClass }
             target='_blank'
             rel='noopener noreferrer'
             className={watchStyles.thumbnailWrapper}>
-            <img src={thumbnail} alt='podcast thumbnail' className={watchStyles.thumbnail} />
+            <Image
+               src={thumbnail}
+               alt='podcast thumbnail'
+               layout='fill'
+               className={watchStyles.thumbnail}
+            />
          </a>
          <StarReviews contentId={id} currentRanking={currentRanking} />
          <h2 className={watchStyles.name}>{title}</h2>
