@@ -13,13 +13,14 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_LOCATIONS } from "../../../graphql/library/locations";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import CongregationCarrousel from "../../../layouts/library-individual-pages/congregation-carrousel";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 // styles
 import libraryCongregationsStyles from "../../../styles/pages/library/locations/LibraryCongregations.module.css";
@@ -58,6 +59,7 @@ const Congregations = ({ congregations }: congregationPageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"CONGREGATIONS"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={congregations} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
                includeCategory={false}
@@ -78,7 +80,7 @@ const Congregations = ({ congregations }: congregationPageProps) => {
                   className={`${libraryCongregationsStyles.magnifyingGlass} std-button`}
                   onClick={() => {
                      searchInputValue.current
-                        ? handleInputSearchReq(searchInputValue.current.value)
+                        ? handleInputSearchReq(searchInputValue.current.value.trim())
                         : null;
                   }}>
                   🔎
@@ -96,26 +98,7 @@ const Congregations = ({ congregations }: congregationPageProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, id, area } = context.query;
    const { data } = await client.query({
-      query: gql`
-         query ($skip: String, $id: ID, $area: String) {
-            congregations(skip: $skip, id: $id, area: $area) {
-               id
-               address
-               city
-               state
-               fullState
-               zip
-               country
-               location
-               logo
-               name
-               organization
-               schedule
-               website
-               iFrame
-            }
-         }
-      `,
+      query: GET_LOCATIONS,
       variables: {
          skip,
          id,

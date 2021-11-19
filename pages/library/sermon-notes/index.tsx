@@ -12,14 +12,15 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_SERMON_NOTES } from "../../../graphql/library/sermon_notes";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import SermonCarrousel from "../../../layouts/library-individual-pages/sermons-carrousel";
 import LibraryFilter from "../../../fragments/buttons/library-filter";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 // styles
 import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
@@ -51,6 +52,7 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"SERMONS"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={sermons} />
             <div className='x-large-spacer '></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -75,39 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
 
    const { data } = await client.query({
-      query: gql`
-         query (
-            $skip: String
-            $category: String
-            $alphOrd: String
-            $dateOrd: String
-            $userId: ID
-            $id: ID
-            $title: String
-         ) {
-            sermonNotes(
-               skip: $skip
-               category: $category
-               alphOrd: $alphOrd
-               dateOrd: $dateOrd
-               userId: $userId
-               id: $id
-               title: $title
-            ) {
-               id
-               title
-               userId
-               categoryTags
-               tagColors
-               currentRanking
-               fileUrl
-               user {
-                  fullName
-                  avatar
-               }
-            }
-         }
-      `,
+      query: GET_SERMON_NOTES,
       variables: { skip, category, alphOrd, dateOrd, userId, id, title }
    });
    return {

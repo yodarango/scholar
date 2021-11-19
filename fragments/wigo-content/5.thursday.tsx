@@ -6,40 +6,42 @@
 
 // core
 import React, { useState, useEffect } from "react";
-//import dynamic from "next/dynamic";
+import client from "../../apollo-client";
+import { gql } from "@apollo/client";
+const Cookie = require("js-cookie");
 
 //styles
-import takeAStandStyles from "../../styles/fragments/squares/TakeAStand.module.css";
+import thursdayStyles from "../../styles/fragments/wigo-content/5.Thursday.module.css";
 
 type thursdayProps = {
    thursdayContent: {
+      id: string;
       poll: string;
       countdownLimit: string;
+      votes: {
+         votesUp: number;
+         votesDown: number;
+      };
    };
 };
 
 const Thursday = ({ thursdayContent }: thursdayProps) => {
-   // =============== FUNCTION: counter
-   const [originalDateState, setoriginalDateState] = useState<string>(
+   // =============== FUNCTION: set the counter ================
+   const [originalDateState] = useState<string>(
       `${thursdayContent ? thursdayContent.countdownLimit : null}`
    );
-   const [timerState, settimerState] = useState<{ advertise: string; message: string }>({
+   const [timerState, settimerState] = useState<{
+      advertise: string;
+      message: string;
+      isTimeUp?: boolean;
+   }>({
       advertise: "Time Left To Vote",
-      message: ""
+      message: "",
+      isTimeUp: false
    });
    const [updatedQuestionState, setupdatedQuestionState] = useState<boolean>(false);
 
    const setTimer = () => {
-      // ============ I shall implement this on the back end
-      // const getNewDate = () => {
-      //    let month = new Date().getMonth() + 1;
-      //    let day = new Date().getDate();
-      //    let year = new Date().getFullYear();
-      //    let minute = new Date().getMinutes() + 1;
-
-      //    setoriginalDateState(`${month}/${day}/${year} 10:${minute}:00`);
-      //    console.log(originalDateState);
-      // };
       const currDate = new Date().getTime();
       let orDate = new Date(originalDateState).getTime() - currDate;
       let h = Math.floor((orDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -47,11 +49,17 @@ const Thursday = ({ thursdayContent }: thursdayProps) => {
       let s = Math.floor((orDate % (1000 * 60)) / 1000);
 
       if (orDate < 0) {
-         //setoriginalDateState(new Date().getTime() + 60000);
-         settimerState({ advertise: "Time Is Up!", message: "Someone Won" });
-         console.log(orDate);
+         settimerState({
+            advertise: "Time Is Up!",
+            message: "00:00:00",
+            isTimeUp: true
+         });
       } else if (orDate > 0) {
-         settimerState({ advertise: "Time Left To Vote", message: `${h}:${m}:${s}` });
+         settimerState({
+            advertise: "Time Left To Vote",
+            message: `${h}:${m}:${s}`,
+            isTimeUp: false
+         });
       }
    };
 
@@ -63,118 +71,131 @@ const Thursday = ({ thursdayContent }: thursdayProps) => {
       };
    }, [updatedQuestionState]);
 
-   // =============== FUNCTION: counter 2
-   // const calculateTimeLeft = () => {
-   //    let year = new Date().getFullYear();
-   //    let month = new Date().getMonth();
-   //    let day = new Date().getDate();
-   //    let minute = new Date().getMinutes();
-   //    let difference = +new Date(`${month}/${day}/${year} 22:${minute}:00`) - +new Date();
-   //    let timeLeft = {};
+   // =============== FUNCTION: handle the Vote by user ==============================  //
+   const [agreeState, setAgreeState] = useState<number>(
+      thursdayContent.votes ? thursdayContent.votes.votesUp : 0
+   );
+   const [disagreeState, setDisagreeState] = useState<number>(
+      thursdayContent.votes ? thursdayContent.votes.votesDown : 0
+   );
+   // ========== check if they have already voted via cookie
+   const [votedThursdayState, setVotedThursdayState] = useState<string>(
+      Cookie.get("votedThursday")
+   );
 
-   //    if (difference > 0) {
-   //       timeLeft = {
-   //          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-   //          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-   //          minutes: Math.floor((difference / 1000 / 60) % 60),
-   //          seconds: Math.floor((difference / 1000) % 60)
-   //       };
-   //    }
-   //    return timeLeft;
-   // };
+   const handleVote = async (
+      votesUp: number,
+      votesDown: number,
+      contentId: string,
+      position: string
+   ) => {
+      // set states
+      setAgreeState(agreeState + votesUp);
+      setDisagreeState(disagreeState + votesDown);
 
-   // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-   // const [year] = useState(new Date().getFullYear());
-
-   // useEffect(() => {
-   //    setTimeout(() => {
-   //       setTimeLeft(calculateTimeLeft());
-   //    }, 1000);
-   // });
-
-   // const timerComponents = [];
-
-   // Object.keys(timeLeft).forEach((interval) => {
-   //    if (!timeLeft[interval]) {
-   //       return;
-   //    }
-
-   //    timerComponents.push(
-   //       <span>
-   //          {timeLeft[interval]} {interval}{" "}
-   //       </span>
-   //    );
-   // });
-
-   // =============== FUNCTION: Agree button
-   const [agreeState, setAgreeState] = useState<number>(0);
-   const handleAgreeButton = () => {
-      setAgreeState(agreeState + 1);
-   };
-
-   // =============== FUNCTION: Disagree button
-   const [disagreeState, setDisagreeState] = useState<number>(0);
-   const handleDisagreeButton = () => {
-      setDisagreeState(disagreeState + 1);
+      //set cookie
+      Cookie.set("votedThursday", position, {
+         expires: 2,
+         path: "/wigo"
+      });
+      await client.mutate({
+         mutation: gql`
+            mutation ($votesUp: Int, $votesDown: Int, $contentId: ID) {
+               thursdayVotes(
+                  content: { votesUp: $votesUp, votesDown: $votesDown, contentId: $contentId }
+               ) {
+                  votesUp
+                  votesDown
+                  contentId
+               }
+            }
+         `,
+         variables: {
+            votesUp: votesUp,
+            votesDown: votesDown,
+            contentId: contentId
+         }
+      });
    };
 
    return (
-      <div className={takeAStandStyles.squaredCardWrapper}>
+      <div className={thursdayStyles.squaredCardWrapper}>
          {/* top half: Current position */}
          {thursdayContent && (
             <>
-               <div className={takeAStandStyles.topPositionWrapper}>
-                  <div className={takeAStandStyles.votesWrapper}>
-                     <div className={`std-text-block--small-title ${takeAStandStyles.voteCountUp}`}>
+               <div className={thursdayStyles.topPositionWrapper}>
+                  <div className={thursdayStyles.votesWrapper}>
+                     <div className={`std-text-block--small-title ${thursdayStyles.voteCountUp}`}>
                         {agreeState}
-                        <span className={`${takeAStandStyles.voteCountUpSpan}`}>Agree</span>
+                        <span className={`${thursdayStyles.voteCountUpSpan}`}>Agree</span>
                      </div>
                      {agreeState > disagreeState && (
-                        <div className={takeAStandStyles.votePositionUp}></div>
+                        <div className={thursdayStyles.votePositionUp}></div>
                      )}
                      {agreeState < disagreeState && (
-                        <div className={takeAStandStyles.votePositionDown}></div>
+                        <div className={thursdayStyles.votePositionDown}></div>
                      )}
                      {agreeState === disagreeState && (
-                        <div className={takeAStandStyles.votePositionEqual}>=</div>
+                        <div className={thursdayStyles.votePositionEqual}>=</div>
                      )}
-                     <div
-                        className={`std-text-block--small-title ${takeAStandStyles.voteCountDown}`}>
+                     <div className={`std-text-block--small-title ${thursdayStyles.voteCountDown}`}>
                         {disagreeState}
-                        <span className={`${takeAStandStyles.voteCountDownSpan}`}>Disagree</span>
+                        <span className={`${thursdayStyles.voteCountDownSpan}`}>Disagree</span>
                      </div>
                   </div>
-                  <p className={`std-text-block ${takeAStandStyles.dailyQuestion}`}>
+                  <p className={`std-text-block ${thursdayStyles.dailyQuestion}`}>
                      {thursdayContent.poll}
                   </p>
                </div>
                {/* counter */}
-               <div className={`${takeAStandStyles.counterWrapper} std-text-block`}>
+               <div className={`${thursdayStyles.counterWrapper} std-text-block`}>
                   <p className={`std-text-block--small-title std-text-block--no-margin`}>
                      {timerState.advertise}
                   </p>
-                  <p className={`std-text-block--digit ${takeAStandStyles.stdTextBlockDigit}`}>
+                  <p className={`std-text-block--digit ${thursdayStyles.stdTextBlockDigit}`}>
                      {timerState.message}
                   </p>
                </div>
                {/* footer: Like / Dislike buttons */}
-               <div className={takeAStandStyles.squaredCardWrapperFooter}>
-                  <div className={takeAStandStyles.iconAgreeWrapperLeft}>
-                     <div
-                        className={`std-vector-icon ${takeAStandStyles.iconAgree}`}
-                        onClick={handleAgreeButton}></div>
+               {timerState.isTimeUp === false && !votedThursdayState && (
+                  <div className={thursdayStyles.squaredCardWrapperFooter}>
+                     <div className={thursdayStyles.iconAgreeWrapperLeft}>
+                        <div
+                           className={`std-vector-icon ${thursdayStyles.iconAgree}`}
+                           onClick={() => {
+                              handleVote(1, 0, `${thursdayContent.id}`, "agree"),
+                                 setVotedThursdayState("agree");
+                           }}></div>
+                     </div>
+                     <div className={thursdayStyles.iconAgreeWrapperRight}>
+                        <div
+                           className={`std-vector-icon ${thursdayStyles.iconDisagree}`}
+                           onClick={() => {
+                              handleVote(0, 1, `${thursdayContent.id}`, "disagree"),
+                                 setVotedThursdayState("disagree");
+                           }}></div>
+                     </div>
                   </div>
-                  <div className={takeAStandStyles.iconAgreeWrapperRight}>
-                     <div
-                        className={`std-vector-icon ${takeAStandStyles.iconDisagree}`}
-                        onClick={handleDisagreeButton}></div>
+               )}
+               {/* if they have voted and the time is not up yet */}
+               {timerState.isTimeUp === false && votedThursdayState && (
+                  <section className={`${thursdayStyles.alreadyVoted}`}>
+                     You {votedThursdayState} with this statement
+                  </section>
+               )}
+               {/* hide voting buttons once the time is up */}
+               {timerState.isTimeUp === true && agreeState > disagreeState && (
+                  <div className={thursdayStyles.timeIsUpFooterAgree}>Most people have agreed</div>
+               )}
+               {timerState.isTimeUp === true && agreeState < disagreeState && (
+                  <div className={thursdayStyles.timeIsUpFooterDisagree}>
+                     Most people have disagreed
                   </div>
-               </div>
+               )}
             </>
          )}
       </div>
    );
 };
 
-//export default dynamic(() => Promise.resolve(WonderingWednesday));
 export default Thursday;

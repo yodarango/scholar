@@ -34,7 +34,6 @@ const BlogCarrousel = ({ blogs }: blogCarrouselProps) => {
                   currentRanking={blog.currentRanking}
                   blogUrl={blog.blogUrl}
                   description={blog.description}
-                  newClass={blogCarrouselStyles.blogMainWrapper}
                />
             ))}
          </div>

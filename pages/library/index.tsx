@@ -12,7 +12,7 @@ import { GetStaticProps } from "next";
 
 // graphql
 import client from "../../apollo-client";
-import { GET_MOST_POPULAR } from "../../graphql/MostPopular";
+import { GET_MOST_POPULAR } from "../../graphql/library/MostPopular";
 
 // components
 import Header from "../../layouts/header";

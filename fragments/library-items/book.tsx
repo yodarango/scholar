@@ -1,6 +1,7 @@
 // core
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // components
 import StarReviews from "../star-reviews";
@@ -16,7 +17,8 @@ export type bookProps = {
    author: string;
    categoryTags: string[];
    tagColors: string[];
-   currentRanking: Number;
+   currentRanking: number;
+   thumbnail: string;
    description: string;
    bookUrl: string;
    user?: any;
@@ -30,28 +32,43 @@ const Book = ({
    tagColors,
    currentRanking,
    description,
+   thumbnail,
    bookUrl,
    newClass
 }: bookProps) => {
-   // calling unsplash api will be great in the future, i have the dev keys.
+   // set the images not directly from props but by state to set img fallback if it does not exist
+   const [imageThumbnailState, setImageThumbnailState] = useState<string>(thumbnail);
    return (
       <div
          className={`${bookStyles.mainWrapper} ${newClass}`}
          key={id}
          style={{ backgroundColor: tagColors[0] }}>
-         <a>
-            <div className={bookStyles.bookImgInfoWrapper}>
-               <Link href={bookUrl}>
-                  <div className={bookStyles.bookInfoWrapper}>
-                     <h1 className={`${bookStyles.title}`}>{title}</h1>
-                     <h3 className={`${bookStyles.author}`}>{author}</h3>
-                     <p className={`${bookStyles.category}`}>Category: {categoryTags[0]}</p>
-                  </div>
-               </Link>
-               <div className={bookStyles.bookImg}></div>
+         <a href={bookUrl} target='_blank' rel='noopener noreferrer'>
+            <div className={bookStyles.bookInfoWrapper}>
+               <h1 className={`${bookStyles.title}`}>{title}</h1>
+               <h3 className={`${bookStyles.author}`}>{author}</h3>
+               <p className={`${bookStyles.category}`}>Category: {categoryTags[0]}</p>
             </div>
-            <StarReviews contentId={id} currentRanking={currentRanking} />
          </a>
+
+         {thumbnail ? (
+            <a
+               href={bookUrl}
+               target='_blank'
+               rel='noopener noreferrer'
+               className={bookStyles.bookImg}
+               style={{ backgroundImage: `url(${thumbnail})` }}></a>
+         ) : (
+            <a
+               href={bookUrl}
+               target='_blank'
+               rel='noopener noreferrer'
+               className={bookStyles.bookImg}
+               onError={() => setImageThumbnailState("/Parks10.png")}>
+               <Image src={imageThumbnailState} alt='book thumbnail' layout='fill' />
+            </a>
+         )}
+         <StarReviews contentId={id} currentRanking={currentRanking} />
       </div>
    );
 };

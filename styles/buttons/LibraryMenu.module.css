@@ -117,9 +117,9 @@
 
    .mainWrapperDesktop {
       display: block;
-      width: 90%;
-      max-width: 1000px;
-      margin: auto;
+      width: 100%;
+      max-width: 1100px;
+      margin: auto auto auto 1rem;
    }
 
    .linksWrapperDesktop {
@@ -183,7 +183,7 @@
       height: 2.5rem;
       background-color: var(--secondary-color);
       grid-area: DropD;
-      display: flex;
+      display: inline-flex;
       justify-content: center;
       align-items: center;
       border-radius: var(--button-radius-mobile);
@@ -200,5 +200,17 @@
       overflow-y: scroll;
       border-radius: var(--button-radius-desktop);
       z-index: 5;
+   }
+
+   /* search bar */
+   .searchWapper {
+      margin: var(--small-spacing-desktop) auto var(--medium-spacing-desktop) 5%;
+      min-width: 450px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+   }
+   .mediumSpacer {
+      height: 0;
    }
 }

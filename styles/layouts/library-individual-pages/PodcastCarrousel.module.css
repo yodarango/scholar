@@ -30,7 +30,8 @@
    .mainWrapper {
       width: 100%;
       max-width: 900px;
-      margin: var(--medium-spacing-mobile) auto;
+      margin: var(--xlarge-spacing-mobile) auto var(--medium-spacing-mobile);
+      transform: translateX(2rem);
    }
 
    .podcastWrapper {
@@ -43,6 +44,6 @@
 @media only screen and (min-width: 1200px) {
    .mainWrapper {
       max-width: 1100px;
-      margin: 0 auto;
+      transform: translateX(2rem);
    }
 }

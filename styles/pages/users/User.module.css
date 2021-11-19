@@ -120,19 +120,19 @@
 }
 
 .reliabilityA {
-   color: rgb(91, 202, 91);
+   color: var(--aprval-level-a);
 }
 
 .reliabilityB {
-   color: rgb(255, 203, 89);
+   color: var(--aprval-level-b);
 }
 
 .reliabilityC {
-   color: rgb(255, 127, 7);
+   color: var(--aprval-level-c);
 }
 
 .reliabilityF {
-   color: rgb(207, 58, 47);
+   color: var(--aprval-level-f);
 }
 
 .totalsWrapper {

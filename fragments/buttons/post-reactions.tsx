@@ -6,22 +6,18 @@ import postReactionStyles from "../../styles/buttons/PostReactions.module.css";
 
 type postReactionsProps = {
    handleComment?: any;
-   handleApprove?: any;
-   handleDisapprove?: any;
+   handleRateContent?: any;
    handleMore?: any;
    postComments: any[];
-   postApproves: any[];
-   postDisapproves: any[];
+   postApprovals: any[];
 };
 
 const PostReactions = ({
    handleComment,
-   handleApprove,
-   handleDisapprove,
+   handleRateContent,
    handleMore,
    postComments,
-   postApproves,
-   postDisapproves
+   postApprovals
 }: postReactionsProps) => {
    return (
       <div className={postReactionStyles.mainWrapper}>
@@ -31,18 +27,10 @@ const PostReactions = ({
                <span className={postReactionStyles.commentIcon} onClick={handleComment}></span>
             </div>
          )}
-         {handleApprove && (
+         {handleRateContent && (
             <div className={postReactionStyles.approveWrapper}>
-               <span className={postReactionStyles.approveAmount}>{postApproves.length}</span>
-               <span className={postReactionStyles.approveIcon} onClick={handleApprove}></span>
-            </div>
-         )}
-         {handleDisapprove && (
-            <div className={postReactionStyles.disapproveWrapper}>
-               <span className={postReactionStyles.disapproveAmount}>{postDisapproves.length}</span>
-               <span
-                  className={postReactionStyles.disapproveIcon}
-                  onClick={handleDisapprove}></span>
+               <span className={postReactionStyles.approvals}>{postApprovals.length}</span>
+               <span className={postReactionStyles.aprovalsIcon} onClick={handleRateContent}></span>
             </div>
          )}
          {handleMore && (

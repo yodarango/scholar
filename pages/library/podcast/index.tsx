@@ -12,13 +12,15 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphQl
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_PODCASTS } from "../../../graphql/library/podcasts";
+
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import LibraryFilterPodcast from "../../../fragments/buttons/library-filter-podcast";
 import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-carrousel";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 // styles
 import libraryPodcastStyles from "../../../styles/pages/library/podcasts/LibraryPodcasts.module.css";
@@ -51,6 +53,7 @@ const Podcast = ({ podcast }: podcastPageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"PODCASTS"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={podcast} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -73,39 +76,7 @@ const Podcast = ({ podcast }: podcastPageProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, alphOrd, dateOrd, userId, podcastName, id } = context.query;
    const { data } = await client.query({
-      query: gql`
-         query (
-            $skip: String
-            $alphOrd: String
-            $dateOrd: String
-            $userId: ID
-            $podcastName: String
-            $id: ID
-         ) {
-            podcasts(
-               skip: $skip
-               alphOrd: $alphOrd
-               dateOrd: $dateOrd
-               userId: $userId
-               podcastName: $podcastName
-               id: $id
-            ) {
-               id
-               thumbnail
-               podcastName
-               description
-               appleLink
-               spotifyLink
-               googleLink
-               overcastLink
-               currentRanking
-               user {
-                  fullName
-                  avatar
-               }
-            }
-         }
-      `,
+      query: GET_PODCASTS,
       variables: { skip, alphOrd, dateOrd, userId, podcastName, id }
    });
 

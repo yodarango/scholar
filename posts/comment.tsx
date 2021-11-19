@@ -6,6 +6,7 @@ import CommentaryContent from "../fragments/popup-content/commentary-content";
 import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-comments-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
+import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -66,10 +67,10 @@ export default function Comments({
    };
 
    // =================    FUNCTION 4: handle the approve click  ================== //
-   const handleApproveClick = () => {};
-
-   // =================    FUNCTION 5: handle the disapprove click  ================== //
-   const handleDisapproveClick = () => {};
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleApproveContent = () => {
+      setChooseAprovalRating(true);
+   };
 
    // ================= FUNCTION 6: Handle the delete popup  ===================//
    const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
@@ -84,6 +85,11 @@ export default function Comments({
    };
    return (
       <>
+         {chooseAprovalRating && (
+            <ContentApprovalDropdown
+               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+            />
+         )}
          {deletePopupState && (
             <ConfirmationPopup
                title={`Are you sure you want to delete this commentary?`}
@@ -96,6 +102,7 @@ export default function Comments({
                cancel={() => setReportPopupState(false)}
             />
          )}
+
          {seeWholePost}
          {commentaries.map((commentary) => (
             <div
@@ -129,12 +136,10 @@ export default function Comments({
                <p>{commentary.content}</p>
                <PostReactions
                   handleComment={() => openComment(commentary.id)}
-                  handleApprove={handleApproveClick}
-                  handleDisapprove={handleDisapproveClick}
+                  handleRateContent={handleApproveContent}
                   handleMore={() => openPost(commentary)}
                   postComments={commentary.comments}
-                  postApproves={commentary.approves}
-                  postDisapproves={commentary.disapproves}
+                  postApprovals={commentary.approves}
                />
                {commentBoxState === commentary.id && (
                   <div

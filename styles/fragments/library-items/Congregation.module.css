@@ -9,11 +9,16 @@
 .logo {
    width: 8rem;
    height: 8rem;
+   position: relative;
+   background-color: var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
    margin: auto;
-   background-size: 90%;
-   background-position: center;
-   background-repeat: no-repeat;
    transition: transform 300ms ease-in;
+}
+.logo img {
+   transform: scale(0.9);
+   object-fit: contain;
+   object-position: center;
 }
 
 .logo:hover {
@@ -40,6 +45,7 @@
 }
 
 .website,
+#website,
 .location {
    display: block;
    font: var(--primary-font-mobile);

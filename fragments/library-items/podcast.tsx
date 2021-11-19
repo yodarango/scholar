@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 // styles
 import podcastStyles from "../../styles/fragments/library-items/Podcast.module.css";
@@ -35,6 +36,9 @@ const Podcasts = ({
    overcastLink,
    newClass
 }: podcastsProps) => {
+   // set the images not directly from props but by state to set img fallback if it does not exist
+   const [imageThumbnailState, setImageThumbnailState] = useState<string>(thumbnail);
+
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
    const [openPodcastDescState, setOpenPodcastDescState] = useState<JSX.Element | boolean>(false);
 
@@ -48,11 +52,9 @@ const Podcasts = ({
             </div>
             <h1 className={`${podcastStyles.descPopupTitle}`}>{podcastName}</h1>
             <h3 className={podcastStyles.popUpHost}>Podcast By: {host}</h3>
-            <img
-               src={thumbnail}
-               alt='podcast thumbnail'
-               className={`${podcastStyles.descPopupImg}`}
-            />
+            <div className={`${podcastStyles.descPopupImg}`}>
+               <Image layout='fill' src={imageThumbnailState} alt='podcast thumbnail' />
+            </div>
             <div className={podcastStyles.starReviewWrapper}>
                <StarReviews contentId={id} currentRanking={currentRanking} />
             </div>
@@ -90,7 +92,12 @@ const Podcasts = ({
          {openPodcastDescState}
          <div className={`${podcastStyles.mainWrapper} ${newClass}`}>
             <div className={podcastStyles.thumbnailWrapper} onClick={handleOpenDescription}>
-               <img src={thumbnail} alt='podcast thumbnail' className={podcastStyles.thumbnail} />
+               <Image
+                  layout='fill'
+                  src={imageThumbnailState}
+                  alt='podcast thumbnail'
+                  className={podcastStyles.thumbnail}
+               />
             </div>
             <StarReviews contentId={id} currentRanking={currentRanking} />
             <h2 className={podcastStyles.name}>{podcastName}</h2>

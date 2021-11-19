@@ -27,6 +27,7 @@ const PodcastCarrousel = ({ podcast }: podcastCarrouselProps) => {
             {podcast.map((podcast: podcastsProps) => (
                <Podcasts
                   id={podcast.id}
+                  key={podcast.id}
                   thumbnail={podcast.thumbnail}
                   podcastName={podcast.podcastName}
                   host={podcast.host}
@@ -36,7 +37,7 @@ const PodcastCarrousel = ({ podcast }: podcastCarrouselProps) => {
                   spotifyLink={podcast.spotifyLink}
                   googleLink={podcast.googleLink}
                   overcastLink={podcast.overcastLink}
-                  newClass={podcastCarrouselStyles.podcastWrapper}
+                  // newClass={podcastCarrouselStyles.podcastWrapper}
                />
             ))}
          </div>
