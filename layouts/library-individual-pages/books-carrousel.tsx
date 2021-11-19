@@ -36,6 +36,7 @@ const BookCarrousel = ({ books }: bookCarrouselProps) => {
                   categoryTags={book.categoryTags}
                   tagColors={book.tagColors}
                   description={book.description}
+                  thumbnail={book.thumbnail}
                />
             ))}
          </div>

@@ -1,5 +1,6 @@
 // core
 import React, { useState } from "react";
+import Image from "next/image";
 
 // components
 import StarReviews from "../star-reviews";
@@ -30,6 +31,9 @@ const Blog = ({
    user,
    newClass
 }: blogProps) => {
+   // set the images not directly from props but by state to set img fallback if it does not exist
+   const [imageThumbnailState, setImageThumbnailState] = useState<string>(thumbnail);
+
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
    const [openBlogDescState, setOpenBlogDescState] = useState<JSX.Element | boolean>(false);
 
@@ -43,11 +47,21 @@ const Blog = ({
             </div>
             <h1 className={`${blogStyles.descPopupTitle}`}>{blogName}</h1>
             {author && <h3 className={blogStyles.popUpHost}>Blog authored By: {author}</h3>}
-            <img src={thumbnail} alt='podcast thumbnail' className={`${blogStyles.descPopupImg}`} />
+            <div className={`${blogStyles.descPopupImg}`}>
+               <Image src={imageThumbnailState} alt='podcast thumbnail' layout='fill' />
+            </div>
             <div className={`${blogStyles.starReviewWrapper}`}>
                <StarReviews contentId={id} currentRanking={currentRanking} />
             </div>
-            <section className={blogStyles.popupDescription}>{description}</section>
+            {description && (
+               <section className={blogStyles.popupDescription}>{description}</section>
+            )}
+            {!description && (
+               <section className={blogStyles.popupDescription}>
+                  There is no description available for this content currently. If you own this blog
+                  contact us and help us stay up to date by providing it.
+               </section>
+            )}
             {blogUrl && (
                <a
                   href={blogUrl}
@@ -64,9 +78,16 @@ const Blog = ({
       <>
          {openBlogDescState}
          <div className={`${blogStyles.mainWrapper} ${newClass}`}>
-            <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
-               <img src={thumbnail} alt='podcast thumbnail' className={blogStyles.thumbnail} />
-            </div>
+            {thumbnail && (
+               <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
+                  <Image
+                     src={`${imageThumbnailState}`}
+                     alt='podcast thumbnail'
+                     layout='fill'
+                     onError={() => setImageThumbnailState("/Parks10.png")}
+                  />
+               </div>
+            )}
             <StarReviews contentId={id} currentRanking={currentRanking} />
             <h2 className={blogStyles.name}>{blogName}</h2>
             {author && <h3 className={blogStyles.author}>{author}</h3>}
@@ -75,7 +96,8 @@ const Blog = ({
                   href={blogUrl}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className={blogStyles.blogUrl}>
+                  className={blogStyles.blogUrl}
+                  id={blogStyles.blogUrl}>
                   Visit Blog
                </a>
             )}

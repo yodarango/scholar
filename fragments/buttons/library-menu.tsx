@@ -80,7 +80,7 @@ const libraryMenu = ({
       router.replace(router.route);
    };
 
-   // get the value of the inout field to handl e the search
+   // get the value of the inout field to handle the search
    const searchInputValue = useRef<HTMLInputElement>(null);
    return (
       <>
@@ -143,15 +143,25 @@ const libraryMenu = ({
                   </a>
                </Link>
             </div>
-            <div className='medium-spacer'></div>
+            <div className={`medium-spacer ${libraryMenuStyles.mediumSpacer}`}></div>
             {includeSearch && (
                <div className={`${libraryMenuStyles.searchWapper}`}>
                   <input
                      type='text'
                      maxLength={50}
                      className={`${libraryMenuStyles.search} std-input`}
-                     placeholder='🔎Name or Signature'
+                     placeholder='Search a title'
+                     ref={searchInputValue}
                   />
+                  <span
+                     className={`${libraryMenuStyles.magnifyingGlass} std-button`}
+                     onClick={() => {
+                        searchInputValue.current
+                           ? handleInputSearchReq(searchInputValue.current.value.trim())
+                           : null;
+                     }}>
+                     🔎
+                  </span>
                </div>
             )}
             {includeCategory && (
@@ -174,6 +184,11 @@ const libraryMenu = ({
                   )}
                   {openCatDropdownState && (
                      <section className={`${libraryMenuStyles.categoryDropDWrapperDesktop}`}>
+                        <span
+                           onClick={resetCategorySelector}
+                           className={`${libraryMenuStyles.contentSingleItem} ${libraryMenuStyles.allOption}`}>
+                           #ALL
+                        </span>
                         {valuesCat.map((value: IvaluesCat) => (
                            <span
                               key={value.key}
@@ -250,7 +265,7 @@ const libraryMenu = ({
                      className={`${libraryMenuStyles.magnifyingGlass} std-button`}
                      onClick={() => {
                         searchInputValue.current
-                           ? handleInputSearchReq(searchInputValue.current.value)
+                           ? handleInputSearchReq(searchInputValue.current.value.trim())
                            : null;
                      }}>
                      🔎

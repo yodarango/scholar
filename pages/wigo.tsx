@@ -1,10 +1,19 @@
 // core
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 
 // graphQl
-import { gql } from "@apollo/client";
+import { gql, QueryOptions } from "@apollo/client";
 import client from "../apollo-client";
+
+// queries
+import { GET_SUNDAY_CONTENT } from "../graphql/wigo/sunday";
+import { GET_MONDAY_CONTENT } from "../graphql/wigo/monday";
+import { GET_TUESDAY_CONTENT } from "../graphql/wigo/tuesday";
+import { GET_WEDNESDAY_CONTENT } from "../graphql/wigo/wednesday";
+import { GET_THURSDAY_CONTENT } from "../graphql/wigo/thursday";
+import { GET_FRIDAY_CONTENT } from "../graphql/wigo/friday";
+import { GET_SATURDAY_CONTENT } from "../graphql/wigo/saturday";
 
 // components
 import Head from "next/head";
@@ -20,6 +29,8 @@ import Monday from "../fragments/wigo-content/2.monday";
 import Tuesday from "../fragments/wigo-content/3.tuesday";
 import Wednesday from "../fragments/wigo-content/4.wednesday";
 import Thursday from "../fragments/wigo-content/5.thursday";
+import Friday from "../fragments/wigo-content/6.friday";
+import Saturday from "../fragments/wigo-content/7.saturday";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -27,7 +38,6 @@ import interactStyles from "../styles/pages/Interact.module.css";
 // helpers
 import { getNewVerseId } from "../helpers/random-daily-verses";
 import { TverseContent } from ".";
-import { sermonProps } from "../fragments/library-items/sermon";
 
 // others
 const versionId: string = "de4e12af7f28f599-01";
@@ -35,16 +45,14 @@ const versionId: string = "de4e12af7f28f599-01";
 type feedProps = {
    verseContent: TverseContent;
    content: any;
-   // sermons: sermonProps[];
-   // sundayContent: { videoLink: string; sermonTitle: string; preacher: string };
-   // mondayContent: {
-   //    imageArray: string[];
-   //    video: { videoLink: string; text: string };
-   //    rawHtml: string;
-   // };
 };
+// =================== GET THE DAY OF THE WEEK ==================== //
+const today = new Date().getDay();
 
 const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ }: feedProps) => {
+   // set day of the week
+   const [dayOfTheWeekState] = useState<number>(today);
+
    return (
       <>
          <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
@@ -60,11 +68,13 @@ const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
                   <h2 className='std-text-block--small-title'>Today's Verse</h2>
                   <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
                   <div className='std-text-block--small-title'></div>
-                  {/*<Sunday sundayContent={content.sunday} />*/}
-                  {/*<Monday mondayContent={content.monday} />*/}
-                  {<Tuesday tuesdayContent={content.tuesday} />}
-                  {/*<Wednesday wednesdayContent={content.wednesday} />*/}
-                  {/*<Thursday thursdayContent={content.thursday} />*/}
+                  {dayOfTheWeekState === 0 && <Sunday sundayContent={content.sunday} />}
+                  {dayOfTheWeekState === 1 && <Monday mondayContent={content.monday} />}
+                  {dayOfTheWeekState === 2 && <Tuesday tuesdayContent={content.tuesday} />}
+                  {dayOfTheWeekState === 3 && <Wednesday wednesdayContent={content.wednesday} />}
+                  {dayOfTheWeekState === 4 && <Thursday thursdayContent={content.thursday} />}
+                  {dayOfTheWeekState === 5 && <Friday fridayContent={content.friday} />}
+                  {dayOfTheWeekState === 6 && <Saturday saturdayContent={content.saturday} />}
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>
@@ -99,48 +109,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    const jsonReq = await verseReq.json();
    const verseContent = jsonReq.data;
 
+   // make query according to the day of the week
+   let GET_CONTENT_QUERY: any;
+   today === 0
+      ? (GET_CONTENT_QUERY = GET_SUNDAY_CONTENT)
+      : today === 1
+      ? (GET_CONTENT_QUERY = GET_MONDAY_CONTENT)
+      : today === 2
+      ? (GET_CONTENT_QUERY = GET_TUESDAY_CONTENT)
+      : today === 3
+      ? (GET_CONTENT_QUERY = GET_WEDNESDAY_CONTENT)
+      : today === 4
+      ? (GET_CONTENT_QUERY = GET_THURSDAY_CONTENT)
+      : today === 5
+      ? (GET_CONTENT_QUERY = GET_FRIDAY_CONTENT)
+      : today === 6
+      ? (GET_CONTENT_QUERY = GET_SATURDAY_CONTENT)
+      : null;
+
    const { data } = await client.query({
-      query: gql`
-         query (
-            $skip: String
-            $category: String
-            $alphOrd: String
-            $dateOrd: String
-            $userId: ID
-            $id: ID
-            $title: String
-         ) {
-            sermonNotes(
-               skip: $skip
-               category: $category
-               alphOrd: $alphOrd
-               dateOrd: $dateOrd
-               userId: $userId
-               id: $id
-               title: $title
-            ) {
-               id
-               title
-               userId
-               categoryTags
-               tagColors
-               currentRanking
-               fileUrl
-               user {
-                  fullName
-                  avatar
-               }
-            }
-            tuesday {
-               text
-               title
-               imageUrl
-            }
-         }
-      `,
+      query: GET_CONTENT_QUERY,
       variables: { skip, category, alphOrd, dateOrd, userId, id, title }
    });
-   console.log(data);
    return {
       props: {
          verseContent,

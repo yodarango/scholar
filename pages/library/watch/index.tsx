@@ -12,8 +12,8 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphQl
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_SERMONS } from "../../../graphql/library/sermons";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
@@ -27,6 +27,7 @@ import libraryWatchStyles from "../../../styles/pages/library/watch/LibraryWatch
 // types
 import { watchProps } from "../../../fragments/library-items/watch";
 import NavigationMenu from "../../../layouts/navigation-menu";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 type watchPageProps = {
    watch: watchProps[];
@@ -52,6 +53,7 @@ const Watch = ({ watch }: watchPageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"WATCH"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={watch} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -75,41 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
 
    const { data } = await client.query({
-      query: gql`
-         query (
-            $skip: String
-            $category: String
-            $alphOrd: String
-            $dateOrd: String
-            $userId: ID
-            $title: String
-            $id: ID
-         ) {
-            sermons(
-               skip: $skip
-               category: $category
-               alphOrd: $alphOrd
-               dateOrd: $dateOrd
-               userId: $userId
-               id: $id
-               title: $title
-            ) {
-               id
-               title
-               thumbnail
-               sermonUrl
-               categoryTags
-               tagColors
-               description
-               currentRanking
-               userId
-               user {
-                  fullName
-                  avatar
-               }
-            }
-         }
-      `,
+      query: GET_SERMONS,
       variables: { skip, alphOrd, dateOrd, category, userId, title, id }
    });
 

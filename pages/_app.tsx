@@ -1,4 +1,6 @@
+import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
+// import client from "../apollo-client";
 import "../styles/globals.css";
 
 // =========== connect to apollo
@@ -14,7 +16,7 @@ import "../styles/globals.css";
 
 // const client = new ApolloClient({
 //    cache: new InMemoryCache(),
-//    link: link
+//    uri:
 // });
 
 function MyApp({ Component, pageProps }: AppProps) {

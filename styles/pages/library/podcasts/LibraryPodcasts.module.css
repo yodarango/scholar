@@ -2,3 +2,18 @@
    width: 90%;
    margin: auto;
 }
+
+@media only screen and (min-width: 1000px) {
+   .mainWrapper {
+      max-width: 900px;
+      position: relative;
+      left: 1rem;
+   }
+}
+
+@media only screen and (min-width: 1200px) {
+   .mainWrapper {
+      width: 90%;
+      max-width: 1000px;
+   }
+}

@@ -1,7 +1,7 @@
 .mainWrapper {
-   width: 90%;
+   width: 96%;
    margin: auto;
-   top: 50vh;
+   top: 40vh;
    bottom: 0;
    left: 0;
    right: 0;
@@ -9,13 +9,28 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
+   z-index: 5;
+   height: 2rem;
 }
 
-.leftTrigger {
-   width: 2rem;
-   height: 2rem;
+.leftTrigger,
+.rightTrigger {
+   width: 1.5rem;
+   height: 1.5rem;
+   border-radius: 50%;
    background-image: url("/images/dailyVerse-Back.svg");
    background-position: center;
    background-size: 80%;
    background-repeat: no-repeat;
+   background-color: rgba(255, 255, 255, 0.6);
+}
+
+.leftTrigger:hover,
+.rightTrigger:hover {
+   transform: scale(0.9);
+   transition: 300ms;
+}
+
+.rightTrigger {
+   background-image: url("/images/dailyVerse-Forward.svg");
 }

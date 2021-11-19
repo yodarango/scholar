@@ -29,6 +29,7 @@ const LibraryBookCarrousel = ({ books }: libraryBookCarrouselProps) => {
                   currentRanking={book.currentRanking}
                   bookUrl={book.bookUrl}
                   description={book.description}
+                  thumbnail={book.thumbnail}
                />
             ))}
          </div>

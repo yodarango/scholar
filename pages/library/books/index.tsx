@@ -12,13 +12,14 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_BOOKS } from "../../../graphql/library/books";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import BooksCarrousel from "../../../layouts/library-individual-pages/books-carrousel";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 // styles
 import libraryBooksStyles from "../../../styles/pages/library/books/LibraryBooks.module.css";
@@ -51,6 +52,7 @@ const Books = ({ books }: booksPageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"BOOKS"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={books} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -73,19 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, category, title, author } = context.query;
 
    const { data } = await client.query({
-      query: gql`
-         query ($skip: String, $category: String, $author: String, $title: String) {
-            books(skip: $skip, category: $category, title: $title, author: $author) {
-               id
-               title
-               author
-               categoryTags
-               tagColors
-               bookUrl
-               currentRanking
-            }
-         }
-      `,
+      query: GET_BOOKS,
       variables: { skip, category, author, title }
    });
 

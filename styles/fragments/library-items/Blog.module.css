@@ -1,7 +1,8 @@
 .mainWrapper {
    width: 9.3rem;
-   box-sizing: content-box;
-   margin: 0 var(--medium-spacing-mobile) 0 0;
+   min-width: 9.3rem;
+   box-sizing: border-box;
+   margin: var(--medium-spacing-mobile) var(--small-spacing-mobile);
    flex-shrink: 0;
    flex-grow: 0;
 }
@@ -11,16 +12,26 @@
    height: 9.3rem;
    position: relative;
    background-color: var(--font-color);
+   max-width: 9.3rem;
+   border-radius: var(--input-radius-mobile);
+   background-color: var(--secondary-color);
 }
-.thumbnail {
+
+.thumbnailWrapper div img {
+   border-radius: var(--input-radius-mobile);
+}
+
+/* .thumbnail {
    width: 100%;
    height: 9.3rem;
+   display: block;
    object-position: center;
    object-fit: cover;
    -o-object-position: center;
    -o-object-fit: cover;
    transition: opacity 300ms ease-in;
-}
+   border-radius: var(--input-radius-mobile);
+} */
 
 .thumbnail:hover {
    cursor: pointer;
@@ -43,7 +54,8 @@
    margin: 0 auto;
 }
 
-.blogUrl {
+.blogUrl,
+#blogUrl {
    font: var(--primary-font-mobile);
    font-size: 0.8rem;
    text-decoration: underline;
@@ -55,14 +67,13 @@
    background-color: var(--secondary-color);
    width: 90vw;
    max-width: 500px;
-   max-height: 80vh;
-   height: auto;
+   max-height: 65vh;
    position: fixed;
-   top: 0;
+   top: 8rem;
    left: 0;
    right: 0;
-   bottom: 2rem;
-   margin: 6rem auto 0;
+   bottom: auto;
+   margin: 0 auto;
    padding: var(--small-spacing-mobile);
    z-index: 5;
    overflow-y: scroll;
@@ -95,12 +106,15 @@
 .descPopupImg {
    width: 100%;
    height: 9.3rem;
+   position: relative;
+   margin: auto;
+}
+
+.descPopupImg img {
    object-position: center;
    object-fit: cover;
    -o-object-position: center;
    -o-object-fit: cover;
-   margin: auto;
-   display: block;
 }
 
 .descPopupFooter {
@@ -110,13 +124,14 @@
 
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
-      width: 12rem;
+      width: 10.5rem;
       box-sizing: content-box;
-      margin: 0 var(--medium-spacing-desktop) 0 0;
+      margin: var(--medium-spacing-desktop) var(--small-spacing-desktop);
    }
 
    .thumbnailWrapper {
-      height: 12rem;
+      height: 10.5rem;
+      max-width: 10.5rem;
    }
 
    .thumbnail {

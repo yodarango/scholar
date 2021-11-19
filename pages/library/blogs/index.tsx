@@ -12,13 +12,14 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_BLOGS } from "../../../graphql/library/blogs";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import BlogCarrousel from "../../../layouts/library-individual-pages/blogs-carrousel";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 // styles
 import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs.module.css";
@@ -52,6 +53,7 @@ const Blogs = ({ blogs }: watchPageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"BLOGS"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={blogs} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -74,34 +76,7 @@ const Blogs = ({ blogs }: watchPageProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, alphOrd, dateOrd, userId, id, blogName } = context.query;
    const { data } = await client.query({
-      query: gql`
-         query (
-            $skip: String
-            $dateOrd: String
-            $alphOrd: String
-            $userId: ID
-            $blogName: String
-            $id: ID
-         ) {
-            blogs(
-               skip: $skip
-               dateOrd: $dateOrd
-               alphOrd: $alphOrd
-               userId: $userId
-               blogName: $blogName
-               id: $id
-            ) {
-               id
-               thumbnail
-               blogName
-               blogUrl
-               currentRanking
-               user {
-                  fullName
-               }
-            }
-         }
-      `,
+      query: GET_BLOGS,
       variables: { skip, alphOrd, dateOrd, userId, blogName, id }
    });
    console.log(blogName);

@@ -31,6 +31,7 @@ export const GET_MOST_POPULAR = gql`
          tagColors
          description
          bookUrl
+         thumbnail
          currentRanking
       }
       getMostPopularPodcasts {

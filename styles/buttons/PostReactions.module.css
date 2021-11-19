@@ -9,7 +9,6 @@
 
 .commentWrapper,
 .approveWrapper,
-.disapproveWrapper,
 .moreWrapper {
    display: flex;
    align-items: center;
@@ -18,15 +17,13 @@
 
 .commentWrapper span,
 .approveWrapper span,
-.disapproveWrapper span,
 .moreWrapper span {
    display: block;
    font-size: 1rem;
 }
 
 .commentIcon,
-.approveIcon,
-.disapproveIcon,
+.aprovalsIcon,
 .moreIcon {
    width: 1rem;
    height: 1rem;
@@ -39,8 +36,7 @@
 }
 
 .commentIcon:hover,
-.approveIcon:hover,
-.disapproveIcon:hover,
+.aprovalsIcon:hover,
 .moreIcon:hover {
    background-color: rgba(255, 255, 255, 0.479);
    transform: scale(1.2);
@@ -61,17 +57,8 @@
    grid-row: 1/2;
 }
 
-.approveIcon {
-   background-image: url("/images/likke.svg");
-}
-
-.disaproveWrapper {
-   grid-column: 3/4;
-   grid-row: 1/2;
-}
-
-.disapproveIcon {
-   background-image: url("/images/dislike.svg");
+.aprovalsIcon {
+   background-image: url("/images/approve-content.svg");
 }
 
 .moreWrapper {

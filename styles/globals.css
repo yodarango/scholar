@@ -39,6 +39,13 @@
    --warning-color: #ec3b3b;
    --proceed-color: #80e452;
 
+   /**************** aprroval level ==========m***********/
+   --aprval-level-a: rgb(91, 202, 91);
+   --aprval-level-b: rgb(255, 203, 89);
+   --aprval-level-c: rgb(255, 127, 7);
+   --aprval-level-d: tomato;
+   --aprval-level-f: rgb(207, 58, 47);
+
    /********** Possible second theme ******/
 
    --primary-color-2: #20042f;

@@ -12,14 +12,15 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../../apollo-client";
+import { GET_ARTICLES } from "../../../graphql/library/articles";
 
 // components
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import LibraryFilter from "../../../fragments/buttons/library-filter";
 import ArticlesCarrousel from "../../../layouts/library-individual-pages/articles-carrousel";
+import SkipContent from "../../../fragments/buttons/skipContent";
 
 // styles
 import libraryArticlesPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
@@ -52,6 +53,7 @@ const Articles = ({ articles }: articlePageProps) => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"ARTICLES"} />
+            <SkipContent wrapperMaxWidth={"1050px"} content={articles} />
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -74,39 +76,7 @@ const Articles = ({ articles }: articlePageProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
    let { skip, category, alphOrd, dateOrd, userId, title, id } = context.query;
    const { data } = await client.query({
-      query: gql`
-         query (
-            $skip: String
-            $category: String
-            $alphOrd: String
-            $dateOrd: String
-            $userId: ID
-            $title: String
-            $id: ID
-         ) {
-            articles(
-               skip: $skip
-               category: $category
-               alphOrd: $alphOrd
-               dateOrd: $dateOrd
-               userId: $userId
-               title: $title
-               id: $id
-            ) {
-               id
-               title
-               fileUrl
-               categoryTags
-               tagColors
-               description
-               currentRanking
-               userId
-               user {
-                  fullName
-               }
-            }
-         }
-      `,
+      query: GET_ARTICLES,
       variables: {
          skip,
          category,
@@ -117,8 +87,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
          id
       }
    });
-
-   console.log(context.query);
    return {
       props: {
          articles: data.articles

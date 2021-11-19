@@ -1,5 +1,6 @@
 // core
 import React, { useState } from "react";
+import Image from "next/image";
 
 //components
 import PopupWrapper from "../../layouts/popup-wrapper";
@@ -35,6 +36,8 @@ const Congregation = ({
    website,
    iFrame
 }: congregationProps) => {
+   // set the images not directly from props but by state to set img fallback if it does not exist
+   const [imageLogoState, setImageLogoState] = useState<string>(logo);
    // ================== FUNCTION 1: Opent the church info in a popup  =============== //
    const [churchInfoState, setChurchInfoState] = useState<JSX.Element | boolean>(false);
    const hanleSeeChurchInfo = () => {
@@ -47,7 +50,7 @@ const Congregation = ({
                   city={city}
                   id={id}
                   location={location}
-                  logo={logo}
+                  logo={imageLogoState}
                   name={name}
                   schedule={schedule}
                   state={state}
@@ -59,14 +62,19 @@ const Congregation = ({
          />
       );
    };
+
    return (
       <>
          {churchInfoState}
          <div className={congregationStyles.mainWrapper}>
-            <div
-               style={{ backgroundImage: `url(${logo})` }}
-               className={congregationStyles.logo}
-               onClick={hanleSeeChurchInfo}></div>
+            <div className={congregationStyles.logo}>
+               <Image
+                  layout='fill'
+                  src={`${imageLogoState}`}
+                  onClick={hanleSeeChurchInfo}
+                  onError={() => setImageLogoState("/Parks10.png")}
+               />
+            </div>
             <h2 className={congregationStyles.name}>{name}</h2>
             <p className={congregationStyles.address}>
                {city}, {state}
@@ -76,7 +84,8 @@ const Congregation = ({
                   href={website}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className={congregationStyles.website}>
+                  className={congregationStyles.website}
+                  id={congregationStyles.website}>
                   Visit website
                </a>
             )}
