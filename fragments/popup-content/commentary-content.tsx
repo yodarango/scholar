@@ -11,14 +11,18 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
 import { Tcommentary } from "../../posts/comment";
-import PostReactions from "../buttons/post-reactions";
+import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 
 // others
 
 type commentaryContentProps = {
    commentary: Tcommentary;
+   postReactionContent: {
+      approvals: Tapprovals[];
+      comments: Tcomment[];
+   };
 };
-const CommentaryContent = ({ commentary }: commentaryContentProps) => {
+const CommentaryContent = ({ commentary, postReactionContent }: commentaryContentProps) => {
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
 
@@ -45,7 +49,7 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
       );
    };
 
-   // ========= FUNCTION 1: open and close the comment text area
+   // ========= FUNCTION 1: open and close the comment text areaa
    type IopenCommentInputState = {
       status: boolean;
       func: React.MouseEventHandler;
@@ -62,20 +66,18 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
       func: openCommentArea
    });
 
-   //   ==================  FUNCTION 2: handle the like ============= //
-   const handleApproveClick = () => {};
+   //   ==================  FUNCTION 2: handle rating content ============= //
+   const handleRateContent = () => {};
 
-   //   ==================  FUNCTION 3: handle the dislike ============= //
-   const handledisapproveClick = () => {};
    return (
       <>
          {referencedVerseState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
                <h1
-                  className={`${popupStyles.stdSmallTitle}`}>{`Comment on ${commentary.commentedOn.verseReferences} by ${commentary.userSignature}`}</h1>
+                  className={`${popupStyles.stdSmallTitle}`}>{`Comment on ${commentary.verse_citation} by ${commentary.creator.signature}`}</h1>
                <ReactMarkdown className={popupStyles.commentaryBodyContent}>
-                  {commentary.content}
+                  {commentary.body}
                </ReactMarkdown>
 
                {/* Comment text area */}
@@ -97,26 +99,20 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
                {/* Reaction buttons (like comments ) */}
                <PostReactions
                   handleComment={openCommentInputState.func}
-                  handleApprove={handleApproveClick}
-                  handleDisapprove={handledisapproveClick}
-                  postComments={commentary.comments}
-                  postApproves={commentary.approves}
-                  postDisapproves={commentary.disapproves}
+                  handleRateContent={handleRateContent}
+                  comments={postReactionContent.comments.length}
+                  approvals={postReactionContent.approvals}
                />
 
                {/* Assigned Tags */}
                <div className={textEditorStyles.textEditorTags}>
-                  {commentary.tags && (
-                     <div style={{ backgroundColor: commentary.colors[0] }}>
-                        {commentary.tags[0]}
-                     </div>
-                  )}
-                  {commentary.tags && (
+                  <div id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
+                     {commentary.category_tags.split(" ")[0]}
+                  </div>
+                  {commentary.category_tags.split(" ")[1] && (
                      <div
-                        style={{
-                           backgroundColor: commentary.colors[1]
-                        }}>
-                        {commentary.tags[1]}
+                        id={`category-${commentary.category_tags.split(" ")[1].replace("#", "")}`}>
+                        {commentary.category_tags.split(" ")[1]}
                      </div>
                   )}
                </div>
@@ -124,17 +120,15 @@ const CommentaryContent = ({ commentary }: commentaryContentProps) => {
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-                  {commentary.referencedScriptures &&
-                     commentary.referencedScriptures.map(
-                        (el: { verseId: string; verseReferences: string }) => (
-                           <div
-                              className={textEditorStyles.textEditorVerse}
-                              data-verseId-={el.verseId}
-                              onClick={() => openReferencedVerse(el.verseId)}>
-                              {el.verseReferences}
-                           </div>
-                        )
-                     )}
+                  {commentary.referenced_verses &&
+                     commentary.referenced_verses.split(" ").map((verseId: string) => (
+                        <div
+                           className={textEditorStyles.textEditorVerse}
+                           data-verseId-={verseId}
+                           onClick={() => openReferencedVerse(verseId)}>
+                           {verseId}
+                        </div>
+                     ))}
                </div>
             </div>
          </div>

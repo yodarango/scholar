@@ -3,6 +3,10 @@ import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 
+// graphql
+import client from "../apollo-client";
+import { GET_ALL_COMMENTARIES } from "../graphql/home/posts/commentaries";
+
 // components
 import CommentFilter from "../fragments/buttons/comment-filter";
 import Header from "../layouts/header";
@@ -12,6 +16,9 @@ import NavigationMenu from "../layouts/navigation-menu";
 
 // styles
 import homeStyles from "../styles/pages/Home.module.css";
+
+// Types /helpers
+import { Tcommentary } from "../posts/comment";
 
 // other (might pull form the DB using user preferences)
 const versionId: string = "de4e12af7f28f599-01";
@@ -31,9 +38,10 @@ export type TverseContent = {
 };
 type homeProps = {
    verseContent: TverseContent;
+   commentaries: Tcommentary[];
 };
 
-export default function Home({ verseContent }: homeProps) {
+export default function Home({ verseContent, commentaries }: homeProps) {
    return (
       <>
          <div className='main-wrapper'>
@@ -51,7 +59,7 @@ export default function Home({ verseContent }: homeProps) {
                      Comments
                   </h3>
                   <CommentFilter />
-                  <PostsWrapper />
+                  <PostsWrapper commentaries={commentaries} />
                </div>
             </div>
          </div>
@@ -75,9 +83,17 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
    const json = await requ.json();
    const content = json.data;
 
+   //============ fetch the content
+
+   const { data } = await client.query({
+      query: GET_ALL_COMMENTARIES
+   });
+
+   //console.log(data.commentary[0].comments);
    return {
       props: {
-         verseContent: content
+         verseContent: content,
+         commentaries: data.commentary
       }
    };
 };
