@@ -46,6 +46,18 @@
    --aprval-level-d: tomato;
    --aprval-level-f: rgb(207, 58, 47);
 
+   /**************** category tags colors ==========m***********/
+   --category-BLK: rgb(32, 32, 32);
+   --category-BL: rgb(1, 96, 240);
+   --category-BR: #9c6644;
+   --category-CYN: rgb(50, 190, 167);
+   --category-GRN: rgb(21, 158, 2);
+   --category-OR: rgb(247, 99, 0);
+   --category-PNK: rgb(255, 84, 170);
+   --category-PPL: rgb(142, 54, 224);
+   --category-RD: rgb(224, 0, 0);
+   --category-YLW: rgb(255, 174, 0);
+
    /********** Possible second theme ******/
 
    --primary-color-2: #20042f;
@@ -513,47 +525,43 @@ a:active {
 }
 
 .notification-wrapper--Black {
-   background-color: rgb(32, 32, 32);
+   background-color: var(--category-BLK);
 }
 
 .notification-wrapper--Blue {
-   background-color: rgb(1, 96, 240);
-}
-
-.notification-wrapper--Blue {
-   background-color: rgb(1, 96, 240);
+   background-color: var(--category-BL);
 }
 
 .notification-wrapper--Brown {
-   background-color: #9c6644;
+   background-color: var(--category-BR);
 }
 
 .notification-wrapper--Cyan {
-   background-color: rgb(50, 190, 167);
+   background-color: var(--category-CYN);
 }
 
 .notification-wrapper--Green {
-   background-color: rgb(21, 158, 2);
+   background-color: var(--category-GRN);
 }
 
 .notification-wrapper--Orange {
-   background-color: rgb(247, 99, 0);
+   background-color: var(--category-OR);
 }
 
 .notification-wrapper--Pink {
-   background-color: rgb(255, 84, 170);
+   background-color: var(--category-PNK);
 }
 
 .notification-wrapper--Purple {
-   background-color: rgb(142, 54, 224);
+   background-color: var(--category-PPL);
 }
 
 .notification-wrapper--Red {
-   background-color: rgb(224, 0, 0);
+   background-color: var(--category-RD);
 }
 
 .notification-wrapper--Yellow {
-   background-color: rgb(255, 174, 0);
+   background-color: var(--category-YLW);
    color: var(--primary-color);
 }
 
@@ -605,6 +613,48 @@ a:active {
 /* .verse-span {
    display: block; 
 } */
+
+/******************** category tags colors *********************/
+#category-BLK {
+   background-color: var(--category-BLK);
+}
+
+#category-BR {
+   background-color: var(--category-BR);
+}
+
+#category-BL {
+   background-color: var(--category-BL);
+}
+
+#category-CYN {
+   background-color: var(--category-CYN);
+}
+
+#category-GRN {
+   background-color: var(--category-GRN);
+}
+
+#category-OR {
+   background-color: var(--category-OR);
+}
+
+#category-PNK {
+   background-color: var(--category-PNK);
+}
+
+#category-PPL {
+   background-color: var(--category-PPL);
+}
+
+#category-RD {
+   background-color: var(--category-RD);
+}
+
+#category-YLW {
+   background-color: var(--category-YLW);
+}
+
 @media only screen and (min-width: 800px) {
    .main-wrapper {
       max-width: 1000px;

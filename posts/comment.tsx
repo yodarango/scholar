@@ -1,6 +1,10 @@
 // core
 import React, { useState } from "react";
 
+//graphQL
+import client from "../apollo-client";
+import { SHOW_COMMENTS_OF_COMMENTARY } from "../graphql/home/posts/commentaries";
+
 // componenets
 import CommentaryContent from "../fragments/popup-content/commentary-content";
 import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-comments-content";
@@ -12,56 +16,75 @@ import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdo
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
+// types and helpres
+import { Tapprovals } from "../fragments/buttons/post-reactions";
+
 export type Tcommentary = {
-   id: string;
-   userId: string;
-   userSignature: string;
-   content: string;
-   referencedScriptures: [{ verseId: string; verseReferences: string }];
-   tags: string[];
-   colors: string[];
-   approves: string[];
-   disapproves: string[];
-   comments: string[];
-   commentedOn: { verseId: string; verseReferences: string };
-   userAvatar: string;
+   ID: string;
+   USER_ID: string;
+   VERSE_ID: string;
+   body: string;
+   category_tags: string;
+   referenced_verses: string;
+   created_date: string;
+   commented_on: string;
+   verse_citation: string;
+   creator: {
+      ID: string;
+      signature: string;
+      authority_level: string;
+      approval_rating: string;
+      avatar: string;
+   };
+   comments: {
+      total_count: number;
+   }[];
+   approvals: Tapprovals[];
 };
 
 type commentsProps = {
-   commentaries: Tcommentary[];
+   commentary: Tcommentary;
    deleteOption?: boolean;
    editOption?: boolean;
    reportOption?: boolean;
 };
 
 export default function Comments({
-   commentaries,
+   commentary,
    deleteOption,
    editOption,
    reportOption
 }: commentsProps) {
+   console.log(commentary);
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
-   const openPost = (commentary: Tcommentary) => {
+   const openPost = async (commentary_id: string) => {
+      const { data } = await client.query({
+         query: SHOW_COMMENTS_OF_COMMENTARY,
+         variables: { ID: commentary_id, showComment: true }
+      });
       setseeWholePost(
          <div className='dark-bkg'>
             <div className='closeModal' onClick={() => setseeWholePost(false)}>
                X
             </div>
             <div className={popupStyles.halvesWrapper}>
-               <CommentaryContent commentary={commentary} />
-               <CommentsOfCcommentsContent postId={"123"} />
+               <CommentaryContent
+                  commentary={commentary}
+                  postReactionContent={data.commentary[0]}
+               />
+               <CommentsOfCcommentsContent comments={data.commentary[0].comments} />
             </div>
          </div>
       );
    };
 
-   // ================= FUNCTION 2: Drop down the comment imput   =============== //
+   // ================= FUNCTION 2: Drop down the comment input   =============== //
    const [commentBoxState, setCommentBoxState] = useState<string>("");
    const openComment = (id: string) => {
       setCommentBoxState(id);
    };
-   // ================= FUNCTION 3: Hide the Drop down the comment imput  ===================//
+   // ================= FUNCTION 3: Hide the Drop down the comment input  ===================//
    const closeComment = () => {
       setCommentBoxState("");
    };
@@ -104,59 +127,56 @@ export default function Comments({
          )}
 
          {seeWholePost}
-         {commentaries.map((commentary) => (
+         <div className={`${cardStyles.commentCard}`} key={commentary.ID} id={`${commentary.ID}`}>
             <div
-               className={`${cardStyles.commentCard}`}
-               key={commentary.id}
-               id={`${commentary.id}`}>
-               <div
-                  className={cardStyles.commentCardHeader}
-                  style={{ backgroundColor: commentary.colors[0] }}>
-                  <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                     <img
-                        src={commentary.userAvatar}
-                        alt='Avatar'
-                        className={cardStyles.commentCardHeaderAvatarImg}
-                     />
-                  </div>
-                  <h1>{commentary.userSignature}</h1>
-                  {deleteOption && (
-                     <span
-                        className={(cardStyles.cardIcon, cardStyles.delete)}
-                        onClick={handleDeleteConfirmation}></span>
-                  )}
-                  {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
-                  {reportOption && (
-                     <span
-                        className={(cardStyles.cardIcon, cardStyles.report)}
-                        onClick={handleReportConfirmation}></span>
-                  )}
+               className={cardStyles.commentCardHeader}
+               id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
+               <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
+                  <img
+                     src={commentary.creator.avatar}
+                     alt='Avatar'
+                     className={cardStyles.commentCardHeaderAvatarImg}
+                  />
                </div>
-               <i>{`${commentary.userSignature} commented on ${commentary.commentedOn.verseReferences}`}</i>
-               <p>{commentary.content}</p>
-               <PostReactions
-                  handleComment={() => openComment(commentary.id)}
-                  handleRateContent={handleApproveContent}
-                  handleMore={() => openPost(commentary)}
-                  postComments={commentary.comments}
-                  postApprovals={commentary.approves}
-               />
-               {commentBoxState === commentary.id && (
-                  <div
-                     id={`comment-${commentary.id}`}
-                     className={`${cardStyles.stdInputCommentWrapper}`}>
-                     <textarea
-                        maxLength={150}
-                        placeholder='Comment...'
-                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                     <div className={`${cardStyles.postCancelWrapper}`}>
-                        <span className={`std-button_gradient-text`}>Post</span>
-                        <span onClick={closeComment}>Cancel</span>
-                     </div>
-                  </div>
+               <h1>{commentary.creator.signature}</h1>
+               {deleteOption && (
+                  <span
+                     className={(cardStyles.cardIcon, cardStyles.delete)}
+                     onClick={handleDeleteConfirmation}></span>
+               )}
+               {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
+               {reportOption && (
+                  <span
+                     className={(cardStyles.cardIcon, cardStyles.report)}
+                     onClick={handleReportConfirmation}></span>
                )}
             </div>
-         ))}
+            <i>{`comment on ${commentary.verse_citation}`}</i>
+            <p>{commentary.body}</p>
+            {
+               <PostReactions
+                  handleComment={() => openComment(commentary.ID)}
+                  handleRateContent={handleApproveContent}
+                  handleMore={() => openPost(commentary.ID)}
+                  comments={commentary.comments[0].total_count}
+                  approvals={commentary.approvals}
+               />
+            }
+            {commentBoxState === commentary.ID && (
+               <div
+                  id={`comment-${commentary.ID}`}
+                  className={`${cardStyles.stdInputCommentWrapper}`}>
+                  <textarea
+                     maxLength={150}
+                     placeholder='Comment...'
+                     className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                  <div className={`${cardStyles.postCancelWrapper}`}>
+                     <span className={`std-button_gradient-text`}>Post</span>
+                     <span onClick={closeComment}>Cancel</span>
+                  </div>
+               </div>
+            )}
+         </div>
       </>
    );
 }

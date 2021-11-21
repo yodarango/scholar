@@ -8,31 +8,13 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // components
 import ConfirmationPopup from "../confirmation-popup";
 
+// helpers / types
+import { Tcomment } from "../../fragments/buttons/post-reactions";
+
 type commentsOfCcommentsContentProps = {
-   postId: string;
+   comments: Tcomment[];
 };
-const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps) => {
-   type TcommentOfComment = {
-      id: string;
-      userAvatar: string;
-      userSignature: string;
-      userId: string;
-      content: string;
-   };
-
-   const [comments, setcomments] = useState<TcommentOfComment[]>([]);
-
-   const getComments: () => void = async () => {
-      const requ = await fetch(`https://scholar-be.herokuapp.com/commentaries/${postId}`);
-      const res = await requ.json();
-      setcomments(res);
-      console.log(res);
-   };
-
-   useEffect(() => {
-      getComments();
-   }, []);
-
+const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProps) => {
    // =============  FUNCTION 1: see the whole Comment  =================
    /// === state
    const [openCommentState, setOpenCommentState] = useState<string>("");
@@ -86,28 +68,28 @@ const CommentsOfCcommentsContent = ({ postId }: commentsOfCcommentsContentProps)
                {comments.map((comm) => (
                   <div
                      className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
-                     key={comm.id}>
+                     key={comm.ID}>
                      <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
                         <div className={`${cardStyles.commentsOfCommentsImgWrapper}`}>
                            <img
-                              src={comm.userAvatar}
+                              src={comm.creator_avatar}
                               alt='Avatar Image used as a user profile'
                               className={cardStyles.commentsOfCommentsImg}
                            />
                         </div>
                         <div className={cardStyles.commentsOfCommentsName}>
-                           {comm.userSignature}
+                           {comm.creator_signature}
                         </div>
                      </div>
-                     {openCommentState === comm.id && (
-                        <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.content}</p>
+                     {openCommentState === comm.ID && (
+                        <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.body}</p>
                      )}
-                     {openCommentState !== comm.id && (
-                        <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.content}</p>
+                     {openCommentState !== comm.ID && (
+                        <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
                      )}
                      <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
                         {openCommentFuncState === false && (
-                           <div onClick={() => openComment(comm.id)}>
+                           <div onClick={() => openComment(comm.ID)}>
                               <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
                            </div>
                         )}

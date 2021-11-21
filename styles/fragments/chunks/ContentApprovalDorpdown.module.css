@@ -24,7 +24,7 @@
 }
 
 .listWrapper span:hover {
-   background-color: var(--fourth-color);
+   background-color: var(--secondary-color);
    cursor: pointer;
 }
 
