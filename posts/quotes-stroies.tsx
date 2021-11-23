@@ -1,46 +1,85 @@
+// core
 import React, { useState } from "react";
+
+// graphQL
+import { OPEN_QUOTE_STORY, OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/quotes";
+import client from "../apollo-client";
 
 // components
 import PostReactions from "../fragments/buttons/post-reactions";
 import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
+import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // stoires
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
 import cardStyles from "../styles/components/Cards.module.css";
 
 // helpers
-import { TcommentType } from "../fragments/popup-content/comments-of-quote";
-import ConfirmationPopup from "../fragments/confirmation-popup";
+import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
 
 export type Tstory = {
-   id: string;
-   userId: string;
-   userAvatar: string;
-   stories: [
-      {
-         content: string;
-         by: string;
-         background: string;
-         tags: string[];
-         approves: string[];
-         disapproves: string[];
-         comments: TcommentType[];
-      }
-   ];
+   ID: string;
+   USER_ID: string;
+   body: string;
+   category_tags: string;
+   author: string;
+   background: string;
+   created_date: string;
+   posted_on: string;
+   total_count: number;
+   creator: {
+      ID: string;
+      signature: string;
+      authority_level: string;
+      approval_rating: string;
+      avatar: string;
+   };
+   comments: {
+      total_count: number;
+   }[];
+   approvals: Tapprovals[];
 };
 
 export type quoteStoriesProps = {
-   stories: Tstory;
+   stories: Tstory[];
    deleteOption?: boolean;
    editOption?: boolean;
    reportOption?: boolean;
 };
 
-const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quoteStoriesProps) => {
+export type last24SingleQuote = {
+   ID: string;
+   creator: {
+      ID: string;
+      avatar: string;
+      signature: string;
+      approval_rating: string;
+   };
+   deleteOption?: boolean;
+   reportOption?: boolean;
+   editOption?: boolean;
+};
+
+const QuoteStories = ({
+   ID,
+   creator,
+   deleteOption,
+   editOption,
+   reportOption
+}: last24SingleQuote) => {
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
+
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
+   const [quoteState, setQuoteState] = useState<Tstory[]>([]);
+
    const [countState, setCountState] = useState<number>(0);
-   const handleOpenStroies = (stories: Tstory) => {
+   const handleOpenStroies = async (user_id: string) => {
+      const { data } = await client.query({
+         query: OPEN_QUOTE_STORY,
+         variables: { USER_ID: user_id }
+      });
+
+      setQuoteState(data.quote);
       document.body.style.overflow = "hidden";
       setHandleStoriePopupState(true);
    };
@@ -52,7 +91,7 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
 
    // ==============   FUNCTION 3: Go forthward in the story   =============== //
    const handleMoveForth = () => {
-      if (countState < stories.stories.length - 1) setCountState(countState + 1);
+      if (countState < quoteState.length - 1) setCountState(countState + 1);
    };
 
    // ==============   FUNCTION 4: close all the stories   =============== //
@@ -60,6 +99,7 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
       document.body.style.overflow = "scroll";
       setHandleStoriePopupState(false);
       setCountState(0);
+      setCommentsOfQuote([]);
    };
 
    // ==============   FUNCTION 5: commennt on the story  =============== //
@@ -67,16 +107,19 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
    const handleComentClick = () => {
       setCommentPopUpState(true);
    };
-   // ==============   FUNCTION 6: approve the story   =============== //
-   const hanndleApproveClick = () => {};
-
-   // ==============   FUNCTION 7: dissaprove the stroy   =============== //
-   const handleDisapproveClick = () => {};
+   // ==============   FUNCTION 6: handle the reaction to a particular story  =============== //
+   const handleRateContent = () => {};
 
    // ==============   FUNCTION 8: see the stroy data when the user clicks "More" =============== //
-   const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
-   const handleMoreClick = () => {
-      setMorePopUpState(true);
+   const [commentsOfQuote, setCommentsOfQuote] = useState<Tcomment[]>([]);
+   const handleMoreClick = async (quote_id: string) => {
+      const { data } = await client.query({
+         query: OPEN_QUOTE_STORY_COMMENTS,
+         variables: { ID: quote_id, showComment: true }
+      });
+
+      console.log(data.quote[0].comments);
+      setCommentsOfQuote(data.quote[0].comments);
    };
 
    // ==============   FUNCTION 9: see the story data when the user clicks "More" =============== //
@@ -95,6 +138,7 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
    const handleReportConfirmation = () => {
       setReportPopupState(true);
    };
+
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {deletePopupState}
@@ -104,9 +148,11 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                cancel={() => setReportPopupState(false)}
             />
          )}
+
+         {/* avatars for all the current users with stories within the last 24 hours  */}
          <section
             className={quoteStoriesStyles.mainStoryWrapper}
-            onClick={() => handleOpenStroies(stories)}>
+            onClick={() => handleOpenStroies(ID)}>
             <div
                className={quoteStoriesStyles.userReputationWrapper}
                style={{
@@ -114,17 +160,19 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                }}>
                <div
                   className={quoteStoriesStyles.avatarImage}
-                  style={{ backgroundImage: `url(${stories.userAvatar})` }}></div>
+                  style={{ backgroundImage: `url(${creator.avatar})` }}></div>
             </div>
-            <p className={quoteStoriesStyles.userSignature}>{stories.userId}</p>
+            <p className={quoteStoriesStyles.userSignature}>{creator.signature}</p>
          </section>
+
+         {/* Wrapper of the open stories */}
          {handleStoriePopupState && (
             <section className={quoteStoriesStyles.storyPostWrapper}>
                <div
                   className={quoteStoriesStyles.avatarImageStory}
-                  style={{ backgroundImage: `url(${stories.userAvatar})` }}></div>
+                  style={{ backgroundImage: `url(${creator.avatar})` }}></div>
                <div className={quoteStoriesStyles.count}>
-                  {countState + 1} of {stories.stories.length}
+                  {countState + 1} of {quoteState.length}
                </div>
                <div
                   className={`closeModal ${quoteStoriesStyles.closeModal}`}
@@ -141,13 +189,13 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                </div>
                <div
                   className={`${quoteStoriesStyles.storyPost}`}
-                  style={{ backgroundImage: stories.stories[countState].background }}>
+                  style={{ backgroundImage: quoteState[countState].background }}>
                   <p className={`${quoteStoriesStyles.storyContent}`}>
-                     {stories.stories[countState].content}{" "}
+                     {quoteState[countState].body}{" "}
                      <span className={quoteStoriesStyles.quotationMark}></span>
                   </p>
                   <span className={quoteStoriesStyles.storyBy}>
-                     -By: {stories.stories[countState].by}
+                     -By: {quoteState[countState].author}
                      {deleteOption && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.delete)}
@@ -165,13 +213,11 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                </div>
                <div className={quoteStoriesStyles.postReactionWrapper}>
                   <PostReactions
-                     handleApprove={hanndleApproveClick}
-                     handleDisapprove={handleDisapproveClick}
+                     handleRateContent={handleRateContent}
                      handleComment={handleComentClick}
-                     handleMore={handleMoreClick}
-                     postApproves={stories.stories.map((storie) => storie.approves)}
-                     postDisapproves={stories.stories.map((storie) => storie.disapproves)}
-                     postComments={stories.stories.map((storie) => storie.comments)}
+                     handleMore={() => handleMoreClick(quoteState[countState].ID)}
+                     approvals={quoteState[countState].approvals}
+                     comments={quoteState[countState].comments[0].total_count}
                   />
                </div>
                {commentPopUpState && (
@@ -188,17 +234,17 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                      </div>
                   </div>
                )}
-               {morePopUpState && (
+               {commentsOfQuote.length > 0 && (
                   <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
                      <span
                         className={quoteStoriesStyles.closeCommentsCarrousel}
-                        onClick={() => setMorePopUpState(false)}>
+                        onClick={() => setCommentsOfQuote([])}>
                         X
                      </span>
-                     {stories.stories[countState].comments.map((comment) => (
+                     {commentsOfQuote.map((comment: Tcomment) => (
                         <CommentsOfQuote comment={comment} />
                      ))}
-                     {stories.stories[countState].comments.length === 0 && (
+                     {commentsOfQuote.length === 0 && (
                         <h3 className={quoteStoriesStyles.noCommentsYet}>
                            Be the first one to comment! 😊
                         </h3>
@@ -207,9 +253,9 @@ const QuoteStories = ({ stories, deleteOption, editOption, reportOption }: quote
                )}
                <div
                   className={quoteStoriesStyles.selectedTagColor}
-                  style={{
-                     backgroundImage: `${stories.stories[countState].background}`
-                  }}></div>
+                  id={`category-${quoteState[countState].category_tags
+                     .split(" ")[0]
+                     .replace("#", "")}`}></div>
             </section>
          )}
       </div>

@@ -5,7 +5,7 @@ import { GetServerSideProps } from "next";
 
 // graphql
 import client from "../apollo-client";
-import { GET_ALL_COMMENTARIES } from "../graphql/home/posts/commentaries";
+import { GET_COMMENTARIES } from "../graphql/home/commentaries";
 
 // components
 import CommentFilter from "../fragments/buttons/comment-filter";
@@ -86,10 +86,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
    //============ fetch the content
 
    const { data } = await client.query({
-      query: GET_ALL_COMMENTARIES
+      query: GET_COMMENTARIES,
+      variables: { VERSE_ID: query.verse }
    });
 
-   //console.log(data.commentary[0].comments);
    return {
       props: {
          verseContent: content,

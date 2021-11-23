@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 
 // graphQl
-import { gql, QueryOptions } from "@apollo/client";
 import client from "../apollo-client";
 
 // queries
@@ -49,7 +48,7 @@ type feedProps = {
 // =================== GET THE DAY OF THE WEEK ==================== //
 const today = new Date().getDay();
 
-const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ }: feedProps) => {
+const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ }: feedProps) => {
    // set day of the week
    const [dayOfTheWeekState] = useState<number>(today);
 
@@ -62,7 +61,7 @@ const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
             <Header currPage={"WIGO TODAY"} />
             <div className='large-spacer'></div>
             <h2 className='std-text-block--small-title'>Quotes</h2>
-            <StoriesCarrousel />
+            <StoriesCarrousel quotes_in_the_last24={content.quote_stories} />
             <div className={interactStyles.gridWrapper}>
                <div className={`${interactStyles.gridWrapperRight}`}>
                   <h2 className='std-text-block--small-title'>Today's Verse</h2>
@@ -78,12 +77,12 @@ const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>
-                  <SermonsPostCarrousel sermon={content.sermonNotes} reportOption={true} />
+                  <SermonsPostCarrousel sermonPost={content.sermon_notes} reportOption={true} />
                </div>
                <div className={`${interactStyles.gridWrapperLeft}`}>
                   <h2 className='std-text-block--small-title'>Writtings</h2>
                   <div className={interactStyles.commentsWrapper}>
-                     <CommentThought />
+                     <CommentThought commentaries={content.commentary} thoughts={content.thought} />
                   </div>
                </div>
             </div>
@@ -95,7 +94,6 @@ const Feed = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
    const verseReq = await fetch(
       `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
       {
@@ -129,8 +127,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
    const { data } = await client.query({
       query: GET_CONTENT_QUERY,
-      variables: { skip, category, alphOrd, dateOrd, userId, id, title }
+      variables: {
+         ID: null,
+         category_tags: null
+      }
    });
+
+   console.log(data.quote);
    return {
       props: {
          verseContent,
@@ -139,4 +142,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    };
 };
 
-export default Feed;
+export default Wigo;

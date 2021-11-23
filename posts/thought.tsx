@@ -1,28 +1,44 @@
 // core
 import React, { useState } from "react";
 
+// graphql
+import client from "../apollo-client";
+import { SHOW_COMMENTS_OF_THOUGHTS } from "../graphql/posts/thoughts";
+
 // components
-import ThoughtComment from "../fragments/popup-content/thought-content";
+import ThoughtContent from "../fragments/popup-content/thought-content";
 import CommentsOfThoughtsContent from "../fragments/popup-content/comments-of-thoughts";
+import PostReactions from "../fragments/buttons/post-reactions";
+
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
-import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 
+// helpers / types
+import { Tapprovals } from "../fragments/buttons/post-reactions";
+
 export type Tthought = {
-   id: string;
-   userId: string;
-   userSignature: string;
+   ID: string;
+   USER_ID: string;
    title: string;
-   userAvatar: string;
-   content: string;
-   referencedScriptures: [{ verseId: string; verseReferences: string }];
-   tags: string[];
-   colors: string[];
-   approves: string[];
-   disapproves: string[];
-   comments: string[];
+   body: string;
+   category_tags: string;
+   referenced_verses: string;
+   created_date: string;
+   posted_on: string;
+   total_count: number;
+   creator: {
+      ID: string;
+      signature: string;
+      authority_level: string;
+      approval_rating: string;
+      avatar: string;
+   };
+   comments: {
+      total_count: number;
+   }[];
+   approvals: Tapprovals[];
 };
 
 type thoughtProps = {
@@ -34,15 +50,21 @@ type thoughtProps = {
 const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
    // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
-   const openPost = (thought: any) => {
+
+   const openPost = async (thought: Tthought) => {
+      const { data } = await client.query({
+         query: SHOW_COMMENTS_OF_THOUGHTS,
+         variables: { ID: thought.ID, showComment: true }
+      });
+      console.log(data.thought);
       setseeWholePost(
          <div className='dark-bkg'>
             <div className='closeModal' onClick={() => setseeWholePost(false)}>
                X
             </div>
             <div className={popupStyles.halvesWrapper}>
-               <ThoughtComment thought={thought} />
-               <CommentsOfThoughtsContent postId={"123"} />
+               <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
+               <CommentsOfThoughtsContent comments={data.thought[0].comments} />
             </div>
          </div>
       );
@@ -53,21 +75,22 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const openComment = (id: string) => {
       setCommentBoxState(id);
    };
+
    // ================= FUNCTION 3: Hide the Drop down the comment imput  ===================//
    const closeComment = () => {
       setCommentBoxState("");
    };
 
-   const handleApproveClick = () => {};
-   const handleDisapproveClick = () => {};
+   // ================= FUNCTION 4: Hide the Drop down the comment imput  ===================//
+   const handleRateContent = () => {};
 
-   // ================= FUNCTION 4: Handle the delete popup  ===================//
+   // ================= FUNCTION 5: Handle the delete popup  ===================//
    const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
    const handleDeleteConfirmation = () => {
       setDeletePopupState(true);
    };
 
-   // ================= FUNCTION 5: Handle the delete popup  ===================//
+   // ================= FUNCTION 6: Handle the delete popup  ===================//
    const [reportPopupState, setReportPopupState] = useState<boolean>(false);
    const handleReportConfirmation = () => {
       setReportPopupState(true);
@@ -89,18 +112,18 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
             />
          )}
          {thoughts.map((thought) => (
-            <div className={`${cardStyles.commentCard}`} key={thought.id} id={`${thought.id}`}>
+            <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
                <div
                   className={cardStyles.commentCardHeader}
-                  style={{ backgroundColor: thought.colors[0] }}>
+                  id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
                   <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
                      <img
-                        src={thought.userAvatar}
+                        src={thought.creator.avatar}
                         alt='Avatar'
                         className={cardStyles.commentCardHeaderAvatarImg}
                      />
                   </div>
-                  <h1 className={cardStyles.userSignature}>{thought.userSignature}</h1>
+                  <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
                   {deleteOption && (
                      <span
                         className={(cardStyles.cardIcon, cardStyles.delete)}
@@ -113,20 +136,18 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                         onClick={handleReportConfirmation}></span>
                   )}
                </div>
-               <i>{`${thought.userSignature} expressed a new Tought`}</i>
-               <p>{thought.content}</p>
+               <i>{`${thought.creator.signature} expressed a new Tought`}</i>
+               <p>{thought.body}</p>
                <PostReactions
-                  handleComment={() => openComment(thought.id)}
-                  handleApprove={handleApproveClick}
-                  handleDisapprove={handleDisapproveClick}
+                  handleComment={() => openComment(thought.ID)}
+                  handleRateContent={handleRateContent}
                   handleMore={() => openPost(thought)}
-                  postComments={thought.comments}
-                  postApproves={thought.approves}
-                  postDisapproves={thought.disapproves}
+                  comments={thought.comments[0].total_count}
+                  approvals={thought.approvals}
                />
-               {commentBoxState === thought.id && (
+               {commentBoxState === thought.ID && (
                   <div
-                     id={`comment-${thought.id}`}
+                     id={`comment-${thought.ID}`}
                      className={`${cardStyles.stdInputCommentWrapper}`}>
                      <textarea
                         maxLength={150}

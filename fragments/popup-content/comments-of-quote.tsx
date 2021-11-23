@@ -7,6 +7,7 @@ import ConfirmationPopup from "../confirmation-popup";
 // styles
 import commentsOfStoryStyles from "../../styles/fragments/popup-content/CommentsOfQuote.module.css";
 import cardStyles from "../../styles/components/Cards.module.css";
+import { Tcomment } from "../buttons/post-reactions";
 
 export type TcommentType = {
    id: string;
@@ -17,7 +18,7 @@ export type TcommentType = {
 };
 
 export type commentsOfQuoteProps = {
-   comment: TcommentType;
+   comment: Tcomment;
 };
 
 const CommentsOfQuote = ({ comment }: commentsOfQuoteProps) => {
@@ -49,12 +50,12 @@ const CommentsOfQuote = ({ comment }: commentsOfQuoteProps) => {
             <div className={commentsOfStoryStyles.avatarUserSignatureWrapper}>
                <div className={commentsOfStoryStyles.commentAvatarWrapper}>
                   <div
-                     style={{ backgroundImage: `url(${comment.userAvatar})` }}
+                     style={{ backgroundImage: `url(${comment.creator_avatar})` }}
                      className={commentsOfStoryStyles.avatar}></div>
                </div>
-               <h4>{comment.userSignature}</h4>
+               <h4>{comment.creator_signature}</h4>
             </div>
-            <p className={commentsOfStoryStyles.content}>{comment.content}</p>
+            <p className={commentsOfStoryStyles.content}>{comment.body}</p>
             <div
                className={`${cardStyles.commentsOfContentActionWrapper} ${cardStyles.commentsOfQuotesActionWrapper} `}>
                <span

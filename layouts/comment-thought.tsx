@@ -1,5 +1,5 @@
 // core
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 //components
 import Comment from "../posts/comment";
@@ -12,27 +12,12 @@ import commentThoughtStyles from "../styles/layouts/CommentThought.module.css";
 import { Tcommentary } from "../posts/comment";
 import { Tthought } from "../posts/thought";
 
-const CommentThought = () => {
-   // ====================   FUNCTION 1:  fetch the commentary data   ==========   //
-   const [commentaries, setCommentaries] = useState<Tcommentary[]>([]);
-   const fetchCommentary = async () => {
-      const commReq = await fetch("https://scholar-be.herokuapp.com/commentaries");
-      const commentaries = await commReq.json();
-      setCommentaries(commentaries);
-   };
-   // ====================   FUNCTION 2:  fetch the commentary data   ==========   //
-   const [thoughts, setThought] = useState<Tthought[]>([]);
-   const fetchThought = async () => {
-      const thoughtReq = await fetch("https://scholar-be.herokuapp.com/thoughts");
-      const thoughts = await thoughtReq.json();
-      setThought(thoughts);
-   };
+type commentThoughtProps = {
+   commentaries: Tcommentary[];
+   thoughts: Tthought[];
+};
 
-   useEffect(() => {
-      fetchCommentary();
-      fetchThought();
-   }, []);
-
+const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
    // ===========================    FUNCTION 3: filter hte posts either by commentaries or by Thought  ======== //
    const [filterThoughtCommentState, setFilterThoughtCommentState] = useState<{
       comment: boolean;
@@ -78,9 +63,10 @@ const CommentThought = () => {
             </span>
          </div>
          <div className={`large-spacer`}></div>
-         {filterThoughtCommentState.comment && (
-            <Comment commentaries={commentaries} reportOption={true} />
-         )}
+         {filterThoughtCommentState.comment &&
+            commentaries.map((commentary: Tcommentary) => (
+               <Comment commentary={commentary} reportOption={true} />
+            ))}
          {filterThoughtCommentState.thought && <Thought thoughts={thoughts} reportOption={true} />}
       </div>
    );

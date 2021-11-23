@@ -17,6 +17,7 @@ export type TsingleStory = {
    tags: string[];
    approves: string[];
    disapproves: string[];
+   total_count: number;
    comments: [
       id: string,
       userId: string,

@@ -1,36 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_MONDAY_CONTENT = gql`
-   query (
-      $skip: String
-      $category: String
-      $alphOrd: String
-      $dateOrd: String
-      $userId: ID
-      $id: ID
-      $title: String
-   ) {
-      sermonNotes(
-         skip: $skip
-         category: $category
-         alphOrd: $alphOrd
-         dateOrd: $dateOrd
-         userId: $userId
-         id: $id
-         title: $title
-      ) {
-         id
-         title
-         userId
-         categoryTags
-         tagColors
-         currentRanking
-         fileUrl
-         user {
-            fullName
-            avatar
-         }
-      }
+   query ($ID: ID, $category_tags: String) {
       monday {
          id
          imageArray
@@ -38,6 +9,81 @@ export const GET_MONDAY_CONTENT = gql`
          video {
             videoLink
             text
+         }
+      }
+      # commentaries
+      commentary {
+         ID
+         USER_ID
+         VERSE_ID
+         body
+         category_tags
+         referenced_verses
+         verse_citation
+         created_date
+         posted_on
+         creator {
+            ID
+            signature
+            approval_rating
+            authority_level
+            avatar
+         }
+         comments {
+            total_count
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+
+      # thought
+      thought {
+         ID
+         title
+         body
+         USER_ID
+         category_tags
+         posted_on
+         creator {
+            ID
+            signature
+            approval_rating
+            authority_level
+            avatar
+         }
+         comments {
+            total_count
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+
+      # quote
+      quote_stories(ID: $ID, category_tags: $category_tags) {
+         ID
+         creator {
+            ID
+            avatar
+            signature
+            approval_rating
+         }
+      }
+
+      # sermon notes
+      sermon_notes {
+         ID
+         content
+         USER_ID
+         category_tags
+         creator {
+            ID
+            signature
+            authority_level
+            approval_rating
          }
       }
    }
