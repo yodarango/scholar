@@ -1,25 +1,25 @@
 // core
-import React, { useState } from "react";
+import React from "react";
 
 // components
-import Sermon from "../fragments/library-items/sermon";
+import SermonNotesPost from "./sermon-notes-post";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // styles
 import librarySermonPostCarrouselStyles from "../styles/posts/SermonPostCarrousel.module.css";
-import cardStyles from "../styles/components/Cards.module.css";
+import sermonNotesPostStyles from "../styles/posts/SermonNotesPost.module.css";
 
 // types
-import { sermonProps } from "../fragments/library-items/sermon";
+import { TsermonPost } from "./sermon-notes-post";
 
 type librarySermonCarrouselProps = {
-   sermon: sermonProps[];
+   sermonPost: TsermonPost[];
    deleteOption?: boolean;
    editOption?: boolean;
    reportOption?: boolean;
 };
 const LibrarySermonPostCarrousel = ({
-   sermon,
+   sermonPost,
    editOption,
    deleteOption,
    reportOption
@@ -27,21 +27,8 @@ const LibrarySermonPostCarrousel = ({
    return (
       <div className={`${librarySermonPostCarrouselStyles.mainWrapper}`}>
          <div className={librarySermonPostCarrouselStyles.scrollSection}>
-            {sermon.map((sermon: sermonProps) => (
-               <Sermon
-                  id={sermon.id}
-                  key={sermon.id}
-                  title={sermon.title}
-                  tagColors={sermon.tagColors}
-                  author={sermon.user === null ? "" : sermon.user.fullName}
-                  categoryTags={sermon.categoryTags}
-                  currentRanking={sermon.currentRanking}
-                  fileUrl={sermon.fileUrl}
-                  userAvatar={sermon.user === null ? "" : sermon.user.avatar}
-                  editOption={editOption}
-                  deleteOption={deleteOption}
-                  reportOption={reportOption}
-               />
+            {sermonPost.map((sermon: TsermonPost) => (
+               <SermonNotesPost sermonPost={sermon} />
             ))}
          </div>
       </div>

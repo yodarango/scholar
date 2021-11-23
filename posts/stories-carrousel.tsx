@@ -7,27 +7,21 @@ import QuoteStories from "./quotes-stroies";
 //styles
 import StoriesCarrouselStyles from "../styles/posts/StoriesCarrousel.module.css";
 
-// helpers: types
-import { Tstory } from "./quotes-stroies";
+import { last24SingleQuote } from "./quotes-stroies";
 
-const StoriesCarrousel = () => {
-   // ============== FUNCTION 1: Fetch the stories and put them on a state ============== //
-   const [storiesState, setStoriesState] = useState<Tstory[]>([]);
-   const getStories = async () => {
-      const requ = await fetch("https://scholar-be.herokuapp.com/stories");
-      const jsonData = await requ.json();
-      console.log(jsonData);
-      setStoriesState(jsonData);
-   };
+type storiesCarrouselProps = {
+   quotes_in_the_last24: last24SingleQuote[];
+};
 
-   useEffect(() => {
-      getStories();
-   }, []);
-
+const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
    return (
       <div className={StoriesCarrouselStyles.mainWrapper}>
-         {storiesState.map((story: Tstory) => (
-            <QuoteStories key={story.id} stories={story} reportOption={true} />
+         {quotes_in_the_last24.map((story: last24SingleQuote) => (
+            <QuoteStories
+               key={story.ID}
+               creator={story.creator}
+               ID={story.ID} /*reportOption={true}*/
+            />
          ))}
       </div>
    );

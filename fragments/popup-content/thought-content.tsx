@@ -10,15 +10,19 @@ import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
-import PostReactions from "../buttons/post-reactions";
+import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 import { Tthought } from "../../posts/thought";
 
 // others
 
 type thoughtContentProps = {
    thought: Tthought;
+   postReactionContent: {
+      approvals: Tapprovals;
+      comments: {}[];
+   };
 };
-const ThoughtContent = ({ thought }: thoughtContentProps) => {
+const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) => {
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
 
@@ -62,11 +66,9 @@ const ThoughtContent = ({ thought }: thoughtContentProps) => {
       func: openCommentArea
    });
 
-   //   ==================  FUNCTION 2: handle the like ============= //
-   const handleApproveClick = () => {};
+   //   ==================  FUNCTION 2: hhandle rate the content ============= //
+   const handleRateContent = () => {};
 
-   //   ==================  FUNCTION 3: handle the dislike ============= //
-   const handledisapproveClick = () => {};
    return (
       <>
          {referencedVerseState}
@@ -74,7 +76,7 @@ const ThoughtContent = ({ thought }: thoughtContentProps) => {
             <div className={popupStyles.halfWidthRight}>
                <h1 className={`${popupStyles.stdSmallTitle}`}>{thought.title}</h1>
                <ReactMarkdown className={popupStyles.commentaryBodyContent}>
-                  {thought.content}
+                  {thought.body}
                </ReactMarkdown>
 
                {/* Comment text area */}
@@ -96,24 +98,21 @@ const ThoughtContent = ({ thought }: thoughtContentProps) => {
                {/* Reaction buttons (like comments ) */}
                <PostReactions
                   handleComment={openCommentInputState.func}
-                  handleApprove={handleApproveClick}
-                  handleDisapprove={handledisapproveClick}
-                  postComments={thought.comments}
-                  postApproves={thought.approves}
-                  postDisapproves={thought.disapproves}
+                  handleRateContent={handleRateContent}
+                  comments={postReactionContent.comments.length}
+                  approvals={thought.approvals}
                />
 
                {/* Assigned Tags */}
                <div className={textEditorStyles.textEditorTags}>
-                  {thought.tags && (
-                     <div style={{ backgroundColor: thought.colors[0] }}>{thought.tags[0]}</div>
+                  {thought.category_tags.split(" ")[0] && (
+                     <div id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
+                        {thought.category_tags.split(" ")[0]}
+                     </div>
                   )}
-                  {thought.tags && (
-                     <div
-                        style={{
-                           backgroundColor: thought.colors[1]
-                        }}>
-                        {thought.tags[1]}
+                  {thought.category_tags.split(" ")[1] && (
+                     <div id={`category-${thought.category_tags.split(" ")[1].replace("#", "")}`}>
+                        {thought.category_tags.split(" ")[1]}
                      </div>
                   )}
                </div>
@@ -121,17 +120,15 @@ const ThoughtContent = ({ thought }: thoughtContentProps) => {
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-                  {thought.referencedScriptures &&
-                     thought.referencedScriptures.map(
-                        (el: { verseId: string; verseReferences: string }) => (
-                           <div
-                              className={textEditorStyles.textEditorVerse}
-                              data-verseId-={el.verseId}
-                              onClick={() => openReferencedVerse(el.verseId)}>
-                              {el.verseReferences}
-                           </div>
-                        )
-                     )}
+                  {thought.referenced_verses &&
+                     thought.referenced_verses.split(" ").map((verse: string) => (
+                        <div
+                           className={textEditorStyles.textEditorVerse}
+                           data-verseId-={verse}
+                           onClick={() => openReferencedVerse(verse)}>
+                           {verse}
+                        </div>
+                     ))}
                </div>
             </div>
          </div>

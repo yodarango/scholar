@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 
+// graphql
+import client from "../../apollo-client";
+import { GET_PROFILE_INFO } from "../../graphql/users/profile";
+
 // components
 import Header from "../../layouts/header";
 import Comments from "../../posts/comment";
@@ -11,6 +15,7 @@ import QuoteProfile from "../../posts/quotes-profile";
 import SermonsCarrousel from "../../layouts/library-individual-pages/sermons-carrousel";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
+import NavigationMenu from "../../layouts/navigation-menu";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";
@@ -18,34 +23,39 @@ import userStyles from "../../styles/pages/users/User.module.css";
 // helpers
 import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
-import { TsingleStory } from "../../posts/quotes-profile";
-import { sermonProps } from "../../fragments/library-items/sermon";
-import NavigationMenu from "../../layouts/navigation-menu";
+import { Tstory } from "../../posts/quotes-stroies";
+import { TsermonPost } from "../../posts/sermon-notes-post";
+//import { sermonProps } from "../../fragments/library-items/sermon";
+
+export type TallPosts = {
+   commentaries: Tcommentary[];
+   thoughts: Tthought[];
+   quotes: Tstory[];
+   sermon_notes: TsermonPost[];
+};
 
 export type Tuser = {
-   id: string;
-   name: string;
-   lastName: string;
+   ID: string;
+   MONGO_DB_ID: string;
    signature: string;
-   avatar: string;
-   trusted: true;
-   likes: number;
-   dislikes: number;
-   posts: number;
-   commentaries: number;
-   quotes: number;
-   thoughts: number;
-   sermons: number;
-   reliability: number;
+   first_name: string;
+   last_name: string;
+   birth_date: string;
    gender: string;
-   church: string;
-   job: string;
-   favoriteVerse: string;
-   ministry: string;
-   tcp: string;
-   story: string;
    email: string;
    password: string;
+   date_registered: string;
+   authority_level: string;
+   approval_rating: number;
+   avatar: string;
+   my_church: string;
+   my_favorite_color: string;
+   my_job: string;
+   my_true_color_personality_test: string;
+   my_story: string;
+   my_ministry: string;
+   my_favorite_verse: string;
+   all_posts: TallPosts;
 };
 
 export type userProps = {
@@ -64,6 +74,7 @@ const User = ({ user }: userProps) => {
       quote: "",
       sermon: ""
    });
+   /*
    // ================  FUNCTION 1: request the commentaries by user   ================= //
    const [commentaryState, setCommentaryState] = useState<Tcommentary[]>([]);
    const requestCommentaries = async () => {
@@ -114,6 +125,7 @@ const User = ({ user }: userProps) => {
       setCommentaryState([]);
       setQuoteState([]);
    };
+   */
 
    // ================  FUNCTION 5: open the My stroy popup   ================= //
    // const handleMyStoryPopUp = () => {};
@@ -134,11 +146,11 @@ const User = ({ user }: userProps) => {
             )}
             <div className={userStyles.userBioGrid}>
                <Header currPage={user.signature} />
-               <Link href={`/users/settings/${user.id}`}>
+               <Link href={`/users/settings/${user.ID}`}>
                   <a className={userStyles.settingsLinkIcon}></a>
                </Link>
                <div className={userStyles.notificationBell} onClick={openNotificationsPopup}></div>
-               {user.reliability > 100 && (
+               {user.approval_rating > 100 && (
                   <div className={userStyles.bellWnotificationWrapper}>
                      <div className={userStyles.notificationBellWNotification}></div>
                      <span className={userStyles.notificationSignifier}></span>
@@ -155,76 +167,88 @@ const User = ({ user }: userProps) => {
                         className={userStyles.avatar}
                         style={{ backgroundImage: `url(${user.avatar})` }}></div>
                   </div>
-                  {user.reliability >= 97 && (
-                     <h2 className={userStyles.reliabilityA}>Reliability: A+</h2>
+                  {user.approval_rating >= 97 && (
+                     <h2 className={userStyles.reliabilityA}>Approval Rating: A+</h2>
                   )}
-                  {user.reliability >= 94 && user.reliability < 97 && (
-                     <h2 className={userStyles.reliabilityA}>Reliability: A</h2>
+                  {user.approval_rating >= 94 && user.approval_rating < 97 && (
+                     <h2 className={userStyles.reliabilityA}>Approval Rating: A</h2>
                   )}
-                  {user.reliability >= 90 && user.reliability < 94 && (
-                     <h2 className={userStyles.reliabilityA}>Reliability: A-</h2>
+                  {user.approval_rating >= 90 && user.approval_rating < 94 && (
+                     <h2 className={userStyles.reliabilityA}>Approval Rating: A-</h2>
                   )}
-                  {user.reliability >= 87 && user.reliability < 90 && (
-                     <h2 className={userStyles.reliabilityB}>Reliability: B+</h2>
+                  {user.approval_rating >= 87 && user.approval_rating < 90 && (
+                     <h2 className={userStyles.reliabilityB}>Approval Rating: B+</h2>
                   )}
-                  {user.reliability >= 84 && user.reliability < 87 && (
-                     <h2 className={userStyles.reliabilityB}>Reliability: B</h2>
+                  {user.approval_rating >= 84 && user.approval_rating < 87 && (
+                     <h2 className={userStyles.reliabilityB}>Approval Rating: B</h2>
                   )}
-                  {user.reliability >= 80 && user.reliability < 84 && (
-                     <h2 className={userStyles.reliabilityB}>Reliability: B-</h2>
+                  {user.approval_rating >= 80 && user.approval_rating < 84 && (
+                     <h2 className={userStyles.reliabilityB}>Approval Rating: B-</h2>
                   )}
-                  {user.reliability >= 77 && user.reliability < 80 && (
-                     <h2 className={userStyles.reliabilityC}>Reliability: C+</h2>
+                  {user.approval_rating >= 77 && user.approval_rating < 80 && (
+                     <h2 className={userStyles.reliabilityC}>Approval Rating: C+</h2>
                   )}
-                  {user.reliability >= 74 && user.reliability < 77 && (
-                     <h2 className={userStyles.reliabilityC}>Reliability: C</h2>
+                  {user.approval_rating >= 74 && user.approval_rating < 77 && (
+                     <h2 className={userStyles.reliabilityC}>Approval Rating: C</h2>
                   )}
-                  {user.reliability >= 70 && user.reliability < 74 && (
-                     <h2 className={userStyles.reliabilityC}>Reliability: C-</h2>
+                  {user.approval_rating >= 70 && user.approval_rating < 74 && (
+                     <h2 className={userStyles.reliabilityC}>Approval Rating: C-</h2>
                   )}
-                  {user.reliability < 70 && (
+                  {user.approval_rating < 70 && (
                      <h2 className={userStyles.reliabilityF}>Reliability: F</h2>
                   )}
-                  <p>Commentaries: {user.commentaries}</p>
-                  <p>Thoughts: {user.thoughts}</p>
-                  <p>Quotes: {user.quotes}</p>
-                  <p>Sermons {user.sermons}</p>
+                  <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>
+                  <p>Thoughts: {user.all_posts.thoughts[0].total_count}</p>
+                  <p>Quotes: {user.all_posts.quotes[0].total_count}</p>
+                  <p>Sermons {user.all_posts.sermon_notes[0].total_count}</p>
                </section>
-               <section className={userStyles.totalsWrapper}>
+               {/* <section className={userStyles.totalsWrapper}>
                   <p>Posts: {user.posts}</p>
                   <p>Agrees: {user.likes}</p>
                   <p>Disagrees: {user.dislikes}</p>
-               </section>
+               </section> */}
                <section className={userStyles.aboutMeWrapper}>
                   <ul>
-                     {user.name && user.gender === "male" && (
+                     {user.first_name && user.gender === "male" && (
                         <li>
-                           👨 Full name is {user.name} {user.lastName}
+                           👨 Full name is {user.first_name} {user.last_name}
                         </li>
                      )}
-                     {user.name && user.gender === "female" && (
+                     {user.first_name && user.gender === "female" && (
                         <li>
-                           👩 Full name is {user.name} {user.lastName}
+                           👩 Full name is {user.first_name} {user.last_name}
                         </li>
                      )}
-                     {user.church && <li>⛪ I attend {user.church}</li>}
-                     {user.favoriteVerse && (
+                     {user.my_church && <li>⛪ I attend {user.my_church}</li>}
+                     {user.my_favorite_verse && (
                         <li>
                            📖 Favorite verse is{" "}
                            <span className={userStyles.favoriteVerseSpan}>
-                              {user.favoriteVerse}
+                              {user.my_favorite_verse}
                            </span>
                         </li>
                      )}
-                     {user.ministry && <li>🧹 My ministry is {user.ministry}</li>}
-                     {user.job && <li>👔 I am full time {user.job}</li>}
-                     {user.tcp && user.tcp === "green" && <li>🎨 True Color Personality is 🟩</li>}
-                     {user.tcp && user.tcp === "blue" && <li>🎨 True Color Personality is 🟦</li>}
-                     {user.tcp && user.tcp === "gold" && <li>🎨 True Color Personality is 🟨</li>}
-                     {user.tcp && user.tcp === "orange" && <li>🎨 True Color Personality is 🟧</li>}
-                     {user.story && (
+                     {user.my_ministry && <li>🧹 My ministry is {user.my_ministry}</li>}
+                     {user.my_job && <li>👔 I am full time {user.my_job}</li>}
+                     {user.my_true_color_personality_test &&
+                        user.my_true_color_personality_test === "Green" && (
+                           <li>🎨 True Color Personality is 🟩</li>
+                        )}
+                     {user.my_true_color_personality_test &&
+                        user.my_true_color_personality_test === "Blue" && (
+                           <li>🎨 True Color Personality is 🟦</li>
+                        )}
+                     {user.my_true_color_personality_test &&
+                        user.my_true_color_personality_test === "Gold" && (
+                           <li>🎨 True Color Personality is 🟨</li>
+                        )}
+                     {user.my_true_color_personality_test &&
+                        user.my_true_color_personality_test === "Orange" && (
+                           <li>🎨 True Color Personality is 🟧</li>
+                        )}
+                     {user.my_story && (
                         <li className={userStyles.myStory}>
-                           <Link href={`/my-story/${user.id}`}>
+                           <Link href={`/my-story/${user.ID}`}>
                               <a> This is my sotry </a>
                            </Link>
                         </li>
@@ -233,7 +257,7 @@ const User = ({ user }: userProps) => {
                </section>
             </div>
             <div className={userStyles.postsGrid}>
-               <section className={userStyles.myPostsWrapper}>
+               {/* <section className={userStyles.myPostsWrapper}>
                   <nav className={userStyles.myPostsMenu}>
                      <span
                         className={userStyles.commentariesPosts}
@@ -262,7 +286,7 @@ const User = ({ user }: userProps) => {
                   </nav>
                   {commentaryState && (
                      <Comments
-                        commentaries={commentaryState}
+                        commentary={commentaryState}
                         deleteOption={true}
                         editOption={true}
                         reportOption={true}
@@ -288,7 +312,7 @@ const User = ({ user }: userProps) => {
                         deleteOption={true}
                      />
                   )}
-               </section>
+               </section> */}
             </div>
          </div>
          <div className={`large-spacer`}> </div>
@@ -298,13 +322,16 @@ const User = ({ user }: userProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-   const { userId } = context.query;
-   const req = await fetch(`http://scholar-be.herokuapp.com/users/123`);
-   const user = await req.json();
+   //let userId = context.params && context.params.userId ? context.params.userId[0] : 1;
+   const { data } = await client.query({
+      query: GET_PROFILE_INFO,
+      variables: { ID: 1, totalCountOnly: true }
+   });
 
+   console.log(data.users[0].all_posts);
    return {
       props: {
-         user
+         user: data.users[0]
       }
    };
 };

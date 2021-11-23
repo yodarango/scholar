@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 //graphQL
 import client from "../apollo-client";
-import { SHOW_COMMENTS_OF_COMMENTARY } from "../graphql/home/posts/commentaries";
+import { SHOW_COMMENTS_OF_COMMENTARY } from "../graphql/posts/commentaries";
 
 // componenets
 import CommentaryContent from "../fragments/popup-content/commentary-content";
@@ -29,6 +29,7 @@ export type Tcommentary = {
    created_date: string;
    commented_on: string;
    verse_citation: string;
+   total_count: number;
    creator: {
       ID: string;
       signature: string;
@@ -55,7 +56,6 @@ export default function Comments({
    editOption,
    reportOption
 }: commentsProps) {
-   console.log(commentary);
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = async (commentary_id: string) => {

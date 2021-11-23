@@ -10,7 +10,7 @@ import ConfirmationPopup from "../confirmation-popup";
 import sermonStyles from "../../styles/fragments/library-items/Sermon.module.css";
 import cardStyles from "../../styles/components/Cards.module.css";
 
-export type sermonProps = {
+export type Tsermon = {
    id: string;
    userId?: string;
    userAvatar: string;
@@ -24,26 +24,17 @@ export type sermonProps = {
    fileUrl: string;
    newClass?: string;
    user?: any;
+};
+
+type sermonProps = {
+   sermon: Tsermon;
+   newClass?: String;
    deleteOption?: boolean;
    editOption?: boolean;
    reportOption?: boolean;
 };
 
-const Sermon = ({
-   id,
-   categoryTags,
-   tagColors,
-   title,
-   author,
-   currentRanking,
-   fileUrl,
-   userId,
-   userAvatar,
-   newClass,
-   deleteOption,
-   editOption,
-   reportOption
-}: sermonProps) => {
+const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: sermonProps) => {
    // ===============   SUNCTION 2: Open the actions wrapper   ============== ///
    const [actionsWrapper, setActionsWrapper] = useState<boolean>(false);
    const handleOpenActionsWrapper = () => {
@@ -64,7 +55,7 @@ const Sermon = ({
    };
    return (
       <>
-         <div className={`${sermonStyles.mainWrapper} ${newClass}`} key={id}>
+         <div className={`${sermonStyles.mainWrapper} ${newClass}`} key={sermonStyles.ID}>
             {deletePopupState && (
                <ConfirmationPopup
                   title={`Are you sure you want to delete this sermon?`}
@@ -106,16 +97,18 @@ const Sermon = ({
             <div
                className={sermonStyles.innerpages}
                style={{
-                  borderTop: `5px solid ${tagColors[0]}`,
-                  borderRight: `5px solid ${tagColors[0]}`
+                  borderTop: `5px solid ${sermon.tagColors[0]}`,
+                  borderRight: `5px solid ${sermon.tagColors[0]}`
                }}></div>
 
-            <div className={sermonStyles.outerCover} style={{ backgroundColor: tagColors[0] }}>
+            <div
+               className={sermonStyles.outerCover}
+               style={{ backgroundColor: sermon.tagColors[0] }}>
                <div className={sermonStyles.textWrapper}>
-                  <Link href={fileUrl}>
+                  <Link href={sermon.fileUrl}>
                      <a>
-                        <h1 className={sermonStyles.title}>{title}</h1>
-                        <h3 className={sermonStyles.author}>by: {author}</h3>
+                        <h1 className={sermonStyles.title}>{sermon.title}</h1>
+                        <h3 className={sermonStyles.author}>by: {sermon.author}</h3>
                      </a>
                   </Link>
                   <div
@@ -125,9 +118,9 @@ const Sermon = ({
                      }}>
                      <div
                         className={`${sermonStyles.avatar}`}
-                        style={{ backgroundImage: `url(${userAvatar})` }}></div>
+                        style={{ backgroundImage: `url(${sermon.userAvatar})` }}></div>
                   </div>
-                  <span className={sermonStyles.category}>Category: {categoryTags[0]}</span>
+                  <span className={sermonStyles.category}>Category: {sermon.categoryTags[0]}</span>
                   {reportOption && (
                      <span
                         className={`std-vector-icon ${sermonStyles.actionTrigger}`}
@@ -136,7 +129,7 @@ const Sermon = ({
                </div>
             </div>
 
-            <StarReviews contentId={id} currentRanking={currentRanking} />
+            <StarReviews contentId={sermon.id} currentRanking={sermon.currentRanking} />
          </div>
       </>
    );

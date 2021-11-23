@@ -30,3 +30,22 @@ export const GET_THOUGHTS = gql`
       }
    }
 `;
+
+export const SHOW_COMMENTS_OF_THOUGHTS = gql`
+   query ($ID: ID, $showComment: Boolean) {
+      thought(ID: $ID) {
+         comments(showComment: $showComment) {
+            ID
+            body
+            creator_avatar
+            creator_signature
+            creator_approval_rate
+            posted_on
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+   }
+`;
