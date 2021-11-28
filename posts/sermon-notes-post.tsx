@@ -16,10 +16,13 @@ export type TsermonPost = {
 
 type sermonNotesPostProps = {
    sermonPost: TsermonPost;
+   deleteOption: boolean;
+   editOption: boolean;
+   reportOption: boolean;
 };
 
 const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
-   return <div></div>;
+   return <div>Hello</div>;
 };
 
 export default SermonNotesPost;

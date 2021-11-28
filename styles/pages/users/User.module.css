@@ -176,6 +176,12 @@
 }
 
 /* =======================   my posts section    =============== */
+.desktopPostsGrid {
+   display: none;
+   width: 100%;
+}
+
+/* =======================   this is only for the desktop screen, if you need it uncomments it
 .myPostsWrapper {
    width: 100%;
    max-width: 600px;
@@ -205,6 +211,30 @@
    align-items: flex-start;
    justify-content: center;
    flex-wrap: wrap;
+} */
+
+/* ================== Content Pop Up for Commentaries, Quotes, Sermons, and Thoughts ================= */
+.popUpContentWrapper {
+   width: 90%;
+   max-width: 1000px;
+   margin: var(--medium-spacing-mobile) auto;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.popUpContentWrapper_title {
+   width: 100%;
+   text-align: center;
+   font: var(--secondary-font-mobile);
+   color: var(--graient-one);
+   margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
+}
+
+.popUpContentWrapper > div {
+   max-width: 420px;
+   margin: var(--xsmall-spacing-mobile);
 }
 
 @media only screen and (min-width: 1000px) {
@@ -314,6 +344,17 @@
 
    .storiesWrapper {
       justify-content: flex-start;
+   }
+
+   /* ================== Content Pop Up for Commentaries, Quotes, Sermons, and Thoughts ================= */
+
+   .popUpContentWrapper {
+      margin: var(--medium-spacing-desktop) auto;
+   }
+
+   .popUpContentWrapper_title {
+      font: var(--secondary-font-desktop);
+      margin: calc(1rem + var(--large-spacing-desktop)) auto var(--small-spacing-desktop);
    }
 }
 

@@ -23,7 +23,6 @@ type saturdayProps = {
    };
 };
 const Saturday = ({ saturdayContent }: saturdayProps) => {
-   console.log(saturdayContent.image);
    const [seeWholeNewsPostState, setseeWholeNewsPostState] = useState<boolean | JSX.Element>(false);
    return (
       <>

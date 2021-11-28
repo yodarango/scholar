@@ -29,8 +29,11 @@ export type TsingleStory = {
 
 type quoteProfileProps = {
    story: TsingleStory;
+   deleteOption: boolean;
+   editOption: boolean;
+   reportOption: boolean;
 };
-const QuotesProfile = ({ story }: quoteProfileProps) => {
+const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteProfileProps) => {
    // ================   FUNCTION 1: handle the More Click and show the full screen story   ============= //
    const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
    const handleMoreClick = () => {

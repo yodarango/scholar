@@ -34,7 +34,7 @@ export type Tcommentary = {
       ID: string;
       signature: string;
       authority_level: string;
-      approval_rating: string;
+      approval_rating: string | number;
       avatar: string;
    };
    comments: {

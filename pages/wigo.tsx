@@ -29,7 +29,7 @@ import Tuesday from "../fragments/wigo-content/3.tuesday";
 import Wednesday from "../fragments/wigo-content/4.wednesday";
 import Thursday from "../fragments/wigo-content/5.thursday";
 import Friday from "../fragments/wigo-content/6.friday";
-import Saturday from "../fragments/wigo-content/7.saturday";
+//import Saturday from "../fragments/wigo-content/7.saturday";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -73,7 +73,7 @@ const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
                   {dayOfTheWeekState === 3 && <Wednesday wednesdayContent={content.wednesday} />}
                   {dayOfTheWeekState === 4 && <Thursday thursdayContent={content.thursday} />}
                   {dayOfTheWeekState === 5 && <Friday fridayContent={content.friday} />}
-                  {dayOfTheWeekState === 6 && <Saturday saturdayContent={content.saturday} />}
+                  {/*dayOfTheWeekState === 6 && <Saturday saturdayContent={content.saturday} />*/}
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>
@@ -126,7 +126,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       : null;
 
    const { data } = await client.query({
-      query: GET_CONTENT_QUERY,
+      query: GET_MONDAY_CONTENT,
       variables: {
          ID: null,
          category_tags: null

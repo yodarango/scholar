@@ -5,14 +5,20 @@ import Link from "next/link";
 
 // graphql
 import client from "../../apollo-client";
-import { GET_PROFILE_INFO } from "../../graphql/users/profile";
+import {
+   GET_PROFILE_INFO,
+   GET_PROFILE_COMMENTARIES,
+   GET_PROFILE_QUOTES,
+   GET_PROFILE_THOUGHTS,
+   GET_PROFILE_SERMON_NOTES
+} from "../../graphql/users/profile";
 
 // components
 import Header from "../../layouts/header";
 import Comments from "../../posts/comment";
 import Thought from "../../posts/thought";
 import QuoteProfile from "../../posts/quotes-profile";
-import SermonsCarrousel from "../../layouts/library-individual-pages/sermons-carrousel";
+import SermonNotesPost from "../../posts/sermon-notes-post";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
 import NavigationMenu from "../../layouts/navigation-menu";
@@ -23,14 +29,19 @@ import userStyles from "../../styles/pages/users/User.module.css";
 // helpers
 import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
-import { Tstory } from "../../posts/quotes-stroies";
+import { TsingleStory } from "../../posts/quotes-profile";
+// import { Tstory } from "../../posts/quotes-stroies";
 import { TsermonPost } from "../../posts/sermon-notes-post";
+//import { Tsermon } from "../../fragments/library-items/sermon";
 //import { sermonProps } from "../../fragments/library-items/sermon";
 
 export type TallPosts = {
+   thought_approval_total_count: number;
+   quote_approval_total_count: number;
+   commentaries_approval_total_count: number;
    commentaries: Tcommentary[];
    thoughts: Tthought[];
-   quotes: Tstory[];
+   quotes: TsingleStory[];
    sermon_notes: TsermonPost[];
 };
 
@@ -74,58 +85,95 @@ const User = ({ user }: userProps) => {
       quote: "",
       sermon: ""
    });
-   /*
+
    // ================  FUNCTION 1: request the commentaries by user   ================= //
+   const [contentPopupState, setContentPopupState] = useState<{
+      commentaries?: boolean;
+      quotes?: boolean;
+      thoughts?: boolean;
+      sermonNotes?: boolean;
+   }>({ commentaries: false, quotes: false, thoughts: false, sermonNotes: false });
+
    const [commentaryState, setCommentaryState] = useState<Tcommentary[]>([]);
-   const requestCommentaries = async () => {
-      const req = await fetch("https://scholar-be.herokuapp.com/commentaries");
-      const comments = await req.json();
-      setCommentaryState(comments);
+   const requestCommentaries = async (user_id: string) => {
+      const { data } = await client.query({
+         query: GET_PROFILE_COMMENTARIES,
+         variables: { ID: user_id, totalCountOnly: false }
+      });
+
+      setCommentaryState(data.users[0].all_posts.commentaries);
       setColoredTabState({ comment: "#f2f2f2" });
-      setQuoteState([]);
-      setThoughtsState([]);
-      setsermonState([]);
+      setContentPopupState({
+         commentaries: true,
+         quotes: false,
+         thoughts: false,
+         sermonNotes: false
+      });
    };
 
-   useEffect(() => {
-      requestCommentaries();
-   }, []);
-   // ================  FUNCTION 2: request the thoughts by user   ================= //
-   const [thoughtsState, setThoughtsState] = useState<Tthought[]>([]);
-   const requestThoughts = async () => {
-      const req = await fetch("https://scholar-be.herokuapp.com/thoughts");
-      const thoughts = await req.json();
-      setThoughtsState(thoughts);
-      setColoredTabState({ thought: "#f2f2f2" });
-      setCommentaryState([]);
-      setQuoteState([]);
-      setsermonState([]);
-   };
-
-   // ================  FUNCTION 3: request the quotes by user   ================= //
+   // ================  FUNCTION 2: request the quotes by user   ================= //
    const [quoteState, setQuoteState] = useState<TsingleStory[]>([]);
-   const requestQuotes = async () => {
-      const req = await fetch("https://scholar-be.herokuapp.com/story");
-      const quotes = await req.json();
-      setQuoteState(quotes);
+   const requestQuotes = async (user_id: string) => {
+      const { data } = await client.query({
+         query: GET_PROFILE_QUOTES,
+         variables: { ID: user_id, totalCountOnly: false }
+      });
+
+      setQuoteState(data.users[0].all_posts.quotes);
+      setColoredTabState({ thought: "#f2f2f2" });
+      setContentPopupState({
+         commentaries: false,
+         quotes: true,
+         thoughts: false,
+         sermonNotes: false
+      });
+   };
+
+   // ================  FUNCTION 3: request the thoughts by user   ================= //
+   const [thoughtsState, setThoughtsState] = useState<Tthought[]>([]);
+   const requestThoughts = async (user_id: string) => {
+      const { data } = await client.query({
+         query: GET_PROFILE_THOUGHTS,
+         variables: { ID: user_id, totalCountOnly: false }
+      });
+
+      // add user values to each thought before passing it to the component
+      const modifiedThoughts: any = [];
+      data.users[0].all_posts.thoughts.map((thought: Tthought) =>
+         modifiedThoughts.push({
+            ...thought,
+            creator: { ID: user.ID, avatar: user.avatar, signature: user.signature }
+         })
+      );
+
+      setThoughtsState(modifiedThoughts);
       setColoredTabState({ quote: "#f2f2f2" });
-      setThoughtsState([]);
-      setCommentaryState([]);
-      setsermonState([]);
+      setContentPopupState({
+         commentaries: false,
+         quotes: false,
+         thoughts: true,
+         sermonNotes: false
+      });
    };
 
    // ================  FUNCTION 4: request the sermons by user   ================= //
-   const [sermonState, setsermonState] = useState<sermonProps[]>([]);
-   const requestSermons = async () => {
-      const req = await fetch("https://scholar-be.herokuapp.com/library");
-      const sermons = await req.json();
-      setsermonState(sermons.sermons);
+   const [sermonState, setsermonState] = useState<TsermonPost[]>([]);
+   const requestSermons = async (user_id: string) => {
+      const { data } = await client.query({
+         query: GET_PROFILE_SERMON_NOTES,
+         variables: { ID: user_id, totalCountOnly: false }
+      });
+
+      setsermonState(data.users[0].all_posts.sermon_notes);
       setColoredTabState({ sermon: "#f2f2f2" });
-      setThoughtsState([]);
-      setCommentaryState([]);
-      setQuoteState([]);
+      setContentPopupState({
+         commentaries: false,
+         quotes: false,
+         thoughts: false,
+         sermonNotes: true
+      });
+      console.log(data.users[0]);
    };
-   */
 
    // ================  FUNCTION 5: open the My stroy popup   ================= //
    // const handleMyStoryPopUp = () => {};
@@ -202,11 +250,21 @@ const User = ({ user }: userProps) => {
                   <p>Quotes: {user.all_posts.quotes[0].total_count}</p>
                   <p>Sermons {user.all_posts.sermon_notes[0].total_count}</p>
                </section>
-               {/* <section className={userStyles.totalsWrapper}>
-                  <p>Posts: {user.posts}</p>
-                  <p>Agrees: {user.likes}</p>
-                  <p>Disagrees: {user.dislikes}</p>
-               </section> */}
+               <section className={userStyles.totalsWrapper}>
+                  <p>
+                     Total Posts:
+                     {user.all_posts.commentaries[0].total_count +
+                        user.all_posts.thoughts[0].total_count +
+                        user.all_posts.quotes[0].total_count +
+                        user.all_posts.sermon_notes[0].total_count}
+                  </p>
+                  <p>
+                     Total Ratings:{" "}
+                     {user.all_posts.thought_approval_total_count +
+                        user.all_posts.quote_approval_total_count +
+                        user.all_posts.commentaries_approval_total_count}
+                  </p>
+               </section>
                <section className={userStyles.aboutMeWrapper}>
                   <ul>
                      {user.first_name && user.gender === "male" && (
@@ -256,7 +314,26 @@ const User = ({ user }: userProps) => {
                   </ul>
                </section>
             </div>
-            <div className={userStyles.postsGrid}>
+            <section className={userStyles.mobilePostsGrid}>
+               <div
+                  className={userStyles.mobileCommentaryLink}
+                  onClick={() => requestCommentaries(user.ID)}>
+                  Commentaries
+               </div>
+               <div className={userStyles.mobileQuoteLink} onClick={() => requestQuotes(user.ID)}>
+                  Quotes
+               </div>
+               <div
+                  className={userStyles.mobileThoughtLink}
+                  onClick={() => requestThoughts(user.ID)}>
+                  Thoughts
+               </div>
+               <div className={userStyles.mobileSermonLink} onClick={() => requestSermons(user.ID)}>
+                  Sermons
+               </div>
+               <div className={userStyles.mobileAllLink}>All Posts</div>
+            </section>
+            <section className={userStyles.desktopPostsGrid}>
                {/* <section className={userStyles.myPostsWrapper}>
                   <nav className={userStyles.myPostsMenu}>
                      <span
@@ -313,7 +390,107 @@ const User = ({ user }: userProps) => {
                      />
                   )}
                </section> */}
-            </div>
+            </section>
+            {/* =================== Commentaries ================ */}
+            {contentPopupState.commentaries === true && (
+               <div className={"dark-bkg"}>
+                  <span
+                     className={"closeModal"}
+                     onClick={() => setContentPopupState({ commentaries: false })}>
+                     X
+                  </span>
+                  <section className={userStyles.popUpContentWrapper}>
+                     <h1 className={userStyles.popUpContentWrapper_title}>
+                        Commentaries by {user.signature}
+                     </h1>
+                     {commentaryState.map((commentary) => (
+                        <Comments
+                           commentary={{
+                              ...commentary,
+                              creator: {
+                                 ID: user.ID,
+                                 avatar: user.avatar,
+                                 signature: user.signature,
+                                 authority_level: user.authority_level,
+                                 approval_rating: user.approval_rating
+                              }
+                           }}
+                           deleteOption={true}
+                           editOption={true}
+                           reportOption={true}
+                        />
+                     ))}
+                  </section>
+               </div>
+            )}
+
+            {/* =================== Quotes ================ */}
+            {contentPopupState.quotes === true && (
+               <div className={"dark-bkg"}>
+                  <span
+                     className={"closeModal"}
+                     onClick={() => setContentPopupState({ quotes: false })}>
+                     X
+                  </span>
+                  <section className={userStyles.popUpContentWrapper}>
+                     <h1 className={userStyles.popUpContentWrapper_title}>
+                        Quotes by {user.signature}
+                     </h1>
+                     {quoteState.map((story: TsingleStory) => (
+                        <QuoteProfile
+                           story={story}
+                           deleteOption={true}
+                           editOption={true}
+                           reportOption={true}
+                        />
+                     ))}
+                  </section>
+               </div>
+            )}
+            {/* =================== Thoughts ================ */}
+            {contentPopupState.thoughts === true && (
+               <div className={"dark-bkg"}>
+                  <span
+                     className={"closeModal"}
+                     onClick={() => setContentPopupState({ thoughts: false })}>
+                     X
+                  </span>
+                  <section className={userStyles.popUpContentWrapper}>
+                     <h1 className={userStyles.popUpContentWrapper_title}>
+                        Thoughts by {user.signature}
+                     </h1>
+                     <Thought
+                        thoughts={thoughtsState}
+                        deleteOption={true}
+                        editOption={true}
+                        reportOption={true}
+                     />
+                  </section>
+               </div>
+            )}
+            {/* =================== Sermons ================ */}
+            {contentPopupState.sermonNotes === true && (
+               <div className={"dark-bkg"}>
+                  <span
+                     className={"closeModal"}
+                     onClick={() => setContentPopupState({ sermonNotes: false })}>
+                     X
+                  </span>
+                  <section className={userStyles.popUpContentWrapper}>
+                     <h1 className={userStyles.popUpContentWrapper_title}>
+                        Sermons by {user.signature}
+                     </h1>
+                     {sermonState.map((sermon: TsermonPost) => (
+                        <SermonNotesPost
+                           sermonPost={sermon}
+                           deleteOption={true}
+                           editOption={true}
+                           reportOption={true}
+                        />
+                     ))}
+                  </section>
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -325,10 +502,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
    //let userId = context.params && context.params.userId ? context.params.userId[0] : 1;
    const { data } = await client.query({
       query: GET_PROFILE_INFO,
-      variables: { ID: 1, totalCountOnly: true }
+      variables: { ID: 1, totalCountOnly: true, getApprovalCount: true }
    });
 
-   console.log(data.users[0].all_posts);
+   console.log(data);
    return {
       props: {
          user: data.users[0]
