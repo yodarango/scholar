@@ -1,4 +1,9 @@
+// core
 import React, { useState } from "react";
+
+//graphql
+import client from "../apollo-client";
+import { OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/quotes";
 
 // components
 import PostReactions from "../fragments/buttons/post-reactions";
@@ -22,18 +27,23 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
       setCommentPopUpState(true);
    };
    // ==============   FUNCTION 6: approve the story   =============== //
-   const hanndleApproveClick = () => {};
+   const handleRateContent = () => {};
 
-   // ==============   FUNCTION 7: dissaprove the stroy   =============== //
-   const handleDisapproveClick = () => {};
-
-   // ==============   FUNCTION 8: see the stroy data when the user clicks "More" =============== //
+   // ==============   FUNCTION 7: see the stroy data when the user clicks "More" =============== //
    const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
-   const handleMoreClick = () => {
+   const [commentsOfQuote, setCommentsOfQuote] = useState([]);
+   const handleMoreClick = async (quote_id: string) => {
       setMorePopUpState(true);
+      const { data } = await client.query({
+         query: OPEN_QUOTE_STORY_COMMENTS,
+         variables: { ID: quote_id, showComment: true }
+      });
+
+      console.log(data.quote[0].comments);
+      setCommentsOfQuote(data.quote[0].comments);
    };
 
-   // ==============   FUNCTION 9: see the story data when the user clicks "More" =============== //
+   // ==============   FUNCTION 8: see the story data when the user clicks "More" =============== //
    const handleCloseComment = () => {
       setCommentPopUpState(false);
    };
@@ -49,19 +59,17 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                className={`${quoteStoriesStyles.storyPost}`}
                style={{ backgroundImage: story.background }}>
                <p className={`${quoteStoriesStyles.storyContent}`}>
-                  {story.content} <span className={quoteStoriesStyles.quotationMark}></span>
+                  {story.body} <span className={quoteStoriesStyles.quotationMark}></span>
                </p>
-               <span className={quoteStoriesStyles.storyBy}>{story.by}</span>
+               <span className={quoteStoriesStyles.storyBy}>{story.author}</span>
             </div>
             <div className={quoteStoriesStyles.postReactionWrapper}>
                <PostReactions
-                  handleApprove={hanndleApproveClick}
-                  handleDisapprove={handleDisapproveClick}
+                  handleRateContent={handleRateContent}
                   handleComment={handleComentClick}
-                  handleMore={handleMoreClick}
-                  postApproves={story.approves}
-                  postDisapproves={story.disapproves}
-                  postComments={story.comments}
+                  handleMore={() => handleMoreClick(story.ID)}
+                  approvals={story.approvals}
+                  comments={story.comments[0].total_count}
                />
             </div>
             {commentPopUpState && (
@@ -83,10 +91,8 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                      onClick={() => setMorePopUpState(false)}>
                      X
                   </span>
-                  {story.comments.map((comment: any) => (
-                     <CommentsOfQuote comment={comment} />
-                  ))}
-                  {story.comments.length <= 0 && (
+                  <CommentsOfQuote comments={commentsOfQuote} />
+                  {story.comments[0].total_count <= 0 && (
                      <h3 className={quoteStoriesStyles.noCommentsYet}>
                         Be the first one to comment! 😊
                      </h3>

@@ -95,13 +95,17 @@ const User = ({ user }: userProps) => {
    }>({ commentaries: false, quotes: false, thoughts: false, sermonNotes: false });
 
    const [commentaryState, setCommentaryState] = useState<Tcommentary[]>([]);
+   const [commentaryLastIdState, setCommentaryLastIdState] = useState<string>("99999999999");
+
    const requestCommentaries = async (user_id: string) => {
+      //if (commentaryState.length === 0) {
       const { data } = await client.query({
          query: GET_PROFILE_COMMENTARIES,
-         variables: { ID: user_id, totalCountOnly: false }
+         variables: { ID: user_id, totalCountOnly: false, last_id: commentaryLastIdState }
       });
-
       setCommentaryState(data.users[0].all_posts.commentaries);
+      //}
+
       setColoredTabState({ comment: "#f2f2f2" });
       setContentPopupState({
          commentaries: true,
@@ -114,12 +118,14 @@ const User = ({ user }: userProps) => {
    // ================  FUNCTION 2: request the quotes by user   ================= //
    const [quoteState, setQuoteState] = useState<TsingleStory[]>([]);
    const requestQuotes = async (user_id: string) => {
-      const { data } = await client.query({
-         query: GET_PROFILE_QUOTES,
-         variables: { ID: user_id, totalCountOnly: false }
-      });
+      if (quoteState.length === 0) {
+         const { data } = await client.query({
+            query: GET_PROFILE_QUOTES,
+            variables: { ID: user_id, totalCountOnly: false }
+         });
+         setQuoteState(data.users[0].all_posts.quotes);
+      }
 
-      setQuoteState(data.users[0].all_posts.quotes);
       setColoredTabState({ thought: "#f2f2f2" });
       setContentPopupState({
          commentaries: false,
@@ -132,21 +138,22 @@ const User = ({ user }: userProps) => {
    // ================  FUNCTION 3: request the thoughts by user   ================= //
    const [thoughtsState, setThoughtsState] = useState<Tthought[]>([]);
    const requestThoughts = async (user_id: string) => {
-      const { data } = await client.query({
-         query: GET_PROFILE_THOUGHTS,
-         variables: { ID: user_id, totalCountOnly: false }
-      });
+      if (thoughtsState.length === 0) {
+         const { data } = await client.query({
+            query: GET_PROFILE_THOUGHTS,
+            variables: { ID: user_id, totalCountOnly: false }
+         });
 
-      // add user values to each thought before passing it to the component
-      const modifiedThoughts: any = [];
-      data.users[0].all_posts.thoughts.map((thought: Tthought) =>
-         modifiedThoughts.push({
-            ...thought,
-            creator: { ID: user.ID, avatar: user.avatar, signature: user.signature }
-         })
-      );
-
-      setThoughtsState(modifiedThoughts);
+         // add user values to each thought before passing it to the component
+         const modifiedThoughts: any = [];
+         data.users[0].all_posts.thoughts.map((thought: Tthought) =>
+            modifiedThoughts.push({
+               ...thought,
+               creator: { ID: user.ID, avatar: user.avatar, signature: user.signature }
+            })
+         );
+         setThoughtsState(modifiedThoughts);
+      }
       setColoredTabState({ quote: "#f2f2f2" });
       setContentPopupState({
          commentaries: false,
@@ -159,12 +166,15 @@ const User = ({ user }: userProps) => {
    // ================  FUNCTION 4: request the sermons by user   ================= //
    const [sermonState, setsermonState] = useState<TsermonPost[]>([]);
    const requestSermons = async (user_id: string) => {
-      const { data } = await client.query({
-         query: GET_PROFILE_SERMON_NOTES,
-         variables: { ID: user_id, totalCountOnly: false }
-      });
+      if (sermonState.length === 0) {
+         const { data } = await client.query({
+            query: GET_PROFILE_SERMON_NOTES,
+            variables: { ID: user_id, totalCountOnly: false }
+         });
 
-      setsermonState(data.users[0].all_posts.sermon_notes);
+         setsermonState(data.users[0].all_posts.sermon_notes);
+      }
+
       setColoredTabState({ sermon: "#f2f2f2" });
       setContentPopupState({
          commentaries: false,
@@ -172,7 +182,6 @@ const User = ({ user }: userProps) => {
          thoughts: false,
          sermonNotes: true
       });
-      console.log(data.users[0]);
    };
 
    // ================  FUNCTION 5: open the My stroy popup   ================= //
@@ -404,23 +413,31 @@ const User = ({ user }: userProps) => {
                         Commentaries by {user.signature}
                      </h1>
                      {commentaryState.map((commentary) => (
-                        <Comments
-                           commentary={{
-                              ...commentary,
-                              creator: {
-                                 ID: user.ID,
-                                 avatar: user.avatar,
-                                 signature: user.signature,
-                                 authority_level: user.authority_level,
-                                 approval_rating: user.approval_rating
-                              }
-                           }}
-                           deleteOption={true}
-                           editOption={true}
-                           reportOption={true}
-                        />
+                        <section>
+                           <Comments
+                              key={commentary.ID}
+                              commentary={{
+                                 ...commentary,
+                                 creator: {
+                                    ID: user.ID,
+                                    avatar: user.avatar,
+                                    signature: user.signature,
+                                    authority_level: user.authority_level,
+                                    approval_rating: user.approval_rating
+                                 }
+                              }}
+                              deleteOption={true}
+                              editOption={true}
+                              reportOption={true}
+                           />
+                        </section>
                      ))}
                   </section>
+                  <button
+                     className={"std-button"} /*onClick={() => requestMoreCommentaries(user.ID)}*/
+                  >
+                     <p className='std-button_gradient-text'>Load More</p>
+                  </button>
                </div>
             )}
 
@@ -437,12 +454,24 @@ const User = ({ user }: userProps) => {
                         Quotes by {user.signature}
                      </h1>
                      {quoteState.map((story: TsingleStory) => (
-                        <QuoteProfile
-                           story={story}
-                           deleteOption={true}
-                           editOption={true}
-                           reportOption={true}
-                        />
+                        <section>
+                           <QuoteProfile
+                              key={story.ID}
+                              story={{
+                                 ...story,
+                                 creator: {
+                                    ID: user.ID,
+                                    avatar: user.avatar,
+                                    signature: user.signature,
+                                    approval_rating: user.approval_rating,
+                                    authority_level: user.authority_level
+                                 }
+                              }}
+                              deleteOption={true}
+                              editOption={true}
+                              reportOption={true}
+                           />
+                        </section>
                      ))}
                   </section>
                </div>
@@ -481,12 +510,15 @@ const User = ({ user }: userProps) => {
                         Sermons by {user.signature}
                      </h1>
                      {sermonState.map((sermon: TsermonPost) => (
-                        <SermonNotesPost
-                           sermonPost={sermon}
-                           deleteOption={true}
-                           editOption={true}
-                           reportOption={true}
-                        />
+                        <section>
+                           <SermonNotesPost
+                              key={sermon.ID}
+                              sermonPost={sermon}
+                              deleteOption={true}
+                              editOption={true}
+                              reportOption={true}
+                           />
+                        </section>
                      ))}
                   </section>
                </div>

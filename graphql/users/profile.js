@@ -45,11 +45,11 @@ export const GET_PROFILE_INFO = gql`
 `;
 
 export const GET_PROFILE_COMMENTARIES = gql`
-   query ($ID: ID, $totalCountOnly: Boolean) {
+   query ($ID: ID, $totalCountOnly: Boolean, $last_id: ID) {
       users(ID: $ID) {
          all_posts(USER_ID: $ID) {
             #============== COMMENTARIES ============
-            commentaries(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            commentaries(totalCountOnly: $totalCountOnly, USER_ID: $ID, last_id: $last_id) {
                ID
                USER_ID
                VERSE_ID

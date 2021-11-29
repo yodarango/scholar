@@ -9,22 +9,30 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 import quoteProfileStyles from "../styles/posts/QuotesProfile.module.css";
 import cardStyles from "../styles/components/Cards.module.css";
 
+//helpers and types
+import { Tapprovals } from "../fragments/buttons/post-reactions";
+
 export type TsingleStory = {
-   id: string;
-   content: string;
-   by: string;
+   ID: string;
+   USER_ID: string;
+   body: string;
+   category_tags: string;
+   author: string;
    background: string;
-   tags: string[];
-   approves: string[];
-   disapproves: string[];
+   created_date: string;
+   posted_on: string;
    total_count: number;
-   comments: [
-      id: string,
-      userId: string,
-      userAvatar: string,
-      userSignature: string,
-      content: string
-   ];
+   creator: {
+      ID: string;
+      avatar: string;
+      signature: string;
+      authority_level: string | number;
+      approval_rating: string | number;
+   };
+   comments: {
+      total_count: number;
+   }[];
+   approvals: Tapprovals[];
 };
 
 type quoteProfileProps = {
@@ -76,12 +84,12 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
                title={"Are you sure you want to report this quote?"}
             />
          )}
-         <div className={quoteProfileStyles.mainWrapper}>
-            <h3 className={quoteProfileStyles.title}>{story.by}</h3>
+         <div className={`${quoteProfileStyles.mainWrapper}`}>
+            <h3 className={quoteProfileStyles.title}>{story.creator.signature}</h3>
             <div
                className={quoteProfileStyles.content}
                style={{ backgroundImage: story.background }}>
-               {story.content}
+               {story.body}
             </div>
             <section className={quoteProfileStyles.actionsWrapper}>
                <span
