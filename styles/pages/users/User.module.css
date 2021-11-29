@@ -232,7 +232,7 @@
    margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
 }
 
-.popUpContentWrapper > div {
+.popUpContentWrapper > section {
    max-width: 420px;
    margin: var(--xsmall-spacing-mobile);
 }

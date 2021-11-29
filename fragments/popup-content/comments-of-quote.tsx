@@ -10,18 +10,22 @@ import cardStyles from "../../styles/components/Cards.module.css";
 import { Tcomment } from "../buttons/post-reactions";
 
 export type TcommentType = {
-   id: string;
-   userId: string;
-   userAvatar: string;
-   userSignature: string;
-   content: string;
+   ID: string;
+   QUOTE_ID: string;
+   USER_ID: string;
+   posted_on: string;
+   body: string;
+   creator_signature: string;
+   creator_avatar: string;
+   creator_approval_rate: number;
+   total_count: number;
 };
 
 export type commentsOfQuoteProps = {
-   comment: Tcomment;
+   comments: Tcomment[];
 };
 
-const CommentsOfQuote = ({ comment }: commentsOfQuoteProps) => {
+const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
    // ================= FUNCTION 1: Handle the delete popup  ===================//
    const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
    const handleDeleteConfirmation = () => {
@@ -46,27 +50,29 @@ const CommentsOfQuote = ({ comment }: commentsOfQuoteProps) => {
                cancel={() => setReportPopupState(false)}
             />
          )}
-         <div className={commentsOfStoryStyles.mainWrapper}>
-            <div className={commentsOfStoryStyles.avatarUserSignatureWrapper}>
-               <div className={commentsOfStoryStyles.commentAvatarWrapper}>
-                  <div
-                     style={{ backgroundImage: `url(${comment.creator_avatar})` }}
-                     className={commentsOfStoryStyles.avatar}></div>
+         {comments.map((comment) => (
+            <div className={commentsOfStoryStyles.mainWrapper}>
+               <div className={commentsOfStoryStyles.avatarUserSignatureWrapper}>
+                  <div className={commentsOfStoryStyles.commentAvatarWrapper}>
+                     <div
+                        style={{ backgroundImage: `url(${comment.creator_avatar})` }}
+                        className={commentsOfStoryStyles.avatar}></div>
+                  </div>
+                  <h4>{comment.creator_signature}</h4>
                </div>
-               <h4>{comment.creator_signature}</h4>
+               <p className={commentsOfStoryStyles.content}>{comment.body}</p>
+               <div
+                  className={`${cardStyles.commentsOfContentActionWrapper} ${cardStyles.commentsOfQuotesActionWrapper} `}>
+                  <span
+                     className={(cardStyles.cardIcon, cardStyles.delete)}
+                     onClick={handleDeleteConfirmation}></span>
+                  <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                  <span
+                     className={(cardStyles.cardIcon, cardStyles.report)}
+                     onClick={handleReportConfirmation}></span>
+               </div>
             </div>
-            <p className={commentsOfStoryStyles.content}>{comment.body}</p>
-            <div
-               className={`${cardStyles.commentsOfContentActionWrapper} ${cardStyles.commentsOfQuotesActionWrapper} `}>
-               <span
-                  className={(cardStyles.cardIcon, cardStyles.delete)}
-                  onClick={handleDeleteConfirmation}></span>
-               <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
-               <span
-                  className={(cardStyles.cardIcon, cardStyles.report)}
-                  onClick={handleReportConfirmation}></span>
-            </div>
-         </div>
+         ))}
       </>
    );
 };

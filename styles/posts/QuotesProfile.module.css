@@ -1,11 +1,9 @@
 .mainWrapper {
    width: 100%;
-   max-width: 20rem;
+   min-width: 18rem;
    border-top-right-radius: var(--input-radius-mobile);
    border-top-left-radius: var(--input-radius-mobile);
    flex-grow: 0;
-   flex-shrink: 0.1;
-   margin: var(--small-spacing-mobile) var(--small-spacing-mobile);
 }
 
 .title {
