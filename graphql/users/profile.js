@@ -73,11 +73,11 @@ export const GET_PROFILE_COMMENTARIES = gql`
 `;
 
 export const GET_PROFILE_QUOTES = gql`
-   query ($ID: ID, $totalCountOnly: Boolean) {
+   query ($ID: ID, $totalCountOnly: Boolean, $last_id: ID) {
       users(ID: $ID) {
          all_posts(USER_ID: $ID) {
             #============== QUOTES ============
-            quotes(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            quotes(totalCountOnly: $totalCountOnly, USER_ID: $ID, last_id: $last_id) {
                ID
                USER_ID
                body
@@ -100,11 +100,11 @@ export const GET_PROFILE_QUOTES = gql`
 `;
 
 export const GET_PROFILE_THOUGHTS = gql`
-   query ($ID: ID, $totalCountOnly: Boolean) {
+   query ($ID: ID, $totalCountOnly: Boolean, $last_id: ID) {
       users(ID: $ID) {
          all_posts(USER_ID: $ID) {
             #============== THOUGHTS ============
-            thoughts(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            thoughts(totalCountOnly: $totalCountOnly, USER_ID: $ID, last_id: $last_id) {
                ID
                body
                USER_ID
@@ -124,11 +124,11 @@ export const GET_PROFILE_THOUGHTS = gql`
 `;
 
 export const GET_PROFILE_SERMON_NOTES = gql`
-   query ($ID: ID, $totalCountOnly: Boolean) {
+   query ($ID: ID, $totalCountOnly: Boolean, $last_id: ID) {
       users(ID: $ID) {
          all_posts(USER_ID: $ID) {
             #============== SERMONS ============
-            sermon_notes(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            sermon_notes(totalCountOnly: $totalCountOnly, USER_ID: $ID, last_id: $last_id) {
                ID
                content
                USER_ID

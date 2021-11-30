@@ -15,9 +15,11 @@ import {
 
 // components
 import Header from "../../layouts/header";
-import Comments from "../../posts/comment";
+//import Comments from "../../posts/comment";
+import CommentariesContent from "../../layouts/home-page-content/commentaries-content";
 import Thought from "../../posts/thought";
-import QuoteProfile from "../../posts/quotes-profile";
+//import QuoteProfile from "../../posts/quotes-profile";
+import QuotesContent from "../../layouts/home-page-content/quotes-content";
 import SermonNotesPost from "../../posts/sermon-notes-post";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
@@ -32,6 +34,8 @@ import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
 // import { Tstory } from "../../posts/quotes-stroies";
 import { TsermonPost } from "../../posts/sermon-notes-post";
+import ThoughtsContent from "../../layouts/home-page-content/thoughts-content";
+import SermonNotesContent from "../../layouts/home-page-content/sermon-notes-content";
 //import { Tsermon } from "../../fragments/library-items/sermon";
 //import { sermonProps } from "../../fragments/library-items/sermon";
 
@@ -88,27 +92,20 @@ const User = ({ user }: userProps) => {
 
    // ================  FUNCTION 1: request the commentaries by user   ================= //
    const [contentPopupState, setContentPopupState] = useState<{
-      commentaries?: boolean;
-      quotes?: boolean;
-      thoughts?: boolean;
-      sermonNotes?: boolean;
+      commentaries?: JSX.Element | boolean;
+      quotes?: JSX.Element | boolean;
+      thoughts?: JSX.Element | boolean;
+      sermonNotes?: JSX.Element | boolean;
    }>({ commentaries: false, quotes: false, thoughts: false, sermonNotes: false });
 
-   const [commentaryState, setCommentaryState] = useState<Tcommentary[]>([]);
-   const [commentaryLastIdState, setCommentaryLastIdState] = useState<string>("99999999999");
-
-   const requestCommentaries = async (user_id: string) => {
-      //if (commentaryState.length === 0) {
-      const { data } = await client.query({
-         query: GET_PROFILE_COMMENTARIES,
-         variables: { ID: user_id, totalCountOnly: false, last_id: commentaryLastIdState }
-      });
-      setCommentaryState(data.users[0].all_posts.commentaries);
-      //}
-
-      setColoredTabState({ comment: "#f2f2f2" });
+   const requestCommentaries = (user: Tuser) => {
       setContentPopupState({
-         commentaries: true,
+         commentaries: (
+            <CommentariesContent
+               handleCloseCommentaries={() => setContentPopupState({ commentaries: false })}
+               user={user}
+            />
+         ),
          quotes: false,
          thoughts: false,
          sermonNotes: false
@@ -116,71 +113,50 @@ const User = ({ user }: userProps) => {
    };
 
    // ================  FUNCTION 2: request the quotes by user   ================= //
-   const [quoteState, setQuoteState] = useState<TsingleStory[]>([]);
-   const requestQuotes = async (user_id: string) => {
-      if (quoteState.length === 0) {
-         const { data } = await client.query({
-            query: GET_PROFILE_QUOTES,
-            variables: { ID: user_id, totalCountOnly: false }
-         });
-         setQuoteState(data.users[0].all_posts.quotes);
-      }
-
+   const requestQuotes = (user: Tuser) => {
       setColoredTabState({ thought: "#f2f2f2" });
       setContentPopupState({
          commentaries: false,
-         quotes: true,
+         quotes: (
+            <QuotesContent
+               handleCloseQuotes={() => setContentPopupState({ quotes: false })}
+               user={user}
+            />
+         ),
          thoughts: false,
          sermonNotes: false
       });
    };
 
    // ================  FUNCTION 3: request the thoughts by user   ================= //
-   const [thoughtsState, setThoughtsState] = useState<Tthought[]>([]);
-   const requestThoughts = async (user_id: string) => {
-      if (thoughtsState.length === 0) {
-         const { data } = await client.query({
-            query: GET_PROFILE_THOUGHTS,
-            variables: { ID: user_id, totalCountOnly: false }
-         });
-
-         // add user values to each thought before passing it to the component
-         const modifiedThoughts: any = [];
-         data.users[0].all_posts.thoughts.map((thought: Tthought) =>
-            modifiedThoughts.push({
-               ...thought,
-               creator: { ID: user.ID, avatar: user.avatar, signature: user.signature }
-            })
-         );
-         setThoughtsState(modifiedThoughts);
-      }
+   const requestThoughts = async (user: Tuser) => {
       setColoredTabState({ quote: "#f2f2f2" });
       setContentPopupState({
          commentaries: false,
          quotes: false,
-         thoughts: true,
+         thoughts: (
+            <ThoughtsContent
+               user={user}
+               handleCloseThoughts={() => setContentPopupState({ thoughts: false })}
+            />
+         ),
          sermonNotes: false
       });
    };
 
    // ================  FUNCTION 4: request the sermons by user   ================= //
-   const [sermonState, setsermonState] = useState<TsermonPost[]>([]);
-   const requestSermons = async (user_id: string) => {
-      if (sermonState.length === 0) {
-         const { data } = await client.query({
-            query: GET_PROFILE_SERMON_NOTES,
-            variables: { ID: user_id, totalCountOnly: false }
-         });
-
-         setsermonState(data.users[0].all_posts.sermon_notes);
-      }
-
+   const requestSermons = (user: Tuser) => {
       setColoredTabState({ sermon: "#f2f2f2" });
       setContentPopupState({
          commentaries: false,
          quotes: false,
          thoughts: false,
-         sermonNotes: true
+         sermonNotes: (
+            <SermonNotesContent
+               user={user}
+               handleCloseSermonNotes={() => setContentPopupState({ sermonNotes: false })}
+            />
+         )
       });
    };
 
@@ -326,18 +302,16 @@ const User = ({ user }: userProps) => {
             <section className={userStyles.mobilePostsGrid}>
                <div
                   className={userStyles.mobileCommentaryLink}
-                  onClick={() => requestCommentaries(user.ID)}>
+                  onClick={() => requestCommentaries(user)}>
                   Commentaries
                </div>
-               <div className={userStyles.mobileQuoteLink} onClick={() => requestQuotes(user.ID)}>
+               <div className={userStyles.mobileQuoteLink} onClick={() => requestQuotes(user)}>
                   Quotes
                </div>
-               <div
-                  className={userStyles.mobileThoughtLink}
-                  onClick={() => requestThoughts(user.ID)}>
+               <div className={userStyles.mobileThoughtLink} onClick={() => requestThoughts(user)}>
                   Thoughts
                </div>
-               <div className={userStyles.mobileSermonLink} onClick={() => requestSermons(user.ID)}>
+               <div className={userStyles.mobileSermonLink} onClick={() => requestSermons(user)}>
                   Sermons
                </div>
                <div className={userStyles.mobileAllLink}>All Posts</div>
@@ -400,129 +374,11 @@ const User = ({ user }: userProps) => {
                   )}
                </section> */}
             </section>
-            {/* =================== Commentaries ================ */}
-            {contentPopupState.commentaries === true && (
-               <div className={"dark-bkg"}>
-                  <span
-                     className={"closeModal"}
-                     onClick={() => setContentPopupState({ commentaries: false })}>
-                     X
-                  </span>
-                  <section className={userStyles.popUpContentWrapper}>
-                     <h1 className={userStyles.popUpContentWrapper_title}>
-                        Commentaries by {user.signature}
-                     </h1>
-                     {commentaryState.map((commentary) => (
-                        <section>
-                           <Comments
-                              key={commentary.ID}
-                              commentary={{
-                                 ...commentary,
-                                 creator: {
-                                    ID: user.ID,
-                                    avatar: user.avatar,
-                                    signature: user.signature,
-                                    authority_level: user.authority_level,
-                                    approval_rating: user.approval_rating
-                                 }
-                              }}
-                              deleteOption={true}
-                              editOption={true}
-                              reportOption={true}
-                           />
-                        </section>
-                     ))}
-                  </section>
-                  <button
-                     className={"std-button"} /*onClick={() => requestMoreCommentaries(user.ID)}*/
-                  >
-                     <p className='std-button_gradient-text'>Load More</p>
-                  </button>
-               </div>
-            )}
-
-            {/* =================== Quotes ================ */}
-            {contentPopupState.quotes === true && (
-               <div className={"dark-bkg"}>
-                  <span
-                     className={"closeModal"}
-                     onClick={() => setContentPopupState({ quotes: false })}>
-                     X
-                  </span>
-                  <section className={userStyles.popUpContentWrapper}>
-                     <h1 className={userStyles.popUpContentWrapper_title}>
-                        Quotes by {user.signature}
-                     </h1>
-                     {quoteState.map((story: TsingleStory) => (
-                        <section>
-                           <QuoteProfile
-                              key={story.ID}
-                              story={{
-                                 ...story,
-                                 creator: {
-                                    ID: user.ID,
-                                    avatar: user.avatar,
-                                    signature: user.signature,
-                                    approval_rating: user.approval_rating,
-                                    authority_level: user.authority_level
-                                 }
-                              }}
-                              deleteOption={true}
-                              editOption={true}
-                              reportOption={true}
-                           />
-                        </section>
-                     ))}
-                  </section>
-               </div>
-            )}
-            {/* =================== Thoughts ================ */}
-            {contentPopupState.thoughts === true && (
-               <div className={"dark-bkg"}>
-                  <span
-                     className={"closeModal"}
-                     onClick={() => setContentPopupState({ thoughts: false })}>
-                     X
-                  </span>
-                  <section className={userStyles.popUpContentWrapper}>
-                     <h1 className={userStyles.popUpContentWrapper_title}>
-                        Thoughts by {user.signature}
-                     </h1>
-                     <Thought
-                        thoughts={thoughtsState}
-                        deleteOption={true}
-                        editOption={true}
-                        reportOption={true}
-                     />
-                  </section>
-               </div>
-            )}
-            {/* =================== Sermons ================ */}
-            {contentPopupState.sermonNotes === true && (
-               <div className={"dark-bkg"}>
-                  <span
-                     className={"closeModal"}
-                     onClick={() => setContentPopupState({ sermonNotes: false })}>
-                     X
-                  </span>
-                  <section className={userStyles.popUpContentWrapper}>
-                     <h1 className={userStyles.popUpContentWrapper_title}>
-                        Sermons by {user.signature}
-                     </h1>
-                     {sermonState.map((sermon: TsermonPost) => (
-                        <section>
-                           <SermonNotesPost
-                              key={sermon.ID}
-                              sermonPost={sermon}
-                              deleteOption={true}
-                              editOption={true}
-                              reportOption={true}
-                           />
-                        </section>
-                     ))}
-                  </section>
-               </div>
-            )}
+            {/* =================== Content Types PopUp ================ */}
+            {contentPopupState.commentaries}
+            {contentPopupState.quotes}
+            {contentPopupState.thoughts}
+            {contentPopupState.sermonNotes}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

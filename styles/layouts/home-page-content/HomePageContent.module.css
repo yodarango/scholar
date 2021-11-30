@@ -1,0 +1,33 @@
+.popUpContentWrapper {
+   width: 90%;
+   max-width: 1000px;
+   margin: var(--medium-spacing-mobile) auto;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.popUpContentWrapper_title {
+   width: 100%;
+   text-align: center;
+   font: var(--secondary-font-mobile);
+   color: var(--graient-one);
+   margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
+}
+
+.popUpContentWrapper > section {
+   max-width: 420px;
+   margin: var(--xsmall-spacing-mobile);
+}
+
+@media only screen and (min-width: 1000px) {
+   .popUpContentWrapper {
+      margin: var(--medium-spacing-desktop) auto;
+   }
+
+   .popUpContentWrapper_title {
+      font: var(--secondary-font-desktop);
+      margin: calc(1rem + var(--large-spacing-desktop)) auto var(--small-spacing-desktop);
+   }
+}
