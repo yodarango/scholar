@@ -1,0 +1,29 @@
+.totalsWrapper {
+   width: 100%;
+   max-width: 600px;
+   margin: var(--medium-spacing-mobile) auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: nowrap;
+   background-color: var(--secondary-color);
+   border-radius: var(--input-radius-desktop);
+   padding: 0 var(--small-spacing-desktop);
+}
+
+.totalsWrapper p {
+   font: var(--widget-font-mobile);
+}
+
+@media only screen and (min-width: 1000px) {
+   .totalsWrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: var(--medium-spacing-desktop) auto;
+   }
+
+   .totalsWrapper p {
+      font: var(--widget-font-mobile);
+      font-size: 1.1rem;
+   }
+}

@@ -1,0 +1,17 @@
+.contentWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.contentWrapper > section {
+   max-width: 350px;
+   margin: var(--xsmall-spacing-desktop);
+}
+
+.stdButton {
+   min-width: 350px;
+   margin: var(--medium-spacing-desktop);
+}

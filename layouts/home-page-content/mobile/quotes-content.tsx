@@ -2,18 +2,18 @@
 import React, { useState, useEffect } from "react";
 
 // graphQl
-import client from "../../apollo-client";
-import { GET_PROFILE_QUOTES } from "../../graphql/users/profile";
+import client from "../../../apollo-client";
+import { GET_PROFILE_QUOTES } from "../../../graphql/users/profile";
 
 // comps
-import QuotesProfile from "../../posts/quotes-profile";
+import QuotesProfile from "../../../posts/quotes-profile";
 
 //styles
-import homePageContentStyles from "../../styles/layouts/home-page-content/HomePageContent.module.css";
+import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
 
 // helpers / types
-import { Tuser } from "../../pages/users/[...userId]";
-import { TsingleStory } from "../../posts/quotes-profile";
+import { Tuser } from "../../../pages/users/[...userId]";
+import { TsingleStory } from "../../../posts/quotes-profile";
 
 type quotesContentProps = {
    user: Tuser;

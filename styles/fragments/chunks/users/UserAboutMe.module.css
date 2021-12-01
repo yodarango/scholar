@@ -1,0 +1,38 @@
+.aboutMeWrapper {
+   width: 100%;
+   max-width: 600px;
+   margin: var(--medium-spacing-mobile) auto;
+   background-color: var(--secondary-color);
+   padding: var(--xsmall-spacing-desktop);
+   border-radius: var(--input-radius-desktop);
+}
+
+.favoriteVerseSpan {
+   text-decoration: underline;
+   color: rgb(15, 121, 192);
+}
+
+.aboutMeWrapper ul li {
+   font: var(--widget-font-mobile);
+   font-size: 1rem;
+   margin: 0.5rem auto;
+}
+
+.myStory {
+   color: var(--graient-one);
+   text-decoration: underline;
+   cursor: pointer;
+}
+
+@media only screen and (min-width: 1000px) {
+   .aboutMeWrapper {
+      max-width: 800px;
+      margin: var(--medium-spacing-desktop) auto;
+   }
+
+   .aboutMeWrapper ul li {
+      font: var(--widget-font-desktop);
+      font-size: 1.2rem;
+      margin: 1rem auto;
+   }
+}

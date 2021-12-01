@@ -2,18 +2,18 @@
 import React, { useState, useEffect } from "react";
 
 //graphQl
-import client from "../../apollo-client";
-import { GET_PROFILE_THOUGHTS } from "../../graphql/users/profile";
+import client from "../../../apollo-client";
+import { GET_PROFILE_THOUGHTS } from "../../../graphql/users/profile";
 
 // comps
-import Thought from "../../posts/thought";
+import Thought from "../../../posts/thought";
 
 // styles
-import homePageContentStyles from "../../styles/layouts/home-page-content/HomePageContent.module.css";
+import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
 
 // helpers types
-import { Tuser } from "../../pages/users/[...userId]";
-import { Tthought } from "../../posts/thought";
+import { Tuser } from "../../../pages/users/[...userId]";
+import { Tthought } from "../../../posts/thought";
 
 type thoughtContentProps = {
    user: Tuser;

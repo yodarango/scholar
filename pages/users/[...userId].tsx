@@ -1,26 +1,17 @@
 // core
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 
 // graphql
 import client from "../../apollo-client";
-import {
-   GET_PROFILE_INFO,
-   GET_PROFILE_COMMENTARIES,
-   GET_PROFILE_QUOTES,
-   GET_PROFILE_THOUGHTS,
-   GET_PROFILE_SERMON_NOTES
-} from "../../graphql/users/profile";
+import { GET_PROFILE_INFO } from "../../graphql/users/profile";
 
 // components
 import Header from "../../layouts/header";
-//import Comments from "../../posts/comment";
-import CommentariesContent from "../../layouts/home-page-content/commentaries-content";
-import Thought from "../../posts/thought";
-//import QuoteProfile from "../../posts/quotes-profile";
-import QuotesContent from "../../layouts/home-page-content/quotes-content";
-import SermonNotesPost from "../../posts/sermon-notes-post";
+import AllContentMobile from "../../layouts/home-page-content/mobile/all-content-mobile";
+import AllContentDesktop from "../../layouts/home-page-content/desktop/all-content-desktop";
+//-----------------------
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
 import NavigationMenu from "../../layouts/navigation-menu";
@@ -32,12 +23,11 @@ import userStyles from "../../styles/pages/users/User.module.css";
 import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
-// import { Tstory } from "../../posts/quotes-stroies";
 import { TsermonPost } from "../../posts/sermon-notes-post";
-import ThoughtsContent from "../../layouts/home-page-content/thoughts-content";
-import SermonNotesContent from "../../layouts/home-page-content/sermon-notes-content";
-//import { Tsermon } from "../../fragments/library-items/sermon";
-//import { sermonProps } from "../../fragments/library-items/sermon";
+import CheckMediaQuery from "../../helpers/media-query";
+import UserAboutMe from "../../fragments/chunks/user/user-about-me";
+import UserTotalPostsAndRatings from "../../fragments/chunks/user/user-total-posts-ratings";
+import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 
 export type TallPosts = {
    thought_approval_total_count: number;
@@ -78,96 +68,12 @@ export type userProps = {
 };
 
 const User = ({ user }: userProps) => {
-   const [coloredTabState, setColoredTabState] = useState<{
-      comment?: string;
-      thought?: string;
-      quote?: string;
-      sermon?: string;
-   }>({
-      comment: "#f2f2f2",
-      thought: "",
-      quote: "",
-      sermon: ""
-   });
-
-   // ================  FUNCTION 1: request the commentaries by user   ================= //
-   const [contentPopupState, setContentPopupState] = useState<{
-      commentaries?: JSX.Element | boolean;
-      quotes?: JSX.Element | boolean;
-      thoughts?: JSX.Element | boolean;
-      sermonNotes?: JSX.Element | boolean;
-   }>({ commentaries: false, quotes: false, thoughts: false, sermonNotes: false });
-
-   const requestCommentaries = (user: Tuser) => {
-      setContentPopupState({
-         commentaries: (
-            <CommentariesContent
-               handleCloseCommentaries={() => setContentPopupState({ commentaries: false })}
-               user={user}
-            />
-         ),
-         quotes: false,
-         thoughts: false,
-         sermonNotes: false
-      });
-   };
-
-   // ================  FUNCTION 2: request the quotes by user   ================= //
-   const requestQuotes = (user: Tuser) => {
-      setColoredTabState({ thought: "#f2f2f2" });
-      setContentPopupState({
-         commentaries: false,
-         quotes: (
-            <QuotesContent
-               handleCloseQuotes={() => setContentPopupState({ quotes: false })}
-               user={user}
-            />
-         ),
-         thoughts: false,
-         sermonNotes: false
-      });
-   };
-
-   // ================  FUNCTION 3: request the thoughts by user   ================= //
-   const requestThoughts = async (user: Tuser) => {
-      setColoredTabState({ quote: "#f2f2f2" });
-      setContentPopupState({
-         commentaries: false,
-         quotes: false,
-         thoughts: (
-            <ThoughtsContent
-               user={user}
-               handleCloseThoughts={() => setContentPopupState({ thoughts: false })}
-            />
-         ),
-         sermonNotes: false
-      });
-   };
-
-   // ================  FUNCTION 4: request the sermons by user   ================= //
-   const requestSermons = (user: Tuser) => {
-      setColoredTabState({ sermon: "#f2f2f2" });
-      setContentPopupState({
-         commentaries: false,
-         quotes: false,
-         thoughts: false,
-         sermonNotes: (
-            <SermonNotesContent
-               user={user}
-               handleCloseSermonNotes={() => setContentPopupState({ sermonNotes: false })}
-            />
-         )
-      });
-   };
-
-   // ================  FUNCTION 5: open the My stroy popup   ================= //
-   // const handleMyStoryPopUp = () => {};
-
-   // ================  FUNCTION 5: open the notifications popup   ================= //
+   // ================  FUNCTION 1: open the notifications popup   ================= //
    const [notificationsPopupState, setnotificationsPopupState] = useState(false);
    const openNotificationsPopup = () => {
       setnotificationsPopupState(true);
    };
+
    return (
       <>
          <div className={userStyles.mainWrapper}>
@@ -183,6 +89,7 @@ const User = ({ user }: userProps) => {
                   <a className={userStyles.settingsLinkIcon}></a>
                </Link>
                <div className={userStyles.notificationBell} onClick={openNotificationsPopup}></div>
+
                {user.approval_rating > 100 && (
                   <div className={userStyles.bellWnotificationWrapper}>
                      <div className={userStyles.notificationBellWNotification}></div>
@@ -190,195 +97,13 @@ const User = ({ user }: userProps) => {
                   </div>
                )}
 
-               <section className={userStyles.userBioWrapper}>
-                  <div
-                     className={userStyles.reputationWrapper}
-                     style={{
-                        backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)`
-                     }}>
-                     <div
-                        className={userStyles.avatar}
-                        style={{ backgroundImage: `url(${user.avatar})` }}></div>
-                  </div>
-                  {user.approval_rating >= 97 && (
-                     <h2 className={userStyles.reliabilityA}>Approval Rating: A+</h2>
-                  )}
-                  {user.approval_rating >= 94 && user.approval_rating < 97 && (
-                     <h2 className={userStyles.reliabilityA}>Approval Rating: A</h2>
-                  )}
-                  {user.approval_rating >= 90 && user.approval_rating < 94 && (
-                     <h2 className={userStyles.reliabilityA}>Approval Rating: A-</h2>
-                  )}
-                  {user.approval_rating >= 87 && user.approval_rating < 90 && (
-                     <h2 className={userStyles.reliabilityB}>Approval Rating: B+</h2>
-                  )}
-                  {user.approval_rating >= 84 && user.approval_rating < 87 && (
-                     <h2 className={userStyles.reliabilityB}>Approval Rating: B</h2>
-                  )}
-                  {user.approval_rating >= 80 && user.approval_rating < 84 && (
-                     <h2 className={userStyles.reliabilityB}>Approval Rating: B-</h2>
-                  )}
-                  {user.approval_rating >= 77 && user.approval_rating < 80 && (
-                     <h2 className={userStyles.reliabilityC}>Approval Rating: C+</h2>
-                  )}
-                  {user.approval_rating >= 74 && user.approval_rating < 77 && (
-                     <h2 className={userStyles.reliabilityC}>Approval Rating: C</h2>
-                  )}
-                  {user.approval_rating >= 70 && user.approval_rating < 74 && (
-                     <h2 className={userStyles.reliabilityC}>Approval Rating: C-</h2>
-                  )}
-                  {user.approval_rating < 70 && (
-                     <h2 className={userStyles.reliabilityF}>Reliability: F</h2>
-                  )}
-                  <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>
-                  <p>Thoughts: {user.all_posts.thoughts[0].total_count}</p>
-                  <p>Quotes: {user.all_posts.quotes[0].total_count}</p>
-                  <p>Sermons {user.all_posts.sermon_notes[0].total_count}</p>
-               </section>
-               <section className={userStyles.totalsWrapper}>
-                  <p>
-                     Total Posts:
-                     {user.all_posts.commentaries[0].total_count +
-                        user.all_posts.thoughts[0].total_count +
-                        user.all_posts.quotes[0].total_count +
-                        user.all_posts.sermon_notes[0].total_count}
-                  </p>
-                  <p>
-                     Total Ratings:{" "}
-                     {user.all_posts.thought_approval_total_count +
-                        user.all_posts.quote_approval_total_count +
-                        user.all_posts.commentaries_approval_total_count}
-                  </p>
-               </section>
-               <section className={userStyles.aboutMeWrapper}>
-                  <ul>
-                     {user.first_name && user.gender === "male" && (
-                        <li>
-                           👨 Full name is {user.first_name} {user.last_name}
-                        </li>
-                     )}
-                     {user.first_name && user.gender === "female" && (
-                        <li>
-                           👩 Full name is {user.first_name} {user.last_name}
-                        </li>
-                     )}
-                     {user.my_church && <li>⛪ I attend {user.my_church}</li>}
-                     {user.my_favorite_verse && (
-                        <li>
-                           📖 Favorite verse is{" "}
-                           <span className={userStyles.favoriteVerseSpan}>
-                              {user.my_favorite_verse}
-                           </span>
-                        </li>
-                     )}
-                     {user.my_ministry && <li>🧹 My ministry is {user.my_ministry}</li>}
-                     {user.my_job && <li>👔 I am full time {user.my_job}</li>}
-                     {user.my_true_color_personality_test &&
-                        user.my_true_color_personality_test === "Green" && (
-                           <li>🎨 True Color Personality is 🟩</li>
-                        )}
-                     {user.my_true_color_personality_test &&
-                        user.my_true_color_personality_test === "Blue" && (
-                           <li>🎨 True Color Personality is 🟦</li>
-                        )}
-                     {user.my_true_color_personality_test &&
-                        user.my_true_color_personality_test === "Gold" && (
-                           <li>🎨 True Color Personality is 🟨</li>
-                        )}
-                     {user.my_true_color_personality_test &&
-                        user.my_true_color_personality_test === "Orange" && (
-                           <li>🎨 True Color Personality is 🟧</li>
-                        )}
-                     {user.my_story && (
-                        <li className={userStyles.myStory}>
-                           <Link href={`/my-story/${user.ID}`}>
-                              <a> This is my sotry </a>
-                           </Link>
-                        </li>
-                     )}
-                  </ul>
-               </section>
+               <UserBioWrapper user={user} />
+               <UserTotalPostsAndRatings user={user} />
+               <UserAboutMe user={user} />
             </div>
-            <section className={userStyles.mobilePostsGrid}>
-               <div
-                  className={userStyles.mobileCommentaryLink}
-                  onClick={() => requestCommentaries(user)}>
-                  Commentaries
-               </div>
-               <div className={userStyles.mobileQuoteLink} onClick={() => requestQuotes(user)}>
-                  Quotes
-               </div>
-               <div className={userStyles.mobileThoughtLink} onClick={() => requestThoughts(user)}>
-                  Thoughts
-               </div>
-               <div className={userStyles.mobileSermonLink} onClick={() => requestSermons(user)}>
-                  Sermons
-               </div>
-               <div className={userStyles.mobileAllLink}>All Posts</div>
-            </section>
-            <section className={userStyles.desktopPostsGrid}>
-               {/* <section className={userStyles.myPostsWrapper}>
-                  <nav className={userStyles.myPostsMenu}>
-                     <span
-                        className={userStyles.commentariesPosts}
-                        onClick={requestCommentaries}
-                        style={{ color: coloredTabState.comment }}>
-                        Commentaries
-                     </span>
-                     <span
-                        className={userStyles.thoughtsPosts}
-                        onClick={requestThoughts}
-                        style={{ color: coloredTabState.thought }}>
-                        Thoughts
-                     </span>
-                     <span
-                        className={userStyles.quotesPosts}
-                        onClick={requestQuotes}
-                        style={{ color: coloredTabState.quote }}>
-                        Quotes
-                     </span>
-                     <span
-                        className={userStyles.sermonsPosts}
-                        onClick={requestSermons}
-                        style={{ color: coloredTabState.sermon }}>
-                        Sermons
-                     </span>
-                  </nav>
-                  {commentaryState && (
-                     <Comments
-                        commentary={commentaryState}
-                        deleteOption={true}
-                        editOption={true}
-                        reportOption={true}
-                     />
-                  )}
-                  {thoughtsState && (
-                     <Thought
-                        thoughts={thoughtsState}
-                        deleteOption={true}
-                        editOption={true}
-                        reportOption={true}
-                     />
-                  )}
-                  <section className={userStyles.storiesWrapper}>
-                     {quoteState &&
-                        quoteState.map((quote: TsingleStory) => <QuoteProfile story={quote} />)}
-                  </section>
-                  {sermonState && (
-                     <SermonsCarrousel
-                        sermon={sermonState}
-                        reportOption={true}
-                        editOption={true}
-                        deleteOption={true}
-                     />
-                  )}
-               </section> */}
-            </section>
-            {/* =================== Content Types PopUp ================ */}
-            {contentPopupState.commentaries}
-            {contentPopupState.quotes}
-            {contentPopupState.thoughts}
-            {contentPopupState.sermonNotes}
+            {/* =================== User Content================ */}
+            {CheckMediaQuery() < 1000 && <AllContentMobile user={user} />}
+            {CheckMediaQuery() >= 1000 && <AllContentDesktop user={user} />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

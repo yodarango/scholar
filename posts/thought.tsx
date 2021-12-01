@@ -112,54 +112,58 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
             />
          )}
          {thoughts.map((thought) => (
-            <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
-               <div
-                  className={cardStyles.commentCardHeader}
-                  id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                  <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                     <img
-                        src={thought.creator.avatar}
-                        alt='Avatar'
-                        className={cardStyles.commentCardHeaderAvatarImg}
-                     />
+            <section>
+               <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
+                  <div
+                     className={cardStyles.commentCardHeader}
+                     id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
+                     <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
+                        <img
+                           src={thought.creator.avatar}
+                           alt='Avatar'
+                           className={cardStyles.commentCardHeaderAvatarImg}
+                        />
+                     </div>
+                     <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
+                     {deleteOption && (
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.delete)}
+                           onClick={handleDeleteConfirmation}></span>
+                     )}
+                     {editOption && (
+                        <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                     )}
+                     {reportOption && (
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.report)}
+                           onClick={handleReportConfirmation}></span>
+                     )}
                   </div>
-                  <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
-                  {deleteOption && (
-                     <span
-                        className={(cardStyles.cardIcon, cardStyles.delete)}
-                        onClick={handleDeleteConfirmation}></span>
-                  )}
-                  {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
-                  {reportOption && (
-                     <span
-                        className={(cardStyles.cardIcon, cardStyles.report)}
-                        onClick={handleReportConfirmation}></span>
+                  <i>{`${thought.creator.signature} expressed a new Tought`}</i>
+                  <p>{thought.body}</p>
+                  <PostReactions
+                     handleComment={() => openComment(thought.ID)}
+                     handleRateContent={handleRateContent}
+                     handleMore={() => openPost(thought)}
+                     comments={thought.comments[0].total_count}
+                     approvals={thought.approvals}
+                  />
+                  {commentBoxState === thought.ID && (
+                     <div
+                        id={`comment-${thought.ID}`}
+                        className={`${cardStyles.stdInputCommentWrapper}`}>
+                        <textarea
+                           maxLength={150}
+                           placeholder='Comment...'
+                           className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                        <div className={`${cardStyles.postCancelWrapper}`}>
+                           <span className={`std-button_gradient-text`}>Post</span>{" "}
+                           <span onClick={closeComment}>Cancel</span>
+                        </div>
+                     </div>
                   )}
                </div>
-               <i>{`${thought.creator.signature} expressed a new Tought`}</i>
-               <p>{thought.body}</p>
-               <PostReactions
-                  handleComment={() => openComment(thought.ID)}
-                  handleRateContent={handleRateContent}
-                  handleMore={() => openPost(thought)}
-                  comments={thought.comments[0].total_count}
-                  approvals={thought.approvals}
-               />
-               {commentBoxState === thought.ID && (
-                  <div
-                     id={`comment-${thought.ID}`}
-                     className={`${cardStyles.stdInputCommentWrapper}`}>
-                     <textarea
-                        maxLength={150}
-                        placeholder='Comment...'
-                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                     <div className={`${cardStyles.postCancelWrapper}`}>
-                        <span className={`std-button_gradient-text`}>Post</span>{" "}
-                        <span onClick={closeComment}>Cancel</span>
-                     </div>
-                  </div>
-               )}
-            </div>
+            </section>
          ))}
       </>
    );

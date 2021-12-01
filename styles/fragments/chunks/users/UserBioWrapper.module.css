@@ -1,0 +1,149 @@
+.userBioWrapper {
+   width: 100%;
+   display: grid;
+   grid-template-columns: 40% 60%;
+   grid-template-rows: repeat(1fr, 4, 1rem);
+   border-radius: var(--input-radius-mobile);
+   border: 2px solid var(--secondary-color);
+   padding: var(--small-spacing-mobile) var(--xsmall-spacing-mobile);
+   margin: var(--small-spacing-mobile) auto 0;
+}
+
+.reputationWrapper {
+   width: 6rem;
+   height: 7rem;
+   grid-column: 1/2;
+   grid-row: 1/6;
+   display: flex;
+   align-items: center;
+   margin: 0.5rem 0.3rem 0 auto;
+   justify-content: center;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.avatar {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   width: 5.3rem;
+   height: 6.3rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.reliability {
+   grid-column: 2/3;
+   grid-row: 1/2;
+}
+
+.commentaries {
+   grid-column: 2/3;
+   grid-row: 2/3;
+}
+
+.thoughts {
+   grid-column: 2/3;
+   grid-row: 3/4;
+}
+
+.quotes {
+   grid-column: 2/3;
+   grid-row: 4/5;
+}
+
+.sermons {
+   grid-column: 2/3;
+   grid-row: 5/6;
+}
+
+.userBioWrapper h2 {
+   font: var(--secondary-font-desktop);
+   font-size: 1.2rem;
+   margin: 0;
+   padding: 0 0 0.5rem 0.5rem;
+}
+
+.userBioWrapper p {
+   font: var(--primary-font-desktop);
+   font-size: 1rem;
+   margin: 0;
+   padding: 0 0 0 0.5rem;
+   color: var(--fourth-color);
+}
+
+.reliabilityA {
+   color: var(--aprval-level-a);
+}
+
+.reliabilityB {
+   color: var(--aprval-level-b);
+}
+
+.reliabilityC {
+   color: var(--aprval-level-c);
+}
+
+.reliabilityF {
+   color: var(--aprval-level-f);
+}
+
+@media only screen and (min-width: 1000px) {
+   .userBioWrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      grid-template-rows: repeat(1fr, 4, 1rem);
+      border-radius: var(--input-radius-desktop);
+      border: 2px solid var(--secondary-color);
+      padding: var(--small-spacing-desktop) var(--xsmall-spacing-desktop);
+      margin: var(--small-spacing-desktop) auto 0;
+   }
+
+   .reputationWrapper {
+      width: 7rem;
+      height: 8rem;
+      margin: 1rem 2rem 1rem auto;
+   }
+
+   .avatar {
+      width: 6.3rem;
+      height: 7.3rem;
+   }
+
+   .userBioWrapper h2 {
+      font-size: 1.5rem;
+      margin: 0;
+      padding: 0 1rem 1rem;
+   }
+
+   .userBioWrapper p {
+      font-size: 1.2rem;
+      margin: 0 auto 0.7rem 1rem;
+      padding: 0;
+   }
+}
+
+@media only screen and (min-width: 1200px) {
+   .userBioGrid {
+      grid-column: 1/2;
+      grid-row: 1/2;
+   }
+
+   .postGrid {
+      grid-column: 2/3;
+      grid-row: 1/2;
+   }
+
+   .userBioWrapper {
+      width: 90%;
+      margin-left: 0;
+      margin-right: auto;
+   }
+
+   .totalsWrapper {
+      width: 90%;
+      margin-left: 0;
+      margin-right: auto;
+   }
+}

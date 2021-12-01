@@ -2,18 +2,18 @@
 import React, { useState, useEffect } from "react";
 
 //graphQL
-import client from "../../apollo-client";
-import { GET_PROFILE_COMMENTARIES } from "../../graphql/users/profile";
+import client from "../../../apollo-client";
+import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 
 // components
-import Comments from "../../posts/comment";
+import Comments from "../../../posts/comment";
 
 // styles
-import homePageContentStyles from "../../styles/layouts/home-page-content/HomePageContent.module.css";
+import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
 
 // helpers / types
-import { Tcommentary } from "../../posts/comment";
-import { Tuser } from "../../pages/users/[...userId]";
+import { Tcommentary } from "../../../posts/comment";
+import { Tuser } from "../../../pages/users/[...userId]";
 
 type commentariesContent = {
    user: Tuser;

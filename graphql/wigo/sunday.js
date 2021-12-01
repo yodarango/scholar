@@ -39,6 +39,7 @@ export const GET_SUNDAY_CONTENT = gql`
       # thought
       thought {
          ID
+         title
          body
          USER_ID
          category_tags
@@ -51,12 +52,7 @@ export const GET_SUNDAY_CONTENT = gql`
             avatar
          }
          comments {
-            ID
-            body
-            creator_avatar
-            creator_signature
-            creator_approval_rate
-            posted_on
+            total_count
          }
          approvals {
             average_count
@@ -65,7 +61,7 @@ export const GET_SUNDAY_CONTENT = gql`
       }
 
       # quote
-      quotes_in_last_24(ID: $ID, category_tags: $category_tags) {
+      quote_stories(ID: $ID, category_tags: $category_tags) {
          ID
          creator {
             ID

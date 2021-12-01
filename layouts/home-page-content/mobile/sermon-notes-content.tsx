@@ -2,18 +2,18 @@
 import React, { useState, useEffect } from "react";
 
 //graphQL
-import client from "../../apollo-client";
-import { GET_PROFILE_SERMON_NOTES } from "../../graphql/users/profile";
+import client from "../../../apollo-client";
+import { GET_PROFILE_SERMON_NOTES } from "../../../graphql/users/profile";
 
 // comps
-import SermonNotesPost from "../../posts/sermon-notes-post";
+import SermonNotesPost from "../../../posts/sermon-notes-post";
 
 //styles
-import homePageContentStyles from "../../styles/layouts/home-page-content/HomePageContent.module.css";
+import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
 
 // helpers / state
-import { TsermonPost } from "../../posts/sermon-notes-post";
-import { Tuser } from "../../pages/users/[...userId]";
+import { TsermonPost } from "../../../posts/sermon-notes-post";
+import { Tuser } from "../../../pages/users/[...userId]";
 
 type sermonNotesContentProps = {
    user: Tuser;
@@ -51,7 +51,16 @@ const SermonNotesContent = ({ user, handleCloseSermonNotes }: sermonNotesContent
                <section>
                   <SermonNotesPost
                      key={sermon.ID}
-                     sermonPost={sermon}
+                     sermonPost={{
+                        ...sermon,
+                        creator: {
+                           ID: user.ID,
+                           avatar: user.avatar,
+                           signature: user.signature,
+                           authority_level: user.authority_level,
+                           approval_rating: user.approval_rating
+                        }
+                     }}
                      deleteOption={true}
                      editOption={true}
                      reportOption={true}

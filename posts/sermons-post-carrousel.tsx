@@ -28,7 +28,14 @@ const LibrarySermonPostCarrousel = ({
       <div className={`${librarySermonPostCarrouselStyles.mainWrapper}`}>
          <div className={librarySermonPostCarrouselStyles.scrollSection}>
             {sermonPost.map((sermon: TsermonPost) => (
-               <SermonNotesPost sermonPost={sermon} />
+               <div className={librarySermonPostCarrouselStyles.sermonCompWrapper}>
+                  <SermonNotesPost
+                     sermonPost={sermon}
+                     deleteOption={true}
+                     reportOption={true}
+                     editOption={true}
+                  />
+               </div>
             ))}
          </div>
       </div>

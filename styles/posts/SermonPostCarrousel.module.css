@@ -13,6 +13,13 @@
    justify-content: flex-start;
 }
 
+.sermonCompWrapper {
+   flex-grow: 0;
+   flex-shrink: 0;
+   margin: 0 var(--xsmall-spacing-mobile);
+   min-width: 21rem;
+}
+
 @media only screen and (min-width: 700px) {
    .mainWrapper {
       margin: var(--medium-spacing-ipad) auto;

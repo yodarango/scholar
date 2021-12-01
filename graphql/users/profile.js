@@ -133,6 +133,9 @@ export const GET_PROFILE_SERMON_NOTES = gql`
                content
                USER_ID
                category_tags
+               title
+               posted_on
+               file_url
             }
          }
       }
