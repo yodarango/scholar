@@ -95,7 +95,6 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
       : 0;
    // =================== SET COOKIES   ================ //
    const [voteCountedState, setVoteCountedState] = useState<string>(Cookie.get("votedFriday"));
-
    return (
       <div className={fridayStyles.mainWrapper}>
          <p>{fridayContent.question}</p>
@@ -146,13 +145,12 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
                <span
                   className={`${fridayStyles.voteIconOne} std-button`}
                   onClick={() => {
+                     Cookie.set("votedFriday", `${fridayContent.firstOption}`, {
+                        expires: 2,
+                        path: "/wigo"
+                     });
                      handleVote(1, 0, 0, 0, fridayContent.id),
-                        setVoteCountedState(
-                           Cookie.set("votedFriday", `${fridayContent.firstOption}`, {
-                              expires: 2,
-                              path: "/wigo"
-                           })
-                        );
+                        setVoteCountedState(Cookie.get("votedFriday"));
                   }}>
                   {fridayContent.firstOption}
                </span>
@@ -162,13 +160,12 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
                <span
                   className={`${fridayStyles.voteIconTwo} std-button`}
                   onClick={() => {
+                     Cookie.set("votedFriday", `${fridayContent.secondOption}`, {
+                        expires: 2,
+                        path: "/wigo"
+                     });
                      handleVote(0, 1, 0, 0, fridayContent.id),
-                        setVoteCountedState(
-                           Cookie.set("votedFriday", `${fridayContent.secondOption}`, {
-                              expires: 2,
-                              path: "/wigo"
-                           })
-                        );
+                        setVoteCountedState(Cookie.get("votedFriday"));
                   }}>
                   {fridayContent.secondOption}
                </span>
@@ -178,13 +175,12 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
                <span
                   className={`${fridayStyles.voteIconThree} std-button`}
                   onClick={() => {
+                     Cookie.set("votedFriday", `${fridayContent.thirdOption}`, {
+                        expires: 2,
+                        path: "/wigo"
+                     });
                      handleVote(0, 0, 1, 0, fridayContent.id),
-                        setVoteCountedState(
-                           Cookie.set("votedFriday", `${fridayContent.thirdOption}`, {
-                              expires: 2,
-                              path: "/wigo"
-                           })
-                        );
+                        setVoteCountedState(Cookie.get("votedFriday"));
                   }}>
                   {fridayContent.thirdOption}
                </span>
@@ -194,22 +190,19 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
                <span
                   className={`${fridayStyles.voteIconFour} std-button`}
                   onClick={() => {
+                     Cookie.set("votedFriday", `${fridayContent.fourthOption}`, {
+                        expires: 2,
+                        path: "/wigo"
+                     });
                      handleVote(0, 0, 0, 1, fridayContent.id),
-                        setVoteCountedState(
-                           Cookie.set("votedFriday", `${fridayContent.fourthOption}`, {
-                              expires: 2,
-                              path: "/wigo"
-                           })
-                        );
+                        setVoteCountedState(Cookie.get("votedFriday"));
                   }}>
                   {fridayContent.fourthOption}
                </span>
             )}
 
             {voteCountedState && (
-               <p className={fridayStyles.youHaveVoted}>
-                  You Voted For {fridayContent.fourthOption}
-               </p>
+               <p className={fridayStyles.youHaveVoted}>You Voted For {voteCountedState}</p>
             )}
          </div>
       </div>

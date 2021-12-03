@@ -36,8 +36,8 @@ export const GET_QUOTES = gql`
 
 // used in /wigo to get only the avatars of those who have quote in the past 24 hours
 export const OPEN_QUOTE_STORY = gql`
-   query ($USER_ID: ID) {
-      quote(USER_ID: $USER_ID) {
+   query ($USER_ID: ID, $last_id: ID) {
+      quote(USER_ID: $USER_ID, last_id: $last_id) {
          ID
          USER_ID
          body

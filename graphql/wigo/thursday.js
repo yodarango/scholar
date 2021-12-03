@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_THURSDAY_CONTENT = gql`
-   query ($ID: ID, $category_tags: String) {
+   query ($ID: ID, $category_tags: String, $last_id: ID) {
       thursday {
          id
          poll
@@ -14,7 +14,7 @@ export const GET_THURSDAY_CONTENT = gql`
       }
 
       # commentaries
-      commentary {
+      commentary(last_id: $last_id) {
          ID
          USER_ID
          VERSE_ID
@@ -41,7 +41,7 @@ export const GET_THURSDAY_CONTENT = gql`
       }
 
       # thought
-      thought {
+      thought(last_id: $last_id) {
          ID
          title
          body
@@ -65,7 +65,7 @@ export const GET_THURSDAY_CONTENT = gql`
       }
 
       # quote
-      quote_stories(ID: $ID, category_tags: $category_tags) {
+      quote_stories(ID: $ID, category_tags: $category_tags, last_id: $last_id) {
          ID
          creator {
             ID
@@ -76,7 +76,7 @@ export const GET_THURSDAY_CONTENT = gql`
       }
 
       # sermon notes
-      sermon_notes {
+      sermon_notes(last_id: $last_id) {
          ID
          content
          USER_ID

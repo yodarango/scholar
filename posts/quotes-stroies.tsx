@@ -68,7 +68,6 @@ const QuoteStories = ({
    reportOption
 }: last24SingleQuote) => {
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
-
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<Tstory[]>([]);
 
@@ -76,7 +75,7 @@ const QuoteStories = ({
    const handleOpenStroies = async (user_id: string) => {
       const { data } = await client.query({
          query: OPEN_QUOTE_STORY,
-         variables: { USER_ID: user_id }
+         variables: { USER_ID: user_id, last_id: null }
       });
 
       setQuoteState(data.quote);
@@ -115,7 +114,7 @@ const QuoteStories = ({
    const handleMoreClick = async (quote_id: string) => {
       const { data } = await client.query({
          query: OPEN_QUOTE_STORY_COMMENTS,
-         variables: { ID: quote_id, showComment: true }
+         variables: { ID: quote_id, showComment: true, last_id: "999999999" }
       });
 
       console.log(data.quote[0].comments);
@@ -241,9 +240,7 @@ const QuoteStories = ({
                         onClick={() => setCommentsOfQuote([])}>
                         X
                      </span>
-                     {commentsOfQuote.map((comment: Tcomment) => (
-                        <CommentsOfQuote comment={comment} />
-                     ))}
+                     <CommentsOfQuote comments={commentsOfQuote} />
                      {commentsOfQuote.length === 0 && (
                         <h3 className={quoteStoriesStyles.noCommentsYet}>
                            Be the first one to comment! 😊
