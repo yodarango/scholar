@@ -1,5 +1,6 @@
 .userBioWrapper {
    width: 100%;
+   max-width: 600px;
    display: grid;
    grid-template-columns: 40% 60%;
    grid-template-rows: repeat(1fr, 4, 1rem);
@@ -136,7 +137,6 @@
    }
 
    .userBioWrapper {
-      width: 90%;
       margin-left: 0;
       margin-right: auto;
    }

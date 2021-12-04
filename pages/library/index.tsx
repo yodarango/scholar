@@ -31,7 +31,7 @@ import libraryStyles from "../../styles/pages/library/Library.module.css";
 // helpers: types
 import { podcastsProps } from "../../fragments/library-items/podcast";
 import { blogProps } from "../../fragments/library-items/blog";
-import { sermonProps } from "../../fragments/library-items/sermon";
+import { Tsermon } from "../../fragments/library-items/sermon";
 import { articleProps } from "../../fragments/library-items/article";
 import { bookProps } from "../../fragments/library-items/book";
 import { watchProps } from "../../fragments/library-items/watch";
@@ -40,7 +40,7 @@ import NavigationMenu from "../../layouts/navigation-menu";
 type libraryProps = {
    podcasts: podcastsProps[];
    blogs: blogProps[];
-   sermons: sermonProps[];
+   sermons: Tsermon[];
    articles: articleProps[];
    books: bookProps[];
    watch: watchProps[];
@@ -78,6 +78,7 @@ export const getStaticProps: GetStaticProps = async () => {
    const { data } = await client.query({
       query: GET_MOST_POPULAR
    });
+
    return {
       props: {
          articles: data.getMostPopularArticles,

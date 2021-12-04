@@ -14,10 +14,10 @@ import Sermon from "../../fragments/library-items/sermon";
 import sermonsCarrouselStyles from "../../styles/layouts/library-individual-pages/SermonsCarrousel.module.css";
 
 // types
-import { sermonProps } from "../../fragments/library-items/sermon";
+import { Tsermon } from "../../fragments/library-items/sermon";
 
 type sermonCarrouselProps = {
-   sermon: sermonProps[];
+   sermon: Tsermon[];
    editOption?: boolean;
    deleteOption?: boolean;
    reportOption?: boolean;
@@ -29,25 +29,12 @@ const SermonsCarrousel = ({
    deleteOption,
    reportOption
 }: sermonCarrouselProps) => {
+   console.log("from sermon carrousel" + sermon);
    return (
       <div className={sermonsCarrouselStyles.mainWrapper}>
          <div className={sermonsCarrouselStyles.gridWrapper}>
-            {sermon.map((sermon: sermonProps) => (
-               <Sermon
-                  id={sermon.id}
-                  key={sermon.id}
-                  title={sermon.title}
-                  tagColors={sermon.tagColors}
-                  author={sermon.user === null ? "" : sermon.user.fullName}
-                  categoryTags={sermon.categoryTags}
-                  currentRanking={sermon.currentRanking}
-                  fileUrl={sermon.fileUrl}
-                  newClass={sermonsCarrouselStyles.sermonWRapper}
-                  userAvatar={sermon.user === null ? "" : sermon.user.avatar}
-                  editOption={editOption}
-                  deleteOption={deleteOption}
-                  reportOption={reportOption}
-               />
+            {sermon.map((sermon: Tsermon) => (
+               <Sermon sermon={sermon} />
             ))}
          </div>
       </div>
