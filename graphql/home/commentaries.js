@@ -1,8 +1,22 @@
 import { gql } from "@apollo/client";
 
 export const GET_COMMENTARIES = gql`
-   query ($ID: ID, $USER_ID: ID, $VERSE_ID: String, $category_tags: String) {
-      commentary(ID: $ID, USER_ID: $USER_ID, VERSE_ID: $VERSE_ID, category_tags: $category_tags) {
+   query (
+      $authority_level: String
+      $ID: ID
+      $category_tags: String
+      $USER_ID: ID
+      $last_id: String
+      $VERSE_ID: String
+   ) {
+      v_by_v_commentaries(
+         ID: $ID
+         USER_ID: $USER_ID
+         VERSE_ID: $VERSE_ID
+         category_tags: $category_tags
+         last_id: $last_id
+         authority_level: $authority_level
+      ) {
          ID
          USER_ID
          VERSE_ID

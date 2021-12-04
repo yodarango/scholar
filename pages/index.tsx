@@ -1,5 +1,4 @@
 // core
-import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 
@@ -71,6 +70,7 @@ export default function Home({ verseContent, commentaries }: homeProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
    !query.verse ? (query.verse = "JHN.3.16") : null;
+   !query.last_id ? (query.last_id = "999999999") : null;
    const requ = await fetch(
       `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${query.verse}?content-type=text&include-verse-numbers=false`,
       {
@@ -87,13 +87,20 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
    const { data } = await client.query({
       query: GET_COMMENTARIES,
-      variables: { VERSE_ID: query.verse }
+      variables: {
+         VERSE_ID: query.verse,
+         last_id: query.last_id,
+         ID: null,
+         USER_ID: null,
+         category_tags: null,
+         authority_level: null
+      }
    });
 
    return {
       props: {
          verseContent: content,
-         commentaries: data.commentary
+         commentaries: data.v_by_v_commentaries
       }
    };
 };

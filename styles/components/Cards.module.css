@@ -356,8 +356,9 @@ rename it and reuse it in other instaces if needed.
    transform: scale(1.4);
 }
 
-.noComments {
-   color: var(--fourth-color);
+.noCommentsTitle {
+   color: var(--secondary-color);
+   text-align: center;
 }
 
 @media only screen and (min-width: 800px) {
