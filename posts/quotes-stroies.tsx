@@ -98,7 +98,7 @@ const QuoteStories = ({
       document.body.style.overflow = "scroll";
       setHandleStoriePopupState(false);
       setCountState(0);
-      setCommentsOfQuote([]);
+      setCommentsOfQuote({ content: [], popUp: false });
    };
 
    // ==============   FUNCTION 5: commennt on the story  =============== //
@@ -110,15 +110,16 @@ const QuoteStories = ({
    const handleRateContent = () => {};
 
    // ==============   FUNCTION 8: see the stroy data when the user clicks "More" =============== //
-   const [commentsOfQuote, setCommentsOfQuote] = useState<Tcomment[]>([]);
+   const [commentsOfQuote, setCommentsOfQuote] = useState<{ content: Tcomment[]; popUp: boolean }>({
+      popUp: false,
+      content: []
+   });
    const handleMoreClick = async (quote_id: string) => {
       const { data } = await client.query({
          query: OPEN_QUOTE_STORY_COMMENTS,
-         variables: { ID: quote_id, showComment: true, last_id: "999999999" }
+         variables: { ID: quote_id, showComment: true }
       });
-
-      console.log(data.quote[0].comments);
-      setCommentsOfQuote(data.quote[0].comments);
+      setCommentsOfQuote({ popUp: true, content: data.quote[0].comments });
    };
 
    // ==============   FUNCTION 9: see the story data when the user clicks "More" =============== //
@@ -233,19 +234,26 @@ const QuoteStories = ({
                      </div>
                   </div>
                )}
-               {commentsOfQuote.length > 0 && (
+               {commentsOfQuote.popUp && commentsOfQuote.content.length > 0 && (
                   <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
                      <span
                         className={quoteStoriesStyles.closeCommentsCarrousel}
-                        onClick={() => setCommentsOfQuote([])}>
+                        onClick={() => setCommentsOfQuote({ popUp: false, content: [] })}>
                         X
                      </span>
-                     <CommentsOfQuote comments={commentsOfQuote} />
-                     {commentsOfQuote.length === 0 && (
-                        <h3 className={quoteStoriesStyles.noCommentsYet}>
-                           Be the first one to comment! 😊
-                        </h3>
-                     )}
+                     <CommentsOfQuote comments={commentsOfQuote.content} />
+                  </section>
+               )}
+               {commentsOfQuote.popUp && commentsOfQuote.content.length === 0 && (
+                  <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
+                     <span
+                        className={quoteStoriesStyles.closeCommentsCarrousel}
+                        onClick={() => setCommentsOfQuote({ popUp: false, content: [] })}>
+                        X
+                     </span>
+                     <h3 className={quoteStoriesStyles.noCommentsYet}>
+                        Be the first one to comment! 😊
+                     </h3>
                   </section>
                )}
                <div

@@ -52,6 +52,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
    const openPost = async (thought: Tthought) => {
+      console.log(thought.ID);
       const { data } = await client.query({
          query: SHOW_COMMENTS_OF_THOUGHTS,
          variables: { ID: thought.ID, showComment: true }

@@ -8,29 +8,17 @@ import Sermon from "../../fragments/library-items/sermon";
 import librarySermonCarrouselStyles from "../../styles/layouts/library-home-page/LibrarySermonsCarrousel.module.css";
 
 // types
-import { sermonProps } from "../../fragments/library-items/sermon";
+import { Tsermon } from "../../fragments/library-items/sermon";
 type librarySermonCarrouselProps = {
-   sermon: sermonProps[];
+   sermon: Tsermon[];
 };
 const LibrarySermonCarrousel = ({ sermon }: librarySermonCarrouselProps) => {
    return (
       <div className={`${librarySermonCarrouselStyles.mainWrapper}`}>
          <h1 className={librarySermonCarrouselStyles.title}>SERMON NOTES</h1>
          <div className={librarySermonCarrouselStyles.scrollSection}>
-            {sermon.map((sermon: sermonProps) => {
-               return (
-                  <Sermon
-                     id={sermon.id}
-                     key={sermon.id}
-                     title={sermon.title}
-                     tagColors={sermon.tagColors}
-                     author={sermon.user === null ? "" : sermon.user.fullName}
-                     categoryTags={sermon.categoryTags}
-                     currentRanking={sermon.currentRanking}
-                     fileUrl={sermon.fileUrl}
-                     userAvatar={sermon.user === null ? "" : sermon.user.fullName}
-                  />
-               );
+            {sermon.map((sermon: Tsermon) => {
+               return <Sermon sermon={sermon} />;
             })}
          </div>
       </div>

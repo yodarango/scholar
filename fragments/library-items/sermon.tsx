@@ -26,7 +26,7 @@ export type Tsermon = {
    user?: any;
 };
 
-type sermonProps = {
+export type sermonProps = {
    sermon: Tsermon;
    newClass?: String;
    deleteOption?: boolean;

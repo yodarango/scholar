@@ -38,6 +38,11 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                <h1 className={`std-text-block--small-title ${cardStyles.smallTitleNoMargin}`}>
                   Comments
                </h1>
+               {comments.length === 0 && (
+                  <h1 className={`std-text-block--small-title ${cardStyles.noComments}`}>
+                     Be the first to comment on this post!
+                  </h1>
+               )}
                {comments.map((comm) => (
                   <div
                      className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}

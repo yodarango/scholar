@@ -69,7 +69,10 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
             {!hideLoadMoreBttnState && (
                <button
                   className={"std-button"}
-                  onClick={() => setQuoteLastIdState(quoteState[quoteState.length - 1].ID)}>
+                  onClick={() => {
+                     setQuoteLastIdState(quoteState[quoteState.length - 1].ID),
+                        console.log(quoteState);
+                  }}>
                   <p className='std-button_gradient-text'>Load More</p>
                </button>
             )}
