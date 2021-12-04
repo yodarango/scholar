@@ -110,6 +110,11 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                      </div>
                   </div>
                ))}
+               {comments.length === 0 && (
+                  <h2 className={`std-text-block_small-title ${cardStyles.noCommentsTitle}`}>
+                     Be the first one to comment on this post
+                  </h2>
+               )}
             </div>
          </div>
       </>
