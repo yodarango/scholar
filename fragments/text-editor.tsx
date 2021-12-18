@@ -1,17 +1,22 @@
 // core
 import React, { useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
+
+// graohwl
+import client from "../apollo-client";
+import { CREATE_NEW_COMMENTARY } from "../graphql/posts/commentaries";
 
 // components
 import Dropdown from "./buttons/dropdown";
 import PopupWrapper from "../layouts/popup-wrapper";
 import NotificationPopup from "./notification-popup";
+import TextEditorPreview from "./chunks/text-editor-preview";
 
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
 import { /*valuesType,*/ valuesCat } from "../helpers/dropdown-values";
+import { TverseContent } from "../pages";
 
 // Component Props
 type editorProps = {
@@ -20,9 +25,11 @@ type editorProps = {
    formattingRules?: JSX.Element;
    removeVerse?: any;
    referencedVerses: any;
+   verseBeingCommented?: TverseContent;
 };
 
 const TextEditor = ({
+   verseBeingCommented,
    title,
    commentary,
    formattingRules,
@@ -48,39 +55,6 @@ const TextEditor = ({
       }
    };
 
-   /*==================  FUNCTION: Preview ReactMarkdown  ===========*/
-   type previewProps = {
-      tagsAssigned: JSX.Element;
-      referencedVerses: any;
-   };
-   const Preview = ({ tagsAssigned, referencedVerses }: previewProps) => {
-      return (
-         <>
-            <h1 className='std-text-block--small-title'>Preview</h1>
-            <div
-               className={`std-text-area ${textEditorStyles.textArea} ${textEditorStyles.textAreaPreview}`}
-               ref={hiddenTextArea}>
-               <>
-                  <ReactMarkdown skipHtml={true}>{textAreaValue}</ReactMarkdown>
-                  {tagsAssigned}
-                  <div className={`${textEditorStyles.textEditorTags}`}>
-                     References:
-                     {referencedVerses.map((el: any) => (
-                        <div
-                           className={textEditorStyles.textEditorVerse}
-                           onClick={() => {
-                              openReferencedVerse(el.id);
-                           }}>
-                           {el.name}
-                        </div>
-                     ))}
-                  </div>
-               </>
-            </div>
-         </>
-      );
-   };
-
    const [hiddenTextAreaState, setHiddenTextArea] = useState<IHiddenTextArea>({
       footer: "none",
       textarea: "",
@@ -93,7 +67,7 @@ const TextEditor = ({
          preview: (
             <PopupWrapper
                content={
-                  <Preview
+                  <TextEditorPreview
                      tagsAssigned={
                         <div
                            className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsFirst}`}>
@@ -107,6 +81,7 @@ const TextEditor = ({
                         </div>
                      }
                      referencedVerses={referencedVerses}
+                     content={textArea.current ? textArea.current.value : ""}
                   />
                }
                closeModal={closeModals}
@@ -170,36 +145,29 @@ const TextEditor = ({
       setAddedSecondTagsState({ tag: undefined, color: undefined });
    };
 
-   // ===============  FUNCTION: Open Referenced Verse Tags  =================
-   const [openReferencePopUpState, setOpenReferencePopUp] = useState<JSX.Element | boolean>(false);
-   const openReferencedVerse = async (verseId: string) => {
-      const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${verseId}?content-type=text&include-verse-numbers=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
-            }
+   // ================= Post the commentary ===================== //
+   const handlePostCommentary = async () => {
+      await client.mutate({
+         mutation: CREATE_NEW_COMMENTARY,
+         variables: {
+            USER_ID: 2,
+            VERSE_ID: verseBeingCommented ? verseBeingCommented.id : null,
+            body: textArea.current ? textArea.current.value : null,
+            category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
+            referenced_verses:
+               referencedVerses.length > 0
+                  ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                  : null,
+            verse_citation: verseBeingCommented ? verseBeingCommented.reference : null
          }
-      );
-      const json = await req.json();
-      console.log(json.data);
-      setOpenReferencePopUp(
-         <NotificationPopup
-            title={json.data.reference}
-            contentString={json.data.content}
-            closeModal={() => {
-               setOpenReferencePopUp(false);
-            }}
-         />
-      );
+      });
    };
+
    /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
          {hiddenTextAreaState.preview}
          {categoryInfoState}
-         {openReferencePopUpState}
 
          {/*===  title  ======*/}
          <div className={textEditorStyles.titleWrapper}>
@@ -279,7 +247,9 @@ const TextEditor = ({
          </div>
          {/*===  Post Button  ======*/}
          <div className='std-button'>
-            <div className='std-button_gradient-text'>Post</div>
+            <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+               Post
+            </div>
          </div>
       </div>
    );

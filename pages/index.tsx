@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
          authority_level: null
       }
    });
-
+   console.log(data.v_by_v_commentaries);
    return {
       props: {
          verseContent: content,

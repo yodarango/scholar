@@ -39,7 +39,7 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                   Comments
                </h1>
                {comments.length === 0 && (
-                  <h1 className={`std-text-block--small-title ${cardStyles.noComments}`}>
+                  <h1 className={`std-text-block--small-title ${cardStyles.noCommentsTitle}`}>
                      Be the first to comment on this post!
                   </h1>
                )}

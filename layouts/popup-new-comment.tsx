@@ -27,6 +27,7 @@ const Commentary = ({ verseData }: commentaryProps) => {
       id: string;
       name: string;
    };
+
    const [referencedVerseState, setreferencedVerseIdState] = useState<IreferencedVerseState[]>([]);
    const renderSelectedVerseFunc = (verse: any) => {
       document.body.style.overflow = "scroll";
@@ -43,6 +44,7 @@ const Commentary = ({ verseData }: commentaryProps) => {
       });
       setreferencedVerseIdState(nodeletedValues);
    };
+
    return (
       <>
          <div className={`${popNewCommentStyles.mainWrapper}`}>
@@ -54,6 +56,7 @@ const Commentary = ({ verseData }: commentaryProps) => {
             </div>
             <div>
                <TextEditor
+                  verseBeingCommented={verseData}
                   title='Your Commentary'
                   commentary={`Commentary`}
                   formattingRules={

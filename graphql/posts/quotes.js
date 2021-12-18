@@ -35,6 +35,20 @@ export const GET_QUOTES = gql`
 `;
 
 // used in /wigo to get only the avatars of those who have quote in the past 24 hours
+export const QUOTE_STORIES_IN_LAST_24 = gql`
+   query ($ID: ID, $last_id: ID, $category_tags: String) {
+      quote_stories(ID: $ID, category_tags: $category_tags, last_id: $last_id) {
+         ID
+         creator {
+            ID
+            avatar
+            signature
+            approval_rating
+         }
+      }
+   }
+`;
+
 export const OPEN_QUOTE_STORY = gql`
    query ($USER_ID: ID, $last_id: ID) {
       quote(USER_ID: $USER_ID, last_id: $last_id) {

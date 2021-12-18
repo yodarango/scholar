@@ -9,10 +9,12 @@ import client from "../apollo-client";
 import PostReactions from "../fragments/buttons/post-reactions";
 import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 import ConfirmationPopup from "../fragments/confirmation-popup";
+import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 
-// stoires
+// styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
 import cardStyles from "../styles/components/Cards.module.css";
+import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
 
 // helpers
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
@@ -107,7 +109,10 @@ const QuoteStories = ({
       setCommentPopUpState(true);
    };
    // ==============   FUNCTION 6: handle the reaction to a particular story  =============== //
-   const handleRateContent = () => {};
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleRateContent = () => {
+      setChooseAprovalRating(true);
+   };
 
    // ==============   FUNCTION 8: see the stroy data when the user clicks "More" =============== //
    const [commentsOfQuote, setCommentsOfQuote] = useState<{ content: Tcomment[]; popUp: boolean }>({
@@ -148,7 +153,14 @@ const QuoteStories = ({
                cancel={() => setReportPopupState(false)}
             />
          )}
-
+         {chooseAprovalRating && (
+            <ContentApprovalDropdown
+               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+               additionalClassOne={contentApprovalDDStyles.mianWrapper_quotes}
+               additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
+               additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
+            />
+         )}
          {/* avatars for all the current users with stories within the last 24 hours  */}
          <section
             className={quoteStoriesStyles.mainStoryWrapper}

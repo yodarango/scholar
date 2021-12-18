@@ -1,6 +1,11 @@
 // core
 import React, { useState } from "react";
 
+// graphql
+import client from "../apollo-client";
+import { WIGO_REQUEST_MORE_COMMENTARIES } from "../graphql/posts/commentaries";
+import { WIGO_REQUEST_MORE_THOUGHTS } from "../graphql/posts/thoughts";
+
 //components
 import Comment from "../posts/comment";
 import Thought from "../posts/thought";
@@ -18,6 +23,35 @@ type commentThoughtProps = {
 };
 
 const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
+   // ===========================    FUNCTION 1: set the initial state for each content  ======== //
+   const [responseCommentaryState, setResponseCommentaryState] = useState<number>(
+      commentaries.length
+   );
+   const [responseThoughtState, setresponseThoughtState] = useState<number>(thoughts.length);
+   const [commentariesState, setCommentariesState] = useState<Tcommentary[]>(commentaries);
+
+   const requestMoreComments = async (last_id: string) => {
+      const { data } = await client.query({
+         query: WIGO_REQUEST_MORE_COMMENTARIES,
+         variables: { last_id: last_id }
+      });
+
+      setResponseCommentaryState(data.commentary.length);
+      setCommentariesState((commentariesState) => [...commentariesState, ...data.commentary]);
+   };
+
+   // ===========================    FUNCTION 2: set the initial state for each content  ======== //
+   const [thoughtsState, setThoughtsState] = useState<Tthought[]>(thoughts);
+
+   const requestMoreThoughts = async (last_id: string) => {
+      const { data } = await client.query({
+         query: WIGO_REQUEST_MORE_THOUGHTS,
+         variables: { last_id: last_id }
+      });
+      setresponseThoughtState(data.thought.length);
+      setThoughtsState((thoughtsState) => [...thoughtsState, ...data.thought]);
+   };
+
    // ===========================    FUNCTION 3: filter hte posts either by commentaries or by Thought  ======== //
    const [filterThoughtCommentState, setFilterThoughtCommentState] = useState<{
       comment: boolean;
@@ -64,10 +98,28 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
          </div>
          <div className={`large-spacer`}></div>
          {filterThoughtCommentState.comment &&
-            commentaries.map((commentary: Tcommentary) => (
-               <Comment commentary={commentary} reportOption={true} />
+            commentariesState.map((commentary: Tcommentary) => (
+               <Comment commentary={commentary} reportOption={true} key={commentary.ID} />
             ))}
-         {filterThoughtCommentState.thought && <Thought thoughts={thoughts} reportOption={true} />}
+         {commentariesState && responseCommentaryState === 20 && filterThoughtCommentState.comment && (
+            <button
+               className={`std-button`}
+               onClick={() =>
+                  requestMoreComments(commentariesState[commentariesState.length - 1].ID)
+               }>
+               <p className={`std-button_gradient-text`}>Load More</p>
+            </button>
+         )}
+         {filterThoughtCommentState.thought && (
+            <Thought thoughts={thoughtsState} reportOption={true} />
+         )}
+         {thoughtsState && responseThoughtState === 20 && filterThoughtCommentState.thought && (
+            <button
+               className={`std-button`}
+               onClick={() => requestMoreThoughts(thoughtsState[thoughtsState.length - 1].ID)}>
+               <p className={`std-button_gradient-text`}>Load More</p>
+            </button>
+         )}
       </div>
    );
 };
