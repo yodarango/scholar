@@ -10,12 +10,13 @@ import Dropdown from "./buttons/dropdown";
 import PopupWrapper from "../layouts/popup-wrapper";
 import NotificationPopup from "./notification-popup";
 import TextEditorPreview from "./chunks/text-editor-preview";
+import SmallLoader from "./chunks/small-loader";
 
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
-import { /*valuesType,*/ valuesCat } from "../helpers/dropdown-values";
+import { valuesCat } from "../helpers/dropdown-values";
 import { TverseContent } from "../pages";
 
 // Component Props
@@ -31,7 +32,6 @@ type editorProps = {
 const TextEditor = ({
    verseBeingCommented,
    title,
-   commentary,
    formattingRules,
    removeVerse,
    referencedVerses
@@ -47,7 +47,7 @@ const TextEditor = ({
       preview: JSX.Element | boolean;
    };
 
-   const [textAreaValue, setTextAreaValue] = useState<string>("");
+   //const [textAreaValue, setTextAreaValue] = useState<string>("");
    const growTextArea = () => {
       if (textArea && textArea.current) {
          let currSscrollHeight = textArea.current.scrollHeight;
@@ -100,14 +100,15 @@ const TextEditor = ({
          footer: " ",
          preview: false
       });
-      //setEditorInstructionsState(false);
-      setCategoryInfoState(false);
+      setNotificationPopupState(false);
    };
 
    /*==================  FUNCTION: open category popup info  ===========*/
-   const [categoryInfoState, setCategoryInfoState] = useState<JSX.Element | boolean>(false);
+   const [notificationPopupState, setNotificationPopupState] = useState<JSX.Element | boolean>(
+      false
+   );
    const openCategoryInfo = (subjects: [], key: string) => {
-      setCategoryInfoState(
+      setNotificationPopupState(
          <NotificationPopup
             title={"Categories"}
             contentArray={subjects}
@@ -145,30 +146,66 @@ const TextEditor = ({
       setAddedSecondTagsState({ tag: undefined, color: undefined });
    };
 
-   // ================= Post the commentary ===================== //
+   // ================= FUNCTION: Post the commentary ===================== //
+   const [loadingState, setLoadingState] = useState<boolean | JSX.Element>(false);
    const handlePostCommentary = async () => {
-      await client.mutate({
-         mutation: CREATE_NEW_COMMENTARY,
-         variables: {
-            USER_ID: 2,
-            VERSE_ID: verseBeingCommented ? verseBeingCommented.id : null,
-            body: textArea.current ? textArea.current.value : null,
-            category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
-            referenced_verses:
-               referencedVerses.length > 0
-                  ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                  : null,
-            verse_citation: verseBeingCommented ? verseBeingCommented.reference : null
-         }
-      });
+      if (
+         textArea.current &&
+         textArea.current.value.length !== 0 &&
+         addedFirstTagsState.tag !== undefined &&
+         verseBeingCommented?.id
+      ) {
+         setLoadingState(<SmallLoader />);
+         await client.mutate({
+            mutation: CREATE_NEW_COMMENTARY,
+            variables: {
+               USER_ID: 2,
+               VERSE_ID: verseBeingCommented.id,
+               body: textArea.current?.value,
+               category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
+               referenced_verses:
+                  referencedVerses.length > 0
+                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                     : null,
+               verse_citation: verseBeingCommented ? verseBeingCommented.reference : null
+            }
+         });
+         window.location.reload();
+      } else if (textArea.current && textArea.current.value.length === 0) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Empty Field Detected"}
+               contentString={"Commentary text is required"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (!addedFirstTagsState.tag) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Tag Detected"}
+               contentString={"At least one category tag is required"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (verseBeingCommented?.id === undefined || verseBeingCommented?.id === "") {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Verse Selected"}
+               contentString={"Please select a verse to comment on"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      }
    };
 
    /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
          {hiddenTextAreaState.preview}
-         {categoryInfoState}
-
+         {notificationPopupState}
          {/*===  title  ======*/}
          <div className={textEditorStyles.titleWrapper}>
             <h2 className={`std-text-block--small-title ${textEditorStyles.title}`}>{title}</h2>
@@ -188,6 +225,7 @@ const TextEditor = ({
             <div className={textEditorStyles.textAreasWrapper}>
                {formattingRules}
                <textarea
+                  maxLength={999}
                   className={`std-text-area ${textEditorStyles.textArea}`}
                   ref={textArea}
                   onChange={() => {
@@ -246,11 +284,14 @@ const TextEditor = ({
             </div>
          </div>
          {/*===  Post Button  ======*/}
-         <div className='std-button'>
-            <div className='std-button_gradient-text' onClick={handlePostCommentary}>
-               Post
+         {!loadingState && (
+            <div className='std-button'>
+               <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+                  Post
+               </div>
             </div>
-         </div>
+         )}
+         {loadingState}
       </div>
    );
 };
