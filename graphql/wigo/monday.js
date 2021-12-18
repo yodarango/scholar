@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_MONDAY_CONTENT = gql`
-   query ($ID: ID, $category_tags: String, $ladt_id: String) {
+   query ($ID: ID, $category_tags: String, $last_id: ID) {
       monday {
          id
          imageArray

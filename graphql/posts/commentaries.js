@@ -30,6 +30,37 @@ export const GET_COMMENTARIES = gql`
    }
 `;
 
+export const WIGO_REQUEST_MORE_COMMENTARIES = gql`
+   query ($last_id: ID) {
+      # commentaries
+      commentary(last_id: $last_id) {
+         ID
+         USER_ID
+         VERSE_ID
+         body
+         category_tags
+         referenced_verses
+         verse_citation
+         created_date
+         posted_on
+         creator {
+            ID
+            signature
+            approval_rating
+            authority_level
+            avatar
+         }
+         comments {
+            total_count
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+   }
+`;
+
 export const SHOW_COMMENTS_OF_COMMENTARY = gql`
    query ($ID: ID, $showComment: Boolean) {
       commentary(ID: $ID) {
@@ -45,6 +76,33 @@ export const SHOW_COMMENTS_OF_COMMENTARY = gql`
             average_count
             total_count
          }
+      }
+   }
+`;
+
+//================== POST ================== //
+export const CREATE_NEW_COMMENTARY = gql`
+   mutation (
+      $USER_ID: ID
+      $VERSE_ID: String
+      $body: String
+      $category_tags: String
+      $referenced_verses: String
+      $verse_citation: String
+   ) {
+      commentary(
+         data: {
+            USER_ID: $USER_ID
+            VERSE_ID: $VERSE_ID
+            body: $body
+            category_tags: $category_tags
+            referenced_verses: $referenced_verses
+            verse_citation: $verse_citation
+         }
+      ) {
+         ID
+         VERSE_ID
+         USER_ID
       }
    }
 `;

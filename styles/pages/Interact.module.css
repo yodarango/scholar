@@ -25,14 +25,19 @@
 
 .gridWrapperMiddle {
    grid-area: B;
-   height: 23rem;
+   height: 18rem;
    overflow-y: scroll;
-   margin: var(--medium-spacing-mobile) 0;
+   margin: var(--medium-spacing-mobile) 0 0 0;
 }
 
 .gridWrapperLeft {
    grid-area: C;
 }
+
+.gridWrapperLeft > h2 {
+   margin: 0;
+}
+
 .commentsWrapper {
    overflow-y: scroll;
    height: 85%;

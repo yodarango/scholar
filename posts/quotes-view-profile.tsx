@@ -8,9 +8,11 @@ import { OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/quotes";
 // components
 import PostReactions from "../fragments/buttons/post-reactions";
 import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
+import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 
-// stoires
+// styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
+import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
 
 // helpers
 import { TsingleStory } from "./quotes-profile";
@@ -26,8 +28,12 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const handleComentClick = () => {
       setCommentPopUpState(true);
    };
-   // ==============   FUNCTION 6: approve the story   =============== //
-   const handleRateContent = () => {};
+
+   // =================    FUNCTION 6: handle the approve click  ================== //
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleRateContent = () => {
+      setChooseAprovalRating(true);
+   };
 
    // ==============   FUNCTION 7: see the stroy data when the user clicks "More" =============== //
    const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
@@ -39,7 +45,6 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
          variables: { ID: quote_id, showComment: true }
       });
 
-      console.log(data.quote[0].comments);
       setCommentsOfQuote(data.quote[0].comments);
    };
 
@@ -49,6 +54,14 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    };
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
+         {chooseAprovalRating && (
+            <ContentApprovalDropdown
+               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+               additionalClassOne={contentApprovalDDStyles.mianWrapper_quotes}
+               additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
+               additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
+            />
+         )}
          <section className={quoteStoriesStyles.storyPostWrapper}>
             <div
                className={`closeModal ${quoteStoriesStyles.closeModal}`}

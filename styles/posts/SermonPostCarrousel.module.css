@@ -20,6 +20,12 @@
    min-width: 21rem;
 }
 
+.stdButton {
+   min-width: 5rem;
+   height: 5rem;
+   border-radius: 50%;
+}
+
 @media only screen and (min-width: 700px) {
    .mainWrapper {
       margin: var(--medium-spacing-ipad) auto;

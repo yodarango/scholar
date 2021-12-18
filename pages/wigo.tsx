@@ -94,7 +94,7 @@ const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-   const categoryTag = query.category_tag ? query.category_tag : "999999999";
+   const lastId = query.last_id ? query.last_id : "999999999";
    const verseReq = await fetch(
       `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
       {
@@ -131,7 +131,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       variables: {
          ID: null,
          category_tags: null,
-         last_id: categoryTag
+         last_id: lastId
       }
    });
 

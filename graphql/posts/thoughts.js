@@ -31,6 +31,34 @@ export const GET_THOUGHTS = gql`
    }
 `;
 
+export const WIGO_REQUEST_MORE_THOUGHTS = gql`
+   query ($last_id: ID) {
+      # thought
+      thought(last_id: $last_id) {
+         ID
+         title
+         body
+         USER_ID
+         category_tags
+         posted_on
+         creator {
+            ID
+            signature
+            approval_rating
+            authority_level
+            avatar
+         }
+         comments {
+            total_count
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+   }
+`;
+
 export const SHOW_COMMENTS_OF_THOUGHTS = gql`
    query ($ID: ID, $showComment: Boolean) {
       thought(ID: $ID) {

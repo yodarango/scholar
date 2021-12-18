@@ -9,6 +9,7 @@ import { SHOW_COMMENTS_OF_THOUGHTS } from "../graphql/posts/thoughts";
 import ThoughtContent from "../fragments/popup-content/thought-content";
 import CommentsOfThoughtsContent from "../fragments/popup-content/comments-of-thoughts";
 import PostReactions from "../fragments/buttons/post-reactions";
+import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -52,7 +53,6 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
    const openPost = async (thought: Tthought) => {
-      console.log(thought.ID);
       const { data } = await client.query({
          query: SHOW_COMMENTS_OF_THOUGHTS,
          variables: { ID: thought.ID, showComment: true }
@@ -82,8 +82,11 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       setCommentBoxState("");
    };
 
-   // ================= FUNCTION 4: Hide the Drop down the comment imput  ===================//
-   const handleRateContent = () => {};
+   // =================    FUNCTION 4: handle the approve click  ================== //
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleApproveContent = () => {
+      setChooseAprovalRating(true);
+   };
 
    // ================= FUNCTION 5: Handle the delete popup  ===================//
    const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
@@ -112,8 +115,13 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                title={"Are you sure you want to report this Thought?"}
             />
          )}
+         {chooseAprovalRating && (
+            <ContentApprovalDropdown
+               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+            />
+         )}
          {thoughts.map((thought) => (
-            <section>
+            <section key={thought.ID}>
                <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
                   <div
                      className={cardStyles.commentCardHeader}
@@ -144,7 +152,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                   <p>{thought.body}</p>
                   <PostReactions
                      handleComment={() => openComment(thought.ID)}
-                     handleRateContent={handleRateContent}
+                     handleRateContent={handleApproveContent}
                      handleMore={() => openPost(thought)}
                      comments={thought.comments[0].total_count}
                      approvals={thought.approvals}

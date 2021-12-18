@@ -6,3 +6,18 @@
    width: 100%;
    overflow-x: scroll;
 }
+
+.loadMoreButton {
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 4rem;
+   width: 3.5rem;
+   flex-shrink: 0;
+   margin: 0.5rem auto 0 0.3rem;
+}
+.noContrastTitle {
+   color: var(--secondary-color);
+   margin: 0 auto;
+}
