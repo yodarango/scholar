@@ -1,15 +1,17 @@
 
 The following things have been aware of and need to be improved: 
-    Daily-verse.tsx 
-        tghe 
+✅ = done
+❌ = not longer needed.changed my mind
 
 ///// 07/05/2021
-**let off at comments-of-comments.tsx
-****style the comments cards to be comments on a comment no the main commnet cards
+✅ let off at comments-of-comments.tsx
+❌ style the comments cards to be comments on a comment no the main commnet cards
+    - No comments to comments allowed for now
 
 ////// 07/12/2021
-the timers that schedule the daily questions and the daily verse will have to be done from the back end
-- start the timer in node and save it to the databse
+✅ the timers that schedule the daily questions and the daily verse will have to be done from the back end
+❌ start the timer in node and save it to the databse
+    - Saving manually to the DB for now
 
 ///// 07/19/2021 
 Reading-collage-units.tsx and all places where an inital bible version is required
@@ -19,11 +21,11 @@ reload current chapter upon version change on fragments/squares/reading challeng
 
 
 //////// 08/04/21
-instead of having a totally new "create new post" page just render it as a popup fpr 
+✅instead of having a totally new "create new post" page just render it as a popup fpr 
 all types of new posts. 
 
 //////// 08/04/21
-after finishing the Library page finsih up the home page
+✅after finishing the Library page finsih up the home page
 
 
 ///////// 08/05/21
@@ -35,4 +37,15 @@ Add user authorization to all forms being submitted to avoid vendors  -__-
 
 
 ///////// 08/11/2021
-convert fetch requests to getStaticProps
+✅convert fetch requests to getStaticProps
+
+//////// 12/19/2021
+Left off on implementing the QUOTE editor which is positin to the db but the tags and bkg are not working
+
+////// 12/19/2021
+chagned the background property on the db so the quotes everytwehre need to be changed. the bkg went 
+from using colors to IDs
+
+////// 12/19/2021
+Left off on posting thought content but it is returning NULL and not the values after being submitted
+see why. Also commentaries and wuotes doing it

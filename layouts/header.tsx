@@ -6,7 +6,7 @@ import GeneralDropdown from "../fragments/buttons/general-dropdown";
 import QuoteEditor from "../fragments/post-editor/quote-editor";
 import CommentEditor from "../fragments/post-editor/comment-editor";
 import PopupWrapper from "./popup-wrapper";
-import ThoughtTextEditor from "../layouts/popup-new-thought";
+import ThoughtTextEditor from "../fragments/post-editor/popup-new-thought";
 import SermonNotesPost from "../fragments/post-editor/sermon-notes-post";
 
 // styles

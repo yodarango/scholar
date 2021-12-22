@@ -333,6 +333,14 @@ a:active {
    outline: none;
 }
 
+.std-error-msg {
+   width: 90%;
+   border-radius: var(--input-radius-mobile);
+   margin: var(--medium-spacing-mobile) auto;
+   padding: var(--xsmall-spacing-mobile);
+   background-color: var(--warning-color);
+}
+
 .small-spacer {
    width: 100%;
    height: var(--small-spacing-mobile);
@@ -767,6 +775,12 @@ a:active {
    .std-text-area {
       max-height: 25rem;
       min-height: 10rem;
+   }
+
+   .std-error-msg {
+      border-radius: var(--input-radius-desktop);
+      margin: var(--medium-spacing-desktop) auto;
+      padding: var(--xsmall-spacing-desktop);
    }
 
    /* Notification Wrapper */

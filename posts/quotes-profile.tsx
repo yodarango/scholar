@@ -86,9 +86,7 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
          )}
          <div className={`${quoteProfileStyles.mainWrapper}`}>
             <h3 className={quoteProfileStyles.title}>{story.creator.signature}</h3>
-            <div
-               className={quoteProfileStyles.content}
-               style={{ backgroundImage: story.background }}>
+            <div className={quoteProfileStyles.content} id={story.background}>
                {story.body}
             </div>
             <section className={quoteProfileStyles.actionsWrapper}>

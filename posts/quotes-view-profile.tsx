@@ -13,6 +13,7 @@ import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdo
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
 import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
+import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
 
 // helpers
 import { TsingleStory } from "./quotes-profile";
@@ -68,9 +69,7 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                onClick={handleCloseStories}>
                X
             </div>
-            <div
-               className={`${quoteStoriesStyles.storyPost}`}
-               style={{ backgroundImage: story.background }}>
+            <div className={`${quoteStoriesStyles.storyPost}`} id={story.background}>
                <p className={`${quoteStoriesStyles.storyContent}`}>
                   {story.body} <span className={quoteStoriesStyles.quotationMark}></span>
                </p>

@@ -89,6 +89,7 @@ export const CREATE_NEW_COMMENTARY = gql`
       $category_tags: String
       $referenced_verses: String
       $verse_citation: String
+      $approval_level: AuthorityLevel
    ) {
       commentary(
          data: {
@@ -98,6 +99,7 @@ export const CREATE_NEW_COMMENTARY = gql`
             category_tags: $category_tags
             referenced_verses: $referenced_verses
             verse_citation: $verse_citation
+            approval_level: $approval_level
          }
       ) {
          ID

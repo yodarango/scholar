@@ -1,9 +1,11 @@
 // core
 import React, { useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 // graohwl
 import client from "../apollo-client";
 import { CREATE_NEW_COMMENTARY } from "../graphql/posts/commentaries";
+import { CREATE_NEW_THOUGHT } from "../graphql/posts/thoughts";
 
 // components
 import Dropdown from "./buttons/dropdown";
@@ -27,6 +29,7 @@ type editorProps = {
    removeVerse?: any;
    referencedVerses: any;
    verseBeingCommented?: TverseContent;
+   contentTypeToPost: string;
 };
 
 const TextEditor = ({
@@ -34,7 +37,8 @@ const TextEditor = ({
    title,
    formattingRules,
    removeVerse,
-   referencedVerses
+   referencedVerses,
+   contentTypeToPost
 }: editorProps) => {
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
@@ -147,7 +151,9 @@ const TextEditor = ({
    };
 
    // ================= FUNCTION: Post the commentary ===================== //
+   // this function will only be called if hte "contentToPost" is COMMENTARY
    const [loadingState, setLoadingState] = useState<boolean | JSX.Element>(false);
+   const router = useRouter();
    const handlePostCommentary = async () => {
       if (
          textArea.current &&
@@ -156,7 +162,7 @@ const TextEditor = ({
          verseBeingCommented?.id
       ) {
          setLoadingState(<SmallLoader />);
-         await client.mutate({
+         const { data } = await client.mutate({
             mutation: CREATE_NEW_COMMENTARY,
             variables: {
                USER_ID: 2,
@@ -167,10 +173,13 @@ const TextEditor = ({
                   referencedVerses.length > 0
                      ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
                      : null,
-               verse_citation: verseBeingCommented ? verseBeingCommented.reference : null
+               verse_citation: verseBeingCommented?.reference,
+               approval_level: "general"
             }
          });
-         window.location.reload();
+         data.commentary
+            ? router.reload()
+            : setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
@@ -194,6 +203,53 @@ const TextEditor = ({
             <NotificationPopup
                title={"No Verse Selected"}
                contentString={"Please select a verse to comment on"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      }
+   };
+
+   // ================= FUNCTION: Post the commentary ===================== //
+   // this function will only be called if hte "contentToPost" is THOUGHT
+   const handlePostThought = async () => {
+      if (
+         textArea.current &&
+         textArea.current.value.length !== 0 &&
+         addedFirstTagsState.tag !== undefined
+      ) {
+         setLoadingState(<SmallLoader />);
+         const { data } = await client.mutate({
+            mutation: CREATE_NEW_THOUGHT,
+            variables: {
+               USER_ID: 2,
+               body: textArea.current?.value,
+               title: "...",
+               category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
+               referenced_verses:
+                  referencedVerses.length > 0
+                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                     : null,
+               approval_level: "general"
+            }
+         });
+         data.thought
+            ? router.reload()
+            : setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+      } else if (textArea.current && textArea.current.value.length === 0) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Empty Field Detected"}
+               contentString={"Commentary text is required"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (!addedFirstTagsState.tag) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Tag Detected"}
+               contentString={"At least one category tag is required"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
             />
@@ -283,10 +339,18 @@ const TextEditor = ({
                </div>
             </div>
          </div>
-         {/*===  Post Button  ======*/}
-         {!loadingState && (
+         {/*===  Post Button if Content type is commentar\y ======*/}
+         {!loadingState && contentTypeToPost == "COMMENTARY" && (
             <div className='std-button'>
                <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+                  Post
+               </div>
+            </div>
+         )}
+         {/*===  Post Button if Content type is thought\y ======*/}
+         {!loadingState && contentTypeToPost == "THOUGHT" && (
+            <div className='std-button'>
+               <div className='std-button_gradient-text' onClick={handlePostThought}>
                   Post
                </div>
             </div>
