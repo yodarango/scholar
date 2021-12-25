@@ -40,12 +40,15 @@ Add user authorization to all forms being submitted to avoid vendors  -__-
 ✅convert fetch requests to getStaticProps
 
 //////// 12/19/2021
-Left off on implementing the QUOTE editor which is positin to the db but the tags and bkg are not working
+✅Left off on implementing the QUOTE editor which is positin to the db but the tags and bkg are not working
 
 ////// 12/19/2021
-chagned the background property on the db so the quotes everytwehre need to be changed. the bkg went 
+✅chagned the background property on the db so the quotes everytwehre need to be changed. the bkg went 
 from using colors to IDs
 
 ////// 12/19/2021
-Left off on posting thought content but it is returning NULL and not the values after being submitted
+✅Left off on posting thought content but it is returning NULL and not the values after being submitted
 see why. Also commentaries and wuotes doing it
+
+////// 12/24/2021
+Submitting the sermon notes is kinda mess but it is where i left off
