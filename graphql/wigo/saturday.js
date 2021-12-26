@@ -79,6 +79,8 @@ export const GET_SATURDAY_CONTENT = gql`
          content
          USER_ID
          category_tags
+         file_url
+         title
          creator {
             ID
             signature

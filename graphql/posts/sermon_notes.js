@@ -33,3 +33,31 @@ export const WIGO_REQUEST_MORE_SERMON_NOTES = gql`
       }
    }
 `;
+
+export const CREATE_NEW_SERMON_NOTE = gql`
+   mutation (
+      $USER_ID: ID
+      $description: String
+      $body: String
+      $category_tags: String
+      $title: String
+      $file_url: String
+      $approval_level: AuthorityLevel
+   ) {
+      sermon_note(
+         data: {
+            USER_ID: $USER_ID
+            description: $description
+            body: $body
+            category_tags: $category_tags
+            title: $title
+            file_url: $file_url
+            approval_level: $approval_level
+         }
+      ) {
+         ID
+         USER_ID
+         body
+      }
+   }
+`;

@@ -37,7 +37,11 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
          <h3 className={sermonNotesPostStyles.title}>{sermonPost.title}</h3>
          <h4 className={sermonNotesPostStyles.signature}>{sermonPost.creator.signature}</h4>
          <p className={sermonNotesPostStyles.postedOn}>{sermonPost.posted_on}</p>
-         <a href={`${sermonPost.file_url}`} className={sermonNotesPostStyles.sermonLink}>
+         <a
+            href={`${sermonPost.file_url}`}
+            className={sermonNotesPostStyles.sermonLink}
+            target='_blank'
+            rel='noopener noreferrer'>
             See sermon notes
          </a>
       </div>

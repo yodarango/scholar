@@ -35,6 +35,12 @@
    max-width: 19rem;
 }
 
+.stdButton p {
+   color: var(--font-color);
+   font: var(--primary-font-mobile);
+   margin: 0;
+}
+
 .stdInputFile {
    display: none;
 }

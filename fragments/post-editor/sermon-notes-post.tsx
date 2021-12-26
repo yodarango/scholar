@@ -2,16 +2,20 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 
+// graphQL
+import client from "../../apollo-client";
+import { CREATE_NEW_SERMON_NOTE } from "../../graphql/posts/sermon_notes";
+
 // component
 import GeneralDropdown from "../buttons/general-dropdown";
+import NotificationPopup from "../notification-popup";
+import SmallLoader from "../chunks/small-loader";
 
 // styles
 import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost.module.css";
 
 // helpers
 import { valuesCat } from "../../helpers/dropdown-values";
-import NotificationPopup from "../notification-popup";
-import SmallLoader from "../chunks/small-loader";
 
 const SermonNotesPost = () => {
    // ===============  opend the categories dropdoen  ==================  //
@@ -40,7 +44,8 @@ const SermonNotesPost = () => {
       setCurrSelectionState({
          text: option.funcParams.tag,
          bkg: option.funcParams.color,
-         categories: option.funcParams.subjects
+         categories: option.funcParams.subjects,
+         textColor: "white"
       });
       setdropDownCatState(false);
    };
@@ -94,27 +99,70 @@ const SermonNotesPost = () => {
       }
    };
 
-   // hanlde the upload
+   const handlePostSermonNotes = async (file_url: string) => {
+      const data = client.mutate({
+         mutation: CREATE_NEW_SERMON_NOTE,
+         variables: {
+            USER_ID: 3,
+            body: null,
+            description: null,
+            file_url,
+            category_tags: currSelectionState.text,
+            approval_level: "general",
+            title: sermonTitleRef.current?.value
+         }
+      });
+      console.log(data);
+   };
+
+   // the first fetch function uploads the file, the second creates a share link, and only if both succeed a call to the DB is made
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
    const router = useRouter();
    const handlePost = async () => {
+      const filePath = `/sermon_notes/${currSelectionState.text}/${new Date().getTime()}-${
+         loadedFileState.file_path
+      }`;
       if (validateInput() === true && loadedFileState.file) {
          setSmallLoaderState(true);
          const post = await fetch("https://content.dropboxapi.com/2/files/upload", {
             method: "POST",
             headers: {
                Authorization: `Bearer ${process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN}`,
-               "Dropbox-API-Arg": `{ "path": "/sermon_notes/${
-                  currSelectionState.text
-               }/${new Date().getTime()}-${
-                  loadedFileState.file_path
-               }", "mode": { ".tag": "add" } }`,
+               "Dropbox-API-Arg": `{ "path": "${filePath}", "mode": { ".tag": "add" } }`,
                "Content-Type": "application/octet-stream"
             },
             body: loadedFileState.file
          });
          if (post.status == 200) {
-            router.reload();
+            const getSharedLink = async () => {
+               const request = await fetch(
+                  "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings",
+                  {
+                     method: "POST",
+                     headers: {
+                        Authorization: `Bearer ${process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN}`,
+                        "Content-Type": "application/json"
+                     },
+                     body: `{"path": "${filePath}","settings":{"require_password":false,"audience":{".tag":"public"},"access":{".tag":"viewer"},"requested_visibility":{".tag":"public"},"allow_download":true}}`
+                  }
+               );
+               const responseText = await request.text();
+               const responseObject = JSON.parse(responseText);
+               if (request.status === 200) {
+                  handlePostSermonNotes(responseObject.url);
+                  router.reload();
+               } else {
+                  setnotificationsPopupState(
+                     <NotificationPopup
+                        title={"Something Went Wrong!"}
+                        contentString={`There was a problem uploading your file. Please try again! ⛔️🖥`}
+                        closeModal={() => setnotificationsPopupState(false)}
+                        newClass={`notification-wrapper--Red`}
+                     />
+                  );
+               }
+            };
+            getSharedLink();
          } else {
             setnotificationsPopupState(
                <NotificationPopup
@@ -167,11 +215,7 @@ const SermonNotesPost = () => {
                className={`std-button ${sermonNotesPost.stdButton}`}
                onClick={handleDropdownClose}
                style={{ background: currSelectionState.bkg }}>
-               <p
-                  className={`std-button_gradient-text`}
-                  style={{ background: currSelectionState.textColor }}>
-                  {currSelectionState.text}
-               </p>
+               <p style={{ color: currSelectionState.textColor }}>{currSelectionState.text}</p>
             </button>
          )}
          {dropDownCatState && (
@@ -194,7 +238,7 @@ const SermonNotesPost = () => {
             />
          )}
          <label htmlFor='sermon-notes' className={`std-button ${sermonNotesPost.stdInputLabel}`}>
-            <p className={`std-button_gradient-text`}>select File </p>
+            <p className={`std-button_gradient-text`}>Select A File</p>
             <input
                id={"sermon-notes"}
                type='file'
