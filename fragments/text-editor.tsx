@@ -165,7 +165,7 @@ const TextEditor = ({
          const { data } = await client.mutate({
             mutation: CREATE_NEW_COMMENTARY,
             variables: {
-               USER_ID: 2,
+               USER_ID: 1,
                VERSE_ID: verseBeingCommented.id,
                body: textArea.current?.value,
                category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
@@ -184,7 +184,7 @@ const TextEditor = ({
          setNotificationPopupState(
             <NotificationPopup
                title={"Empty Field Detected"}
-               contentString={"Commentary text is required"}
+               contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
             />
@@ -193,7 +193,7 @@ const TextEditor = ({
          setNotificationPopupState(
             <NotificationPopup
                title={"No Tag Detected"}
-               contentString={"At least one category tag is required"}
+               contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
             />
@@ -222,7 +222,7 @@ const TextEditor = ({
          const { data } = await client.mutate({
             mutation: CREATE_NEW_THOUGHT,
             variables: {
-               USER_ID: 2,
+               USER_ID: 1,
                body: textArea.current?.value,
                title: "...",
                category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
@@ -240,7 +240,7 @@ const TextEditor = ({
          setNotificationPopupState(
             <NotificationPopup
                title={"Empty Field Detected"}
-               contentString={"Commentary text is required"}
+               contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
             />
@@ -249,7 +249,7 @@ const TextEditor = ({
          setNotificationPopupState(
             <NotificationPopup
                title={"No Tag Detected"}
-               contentString={"At least one category tag is required"}
+               contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
             />

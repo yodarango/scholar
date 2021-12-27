@@ -99,11 +99,12 @@ const SermonNotesPost = () => {
       }
    };
 
-   const handlePostSermonNotes = async (file_url: string) => {
+   const handlePostSermonNotes = async (file_url: string, dropbox_id: string) => {
       const data = client.mutate({
          mutation: CREATE_NEW_SERMON_NOTE,
          variables: {
-            USER_ID: 3,
+            USER_ID: 1,
+            DROPBOX_ID: dropbox_id,
             body: null,
             description: null,
             file_url,
@@ -149,7 +150,7 @@ const SermonNotesPost = () => {
                const responseText = await request.text();
                const responseObject = JSON.parse(responseText);
                if (request.status === 200) {
-                  handlePostSermonNotes(responseObject.url);
+                  handlePostSermonNotes(responseObject.url, responseObject.id);
                   router.reload();
                } else {
                   setnotificationsPopupState(

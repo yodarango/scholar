@@ -1,6 +1,7 @@
 .mainWrapper {
    background-color: var(--fourth-color);
    width: 15rem;
+   max-width: 15rem;
    height: 15rem;
    border-radius: var(--input-radius-mobile);
    top: 30vh;
@@ -21,6 +22,8 @@
    width: 100%;
    text-align: center;
    font: var(--secondary-font-mobile);
+   margin: auto;
+   white-space: normal;
 }
 
 .buttonsWrapper {
@@ -48,4 +51,13 @@
 
 .confirm {
    background-color: var(--proceed-color);
+}
+
+.smallLoaderHolder {
+   height: 5rem;
+   width: 6rem;
+   overflow-y: hidden;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
 }

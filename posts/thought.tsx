@@ -1,9 +1,10 @@
 // core
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // graphql
 import client from "../apollo-client";
 import { SHOW_COMMENTS_OF_THOUGHTS } from "../graphql/posts/thoughts";
+import { DELETE_ONE_THOUGHT } from "../graphql/posts/thoughts";
 
 // components
 import ThoughtContent from "../fragments/popup-content/thought-content";
@@ -18,6 +19,7 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // helpers / types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
+import NotificationPopup from "../fragments/notification-popup";
 
 export type Tthought = {
    ID: string;
@@ -49,6 +51,11 @@ type thoughtProps = {
    reportOption?: boolean;
 };
 const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
+   // set the inital posts in a state to handle methods more efficiently like filtering and eaching
+   const [initalThoughtsState, setInitalThoughtsState] = useState<Tthought[]>([]);
+   useEffect(() => {
+      setInitalThoughtsState(thoughts);
+   }, []);
    // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
@@ -57,7 +64,6 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          query: SHOW_COMMENTS_OF_THOUGHTS,
          variables: { ID: thought.ID, showComment: true }
       });
-      console.log(data.thought);
       setseeWholePost(
          <div className='dark-bkg'>
             <div className='closeModal' onClick={() => setseeWholePost(false)}>
@@ -87,32 +93,57 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const handleApproveContent = () => {
       setChooseAprovalRating(true);
    };
-
-   // ================= FUNCTION 5: Handle the delete popup  ===================//
-   const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
-   const handleDeleteConfirmation = () => {
-      setDeletePopupState(true);
+   // ------------------------- REPORT, DELETE, EDIT OPTIONS ------------------ //
+   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
+      false
+   );
+   // ================= FUNCTION 5: Delete Post  ===================//
+   const handleDeletePost = async (id: string) => {
+      const data = await client.mutate({
+         mutation: DELETE_ONE_THOUGHT,
+         variables: { ID: id }
+      });
+      if (data.data.delete_one_thought) {
+         const newThoughtArray = initalThoughtsState.filter((thought) => thought.ID != id);
+         setInitalThoughtsState(newThoughtArray);
+         setConfirmationPopUpState(false);
+      } else {
+         setNotificationpopUpState(
+            <NotificationPopup
+               title='Oh no!'
+               contentString='Something has gone south ⬇️. Please try again later! '
+               closeModal={() => setNotificationpopUpState(false)}
+               newClass='notification-wrapper--Red'
+            />
+         );
+      }
    };
-
-   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   const handleDeletePostConfirmation = (id: string) => {
+      setConfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setConfirmationPopUpState(false)}
+            title={"Are you sure you want to delete this Thought?"}
+            confirm={() => handleDeletePost(id)}
+         />
+      );
+   };
+   // ================= FUNCTION 6: Handle the report post  ===================//
    const [reportPopupState, setReportPopupState] = useState<boolean>(false);
-   const handleReportConfirmation = () => {
-      setReportPopupState(true);
-   };
+   const handleReportPost = () => {};
 
    return (
       <>
          {seeWholePost}
-         {deletePopupState && (
-            <ConfirmationPopup
-               cancel={() => setDeletePopupState(false)}
-               title={"Are you sure you want to delete this Thought?"}
-            />
-         )}
+         {confirmationPopUpState}
+         {notificationpopUpState}
          {reportPopupState && (
             <ConfirmationPopup
                cancel={() => setReportPopupState(false)}
                title={"Are you sure you want to report this Thought?"}
+               confirm={handleReportPost}
             />
          )}
          {chooseAprovalRating && (
@@ -120,7 +151,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
             />
          )}
-         {thoughts.map((thought) => (
+         {initalThoughtsState.map((thought) => (
             <section key={thought.ID}>
                <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
                   <div
@@ -137,7 +168,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                      {deleteOption && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.delete)}
-                           onClick={handleDeleteConfirmation}></span>
+                           onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                      )}
                      {editOption && (
                         <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
@@ -145,7 +176,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                      {reportOption && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.report)}
-                           onClick={handleReportConfirmation}></span>
+                           onClick={() => setReportPopupState(true)}></span>
                      )}
                   </div>
                   <i>{`${thought.creator.signature} expressed a new Tought`}</i>
