@@ -1,9 +1,14 @@
 // core
 import React, { useState } from "react";
 
+// graphQl
+import client from "../apollo-client";
+import { DELETE_ONE_QUOTE } from "../graphql/posts/quotes";
+
 // components
 import QuoteViewProfile from "./quotes-view-profile";
 import ConfirmationPopup from "../fragments/confirmation-popup";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import quoteProfileStyles from "../styles/posts/QuotesProfile.module.css";
@@ -54,17 +59,50 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
       setMorePopUpState(false);
       document.body.style.overflow = "scroll";
    };
-
+   // ------------------------ DELETE, REPORT, EDIT STORY ----------------------- //
+   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+   const [deletedPostState, setdeletedPostState] = useState<boolean>(false);
+   const [notificatonPopUpState, setNotificatonPopUpState] = useState<JSX.Element | boolean>(false);
    //    ==================   FUNCTION 3: Delete Popup for quote    =============  //
-   const [deletePopUp, setDeletePopUp] = useState<boolean>(false);
-   const handleDeleteQuote = () => {
-      setDeletePopUp(true);
+   const handlePostDeletion = async (id: string) => {
+      const data = await client.mutate({
+         mutation: DELETE_ONE_QUOTE,
+         variables: { ID: id }
+      });
+      if (data.data.delete_one_quote) {
+         setdeletedPostState(true);
+         setConfirmationPopUpState(false);
+      } else {
+         setNotificatonPopUpState(
+            <NotificationPopup
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               closeModal={() => setNotificatonPopUpState(false)}
+            />
+         );
+      }
+   };
+   const handleDeleteConfirmation = (id: string) => {
+      setConfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setConfirmationPopUpState(false)}
+            title={"Are you sure you want to delete this quote?"}
+            confirm={() => handlePostDeletion(id)}
+         />
+      );
    };
 
-   //    ==================   FUNCTION 3: Delete Popup for quote    =============  //
-   const [reportPopUp, setReportPopUp] = useState<boolean>(false);
-   const handleReportConfirmation = () => {
-      setReportPopUp(true);
+   //    ==================   FUNCTION 3: Report Popup for quote    =============  //
+   const handleReportConfirmation = (id: string) => {
+      setConfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setConfirmationPopUpState(false)}
+            title={"Are you sure you want to report this quote?"}
+            confirm={() => handlePostDeletion(id)}
+         />
+      );
    };
 
    return (
@@ -72,36 +110,34 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
          {morePopUpState && (
             <QuoteViewProfile story={story} handleCloseStories={handleCloseStories} />
          )}
-         {deletePopUp && (
-            <ConfirmationPopup
-               cancel={() => setDeletePopUp(false)}
-               title={"Are you sure you want to delete this quote?"}
-            />
-         )}
-         {reportPopUp && (
-            <ConfirmationPopup
-               cancel={() => setReportPopUp(false)}
-               title={"Are you sure you want to report this quote?"}
-            />
-         )}
-         <div className={`${quoteProfileStyles.mainWrapper}`}>
-            <h3 className={quoteProfileStyles.title}>{story.creator.signature}</h3>
-            <div className={quoteProfileStyles.content} id={story.background}>
-               {story.body}
+         {confirmationPopUpState}
+         {notificatonPopUpState}
+         {!deletedPostState && (
+            <div className={`${quoteProfileStyles.mainWrapper}`}>
+               <h3 className={quoteProfileStyles.title}>{story.creator.signature}</h3>
+               <div className={quoteProfileStyles.content} id={story.background}>
+                  {story.body}
+               </div>
+               <section className={quoteProfileStyles.actionsWrapper}>
+                  <span
+                     className={`std-vector-icon ${quoteProfileStyles.more}`}
+                     onClick={handleMoreClick}></span>
+                  {deleteOption && (
+                     <span
+                        className={`std-vector-icon ${quoteProfileStyles.delete}`}
+                        onClick={() => handleDeleteConfirmation(story.ID)}></span>
+                  )}
+                  {editOption && (
+                     <span className={`std-vector-icon ${quoteProfileStyles.edit}`}></span>
+                  )}
+                  {reportOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.report)}
+                        onClick={() => handleReportConfirmation(story.ID)}></span>
+                  )}
+               </section>
             </div>
-            <section className={quoteProfileStyles.actionsWrapper}>
-               <span
-                  className={`std-vector-icon ${quoteProfileStyles.more}`}
-                  onClick={handleMoreClick}></span>
-               <span
-                  className={`std-vector-icon ${quoteProfileStyles.delete}`}
-                  onClick={handleDeleteQuote}></span>
-               <span className={`std-vector-icon ${quoteProfileStyles.edit}`}></span>
-               <span
-                  className={(cardStyles.cardIcon, cardStyles.report)}
-                  onClick={handleReportConfirmation}></span>
-            </section>
-         </div>
+         )}
       </>
    );
 };

@@ -1,5 +1,6 @@
 // core
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import router from "next/router";
 
 // graphql
 import client from "../apollo-client";
@@ -11,6 +12,7 @@ import ThoughtContent from "../fragments/popup-content/thought-content";
 import CommentsOfThoughtsContent from "../fragments/popup-content/comments-of-thoughts";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -19,7 +21,6 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // helpers / types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
-import NotificationPopup from "../fragments/notification-popup";
 
 export type Tthought = {
    ID: string;
@@ -51,11 +52,6 @@ type thoughtProps = {
    reportOption?: boolean;
 };
 const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
-   // set the inital posts in a state to handle methods more efficiently like filtering and eaching
-   const [initalThoughtsState, setInitalThoughtsState] = useState<Tthought[]>([]);
-   useEffect(() => {
-      setInitalThoughtsState(thoughts);
-   }, []);
    // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
@@ -107,14 +103,12 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          variables: { ID: id }
       });
       if (data.data.delete_one_thought) {
-         const newThoughtArray = initalThoughtsState.filter((thought) => thought.ID != id);
-         setInitalThoughtsState(newThoughtArray);
-         setConfirmationPopUpState(false);
+         router.reload();
       } else {
          setNotificationpopUpState(
             <NotificationPopup
                title='Oh no!'
-               contentString='Something has gone south ⬇️. Please try again later! '
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                closeModal={() => setNotificationpopUpState(false)}
                newClass='notification-wrapper--Red'
             />
@@ -151,7 +145,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
             />
          )}
-         {initalThoughtsState.map((thought) => (
+         {thoughts.map((thought) => (
             <section key={thought.ID}>
                <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
                   <div

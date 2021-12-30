@@ -112,3 +112,11 @@ export const POST_NEW_QUOTE = gql`
       }
    }
 `;
+
+export const DELETE_ONE_QUOTE = gql`
+   mutation ($ID: ID) {
+      delete_one_quote(ID: $ID) {
+         ID
+      }
+   }
+`;

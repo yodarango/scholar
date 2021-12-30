@@ -1,4 +1,23 @@
 
+///////// 12/29/21
+Move Thought.tsx to its own component and not a carrousel mapping
+
+///////// 08/05/21
+Imlement Lazy loading please!!!!!!! next SWR
+
+/////// 08/09/2021
+Add user authorization to all forms being submitted to avoid vendors  -__-
+
+///// 07/19/2021 
+Reading-collage-units.tsx and all places where an inital bible version is required
+
+/////// 07/20/2021
+reload current chapter upon version change on fragments/squares/reading challenge.
+
+////// 12/29/21
+add all the error and success messages displayed upon CTA's under one file 
+for better maintanability and salability
+
 The following things have been aware of and need to be improved: 
 ✅ = done
 ❌ = not longer needed.changed my mind
@@ -13,28 +32,12 @@ The following things have been aware of and need to be improved:
 ❌ start the timer in node and save it to the databse
     - Saving manually to the DB for now
 
-///// 07/19/2021 
-Reading-collage-units.tsx and all places where an inital bible version is required
-
-/////// 07/20/2021
-reload current chapter upon version change on fragments/squares/reading challenge.
-
-
 //////// 08/04/21
 ✅instead of having a totally new "create new post" page just render it as a popup fpr 
 all types of new posts. 
 
 //////// 08/04/21
 ✅after finishing the Library page finsih up the home page
-
-
-///////// 08/05/21
-Imlement Lazy loading please!!!!!!! next SWR
-
-
-/////// 08/09/2021
-Add user authorization to all forms being submitted to avoid vendors  -__-
-
 
 ///////// 08/11/2021
 ✅convert fetch requests to getStaticProps
