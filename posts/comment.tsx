@@ -3,7 +3,11 @@ import React, { useState } from "react";
 
 //graphQL
 import client from "../apollo-client";
-import { SHOW_COMMENTS_OF_COMMENTARY } from "../graphql/posts/commentaries";
+import {
+   SHOW_COMMENTS_OF_COMMENTARY,
+   DELETE_ONE_COMMENTARY,
+   REPORT_COMMENTARY
+} from "../graphql/posts/commentaries";
 
 // componenets
 import CommentaryContent from "../fragments/popup-content/commentary-content";
@@ -18,6 +22,7 @@ import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
 // types and helpres
 import { Tapprovals } from "../fragments/buttons/post-reactions";
+import NotificationPopup from "../fragments/notification-popup";
 
 export type Tcommentary = {
    ID: string;
@@ -63,6 +68,7 @@ export default function Comments({
          query: SHOW_COMMENTS_OF_COMMENTARY,
          variables: { ID: commentary_id, showComment: true }
       });
+
       setseeWholePost(
          <div className='dark-bkg'>
             <div className='closeModal' onClick={() => setseeWholePost(false)}>
@@ -95,16 +101,85 @@ export default function Comments({
       setChooseAprovalRating(true);
    };
 
+   // ------------------- DELETE, REATE, AND EDIT ------------------------- //
+   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
    // ================= FUNCTION 6: Handle the delete popup  ===================//
-   const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
-   const handleDeleteConfirmation = () => {
-      setDeletePopupState(true);
+   const [deletedPostState, setDeletedPostState] = useState(false);
+   const handleDeletePost = async (id: string) => {
+      const data = await client.mutate({
+         mutation: DELETE_ONE_COMMENTARY,
+         variables: { ID: id }
+      });
+      if (data.data.delete_one_commentary) {
+         setDeletedPostState(true);
+         setConfirmationPopUpState(false);
+      } else {
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+   };
+
+   const handleDeleteConfirmation = (id: string) => {
+      setConfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setConfirmationPopUpState(false)}
+            title={"Are you sure you want to delete this post?"}
+            confirm={() => handleDeletePost(id)}
+         />
+      );
    };
 
    // ================= FUNCTION 7: Handle the delete popup  ===================//
-   const [reportPopupState, setReportPopupState] = useState<boolean>(false);
-   const handleReportConfirmation = () => {
-      setReportPopupState(true);
+   const handleReportPost = async (id: string) => {
+      const data = await client.mutate({
+         mutation: REPORT_COMMENTARY,
+         variables: {
+            COMMENTARY_ID: id,
+            USER_ID: 1
+         }
+      });
+      console.log(data);
+      if (data.data.report_commentary) {
+         setConfirmationPopUpState(false);
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Report Has Been Submitted'
+               contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+               newClass='notification-wrapper--Sucess'
+            />
+         );
+      } else {
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+   };
+
+   const handleReportConfirmation = (id: string) => {
+      setConfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setConfirmationPopUpState(false)}
+            title={"Are you sure you want to report this post?"}
+            confirm={() => handleReportPost(id)}
+         />
+      );
    };
    return (
       <>
@@ -113,70 +188,64 @@ export default function Comments({
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
             />
          )}
-         {deletePopupState && (
-            <ConfirmationPopup
-               title={`Are you sure you want to delete this commentary?`}
-               cancel={() => setDeletePopupState(false)}
-            />
-         )}
-         {reportPopupState && (
-            <ConfirmationPopup
-               title={`Are you sure you want to report this commentary?`}
-               cancel={() => setReportPopupState(false)}
-            />
-         )}
-
+         {confirmationPopUpState}
+         {notificationPopUpState}
          {seeWholePost}
-         <div className={`${cardStyles.commentCard}`} key={commentary.ID} id={`${commentary.ID}`}>
+         {!deletedPostState && (
             <div
-               className={cardStyles.commentCardHeader}
-               id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
-               <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                  <img
-                     src={commentary.creator.avatar}
-                     alt='Avatar'
-                     className={cardStyles.commentCardHeaderAvatarImg}
-                  />
+               className={`${cardStyles.commentCard}`}
+               key={commentary.ID}
+               id={`${commentary.ID}`}>
+               <div
+                  className={cardStyles.commentCardHeader}
+                  id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
+                  <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
+                     <img
+                        src={commentary.creator.avatar}
+                        alt='Avatar'
+                        className={cardStyles.commentCardHeaderAvatarImg}
+                     />
+                  </div>
+                  <h1>{commentary.creator.signature}</h1>
+                  {deleteOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.delete)}
+                        onClick={() => handleDeleteConfirmation(commentary.ID)}></span>
+                  )}
+                  {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
+                  {reportOption && (
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.report)}
+                        onClick={() => handleReportConfirmation(commentary.ID)}></span>
+                  )}
                </div>
-               <h1>{commentary.creator.signature}</h1>
-               {deleteOption && (
-                  <span
-                     className={(cardStyles.cardIcon, cardStyles.delete)}
-                     onClick={handleDeleteConfirmation}></span>
-               )}
-               {editOption && <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>}
-               {reportOption && (
-                  <span
-                     className={(cardStyles.cardIcon, cardStyles.report)}
-                     onClick={handleReportConfirmation}></span>
+               <i>{`comment on ${commentary.verse_citation}`}</i>
+               <p>{commentary.body}</p>
+               {
+                  <PostReactions
+                     handleComment={() => openComment(commentary.ID)}
+                     handleRateContent={handleApproveContent}
+                     handleMore={() => openPost(commentary.ID)}
+                     comments={commentary.comments[0].total_count}
+                     approvals={commentary.approvals}
+                  />
+               }
+               {commentBoxState === commentary.ID && (
+                  <div
+                     id={`comment-${commentary.ID}`}
+                     className={`${cardStyles.stdInputCommentWrapper}`}>
+                     <textarea
+                        maxLength={150}
+                        placeholder='Comment...'
+                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                     <div className={`${cardStyles.postCancelWrapper}`}>
+                        <span className={`std-button_gradient-text`}>Post</span>
+                        <span onClick={closeComment}>Cancel</span>
+                     </div>
+                  </div>
                )}
             </div>
-            <i>{`comment on ${commentary.verse_citation}`}</i>
-            <p>{commentary.body}</p>
-            {
-               <PostReactions
-                  handleComment={() => openComment(commentary.ID)}
-                  handleRateContent={handleApproveContent}
-                  handleMore={() => openPost(commentary.ID)}
-                  comments={commentary.comments[0].total_count}
-                  approvals={commentary.approvals}
-               />
-            }
-            {commentBoxState === commentary.ID && (
-               <div
-                  id={`comment-${commentary.ID}`}
-                  className={`${cardStyles.stdInputCommentWrapper}`}>
-                  <textarea
-                     maxLength={150}
-                     placeholder='Comment...'
-                     className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                  <div className={`${cardStyles.postCancelWrapper}`}>
-                     <span className={`std-button_gradient-text`}>Post</span>
-                     <span onClick={closeComment}>Cancel</span>
-                  </div>
-               </div>
-            )}
-         </div>
+         )}
       </>
    );
 }

@@ -536,6 +536,7 @@ a:active {
    background-color: var(--category-BLK);
 }
 
+/* Tag Color Notification  */
 .notification-wrapper--Blue {
    background-color: var(--category-BL);
 }
@@ -579,6 +580,15 @@ a:active {
 
 .notification-wrapper--Yellow .closeModal:hover {
    background-color: rgba(32, 0, 58, 0.3);
+}
+
+/* Message notifications */
+.notification-wrapper--Sucess {
+   background-color: var(--proceed-color);
+}
+
+.notification-wrapper--Error {
+   background-color: var(--warning-color);
 }
 
 /* ScripturesHTML Styles for popup references */
