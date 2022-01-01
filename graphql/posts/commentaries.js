@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+//================== GET ================== //
 export const GET_COMMENTARIES = gql`
    query ($ID: ID, $USER_ID: ID, $VERSE_ID: String, $category_tags: String) {
       commentary(ID: $ID, USER_ID: $USER_ID, VERSE_ID: $VERSE_ID, category_tags: $category_tags) {
@@ -80,6 +81,40 @@ export const SHOW_COMMENTS_OF_COMMENTARY = gql`
    }
 `;
 
+export const GET_ONE_COMMENTARY = gql`
+   query ($ID: ID, $showComment: Boolean) {
+      commentary(ID: $ID) {
+         ID
+         USER_ID
+         VERSE_ID
+         body
+         category_tags
+         referenced_verses
+         verse_citation
+         created_date
+         posted_on
+         creator {
+            ID
+            signature
+            approval_rating
+            authority_level
+            avatar
+         }
+         comments(showComment: $showComment) {
+            ID
+            body
+            creator_avatar
+            creator_signature
+            creator_approval_rate
+            posted_on
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+   }
+`;
 //================== POST ================== //
 export const CREATE_NEW_COMMENTARY = gql`
    mutation (
@@ -109,20 +144,22 @@ export const CREATE_NEW_COMMENTARY = gql`
    }
 `;
 
-export const DELETE_ONE_COMMENTARY = gql`
-   mutation ($ID: ID) {
-      delete_one_commentary(ID: $ID) {
-         ID
-      }
-   }
-`;
-
 export const REPORT_COMMENTARY = gql`
    mutation ($COMMENTARY_ID: ID, $USER_ID: ID) {
       report_commentary(data: { COMMENTARY_ID: $COMMENTARY_ID, USER_ID: $USER_ID }) {
          ID
          COMMENTARY_ID
          USER_ID
+      }
+   }
+`;
+//================== EDIT ================== //
+
+//================== DELETE ================== //
+export const DELETE_ONE_COMMENTARY = gql`
+   mutation ($ID: ID) {
+      delete_one_commentary(ID: $ID) {
+         ID
       }
    }
 `;

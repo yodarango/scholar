@@ -27,9 +27,14 @@ type editorProps = {
    commentary?: string;
    formattingRules?: JSX.Element;
    removeVerse?: any;
-   referencedVerses: any;
+   referencedVerses?: any;
+   assignedTags?: {
+      first?: string;
+      second?: string;
+   };
    verseBeingCommented?: TverseContent;
    contentTypeToPost: string;
+   currentText?: string;
 };
 
 const TextEditor = ({
@@ -38,7 +43,9 @@ const TextEditor = ({
    formattingRules,
    removeVerse,
    referencedVerses,
-   contentTypeToPost
+   contentTypeToPost,
+   currentText,
+   assignedTags
 }: editorProps) => {
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
@@ -129,18 +136,18 @@ const TextEditor = ({
    };
 
    const [addedFirstTagsState, setAddedFirstTagsState] = useState<IaddedTagState>({
-      tag: undefined,
-      color: undefined
+      tag: assignedTags?.first,
+      color: assignedTags?.first?.replace("#", "")
    });
    const [addedSecondTagsState, setAddedSecondTagsState] = useState<IaddedTagState>({
-      tag: undefined,
-      color: undefined
+      tag: assignedTags?.second,
+      color: assignedTags?.second?.replace("#", "")
    });
 
    const addTag = (el: any) => {
       addedFirstTagsState.color == undefined
-         ? setAddedFirstTagsState({ tag: el.tag, color: el.color })
-         : setAddedSecondTagsState({ tag: el.tag, color: el.color });
+         ? setAddedFirstTagsState({ tag: el.tag, color: el.tag.replace("#", "") })
+         : setAddedSecondTagsState({ tag: el.tag, color: el.tag.replace("#", "") });
    };
 
    const removeFirstTag = () => {
@@ -168,7 +175,10 @@ const TextEditor = ({
                USER_ID: 1,
                VERSE_ID: verseBeingCommented.id,
                body: textArea.current?.value,
-               category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
+               // make sure the secondary tag is not undefined!
+               category_tags: `${addedFirstTagsState.tag} ${
+                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+               }`,
                referenced_verses:
                   referencedVerses.length > 0
                      ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
@@ -177,9 +187,11 @@ const TextEditor = ({
                approval_level: "general"
             }
          });
-         data.commentary
-            ? router.reload()
-            : setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         if (data.commentary) {
+            router.reload();
+         } else {
+            setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         }
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
@@ -210,7 +222,7 @@ const TextEditor = ({
       }
    };
 
-   // ================= FUNCTION: Post the commentary ===================== //
+   // ================= FUNCTION: Post the thought ===================== //
    // this function will only be called if hte "contentToPost" is THOUGHT
    const handlePostThought = async () => {
       if (
@@ -284,6 +296,7 @@ const TextEditor = ({
                   maxLength={999}
                   className={`std-text-area ${textEditorStyles.textArea}`}
                   ref={textArea}
+                  defaultValue={currentText}
                   onChange={() => {
                      growTextArea();
                   }}></textarea>
@@ -291,8 +304,8 @@ const TextEditor = ({
                {/*===  Tags Wrapper  ======*/}
                <div className={textEditorStyles.textEditorTags}>
                   {addedFirstTagsState.color && (
-                     <div style={{ backgroundColor: addedFirstTagsState.color }}>
-                        #{addedFirstTagsState.tag}
+                     <div id={`category-${addedFirstTagsState.color}`}>
+                        {addedFirstTagsState.tag}
                         <span
                            onClick={removeFirstTag}
                            className={textEditorStyles.textEditorTagsClose}>
@@ -301,11 +314,8 @@ const TextEditor = ({
                      </div>
                   )}
                   {addedSecondTagsState.color && (
-                     <div
-                        style={{
-                           backgroundColor: addedSecondTagsState.color
-                        }}>
-                        #{addedSecondTagsState.tag}
+                     <div id={`category-${addedSecondTagsState.color}`}>
+                        {addedSecondTagsState.tag}
                         <span
                            onClick={removeSecondTag}
                            className={textEditorStyles.textEditorTagsClose}>
@@ -341,6 +351,14 @@ const TextEditor = ({
          </div>
          {/*===  Post Button if Content type is commentar\y ======*/}
          {!loadingState && contentTypeToPost == "COMMENTARY" && (
+            <div className='std-button'>
+               <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+                  Post
+               </div>
+            </div>
+         )}
+         {/*===  Post Button if Content type is commentar\y and being called from the edit page ======*/}
+         {!loadingState && contentTypeToPost == "COMMENTARY-EDIT" && (
             <div className='std-button'>
                <div className='std-button_gradient-text' onClick={handlePostCommentary}>
                   Post

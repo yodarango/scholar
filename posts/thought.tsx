@@ -4,8 +4,11 @@ import router from "next/router";
 
 // graphql
 import client from "../apollo-client";
-import { SHOW_COMMENTS_OF_THOUGHTS } from "../graphql/posts/thoughts";
-import { DELETE_ONE_THOUGHT } from "../graphql/posts/thoughts";
+import {
+   REPORT_THOUGHT,
+   SHOW_COMMENTS_OF_THOUGHTS,
+   DELETE_ONE_THOUGHT
+} from "../graphql/posts/thoughts";
 
 // components
 import ThoughtContent from "../fragments/popup-content/thought-content";
@@ -125,21 +128,52 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       );
    };
    // ================= FUNCTION 6: Handle the report post  ===================//
-   const [reportPopupState, setReportPopupState] = useState<boolean>(false);
-   const handleReportPost = () => {};
+   const handleReportPost = async (id: string) => {
+      const data = await client.mutate({
+         mutation: REPORT_THOUGHT,
+         variables: {
+            THOUGHT_ID: id,
+            USER_ID: 1
+         }
+      });
+
+      if (data.data.report_thought) {
+         setConfirmationPopUpState(false);
+         setNotificationpopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationpopUpState(false)}
+               title='Report Has Been Submitted'
+               contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+               newClass='notification-wrapper--Sucess'
+            />
+         );
+      } else {
+         setNotificationpopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationpopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+   };
+
+   const handleReportPostCnofirmtation = (id: string) => {
+      setConfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setConfirmationPopUpState(false)}
+            title={"Are you sure you want to report this Thought?"}
+            confirm={() => handleReportPost(id)}
+         />
+      );
+   };
 
    return (
       <>
          {seeWholePost}
          {confirmationPopUpState}
          {notificationpopUpState}
-         {reportPopupState && (
-            <ConfirmationPopup
-               cancel={() => setReportPopupState(false)}
-               title={"Are you sure you want to report this Thought?"}
-               confirm={handleReportPost}
-            />
-         )}
          {chooseAprovalRating && (
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
@@ -170,7 +204,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                      {reportOption && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.report)}
-                           onClick={() => setReportPopupState(true)}></span>
+                           onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
                      )}
                   </div>
                   <i>{`${thought.creator.signature} expressed a new Tought`}</i>

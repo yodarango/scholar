@@ -111,3 +111,13 @@ export const DELETE_ONE_THOUGHT = gql`
       }
    }
 `;
+
+export const REPORT_THOUGHT = gql`
+   mutation ($THOUGHT_ID: ID, $USER_ID: ID) {
+      report_thought(data: { THOUGHT_ID: $THOUGHT_ID, USER_ID: $USER_ID }) {
+         ID
+         THOUGHT_ID
+         USER_ID
+      }
+   }
+`;

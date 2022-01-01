@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 // graphQl
 import client from "../apollo-client";
-import { DELETE_ONE_QUOTE } from "../graphql/posts/quotes";
+import { DELETE_ONE_QUOTE, REPORT_QUOTE } from "../graphql/posts/quotes";
 
 // components
 import QuoteViewProfile from "./quotes-view-profile";
@@ -95,12 +95,43 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
    };
 
    //    ==================   FUNCTION 3: Report Popup for quote    =============  //
+   const handleReportPost = async (id: string) => {
+      const data = await client.mutate({
+         mutation: REPORT_QUOTE,
+         variables: {
+            QUOTE_ID: id,
+            USER_ID: 1
+         }
+      });
+
+      if (data.data.report_quote) {
+         setConfirmationPopUpState(false);
+         setNotificatonPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificatonPopUpState(false)}
+               title='Report Has Been Submitted'
+               contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+               newClass='notification-wrapper--Sucess'
+            />
+         );
+      } else {
+         setNotificatonPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificatonPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+   };
+
    const handleReportConfirmation = (id: string) => {
       setConfirmationPopUpState(
          <ConfirmationPopup
             cancel={() => setConfirmationPopUpState(false)}
             title={"Are you sure you want to report this quote?"}
-            confirm={() => handlePostDeletion(id)}
+            confirm={() => handleReportPost(id)}
          />
       );
    };

@@ -120,3 +120,13 @@ export const DELETE_ONE_QUOTE = gql`
       }
    }
 `;
+
+export const REPORT_QUOTE = gql`
+   mutation ($QUOTE_ID: ID, $USER_ID: ID) {
+      report_quote(data: { QUOTE_ID: $QUOTE_ID, USER_ID: $USER_ID }) {
+         ID
+         QUOTE_ID
+         USER_ID
+      }
+   }
+`;
