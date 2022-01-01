@@ -8,7 +8,7 @@ import SmallLoader from "./chunks/small-loader";
 export type confirmationPopupProps = {
    title: string;
    cancel: React.MouseEventHandler;
-   confirm: any;
+   confirm?: any;
 };
 const ConfirmationPopup = ({ title, cancel, confirm }: confirmationPopupProps) => {
    const [smallLoaderState, setsmallLoaderState] = useState<boolean>(false);

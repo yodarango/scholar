@@ -583,8 +583,21 @@ a:active {
 }
 
 /* Message notifications */
-.notification-wrapper--Sucess {
+.notification-wrapper--Success {
    background-color: var(--proceed-color);
+}
+
+.notification-wrapper--Success > * {
+   color: var(--primary-color);
+}
+/* this DIV is the close modal button */
+.notification-wrapper--Success > div {
+   border-color: var(--primary-color);
+}
+
+.notification-wrapper--Success > div:hover {
+   background-color: var(--primary-color);
+   opacity: 0.5;
 }
 
 .notification-wrapper--Error {

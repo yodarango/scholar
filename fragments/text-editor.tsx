@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 // graohwl
 import client from "../apollo-client";
-import { CREATE_NEW_COMMENTARY } from "../graphql/posts/commentaries";
+import { CREATE_NEW_COMMENTARY, EDIT_COMMENTARY } from "../graphql/posts/commentaries";
 import { CREATE_NEW_THOUGHT } from "../graphql/posts/thoughts";
 
 // components
@@ -35,6 +35,7 @@ type editorProps = {
    verseBeingCommented?: TverseContent;
    contentTypeToPost: string;
    currentText?: string;
+   postId?: string;
 };
 
 const TextEditor = ({
@@ -45,7 +46,8 @@ const TextEditor = ({
    referencedVerses,
    contentTypeToPost,
    currentText,
-   assignedTags
+   assignedTags,
+   postId
 }: editorProps) => {
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
@@ -269,6 +271,75 @@ const TextEditor = ({
       }
    };
 
+   // ================= FUNCTION: Edit the commentary ===================== //
+   // this function will only be called if hte "contentToPost" is COMMENTARY
+   const handleEditommentary = async () => {
+      if (
+         textArea.current &&
+         textArea.current.value.length !== 0 &&
+         addedFirstTagsState.tag !== undefined &&
+         verseBeingCommented?.id
+      ) {
+         setLoadingState(<SmallLoader />);
+         const { data } = await client.mutate({
+            mutation: EDIT_COMMENTARY,
+            variables: {
+               ID: postId,
+               body: textArea.current?.value,
+               // make sure the secondary tag is not undefined!
+               category_tags: `${addedFirstTagsState.tag} ${
+                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+               }`,
+               referenced_verses:
+                  referencedVerses.length > 0
+                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                     : null
+            }
+         });
+         if (data.edit_commentary) {
+            router.replace(`${router.asPath}`);
+            setLoadingState(false);
+            setNotificationPopupState(
+               <NotificationPopup
+                  title={"Sucess! ✅"}
+                  contentString={"Your Post has been updated!"}
+                  closeModal={closeModals}
+                  newClass={`notification-wrapper--Success`}
+               />
+            );
+         } else {
+            setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         }
+      } else if (textArea.current && textArea.current.value.length === 0) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Empty Field Detected"}
+               contentString={"Commentary text is required 🕵️‍♂️"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (!addedFirstTagsState.tag) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Tag Detected"}
+               contentString={"At least one category tag is required 🕵️‍♂️"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (verseBeingCommented?.id === undefined || verseBeingCommented?.id === "") {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Verse Selected"}
+               contentString={"Please select a verse to comment on"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      }
+   };
+
    /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
@@ -360,7 +431,7 @@ const TextEditor = ({
          {/*===  Post Button if Content type is commentar\y and being called from the edit page ======*/}
          {!loadingState && contentTypeToPost == "COMMENTARY-EDIT" && (
             <div className='std-button'>
-               <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+               <div className='std-button_gradient-text' onClick={handleEditommentary}>
                   Post
                </div>
             </div>

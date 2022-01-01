@@ -16,7 +16,7 @@ import readingCollageUnitStyles from "../../styles/fragments/squares/readingColl
 import GeneralDropdownStyles from "../../styles/buttons/GeneralDropDown.module.css";
 
 //types
-import { IdropdownObjectSingleOption } from "../../fragments/buttons/general-dropdown";
+import { TdropdownObjectSingleOption } from "../../fragments/buttons/general-dropdown";
 
 // helpers
 ///// bible translations supported
@@ -73,17 +73,17 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
    }, []);
    // 1. opens the language dropdown
    const openLangOption = () => {
-      const supportedLanguages: IdropdownObjectSingleOption[] = [
-         { textContent: "🇺🇸", funcParams: english },
-         { textContent: "🇬🇷", funcParams: greek },
-         { textContent: "🇲🇽", funcParams: spanish },
-         { textContent: "🇩🇪", funcParams: german },
-         { textContent: "🇵🇱", funcParams: polish },
-         { textContent: "🇨🇿", funcParams: czech },
-         { textContent: "🇮🇹", funcParams: italian },
-         { textContent: "🇳🇱", funcParams: dutch },
-         { textContent: "🇵🇰", funcParams: urdu },
-         { textContent: "🇹🇭", funcParams: thai }
+      const supportedLanguages: TdropdownObjectSingleOption[] = [
+         { textContent: "🇺🇸", funcParams: english, id: 1 },
+         { textContent: "🇬🇷", funcParams: greek, id: 2 },
+         { textContent: "🇲🇽", funcParams: spanish, id: 3 },
+         { textContent: "🇩🇪", funcParams: german, id: 4 },
+         { textContent: "🇵🇱", funcParams: polish, id: 5 },
+         { textContent: "🇨🇿", funcParams: czech, id: 6 },
+         { textContent: "🇮🇹", funcParams: italian, id: 7 },
+         { textContent: "🇳🇱", funcParams: dutch, id: 8 },
+         { textContent: "🇵🇰", funcParams: urdu, id: 9 },
+         { textContent: "🇹🇭", funcParams: thai, id: 10 }
       ];
       setLangListDropdown({
          dropdown: (

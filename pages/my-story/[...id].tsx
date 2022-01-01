@@ -22,7 +22,7 @@ const Story = ({ user }: storyProps) => {
          <div className={myStoryStyles.mainWrapper}>
             <Header currPage={"MY STORY"} />
             <h1 className={myStoryStyles.title}>{user.signature}</h1>
-            <Link href={`/users/${user.id}`}>
+            <Link href={`/users/${user.ID}`}>
                <a>
                   <div
                      className={myStoryStyles.reputationWrapper}
@@ -33,7 +33,7 @@ const Story = ({ user }: storyProps) => {
                   </div>
                </a>
             </Link>
-            <p className={myStoryStyles.content}>{user.story}</p>
+            <p className={myStoryStyles.content}>{user.my_story}</p>
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

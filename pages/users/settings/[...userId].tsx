@@ -75,7 +75,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                   id='name'
                   type='text'
                   maxLength={30}
-                  defaultValue={user.name}
+                  defaultValue={user.first_name}
                   className={`std-input`}
                   required
                />
@@ -86,7 +86,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                   id='last-name'
                   type='text'
                   maxLength={30}
-                  defaultValue={user.lastName}
+                  defaultValue={user.last_name}
                   className={`std-input`}
                   required
                />
@@ -97,7 +97,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                   id='church'
                   type='text'
                   maxLength={50}
-                  defaultValue={user.church}
+                  defaultValue={user.my_church}
                   className={`std-input`}
                   required
                />
@@ -109,7 +109,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                   type='text'
                   maxLength={30}
                   className={`std-input`}
-                  defaultValue={user.ministry}
+                  defaultValue={user.my_ministry}
                />
             </div>
             <div className={userSettingsStyles.inputWrapper}>
@@ -119,7 +119,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                   type='text'
                   maxLength={70}
                   className={`std-input`}
-                  defaultValue={user.job}
+                  defaultValue={user.my_job}
                />
             </div>
             <div className={userSettingsStyles.inputWrapper}>
@@ -129,7 +129,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                   type='text'
                   maxLength={30}
                   className={`std-input`}
-                  defaultValue={user.tcp}
+                  defaultValue={user.my_true_color_personality_test}
                />
                <a
                   href='https://my-personality-test.com/true-colours'
@@ -162,7 +162,7 @@ const UserSettings = ({ user }: userSettingsProps) => {
                      <p className={`std-button_gradient-text`}>SAVE</p>
                   </button>
                )}
-               <Link href={`/users/${user.id}`}>
+               <Link href={`/users/${user.ID}`}>
                   <a className={`std-button--warning`}>Cancel</a>
                </Link>
             </div>

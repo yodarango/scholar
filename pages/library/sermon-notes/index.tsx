@@ -26,11 +26,11 @@ import SkipContent from "../../../fragments/buttons/skipContent";
 import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
 
 // types
-import { sermonProps } from "../../../fragments/library-items/sermon";
+import { Tsermon } from "../../../fragments/library-items/sermon";
 import NavigationMenu from "../../../layouts/navigation-menu";
 
 type sermonsPageProps = {
-   sermons: sermonProps[];
+   sermons: Tsermon[];
 };
 const Sermons = ({ sermons }: sermonsPageProps) => {
    // ============ capitalize and push the new query to router to searh by title ======
