@@ -154,6 +154,20 @@ export const REPORT_COMMENTARY = gql`
    }
 `;
 //================== EDIT ================== //
+export const EDIT_COMMENTARY = gql`
+   mutation ($body: String, $category_tags: String, $referenced_verses: String, $ID: ID) {
+      edit_commentary(
+         data: {
+            body: $body
+            category_tags: $category_tags
+            referenced_verses: $referenced_verses
+            ID: $ID
+         }
+      ) {
+         ID
+      }
+   }
+`;
 
 //================== DELETE ================== //
 export const DELETE_ONE_COMMENTARY = gql`

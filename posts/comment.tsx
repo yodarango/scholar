@@ -1,6 +1,6 @@
 // core
 import React, { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 //graphQL
 import client from "../apollo-client";
@@ -62,6 +62,7 @@ export default function Comments({
    editOption,
    reportOption
 }: commentsProps) {
+   const router = useRouter();
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = async (commentary_id: string) => {
@@ -214,9 +215,11 @@ export default function Comments({
                         onClick={() => handleDeleteConfirmation(commentary.ID)}></span>
                   )}
                   {editOption && (
-                     <Link href={`/posts/edit-commentary/${commentary.ID}`}>
-                        <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
-                     </Link>
+                     <span
+                        className={(cardStyles.cardIcon, cardStyles.edit)}
+                        onClick={() =>
+                           router.replace(`/posts/edit-commentary/${commentary.ID}`)
+                        }></span>
                   )}
                   {reportOption && (
                      <span
