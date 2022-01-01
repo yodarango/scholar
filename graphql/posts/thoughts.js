@@ -77,3 +77,47 @@ export const SHOW_COMMENTS_OF_THOUGHTS = gql`
       }
    }
 `;
+
+// ================== POSTING routes ===================
+export const CREATE_NEW_THOUGHT = gql`
+   mutation (
+      $USER_ID: ID
+      $body: String
+      $category_tags: String
+      $referenced_verses: String
+      $title: String
+      $approval_level: AuthorityLevel
+   ) {
+      thought(
+         data: {
+            USER_ID: $USER_ID
+            body: $body
+            category_tags: $category_tags
+            referenced_verses: $referenced_verses
+            title: $title
+            approval_level: $approval_level
+         }
+      ) {
+         ID
+         USER_ID
+      }
+   }
+`;
+
+export const DELETE_ONE_THOUGHT = gql`
+   mutation ($ID: ID) {
+      delete_one_thought(ID: $ID) {
+         ID
+      }
+   }
+`;
+
+export const REPORT_THOUGHT = gql`
+   mutation ($THOUGHT_ID: ID, $USER_ID: ID) {
+      report_thought(data: { THOUGHT_ID: $THOUGHT_ID, USER_ID: $USER_ID }) {
+         ID
+         THOUGHT_ID
+         USER_ID
+      }
+   }
+`;

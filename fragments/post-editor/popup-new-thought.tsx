@@ -6,14 +6,13 @@
 
 // core
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
 
 // components
-import TextEditor from "../fragments/text-editor";
-import FormattingRules from "../fragments/buttons/formatting-rules";
+import TextEditor from "../text-editor";
+import FormattingRules from "../buttons/formatting-rules";
 
 // styles
-import popupNewThought from "../styles/layouts/PopupNewThought.module.css";
+import popupNewThought from "../../styles/layouts/PopupNewThought.module.css";
 
 const ThoughtTextEditor = () => {
    // ===========  FUNCTION: add the selected Verse to editor
@@ -41,6 +40,7 @@ const ThoughtTextEditor = () => {
       <div className={`${popupNewThought.mainWrapper}`}>
          <div className={`medium-spacer`}></div>
          <TextEditor
+            contentTypeToPost='THOUGHT'
             title='What Are You Thinking'
             formattingRules={<FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />}
             referencedVerses={referencedVerseState}

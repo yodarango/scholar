@@ -132,6 +132,7 @@ export const GET_PROFILE_SERMON_NOTES = gql`
                ID
                content
                USER_ID
+               DROPBOX_ID
                category_tags
                title
                posted_on

@@ -31,7 +31,6 @@ const LibrarySermonPostCarrousel = ({
    // request more sermon notes
    const [sermonPostState, setSermonPostState] = useState<TsermonPost[]>(sermonPost);
    const requestMoreSermonNotes = async (last_id: string) => {
-      console.log(last_id);
       const { data } = await client.query({
          query: WIGO_REQUEST_MORE_SERMON_NOTES,
          variables: { last_id: last_id }

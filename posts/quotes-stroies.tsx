@@ -201,7 +201,7 @@ const QuoteStories = ({
                </div>
                <div
                   className={`${quoteStoriesStyles.storyPost}`}
-                  style={{ backgroundImage: quoteState[countState].background }}>
+                  id={quoteState[countState].background}>
                   <p className={`${quoteStoriesStyles.storyContent}`}>
                      {quoteState[countState].body}{" "}
                      <span className={quoteStoriesStyles.quotationMark}></span>

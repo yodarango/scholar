@@ -31,7 +31,6 @@ const TextEditorPreview = ({ tagsAssigned, referencedVerses, content }: previewP
          }
       );
       const json = await req.json();
-      console.log(json.data);
       setOpenReferencePopUp(
          <NotificationPopup
             title={json.data.reference}
@@ -43,14 +42,15 @@ const TextEditorPreview = ({ tagsAssigned, referencedVerses, content }: previewP
       );
    };
    //referencedVerses.map((verse: string) => verse);
-   const hiddenTextArea = useRef(null);
+   //const hiddenTextArea = useRef(null);
    return (
       <>
          {openReferencePopUpState}
          <h1 className='std-text-block--small-title'>Preview</h1>
          <div
             className={`std-text-area ${textEditorStyles.textArea} ${textEditorStyles.textAreaPreview}`}
-            ref={hiddenTextArea}>
+            /*ref={hiddenTextArea}*/
+         >
             <>
                <ReactMarkdown skipHtml={true}>{content}</ReactMarkdown>
                {tagsAssigned}

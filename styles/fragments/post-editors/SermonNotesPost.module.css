@@ -35,12 +35,23 @@
    max-width: 19rem;
 }
 
+.stdButton p {
+   color: var(--font-color);
+   font: var(--primary-font-mobile);
+   margin: 0;
+}
+
 .stdInputFile {
    display: none;
 }
 
-.fileName {
-   background-color: rgb(104, 182, 104);
+.fileName,
+.fileNameErr {
+   background-color: var(--proceed-color);
    padding: 0.5rem;
    border-radius: var(--input-radius-mobile);
+}
+
+.fileNameErr {
+   background-color: var(--warning-color);
 }

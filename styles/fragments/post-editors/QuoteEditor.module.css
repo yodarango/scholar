@@ -36,6 +36,7 @@
    margin: 0 0.5rem;
    flex-shrink: 0;
    flex-grow: 0;
+   cursor: pointer;
 }
 
 .textarea {
@@ -99,71 +100,182 @@
    z-index: 11;
 }
 
+/* ========================   QUOTES STYLES ====================== */
+#DEFAULT_BKG {
+   background: var(--secondary-color);
+}
+
 #BL {
    background-image: linear-gradient(120deg, rgba(0, 232, 238, 1) 0%, rgba(235, 2, 2, 1) 100%);
+}
+#BL textarea,
+#BL input {
+   color: var(--font-color);
 }
 
 #YLW {
    background-image: linear-gradient(120deg, rgba(255, 208, 2, 1) 0%, rgba(224, 67, 241, 1) 100%);
 }
 
+#YLW textarea,
+#YLW input {
+   color: var(--font-color);
+}
+
 #PPL {
    background-image: linear-gradient(120deg, rgba(153, 2, 237, 1) 0%, rgba(10, 207, 213, 1) 100%);
+}
+#PPL textarea,
+#PPL input {
+   color: var(--font-color);
 }
 
 #RD {
    background-image: linear-gradient(120deg, rgba(238, 3, 3, 1) 0%, rgba(10, 125, 213, 1) 100%);
 }
+#RD textarea,
+#RD input {
+   color: var(--font-color);
+}
 
 #PNK {
    background-image: linear-gradient(120deg, rgb(245, 89, 250) 0%, rgb(2, 255, 242) 100%);
+}
+#PNK textarea,
+#PNK input {
+   color: var(--font-color);
 }
 
 #GN {
    background-image: linear-gradient(120deg, rgba(0, 171, 22, 1) 0%, rgba(5, 188, 227, 1) 100%);
 }
+#GN textarea,
+#GN input {
+   color: var(--font-color);
+}
 
 #BLK {
    background-image: linear-gradient(120deg, rgba(37, 36, 36, 1) 0%, rgba(57, 60, 88, 1) 100%);
+}
+#BLK textarea,
+#BLK input {
+   color: var(--font-color);
 }
 
 #BR {
    background-image: linear-gradient(120deg, rgba(150, 75, 0, 1) 0%, rgba(31, 0, 0, 1) 100%);
 }
+#BR textarea,
+#BR input {
+   color: var(--font-color);
+}
 
 #DBD {
    background-image: linear-gradient(120deg, rgba(3, 8, 116, 1) 0%, rgba(203, 2, 2, 1) 100%);
+}
+#DBD textarea,
+#DBD input {
+   color: var(--font-color);
 }
 
 #OT0 {
    background-image: linear-gradient(120deg, #f57a15, #0e8fda);
 }
+#OT0 textarea,
+#OT0 input {
+   color: var(--font-color);
+}
+
 #OT1 {
    background-image: linear-gradient(120deg, #ffffff, #54befc);
 }
+#OT1 textarea,
+#OT1 input {
+   color: var(--primary-color);
+}
+#OT1 textarea::placeholder,
+#OT1 input::placeholder {
+   color: var(--primary-color);
+   opacity: 0.3;
+}
+
 #OT2 {
    background-image: linear-gradient(120deg, #8fda18, #ffffff);
 }
+#OT2 textarea,
+#OT2 input {
+   color: var(--primary-color);
+}
+#OT2 textarea::placeholder,
+#OT2 input::placeholder {
+   color: var(--primary-color);
+   opacity: 0.3;
+}
+
 #OT3 {
    background-image: linear-gradient(120deg, #ffffff, #f7a0f2);
 }
+#OT3 textarea,
+#OT3 input {
+   color: var(--primary-color);
+}
+#OT3 textarea::placeholder,
+#OT3 input::placeholder {
+   color: var(--primary-color);
+   opacity: 0.3;
+}
+
 #OT4 {
    background-image: linear-gradient(120deg, #36322e, #8249dd);
 }
+#OT4 textarea,
+#OT4 input {
+   color: var(--font-color);
+}
+
 #OT5 {
    background-image: linear-gradient(120deg, #ffbb00, #da0e0e);
 }
+#OT5 textarea,
+#OT5 input {
+   color: var(--font-color);
+}
+
 #OT6 {
    background-image: linear-gradient(120deg, #06f7eb, #8cda0e);
 }
+#OT6 textarea,
+#OT6 input {
+   color: var(--primary-color);
+}
+#OT6 textarea::placeholder,
+#OT6 input::placeholder {
+   color: var(--primary-color);
+   opacity: 0.3;
+}
+
 #OT7 {
    background-image: linear-gradient(120deg, #0051ff, #00eeff);
 }
+#OT7 textarea,
+#OT7 input {
+   color: var(--font-color);
+}
+
 #OT8 {
    background-image: linear-gradient(120deg, #f5cc15, #880eda);
 }
+#OT8 textarea,
+#OT8 input {
+   color: var(--font-color);
+}
+
 #OT9 {
    background-image: linear-gradient(120deg, #f5159f, #e38ce6);
+}
+#OT9 textarea,
+#OT9 input {
+   color: var(--font-color);
 }
 
 .tagsWrapper {

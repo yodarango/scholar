@@ -56,6 +56,7 @@ const Commentary = ({ verseData }: commentaryProps) => {
             </div>
             <div>
                <TextEditor
+                  contentTypeToPost='COMMENTARY'
                   verseBeingCommented={verseData}
                   title='Your Commentary'
                   commentary={`Commentary`}

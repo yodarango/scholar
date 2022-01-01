@@ -118,7 +118,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       variables: { ID: 1, totalCountOnly: true, getApprovalCount: true }
    });
 
-   console.log(data);
    return {
       props: {
          user: data.users[0]

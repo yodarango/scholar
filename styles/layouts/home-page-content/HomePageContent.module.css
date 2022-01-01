@@ -17,6 +17,7 @@
 }
 
 .popUpContentWrapper > section {
+   width: 100%;
    max-width: 420px;
    margin: var(--xsmall-spacing-mobile);
 }

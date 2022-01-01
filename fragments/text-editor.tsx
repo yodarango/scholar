@@ -1,21 +1,24 @@
 // core
 import React, { useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 // graohwl
 import client from "../apollo-client";
 import { CREATE_NEW_COMMENTARY } from "../graphql/posts/commentaries";
+import { CREATE_NEW_THOUGHT } from "../graphql/posts/thoughts";
 
 // components
 import Dropdown from "./buttons/dropdown";
 import PopupWrapper from "../layouts/popup-wrapper";
 import NotificationPopup from "./notification-popup";
 import TextEditorPreview from "./chunks/text-editor-preview";
+import SmallLoader from "./chunks/small-loader";
 
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // others
-import { /*valuesType,*/ valuesCat } from "../helpers/dropdown-values";
+import { valuesCat } from "../helpers/dropdown-values";
 import { TverseContent } from "../pages";
 
 // Component Props
@@ -24,17 +27,25 @@ type editorProps = {
    commentary?: string;
    formattingRules?: JSX.Element;
    removeVerse?: any;
-   referencedVerses: any;
+   referencedVerses?: any;
+   assignedTags?: {
+      first?: string;
+      second?: string;
+   };
    verseBeingCommented?: TverseContent;
+   contentTypeToPost: string;
+   currentText?: string;
 };
 
 const TextEditor = ({
    verseBeingCommented,
    title,
-   commentary,
    formattingRules,
    removeVerse,
-   referencedVerses
+   referencedVerses,
+   contentTypeToPost,
+   currentText,
+   assignedTags
 }: editorProps) => {
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
@@ -47,7 +58,7 @@ const TextEditor = ({
       preview: JSX.Element | boolean;
    };
 
-   const [textAreaValue, setTextAreaValue] = useState<string>("");
+   //const [textAreaValue, setTextAreaValue] = useState<string>("");
    const growTextArea = () => {
       if (textArea && textArea.current) {
          let currSscrollHeight = textArea.current.scrollHeight;
@@ -100,14 +111,15 @@ const TextEditor = ({
          footer: " ",
          preview: false
       });
-      //setEditorInstructionsState(false);
-      setCategoryInfoState(false);
+      setNotificationPopupState(false);
    };
 
    /*==================  FUNCTION: open category popup info  ===========*/
-   const [categoryInfoState, setCategoryInfoState] = useState<JSX.Element | boolean>(false);
+   const [notificationPopupState, setNotificationPopupState] = useState<JSX.Element | boolean>(
+      false
+   );
    const openCategoryInfo = (subjects: [], key: string) => {
-      setCategoryInfoState(
+      setNotificationPopupState(
          <NotificationPopup
             title={"Categories"}
             contentArray={subjects}
@@ -124,18 +136,18 @@ const TextEditor = ({
    };
 
    const [addedFirstTagsState, setAddedFirstTagsState] = useState<IaddedTagState>({
-      tag: undefined,
-      color: undefined
+      tag: assignedTags?.first,
+      color: assignedTags?.first?.replace("#", "")
    });
    const [addedSecondTagsState, setAddedSecondTagsState] = useState<IaddedTagState>({
-      tag: undefined,
-      color: undefined
+      tag: assignedTags?.second,
+      color: assignedTags?.second?.replace("#", "")
    });
 
    const addTag = (el: any) => {
       addedFirstTagsState.color == undefined
-         ? setAddedFirstTagsState({ tag: el.tag, color: el.color })
-         : setAddedSecondTagsState({ tag: el.tag, color: el.color });
+         ? setAddedFirstTagsState({ tag: el.tag, color: el.tag.replace("#", "") })
+         : setAddedSecondTagsState({ tag: el.tag, color: el.tag.replace("#", "") });
    };
 
    const removeFirstTag = () => {
@@ -145,30 +157,123 @@ const TextEditor = ({
       setAddedSecondTagsState({ tag: undefined, color: undefined });
    };
 
-   // ================= Post the commentary ===================== //
+   // ================= FUNCTION: Post the commentary ===================== //
+   // this function will only be called if hte "contentToPost" is COMMENTARY
+   const [loadingState, setLoadingState] = useState<boolean | JSX.Element>(false);
+   const router = useRouter();
    const handlePostCommentary = async () => {
-      await client.mutate({
-         mutation: CREATE_NEW_COMMENTARY,
-         variables: {
-            USER_ID: 2,
-            VERSE_ID: verseBeingCommented ? verseBeingCommented.id : null,
-            body: textArea.current ? textArea.current.value : null,
-            category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
-            referenced_verses:
-               referencedVerses.length > 0
-                  ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                  : null,
-            verse_citation: verseBeingCommented ? verseBeingCommented.reference : null
+      if (
+         textArea.current &&
+         textArea.current.value.length !== 0 &&
+         addedFirstTagsState.tag !== undefined &&
+         verseBeingCommented?.id
+      ) {
+         setLoadingState(<SmallLoader />);
+         const { data } = await client.mutate({
+            mutation: CREATE_NEW_COMMENTARY,
+            variables: {
+               USER_ID: 1,
+               VERSE_ID: verseBeingCommented.id,
+               body: textArea.current?.value,
+               // make sure the secondary tag is not undefined!
+               category_tags: `${addedFirstTagsState.tag} ${
+                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+               }`,
+               referenced_verses:
+                  referencedVerses.length > 0
+                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                     : null,
+               verse_citation: verseBeingCommented?.reference,
+               approval_level: "general"
+            }
+         });
+         if (data.commentary) {
+            router.reload();
+         } else {
+            setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
          }
-      });
+      } else if (textArea.current && textArea.current.value.length === 0) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Empty Field Detected"}
+               contentString={"Commentary text is required 🕵️‍♂️"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (!addedFirstTagsState.tag) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Tag Detected"}
+               contentString={"At least one category tag is required 🕵️‍♂️"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (verseBeingCommented?.id === undefined || verseBeingCommented?.id === "") {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Verse Selected"}
+               contentString={"Please select a verse to comment on"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      }
+   };
+
+   // ================= FUNCTION: Post the thought ===================== //
+   // this function will only be called if hte "contentToPost" is THOUGHT
+   const handlePostThought = async () => {
+      if (
+         textArea.current &&
+         textArea.current.value.length !== 0 &&
+         addedFirstTagsState.tag !== undefined
+      ) {
+         setLoadingState(<SmallLoader />);
+         const { data } = await client.mutate({
+            mutation: CREATE_NEW_THOUGHT,
+            variables: {
+               USER_ID: 1,
+               body: textArea.current?.value,
+               title: "...",
+               category_tags: `${addedFirstTagsState.tag} ${addedSecondTagsState.tag}`,
+               referenced_verses:
+                  referencedVerses.length > 0
+                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                     : null,
+               approval_level: "general"
+            }
+         });
+         data.thought
+            ? router.reload()
+            : setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+      } else if (textArea.current && textArea.current.value.length === 0) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Empty Field Detected"}
+               contentString={"Commentary text is required 🕵️‍♂️"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      } else if (!addedFirstTagsState.tag) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"No Tag Detected"}
+               contentString={"At least one category tag is required 🕵️‍♂️"}
+               closeModal={closeModals}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      }
    };
 
    /*=========================== return JSX Element =========================================*/
    return (
       <div className={textEditorStyles.wrapper}>
          {hiddenTextAreaState.preview}
-         {categoryInfoState}
-
+         {notificationPopupState}
          {/*===  title  ======*/}
          <div className={textEditorStyles.titleWrapper}>
             <h2 className={`std-text-block--small-title ${textEditorStyles.title}`}>{title}</h2>
@@ -188,8 +293,10 @@ const TextEditor = ({
             <div className={textEditorStyles.textAreasWrapper}>
                {formattingRules}
                <textarea
+                  maxLength={999}
                   className={`std-text-area ${textEditorStyles.textArea}`}
                   ref={textArea}
+                  defaultValue={currentText}
                   onChange={() => {
                      growTextArea();
                   }}></textarea>
@@ -197,8 +304,8 @@ const TextEditor = ({
                {/*===  Tags Wrapper  ======*/}
                <div className={textEditorStyles.textEditorTags}>
                   {addedFirstTagsState.color && (
-                     <div style={{ backgroundColor: addedFirstTagsState.color }}>
-                        #{addedFirstTagsState.tag}
+                     <div id={`category-${addedFirstTagsState.color}`}>
+                        {addedFirstTagsState.tag}
                         <span
                            onClick={removeFirstTag}
                            className={textEditorStyles.textEditorTagsClose}>
@@ -207,11 +314,8 @@ const TextEditor = ({
                      </div>
                   )}
                   {addedSecondTagsState.color && (
-                     <div
-                        style={{
-                           backgroundColor: addedSecondTagsState.color
-                        }}>
-                        #{addedSecondTagsState.tag}
+                     <div id={`category-${addedSecondTagsState.color}`}>
+                        {addedSecondTagsState.tag}
                         <span
                            onClick={removeSecondTag}
                            className={textEditorStyles.textEditorTagsClose}>
@@ -245,12 +349,31 @@ const TextEditor = ({
                </div>
             </div>
          </div>
-         {/*===  Post Button  ======*/}
-         <div className='std-button'>
-            <div className='std-button_gradient-text' onClick={handlePostCommentary}>
-               Post
+         {/*===  Post Button if Content type is commentar\y ======*/}
+         {!loadingState && contentTypeToPost == "COMMENTARY" && (
+            <div className='std-button'>
+               <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+                  Post
+               </div>
             </div>
-         </div>
+         )}
+         {/*===  Post Button if Content type is commentar\y and being called from the edit page ======*/}
+         {!loadingState && contentTypeToPost == "COMMENTARY-EDIT" && (
+            <div className='std-button'>
+               <div className='std-button_gradient-text' onClick={handlePostCommentary}>
+                  Post
+               </div>
+            </div>
+         )}
+         {/*===  Post Button if Content type is thought\y ======*/}
+         {!loadingState && contentTypeToPost == "THOUGHT" && (
+            <div className='std-button'>
+               <div className='std-button_gradient-text' onClick={handlePostThought}>
+                  Post
+               </div>
+            </div>
+         )}
+         {loadingState}
       </div>
    );
 };

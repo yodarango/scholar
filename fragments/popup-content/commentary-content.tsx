@@ -37,7 +37,6 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
          }
       );
       const json = await req.json();
-      console.log(json.data);
       setreferencedVerseState(
          <NotificationPopup
             title={json.data.reference}
@@ -54,7 +53,6 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
       status: boolean;
       func: React.MouseEventHandler;
    };
-
    const openCommentArea = () => {
       setOpenCommentInputState({ status: true, func: closeCommentArea });
    };

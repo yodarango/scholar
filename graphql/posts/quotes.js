@@ -85,3 +85,48 @@ export const OPEN_QUOTE_STORY_COMMENTS = gql`
       }
    }
 `;
+
+// ========================  POST ===================
+export const POST_NEW_QUOTE = gql`
+   mutation (
+      $USER_ID: ID
+      $body: String
+      $category_tags: String
+      $author: String
+      $background: String
+      $approval_level: AuthorityLevel
+   ) {
+      quote(
+         data: {
+            USER_ID: $USER_ID
+            body: $body
+            category_tags: $category_tags
+            author: $author
+            background: $background
+            approval_level: $approval_level
+         }
+      ) {
+         ID
+         USER_ID
+         body
+      }
+   }
+`;
+
+export const DELETE_ONE_QUOTE = gql`
+   mutation ($ID: ID) {
+      delete_one_quote(ID: $ID) {
+         ID
+      }
+   }
+`;
+
+export const REPORT_QUOTE = gql`
+   mutation ($QUOTE_ID: ID, $USER_ID: ID) {
+      report_quote(data: { QUOTE_ID: $QUOTE_ID, USER_ID: $USER_ID }) {
+         ID
+         QUOTE_ID
+         USER_ID
+      }
+   }
+`;

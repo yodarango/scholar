@@ -6,14 +6,14 @@ import GeneralDropdown from "../fragments/buttons/general-dropdown";
 import QuoteEditor from "../fragments/post-editor/quote-editor";
 import CommentEditor from "../fragments/post-editor/comment-editor";
 import PopupWrapper from "./popup-wrapper";
-import ThoughtTextEditor from "../layouts/popup-new-thought";
+import ThoughtTextEditor from "../fragments/post-editor/popup-new-thought";
 import SermonNotesPost from "../fragments/post-editor/sermon-notes-post";
 
 // styles
 import generalDropDownStyles from "../styles/buttons/GeneralDropDown.module.css";
 
 //helpers
-import { IdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
+import { TdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
 
 type headerProps = {
    currPage: string;
@@ -28,7 +28,7 @@ export default function Header({ currPage }: headerProps) {
 
    // =================   FUNCTION 2: open the correct editor depending on selected choice   ================= //
    const [openEditorState, setOpenEditorState] = useState<boolean | JSX.Element>(false);
-   const handleOpenEditor = (e: IdropdownObjectSingleOption) => {
+   const handleOpenEditor = (e: TdropdownObjectSingleOption) => {
       document.body.style.overflow = "hidden";
       e.funcParams === "quote"
          ? setOpenEditorState(
@@ -79,10 +79,10 @@ export default function Header({ currPage }: headerProps) {
             <GeneralDropdown
                cta={handleOpenEditor}
                dropdownOptionsObject={[
-                  { textContent: "Commentary", funcParams: "com" },
-                  { textContent: "Quote", funcParams: "quote" },
-                  { textContent: "Thought", funcParams: "thought" },
-                  { textContent: "Sermon Notes", funcParams: "sermon" }
+                  { textContent: "Commentary", funcParams: "com", id: 1 },
+                  { textContent: "Quote", funcParams: "quote", id: 2 },
+                  { textContent: "Thought", funcParams: "thought", id: 3 },
+                  { textContent: "Sermon Notes", funcParams: "sermon", id: 4 }
                ]}
                optionNewClass={generalDropDownStyles.header_singleOption}
                mainNewClass={generalDropDownStyles.header_mainWrapper}
