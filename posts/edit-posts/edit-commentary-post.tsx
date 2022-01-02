@@ -4,7 +4,7 @@
 
 // core
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 // child Comps
 import TextEditor from "../../fragments/text-editor";
@@ -22,7 +22,6 @@ type editCommentaryPostProps = {
 };
 
 const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
-   const router = useRouter();
    // ===========  FUNCTION: add the selected Verse to editor
    type IreferencedVerseState = {
       id: string;
@@ -95,9 +94,9 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
    return (
       <>
          <div className={`${editCommentaryStyles.mainWrapper}`}>
-            <div className='closeModal' onClick={() => router.push(`/users/${123}`)}>
-               X
-            </div>
+            <Link href={`/users/${123}`}>
+               <a className='closeModal'>X</a>
+            </Link>
             {/* ---------------- verse commenting on ------------------- */}
             <div>
                <div className={editCommentaryStyles.commentaryVerseWrapper}>

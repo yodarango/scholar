@@ -159,8 +159,8 @@ const TextEditor = ({
       setAddedSecondTagsState({ tag: undefined, color: undefined });
    };
 
-   // ================= FUNCTION: Post the commentary ===================== //
-   // this function will only be called if hte "contentToPost" is COMMENTARY
+   // // ================= FUNCTION: Post the commentary ===================== //
+   // // this function will only be called if hte "contentToPost" is COMMENTARY
    const [loadingState, setLoadingState] = useState<boolean | JSX.Element>(false);
    const router = useRouter();
    const handlePostCommentary = async () => {
