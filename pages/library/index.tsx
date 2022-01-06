@@ -8,7 +8,7 @@
 // core
 import React from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 // graphql
 import client from "../../apollo-client";
@@ -38,14 +38,14 @@ import { watchProps } from "../../fragments/library-items/watch";
 import NavigationMenu from "../../layouts/navigation-menu";
 
 type libraryProps = {
+   articles: articleProps[];
    podcasts: podcastsProps[];
    blogs: blogProps[];
    sermons: Tsermon[];
-   articles: articleProps[];
    books: bookProps[];
    watch: watchProps[];
 };
-const Library = ({ podcasts, blogs, sermons, articles, books, watch }: libraryProps) => {
+const Library = ({ articles, podcasts, blogs, sermons, books, watch }: libraryProps) => {
    return (
       <>
          <div className={`${libraryStyles.mainWrapper}`}>
@@ -73,8 +73,9 @@ const Library = ({ podcasts, blogs, sermons, articles, books, watch }: libraryPr
       </>
    );
 };
+export default Library;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
    const { data } = await client.query({
       query: GET_MOST_POPULAR
    });
@@ -90,4 +91,3 @@ export const getStaticProps: GetStaticProps = async () => {
       }
    };
 };
-export default Library;
