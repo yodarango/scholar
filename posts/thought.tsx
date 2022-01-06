@@ -1,6 +1,7 @@
 // core
 import React, { useState } from "react";
 import router from "next/router";
+import Link from "next/link";
 
 // graphql
 import client from "../apollo-client";
@@ -199,7 +200,9 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                            onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                      )}
                      {editOption && (
-                        <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                        <Link href={`/posts/edit-thought/${thought.ID}`}>
+                           <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
+                        </Link>
                      )}
                      {reportOption && (
                         <span

@@ -73,7 +73,7 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                <p className={`${quoteStoriesStyles.storyContent}`}>
                   {story.body} <span className={quoteStoriesStyles.quotationMark}></span>
                </p>
-               <span className={quoteStoriesStyles.storyBy}>{story.author}</span>
+               <p className={quoteStoriesStyles.storyBy}>{story.author}</p>
             </div>
             <div className={quoteStoriesStyles.postReactionWrapper}>
                <PostReactions

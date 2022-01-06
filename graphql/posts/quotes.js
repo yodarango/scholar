@@ -86,6 +86,28 @@ export const OPEN_QUOTE_STORY_COMMENTS = gql`
    }
 `;
 
+export const GET_ONE_QUOTE = gql`
+   query ($ID: ID, $showComment: Boolean) {
+      quote(ID: $ID) {
+         ID
+         USER_ID
+         body
+         category_tags
+         author
+         background
+         created_date
+         posted_on
+         comments(showComment: $showComment) {
+            total_count
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+   }
+`;
+
 // ========================  POST ===================
 export const POST_NEW_QUOTE = gql`
    mutation (
@@ -113,20 +135,38 @@ export const POST_NEW_QUOTE = gql`
    }
 `;
 
-export const DELETE_ONE_QUOTE = gql`
-   mutation ($ID: ID) {
-      delete_one_quote(ID: $ID) {
-         ID
-      }
-   }
-`;
-
 export const REPORT_QUOTE = gql`
    mutation ($QUOTE_ID: ID, $USER_ID: ID) {
       report_quote(data: { QUOTE_ID: $QUOTE_ID, USER_ID: $USER_ID }) {
          ID
          QUOTE_ID
          USER_ID
+      }
+   }
+`;
+
+//====================== EDIT ROUTES ==================== //
+export const EDIT_ONE_QUOTE = gql`
+   mutation ($body: String, $category_tags: String, $author: String, $ID: ID, $background: String) {
+      edit_quote(
+         data: {
+            body: $body
+            category_tags: $category_tags
+            author: $author
+            ID: $ID
+            background: $background
+         }
+      ) {
+         ID
+      }
+   }
+`;
+
+// ============= DELETE ROUTES=================================
+export const DELETE_ONE_QUOTE = gql`
+   mutation ($ID: ID) {
+      delete_one_quote(ID: $ID) {
+         ID
       }
    }
 `;

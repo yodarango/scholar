@@ -1,5 +1,6 @@
 // core
-import React, { useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 
 // graphQl
 import client from "../apollo-client";
@@ -147,7 +148,7 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
             <div className={`${quoteProfileStyles.mainWrapper}`}>
                <h3 className={quoteProfileStyles.title}>{story.creator.signature}</h3>
                <div className={quoteProfileStyles.content} id={story.background}>
-                  {story.body}
+                  <p>{story.body}</p>
                </div>
                <section className={quoteProfileStyles.actionsWrapper}>
                   <span
@@ -159,7 +160,9 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
                         onClick={() => handleDeleteConfirmation(story.ID)}></span>
                   )}
                   {editOption && (
-                     <span className={`std-vector-icon ${quoteProfileStyles.edit}`}></span>
+                     <Link href={`/posts/edit-quote/${story.ID}`}>
+                        <a className={`std-vector-icon ${quoteProfileStyles.edit}`}></a>
+                     </Link>
                   )}
                   {reportOption && (
                      <span
