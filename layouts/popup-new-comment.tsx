@@ -59,7 +59,6 @@ const Commentary = ({ verseData }: commentaryProps) => {
                   contentTypeToPost='COMMENTARY'
                   verseBeingCommented={verseData}
                   title='Your Commentary'
-                  commentary={`Commentary`}
                   formattingRules={
                      <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
                   }
