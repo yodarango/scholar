@@ -1,5 +1,5 @@
-///////// 12/31/21
-implement edit route for commentary post
+///////// 01/03/22
+implementing quote editor 
 
 ///////// 12/29/21
 Move Thought.tsx to its own component and not a carrousel mapping
@@ -35,25 +35,28 @@ The following things have been aware of and need to be improved:
     - Saving manually to the DB for now
 
 //////// 08/04/21
-✅instead of having a totally new "create new post" page just render it as a popup fpr 
+✅ instead of having a totally new "create new post" page just render it as a popup fpr 
 all types of new posts. 
 
 //////// 08/04/21
-✅after finishing the Library page finsih up the home page
+✅ after finishing the Library page finsih up the home page
 
 ///////// 08/11/2021
-✅convert fetch requests to getStaticProps
+✅ convert fetch requests to getStaticProps
 
 //////// 12/19/2021
-✅Left off on implementing the QUOTE editor which is positin to the db but the tags and bkg are not working
+✅ Left off on implementing the QUOTE editor which is positin to the db but the tags and bkg are not working
 
 ////// 12/19/2021
-✅chagned the background property on the db so the quotes everytwehre need to be changed. the bkg went 
+✅ chagned the background property on the db so the quotes everytwehre need to be changed. the bkg went 
 from using colors to IDs
 
 ////// 12/19/2021
-✅Left off on posting thought content but it is returning NULL and not the values after being submitted
+✅ Left off on posting thought content but it is returning NULL and not the values after being submitted
 see why. Also commentaries and wuotes doing it
 
 ////// 12/24/2021
-✅Submitting the sermon notes is kinda mess but it is where i left off
+✅ Submitting the sermon notes is kinda mess but it is where i left off
+
+///////// 12/31/21
+✅ implement edit route for commentary post

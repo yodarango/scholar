@@ -14,14 +14,14 @@ import FormattingRules from "../../fragments/buttons/formatting-rules";
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";
 
 // types / helpers
-import { Tcommentary } from "../comment";
-import { TverseContent } from "../../pages";
+import { Tthought } from "../thought";
+import { TverseContent } from "../../pages/index";
 
 type editCommentaryPostProps = {
-   commentary: Tcommentary;
+   thought: Tthought;
 };
 
-const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
+const EditThoughtPost = ({ thought }: editCommentaryPostProps) => {
    // ===========  FUNCTION: add the selected Verse to editor
    type IreferencedVerseState = {
       id: string;
@@ -31,8 +31,8 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
    // 2. loop through the array to set them in the required format Type "IreferencedVerseState"
    let originalReferencedVerses: IreferencedVerseState[] = [];
    // 1. get the referenced verses from the user field and split them by space since is a sole string
-   if (commentary.referenced_verses?.length > 0) {
-      const currReferencedVerses: Array<string> = commentary.referenced_verses.split(" ");
+   if (thought.referenced_verses?.length > 0) {
+      const currReferencedVerses: Array<string> = thought.referenced_verses.split(" ");
       originalReferencedVerses = currReferencedVerses.map((verse) => {
          const referencedVerse = {
             id: verse,
@@ -74,22 +74,6 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
       next: { id: "", number: "" },
       previous: { id: "", number: "" }
    });
-   useEffect(() => {
-      const fetchVerse = async () => {
-         const request = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-02/verses/${commentary.VERSE_ID}?content-type=text&include-verse-numbers=false`,
-            {
-               method: "GET",
-               headers: {
-                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
-               }
-            }
-         );
-         const response = await request.json();
-         setVerseDataStata(response.data);
-      };
-      fetchVerse();
-   }, []);
 
    return (
       <>
@@ -97,28 +81,21 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
             <Link href={`/users/${123}`}>
                <a className='closeModal'>X</a>
             </Link>
-            {/* ---------------- verse commenting on ------------------- */}
-            <div>
-               <div className={editCommentaryStyles.commentaryVerseWrapper}>
-                  <p className='std-text-block--info'>{verseDataStata.reference}</p>
-                  <p className='std-text-block'>{verseDataStata.content}</p>
-               </div>
-            </div>
 
             {/* ---------------- text editor ------------------- */}
             <div>
                <TextEditor
-                  contentTypeToPost='COMMENTARY-EDIT'
+                  contentTypeToPost='THOUGHT-EDIT'
                   verseBeingCommented={verseDataStata}
-                  title='Edit Commentary'
-                  currentText={commentary.body}
-                  postId={commentary.ID}
+                  title='Edit Thought'
+                  currentText={thought.body}
+                  postId={thought.ID}
                   formattingRules={
                      <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
                   }
                   assignedTags={{
-                     first: commentary.category_tags.split(" ")[0],
-                     second: commentary.category_tags.split(" ")[1]
+                     first: thought.category_tags.split(" ")[0],
+                     second: thought.category_tags.split(" ")[1]
                   }}
                   referencedVerses={referencedVerseState}
                   removeVerse={removeVerse}
@@ -129,4 +106,4 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
    );
 };
 
-export default EditCommentaryPost;
+export default EditThoughtPost;

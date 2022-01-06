@@ -1,6 +1,7 @@
 // core
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 //graphQL
 import client from "../apollo-client";
@@ -215,11 +216,9 @@ export default function Comments({
                         onClick={() => handleDeleteConfirmation(commentary.ID)}></span>
                   )}
                   {editOption && (
-                     <span
-                        className={(cardStyles.cardIcon, cardStyles.edit)}
-                        onClick={() =>
-                           router.replace(`/posts/edit-commentary/${commentary.ID}`)
-                        }></span>
+                     <Link href={`/posts/edit-commentary/${commentary.ID}`}>
+                        <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
+                     </Link>
                   )}
                   {reportOption && (
                      <span

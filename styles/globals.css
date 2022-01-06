@@ -58,6 +58,26 @@
    --category-RD: rgb(224, 0, 0);
    --category-YLW: rgb(255, 174, 0);
 
+   /**************** quotes background colors ==========m***********/
+   --quote-bkg-one: linear-gradient(120deg, rgba(0, 232, 238, 1) 0%, rgba(235, 2, 2, 1) 100%);
+   --quote-bkg-two: linear-gradient(120deg, rgba(255, 208, 2, 1) 0%, rgba(224, 67, 241, 1) 100%);
+   --quote-bkg-three: linear-gradient(120deg, rgba(153, 2, 237, 1) 0%, rgba(10, 207, 213, 1) 100%);
+   --quote-bkg-four: linear-gradient(120deg, rgba(238, 3, 3, 1) 0%, rgba(10, 125, 213, 1) 100%);
+   --quote-bkg-five: linear-gradient(120deg, rgb(245, 89, 250) 0%, rgb(2, 255, 242) 100%);
+   --quote-bkg-six: linear-gradient(120deg, rgba(0, 171, 22, 1) 0%, rgba(5, 188, 227, 1) 100%);
+   --quote-bkg-seven: linear-gradient(120deg, rgba(37, 36, 36, 1) 0%, rgba(57, 60, 88, 1) 100%);
+   --quote-bkg-eight: linear-gradient(120deg, rgba(150, 75, 0, 1) 0%, rgba(31, 0, 0, 1) 100%);
+   --quote-bkg-nine: linear-gradient(120deg, rgba(3, 8, 116, 1) 0%, rgba(203, 2, 2, 1) 100%);
+   --quote-bkg-ten: linear-gradient(120deg, #f57a15, #0e8fda);
+   --quote-bkg-eleven: linear-gradient(120deg, #ffffff, #54befc);
+   --quote-bkg-twelve: linear-gradient(120deg, #8fda18, #ffffff);
+   --quote-bkg-thirteen: linear-gradient(120deg, #ffffff, #f7a0f2);
+   --quote-bkg-fourteen: linear-gradient(120deg, #36322e, #8249dd);
+   --quote-bkg-fifteen: linear-gradient(120deg, #ffbb00, #da0e0e);
+   --quote-bkg-sixteen: linear-gradient(120deg, #06f7eb, #8cda0e);
+   --quote-bkg-seventeen: linear-gradient(120deg, #0051ff, #00eeff);
+   --quote-bkg-eighteen: linear-gradient(120deg, #f5cc15, #880eda);
+   --quote-bkg-nineteen: linear-gradient(120deg, #f5159f, #e38ce6);
    /********** Possible second theme ******/
 
    --primary-color-2: #20042f;
