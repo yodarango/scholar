@@ -1,5 +1,5 @@
-///////// 01/03/22
-implementing quote editor 
+///////// 1/7/22
+finished creating comments for quotes and commentaries. Next add this capability for the quotes in profile and thoughts
 
 ///////// 12/29/21
 Move Thought.tsx to its own component and not a carrousel mapping
@@ -60,3 +60,6 @@ see why. Also commentaries and wuotes doing it
 
 ///////// 12/31/21
 ✅ implement edit route for commentary post
+
+///////// 01/03/22
+✅  implementing quote editor 

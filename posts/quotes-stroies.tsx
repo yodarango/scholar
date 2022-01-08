@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 
 // graphQL
 import { OPEN_QUOTE_STORY, OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/quotes";
@@ -18,6 +18,7 @@ import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalD
 
 // helpers
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
+import handlePostComment from "../functions/posts/post-quote-comment";
 
 export type Tstory = {
    ID: string;
@@ -83,6 +84,7 @@ const QuoteStories = ({
       setQuoteState(data.quote);
       document.body.style.overflow = "hidden";
       setHandleStoriePopupState(true);
+      setCommentsCountState(data.quote[countState].comments[0].total_count);
    };
 
    // ==============   FUNCTION 2: Go backwards in the story   =============== //
@@ -105,7 +107,7 @@ const QuoteStories = ({
 
    // ==============   FUNCTION 5: commennt on the story  =============== //
    const [commentPopUpState, setCommentPopUpState] = useState<boolean>(false);
-   const handleComentClick = () => {
+   const handleCommentClick = () => {
       setCommentPopUpState(true);
    };
    // ==============   FUNCTION 6: handle the reaction to a particular story  =============== //
@@ -119,6 +121,7 @@ const QuoteStories = ({
       popUp: false,
       content: []
    });
+
    const handleMoreClick = async (quote_id: string) => {
       const { data } = await client.query({
          query: OPEN_QUOTE_STORY_COMMENTS,
@@ -144,6 +147,23 @@ const QuoteStories = ({
       setReportPopupState(true);
    };
 
+   // ========================= FUNCTION 7: post the comment of the commentary ============================ //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(0);
+   const postQuoteComment = async (storyId: string) => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+         const data = await handlePostComment(storyId, "2", commentBody.current.value);
+         if (data == true) {
+            setCommentsCountState(commentsCountState + 1);
+            setPostingState(false);
+            setCommentPopUpState(false);
+         } else {
+            setPostingState(true);
+         }
+      }
+   };
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {deletePopupState}
@@ -161,7 +181,8 @@ const QuoteStories = ({
                additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
             />
          )}
-         {/* avatars for all the current users with stories within the last 24 hours  */}
+
+         {/* ------------- avatars for all the current users with stories within the last 24 hours ---------------- */}
          <section
             className={quoteStoriesStyles.mainStoryWrapper}
             onClick={() => handleOpenStroies(ID)}>
@@ -177,7 +198,7 @@ const QuoteStories = ({
             <p className={quoteStoriesStyles.userSignature}>{creator.signature}</p>
          </section>
 
-         {/* Wrapper of the open stories */}
+         {/* ---------------- Wrapper of the open stories ---------------*/}
          {handleStoriePopupState && (
             <section className={quoteStoriesStyles.storyPostWrapper}>
                <div
@@ -191,6 +212,8 @@ const QuoteStories = ({
                   onClick={handleCloseStories}>
                   X
                </div>
+
+               {/* ---------------------------- toggle buttons --------------------------- */}
                <div className={quoteStoriesStyles.storyPostsControllerWrapper}>
                   <span
                      className={quoteStoriesStyles.postStoryLeft}
@@ -199,6 +222,8 @@ const QuoteStories = ({
                      className={quoteStoriesStyles.postStoryRight}
                      onClick={handleMoveForth}></span>
                </div>
+
+               {/* ------------------------ actual story post on "view mode" ---------------------- */}
                <div
                   className={`${quoteStoriesStyles.storyPost}`}
                   id={quoteState[countState].background}>
@@ -206,6 +231,8 @@ const QuoteStories = ({
                      {quoteState[countState].body}{" "}
                      <span className={quoteStoriesStyles.quotationMark}></span>
                   </p>
+
+                  {/* ------------------------ author and admin features ------------------------ */}
                   <span className={quoteStoriesStyles.storyBy}>
                      -By: {quoteState[countState].author}
                      {deleteOption && (
@@ -223,21 +250,34 @@ const QuoteStories = ({
                      )}
                   </span>
                </div>
+
+               {/* ------------------- post comment, rate, more ---------------------- */}
                <div className={quoteStoriesStyles.postReactionWrapper}>
                   <PostReactions
                      handleRateContent={handleRateContent}
-                     handleComment={handleComentClick}
+                     handleComment={handleCommentClick}
                      handleMore={() => handleMoreClick(quoteState[countState].ID)}
                      approvals={quoteState[countState].approvals}
-                     comments={quoteState[countState].comments[0].total_count}
+                     comments={commentsCountState}
                   />
                </div>
+
+               {/* --------------- comment popup -------------------- */}
                {commentPopUpState && (
                   <div className={quoteStoriesStyles.commentWrapper}>
                      <h3>Type your comment</h3>
-                     <textarea placeholder={"comment..."}></textarea>
+                     <textarea placeholder={"comment..."} ref={commentBody}></textarea>
                      <div className={quoteStoriesStyles.postReactionWrapperComment}>
-                        <span className={"std-button_gradient-text"}>Post</span>
+                        {!postingState && (
+                           <span
+                              className={"std-button_gradient-text"}
+                              onClick={() => postQuoteComment(quoteState[countState].ID)}>
+                              Post
+                           </span>
+                        )}
+                        {postingState && (
+                           <span className={"std-button_gradient-text"}>Posting...</span>
+                        )}
                         <span
                            className={quoteStoriesStyles.cancelButton}
                            onClick={handleCloseComment}>
@@ -246,6 +286,8 @@ const QuoteStories = ({
                      </div>
                   </div>
                )}
+
+               {/* --------------------- map through the comments if the story does have comments  --------------------- */}
                {commentsOfQuote.popUp && commentsOfQuote.content.length > 0 && (
                   <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
                      <span
@@ -256,6 +298,8 @@ const QuoteStories = ({
                      <CommentsOfQuote comments={commentsOfQuote.content} />
                   </section>
                )}
+
+               {/* ---------------- render if that specific story has no comments --------------------- */}
                {commentsOfQuote.popUp && commentsOfQuote.content.length === 0 && (
                   <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
                      <span

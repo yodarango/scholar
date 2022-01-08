@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -17,6 +17,8 @@ import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-c
 import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
+import NotificationPopup from "../fragments/notification-popup";
+import SmallLoader from "../fragments/chunks/small-loader";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -24,7 +26,7 @@ import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
 // types and helpres
 import { Tapprovals } from "../fragments/buttons/post-reactions";
-import NotificationPopup from "../fragments/notification-popup";
+import handlePostComment from "../functions/posts/post-comment-of-content";
 
 export type Tcommentary = {
    ID: string;
@@ -152,7 +154,7 @@ export default function Comments({
             USER_ID: 1
          }
       });
-      console.log(data);
+
       if (data.data.report_commentary) {
          setConfirmationPopUpState(false);
          setNotificationPopUpState(
@@ -183,6 +185,30 @@ export default function Comments({
             confirm={() => handleReportPost(id)}
          />
       );
+   };
+
+   // ========================= FUNCTION: post the comment of the commentary ============================ //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(
+      commentary.comments[0].total_count
+   );
+   const postCommentaryComment = async () => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+         const data = await handlePostComment(
+            commentary.ID,
+            commentary.USER_ID,
+            commentBody.current.value
+         );
+         if (data == true) {
+            setCommentsCountState(commentsCountState + 1);
+            setPostingState(false);
+            setCommentBoxState("");
+         } else {
+            setPostingState(true);
+         }
+      }
    };
    return (
       <>
@@ -233,7 +259,7 @@ export default function Comments({
                      handleComment={() => openComment(commentary.ID)}
                      handleRateContent={handleApproveContent}
                      handleMore={() => openPost(commentary.ID)}
-                     comments={commentary.comments[0].total_count}
+                     comments={commentsCountState}
                      approvals={commentary.approvals}
                   />
                }
@@ -244,9 +270,19 @@ export default function Comments({
                      <textarea
                         maxLength={150}
                         placeholder='Comment...'
-                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                        className={`std-input ${cardStyles.stdInputComment}`}
+                        ref={commentBody}></textarea>
                      <div className={`${cardStyles.postCancelWrapper}`}>
-                        <span className={`std-button_gradient-text`}>Post</span>
+                        {!postingState && (
+                           <span
+                              className={`std-button_gradient-text`}
+                              onClick={postCommentaryComment}>
+                              Post
+                           </span>
+                        )}
+                        {postingState && (
+                           <span className={`std-button_gradient-text`}>Posting...</span>
+                        )}
                         <span onClick={closeComment}>Cancel</span>
                      </div>
                   </div>

@@ -153,6 +153,7 @@ export const REPORT_COMMENTARY = gql`
       }
    }
 `;
+
 //================== EDIT ================== //
 export const EDIT_COMMENTARY = gql`
    mutation ($body: String, $category_tags: String, $referenced_verses: String, $ID: ID) {
