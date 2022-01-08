@@ -135,19 +135,19 @@ const QuoteStories = ({
       setCommentPopUpState(false);
    };
 
-   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   // ================= FUNCTION 10: Handle the delete popup  ===================//
    const [deletePopupState, setDeletePopupState] = useState<boolean>(false);
    const handleDeleteConfirmation = () => {
       setDeletePopupState(true);
    };
 
-   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   // ================= FUNCTION 11: Handle the delete popup  ===================//
    const [reportPopupState, setReportPopupState] = useState<boolean>(false);
    const handleReportConfirmation = () => {
       setReportPopupState(true);
    };
 
-   // ========================= FUNCTION 7: post the comment of the commentary ============================ //
+   // ========================= FUNCTION 12: post the comment of the commentary ============================ //
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(0);
@@ -164,6 +164,7 @@ const QuoteStories = ({
          }
       }
    };
+
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {deletePopupState}
