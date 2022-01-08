@@ -1,9 +1,10 @@
 // core
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
 // components
 import NotificationPopup from "../notification-popup";
+import CommentsOfCcommentsContent from "./comments-of-thoughts";
 
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
@@ -12,6 +13,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // helpers
 import { Tcommentary } from "../../posts/comment";
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
+import handlePostComment from "../../functions/posts/post-commentary-comment";
 
 // others
 
@@ -67,6 +69,27 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
    //   ==================  FUNCTION 2: handle rating content ============= //
    const handleRateContent = () => {};
 
+   // ========================= FUNCTION 3: post the comment of the commentary ============================ //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(
+      commentary.comments[0].total_count
+   );
+
+   const postCommentaryComment = async () => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+         const data = await handlePostComment(commentary.ID, "2", commentBody.current.value);
+         if (data == true) {
+            setCommentsCountState(commentsCountState + 1);
+            setPostingState(false);
+            setOpenCommentInputState({ status: false, func: openCommentArea });
+         } else {
+            setPostingState(true);
+         }
+      }
+   };
+
    return (
       <>
          {referencedVerseState}
@@ -85,11 +108,18 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                         maxLength={150}
                         id={popupStyles.stdTextArea}
                         placeholder='Comment...'
-                        className={`std-text-area`}></textarea>
+                        className={`std-text-area`}
+                        ref={commentBody}></textarea>
                      <div id={popupStyles.stdButton} className={`std-button`}>
-                        <p id={popupStyles.gradientText} className='std-button_gradient-text'>
-                           Post
-                        </p>
+                        {!postingState && (
+                           <p
+                              id={popupStyles.gradientText}
+                              className='std-button_gradient-text'
+                              onClick={postCommentaryComment}>
+                              Post
+                           </p>
+                        )}
+                        {postingState && <p className={`std-button_gradient-text`}>Posting...</p>}
                      </div>
                   </div>
                )}
@@ -98,7 +128,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                <PostReactions
                   handleComment={openCommentInputState.func}
                   handleRateContent={handleRateContent}
-                  comments={postReactionContent.comments.length}
+                  comments={commentsCountState}
                   approvals={postReactionContent.approvals}
                />
 

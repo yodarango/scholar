@@ -1,6 +1,5 @@
 // core
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 //graphQL
@@ -17,6 +16,7 @@ import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-c
 import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -24,7 +24,7 @@ import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
 // types and helpres
 import { Tapprovals } from "../fragments/buttons/post-reactions";
-import NotificationPopup from "../fragments/notification-popup";
+import handlePostComment from "../functions/posts/post-commentary-comment";
 
 export type Tcommentary = {
    ID: string;
@@ -63,7 +63,6 @@ export default function Comments({
    editOption,
    reportOption
 }: commentsProps) {
-   const router = useRouter();
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = async (commentary_id: string) => {
@@ -152,7 +151,7 @@ export default function Comments({
             USER_ID: 1
          }
       });
-      console.log(data);
+
       if (data.data.report_commentary) {
          setConfirmationPopUpState(false);
          setNotificationPopUpState(
@@ -184,6 +183,27 @@ export default function Comments({
          />
       );
    };
+
+   // ========================= FUNCTION 8: post the comment of the commentary ============================ //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(
+      commentary.comments[0].total_count
+   );
+   const postCommentaryComment = async () => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+         const data = await handlePostComment(commentary.ID, "2", commentBody.current.value);
+         if (data == true) {
+            setCommentsCountState(commentsCountState + 1);
+            setPostingState(false);
+            setCommentBoxState("");
+         } else {
+            setPostingState(true);
+         }
+      }
+   };
+
    return (
       <>
          {chooseAprovalRating && (
@@ -233,7 +253,7 @@ export default function Comments({
                      handleComment={() => openComment(commentary.ID)}
                      handleRateContent={handleApproveContent}
                      handleMore={() => openPost(commentary.ID)}
-                     comments={commentary.comments[0].total_count}
+                     comments={commentsCountState}
                      approvals={commentary.approvals}
                   />
                }
@@ -244,9 +264,19 @@ export default function Comments({
                      <textarea
                         maxLength={150}
                         placeholder='Comment...'
-                        className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                        className={`std-input ${cardStyles.stdInputComment}`}
+                        ref={commentBody}></textarea>
                      <div className={`${cardStyles.postCancelWrapper}`}>
-                        <span className={`std-button_gradient-text`}>Post</span>
+                        {!postingState && (
+                           <span
+                              className={`std-button_gradient-text`}
+                              onClick={postCommentaryComment}>
+                              Post
+                           </span>
+                        )}
+                        {postingState && (
+                           <span className={`std-button_gradient-text`}>Posting...</span>
+                        )}
                         <span onClick={closeComment}>Cancel</span>
                      </div>
                   </div>

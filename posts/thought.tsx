@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 import router from "next/router";
 import Link from "next/link";
 
@@ -25,6 +25,7 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // helpers / types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
+import handlePostComment from "../functions/posts/post-thought-comment";
 
 export type Tthought = {
    ID: string;
@@ -55,6 +56,7 @@ type thoughtProps = {
    editOption?: boolean;
    reportOption?: boolean;
 };
+
 const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
    // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
@@ -128,6 +130,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          />
       );
    };
+
    // ================= FUNCTION 6: Handle the report post  ===================//
    const handleReportPost = async (id: string) => {
       const data = await client.mutate({
@@ -160,6 +163,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       }
    };
 
+   // ======================= FUNCTION 7: Delete the post ============================= //
    const handleReportPostCnofirmtation = (id: string) => {
       setConfirmationPopUpState(
          <ConfirmationPopup
@@ -170,6 +174,25 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       );
    };
 
+   // ============================= FUNCTION 7: post the comment ============================================== //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(0);
+
+   const postCommentaryComment = async (thought_id: string) => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+         const data = await handlePostComment(thought_id, "2", commentBody.current.value);
+         if (data == true) {
+            setPostingState(false);
+            setCommentBoxState("");
+            //commentBody.current.value = "comment posted";
+            setCommentsCountState(commentsCountState + 1);
+         } else {
+            setPostingState(true);
+         }
+      }
+   };
    return (
       <>
          {seeWholePost}
@@ -180,62 +203,77 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
             />
          )}
-         {thoughts.map((thought) => (
-            <section key={thought.ID}>
-               <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
+         {thoughts.map((thought) => {
+            return (
+               <section key={thought.ID}>
                   <div
-                     className={cardStyles.commentCardHeader}
-                     id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                     <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                        <img
-                           src={thought.creator.avatar}
-                           alt='Avatar'
-                           className={cardStyles.commentCardHeaderAvatarImg}
-                        />
+                     className={`${cardStyles.commentCard}`}
+                     key={thought.ID}
+                     id={`${thought.ID}`}>
+                     <div
+                        className={cardStyles.commentCardHeader}
+                        id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
+                        <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
+                           <img
+                              src={thought.creator.avatar}
+                              alt='Avatar'
+                              className={cardStyles.commentCardHeaderAvatarImg}
+                           />
+                        </div>
+                        <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
+                        {deleteOption && (
+                           <span
+                              className={(cardStyles.cardIcon, cardStyles.delete)}
+                              onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
+                        )}
+                        {editOption && (
+                           <Link href={`/posts/edit-thought/${thought.ID}`}>
+                              <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
+                           </Link>
+                        )}
+                        {reportOption && (
+                           <span
+                              className={(cardStyles.cardIcon, cardStyles.report)}
+                              onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
+                        )}
                      </div>
-                     <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
-                     {deleteOption && (
-                        <span
-                           className={(cardStyles.cardIcon, cardStyles.delete)}
-                           onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
-                     )}
-                     {editOption && (
-                        <Link href={`/posts/edit-thought/${thought.ID}`}>
-                           <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
-                        </Link>
-                     )}
-                     {reportOption && (
-                        <span
-                           className={(cardStyles.cardIcon, cardStyles.report)}
-                           onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
+                     <i>{`${thought.creator.signature} expressed a new Tought`}</i>
+                     <p>{thought.body}</p>
+                     <PostReactions
+                        handleComment={() => openComment(thought.ID)}
+                        handleRateContent={handleApproveContent}
+                        handleMore={() => openPost(thought)}
+                        comments={thought.comments[0].total_count + commentsCountState}
+                        approvals={thought.approvals}
+                     />
+                     {commentBoxState === thought.ID && (
+                        <div
+                           id={`comment-${thought.ID}`}
+                           className={`${cardStyles.stdInputCommentWrapper}`}>
+                           <textarea
+                              maxLength={150}
+                              placeholder='Comment...'
+                              ref={commentBody}
+                              className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                           <div className={`${cardStyles.postCancelWrapper}`}>
+                              {!postingState && (
+                                 <span
+                                    className={`std-button_gradient-text`}
+                                    onClick={() => postCommentaryComment(thought.ID)}>
+                                    Post
+                                 </span>
+                              )}
+                              {postingState && (
+                                 <span className={`std-button_gradient-text`}>Posting...</span>
+                              )}
+                              <span onClick={closeComment}>Cancel</span>
+                           </div>
+                        </div>
                      )}
                   </div>
-                  <i>{`${thought.creator.signature} expressed a new Tought`}</i>
-                  <p>{thought.body}</p>
-                  <PostReactions
-                     handleComment={() => openComment(thought.ID)}
-                     handleRateContent={handleApproveContent}
-                     handleMore={() => openPost(thought)}
-                     comments={thought.comments[0].total_count}
-                     approvals={thought.approvals}
-                  />
-                  {commentBoxState === thought.ID && (
-                     <div
-                        id={`comment-${thought.ID}`}
-                        className={`${cardStyles.stdInputCommentWrapper}`}>
-                        <textarea
-                           maxLength={150}
-                           placeholder='Comment...'
-                           className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                        <div className={`${cardStyles.postCancelWrapper}`}>
-                           <span className={`std-button_gradient-text`}>Post</span>{" "}
-                           <span onClick={closeComment}>Cancel</span>
-                        </div>
-                     </div>
-                  )}
-               </div>
-            </section>
-         ))}
+               </section>
+            );
+         })}
       </>
    );
 };

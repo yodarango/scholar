@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 
 //graphql
 import client from "../apollo-client";
@@ -13,10 +13,10 @@ import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdo
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
 import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
-import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
 
 // helpers
 import { TsingleStory } from "./quotes-profile";
+import handlePostComment from "../functions/posts/post-quote-comment";
 
 export type quoteViewProfileProps = {
    story: TsingleStory;
@@ -53,6 +53,28 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const handleCloseComment = () => {
       setCommentPopUpState(false);
    };
+
+   // ========================= FUNCTION 9: post the comment of the commentary ============================ //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(
+      story.comments[0].total_count
+   );
+   const postQuoteComment = async () => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+
+         const data = await handlePostComment(story.ID, "2", commentBody.current.value);
+
+         if (data == true) {
+            setCommentsCountState(commentsCountState + 1);
+            setPostingState(false);
+            setCommentPopUpState(false);
+         } else {
+            setPostingState(true);
+         }
+      }
+   };
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {chooseAprovalRating && (
@@ -81,15 +103,22 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                   handleComment={handleComentClick}
                   handleMore={() => handleMoreClick(story.ID)}
                   approvals={story.approvals}
-                  comments={story.comments[0].total_count}
+                  comments={commentsCountState}
                />
             </div>
             {commentPopUpState && (
                <div className={quoteStoriesStyles.commentWrapper}>
                   <h3>Type your comment</h3>
-                  <textarea placeholder={"comment..."}></textarea>
+                  <textarea placeholder={"comment..."} ref={commentBody}></textarea>
                   <div className={quoteStoriesStyles.postReactionWrapperComment}>
-                     <span className={"std-button_gradient-text"}>Post</span>
+                     {!postingState && (
+                        <span className={"std-button_gradient-text"} onClick={postQuoteComment}>
+                           Post
+                        </span>
+                     )}
+                     {postingState && (
+                        <span className={"std-button_gradient-text"}>Posting...</span>
+                     )}
                      <span className={quoteStoriesStyles.cancelButton} onClick={handleCloseComment}>
                         Cancel
                      </span>

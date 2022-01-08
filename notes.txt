@@ -1,25 +1,10 @@
-///////// 01/03/22
-implementing quote editor 
+// ------------------------- DAIYLYS ------------------------ //
 
-///////// 12/29/21
-Move Thought.tsx to its own component and not a carrousel mapping
+///////// 1/7/22
+finished creating comments for quotes and commentaries. Next add this capability for the quotes in profile and thoughts
 
-///////// 08/05/21
-Implement Lazy loading please!!!!!!! next SWR
 
-/////// 08/09/2021
-Add user authorization to all forms being submitted to avoid vendors  -__-
-
-///// 07/19/2021 
-Reading-collage-units.tsx and all places where an inital bible version is required
-
-/////// 07/20/2021
-reload current chapter upon version change on fragments/squares/reading challenge.
-
-////// 12/29/21
-add all the error and success messages displayed upon CTA's under one file 
-for better maintanability and salability
-
+// ---------------------------- COMPLETED -------------------- //
 The following things have been aware of and need to be improved: 
 ✅ = done
 ❌ = not longer needed.changed my mind
@@ -60,3 +45,26 @@ see why. Also commentaries and wuotes doing it
 
 ///////// 12/31/21
 ✅ implement edit route for commentary post
+
+///////// 01/03/22
+✅  implementing quote editor 
+
+
+// ----------------------------- BEFORE RELEASE ---------------------- //
+* Make sure that the count of characters for each input field mathc with the count length set in the DB
+
+* Implement Lazy loading and create as many statics as possible
+
+* Add user authorization or CORS-ORIGIN limitations in all forms being submitted to avoid vendors 
+
+
+// ----------------------------- COOL TO HAVES/ LATER RELEASES ---------------------- //
+
+* Move Thought.tsx to its own component and not a carrousel mapping
+
+* Reading-collage-units.tsx and all places where an inital bible version is required
+
+* reload current chapter upon version change on fragments/squares/reading challenge.
+
+* add all the error and success messages displayed upon CTA's under one file 
+for better maintanability and salability
