@@ -81,7 +81,7 @@ export default function Comments({
                   commentary={commentary}
                   postReactionContent={data.commentary[0]}
                />
-               <CommentsOfCcommentsContent comments={data.commentary[0].comments} />
+               {/* <CommentsOfCcommentsContent comments={data.commentary[0].comments} /> */}
             </div>
          </div>
       );

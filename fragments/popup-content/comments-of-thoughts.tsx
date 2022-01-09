@@ -8,11 +8,11 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // helpers / types
 import { Tcomment } from "../buttons/post-reactions";
 
-type commentsOfCcommentsContentProps = {
+type commentsOfThoughtContentProps = {
    comments: Tcomment[];
 };
 
-const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProps) => {
+const CommentsOfThoughtContent = ({ comments }: commentsOfThoughtContentProps) => {
    // =============  FUNCTION: see the whole Comment  =================
    /// === state
    const [openCommentState, setOpenCommentState] = useState<string>("");
@@ -85,4 +85,4 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
    );
 };
 
-export default CommentsOfCcommentsContent;
+export default CommentsOfThoughtContent;

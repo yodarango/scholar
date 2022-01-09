@@ -13,7 +13,6 @@ import {
 
 // components
 import ThoughtContent from "../fragments/popup-content/thought-content";
-import CommentsOfThoughtsContent from "../fragments/popup-content/comments-of-thoughts";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 import NotificationPopup from "../fragments/notification-popup";
@@ -73,7 +72,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
             </div>
             <div className={popupStyles.halvesWrapper}>
                <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
-               <CommentsOfThoughtsContent comments={data.thought[0].comments} />
+               {/* <CommentsOfThoughtsContent comments={data.thought[0].comments} /> */}
             </div>
          </div>
       );
