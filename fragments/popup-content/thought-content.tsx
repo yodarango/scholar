@@ -1,9 +1,13 @@
 // core
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
+// graphQL
+import client from "../../apollo-client";
+import { GET_THOUGHT_COMMENTS } from "../../graphql/posts/comments";
 // components
 import NotificationPopup from "../notification-popup";
+import CommentsOfThoughtContent from "./comments-of-thoughts";
 
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
@@ -12,6 +16,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // helpers
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 import { Tthought } from "../../posts/thought";
+import handlePostComment from "../../functions/posts/post-thought-comment";
 
 // others
 
@@ -19,7 +24,7 @@ type thoughtContentProps = {
    thought: Tthought;
    postReactionContent: {
       approvals: Tapprovals;
-      comments: {}[];
+      comments: Tcomment[];
    };
 };
 const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) => {
@@ -69,6 +74,45 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    //   ==================  FUNCTION 2: hhandle rate the content ============= //
    const handleRateContent = () => {};
 
+   // ========================= FUNCTION 3: post the comment of the commentary ============================ //
+   const commentBody = useRef<HTMLTextAreaElement>(null);
+   const [postingState, setPostingState] = useState<boolean>(false);
+   const [commentsCountState, setCommentsCountState] = useState<number>(
+      thought.comments[0].total_count
+   );
+   const [commentaryCommentsState, setCommentaryCommentsState] = useState(
+      postReactionContent.comments
+   );
+
+   const postThoughtComment = async () => {
+      if (commentBody.current && commentBody.current.value.length > 0) {
+         setPostingState(true);
+         const data = await handlePostComment(thought.ID, "2", commentBody.current.value);
+         if (data == true) {
+            setCommentsCountState(commentsCountState + 1);
+            setPostingState(false);
+            setOpenCommentInputState({ status: false, func: openCommentArea });
+            fetchComments();
+         } else {
+            setPostingState(true);
+         }
+      }
+   };
+
+   // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
+
+   const fetchComments = async () => {
+      try {
+         const { data } = await client.query({
+            query: GET_THOUGHT_COMMENTS,
+            variables: { THOUGHT_ID: thought.ID, last_id: 1000 }
+         });
+         setCommentaryCommentsState(data.thought_comments);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
    return (
       <>
          {referencedVerseState}
@@ -86,12 +130,25 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                         maxLength={150}
                         id={popupStyles.stdTextArea}
                         placeholder='Comment...'
-                        className={`std-text-area`}></textarea>
-                     <div id={popupStyles.stdButton} className={`std-button`}>
-                        <p id={popupStyles.gradientText} className='std-button_gradient-text'>
-                           Post
-                        </p>
-                     </div>
+                        className={`std-text-area`}
+                        ref={commentBody}></textarea>
+                     {!postingState && (
+                        <div
+                           id={popupStyles.stdButton}
+                           className={`std-button`}
+                           onClick={postThoughtComment}>
+                           <p id={popupStyles.gradientText} className='std-button_gradient-text'>
+                              Post
+                           </p>
+                        </div>
+                     )}
+                     {postingState && (
+                        <div id={popupStyles.stdButton} className={`std-button`}>
+                           <p id={popupStyles.gradientText} className='std-button_gradient-text'>
+                              Posting...
+                           </p>
+                        </div>
+                     )}
                   </div>
                )}
 
@@ -99,7 +156,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                <PostReactions
                   handleComment={openCommentInputState.func}
                   handleRateContent={handleRateContent}
-                  comments={postReactionContent.comments.length}
+                  comments={commentsCountState}
                   approvals={thought.approvals}
                />
 
@@ -132,6 +189,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                </div>
             </div>
          </div>
+         <CommentsOfThoughtContent comments={commentaryCommentsState} />
       </>
    );
 };

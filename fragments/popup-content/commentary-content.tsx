@@ -2,6 +2,10 @@
 import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
+// graphql
+import client from "../../apollo-client";
+import { GET_COMMENTARY_COMMENTS } from "../../graphql/posts/comments";
+
 // components
 import NotificationPopup from "../notification-popup";
 import CommentsOfCcommentsContent from "./comments-of-thoughts";
@@ -18,6 +22,7 @@ import handlePostComment from "../../functions/posts/post-commentary-comment";
 // others
 
 type commentaryContentProps = {
+   //commentsArray:;
    commentary: Tcommentary;
    postReactionContent: {
       approvals: Tapprovals[];
@@ -66,7 +71,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
       func: openCommentArea
    });
 
-   //   ==================  FUNCTION 2: handle rating content ============= //
+   //   =======================  FUNCTION 2: handle rating content ============= //
    const handleRateContent = () => {};
 
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
@@ -74,6 +79,9 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(
       commentary.comments[0].total_count
+   );
+   const [commentaryCommentsState, setCommentaryCommentsState] = useState(
+      postReactionContent.comments
    );
 
    const postCommentaryComment = async () => {
@@ -84,9 +92,24 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
+            fetchComments();
          } else {
             setPostingState(true);
          }
+      }
+   };
+
+   // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
+
+   const fetchComments = async () => {
+      try {
+         const { data } = await client.query({
+            query: GET_COMMENTARY_COMMENTS,
+            variables: { COMMENTARY_ID: commentary.ID, last_id: 1000 }
+         });
+         setCommentaryCommentsState(data.commentary_comments);
+      } catch (error) {
+         console.log(error);
       }
    };
 
@@ -110,17 +133,23 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                         placeholder='Comment...'
                         className={`std-text-area`}
                         ref={commentBody}></textarea>
-                     <div id={popupStyles.stdButton} className={`std-button`}>
-                        {!postingState && (
-                           <p
-                              id={popupStyles.gradientText}
-                              className='std-button_gradient-text'
-                              onClick={postCommentaryComment}>
+                     {!postingState && (
+                        <div
+                           id={popupStyles.stdButton}
+                           className={`std-button`}
+                           onClick={postCommentaryComment}>
+                           <p id={popupStyles.gradientText} className='std-button_gradient-text'>
                               Post
                            </p>
-                        )}
-                        {postingState && <p className={`std-button_gradient-text`}>Posting...</p>}
-                     </div>
+                        </div>
+                     )}
+                     {postingState && (
+                        <div id={popupStyles.stdButton} className={`std-button`}>
+                           <p id={popupStyles.gradientText} className='std-button_gradient-text'>
+                              Posting...
+                           </p>
+                        </div>
+                     )}
                   </div>
                )}
 
@@ -160,6 +189,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                </div>
             </div>
          </div>
+         <CommentsOfCcommentsContent comments={commentaryCommentsState} />
       </>
    );
 };
