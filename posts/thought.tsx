@@ -10,6 +10,7 @@ import {
    SHOW_COMMENTS_OF_THOUGHTS,
    DELETE_ONE_THOUGHT
 } from "../graphql/posts/thoughts";
+import { GET_THOUGHT_APPROVALS } from "../graphql/posts/approvals";
 
 // components
 import ThoughtContent from "../fragments/popup-content/thought-content";
@@ -192,19 +193,34 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          }
       }
    };
+
+   // ======================== FUNCTION 9: hande a ssuccessful approval rating ========================= //
+   //const [postApprovalState, setPostApprovalState] = useState<number>(0);
+   const handleSuccessfulApprovalRating = async (thought_id: string) => {
+      // currently not refetching approvals since thought.tx needs to be moved to its own comp
+      // const { data } = await client.query({
+      //    query: GET_THOUGHT_APPROVALS,
+      //    variables: {
+      //       THOUGHT_ID: thought_id
+      //    }
+      // });
+      setChooseAprovalRating(false);
+   };
    return (
       <>
          {seeWholePost}
          {confirmationPopUpState}
          {notificationpopUpState}
-         {chooseAprovalRating && (
-            <ContentApprovalDropdown
-               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
-            />
-         )}
          {thoughts.map((thought) => {
             return (
                <section key={thought.ID}>
+                  {chooseAprovalRating && (
+                     <ContentApprovalDropdown
+                        handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+                        post_id={thought.ID}
+                        successfulApproval={() => handleSuccessfulApprovalRating(thought.ID)}
+                     />
+                  )}
                   <div
                      className={`${cardStyles.commentCard}`}
                      key={thought.ID}
@@ -243,7 +259,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                         handleRateContent={handleApproveContent}
                         handleMore={() => openPost(thought)}
                         comments={thought.comments[0].total_count + commentsCountState}
-                        approvals={thought.approvals}
+                        approvals={thought.approvals[0]}
                      />
                      {commentBoxState === thought.ID && (
                         <div

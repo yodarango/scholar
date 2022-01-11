@@ -31,22 +31,28 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
          {user.approval_rating >= 87 && user.approval_rating < 90 && (
             <h2 className={userBioWrapperStyles.reliabilityB}>Approval Rating: B+</h2>
          )}
-         {user.approval_rating >= 84 && user.approval_rating < 87 && (
+         {user.approval_rating >= 83 && user.approval_rating < 87 && (
             <h2 className={userBioWrapperStyles.reliabilityB}>Approval Rating: B</h2>
          )}
-         {user.approval_rating >= 80 && user.approval_rating < 84 && (
+         {user.approval_rating >= 80 && user.approval_rating < 83 && (
             <h2 className={userBioWrapperStyles.reliabilityB}>Approval Rating: B-</h2>
          )}
          {user.approval_rating >= 77 && user.approval_rating < 80 && (
             <h2 className={userBioWrapperStyles.reliabilityC}>Approval Rating: C+</h2>
          )}
-         {user.approval_rating >= 74 && user.approval_rating < 77 && (
+         {user.approval_rating >= 73 && user.approval_rating < 77 && (
             <h2 className={userBioWrapperStyles.reliabilityC}>Approval Rating: C</h2>
          )}
-         {user.approval_rating >= 70 && user.approval_rating < 74 && (
+         {user.approval_rating >= 70 && user.approval_rating < 73 && (
             <h2 className={userBioWrapperStyles.reliabilityC}>Approval Rating: C-</h2>
          )}
-         {user.approval_rating < 70 && (
+         {user.approval_rating >= 67 && user.approval_rating < 70 && (
+            <h2 className={userBioWrapperStyles.reliabilityC}>Approval Rating: D+</h2>
+         )}
+         {user.approval_rating > 60 && user.approval_rating < 67 && (
+            <h2 className={userBioWrapperStyles.reliabilityC}>Approval Rating: D</h2>
+         )}
+         {user.approval_rating <= 60 && (
             <h2 className={userBioWrapperStyles.reliabilityF}>Reliability: F</h2>
          )}
          <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>

@@ -18,13 +18,13 @@
 .commentWrapper span,
 .approveWrapper span,
 .moreWrapper span {
-   display: block;
    font-size: 1rem;
 }
 
 .commentIcon,
 .aprovalsIcon,
 .moreIcon {
+   display: block;
    width: 1rem;
    height: 1rem;
    background-size: 95%;
@@ -68,6 +68,50 @@
 
 .moreIcon {
    background-image: url("/images/ellipsis.svg");
+}
+
+.reliabilityA,
+.reliabilityB,
+.reliabilityC,
+.reliabilityD,
+.reliabilityF {
+   background-color: var(--aprval-level-a);
+   color: var(--secondary-color);
+   margin: 0 0 0 0.4rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 1.4rem;
+   width: 1.4rem;
+   border-radius: 50%;
+   font: var(--digit-font-mobile);
+   font-weight: 600;
+   font-size: 0.9rem;
+   transition: transform 300ms ease-in;
+}
+.reliabilityA:hover,
+.reliabilityB:hover,
+.reliabilityC:hover,
+.reliabilityD:hover,
+.reliabilityF:hover {
+   transform: scale(1.2);
+   cursor: pointer;
+}
+
+.reliabilityB {
+   background-color: var(--aprval-level-b);
+}
+
+.reliabilityC {
+   background-color: var(--aprval-level-c);
+}
+
+.reliabilityD {
+   background-color: var(--aprval-level-d);
+}
+
+.reliabilityF {
+   background-color: var(--aprval-level-f);
 }
 
 @media only screen and (min-width: 700px) {
