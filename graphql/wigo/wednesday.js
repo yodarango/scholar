@@ -61,6 +61,10 @@ export const GET_WEDNESDAY_CONTENT = gql`
       # quote
       quote_stories(ID: $ID, category_tags: $category_tags, last_id: $last_id) {
          ID
+         approvals {
+            total_count
+            average_count
+         }
          creator {
             ID
             avatar

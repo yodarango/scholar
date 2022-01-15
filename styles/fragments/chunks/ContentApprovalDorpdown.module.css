@@ -6,6 +6,7 @@
    overflow-y: scroll;
    top: calc(50vh - 5rem);
    left: calc(50vw - 5rem);
+   z-index: 15;
 }
 
 .listWrapper {

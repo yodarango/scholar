@@ -12,7 +12,6 @@ import {
 
 // componenets
 import CommentaryContent from "../fragments/popup-content/commentary-content";
-import CommentsOfCcommentsContent from "../fragments/popup-content/comments-of-comments-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
@@ -25,6 +24,7 @@ import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 // types and helpres
 import { Tapprovals } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-commentary-comment";
+import { GET_COMMENTARY_APPROVALS } from "../graphql/posts/approvals";
 
 export type Tcommentary = {
    ID: string;
@@ -190,6 +190,7 @@ export default function Comments({
    const [commentsCountState, setCommentsCountState] = useState<number>(
       commentary.comments[0].total_count
    );
+
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
@@ -204,11 +205,26 @@ export default function Comments({
       }
    };
 
+   // ======================== FUNCTION 9: hande a ssuccessful approval rating ========================= //
+   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(commentary.approvals[0]);
+   const handleSuccessfulApprovalRating = async () => {
+      const { data } = await client.query({
+         query: GET_COMMENTARY_APPROVALS,
+         variables: {
+            COMMENTARY_ID: commentary.ID
+         }
+      });
+      setChooseAprovalRating(false);
+      setPostApprovalState(data.commentary_approvals[0]);
+   };
+
    return (
       <>
          {chooseAprovalRating && (
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+               post_id={{ comment: commentary.ID }}
+               successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
          {confirmationPopUpState}
@@ -254,7 +270,7 @@ export default function Comments({
                      handleRateContent={handleApproveContent}
                      handleMore={() => openPost(commentary.ID)}
                      comments={commentsCountState}
-                     approvals={commentary.approvals}
+                     approvals={postApprovalState}
                   />
                }
                {commentBoxState === commentary.ID && (

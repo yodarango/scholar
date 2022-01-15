@@ -18,6 +18,7 @@ type storiesCarrouselProps = {
 };
 
 const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
+   //console.log(quotes_in_the_last24.map((a) => a.approvals));
    // set the initial set of stories
    const [storiesArrayState, setStoriesArrayState] =
       useState<last24SingleQuote[]>(quotes_in_the_last24);
@@ -30,6 +31,7 @@ const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
       const newStoriesArray = data.quote_stories;
       setStoriesArrayState((storiesArrayState) => [...storiesArrayState, ...newStoriesArray]);
    };
+
    return (
       <div className={storiesCarrouselStyles.mainWrapper}>
          {storiesArrayState.length > 0 &&
@@ -37,7 +39,8 @@ const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
                <QuoteStories
                   key={story.ID}
                   creator={story.creator}
-                  ID={story.creator.ID} /*reportOption={true}*/
+                  ID={story.creator.ID}
+                  approvals={story.approvals}
                />
             ))}
          {storiesArrayState.length === 0 && (

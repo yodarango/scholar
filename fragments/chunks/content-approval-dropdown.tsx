@@ -1,7 +1,18 @@
 // core
-import React from "react";
+import { useState } from "react";
 
-// sty;es
+// graphql
+import client from "../../apollo-client";
+import {
+   CREATE_COMMENTARY_APPROVAL,
+   CREATE_QUOTE_APPROVAL,
+   CREATE_THOUGHT_APPROVAL
+} from "../../graphql/posts/approvals";
+
+// childs comps
+import NotificationPopup from "../notification-popup";
+
+// styles
 import contentApprovalStlyes from "../../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
 
 type TcontentApprovalDropdownProps = {
@@ -9,56 +20,168 @@ type TcontentApprovalDropdownProps = {
    additionalClassOne?: any;
    additionalClassTwo?: any;
    additionalClassThree?: any;
+   post_id: {
+      comment?: string;
+      thought?: string;
+      quote?: string;
+   };
+   successfulApproval: any;
 };
 const ContentApprovalDropdown = ({
    handleCloseApprovalDropdown,
    additionalClassOne,
    additionalClassTwo,
-   additionalClassThree
+   additionalClassThree,
+   post_id,
+   successfulApproval
 }: TcontentApprovalDropdownProps) => {
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   console.log(post_id);
+   const handleReateContnet = async (rating: number) => {
+      // if the content is a commentary call this function
+      if (post_id.comment) {
+         const { data } = await client.mutate({
+            mutation: CREATE_COMMENTARY_APPROVAL,
+            variables: {
+               USER_ID: 1,
+               COMMENTARY_ID: post_id.comment,
+               approval_rate: rating
+            }
+         });
+         if (data.rate_commentary) {
+            successfulApproval();
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      }
+
+      // if the content is thought call this function
+      else if (post_id.thought) {
+         const { data } = await client.mutate({
+            mutation: CREATE_THOUGHT_APPROVAL,
+            variables: {
+               USER_ID: 1,
+               THOUGHT_ID: post_id.thought,
+               approval_rate: rating
+            }
+         });
+         if (data.rate_thought) {
+            successfulApproval();
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      }
+
+      // if the content is a quote call this function
+      else if (post_id.quote) {
+         const { data } = await client.mutate({
+            mutation: CREATE_QUOTE_APPROVAL,
+            variables: {
+               USER_ID: 1,
+               QUOTE_ID: post_id.quote,
+               approval_rate: rating
+            }
+         });
+         if (data.rate_commentary) {
+            successfulApproval();
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      }
+   };
+
    return (
-      <div className={`${additionalClassOne} ${contentApprovalStlyes.mianWrapper}`}>
-         <section className={`${additionalClassTwo} ${contentApprovalStlyes.listWrapper}`}>
-            <span className={`${contentApprovalStlyes.listWrapper_a} ${additionalClassThree}`}>
-               A+
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_a} ${additionalClassThree}`}>
-               A
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_a} ${additionalClassThree}`}>
-               A-
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_b} ${additionalClassThree}`}>
-               B+
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_b} ${additionalClassThree}`}>
-               B
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_b} ${additionalClassThree}`}>
-               B-
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_c} ${additionalClassThree}`}>
-               C+
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_c} ${additionalClassThree}`}>
-               C
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_c} ${additionalClassThree}`}>
-               C-
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_d} ${additionalClassThree}`}>
-               D
-            </span>
-            <span className={`${contentApprovalStlyes.listWrapper_f} ${additionalClassThree}`}>
-               F
-            </span>
-            <span
-               className={contentApprovalStlyes.listWrapper_cancel}
-               onClick={handleCloseApprovalDropdown}>
-               Cancel
-            </span>
-         </section>
-      </div>
+      <>
+         {notificationPopUpState}
+         <div className={`${additionalClassOne} ${contentApprovalStlyes.mianWrapper}`}>
+            <section className={`${additionalClassTwo} ${contentApprovalStlyes.listWrapper}`}>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_a} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(100)}>
+                  A+
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_a} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(94)}>
+                  A
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_a} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(90)}>
+                  A-
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_b} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(87)}>
+                  B+
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_b} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(83)}>
+                  B
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_b} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(80)}>
+                  B-
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_c} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(77)}>
+                  C+
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_c} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(73)}>
+                  C
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_c} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(70)}>
+                  C-
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_d} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(67)}>
+                  D
+               </span>
+               <span
+                  className={`${contentApprovalStlyes.listWrapper_f} ${additionalClassThree}`}
+                  onClick={() => handleReateContnet(60)}>
+                  F
+               </span>
+               <span
+                  className={contentApprovalStlyes.listWrapper_cancel}
+                  onClick={handleCloseApprovalDropdown}>
+                  Cancel
+               </span>
+            </section>
+         </div>
+      </>
    );
 };
 

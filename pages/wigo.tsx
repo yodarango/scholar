@@ -135,6 +135,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       }
    });
 
+   console.log(
+      "==========================================START===============================================",
+      data.quote_stories,
+      "=====================================END=============================="
+   );
    return {
       props: {
          verseContent,

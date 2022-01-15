@@ -5,10 +5,13 @@ import ReactMarkdown from "react-markdown";
 // graphql
 import client from "../../apollo-client";
 import { GET_COMMENTARY_COMMENTS } from "../../graphql/posts/comments";
+import { GET_COMMENTARY_APPROVALS } from "../../graphql/posts/approvals";
 
 // components
 import NotificationPopup from "../notification-popup";
 import CommentsOfCcommentsContent from "./comments-of-thoughts";
+import handlePostComment from "../../functions/posts/post-commentary-comment";
+import ContentApprovalDropdown from "../chunks/content-approval-dropdown";
 
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
@@ -17,7 +20,6 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // helpers
 import { Tcommentary } from "../../posts/comment";
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
-import handlePostComment from "../../functions/posts/post-commentary-comment";
 
 // others
 
@@ -71,8 +73,23 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
       func: openCommentArea
    });
 
-   //   =======================  FUNCTION 2: handle rating content ============= //
-   const handleRateContent = () => {};
+   // =================    FUNCTION 2: handle the approve click  ================== //
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleApproveContent = () => {
+      setChooseAprovalRating(true);
+   };
+   // ======================== FUNCTION 2.1: hande a ssuccessful approval rating ========================= //
+   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(commentary.approvals[0]);
+   const handleSuccessfulApprovalRating = async () => {
+      const { data } = await client.query({
+         query: GET_COMMENTARY_APPROVALS,
+         variables: {
+            COMMENTARY_ID: commentary.ID
+         }
+      });
+      setChooseAprovalRating(false);
+      setPostApprovalState(data.commentary_approvals[0]);
+   };
 
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
    const commentBody = useRef<HTMLTextAreaElement>(null);
@@ -115,6 +132,13 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
 
    return (
       <>
+         {chooseAprovalRating && (
+            <ContentApprovalDropdown
+               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+               post_id={{ comment: commentary.ID }}
+               successfulApproval={handleSuccessfulApprovalRating}
+            />
+         )}
          {referencedVerseState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
@@ -156,9 +180,9 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                {/* Reaction buttons (like comments ) */}
                <PostReactions
                   handleComment={openCommentInputState.func}
-                  handleRateContent={handleRateContent}
+                  handleRateContent={handleApproveContent}
                   comments={commentsCountState}
-                  approvals={postReactionContent.approvals}
+                  approvals={postApprovalState}
                />
 
                {/* Assigned Tags */}
