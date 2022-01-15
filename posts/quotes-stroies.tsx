@@ -188,7 +188,7 @@ const QuoteStories = ({
       });
       setChooseAprovalRating(false);
       console.log(data);
-      //setPostApprovalState(data.commentary_approvals[0]);
+      setPostApprovalState(data.quote_approvals[0]);
    };
 
    return (
