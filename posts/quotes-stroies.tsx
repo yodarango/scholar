@@ -53,6 +53,14 @@ export type quoteStoriesProps = {
 
 export type last24SingleQuote = {
    ID: string;
+   approvals: {
+      ID: string;
+      USER_ID: string;
+      QUOTE_ID: string;
+      posted_on: string;
+      total_count: number;
+      average_count: number;
+   }[];
    creator: {
       ID: string;
       avatar: string;
@@ -67,11 +75,13 @@ export type last24SingleQuote = {
 const QuoteStories = ({
    ID,
    creator,
+   approvals,
    deleteOption,
    editOption,
    reportOption
 }: last24SingleQuote) => {
    console.log(creator);
+   console.log(approvals);
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<Tstory[]>([]);
@@ -168,10 +178,7 @@ const QuoteStories = ({
       setChooseAprovalRating(true);
    };
    // ======================== FUNCTION 13.1: hande a ssuccessful approval rating ========================= //
-   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(
-      quoteState[countState].approvals[0]
-   );
-
+   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(approvals[0]);
    const handleSuccessfulApprovalRating = async () => {
       const { data } = await client.query({
          query: GET_QUOTE_APPROVALS,

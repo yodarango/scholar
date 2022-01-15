@@ -4,9 +4,10 @@ import { useState, useRef } from "react";
 //graphql
 import client from "../apollo-client";
 import { OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/quotes";
+import { GET_QUOTE_APPROVALS } from "../graphql/posts/approvals";
 
 // components
-import PostReactions from "../fragments/buttons/post-reactions";
+import PostReactions, { Tapprovals } from "../fragments/buttons/post-reactions";
 import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 
@@ -28,12 +29,6 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [commentPopUpState, setCommentPopUpState] = useState<boolean>(false);
    const handleComentClick = () => {
       setCommentPopUpState(true);
-   };
-
-   // =================    FUNCTION 6: handle the approve click  ================== //
-   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
-   const handleRateContent = () => {
-      setChooseAprovalRating(true);
    };
 
    // ==============   FUNCTION 7: see the stroy data when the user clicks "More" =============== //
@@ -75,6 +70,27 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
          }
       }
    };
+
+   // ================= FUNCTION 13: handle the approve click  ================== //
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleApproveContent = () => {
+      setChooseAprovalRating(true);
+   };
+   // ======================== FUNCTION 13.1: hande a ssuccessful approval rating ========================= //
+   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(story.approvals[0]);
+
+   const handleSuccessfulApprovalRating = async () => {
+      const { data } = await client.query({
+         query: GET_QUOTE_APPROVALS,
+         variables: {
+            QUOTE_ID: story.ID
+         }
+      });
+      setChooseAprovalRating(false);
+      console.log(data);
+      setPostApprovalState(data.quote_approvals[0]);
+   };
+
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {chooseAprovalRating && (
@@ -83,6 +99,8 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                additionalClassOne={contentApprovalDDStyles.mianWrapper_quotes}
                additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
                additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
+               post_id={{ quote: story.ID }}
+               successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
          <section className={quoteStoriesStyles.storyPostWrapper}>
@@ -99,10 +117,10 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
             </div>
             <div className={quoteStoriesStyles.postReactionWrapper}>
                <PostReactions
-                  handleRateContent={handleRateContent}
+                  handleRateContent={handleApproveContent}
                   handleComment={handleComentClick}
                   handleMore={() => handleMoreClick(story.ID)}
-                  approvals={story.approvals}
+                  approvals={postApprovalState}
                   comments={commentsCountState}
                />
             </div>
