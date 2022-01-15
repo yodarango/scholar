@@ -34,11 +34,7 @@ const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
       <div className={storiesCarrouselStyles.mainWrapper}>
          {storiesArrayState.length > 0 &&
             storiesArrayState.map((story: last24SingleQuote) => (
-               <QuoteStories
-                  key={story.ID}
-                  creator={story.creator}
-                  ID={story.creator.ID} /*reportOption={true}*/
-               />
+               <QuoteStories key={story.ID} creator={story.creator} ID={story.creator.ID} />
             ))}
          {storiesArrayState.length === 0 && (
             <h2 className={storiesCarrouselStyles.noContrastTitle}>No Quotes Today!</h2>

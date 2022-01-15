@@ -195,7 +195,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    };
 
    // ======================== FUNCTION 9: hande a ssuccessful approval rating ========================= //
-   //const [postApprovalState, setPostApprovalState] = useState<number>(0);
+   //const [approvalsCountState, setApprovalsCountState] = useState<number>(0);
    const handleSuccessfulApprovalRating = async (thought_id: string) => {
       // currently not refetching approvals since thought.tx needs to be moved to its own comp
       // const { data } = await client.query({
@@ -204,6 +204,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       //       THOUGHT_ID: thought_id
       //    }
       // });
+      //setApprovalsCountState((approvalsCountState) => approvalsCountState + 1);
       setChooseAprovalRating(false);
    };
    return (
@@ -213,11 +214,11 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          {notificationpopUpState}
          {thoughts.map((thought) => {
             return (
-               <section key={thought.ID}>
+               <section key={thought.ID} id={thought.ID}>
                   {chooseAprovalRating && (
                      <ContentApprovalDropdown
                         handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
-                        post_id={thought.ID}
+                        post_id={{ thought: thought.ID }}
                         successfulApproval={() => handleSuccessfulApprovalRating(thought.ID)}
                      />
                   )}

@@ -3,7 +3,11 @@ import { useState } from "react";
 
 // graphql
 import client from "../../apollo-client";
-import { CREATE_COMMENTARY_APPROVAL } from "../../graphql/posts/approvals";
+import {
+   CREATE_COMMENTARY_APPROVAL,
+   CREATE_QUOTE_APPROVAL,
+   CREATE_THOUGHT_APPROVAL
+} from "../../graphql/posts/approvals";
 
 // childs comps
 import NotificationPopup from "../notification-popup";
@@ -34,6 +38,8 @@ const ContentApprovalDropdown = ({
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
    );
+
+   console.log(post_id);
    const handleReateContnet = async (rating: number) => {
       // if the content is a commentary call this function
       if (post_id.comment) {
@@ -41,7 +47,7 @@ const ContentApprovalDropdown = ({
             mutation: CREATE_COMMENTARY_APPROVAL,
             variables: {
                USER_ID: 1,
-               COMMENTARY_ID: post_id,
+               COMMENTARY_ID: post_id.comment,
                approval_rate: rating
             }
          });
@@ -60,16 +66,16 @@ const ContentApprovalDropdown = ({
       }
 
       // if the content is thought call this function
-      if (post_id.comment) {
+      else if (post_id.thought) {
          const { data } = await client.mutate({
-            mutation: CREATE_COMMENTARY_APPROVAL,
+            mutation: CREATE_THOUGHT_APPROVAL,
             variables: {
                USER_ID: 1,
-               COMMENTARY_ID: post_id,
+               THOUGHT_ID: post_id.thought,
                approval_rate: rating
             }
          });
-         if (data.rate_commentary) {
+         if (data.rate_thought) {
             successfulApproval();
          } else {
             setNotificationPopUpState(
@@ -84,12 +90,12 @@ const ContentApprovalDropdown = ({
       }
 
       // if the content is a quote call this function
-      if (post_id.comment) {
+      else if (post_id.quote) {
          const { data } = await client.mutate({
-            mutation: CREATE_COMMENTARY_APPROVAL,
+            mutation: CREATE_QUOTE_APPROVAL,
             variables: {
                USER_ID: 1,
-               COMMENTARY_ID: post_id,
+               QUOTE_ID: post_id.quote,
                approval_rate: rating
             }
          });
@@ -107,6 +113,7 @@ const ContentApprovalDropdown = ({
          }
       }
    };
+
    return (
       <>
          {notificationPopUpState}

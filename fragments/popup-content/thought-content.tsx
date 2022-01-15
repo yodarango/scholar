@@ -5,9 +5,12 @@ import ReactMarkdown from "react-markdown";
 // graphQL
 import client from "../../apollo-client";
 import { GET_THOUGHT_COMMENTS } from "../../graphql/posts/comments";
+
 // components
 import NotificationPopup from "../notification-popup";
 import CommentsOfThoughtContent from "./comments-of-thoughts";
+import handlePostComment from "../../functions/posts/post-thought-comment";
+import ContentApprovalDropdown from "../chunks/content-approval-dropdown";
 
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
@@ -16,7 +19,6 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // helpers
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 import { Tthought } from "../../posts/thought";
-import handlePostComment from "../../functions/posts/post-thought-comment";
 
 // others
 
@@ -71,9 +73,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       func: openCommentArea
    });
 
-   //   ==================  FUNCTION 2: hhandle rate the content ============= //
-   const handleRateContent = () => {};
-
+   const handleApproveContent = () => {};
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
@@ -155,9 +155,9 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                {/* Reaction buttons (like comments ) */}
                <PostReactions
                   handleComment={openCommentInputState.func}
-                  handleRateContent={handleRateContent}
+                  handleRateContent={handleApproveContent}
                   comments={commentsCountState}
-                  approvals={thought.approvals}
+                  approvals={thought.approvals[0]}
                />
 
                {/* Assigned Tags */}

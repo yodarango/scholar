@@ -10,6 +10,26 @@ export const CREATE_COMMENTARY_APPROVAL = gql`
    }
 `;
 
+export const CREATE_THOUGHT_APPROVAL = gql`
+   mutation ($USER_ID: ID, $THOUGHT_ID: ID, $approval_rate: Int) {
+      rate_thought(
+         data: { USER_ID: $USER_ID, THOUGHT_ID: $THOUGHT_ID, approval_rate: $approval_rate }
+      ) {
+         ID
+      }
+   }
+`;
+
+export const CREATE_QUOTE_APPROVAL = gql`
+   mutation ($USER_ID: ID, $QUOTE_ID: ID, $approval_rate: Int) {
+      rate_thought(
+         data: { USER_ID: $USER_ID, QUOTE_ID: $QUOTE_ID, approval_rate: $approval_rate }
+      ) {
+         ID
+      }
+   }
+`;
+
 export const GET_COMMENTARY_APPROVALS = gql`
    query ($COMMENTARY_ID: ID) {
       commentary_approvals(COMMENTARY_ID: $COMMENTARY_ID) {

@@ -223,7 +223,7 @@ export default function Comments({
          {chooseAprovalRating && (
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
-               post_id={commentary.ID}
+               post_id={{ comment: commentary.ID }}
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}

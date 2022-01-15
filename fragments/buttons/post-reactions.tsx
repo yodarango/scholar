@@ -32,6 +32,7 @@ const PostReactions = ({
    comments,
    approvals
 }: TpostReactionsProps) => {
+   console.log(approvals);
    return (
       <div className={postReactionStyles.mainWrapper}>
          {handleComment && (
