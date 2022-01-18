@@ -99,7 +99,7 @@ const ContentApprovalDropdown = ({
                approval_rate: rating
             }
          });
-         if (data.rate_commentary) {
+         if (data.rate_quote) {
             successfulApproval();
          } else {
             setNotificationPopUpState(
