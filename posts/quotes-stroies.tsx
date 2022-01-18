@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // graphQL
 import client from "../apollo-client";
@@ -80,8 +80,6 @@ const QuoteStories = ({
    editOption,
    reportOption
 }: last24SingleQuote) => {
-   console.log(creator);
-   console.log(approvals);
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<Tstory[]>([]);
@@ -109,12 +107,21 @@ const QuoteStories = ({
       if (countState < quoteState.length - 1) setCountState(countState + 1);
    };
 
+   const initialRender = useRef(true);
+   useEffect(() => {
+      if (initialRender.current) {
+         initialRender.current = false;
+      } else {
+         handleSuccessfulApprovalRating(quoteState[countState].ID);
+      }
+   }, [countState]);
    // ==============   FUNCTION 4: close all the stories   =============== //
    const handleCloseStories = () => {
       document.body.style.overflow = "scroll";
       setHandleStoriePopupState(false);
       setCountState(0);
       setCommentsOfQuote({ content: [], popUp: false });
+      setPostApprovalState(approvals[0]);
    };
 
    // ==============   FUNCTION 5: commennt on the story  =============== //
@@ -129,6 +136,8 @@ const QuoteStories = ({
       content: []
    });
 
+   // ============ FUNCTION 8.1: update the approvals for each story on toggling.
+   //              idealy the way stories are rendered shall change in the future.
    const handleMoreClick = async (quote_id: string) => {
       const { data } = await client.query({
          query: OPEN_QUOTE_STORY_COMMENTS,
@@ -148,7 +157,7 @@ const QuoteStories = ({
       setDeletePopupState(true);
    };
 
-   // ================= FUNCTION 11: Handle the delete popup  ===================//
+   // ================= FUNCTION 11: Handle the report story popup  ===================//
    const [reportPopupState, setReportPopupState] = useState<boolean>(false);
    const handleReportConfirmation = () => {
       setReportPopupState(true);
@@ -161,7 +170,7 @@ const QuoteStories = ({
    const postQuoteComment = async (storyId: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(storyId, "2", commentBody.current.value);
+         const data = await handlePostComment(storyId, "1", commentBody.current.value);
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
@@ -179,15 +188,14 @@ const QuoteStories = ({
    };
    // ======================== FUNCTION 13.1: hande a ssuccessful approval rating ========================= //
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(approvals[0]);
-   const handleSuccessfulApprovalRating = async () => {
+   const handleSuccessfulApprovalRating = async (id?: string) => {
       const { data } = await client.query({
          query: GET_QUOTE_APPROVALS,
          variables: {
-            QUOTE_ID: ID
+            QUOTE_ID: id ? id : quoteState[countState].ID
          }
       });
       setChooseAprovalRating(false);
-      console.log(data);
       setPostApprovalState(data.quote_approvals[0]);
    };
 
@@ -206,7 +214,7 @@ const QuoteStories = ({
                additionalClassOne={contentApprovalDDStyles.mianWrapper_quotes}
                additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
                additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
-               post_id={{ quote: ID }}
+               post_id={{ quote: quoteState[countState].ID }}
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
@@ -214,7 +222,7 @@ const QuoteStories = ({
          {/* ------------- avatars for all the current users with stories within the last 24 hours ---------------- */}
          <section
             className={quoteStoriesStyles.mainStoryWrapper}
-            onClick={() => handleOpenStroies(ID)}>
+            onClick={() => handleOpenStroies(creator.ID)}>
             <div
                className={quoteStoriesStyles.userReputationWrapper}
                style={{
@@ -246,10 +254,14 @@ const QuoteStories = ({
                <div className={quoteStoriesStyles.storyPostsControllerWrapper}>
                   <span
                      className={quoteStoriesStyles.postStoryLeft}
-                     onClick={handleMoveBack}></span>
+                     onClick={() => {
+                        handleMoveBack();
+                     }}></span>
                   <span
                      className={quoteStoriesStyles.postStoryRight}
-                     onClick={handleMoveForth}></span>
+                     onClick={() => {
+                        handleMoveForth();
+                     }}></span>
                </div>
 
                {/* ------------------------ actual story post on "view mode" ---------------------- */}

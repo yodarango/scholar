@@ -134,12 +134,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
          last_id: lastId
       }
    });
-
-   console.log(
-      "==========================================START===============================================",
-      data.quote_stories,
-      "=====================================END=============================="
-   );
    return {
       props: {
          verseContent,
