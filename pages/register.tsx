@@ -20,10 +20,6 @@ export default function Register() {
    const signatureInput = useRef<HTMLInputElement>(null);
    const passwordInput = useRef<HTMLInputElement>(null);
 
-   const emailInputDesktop = useRef<HTMLInputElement>(null);
-   const signatureInputDesktop = useRef<HTMLInputElement>(null);
-   const passwordInputDesktop = useRef<HTMLInputElement>(null);
-
    const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
       false
    );
