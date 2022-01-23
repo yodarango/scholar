@@ -10,27 +10,42 @@ import NavigationMenu from "../../../layouts/navigation-menu";
 
 // helpers
 import { Tuser } from "../[...userId]";
+import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 type userSettingsProps = {
    user: Tuser;
 };
 const UserSettings = ({ user }: userSettingsProps) => {
-   // =======================  FUNCTION 1: Check that tbe signature can only contian =============== //
+   // =======================  FUNCTION 1: Check that the signature can only contian characters and numbers =============== //
    const [isValidInputState, setIsValidInputState] = useState<boolean>(false);
    const [saveButtonIsDisiableState, setsaveButtonIsDisiableState] = useState<boolean>(true);
    const isValidInput = useRef<HTMLInputElement>(null);
-   const format = /^\w+$/;
-   const checkForValidSignature = () => {
-      if (isValidInput.current) {
-         const currInput = isValidInput.current.value;
-         if (!format.test(currInput)) {
-            setIsValidInputState(true);
-            setsaveButtonIsDisiableState(false);
-         } else {
-            setsaveButtonIsDisiableState(true);
-         }
-      }
+   const failValidation = () => {
+      setIsValidInputState(true);
+      setsaveButtonIsDisiableState(false);
    };
+
+   const passedValidation = () => {
+      setsaveButtonIsDisiableState(true);
+   };
+
+   checkForValidSignature(
+      isValidInput.current ? isValidInput.current.value : "",
+      failValidation,
+      passedValidation
+   );
+   // const format = /^\w+$/;
+   // const checkForValidSignature = (input, fail, success) => {
+   //    if (isValidInput.current) {
+   //       const currInput = isValidInput.current.value;
+   //       if (!format.test(currInput)) {
+   //          setIsValidInputState(true);
+   //          setsaveButtonIsDisiableState(false);
+   //       } else {
+   //          setsaveButtonIsDisiableState(true);
+   //       }
+   //    }
+   // };
 
    return (
       <>

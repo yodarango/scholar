@@ -8,12 +8,14 @@ import SmallLoader from "../fragments/chunks/small-loader";
 import NotificationPopup from "../fragments/notification-popup";
 import { CREATE_NEW_USER } from "../graphql/users/new_user";
 
-//
-
+// styles
 import registerStyles from "../styles/pages/Register.module.css";
 
-export default function Login() {
-   // ================ FUNCTION: register the new user
+//helpers
+import { checkForValidSignature } from "../helpers/input-validaton";
+
+export default function Register() {
+   // ====================== FUNCTION: register the new user ============================ //
    const emailInput = useRef<HTMLInputElement>(null);
    const signatureInput = useRef<HTMLInputElement>(null);
    const passwordInput = useRef<HTMLInputElement>(null);
@@ -22,60 +24,26 @@ export default function Login() {
    const signatureInputDesktop = useRef<HTMLInputElement>(null);
    const passwordInputDesktop = useRef<HTMLInputElement>(null);
 
-   const [registrationErrorState, setRegistrationErrorState] = useState<JSX.Element | boolean>(
+   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
       false
    );
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
-   const hanldeNewUserRegistration = async (device: string) => {
-      if (
-         device === "mobile" &&
-         emailInput.current &&
-         signatureInput.current &&
-         passwordInput.current
-      ) {
+   const hanldeNewUserRegistration = async () => {
+      if (emailInput.current && signatureInput.current && passwordInput.current) {
          setSmallLoaderState(<SmallLoader />);
          const { data } = await client.mutate({
             mutation: CREATE_NEW_USER,
             variables: {
-               signature: signatureInput.current.value,
-               email: emailInput.current.value,
-               password: passwordInput.current.value
+               signature: `#${signatureInput.current.value.toUpperCase()}`,
+               email: `${emailInput.current.value.toLocaleLowerCase()}`,
+               password: `${passwordInput.current.value}`
             }
          });
          if (data.create_new_user.message) {
             setSmallLoaderState(false);
-            setRegistrationErrorState(
+            setNotificationpopUpState(
                <NotificationPopup
-                  closeModal={() => setRegistrationErrorState(false)}
-                  title='There was a problem 😔'
-                  contentString={`${data.create_new_user.message}`}
-                  newClass='notification-wrapper--Error'
-               />
-            );
-         }
-      }
-
-      if (
-         device === "desktop" &&
-         emailInputDesktop.current &&
-         signatureInputDesktop.current &&
-         passwordInputDesktop.current
-      ) {
-         setSmallLoaderState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: CREATE_NEW_USER,
-            variables: {
-               signature: signatureInputDesktop.current.value,
-               email: emailInputDesktop.current.value,
-               password: passwordInputDesktop.current.value
-            }
-         });
-
-         if (data.create_new_user.message) {
-            setSmallLoaderState(false);
-            setRegistrationErrorState(
-               <NotificationPopup
-                  closeModal={() => setRegistrationErrorState(false)}
+                  closeModal={() => setNotificationpopUpState(false)}
                   title='There was a problem 😔'
                   contentString={`${data.create_new_user.message}`}
                   newClass='notification-wrapper--Error'
@@ -85,9 +53,26 @@ export default function Login() {
       }
    };
 
+   // ====================== FUNCTION: register the new user ============================ //
+   const failValidation = () => {
+      setNotificationpopUpState(
+         <NotificationPopup
+            closeModal={() => setNotificationpopUpState(false)}
+            title='There was a problem 😔'
+            contentString={`Sorry, signature can only contain numbers and non-special characters`}
+            newClass='notification-wrapper--Error'
+         />
+      );
+   };
+
+   const checkValidation = () => {
+      checkForValidSignature(signatureInput.current ? signatureInput.current.value : "") === true
+         ? hanldeNewUserRegistration()
+         : failValidation();
+   };
    return (
       <>
-         {registrationErrorState}
+         {notificationpopUpState}
          <div className='main-wrapper'>
             <div className={`${registerStyles.wrapFlexRow} wrap-flex-row`}>
                {/* Left side, shows on mobile*/}
@@ -115,43 +100,7 @@ export default function Login() {
                      />
                      {!smallLoaderState && (
                         <div className='std-button'>
-                           <p
-                              className='std-button_gradient-text'
-                              onClick={() => hanldeNewUserRegistration("mobile")}>
-                              Sign Up
-                           </p>
-                        </div>
-                     )}
-                     {smallLoaderState}
-                  </div>
-               </div>
-
-               {/* Left side, hides on mobile*/}
-               <div className={registerStyles.loginRigth}>
-                  <div className='nowrap-flex-column'>
-                     <input
-                        type='email'
-                        placeholder='Enter your email'
-                        className='std-input'
-                        ref={emailInputDesktop}
-                     />
-                     <input
-                        type='text'
-                        placeholder='Create a personal signature'
-                        className='std-input'
-                        ref={signatureInputDesktop}
-                     />
-                     <input
-                        type='password'
-                        placeholder='Type a strong password'
-                        className='std-input'
-                        ref={passwordInputDesktop}
-                     />
-                     {!smallLoaderState && (
-                        <div className='std-button'>
-                           <p
-                              className='std-button_gradient-text'
-                              onClick={() => hanldeNewUserRegistration("mobile")}>
+                           <p className='std-button_gradient-text' onClick={checkValidation}>
                               Sign Up
                            </p>
                         </div>
