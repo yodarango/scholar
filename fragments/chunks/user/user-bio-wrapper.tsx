@@ -2,7 +2,7 @@
 import userBioWrapperStyles from "../../../styles/fragments/chunks/users/UserBioWrapper.module.css";
 
 // helpers / types
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type userBioWrapperProps = {
    user: Tuser;

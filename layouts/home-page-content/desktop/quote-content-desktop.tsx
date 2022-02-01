@@ -13,7 +13,7 @@ import QuotesProfile from "../../../posts/quotes-profile";
 
 // helpers
 import { TsingleStory } from "../../../posts/quotes-profile";
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type commentaryContentDesktopProps = {
    user: Tuser;

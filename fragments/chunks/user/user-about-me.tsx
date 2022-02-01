@@ -5,7 +5,7 @@ import Link from "next/link";
 import usersAboutMeStyles from "../../../styles/fragments/chunks/users/UserAboutMe.module.css";
 
 // helpers / types
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type userAboutMeProps = {
    user: Tuser;
@@ -14,6 +14,7 @@ type userAboutMeProps = {
 const UserAboutMe = ({ user }: userAboutMeProps) => {
    return (
       <section className={usersAboutMeStyles.aboutMeWrapper}>
+         <h3 className={usersAboutMeStyles.aboutMeTitle}>About Me</h3>
          <ul>
             {user.first_name && user.gender === "male" && (
                <li>

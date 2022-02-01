@@ -13,10 +13,10 @@ import homePageContentDesktopStyles from "../../../styles/layouts/home-page-cont
 
 // helpers
 import { Tcommentary } from "../../../posts/comment";
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type commentaryContentDesktopProps = {
-   user: Tuser;
+   user: Tuser | null | undefined;
 };
 
 const CommentaryContentDesktop = ({ user }: commentaryContentDesktopProps) => {
@@ -29,7 +29,7 @@ const CommentaryContentDesktop = ({ user }: commentaryContentDesktopProps) => {
       const fetchMoreComments = async () => {
          const { data } = await client.query({
             query: GET_PROFILE_COMMENTARIES,
-            variables: { ID: user.ID, totalCountOnly: false, last_id: commentaryLastIdState }
+            variables: { ID: user?.ID, totalCountOnly: false, last_id: commentaryLastIdState }
          });
 
          setCommentaryState((commentaryState) => [
@@ -44,20 +44,24 @@ const CommentaryContentDesktop = ({ user }: commentaryContentDesktopProps) => {
    return (
       <div className={homePageContentDesktopStyles.contentWrapper}>
          {commentaryState.map((commentary: Tcommentary) => (
-            <section>
-               <Comment
-                  commentary={{
-                     ...commentary,
-                     creator: {
-                        ID: user.ID,
-                        avatar: user.avatar,
-                        signature: user.signature,
-                        authority_level: user.authority_level,
-                        approval_rating: user.approval_rating
-                     }
-                  }}
-               />
-            </section>
+            <>
+               {user && (
+                  <section>
+                     <Comment
+                        commentary={{
+                           ...commentary,
+                           creator: {
+                              ID: user.ID,
+                              avatar: user.avatar,
+                              signature: user.signature,
+                              authority_level: user.authority_level,
+                              approval_rating: user.approval_rating
+                           }
+                        }}
+                     />
+                  </section>
+               )}
+            </>
          ))}
          {!hideLoadMoreBttnState && (
             <button

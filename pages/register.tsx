@@ -1,6 +1,8 @@
 // core
 import { title } from "process";
 import { useRef, useState } from "react";
+import { useRouter } from "next/router";
+const Cookies = require("js-cookie");
 
 // graphql
 import client from "../apollo-client";
@@ -24,6 +26,7 @@ export default function Register() {
       false
    );
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
+   const router = useRouter();
    const hanldeNewUserRegistration = async () => {
       if (emailInput.current && signatureInput.current && passwordInput.current) {
          setSmallLoaderState(<SmallLoader />);
@@ -35,7 +38,15 @@ export default function Register() {
                password: `${passwordInput.current.value}`
             }
          });
-         if (data.create_new_user.message) {
+
+         if (data.create_new_user.ID) {
+            Cookies.set("authorization", data.create_new_user.token, {
+               secure: true,
+               sameSite: "strict",
+               expires: 7
+            });
+            router.replace(`/users/me?from=register`);
+         } else if (data.create_new_user.message) {
             setSmallLoaderState(false);
             setNotificationpopUpState(
                <NotificationPopup

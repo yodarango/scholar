@@ -11,10 +11,10 @@ import SermonNotesContentDesktop from "./sermon-notes-content-desktop";
 import allContentDesktopStyles from "../../../styles/layouts/home-page-content/AllContentDesktop.module.css";
 
 // helpers
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type allContentDesktopProps = {
-   user: Tuser;
+   user: Tuser | null | undefined;
 };
 const AllContentDesktop = ({ user }: allContentDesktopProps) => {
    const [coloredTabState, setColoredTabState] = useState<{
@@ -59,35 +59,37 @@ const AllContentDesktop = ({ user }: allContentDesktopProps) => {
 
    return (
       <section className={allContentDesktopStyles.desktopPostsGrid}>
-         <section className={allContentDesktopStyles.myPostsWrapper}>
-            <nav className={allContentDesktopStyles.myPostsMenu}>
-               <span
-                  className={allContentDesktopStyles.commentariesPosts}
-                  onClick={() => requestCommentaries(user)}
-                  style={{ color: coloredTabState.commentary }}>
-                  Commentaries
-               </span>
-               <span
-                  className={allContentDesktopStyles.thoughtsPosts}
-                  onClick={() => requestThoughts(user)}
-                  style={{ color: coloredTabState.thought }}>
-                  Thoughts
-               </span>
-               <span
-                  className={allContentDesktopStyles.quotesPosts}
-                  onClick={() => requestQuotes(user)}
-                  style={{ color: coloredTabState.quote }}>
-                  Quotes
-               </span>
-               <span
-                  className={allContentDesktopStyles.sermonsPosts}
-                  onClick={() => requestSermons(user)}
-                  style={{ color: coloredTabState.sermon }}>
-                  Sermons
-               </span>
-            </nav>
-            {contentWrapper}
-         </section>
+         {user && (
+            <section className={allContentDesktopStyles.myPostsWrapper}>
+               <nav className={allContentDesktopStyles.myPostsMenu}>
+                  <span
+                     className={allContentDesktopStyles.commentariesPosts}
+                     onClick={() => requestCommentaries(user)}
+                     style={{ color: coloredTabState.commentary }}>
+                     Commentaries
+                  </span>
+                  <span
+                     className={allContentDesktopStyles.thoughtsPosts}
+                     onClick={() => requestThoughts(user)}
+                     style={{ color: coloredTabState.thought }}>
+                     Thoughts
+                  </span>
+                  <span
+                     className={allContentDesktopStyles.quotesPosts}
+                     onClick={() => requestQuotes(user)}
+                     style={{ color: coloredTabState.quote }}>
+                     Quotes
+                  </span>
+                  <span
+                     className={allContentDesktopStyles.sermonsPosts}
+                     onClick={() => requestSermons(user)}
+                     style={{ color: coloredTabState.sermon }}>
+                     Sermons
+                  </span>
+               </nav>
+               {contentWrapper}
+            </section>
+         )}
       </section>
    );
 };

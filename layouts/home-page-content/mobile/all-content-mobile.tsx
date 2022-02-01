@@ -11,10 +11,10 @@ import QuotesContent from "./quotes-content";
 import allContentMobileStyles from "../../../styles/layouts/home-page-content/AllContentMobile.module.css";
 
 // helpers
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type allContentMobileProps = {
-   user: Tuser;
+   user: Tuser | null | undefined;
 };
 const allContentMobile = ({ user }: allContentMobileProps) => {
    const [contentPopupState, setContentPopupState] = useState<{
@@ -85,29 +85,31 @@ const allContentMobile = ({ user }: allContentMobileProps) => {
    };
    return (
       <>
-         <section className={allContentMobileStyles.mobilePostsGrid}>
-            <div
-               className={`std-button ${allContentMobileStyles.commentaryLink}`}
-               onClick={() => requestCommentaries(user)}>
-               <h5 className={`${allContentMobileStyles.link}`}>Commentaries</h5>
-            </div>
-            <div
-               className={`std-button ${allContentMobileStyles.quoteLink}`}
-               onClick={() => requestQuotes(user)}>
-               <h5 className={allContentMobileStyles.link}>Quotes</h5>
-            </div>
-            <div
-               className={`std-button ${allContentMobileStyles.thoughtLink}`}
-               onClick={() => requestThoughts(user)}>
-               <h5 className={allContentMobileStyles.link}>Thoughts</h5>
-            </div>
-            <div
-               className={`std-button ${allContentMobileStyles.sermonLink}`}
-               onClick={() => requestSermons(user)}>
-               <h5 className={allContentMobileStyles.link}>Sermons</h5>
-            </div>
-            {/* <div className={allContentMobileStyles.mobileAllLink}>All Posts</div> */}
-         </section>
+         {user && (
+            <section className={allContentMobileStyles.mobilePostsGrid}>
+               <div
+                  className={`std-button ${allContentMobileStyles.commentaryLink}`}
+                  onClick={() => requestCommentaries(user)}>
+                  <h5 className={`${allContentMobileStyles.link}`}>Commentaries</h5>
+               </div>
+               <div
+                  className={`std-button ${allContentMobileStyles.quoteLink}`}
+                  onClick={() => requestQuotes(user)}>
+                  <h5 className={allContentMobileStyles.link}>Quotes</h5>
+               </div>
+               <div
+                  className={`std-button ${allContentMobileStyles.thoughtLink}`}
+                  onClick={() => requestThoughts(user)}>
+                  <h5 className={allContentMobileStyles.link}>Thoughts</h5>
+               </div>
+               <div
+                  className={`std-button ${allContentMobileStyles.sermonLink}`}
+                  onClick={() => requestSermons(user)}>
+                  <h5 className={allContentMobileStyles.link}>Sermons</h5>
+               </div>
+               {/* <div className={allContentMobileStyles.mobileAllLink}>All Posts</div> */}
+            </section>
+         )}
 
          {contentPopupState.commentaries}
          {contentPopupState.quotes}

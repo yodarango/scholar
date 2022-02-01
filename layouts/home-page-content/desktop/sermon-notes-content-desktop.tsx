@@ -13,7 +13,7 @@ import SermonNotesPost from "../../../posts/sermon-notes-post";
 
 // helpers
 import { TsermonPost } from "../../../posts/sermon-notes-post";
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type commentaryContentDesktopProps = {
    user: Tuser;

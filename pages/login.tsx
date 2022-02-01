@@ -1,6 +1,8 @@
 // core
 import { useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+const Cookies = require("js-cookie");
 
 // graphQL
 import client from "../apollo-client";
@@ -13,10 +15,13 @@ import NotificationPopup from "../fragments/notification-popup";
 // styles
 import loginStyles from "../styles/pages/Login.module.css";
 
+// helpers
+
 export default function Login() {
    // ====================== FUNCTION: Login the user ============================ //
    const signatureInput = useRef<HTMLInputElement>(null);
    const passwordInput = useRef<HTMLInputElement>(null);
+   const router = useRouter();
 
    const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
       false
@@ -32,6 +37,14 @@ export default function Login() {
                password: `${passwordInput.current.value}`
             }
          });
+         if (data.authenticate_user.ID) {
+            Cookies.set("authorization", data.authenticate_user.token, {
+               secure: true,
+               sameSite: "strict",
+               expires: 7
+            });
+            router.replace(`/users/me?from=login`);
+         }
          if (data.authenticate_user.message) {
             setSmallLoaderState(false);
             setNotificationpopUpState(

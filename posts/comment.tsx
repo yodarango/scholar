@@ -148,7 +148,7 @@ export default function Comments({
          mutation: REPORT_COMMENTARY,
          variables: {
             COMMENTARY_ID: id,
-            USER_ID: 1
+            USER_ID: 20
          }
       });
 
@@ -239,13 +239,15 @@ export default function Comments({
                   className={cardStyles.commentCardHeader}
                   id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
                   <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                     <img
-                        src={commentary.creator.avatar}
-                        alt='Avatar'
-                        className={cardStyles.commentCardHeaderAvatarImg}
-                     />
+                     {commentary.creator && (
+                        <img
+                           src={commentary.creator.avatar}
+                           alt='Avatar'
+                           className={cardStyles.commentCardHeaderAvatarImg}
+                        />
+                     )}
                   </div>
-                  <h1>{commentary.creator.signature}</h1>
+                  {commentary.creator && <h1>{commentary.creator.signature}</h1>}
                   {deleteOption && (
                      <span
                         className={(cardStyles.cardIcon, cardStyles.delete)}
