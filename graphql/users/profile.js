@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_MY_PROFILE = gql`
-   query ($ID: ID, $totalCountOnly: Boolean, $getApprovalCount: Boolean) {
-      me(ID: $ID) {
+   query ($totalCountOnly: Boolean, $getApprovalCount: Boolean) {
+      me {
          ID
          MONGO_DB_ID
          signature
@@ -22,23 +22,49 @@ export const GET_MY_PROFILE = gql`
          my_story
          my_ministry
          my_favorite_verse
-         all_posts(USER_ID: $ID, getApprovalCount: $getApprovalCount) {
+         all_posts(getApprovalCount: $getApprovalCount) {
             thought_approval_total_count
             quote_approval_total_count
             commentaries_approval_total_count
-            commentaries(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            commentaries(totalCountOnly: $totalCountOnly) {
                total_count
             }
-            quotes(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            quotes(totalCountOnly: $totalCountOnly) {
                total_count
             }
-            thoughts(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            thoughts(totalCountOnly: $totalCountOnly) {
                total_count
             }
-            sermon_notes(totalCountOnly: $totalCountOnly, USER_ID: $ID) {
+            sermon_notes(totalCountOnly: $totalCountOnly) {
                total_count
             }
          }
+      }
+   }
+`;
+
+export const GET_MY_SETTINGS = gql`
+   query {
+      me {
+         ID
+         MONGO_DB_ID
+         signature
+         first_name
+         last_name
+         birth_date
+         gender
+         email
+         date_registered
+         authority_level
+         approval_rating
+         avatar
+         my_church
+         my_favorite_color
+         my_job
+         my_true_color_personality_test
+         my_story
+         my_ministry
+         my_favorite_verse
       }
    }
 `;
@@ -181,6 +207,36 @@ export const GET_PROFILE_SERMON_NOTES = gql`
                file_url
             }
          }
+      }
+   }
+`;
+// ======================= POSTS ROUTES ===================== //
+export const UPDATE_MY_SETTINGS = gql`
+   mutation (
+      $signature: String
+      $first_name: String
+      $last_name: String
+      $birth_date: String
+      $gender: String
+      $email: String
+   ) {
+      me(
+         data: {
+            signature: $signature
+            first_name: $first_name
+            last_name: $last_name
+            birth_date: $birth_date
+            gender: $gender
+            email: $email
+         }
+      ) {
+         ID
+         signature
+         first_name
+         last_name
+         birth_date
+         gender
+         email
       }
    }
 `;

@@ -2,7 +2,6 @@
 import { title } from "process";
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-const Cookies = require("js-cookie");
 
 // graphql
 import client from "../apollo-client";
@@ -15,8 +14,21 @@ import registerStyles from "../styles/pages/Register.module.css";
 
 //helpers
 import { checkForValidSignature } from "../helpers/input-validaton";
+const Cookies = require("js-cookie");
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export default function Register() {
+   // =================== Check if there is a Logged in user and fetch its data ========== /
+   const router = useRouter();
+   const token: string = Cookies.get("authorization");
+   const parsedUser = parseJwt(token);
+
+   if (typeof window !== "undefined") {
+      if (parsedUser && parsedUser.ID) {
+         router.replace("/users/me");
+      }
+   }
+
    // ====================== FUNCTION: register the new user ============================ //
    const emailInput = useRef<HTMLInputElement>(null);
    const signatureInput = useRef<HTMLInputElement>(null);
@@ -26,7 +38,7 @@ export default function Register() {
       false
    );
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
-   const router = useRouter();
+
    const hanldeNewUserRegistration = async () => {
       if (emailInput.current && signatureInput.current && passwordInput.current) {
          setSmallLoaderState(<SmallLoader />);
@@ -40,12 +52,14 @@ export default function Register() {
          });
 
          if (data.create_new_user.ID) {
+            const expTime = new Date(new Date().getTime() * 1000 * 60);
             Cookies.set("authorization", data.create_new_user.token, {
                secure: true,
                sameSite: "strict",
-               expires: 7
+               expires: expTime
             });
-            router.replace(`/users/me?from=register`);
+
+            location.href = "/register";
          } else if (data.create_new_user.message) {
             setSmallLoaderState(false);
             setNotificationpopUpState(
@@ -80,43 +94,45 @@ export default function Register() {
    return (
       <>
          {notificationpopUpState}
-         <div className='main-wrapper'>
-            <div className={`${registerStyles.wrapFlexRow} wrap-flex-row`}>
-               {/* Left side, shows on mobile*/}
-               <div className={registerStyles.loginLeft}>
-                  <div className={registerStyles.logo}></div>
-                  <div className={registerStyles.title}>"...SHOW THYSELF APPROVED..."</div>
-                  <div className='nowrap-flex-column login-left'>
-                     <input
-                        type='email'
-                        placeholder='Enter your email'
-                        className='std-input'
-                        ref={emailInput}
-                     />
-                     <input
-                        type='text'
-                        placeholder='Create a personal signature'
-                        className='std-input'
-                        ref={signatureInput}
-                     />
-                     <input
-                        type='password'
-                        placeholder='Type a strong password'
-                        className='std-input'
-                        ref={passwordInput}
-                     />
-                     {!smallLoaderState && (
-                        <div className='std-button'>
-                           <p className='std-button_gradient-text' onClick={checkValidation}>
-                              Sign Up
-                           </p>
-                        </div>
-                     )}
-                     {smallLoaderState}
+         {!parsedUser && (
+            <div className='main-wrapper'>
+               <div className={`${registerStyles.wrapFlexRow} wrap-flex-row`}>
+                  {/* Left side, shows on mobile*/}
+                  <div className={registerStyles.loginLeft}>
+                     <div className={registerStyles.logo}></div>
+                     <div className={registerStyles.title}>"...SHOW THYSELF APPROVED..."</div>
+                     <div className='nowrap-flex-column login-left'>
+                        <input
+                           type='email'
+                           placeholder='Enter your email'
+                           className='std-input'
+                           ref={emailInput}
+                        />
+                        <input
+                           type='text'
+                           placeholder='Create a personal signature'
+                           className='std-input'
+                           ref={signatureInput}
+                        />
+                        <input
+                           type='password'
+                           placeholder='Type a strong password'
+                           className='std-input'
+                           ref={passwordInput}
+                        />
+                        {!smallLoaderState && (
+                           <div className='std-button'>
+                              <p className='std-button_gradient-text' onClick={checkValidation}>
+                                 Sign Up
+                              </p>
+                           </div>
+                        )}
+                        {smallLoaderState}
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
+         )}
       </>
    );
 }

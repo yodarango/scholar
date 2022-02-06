@@ -68,6 +68,38 @@
    text-decoration: none;
    font-size: 1rem;
 }
+.genderInputWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+}
+
+.genderInputWrapper > label {
+   width: 100%;
+}
+
+.genderInput {
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 2rem;
+   height: 2rem;
+   border-radius: 50%;
+   background-color: var(--secondary-color);
+   margin: var(--xsmall-spacing-mobile) var(--medium-spacing-mobile) 0 0;
+}
+
+.genderInputMaleActive,
+.genderInputFemaleActive {
+   background-color: var(--third-color);
+}
+
+.genderInput:hover {
+   background-color: var(--third-color);
+   cursor: pointer;
+}
 
 .buttonsWrapper {
    width: 100%;
@@ -76,6 +108,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   flex-wrap: wrap;
 }
 
 @media only screen and (min-width: 1000px) {

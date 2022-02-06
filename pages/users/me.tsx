@@ -64,38 +64,30 @@ export type Tuser = {
 };
 
 const Me = () => {
-   // =================== Check if there is a Logged in user and fetch its data ========== /
-   const token: string = Cookies.get("authorization");
-   let parsedUser = parseJwt(token);
-   const userId = parsedUser?.id ? parsedUser.id : null;
+   // globals
    const router = useRouter();
-
-   if (typeof window !== "undefined") {
-      if (router.query?.from) {
-         setTimeout(() => {
-            window.location.href = "/users/me";
-         }, 100);
-      }
-   }
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userState, setUserState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);
+
    const getUserSettings = async () => {
       const { loading, error, data } = await client.query({
          query: GET_MY_PROFILE,
          variables: {
-            ID: userId,
             totalCountOnly: true,
             getApprovalCount: true
          }
       });
-      console.log(data);
+
       if (data.me && data.me.length > 0) {
          setLoadingState(false);
          setUserState(data.me[0]);
+         console.log(data);
       } else if (data.me === null || data.me.length < 0) {
          setLoadingState(false);
          setUserState(null);
+         console.log(data);
+         location.href = "/login";
       }
    };
 
@@ -111,7 +103,6 @@ const Me = () => {
    return (
       <>
          {loadingState && <div>Loading</div>}
-         {!userState && !loadingState && <div>You are not authorized #NEEDSGRAPHICS</div>}
          <div className={userStyles.mainWrapper}>
             {notificationsPopupState && (
                <PopupWrapper

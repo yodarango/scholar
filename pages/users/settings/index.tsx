@@ -1,11 +1,11 @@
 // core
-import { GetServerSideProps } from "next";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 // graphQL
-import { GET_MY_PROFILE } from "../../../graphql/users/profile";
+import { GET_MY_SETTINGS } from "../../../graphql/users/profile";
+import { UPDATE_MY_SETTINGS } from "../../../graphql/users/profile";
 import client from "../../../apollo-client";
 
 // components
@@ -26,27 +26,33 @@ type userSettingsProps = {
 };
 
 const UserSettings = () => {
+   // globals
+   const router = useRouter();
+   // inputs
+   const isValidInput = useRef<HTMLInputElement>(null); //signature
+   const firstName = useRef<HTMLInputElement>(null);
+   const lastName = useRef<HTMLInputElement>(null);
+   const email = useRef<HTMLInputElement>(null);
+   const birthDate = useRef<HTMLInputElement>(null);
+
+   // ====================== check for token cookie ==================
    const token: string = Cookies.get("authorization");
    let parsedUser = parseJwt(token);
    const userId = parsedUser?.id ? parsedUser?.id : 0;
-   const router = useRouter();
 
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userSettingsState, setUserSettingsState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);
    const getUserSettings = async () => {
       const { loading, error, data } = await client.query({
-         query: GET_MY_PROFILE,
-         variables: {
-            ID: userId,
-            totalCountOnly: true,
-            getApprovalCount: true
-         }
+         query: GET_MY_SETTINGS,
+         variables: {}
       });
       if (data.me && data.me.length > 0) {
          setLoadingState(false);
          setUserSettingsState(data.me[0]);
       } else if (data.me === null || data.me.length < 0) {
+         router.replace("/login");
          setLoadingState(false);
          setUserSettingsState(null);
       }
@@ -55,11 +61,20 @@ const UserSettings = () => {
       getUserSettings();
    }, []);
    // =======================  FUNCTION 2: Check that the signature can only contian characters and numbers =============== //
-   const [isValidInputState, setIsValidInputState] = useState<boolean>(false);
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
    const [saveButtonIsDisiableState, setsaveButtonIsDisiableState] = useState<boolean>(true);
-   const isValidInput = useRef<HTMLInputElement>(null);
+
    const failValidation = () => {
-      setIsValidInputState(true);
+      setNotificationPopUpState(
+         <NotificationPopup
+            title={"Error! 😔"}
+            contentString={`Sorry, special characters or empty signature are not allowed. You won't be able to save your settings until the error is fxed.`}
+            newClass={"notification-wrapper--Red"}
+            closeModal={() => setNotificationPopUpState(false)}
+         />
+      );
       setsaveButtonIsDisiableState(false);
    };
 
@@ -85,20 +100,64 @@ const UserSettings = () => {
    //    }
    // };
 
+   // =======================  FUNCTION 3: save the user settings update =============== //
+   const [userGenderState, setUserGenderState] = useState<{
+      gender: string | undefined;
+      femaleClass: string | undefined;
+      maleClass: string | undefined;
+   }>({ gender: userSettingsState?.gender, femaleClass: "", maleClass: "" });
+
+   // convert strign passed down by DB
+   const rawDate = userSettingsState?.birth_date
+      ? parseInt(userSettingsState?.birth_date)
+      : new Date();
+   const ISOdate = new Date(rawDate).toISOString().split("T")[0];
+
+   const saveUserSettings = async () => {
+      if (birthDate.current?.value && (userGenderState.gender || userSettingsState?.gender)) {
+         const { data } = await client.mutate({
+            mutation: UPDATE_MY_SETTINGS,
+            variables: {
+               signature: isValidInput.current?.value ? isValidInput.current?.value : "",
+               first_name: firstName.current?.value ? firstName.current?.value : "",
+               last_name: lastName.current?.value ? lastName.current?.value : "",
+               email: email.current?.value ? email.current?.value : "",
+               gender: userGenderState.gender
+                  ? userGenderState.gender
+                  : userSettingsState?.gender
+                  ? userSettingsState?.gender
+                  : "",
+               birth_date: birthDate.current?.value
+            }
+         });
+         console.log(data);
+      } else if (!birthDate.current?.value) {
+         setNotificationPopUpState(
+            <NotificationPopup
+               title={"Birthdate is Empty! 🗓"}
+               contentString={`You must enter your birthday before proceeding`}
+               newClass={"notification-wrapper--Red"}
+               closeModal={() => setNotificationPopUpState(false)}
+            />
+         );
+      } else if (!userGenderState.gender) {
+         setNotificationPopUpState(
+            <NotificationPopup
+               title={"No Gender Selected! 🙋‍♂️ 🙋‍♀️"}
+               contentString={`You must select a gender before proceeding`}
+               newClass={"notification-wrapper--Red"}
+               closeModal={() => setNotificationPopUpState(false)}
+            />
+         );
+      }
+   };
+
    return (
       <>
          {loadingState && <div>Loading</div>}
-         {!userSettingsState && !loadingState && <div>You are not authorized #NEEDSGRAPHICS</div>}
          {userSettingsState && (
             <div className={userSettingsStyles.mainWrapper}>
-               {isValidInputState && (
-                  <NotificationPopup
-                     title={"Error! 😔"}
-                     contentString={`Sorry, special characters or empty signature are not allowed. You won't be able to save your settings until the error is fxed.`}
-                     newClass={"notification-wrapper--Red"}
-                     closeModal={() => setIsValidInputState(false)}
-                  />
-               )}
+               {notificationPopUpState}
                <h1 className={userSettingsStyles.settingsTitle}>Settings</h1>
                <div
                   className={`${userSettingsStyles.userReputation}`}
@@ -125,28 +184,6 @@ const UserSettings = () => {
                </div>
 
                <h2 className={userSettingsStyles.stdH2}>About Me</h2>
-               <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='name'>Name</label>
-                  <input
-                     id='name'
-                     type='text'
-                     maxLength={30}
-                     defaultValue={userSettingsState.first_name}
-                     className={`std-input`}
-                     required
-                  />
-               </div>
-               <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='last-name'>Last Name</label>
-                  <input
-                     id='last-name'
-                     type='text'
-                     maxLength={30}
-                     defaultValue={userSettingsState.last_name}
-                     className={`std-input`}
-                     required
-                  />
-               </div>
                <div className={userSettingsStyles.inputWrapper}>
                   <label htmlFor='church'>Church I attend</label>
                   <input
@@ -198,6 +235,69 @@ const UserSettings = () => {
                </div>
                <h2 className={userSettingsStyles.stdH2}>Privacy</h2>
                <div className={userSettingsStyles.inputWrapper}>
+                  <label htmlFor='name'>First Name</label>
+                  <input
+                     id='name'
+                     type='text'
+                     maxLength={30}
+                     defaultValue={userSettingsState.first_name}
+                     className={`std-input`}
+                     ref={firstName}
+                     required
+                  />
+               </div>
+               <div className={userSettingsStyles.inputWrapper}>
+                  <label htmlFor='name'>Last Name</label>
+                  <input
+                     id='name'
+                     type='text'
+                     maxLength={30}
+                     defaultValue={userSettingsState.last_name}
+                     className={`std-input`}
+                     ref={lastName}
+                     required
+                  />
+               </div>
+               <div
+                  className={`${userSettingsStyles.inputWrapper} ${userSettingsStyles.genderInputWrapper}`}>
+                  <label htmlFor='name'>Gender</label>
+                  <span
+                     className={`${userSettingsStyles.genderInput} ${userGenderState.maleClass}`}
+                     onClick={() =>
+                        setUserGenderState({
+                           gender: "male",
+                           maleClass: userSettingsStyles.genderInputMaleActive,
+                           femaleClass: ""
+                        })
+                     }>
+                     🙋‍♂️
+                  </span>
+                  <span
+                     className={`${userSettingsStyles.genderInput} ${userGenderState.femaleClass}`}
+                     onClick={() =>
+                        setUserGenderState({
+                           gender: "female",
+                           maleClass: "",
+                           femaleClass: userSettingsStyles.genderInputFemaleActive
+                        })
+                     }>
+                     🙋‍♀️
+                  </span>
+               </div>
+
+               <div className={userSettingsStyles.inputWrapper}>
+                  <label htmlFor='name'>Birthdate</label>
+                  <input
+                     id='name'
+                     type='date'
+                     defaultValue={ISOdate}
+                     className={`std-input`}
+                     ref={birthDate}
+                     required
+                  />
+               </div>
+
+               <div className={userSettingsStyles.inputWrapper}>
                   <label htmlFor='email'>Email</label>
                   <input
                      id='email'
@@ -205,16 +305,19 @@ const UserSettings = () => {
                      maxLength={70}
                      className={`std-input`}
                      defaultValue={userSettingsState.email}
+                     ref={email}
+                     required
                   />
                </div>
 
-               <div className={userSettingsStyles.inputWrapper}>
+               {/* <div className={userSettingsStyles.inputWrapper}>
                   <label htmlFor='password'>New Password</label>
                   <input id='password' type='text' maxLength={70} className={`std-input`} />
-               </div>
+               </div> */}
+
                <div className={userSettingsStyles.buttonsWrapper}>
                   {saveButtonIsDisiableState && (
-                     <button className={`std-button`}>
+                     <button className={`std-button`} onClick={saveUserSettings}>
                         <p className={`std-button_gradient-text`}>SAVE</p>
                      </button>
                   )}
