@@ -34,6 +34,12 @@ const UserSettings = () => {
    const lastName = useRef<HTMLInputElement>(null);
    const email = useRef<HTMLInputElement>(null);
    const birthDate = useRef<HTMLInputElement>(null);
+   const favoriteColor = useRef<HTMLInputElement>(null);
+   const favoriteVerse = useRef<HTMLInputElement>(null);
+   const myChurch = useRef<HTMLInputElement>(null);
+   const ministry = useRef<HTMLInputElement>(null);
+   const fullTimeJob = useRef<HTMLInputElement>(null);
+   const TCP = useRef<HTMLInputElement>(null);
 
    // ====================== check for token cookie ==================
    const token: string = Cookies.get("authorization");
@@ -127,7 +133,14 @@ const UserSettings = () => {
                   : userSettingsState?.gender
                   ? userSettingsState?.gender
                   : "",
-               birth_date: birthDate.current?.value
+               birth_date: birthDate.current?.value ? birthDate.current?.value : "",
+               my_church: myChurch.current?.value ? myChurch.current?.value : "",
+               my_favorite_color: favoriteColor.current?.value ? favoriteColor.current?.value : "",
+               my_job: fullTimeJob.current?.value ? fullTimeJob.current?.value : "",
+               my_true_color_personality_test: TCP.current?.value ? TCP.current?.value : "",
+               my_story: " ",
+               my_favorite_verse: favoriteVerse.current?.value ? favoriteVerse.current?.value : "",
+               my_ministry: ministry.current?.value ? ministry.current?.value : ""
             }
          });
          console.log(data);
@@ -192,6 +205,7 @@ const UserSettings = () => {
                      maxLength={50}
                      defaultValue={userSettingsState.my_church}
                      className={`std-input`}
+                     ref={myChurch}
                      required
                   />
                </div>
@@ -202,7 +216,19 @@ const UserSettings = () => {
                      type='text'
                      maxLength={30}
                      className={`std-input`}
+                     ref={ministry}
                      defaultValue={userSettingsState.my_ministry}
+                  />
+               </div>
+               <div className={userSettingsStyles.inputWrapper}>
+                  <label htmlFor='ministry'>Favorite Bible Verse</label>
+                  <input
+                     id='fav-bible-verse'
+                     type='text'
+                     maxLength={30}
+                     className={`std-input`}
+                     ref={favoriteVerse}
+                     defaultValue={userSettingsState.my_favorite_verse}
                   />
                </div>
                <div className={userSettingsStyles.inputWrapper}>
@@ -212,6 +238,7 @@ const UserSettings = () => {
                      type='text'
                      maxLength={70}
                      className={`std-input`}
+                     ref={fullTimeJob}
                      defaultValue={userSettingsState.my_job}
                   />
                </div>
@@ -222,6 +249,7 @@ const UserSettings = () => {
                      type='text'
                      maxLength={30}
                      className={`std-input`}
+                     ref={TCP}
                      defaultValue={userSettingsState.my_true_color_personality_test}
                   />
                   <a
@@ -232,6 +260,17 @@ const UserSettings = () => {
                      id={`${userSettingsStyles.takeTest}`}>
                      <span>Don't know it yet? </span> Take the test
                   </a>
+               </div>
+               <div className={userSettingsStyles.inputWrapper}>
+                  <label htmlFor='ministry'>Favorite Color</label>
+                  <input
+                     id='fav-color'
+                     type='text'
+                     maxLength={30}
+                     className={`std-input`}
+                     defaultValue={userSettingsState.my_favorite_color}
+                     ref={favoriteColor}
+                  />
                </div>
                <h2 className={userSettingsStyles.stdH2}>Privacy</h2>
                <div className={userSettingsStyles.inputWrapper}>

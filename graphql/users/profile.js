@@ -219,6 +219,13 @@ export const UPDATE_MY_SETTINGS = gql`
       $birth_date: String
       $gender: String
       $email: String
+      $my_church: String
+      $my_favorite_color: String
+      $my_job: String
+      $my_true_color_personality_test: String
+      $my_story: String
+      $my_favorite_verse: String
+      $my_ministry: String
    ) {
       me(
          data: {
@@ -228,6 +235,13 @@ export const UPDATE_MY_SETTINGS = gql`
             birth_date: $birth_date
             gender: $gender
             email: $email
+            my_church: $my_church
+            my_favorite_color: $my_favorite_color
+            my_job: $my_job
+            my_true_color_personality_test: $my_true_color_personality_test
+            my_story: $my_story
+            my_favorite_verse: $my_favorite_verse
+            my_ministry: $my_ministry
          }
       ) {
          ID
