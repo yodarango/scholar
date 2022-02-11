@@ -68,7 +68,7 @@ export type Tuser = {
 
 const User = () => {
    const router = useRouter();
-   const userId = router.query?.userId ? router.query.userId.toString() : "";
+   const userId = router.query?.userId ? router.query.userId : "";
 
    // =================== Check if there is a Logged in user and fetch its data ========== /
    const token: string = Cookies.get("authorization");
@@ -81,6 +81,7 @@ const User = () => {
       }
    }
 
+   console.log(router.query);
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userState, setUserState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);
@@ -104,8 +105,10 @@ const User = () => {
    };
 
    useEffect(() => {
-      getUserSettings();
-   }, []);
+      if (router.isReady) {
+         getUserSettings();
+      }
+   }, [router.query]);
 
    return (
       <>

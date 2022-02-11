@@ -12,6 +12,7 @@ import client from "../../../apollo-client";
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
 import NotificationPopup from "../../../fragments/notification-popup";
 import NavigationMenu from "../../../layouts/navigation-menu";
+import SmallLoader from "../../../fragments/chunks/small-loader";
 
 // helpers
 const Cookies = require("js-cookie");
@@ -119,8 +120,10 @@ const UserSettings = () => {
       : new Date();
    const ISOdate = new Date(rawDate).toISOString().split("T")[0];
 
+   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
    const saveUserSettings = async () => {
       if (birthDate.current?.value && (userGenderState.gender || userSettingsState?.gender)) {
+         setSmallLoaderState(true);
          const { data } = await client.mutate({
             mutation: UPDATE_MY_SETTINGS,
             variables: {
@@ -143,7 +146,18 @@ const UserSettings = () => {
                my_ministry: ministry.current?.value ? ministry.current?.value : ""
             }
          });
-         console.log(data);
+         if (data.me.update_successful) {
+            router.replace("/users/me");
+         } else if (!data.me.update_successful || data.me.message) {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
       } else if (!birthDate.current?.value) {
          setNotificationPopUpState(
             <NotificationPopup
@@ -355,11 +369,12 @@ const UserSettings = () => {
                </div> */}
 
                <div className={userSettingsStyles.buttonsWrapper}>
-                  {saveButtonIsDisiableState && (
+                  {saveButtonIsDisiableState && !smallLoaderState && (
                      <button className={`std-button`} onClick={saveUserSettings}>
                         <p className={`std-button_gradient-text`}>SAVE</p>
                      </button>
                   )}
+                  {smallLoaderState && <SmallLoader />}
                   <Link href={`/users/me`}>
                      <a className={`std-button--warning`}>Cancel</a>
                   </Link>

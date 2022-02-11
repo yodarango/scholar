@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_MY_PROFILE = gql`
-   query ($totalCountOnly: Boolean, $getApprovalCount: Boolean) {
+   query ($totalCountOnly: Boolean, $getApprovalCount: Boolean, $from_profile: Boolean) {
       me {
          ID
          MONGO_DB_ID
@@ -22,7 +22,7 @@ export const GET_MY_PROFILE = gql`
          my_story
          my_ministry
          my_favorite_verse
-         all_posts(getApprovalCount: $getApprovalCount) {
+         all_posts(getApprovalCount: $getApprovalCount, from_profile: $from_profile) {
             thought_approval_total_count
             quote_approval_total_count
             commentaries_approval_total_count
@@ -244,13 +244,22 @@ export const UPDATE_MY_SETTINGS = gql`
             my_ministry: $my_ministry
          }
       ) {
-         ID
-         signature
-         first_name
-         last_name
-         birth_date
-         gender
-         email
+         ... on User {
+            ID
+            signature
+            first_name
+            last_name
+            birth_date
+            gender
+            email
+         }
+         ... on DatabaseError {
+            message
+         }
+
+         ... on UserUpdated {
+            update_successful
+         }
       }
    }
 `;

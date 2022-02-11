@@ -75,7 +75,8 @@ const Me = () => {
          query: GET_MY_PROFILE,
          variables: {
             totalCountOnly: true,
-            getApprovalCount: true
+            getApprovalCount: true,
+            from_profile: true
          }
       });
 
