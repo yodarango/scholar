@@ -13,7 +13,7 @@ import homePageContentStyles from "../../../styles/layouts/home-page-content/Hom
 
 // helpers / types
 import { Tcommentary } from "../../../posts/comment";
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type commentariesContent = {
    user: Tuser;

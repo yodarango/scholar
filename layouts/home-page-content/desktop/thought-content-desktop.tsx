@@ -13,7 +13,7 @@ import Thought from "../../../posts/thought";
 
 // helpers
 import { Tthought } from "../../../posts/thought";
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type commentaryContentDesktopProps = {
    user: Tuser;

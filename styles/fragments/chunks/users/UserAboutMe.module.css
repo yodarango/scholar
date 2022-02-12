@@ -24,6 +24,11 @@
    cursor: pointer;
 }
 
+.aboutMeTitle {
+   font-size: var(--secondary-font-mobile);
+   margin: var(--xsmall-spacing-mobile) 0;
+}
+
 @media only screen and (min-width: 1000px) {
    .aboutMeWrapper {
       max-width: 800px;
@@ -34,5 +39,10 @@
       font: var(--widget-font-desktop);
       font-size: 1.2rem;
       margin: 1rem auto;
+   }
+
+   .aboutMeTitle {
+      font-size: var(--secondary-font-desktop);
+      margin: var(--xsmall-spacing-desktop) 0;
    }
 }

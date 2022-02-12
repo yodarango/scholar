@@ -12,7 +12,7 @@ import Thought from "../../../posts/thought";
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
 
 // helpers types
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 import { Tthought } from "../../../posts/thought";
 
 type thoughtContentProps = {

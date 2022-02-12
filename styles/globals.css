@@ -220,6 +220,11 @@ a:active {
    outline: none;
 }
 
+.std-input--radio {
+   display: none;
+   position: absolute;
+}
+
 .std-button,
 .std-button--clear,
 .std-button--warning {

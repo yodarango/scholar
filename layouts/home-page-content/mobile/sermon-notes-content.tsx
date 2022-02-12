@@ -13,7 +13,7 @@ import homePageContentStyles from "../../../styles/layouts/home-page-content/Hom
 
 // helpers / state
 import { TsermonPost } from "../../../posts/sermon-notes-post";
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type sermonNotesContentProps = {
    user: Tuser;

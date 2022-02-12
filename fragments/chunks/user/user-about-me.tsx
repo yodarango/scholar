@@ -5,7 +5,7 @@ import Link from "next/link";
 import usersAboutMeStyles from "../../../styles/fragments/chunks/users/UserAboutMe.module.css";
 
 // helpers / types
-import { Tuser } from "../../../pages/users/[...userId]";
+import { Tuser } from "../../../pages/users/[userId]";
 
 type userAboutMeProps = {
    user: Tuser;
@@ -14,6 +14,7 @@ type userAboutMeProps = {
 const UserAboutMe = ({ user }: userAboutMeProps) => {
    return (
       <section className={usersAboutMeStyles.aboutMeWrapper}>
+         <h3 className={usersAboutMeStyles.aboutMeTitle}>About Me</h3>
          <ul>
             {user.first_name && user.gender === "male" && (
                <li>
@@ -36,22 +37,10 @@ const UserAboutMe = ({ user }: userAboutMeProps) => {
             )}
             {user.my_ministry && <li>🧹 My ministry is {user.my_ministry}</li>}
             {user.my_job && <li>👔 I am full time {user.my_job}</li>}
-            {user.my_true_color_personality_test &&
-               user.my_true_color_personality_test === "Green" && (
-                  <li>🎨 True Color Personality is 🟩</li>
-               )}
-            {user.my_true_color_personality_test &&
-               user.my_true_color_personality_test === "Blue" && (
-                  <li>🎨 True Color Personality is 🟦</li>
-               )}
-            {user.my_true_color_personality_test &&
-               user.my_true_color_personality_test === "Gold" && (
-                  <li>🎨 True Color Personality is 🟨</li>
-               )}
-            {user.my_true_color_personality_test &&
-               user.my_true_color_personality_test === "Orange" && (
-                  <li>🎨 True Color Personality is 🟧</li>
-               )}
+            {user.my_true_color_personality_test && user.my_true_color_personality_test && (
+               <li>📊 My True Color Personality is {user.my_true_color_personality_test}</li>
+            )}
+            {user.my_favorite_color && <li>🎨 My favorite color is {user.my_favorite_color}</li>}
             {user.my_story && (
                <li className={usersAboutMeStyles.myStory}>
                   <Link href={`/my-story/${user.ID}`}>
