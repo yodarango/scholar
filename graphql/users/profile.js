@@ -260,6 +260,13 @@ export const UPDATE_MY_SETTINGS = gql`
          ... on UserUpdated {
             update_successful
          }
+
+         ... on SignatureAlreadyTaken {
+            message
+         }
+         ... on EmailExists {
+            message
+         }
       }
    }
 `;

@@ -1,8 +1,12 @@
-// ------------------------- DAIYLYS ------------------------ //
-#move thoughtx to its own comp because rating is not working
+# ------------------------- DAIYLYS ------------------------
 
-///////// 1/7/22
-finished creating comments for quotes and commentaries. Next add this capability for the quotes in profile and thoughts
+**02/12/22**
+
+# updating settings is complete, the only thing lef to do is to check that signature does not include special characters. There are multiple things that I could do next
+
+-  make sure that only the logged in user can edit, delete content
+-  wire up changing password and avatar
+-  wire up commenting on content and liking content
 
 // ---------------------------- COMPLETED -------------------- //
 The following things have been aware of and need to be improved:

@@ -76,35 +76,18 @@ const UserSettings = () => {
    const failValidation = () => {
       setNotificationPopUpState(
          <NotificationPopup
-            title={"Error! 😔"}
-            contentString={`Sorry, special characters or empty signature are not allowed. You won't be able to save your settings until the error is fxed.`}
-            newClass={"notification-wrapper--Red"}
             closeModal={() => setNotificationPopUpState(false)}
+            title='There was a problem 😔'
+            contentString={`Sorry, signature can only contain numbers and non-special characters`}
+            newClass='notification-wrapper--Error'
          />
       );
-      setsaveButtonIsDisiableState(false);
    };
 
-   const passedValidation = () => {
-      setsaveButtonIsDisiableState(true);
-   };
-
-   checkForValidSignature(
-      isValidInput.current ? isValidInput.current.value : ""
-      // failValidation,
-      // passedValidation
-   );
-   // const format = /^\w+$/;
-   // const checkForValidSignature = (input, fail, success) => {
-   //    if (isValidInput.current) {
-   //       const currInput = isValidInput.current.value;
-   //       if (!format.test(currInput)) {
-   //          setIsValidInputState(true);
-   //          setsaveButtonIsDisiableState(false);
-   //       } else {
-   //          setsaveButtonIsDisiableState(true);
-   //       }
-   //    }
+   // const checkValidation = () => {
+   //    checkForValidSignature(signatureInput.current ? signatureInput.current.value : "") === true
+   //       ? hanldeNewUserRegistration()
+   //       : failValidation();
    // };
 
    // =======================  FUNCTION 3: save the user settings update =============== //
@@ -127,7 +110,9 @@ const UserSettings = () => {
          const { data } = await client.mutate({
             mutation: UPDATE_MY_SETTINGS,
             variables: {
-               signature: isValidInput.current?.value ? isValidInput.current?.value : "",
+               signature: isValidInput.current?.value
+                  ? isValidInput.current?.value.toUpperCase()
+                  : "", //reomve hashtag before submitting to DB
                first_name: firstName.current?.value ? firstName.current?.value : "",
                last_name: lastName.current?.value ? lastName.current?.value : "",
                email: email.current?.value ? email.current?.value : "",
@@ -149,14 +134,31 @@ const UserSettings = () => {
          if (data.me.update_successful) {
             router.replace("/users/me");
          } else if (!data.me.update_successful || data.me.message) {
-            setNotificationPopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationPopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                  newClass='notification-wrapper--Error'
-               />
-            );
+            console.log(data.me);
+            if (
+               data.me.__typename == "SignatureAlreadyTaken" ||
+               data.me.__typename == "EmailExists"
+            ) {
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no 😔!'
+                     contentString={data.me.message}
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+               setSmallLoaderState(false);
+            } else {
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+               setSmallLoaderState(false);
+            }
          }
       } else if (!birthDate.current?.value) {
          setNotificationPopUpState(
@@ -202,7 +204,7 @@ const UserSettings = () => {
                      id='signature'
                      type='text'
                      maxLength={30}
-                     defaultValue={userSettingsState.signature}
+                     defaultValue={userSettingsState.signature.replace("#", "")}
                      className={`std-input`}
                      required
                      //onChange={checkForValidSignature}
