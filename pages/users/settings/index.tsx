@@ -1,11 +1,12 @@
 // core
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // graphQL
 import { GET_MY_SETTINGS } from "../../../graphql/users/profile";
 import { UPDATE_MY_SETTINGS } from "../../../graphql/users/profile";
+import { VALIDATE_CURRENT_PASSWORD } from "../../../graphql/users/profile";
 import client from "../../../apollo-client";
 
 // components
@@ -21,6 +22,7 @@ import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
 import { Tuser } from "../[userId]";
+import PopupWrapper from "../../../layouts/popup-wrapper";
 
 type userSettingsProps = {
    user: Tuser;
@@ -30,7 +32,7 @@ const UserSettings = () => {
    // globals
    const router = useRouter();
    // inputs
-   const isValidInput = useRef<HTMLInputElement>(null); //signature
+   const signatureInput = useRef<HTMLInputElement>(null); //signature
    const firstName = useRef<HTMLInputElement>(null);
    const lastName = useRef<HTMLInputElement>(null);
    const email = useRef<HTMLInputElement>(null);
@@ -41,6 +43,8 @@ const UserSettings = () => {
    const ministry = useRef<HTMLInputElement>(null);
    const fullTimeJob = useRef<HTMLInputElement>(null);
    const TCP = useRef<HTMLInputElement>(null);
+   const currentPassword = useRef<HTMLInputElement>(null);
+   const newPassword = useRef<HTMLInputElement>(null);
 
    // ====================== check for token cookie ==================
    const token: string = Cookies.get("authorization");
@@ -84,11 +88,11 @@ const UserSettings = () => {
       );
    };
 
-   // const checkValidation = () => {
-   //    checkForValidSignature(signatureInput.current ? signatureInput.current.value : "") === true
-   //       ? hanldeNewUserRegistration()
-   //       : failValidation();
-   // };
+   const checkValidation = () => {
+      checkForValidSignature(signatureInput.current ? signatureInput.current.value : "") === true
+         ? saveUserSettings()
+         : failValidation();
+   };
 
    // =======================  FUNCTION 3: save the user settings update =============== //
    const [userGenderState, setUserGenderState] = useState<{
@@ -110,8 +114,8 @@ const UserSettings = () => {
          const { data } = await client.mutate({
             mutation: UPDATE_MY_SETTINGS,
             variables: {
-               signature: isValidInput.current?.value
-                  ? isValidInput.current?.value.toUpperCase()
+               signature: signatureInput.current?.value
+                  ? signatureInput.current?.value.toUpperCase()
                   : "", //reomve hashtag before submitting to DB
                first_name: firstName.current?.value ? firstName.current?.value : "",
                last_name: lastName.current?.value ? lastName.current?.value : "",
@@ -165,7 +169,7 @@ const UserSettings = () => {
             <NotificationPopup
                title={"Birthdate is Empty! 🗓"}
                contentString={`You must enter your birthday before proceeding`}
-               newClass={"notification-wrapper--Red"}
+               newClass={"notification-wrapper--Error"}
                closeModal={() => setNotificationPopUpState(false)}
             />
          );
@@ -174,16 +178,89 @@ const UserSettings = () => {
             <NotificationPopup
                title={"No Gender Selected! 🙋‍♂️ 🙋‍♀️"}
                contentString={`You must select a gender before proceeding`}
-               newClass={"notification-wrapper--Red"}
+               newClass={"notification-wrapper--Error"}
                closeModal={() => setNotificationPopUpState(false)}
             />
          );
       }
    };
 
+   // ============== open the password change popup ================= //
+   const openChangePasswordSettings = async () => {
+      if (currentPassword.current?.value && newPassword.current?.value) {
+         const { data } = await client.mutate({
+            mutation: VALIDATE_CURRENT_PASSWORD,
+            variables: {
+               currPassword: currentPassword.current?.value.trim(),
+               newPassword: newPassword.current?.value.trim()
+            }
+         });
+         console.log(data);
+         if (data.change_password.update_successful === true) {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  title={"Success ✅"}
+                  contentString={`Your password has been updated successfully! 🔐`}
+                  newClass={"notification-wrapper--Success"}
+                  closeModal={() => setNotificationPopUpState(false)}
+               />
+            );
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  title={"Something went worng! 🤔"}
+                  contentString={data.change_password.message}
+                  newClass={"notification-wrapper--Error"}
+                  closeModal={() => setNotificationPopUpState(false)}
+               />
+            );
+         }
+      }
+   };
+
+   const [fullScreenPopUp, setFullScreenPopUp] = useState<boolean | JSX.Element>(false);
+   const openChangePasswordPopUp = () => {
+      setFullScreenPopUp(
+         <PopupWrapper
+            content={
+               <>
+                  <div>
+                     <div className='x-large-spacer'></div>
+                     <div className={userSettingsStyles.inputWrapper}>
+                        <label htmlFor='password'>Enter your current password</label>
+                        <input
+                           id='curr-password'
+                           type='password'
+                           maxLength={70}
+                           className={`std-input`}
+                           ref={currentPassword}
+                        />
+                     </div>
+                     <div className={userSettingsStyles.inputWrapper}>
+                        <label htmlFor='password'>Enter your new password</label>
+                        <input
+                           id='new-password'
+                           type='password'
+                           maxLength={70}
+                           className={`std-input`}
+                           ref={newPassword}
+                        />
+                     </div>
+                     <button className={`std-button`} onClick={openChangePasswordSettings}>
+                        <p className={`std-button_gradient-text`}>Update</p>
+                     </button>
+                  </div>
+               </>
+            }
+            closeModal={() => setFullScreenPopUp(false)}
+         />
+      );
+   };
+
    return (
       <>
          {loadingState && <div>Loading</div>}
+         {fullScreenPopUp}
          {userSettingsState && (
             <div className={userSettingsStyles.mainWrapper}>
                {notificationPopUpState}
@@ -208,7 +285,7 @@ const UserSettings = () => {
                      className={`std-input`}
                      required
                      //onChange={checkForValidSignature}
-                     ref={isValidInput}
+                     ref={signatureInput}
                   />
                </div>
 
@@ -364,15 +441,15 @@ const UserSettings = () => {
                      required
                   />
                </div>
-
-               {/* <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='password'>New Password</label>
-                  <input id='password' type='text' maxLength={70} className={`std-input`} />
-               </div> */}
+               <h3
+                  className={userSettingsStyles.changePasswordLink}
+                  onClick={openChangePasswordPopUp}>
+                  change password
+               </h3>
 
                <div className={userSettingsStyles.buttonsWrapper}>
                   {saveButtonIsDisiableState && !smallLoaderState && (
-                     <button className={`std-button`} onClick={saveUserSettings}>
+                     <button className={`std-button`} onClick={checkValidation}>
                         <p className={`std-button_gradient-text`}>SAVE</p>
                      </button>
                   )}

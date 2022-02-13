@@ -111,6 +111,17 @@
    flex-wrap: wrap;
 }
 
+.changePasswordLink {
+   color: var(--graient-one);
+   font: var(--primary-font-mobile);
+   text-decoration: underline;
+   width: 8em;
+}
+.changePasswordLink:hover {
+   color: var(--gradient-two);
+   cursor: pointer;
+}
+
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
       max-width: 800px;
