@@ -20,6 +20,8 @@ import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalD
 // helpers
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-quote-comment";
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export type Tstory = {
    ID: string;
@@ -80,6 +82,17 @@ const QuoteStories = ({
    editOption,
    reportOption
 }: last24SingleQuote) => {
+   // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
+   const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
+   const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
+
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      const user = parseJwt(authCookie);
+      setRenderDeleteEditOptionsState(creator.ID == user.ID);
+      setRenderReportOptionState(creator.ID != user.ID);
+   }, []);
+
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<Tstory[]>([]);
@@ -170,7 +183,7 @@ const QuoteStories = ({
    const postQuoteComment = async (storyId: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(storyId, "1", commentBody.current.value);
+         const data = await handlePostComment(storyId, commentBody.current.value);
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
@@ -276,15 +289,15 @@ const QuoteStories = ({
                   {/* ------------------------ author and admin features ------------------------ */}
                   <span className={quoteStoriesStyles.storyBy}>
                      -By: {quoteState[countState].author}
-                     {deleteOption && (
+                     {renderDeleteEditOptionsState && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.delete)}
                            onClick={handleDeleteConfirmation}></span>
                      )}
-                     {editOption && (
+                     {renderDeleteEditOptionsState && (
                         <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
                      )}
-                     {reportOption && (
+                     {renderReportOptionState && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.report)}
                            onClick={handleReportConfirmation}></span>

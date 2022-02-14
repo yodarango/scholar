@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import router from "next/router";
 import Link from "next/link";
 
@@ -26,6 +26,8 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 // helpers / types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-thought-comment";
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export type Tthought = {
    ID: string;
@@ -58,6 +60,15 @@ type thoughtProps = {
 };
 
 const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
+   // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
+   const [renderAdminOptionsState, setRenderAdminOptionsState] = useState<string>("");
+
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      const user = parseJwt(authCookie);
+      setRenderAdminOptionsState(user.ID);
+   }, []);
+
    // ================= FUNCTION 1: See the whole post  ================= //
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
@@ -182,7 +193,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const postCommentaryComment = async (thought_id: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(thought_id, "2", commentBody.current.value);
+         const data = await handlePostComment(thought_id, commentBody.current.value);
          if (data == true) {
             setPostingState(false);
             setCommentBoxState("");
@@ -237,17 +248,17 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                            />
                         </div>
                         <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
-                        {deleteOption && (
+                        {renderAdminOptionsState == thought.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.delete)}
                               onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                         )}
-                        {editOption && (
+                        {renderAdminOptionsState == thought.ID && (
                            <Link href={`/posts/edit-thought/${thought.ID}`}>
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}
-                        {reportOption && (
+                        {renderAdminOptionsState != thought.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.report)}
                               onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>

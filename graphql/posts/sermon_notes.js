@@ -36,7 +36,6 @@ export const WIGO_REQUEST_MORE_SERMON_NOTES = gql`
 
 export const CREATE_NEW_SERMON_NOTE = gql`
    mutation (
-      $USER_ID: ID
       $description: String
       $body: String
       $category_tags: String
@@ -47,7 +46,6 @@ export const CREATE_NEW_SERMON_NOTE = gql`
    ) {
       sermon_note(
          data: {
-            USER_ID: $USER_ID
             description: $description
             body: $body
             category_tags: $category_tags

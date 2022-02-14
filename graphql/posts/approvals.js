@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_COMMENTARY_APPROVAL = gql`
-   mutation ($USER_ID: ID, $COMMENTARY_ID: ID, $approval_rate: Int) {
+   mutation ( $COMMENTARY_ID: ID, $approval_rate: Int) {
       rate_commentary(
-         data: { USER_ID: $USER_ID, COMMENTARY_ID: $COMMENTARY_ID, approval_rate: $approval_rate }
+         data: { COMMENTARY_ID: $COMMENTARY_ID, approval_rate: $approval_rate }
       ) {
          ID
       }
@@ -11,9 +11,9 @@ export const CREATE_COMMENTARY_APPROVAL = gql`
 `;
 
 export const CREATE_THOUGHT_APPROVAL = gql`
-   mutation ($USER_ID: ID, $THOUGHT_ID: ID, $approval_rate: Int) {
+   mutation ( $THOUGHT_ID: ID, $approval_rate: Int) {
       rate_thought(
-         data: { USER_ID: $USER_ID, THOUGHT_ID: $THOUGHT_ID, approval_rate: $approval_rate }
+         data: { THOUGHT_ID: $THOUGHT_ID, approval_rate: $approval_rate }
       ) {
          ID
       }
@@ -21,8 +21,8 @@ export const CREATE_THOUGHT_APPROVAL = gql`
 `;
 
 export const CREATE_QUOTE_APPROVAL = gql`
-   mutation ($USER_ID: ID, $QUOTE_ID: ID, $approval_rate: Int) {
-      rate_quote(data: { USER_ID: $USER_ID, QUOTE_ID: $QUOTE_ID, approval_rate: $approval_rate }) {
+   mutation ( $QUOTE_ID: ID, $approval_rate: Int) {
+      rate_quote(data: {  QUOTE_ID: $QUOTE_ID, approval_rate: $approval_rate }) {
          ID
       }
    }

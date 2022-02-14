@@ -59,7 +59,7 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
 
-         const data = await handlePostComment(story.ID, "2", commentBody.current.value);
+         const data = await handlePostComment(story.ID,  commentBody.current.value);
 
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
@@ -87,7 +87,6 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
          }
       });
       setChooseAprovalRating(false);
-      console.log(data);
       setPostApprovalState(data.quote_approvals[0]);
    };
 

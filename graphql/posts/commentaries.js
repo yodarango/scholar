@@ -118,7 +118,6 @@ export const GET_ONE_COMMENTARY = gql`
 //================== POST ================== //
 export const CREATE_NEW_COMMENTARY = gql`
    mutation (
-      $USER_ID: ID
       $VERSE_ID: String
       $body: String
       $category_tags: String
@@ -128,7 +127,6 @@ export const CREATE_NEW_COMMENTARY = gql`
    ) {
       commentary(
          data: {
-            USER_ID: $USER_ID
             VERSE_ID: $VERSE_ID
             body: $body
             category_tags: $category_tags

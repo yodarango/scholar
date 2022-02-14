@@ -1,5 +1,5 @@
 // core
-
+import { useState, useEffect } from "react";
 // components
 import Comment from "../posts/comment";
 
@@ -18,13 +18,20 @@ export default function PostsWrapper({ commentaries }: postWrapperProps) {
       <div className={`main-wrapper ${postsWrapperStyle.postsWrapper}`}>
          {commentaries &&
             commentaries.length !== 0 &&
-            commentaries.map((commentary: Tcommentary) => (
-               <section
-                  key={commentary.ID}
-                  className={`${postsWrapperStyle.postsWrapperCommentary}`}>
-                  <Comment commentary={commentary} reportOption={true} />
-               </section>
-            ))}
+            commentaries.map((commentary: Tcommentary) => {
+               return (
+                  <section
+                     key={commentary.ID}
+                     className={`${postsWrapperStyle.postsWrapperCommentary}`}>
+                     <Comment
+                        commentary={commentary}
+                        reportOption={true}
+                        deleteOption={true}
+                        editOption={true}
+                     />
+                  </section>
+               );
+            })}
          {commentaries.length === 0 && (
             <h2 className={`${postsWrapperStyle.noCommentsTitle} std-text-block_small-title`}>
                Be the first one to comment on this verse!

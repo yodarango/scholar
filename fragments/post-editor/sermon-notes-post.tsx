@@ -103,7 +103,6 @@ const SermonNotesPost = () => {
       const data = client.mutate({
          mutation: CREATE_NEW_SERMON_NOTE,
          variables: {
-            USER_ID: 1,
             DROPBOX_ID: dropbox_id,
             body: null,
             description: null,
@@ -113,7 +112,6 @@ const SermonNotesPost = () => {
             title: sermonTitleRef.current?.value
          }
       });
-      console.log(data);
    };
 
    // the first fetch function uploads the file, the second creates a share link, and only if both succeed a call to the DB is made

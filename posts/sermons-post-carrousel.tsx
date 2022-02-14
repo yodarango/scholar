@@ -1,5 +1,5 @@
 // core
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // graphQL
 import client from "../apollo-client";
@@ -18,24 +18,24 @@ import { TsermonPost } from "./sermon-notes-post";
 
 type librarySermonCarrouselProps = {
    sermonPost: TsermonPost[];
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
+   // deleteOption?: boolean;
+   // editOption?: boolean;
+   // reportOption?: boolean;
 };
 const LibrarySermonPostCarrousel = ({
-   sermonPost,
-   editOption,
-   deleteOption,
-   reportOption
-}: librarySermonCarrouselProps) => {
-   // request more sermon notes
+   sermonPost
+}: // editOption,
+// deleteOption,
+// reportOption
+librarySermonCarrouselProps) => {
+   // ============== FUNCTION 1: request more sermon notes
    const [sermonPostState, setSermonPostState] = useState<TsermonPost[]>(sermonPost);
    const requestMoreSermonNotes = async (last_id: string) => {
       const { data } = await client.query({
          query: WIGO_REQUEST_MORE_SERMON_NOTES,
          variables: { last_id: last_id }
       });
-      console.log(data.sermon_notes);
+
       setSermonPostState((sermonPostState) => [...sermonPostState, ...data.sermon_notes]);
    };
 
@@ -44,13 +44,7 @@ const LibrarySermonPostCarrousel = ({
          <div className={librarySermonPostCarrouselStyles.scrollSection}>
             {sermonPostState.map((sermon: TsermonPost) => (
                <div className={librarySermonPostCarrouselStyles.sermonCompWrapper} key={sermon.ID}>
-                  <SermonNotesPost
-                     key={sermon.ID}
-                     sermonPost={sermon}
-                     deleteOption={true}
-                     reportOption={true}
-                     editOption={true}
-                  />
+                  <SermonNotesPost key={sermon.ID} sermonPost={sermon} />
                </div>
             ))}
             <button

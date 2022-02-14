@@ -146,10 +146,6 @@ const TextEditor = ({
       color: assignedTags?.second?.replace("#", "")
    });
 
-   console.log(assignedTags);
-   console.log(addedFirstTagsState);
-   console.log(addedSecondTagsState);
-
    const addTag = (el: any) => {
       console.log(el);
       addedFirstTagsState.color == undefined
@@ -187,7 +183,6 @@ const TextEditor = ({
          const { data } = await client.mutate({
             mutation: CREATE_NEW_COMMENTARY,
             variables: {
-               USER_ID: 1,
                VERSE_ID: verseBeingCommented.id,
                body: textArea.current?.value,
                // make sure the secondary tag is not undefined!
@@ -249,7 +244,6 @@ const TextEditor = ({
          const { data } = await client.mutate({
             mutation: CREATE_NEW_THOUGHT,
             variables: {
-               USER_ID: 1,
                body: textArea.current?.value,
                title: "...",
                category_tags: `${addedFirstTagsState.tag} ${
@@ -312,16 +306,16 @@ const TextEditor = ({
             }
          });
          if (data.edit_commentary) {
-            router.replace(`${router.asPath}`);
-            setLoadingState(false);
-            setNotificationPopupState(
-               <NotificationPopup
-                  title={"Sucess! ✅"}
-                  contentString={"Your Post has been updated!"}
-                  closeModal={closeModals}
-                  newClass={`notification-wrapper--Success`}
-               />
-            );
+            router.replace(`/users/me`);
+            //setLoadingState(false);
+            // setNotificationPopupState(
+            //    <NotificationPopup
+            //       title={"Sucess! ✅"}
+            //       contentString={"Your Post has been updated!"}
+            //       closeModal={closeModals}
+            //       newClass={`notification-wrapper--Success`}
+            //    />
+            // );
          } else {
             setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
          }
@@ -380,16 +374,16 @@ const TextEditor = ({
             }
          });
          if (data.edit_thought) {
-            router.replace(`${router.asPath}`);
-            setLoadingState(false);
-            setNotificationPopupState(
-               <NotificationPopup
-                  title={"Sucess! ✅"}
-                  contentString={"Your Post has been updated!"}
-                  closeModal={closeModals}
-                  newClass={`notification-wrapper--Success`}
-               />
-            );
+            router.replace(`/users/me`);
+            // setLoadingState(false);
+            // setNotificationPopupState(
+            //    <NotificationPopup
+            //       title={"Sucess! ✅"}
+            //       contentString={"Your Post has been updated!"}
+            //       closeModal={closeModals}
+            //       newClass={`notification-wrapper--Success`}
+            //    />
+            // );
          } else {
             setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
          }

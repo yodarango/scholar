@@ -66,7 +66,6 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
             const { data } = await client.mutate({
                mutation: POST_NEW_QUOTE,
                variables: {
-                  USER_ID: 1,
                   body: textArea.current.value,
                   category_tags: `${currentChosenTagState.tag}`,
                   author: authorInput.current?.value,
