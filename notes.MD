@@ -1,12 +1,14 @@
 # ------------------------- DAIYLYS ------------------------
 
-**02/12/22**
+**02/16/22**
 
-# updating settings is complete, the only thing lef to do is to check that signature does not include special characters. There are multiple things that I could do next
+# I was able to restrict non logged in users from commenting on a commentary or thought and I handled the errors on the client
 
--  make sure that only the logged in user can edit, delete content
--  wire up changing password and avatar
--  wire up commenting on content and liking content
+-  I did not implement commenting on wuotes not rating any contnent
+
+**_ERRORS_**
+
+# seems like i am having the problem of the infinite loop weheer after loge in the router goes from "login" to "users/me"
 
 // ---------------------------- COMPLETED -------------------- //
 The following things have been aware of and need to be improved:

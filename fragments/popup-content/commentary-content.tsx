@@ -101,17 +101,38 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
       postReactionContent.comments
    );
 
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(commentary.ID, "2", commentBody.current.value);
+         const data: any = await handlePostComment(commentary.ID, commentBody.current.value);
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
             fetchComments();
+         } else if (data == false) {
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          } else {
-            setPostingState(true);
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       }
    };
@@ -132,6 +153,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
 
    return (
       <>
+         {notificationPopUpState}
          {chooseAprovalRating && (
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}

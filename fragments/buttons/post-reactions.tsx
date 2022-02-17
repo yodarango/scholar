@@ -21,8 +21,8 @@ type TpostReactionsProps = {
    handleComment?: any;
    handleRateContent?: any;
    handleMore?: any;
-   comments: number;
-   approvals: Tapprovals;
+   comments: number | null;
+   approvals: Tapprovals | null;
 };
 
 const PostReactions = ({
@@ -42,90 +42,92 @@ const PostReactions = ({
          )}
          {handleRateContent && (
             <div className={postReactionStyles.approveWrapper}>
-               <span className={postReactionStyles.approvals}>{approvals.total_count}</span>
-               {approvals.total_count == 0 && (
+               {approvals && approvals.total_count && (
+                  <span className={postReactionStyles.approvals}>{approvals.total_count}</span>
+               )}
+               {approvals && approvals.total_count == 0 && (
                   <span
                      className={postReactionStyles.aprovalsIcon}
                      onClick={handleRateContent}></span>
                )}
-               {approvals.average_count >= 97 && (
+               {approvals && approvals.average_count >= 97 && (
                   <span
                      className={`${postReactionStyles.reliabilityA}`}
                      onClick={handleRateContent}>
                      A+
                   </span>
                )}
-               {approvals.average_count >= 94 && approvals.average_count < 97 && (
+               {approvals && approvals.average_count >= 94 && approvals.average_count < 97 && (
                   <span
                      className={`${postReactionStyles.reliabilityA}`}
                      onClick={handleRateContent}>
                      A
                   </span>
                )}
-               {approvals.average_count >= 90 && approvals.average_count < 94 && (
+               {approvals && approvals.average_count >= 90 && approvals.average_count < 94 && (
                   <span
                      className={`${postReactionStyles.reliabilityA}`}
                      onClick={handleRateContent}>
                      A-
                   </span>
                )}
-               {approvals.average_count >= 87 && approvals.average_count < 90 && (
+               {approvals && approvals.average_count >= 87 && approvals.average_count < 90 && (
                   <span
                      className={`${postReactionStyles.reliabilityB}`}
                      onClick={handleRateContent}>
                      B+
                   </span>
                )}
-               {approvals.average_count >= 83 && approvals.average_count < 87 && (
+               {approvals && approvals.average_count >= 83 && approvals.average_count < 87 && (
                   <span
                      className={`${postReactionStyles.reliabilityB}`}
                      onClick={handleRateContent}>
                      B
                   </span>
                )}
-               {approvals.average_count >= 80 && approvals.average_count < 83 && (
+               {approvals && approvals.average_count >= 80 && approvals.average_count < 83 && (
                   <span
                      className={`${postReactionStyles.reliabilityB}`}
                      onClick={handleRateContent}>
                      B-
                   </span>
                )}
-               {approvals.average_count >= 77 && approvals.average_count < 80 && (
+               {approvals && approvals.average_count >= 77 && approvals.average_count < 80 && (
                   <span
                      className={`${postReactionStyles.reliabilityC}`}
                      onClick={handleRateContent}>
                      C+
                   </span>
                )}
-               {approvals.average_count >= 73 && approvals.average_count < 77 && (
+               {approvals && approvals.average_count >= 73 && approvals.average_count < 77 && (
                   <span
                      className={`${postReactionStyles.reliabilityC} `}
                      onClick={handleRateContent}>
                      C
                   </span>
                )}
-               {approvals.average_count >= 70 && approvals.average_count < 73 && (
+               {approvals && approvals.average_count >= 70 && approvals.average_count < 73 && (
                   <span
                      className={`${postReactionStyles.reliabilityC}`}
                      onClick={handleRateContent}>
                      C-
                   </span>
                )}
-               {approvals.average_count >= 67 && approvals.average_count < 70 && (
+               {approvals && approvals.average_count >= 67 && approvals.average_count < 70 && (
                   <span
                      className={`${postReactionStyles.reliabilityC}`}
                      onClick={handleRateContent}>
                      D+
                   </span>
                )}
-               {approvals.average_count > 60 && approvals.average_count < 67 && (
+               {approvals && approvals.average_count > 60 && approvals.average_count < 67 && (
                   <span
                      className={`${postReactionStyles.reliabilityC}`}
                      onClick={handleRateContent}>
                      D
                   </span>
                )}
-               {approvals.average_count <= 60 && approvals.average_count > 0 && (
+               {approvals && approvals.average_count <= 60 && approvals.average_count > 0 && (
                   <span
                      className={`${postReactionStyles.reliabilityF}`}
                      onClick={handleRateContent}>

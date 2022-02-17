@@ -65,8 +65,10 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
 
    useEffect(() => {
       const authCookie = getCookie("authorization");
-      const user = parseJwt(authCookie);
-      setRenderAdminOptionsState(user.ID);
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderAdminOptionsState(user.ID);
+      }
    }, []);
 
    // ================= FUNCTION 1: See the whole post  ================= //
@@ -84,7 +86,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
             </div>
             <div className={popupStyles.halvesWrapper}>
                <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
-               {/* <CommentsOfThoughtsContent comments={data.thought[0].comments} /> */}
+               {/*data.thought[0].comments &&  <CommentsOfThoughtsContent comments={data.thought[0].comments} />*/}
             </div>
          </div>
       );
@@ -193,14 +195,32 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const postCommentaryComment = async (thought_id: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(thought_id, commentBody.current.value);
+         const data: any = await handlePostComment(thought_id, commentBody.current.value);
          if (data == true) {
             setPostingState(false);
             setCommentBoxState("");
             //commentBody.current.value = "comment posted";
             setCommentsCountState(commentsCountState + 1);
+         } else if (data == false) {
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          } else {
-            setPostingState(true);
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       }
    };
@@ -224,6 +244,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          {confirmationPopUpState}
          {notificationpopUpState}
          {thoughts.map((thought) => {
+            console.log(thought);
             return (
                <section key={thought.ID} id={thought.ID}>
                   {chooseAprovalRating && (
@@ -241,13 +262,17 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                         className={cardStyles.commentCardHeader}
                         id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
                         <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                           <img
-                              src={thought.creator.avatar}
-                              alt='Avatar'
-                              className={cardStyles.commentCardHeaderAvatarImg}
-                           />
+                           {thought.creator && thought.creator.avatar && (
+                              <img
+                                 src={thought.creator.avatar}
+                                 alt='Avatar'
+                                 className={cardStyles.commentCardHeaderAvatarImg}
+                              />
+                           )}
                         </div>
-                        <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
+                        {thought.creator && thought.creator.signature && (
+                           <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
+                        )}
                         {renderAdminOptionsState == thought.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.delete)}
@@ -264,14 +289,16 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                               onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
                         )}
                      </div>
-                     <i>{`${thought.creator.signature} expressed a new Tought`}</i>
+                     {thought.creator && thought.creator.signature && (
+                        <i>{`${thought.creator.signature} expressed a new Tought`}</i>
+                     )}
                      <p>{thought.body}</p>
                      <PostReactions
                         handleComment={() => openComment(thought.ID)}
                         handleRateContent={handleApproveContent}
                         handleMore={() => openPost(thought)}
                         comments={thought.comments[0].total_count + commentsCountState}
-                        approvals={thought.approvals[0]}
+                        approvals={thought.approvals ? thought.approvals[0] : null}
                      />
                      {commentBoxState === thought.ID && (
                         <div

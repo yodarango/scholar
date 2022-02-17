@@ -30,6 +30,10 @@ type thoughtContentProps = {
    };
 };
 const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) => {
+   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
+      false
+   );
+
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
 
@@ -44,8 +48,8 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
          }
       );
       const json = await req.json();
-      console.log(json.data);
-      setreferencedVerseState(
+
+      setNotificationpopUpState(
          <NotificationPopup
             title={json.data.reference}
             contentString={json.data.content}
@@ -87,14 +91,32 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    const postThoughtComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(thought.ID, "2", commentBody.current.value);
+         const data: any = await handlePostComment(thought.ID, commentBody.current.value);
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
             fetchComments();
+         } else if (data == false) {
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          } else {
-            setPostingState(true);
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       }
    };
@@ -115,7 +137,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
 
    return (
       <>
-         {referencedVerseState}
+         {notificationpopUpState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
                <h1 className={`${popupStyles.stdSmallTitle}`}>{thought.title}</h1>

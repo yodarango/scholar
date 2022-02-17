@@ -71,9 +71,11 @@ export default function Comments({
 
    useEffect(() => {
       const authCookie = getCookie("authorization");
-      const user = parseJwt(authCookie);
-      setRenderDeleteEditOptionsState(commentary.USER_ID == user.ID);
-      setRenderReportOptionState(commentary.USER_ID != user.ID);
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderDeleteEditOptionsState(commentary.USER_ID == user.ID);
+         setRenderReportOptionState(commentary.USER_ID != user.ID);
+      }
    }, []);
 
    // ================= FUNCTION 1: See the whole post
@@ -206,13 +208,31 @@ export default function Comments({
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(commentary.ID, commentBody.current.value);
+         const data: any = await handlePostComment(commentary.ID, commentBody.current.value);
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setCommentBoxState("");
+         } else if (data == false) {
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          } else {
-            setPostingState(true);
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       }
    };
