@@ -56,9 +56,11 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
 
    useEffect(() => {
       const authCookie = getCookie("authorization");
-      const user = parseJwt(authCookie);
-      setRenderDeleteEditOptionsState(story.USER_ID == user.ID);
-      setRenderReportOptionState(story.USER_ID != user.ID);
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderDeleteEditOptionsState(story.USER_ID == user.ID);
+         setRenderReportOptionState(story.USER_ID != user.ID);
+      }
    }, []);
 
    // ================   FUNCTION 1: handle the More Click and show the full screen story   ============= //

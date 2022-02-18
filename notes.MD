@@ -1,14 +1,23 @@
 # ------------------------- DAIYLYS ------------------------
 
-**02/16/22**
+**02/17/22**
 
-# I was able to restrict non logged in users from commenting on a commentary or thought and I handled the errors on the client
+## TO DO's
 
--  I did not implement commenting on wuotes not rating any contnent
+-  catch errors on:
+   \*\* post ratings
+   \*\* sermon_notes post
+   \*\* sermon_notescomment
+   \*\* quotes stories (wigo) comment
+   \*\* quotes stories (wigo) rate
+   \*\* quotes profile rate
+   \*\* quotes stories (wigo) comment
 
 **_ERRORS_**
 
-# seems like i am having the problem of the infinite loop weheer after loge in the router goes from "login" to "users/me"
+# The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
+
+# wigo - thursday is not working 😭
 
 // ---------------------------- COMPLETED -------------------- //
 The following things have been aware of and need to be improved:

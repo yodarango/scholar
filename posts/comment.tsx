@@ -125,7 +125,7 @@ export default function Comments({
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
    );
-   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   // ================= FUNCTION 6: Handle deleting the post  ===================//
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeletePost = async (id: string) => {
       const data = await client.mutate({
@@ -157,7 +157,7 @@ export default function Comments({
       );
    };
 
-   // ================= FUNCTION 7: Handle the delete popup  ===================//
+   // ================= FUNCTION 7: Handle Reporting the Post  ===================//
    const handleReportPost = async (id: string) => {
       const data = await client.mutate({
          mutation: REPORT_COMMENTARY,
