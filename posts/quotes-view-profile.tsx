@@ -64,32 +64,36 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
 
-         const data: any = await handlePostComment(story.ID, commentBody.current.value);
+         try {
+            const data: any = await handlePostComment(story.ID, commentBody.current.value);
 
-         if (data == true) {
-            setCommentsCountState(commentsCountState + 1);
-            setPostingState(false);
-            setCommentPopUpState(false);
-         } else if (data == false) {
-            setPostingState(false);
-            setNotificationPopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationPopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                  newClass='notification-wrapper--Error'
-               />
-            );
-         } else {
-            setPostingState(false);
-            setNotificationPopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationPopUpState(false)}
-                  title={`You're not authorized! 👮‍♂️`}
-                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                  newClass='notification-wrapper--Error'
-               />
-            );
+            if (data == true) {
+               setCommentsCountState(commentsCountState + 1);
+               setPostingState(false);
+               setCommentPopUpState(false);
+            } else if (data == false) {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            } else {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title={`You're not authorized! 👮‍♂️`}
+                     contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            }
+         } catch (error) {
+            console.log(error);
          }
       }
    };
@@ -103,14 +107,18 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(story.approvals[0]);
 
    const handleSuccessfulApprovalRating = async () => {
-      const { data } = await client.query({
-         query: GET_QUOTE_APPROVALS,
-         variables: {
-            QUOTE_ID: story.ID
-         }
-      });
-      setChooseAprovalRating(false);
-      setPostApprovalState(data.quote_approvals[0]);
+      try {
+         const { data } = await client.query({
+            query: GET_QUOTE_APPROVALS,
+            variables: {
+               QUOTE_ID: story.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.quote_approvals[0]);
+      } catch (error: any) {
+         console.log(error);
+      }
    };
 
    return (

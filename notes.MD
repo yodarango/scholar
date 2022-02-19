@@ -4,20 +4,13 @@
 
 ## TO DO's
 
--  catch errors on:
-   \*\* post ratings
-   \*\* sermon_notes post
-   \*\* sermon_notescomment
-   \*\* quotes stories (wigo) comment
-   \*\* quotes stories (wigo) rate
-   \*\* quotes profile rate
-   \*\* quotes stories (wigo) comment
+-  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
+
+-  Edit sermon_notes-post needs the Edit route implemented
 
 **_ERRORS_**
 
 # The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
-
-# wigo - thursday is not working 😭
 
 // ---------------------------- COMPLETED -------------------- //
 The following things have been aware of and need to be improved:
@@ -69,6 +62,8 @@ see why. Also commentaries and wuotes doing it
 -  Implement Lazy loading and create as many statics as possible
 
 -  Add user authorization or CORS-ORIGIN limitations in all forms being submitted to avoid vendors
+
+*  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
 
 // ----------------------------- COOL TO HAVES/ LATER RELEASES ---------------------- //
 
