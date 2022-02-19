@@ -8,6 +8,10 @@
 
 -  Edit sermon_notes-post needs the Edit route implemented
 
+-  implement user roles (trusted not trusted)
+
+-  turn user profile into its own comp (maybe)
+
 **_ERRORS_**
 
 # The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
