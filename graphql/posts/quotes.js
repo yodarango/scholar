@@ -111,7 +111,6 @@ export const GET_ONE_QUOTE = gql`
 // ========================  POST ===================
 export const POST_NEW_QUOTE = gql`
    mutation (
-      $USER_ID: ID
       $body: String
       $category_tags: String
       $author: String
@@ -120,7 +119,6 @@ export const POST_NEW_QUOTE = gql`
    ) {
       quote(
          data: {
-            USER_ID: $USER_ID
             body: $body
             category_tags: $category_tags
             author: $author
@@ -137,10 +135,9 @@ export const POST_NEW_QUOTE = gql`
 
 export const REPORT_QUOTE = gql`
    mutation ($QUOTE_ID: ID, $USER_ID: ID) {
-      report_quote(data: { QUOTE_ID: $QUOTE_ID, USER_ID: $USER_ID }) {
+      report_quote(data: { QUOTE_ID: $QUOTE_ID }) {
          ID
          QUOTE_ID
-         USER_ID
       }
    }
 `;

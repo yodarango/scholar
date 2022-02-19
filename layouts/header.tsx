@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 // components
@@ -14,12 +14,20 @@ import generalDropDownStyles from "../styles/buttons/GeneralDropDown.module.css"
 
 //helpers
 import { TdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
+import getCookie from "../helpers/get-cookie";
 
 type headerProps = {
    currPage: string;
 };
 
 export default function Header({ currPage }: headerProps) {
+   // check if the user is authenticated in order to upload to dropbox
+   const [isUserAuth, setIsUserAuth] = useState<boolean>(false);
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      authCookie ? setIsUserAuth(true) : setIsUserAuth(false);
+   }, []);
+
    // =================   FUNCTION 1: open the new post dropdown   ================= //
    const [openDropDownState, setOpenDropDownState] = useState<boolean>(false);
    const handleShowDropDown = () => {
@@ -96,10 +104,10 @@ export default function Header({ currPage }: headerProps) {
                </Link>
             </div>
             <h2 className='header-curr-page'>{currPage}</h2>
-            {!openDropDownState && (
+            {!openDropDownState && isUserAuth && (
                <span className={"new-post-trigger"} onClick={handleShowDropDown}></span>
             )}
-            {openDropDownState && (
+            {openDropDownState && isUserAuth && (
                <span
                   className={"new-post-trigger"}
                   onClick={() => setOpenDropDownState(false)}></span>

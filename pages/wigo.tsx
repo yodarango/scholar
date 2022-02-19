@@ -77,7 +77,7 @@ const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
                </div>
                <div className={interactStyles.gridWrapperMiddle}>
                   <h2 className='std-text-block--small-title'>Sermon Notes</h2>
-                  <SermonsPostCarrousel sermonPost={content.sermon_notes} reportOption={true} />
+                  <SermonsPostCarrousel sermonPost={content.sermon_notes} />
                </div>
                <div className={`${interactStyles.gridWrapperLeft}`}>
                   <h2 className='std-text-block--small-title'>Writtings</h2>

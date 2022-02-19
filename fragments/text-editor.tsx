@@ -146,10 +146,6 @@ const TextEditor = ({
       color: assignedTags?.second?.replace("#", "")
    });
 
-   console.log(assignedTags);
-   console.log(addedFirstTagsState);
-   console.log(addedSecondTagsState);
-
    const addTag = (el: any) => {
       console.log(el);
       addedFirstTagsState.color == undefined
@@ -184,28 +180,40 @@ const TextEditor = ({
          verseBeingCommented?.id
       ) {
          setLoadingState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: CREATE_NEW_COMMENTARY,
-            variables: {
-               USER_ID: 1,
-               VERSE_ID: verseBeingCommented.id,
-               body: textArea.current?.value,
-               // make sure the secondary tag is not undefined!
-               category_tags: `${addedFirstTagsState.tag} ${
-                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
-               }`,
-               referenced_verses:
-                  referencedVerses.length > 0
-                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                     : null,
-               verse_citation: verseBeingCommented?.reference,
-               approval_level: "general"
+         try {
+            const { data } = await client.mutate({
+               mutation: CREATE_NEW_COMMENTARY,
+               variables: {
+                  VERSE_ID: verseBeingCommented.id,
+                  body: textArea.current?.value,
+                  // make sure the secondary tag is not undefined!
+                  category_tags: `${addedFirstTagsState.tag} ${
+                     addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+                  }`,
+                  referenced_verses:
+                     referencedVerses.length > 0
+                        ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                        : null,
+                  verse_citation: verseBeingCommented?.reference,
+                  approval_level: "general"
+               }
+            });
+            if (data.commentary) {
+               router.reload();
+            } else {
+               setLoadingState(false);
+               setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
-         });
-         if (data.commentary) {
-            router.reload();
-         } else {
-            setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         } catch (error: any) {
+            setLoadingState(false);
+            setNotificationPopupState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopupState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
@@ -246,25 +254,39 @@ const TextEditor = ({
          addedFirstTagsState.tag !== undefined
       ) {
          setLoadingState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: CREATE_NEW_THOUGHT,
-            variables: {
-               USER_ID: 1,
-               body: textArea.current?.value,
-               title: "...",
-               category_tags: `${addedFirstTagsState.tag} ${
-                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
-               }`,
-               referenced_verses:
-                  referencedVerses.length > 0
-                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                     : null,
-               approval_level: "general"
+         try {
+            const { data } = await client.mutate({
+               mutation: CREATE_NEW_THOUGHT,
+               variables: {
+                  body: textArea.current?.value,
+                  title: "...",
+                  category_tags: `${addedFirstTagsState.tag} ${
+                     addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+                  }`,
+                  referenced_verses:
+                     referencedVerses.length > 0
+                        ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                        : null,
+                  approval_level: "general"
+               }
+            });
+            if (data.thought) {
+               router.reload();
+            } else {
+               setLoadingState(false);
+               setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
-         });
-         data.thought
-            ? router.reload()
-            : setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         } catch (error: any) {
+            setLoadingState(false);
+            setNotificationPopupState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopupState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
@@ -312,16 +334,16 @@ const TextEditor = ({
             }
          });
          if (data.edit_commentary) {
-            router.replace(`${router.asPath}`);
-            setLoadingState(false);
-            setNotificationPopupState(
-               <NotificationPopup
-                  title={"Sucess! ✅"}
-                  contentString={"Your Post has been updated!"}
-                  closeModal={closeModals}
-                  newClass={`notification-wrapper--Success`}
-               />
-            );
+            router.replace(`/users/me`);
+            //setLoadingState(false);
+            // setNotificationPopupState(
+            //    <NotificationPopup
+            //       title={"Sucess! ✅"}
+            //       contentString={"Your Post has been updated!"}
+            //       closeModal={closeModals}
+            //       newClass={`notification-wrapper--Success`}
+            //    />
+            // );
          } else {
             setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
          }
@@ -380,16 +402,16 @@ const TextEditor = ({
             }
          });
          if (data.edit_thought) {
-            router.replace(`${router.asPath}`);
-            setLoadingState(false);
-            setNotificationPopupState(
-               <NotificationPopup
-                  title={"Sucess! ✅"}
-                  contentString={"Your Post has been updated!"}
-                  closeModal={closeModals}
-                  newClass={`notification-wrapper--Success`}
-               />
-            );
+            router.replace(`/users/me`);
+            // setLoadingState(false);
+            // setNotificationPopupState(
+            //    <NotificationPopup
+            //       title={"Sucess! ✅"}
+            //       contentString={"Your Post has been updated!"}
+            //       closeModal={closeModals}
+            //       newClass={`notification-wrapper--Success`}
+            //    />
+            // );
          } else {
             setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
          }

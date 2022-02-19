@@ -1,5 +1,5 @@
 // core
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // graphQL
@@ -16,8 +16,17 @@ import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost
 
 // helpers
 import { valuesCat } from "../../helpers/dropdown-values";
+import getCookie from "../../helpers/get-cookie";
+import parseJwt from "../../helpers/auth/decodeJWT";
 
 const SermonNotesPost = () => {
+   // check if the user is authenticated in order to upload to dropbox
+   const [isUserAuth, setIsUserAuth] = useState<boolean>(false);
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      authCookie ? setIsUserAuth(true) : setIsUserAuth(false);
+   }, []);
+
    // ===============  opend the categories dropdoen  ==================  //
    const [dropDownCatState, setdropDownCatState] = useState<boolean>(false);
    const handleDropdownOpen = () => {
@@ -100,26 +109,47 @@ const SermonNotesPost = () => {
    };
 
    const handlePostSermonNotes = async (file_url: string, dropbox_id: string) => {
-      const data = client.mutate({
-         mutation: CREATE_NEW_SERMON_NOTE,
-         variables: {
-            USER_ID: 1,
-            DROPBOX_ID: dropbox_id,
-            body: null,
-            description: null,
-            file_url,
-            category_tags: currSelectionState.text,
-            approval_level: "general",
-            title: sermonTitleRef.current?.value
-         }
-      });
-      console.log(data);
+      try {
+         await client.mutate({
+            mutation: CREATE_NEW_SERMON_NOTE,
+            variables: {
+               DROPBOX_ID: dropbox_id,
+               body: null,
+               description: null,
+               file_url,
+               category_tags: currSelectionState.text,
+               approval_level: "general",
+               title: sermonTitleRef.current?.value
+            }
+         });
+      } catch (error) {
+         console.log(error);
+         setnotificationsPopupState(
+            <NotificationPopup
+               title={"Something Went Wrong!"}
+               contentString={`There was a problem uploading your file. Please try again! ⛔️🖥`}
+               closeModal={() => setnotificationsPopupState(false)}
+               newClass={`notification-wrapper--Red`}
+            />
+         );
+      }
    };
 
    // the first fetch function uploads the file, the second creates a share link, and only if both succeed a call to the DB is made
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
    const router = useRouter();
    const handlePost = async () => {
+      if (!isUserAuth) {
+         setnotificationsPopupState(
+            <NotificationPopup
+               closeModal={() => setnotificationsPopupState(false)}
+               title={`You're not authorized! 👮‍♂️`}
+               contentString={`Please login in order to execute this action`}
+               newClass='notification-wrapper--Error'
+            />
+         );
+         return;
+      }
       const filePath = `/sermon_notes/${currSelectionState.text}/${new Date().getTime()}-${
          loadedFileState.file_path
       }`;

@@ -10,6 +10,7 @@ import { GET_QUOTE_APPROVALS } from "../graphql/posts/approvals";
 import PostReactions, { Tapprovals } from "../fragments/buttons/post-reactions";
 import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
@@ -55,18 +56,44 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [commentsCountState, setCommentsCountState] = useState<number>(
       story.comments[0].total_count
    );
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+
    const postQuoteComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
 
-         const data = await handlePostComment(story.ID, "2", commentBody.current.value);
+         try {
+            const data: any = await handlePostComment(story.ID, commentBody.current.value);
 
-         if (data == true) {
-            setCommentsCountState(commentsCountState + 1);
-            setPostingState(false);
-            setCommentPopUpState(false);
-         } else {
-            setPostingState(true);
+            if (data == true) {
+               setCommentsCountState(commentsCountState + 1);
+               setPostingState(false);
+               setCommentPopUpState(false);
+            } else if (data == false) {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            } else {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title={`You're not authorized! 👮‍♂️`}
+                     contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            }
+         } catch (error) {
+            console.log(error);
          }
       }
    };
@@ -80,89 +107,97 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(story.approvals[0]);
 
    const handleSuccessfulApprovalRating = async () => {
-      const { data } = await client.query({
-         query: GET_QUOTE_APPROVALS,
-         variables: {
-            QUOTE_ID: story.ID
-         }
-      });
-      setChooseAprovalRating(false);
-      console.log(data);
-      setPostApprovalState(data.quote_approvals[0]);
+      try {
+         const { data } = await client.query({
+            query: GET_QUOTE_APPROVALS,
+            variables: {
+               QUOTE_ID: story.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.quote_approvals[0]);
+      } catch (error: any) {
+         console.log(error);
+      }
    };
 
    return (
-      <div className={quoteStoriesStyles.mainWrapper}>
-         {chooseAprovalRating && (
-            <ContentApprovalDropdown
-               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
-               additionalClassOne={contentApprovalDDStyles.mianWrapper_quotes}
-               additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
-               additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
-               post_id={{ quote: story.ID }}
-               successfulApproval={handleSuccessfulApprovalRating}
-            />
-         )}
-         <section className={quoteStoriesStyles.storyPostWrapper}>
-            <div
-               className={`closeModal ${quoteStoriesStyles.closeModal}`}
-               onClick={handleCloseStories}>
-               X
-            </div>
-            <div className={`${quoteStoriesStyles.storyPost}`} id={story.background}>
-               <p className={`${quoteStoriesStyles.storyContent}`}>
-                  {story.body} <span className={quoteStoriesStyles.quotationMark}></span>
-               </p>
-               <p className={quoteStoriesStyles.storyBy}>{story.author}</p>
-            </div>
-            <div className={quoteStoriesStyles.postReactionWrapper}>
-               <PostReactions
-                  handleRateContent={handleApproveContent}
-                  handleComment={handleComentClick}
-                  handleMore={() => handleMoreClick(story.ID)}
-                  approvals={postApprovalState}
-                  comments={commentsCountState}
+      <>
+         {notificationPopUpState}
+         <div className={quoteStoriesStyles.mainWrapper}>
+            {chooseAprovalRating && (
+               <ContentApprovalDropdown
+                  handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+                  additionalClassOne={contentApprovalDDStyles.mianWrapper_quotes}
+                  additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
+                  additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
+                  post_id={{ quote: story.ID }}
+                  successfulApproval={handleSuccessfulApprovalRating}
                />
-            </div>
-            {commentPopUpState && (
-               <div className={quoteStoriesStyles.commentWrapper}>
-                  <h3>Type your comment</h3>
-                  <textarea placeholder={"comment..."} ref={commentBody}></textarea>
-                  <div className={quoteStoriesStyles.postReactionWrapperComment}>
-                     {!postingState && (
-                        <span className={"std-button_gradient-text"} onClick={postQuoteComment}>
-                           Post
-                        </span>
-                     )}
-                     {postingState && (
-                        <span className={"std-button_gradient-text"}>Posting...</span>
-                     )}
-                     <span className={quoteStoriesStyles.cancelButton} onClick={handleCloseComment}>
-                        Cancel
-                     </span>
-                  </div>
+            )}
+            <section className={quoteStoriesStyles.storyPostWrapper}>
+               <div
+                  className={`closeModal ${quoteStoriesStyles.closeModal}`}
+                  onClick={handleCloseStories}>
+                  X
                </div>
-            )}
-            {morePopUpState && (
-               <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
-                  <span
-                     className={quoteStoriesStyles.closeCommentsCarrousel}
-                     onClick={() => setMorePopUpState(false)}>
-                     X
-                  </span>
-                  <CommentsOfQuote comments={commentsOfQuote} />
-                  {story.comments[0].total_count <= 0 && (
-                     <h3 className={quoteStoriesStyles.noCommentsYet}>
-                        Be the first one to comment! 😊
-                     </h3>
-                  )}
-               </section>
-            )}
-         </section>
-         <div
-            className={quoteStoriesStyles.selectedTagColor}
-            style={{ backgroundImage: `${story.background}` }}></div>
-      </div>
+               <div className={`${quoteStoriesStyles.storyPost}`} id={story.background}>
+                  <p className={`${quoteStoriesStyles.storyContent}`}>
+                     {story.body} <span className={quoteStoriesStyles.quotationMark}></span>
+                  </p>
+                  <p className={quoteStoriesStyles.storyBy}>{story.author}</p>
+               </div>
+               <div className={quoteStoriesStyles.postReactionWrapper}>
+                  <PostReactions
+                     handleRateContent={handleApproveContent}
+                     handleComment={handleComentClick}
+                     handleMore={() => handleMoreClick(story.ID)}
+                     approvals={postApprovalState}
+                     comments={commentsCountState}
+                  />
+               </div>
+               {commentPopUpState && (
+                  <div className={quoteStoriesStyles.commentWrapper}>
+                     <h3>Type your comment</h3>
+                     <textarea placeholder={"comment..."} ref={commentBody}></textarea>
+                     <div className={quoteStoriesStyles.postReactionWrapperComment}>
+                        {!postingState && (
+                           <span className={"std-button_gradient-text"} onClick={postQuoteComment}>
+                              Post
+                           </span>
+                        )}
+                        {postingState && (
+                           <span className={"std-button_gradient-text"}>Posting...</span>
+                        )}
+                        <span
+                           className={quoteStoriesStyles.cancelButton}
+                           onClick={handleCloseComment}>
+                           Cancel
+                        </span>
+                     </div>
+                  </div>
+               )}
+               {morePopUpState && (
+                  <section className={quoteStoriesStyles.commentsOfStroyWrapper}>
+                     <span
+                        className={quoteStoriesStyles.closeCommentsCarrousel}
+                        onClick={() => setMorePopUpState(false)}>
+                        X
+                     </span>
+                     <CommentsOfQuote comments={commentsOfQuote} />
+                     {story.comments[0].total_count <= 0 && (
+                        <h3 className={quoteStoriesStyles.noCommentsYet}>
+                           Be the first one to comment! 😊
+                        </h3>
+                     )}
+                  </section>
+               )}
+            </section>
+            <div
+               className={quoteStoriesStyles.selectedTagColor}
+               style={{ backgroundImage: `${story.background}` }}></div>
+         </div>
+      </>
    );
 };
 

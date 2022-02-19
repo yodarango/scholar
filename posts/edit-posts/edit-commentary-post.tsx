@@ -94,7 +94,7 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
    return (
       <>
          <div className={`${editCommentaryStyles.mainWrapper}`}>
-            <Link href={`/users/${123}`}>
+            <Link href={`/users/me`}>
                <a className='closeModal'>X</a>
             </Link>
             {/* ---------------- verse commenting on ------------------- */}

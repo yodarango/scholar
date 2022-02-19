@@ -1,5 +1,5 @@
 // core
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 // graphQl
@@ -17,6 +17,8 @@ import cardStyles from "../styles/components/Cards.module.css";
 
 //helpers and types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export type TsingleStory = {
    ID: string;
@@ -48,6 +50,19 @@ type quoteProfileProps = {
    reportOption: boolean;
 };
 const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteProfileProps) => {
+   // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
+   const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
+   const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
+
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderDeleteEditOptionsState(story.USER_ID == user.ID);
+         setRenderReportOptionState(story.USER_ID != user.ID);
+      }
+   }, []);
+
    // ================   FUNCTION 1: handle the More Click and show the full screen story   ============= //
    const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
    const handleMoreClick = () => {
@@ -100,8 +115,7 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
       const data = await client.mutate({
          mutation: REPORT_QUOTE,
          variables: {
-            QUOTE_ID: id,
-            USER_ID: 1
+            QUOTE_ID: id
          }
       });
 
@@ -154,17 +168,17 @@ const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteP
                   <span
                      className={`std-vector-icon ${quoteProfileStyles.more}`}
                      onClick={handleMoreClick}></span>
-                  {deleteOption && (
+                  {renderDeleteEditOptionsState && (
                      <span
                         className={`std-vector-icon ${quoteProfileStyles.delete}`}
                         onClick={() => handleDeleteConfirmation(story.ID)}></span>
                   )}
-                  {editOption && (
+                  {renderDeleteEditOptionsState && (
                      <Link href={`/posts/edit-quote/${story.ID}`}>
                         <a className={`std-vector-icon ${quoteProfileStyles.edit}`}></a>
                      </Link>
                   )}
-                  {reportOption && (
+                  {renderReportOptionState && (
                      <span
                         className={(cardStyles.cardIcon, cardStyles.report)}
                         onClick={() => handleReportConfirmation(story.ID)}></span>

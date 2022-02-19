@@ -11,6 +11,7 @@ import PostReactions from "../fragments/buttons/post-reactions";
 import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
@@ -20,6 +21,8 @@ import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalD
 // helpers
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-quote-comment";
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export type Tstory = {
    ID: string;
@@ -80,6 +83,24 @@ const QuoteStories = ({
    editOption,
    reportOption
 }: last24SingleQuote) => {
+   // globals
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
+   const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
+   const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
+
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderDeleteEditOptionsState(creator.ID == user.ID);
+         setRenderReportOptionState(creator.ID != user.ID);
+      }
+   }, []);
+
    // ==============   FUNCTION 1: Open the stories of Each user   =============== //
    const [handleStoriePopupState, setHandleStoriePopupState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<Tstory[]>([]);
@@ -170,13 +191,36 @@ const QuoteStories = ({
    const postQuoteComment = async (storyId: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(storyId, "1", commentBody.current.value);
-         if (data == true) {
-            setCommentsCountState(commentsCountState + 1);
-            setPostingState(false);
-            setCommentPopUpState(false);
-         } else {
-            setPostingState(true);
+
+         try {
+            const data: any = await handlePostComment(storyId, commentBody.current.value);
+            if (data == true) {
+               setCommentsCountState(commentsCountState + 1);
+               setPostingState(false);
+               setCommentPopUpState(false);
+            } else if (data == false) {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            } else {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title={`You're not authorized! 👮‍♂️`}
+                     contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            }
+         } catch (error) {
+            console.log(error);
          }
       }
    };
@@ -202,6 +246,7 @@ const QuoteStories = ({
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {deletePopupState}
+         {notificationPopUpState}
          {reportPopupState && (
             <ConfirmationPopup
                title={`Are you sure you want to report this story`}
@@ -276,15 +321,15 @@ const QuoteStories = ({
                   {/* ------------------------ author and admin features ------------------------ */}
                   <span className={quoteStoriesStyles.storyBy}>
                      -By: {quoteState[countState].author}
-                     {deleteOption && (
+                     {renderDeleteEditOptionsState && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.delete)}
                            onClick={handleDeleteConfirmation}></span>
                      )}
-                     {editOption && (
+                     {renderDeleteEditOptionsState && (
                         <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
                      )}
-                     {reportOption && (
+                     {renderReportOptionState && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.report)}
                            onClick={handleReportConfirmation}></span>

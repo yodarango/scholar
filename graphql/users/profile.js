@@ -270,3 +270,20 @@ export const UPDATE_MY_SETTINGS = gql`
       }
    }
 `;
+
+//=================== CHNAGE PASSWORD ================//
+export const VALIDATE_CURRENT_PASSWORD = gql`
+   mutation ($currPassword: String, $newPassword: String) {
+      change_password(currPassword: $currPassword, newPassword: $newPassword) {
+         ... on UserUpdated {
+            update_successful
+         }
+         ... on IncorrecctCredentials {
+            message
+         }
+         ... on ServerError {
+            message
+         }
+      }
+   }
+`;

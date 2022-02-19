@@ -43,22 +43,34 @@ const ContentApprovalDropdown = ({
    const handleReateContnet = async (rating: number) => {
       // if the content is a commentary call this function
       if (post_id.comment) {
-         const { data } = await client.mutate({
-            mutation: CREATE_COMMENTARY_APPROVAL,
-            variables: {
-               USER_ID: 1,
-               COMMENTARY_ID: post_id.comment,
-               approval_rate: rating
+         try {
+            const { data } = await client.mutate({
+               mutation: CREATE_COMMENTARY_APPROVAL,
+               variables: {
+                  USER_ID: 1,
+                  COMMENTARY_ID: post_id.comment,
+                  approval_rate: rating
+               }
+            });
+            if (data.rate_commentary) {
+               successfulApproval();
+            } else {
+               successfulApproval();
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
             }
-         });
-         if (data.rate_commentary) {
-            successfulApproval();
-         } else {
+         } catch (error: any) {
             setNotificationPopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
                />
             );
@@ -67,17 +79,28 @@ const ContentApprovalDropdown = ({
 
       // if the content is thought call this function
       else if (post_id.thought) {
-         const { data } = await client.mutate({
-            mutation: CREATE_THOUGHT_APPROVAL,
-            variables: {
-               USER_ID: 1,
-               THOUGHT_ID: post_id.thought,
-               approval_rate: rating
+         try {
+            const { data } = await client.mutate({
+               mutation: CREATE_THOUGHT_APPROVAL,
+               variables: {
+                  USER_ID: 1,
+                  THOUGHT_ID: post_id.thought,
+                  approval_rate: rating
+               }
+            });
+            if (data.rate_thought) {
+               successfulApproval();
+            } else {
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
             }
-         });
-         if (data.rate_thought) {
-            successfulApproval();
-         } else {
+         } catch (error: any) {
             setNotificationPopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
@@ -91,22 +114,33 @@ const ContentApprovalDropdown = ({
 
       // if the content is a quote call this function
       else if (post_id.quote) {
-         const { data } = await client.mutate({
-            mutation: CREATE_QUOTE_APPROVAL,
-            variables: {
-               USER_ID: 1,
-               QUOTE_ID: post_id.quote,
-               approval_rate: rating
+         try {
+            const { data } = await client.mutate({
+               mutation: CREATE_QUOTE_APPROVAL,
+               variables: {
+                  USER_ID: 1,
+                  QUOTE_ID: post_id.quote,
+                  approval_rate: rating
+               }
+            });
+            if (data.rate_quote) {
+               successfulApproval();
+            } else {
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
             }
-         });
-         if (data.rate_quote) {
-            successfulApproval();
-         } else {
+         } catch (error: any) {
             setNotificationPopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
                />
             );

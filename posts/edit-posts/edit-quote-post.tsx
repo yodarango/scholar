@@ -78,7 +78,7 @@ const EditQuotePost = ({ story }: quoteEditorProps) => {
                }
             });
             if (data.edit_quote) {
-               router.replace(`/users/${1}`);
+               router.replace(`/users/me`);
             } else {
                setSmallLoaderState(
                   <p className='std-error-msg'>Sorry, something went wrong! 🙁</p>

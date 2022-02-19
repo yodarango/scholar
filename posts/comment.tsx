@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 //graphQL
@@ -9,6 +9,7 @@ import {
    DELETE_ONE_COMMENTARY,
    REPORT_COMMENTARY
 } from "../graphql/posts/commentaries";
+import { GET_COMMENTARY_APPROVALS } from "../graphql/posts/approvals";
 
 // componenets
 import CommentaryContent from "../fragments/popup-content/commentary-content";
@@ -24,7 +25,8 @@ import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 // types and helpres
 import { Tapprovals } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-commentary-comment";
-import { GET_COMMENTARY_APPROVALS } from "../graphql/posts/approvals";
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export type Tcommentary = {
    ID: string;
@@ -63,6 +65,19 @@ export default function Comments({
    editOption,
    reportOption
 }: commentsProps) {
+   // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
+   const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
+   const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
+
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderDeleteEditOptionsState(commentary.USER_ID == user.ID);
+         setRenderReportOptionState(commentary.USER_ID != user.ID);
+      }
+   }, []);
+
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = async (commentary_id: string) => {
@@ -110,7 +125,7 @@ export default function Comments({
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
    );
-   // ================= FUNCTION 6: Handle the delete popup  ===================//
+   // ================= FUNCTION 6: Handle deleting the post  ===================//
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeletePost = async (id: string) => {
       const data = await client.mutate({
@@ -142,13 +157,12 @@ export default function Comments({
       );
    };
 
-   // ================= FUNCTION 7: Handle the delete popup  ===================//
+   // ================= FUNCTION 7: Handle Reporting the Post  ===================//
    const handleReportPost = async (id: string) => {
       const data = await client.mutate({
          mutation: REPORT_COMMENTARY,
          variables: {
-            COMMENTARY_ID: id,
-            USER_ID: 20
+            COMMENTARY_ID: id
          }
       });
 
@@ -194,13 +208,31 @@ export default function Comments({
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data = await handlePostComment(commentary.ID, "2", commentBody.current.value);
+         const data: any = await handlePostComment(commentary.ID, commentBody.current.value);
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setCommentBoxState("");
+         } else if (data == false) {
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          } else {
-            setPostingState(true);
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       }
    };
@@ -248,17 +280,17 @@ export default function Comments({
                      )}
                   </div>
                   {commentary.creator && <h1>{commentary.creator.signature}</h1>}
-                  {deleteOption && (
+                  {renderDeleteEditOptionsState && (
                      <span
                         className={(cardStyles.cardIcon, cardStyles.delete)}
                         onClick={() => handleDeleteConfirmation(commentary.ID)}></span>
                   )}
-                  {editOption && (
+                  {renderDeleteEditOptionsState && (
                      <Link href={`/posts/edit-commentary/${commentary.ID}`}>
                         <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                      </Link>
                   )}
-                  {reportOption && (
+                  {renderReportOptionState && (
                      <span
                         className={(cardStyles.cardIcon, cardStyles.report)}
                         onClick={() => handleReportConfirmation(commentary.ID)}></span>

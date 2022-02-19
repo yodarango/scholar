@@ -1,12 +1,20 @@
 # ------------------------- DAIYLYS ------------------------
 
-**02/12/22**
+**02/17/22**
 
-# updating settings is complete, the only thing lef to do is to check that signature does not include special characters. There are multiple things that I could do next
+## TO DO's
 
--  make sure that only the logged in user can edit, delete content
--  wire up changing password and avatar
--  wire up commenting on content and liking content
+-  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
+
+-  Edit sermon_notes-post needs the Edit route implemented
+
+-  implement user roles (trusted not trusted)
+
+-  turn user profile into its own comp (maybe)
+
+**_ERRORS_**
+
+# The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
 
 // ---------------------------- COMPLETED -------------------- //
 The following things have been aware of and need to be improved:
@@ -58,6 +66,8 @@ see why. Also commentaries and wuotes doing it
 -  Implement Lazy loading and create as many statics as possible
 
 -  Add user authorization or CORS-ORIGIN limitations in all forms being submitted to avoid vendors
+
+*  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
 
 // ----------------------------- COOL TO HAVES/ LATER RELEASES ---------------------- //
 

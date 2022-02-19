@@ -24,7 +24,7 @@ const NavigationMenu = () => {
             <Link href={"/read"}>
                <a className={`${navigationMenuStyles.read} ${navigationMenuStyles.menuOption}`}></a>
             </Link>
-            <Link href={"/me"}>
+            <Link href={"/users/me"}>
                <a
                   className={`${navigationMenuStyles.profile} ${navigationMenuStyles.menuOption}`}></a>
             </Link>
