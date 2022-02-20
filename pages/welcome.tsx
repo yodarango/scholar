@@ -2,6 +2,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+//components
+import NavigationMenu from "../layouts/navigation-menu";
+
 // helpers
 const Cookies = require("js-cookie");
 import parseJwt from "../helpers/auth/decodeJWT";
@@ -26,6 +29,7 @@ const welcome = () => {
             )}
             <div>You are not authorized #NEEDS GRAPHICS</div>
          </div>
+         <NavigationMenu />
       </>
    );
 };

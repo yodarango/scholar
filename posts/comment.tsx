@@ -54,17 +54,9 @@ export type Tcommentary = {
 
 type commentsProps = {
    commentary: Tcommentary;
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
 };
 
-export default function Comments({
-   commentary,
-   deleteOption,
-   editOption,
-   reportOption
-}: commentsProps) {
+export default function Comments({ commentary }: commentsProps) {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);

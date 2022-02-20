@@ -1,18 +1,19 @@
 // core
-import { useState } from "react";
-//import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+
 // graphQL
 import client from "../apollo-client";
 import { DELETE_ONE_SEMRON_POST } from "../graphql/posts/sermon_notes";
 
 // child comps
 import ConfirmationPopup from "../fragments/confirmation-popup";
+import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import sermonNotesPostStyles from "../styles/posts/SermonNotesPost.module.css";
-import router from "next/router";
-import { Tsermon } from "../fragments/library-items/sermon";
-import NotificationPopup from "../fragments/notification-popup";
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 export type TsermonPost = {
    ID: string;
@@ -35,24 +36,29 @@ export type TsermonPost = {
 
 type sermonNotesPostProps = {
    sermonPost: TsermonPost;
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
 };
 
-const SermonNotesPost = ({
-   sermonPost,
-   deleteOption,
-   editOption,
-   reportOption
-}: sermonNotesPostProps) => {
+const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
+   // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
+   const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
+   const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
+
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setRenderDeleteEditOptionsState(sermonPost.USER_ID == user.ID);
+         setRenderReportOptionState(sermonPost.USER_ID != user.ID);
+      }
+   }, []);
+
    const [confirmationPopUpState, setconfirmationPopUpState] = useState<boolean | JSX.Element>(
       false
    );
    const [notificationPupUpState, setNotificationPupUpState] = useState<JSX.Element | boolean>(
       false
    );
-   //const router = useRouter();
+
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeleteSermonNote = async (id: string) => {
       await client.mutate({
@@ -109,19 +115,21 @@ const SermonNotesPost = ({
                <div
                   className={sermonNotesPostStyles.commentCardHeader}
                   id={`category-${sermonPost.category_tags.split(" ")[0].replace("#", "")}`}>
-                  {deleteOption && (
+                  {renderDeleteEditOptionsState && (
                      <span
                         className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.delete)}
                         onClick={() =>
                            promptConfirmationPopUp(sermonPost.ID, sermonPost.DROPBOX_ID)
                         }></span>
                   )}
-                  {editOption && (
-                     <span
-                        className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.edit)}
-                        onClick={handleEditOption}></span>
+                  {renderDeleteEditOptionsState && (
+                     <Link href={`/posts/edit-sermon-note/${sermonPost.ID}`}>
+                        <a
+                           className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.edit)}
+                           onClick={handleEditOption}></a>
+                     </Link>
                   )}
-                  {reportOption && (
+                  {renderReportOptionState && (
                      <span
                         className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.report)}
                         onClick={handleReportConfirmation}></span>

@@ -244,7 +244,6 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          {confirmationPopUpState}
          {notificationpopUpState}
          {thoughts.map((thought) => {
-            console.log(thought);
             return (
                <section key={thought.ID} id={thought.ID}>
                   {chooseAprovalRating && (
@@ -273,17 +272,17 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                         {thought.creator && thought.creator.signature && (
                            <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
                         )}
-                        {renderAdminOptionsState == thought.ID && (
+                        {renderAdminOptionsState == thought.creator.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.delete)}
                               onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                         )}
-                        {renderAdminOptionsState == thought.ID && (
+                        {renderAdminOptionsState == thought.creator.ID && (
                            <Link href={`/posts/edit-thought/${thought.ID}`}>
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}
-                        {renderAdminOptionsState != thought.ID && (
+                        {renderAdminOptionsState != thought.creator.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.report)}
                               onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>

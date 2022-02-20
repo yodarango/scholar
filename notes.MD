@@ -6,8 +6,6 @@
 
 -  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
 
--  Edit sermon_notes-post needs the Edit route implemented
-
 -  implement user roles (trusted not trusted)
 
 -  turn user profile into its own comp (maybe)

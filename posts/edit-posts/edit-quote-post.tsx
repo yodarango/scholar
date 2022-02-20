@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -18,12 +18,24 @@ import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.m
 import { valuesCat } from "../../helpers/dropdown-values";
 import { IvaluesCat } from "../../helpers/dropdown-values";
 import { Tstory } from "../quotes-stroies";
+import getCookie from "../../helpers/get-cookie";
+import parseJwt from "../../helpers/auth/decodeJWT";
 
 type quoteEditorProps = {
    //handleCloseStories: any;
    story: Tstory;
 };
 const EditQuotePost = ({ story }: quoteEditorProps) => {
+   // check if the user is authenticated in order to render the content
+   const [loggedInUserState, setLoggedInUserState] = useState<string>("");
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setLoggedInUserState(user.ID);
+      }
+   }, []);
+
    // ================ FUNCTION 1:  Change the Background of the story on choice  ================ ///
    const [changeBkgState, setChangeBkgState] = useState<string>(story.background);
 
@@ -116,136 +128,141 @@ const EditQuotePost = ({ story }: quoteEditorProps) => {
    };
 
    return (
-      <div className={quoteEditorStyles.mainWrapper} id={changeBkgState}>
-         {notificationpoUp}
-         {tagInfoPopupState}
-         <Link href={`/users/${123}`}>
-            <a className={`closeModal ${quoteEditorStyles.closeModal}`}>X</a>
-         </Link>
-         <div className={quoteEditorStyles.bkgsCarrousel}>
-            <span
-               className={quoteEditorStyles.bkgOne}
-               id={quoteEditorStyles.BL}
-               onClick={() => setChangeBkgState(quoteEditorStyles.BL)}></span>
-            <span
-               className={quoteEditorStyles.bkgTwo}
-               id={quoteEditorStyles.YLW}
-               onClick={() => setChangeBkgState(quoteEditorStyles.YLW)}></span>
-            <span
-               className={quoteEditorStyles.bkgThree}
-               id={quoteEditorStyles.PPL}
-               onClick={() => setChangeBkgState(quoteEditorStyles.PPL)}></span>
-            <span
-               className={quoteEditorStyles.bkgFour}
-               id={quoteEditorStyles.RD}
-               onClick={() => setChangeBkgState(quoteEditorStyles.RD)}></span>
-            <span
-               className={quoteEditorStyles.bkgFive}
-               id={quoteEditorStyles.PNK}
-               onClick={() => setChangeBkgState(quoteEditorStyles.PNK)}></span>
-            <span
-               className={quoteEditorStyles.bkgSix}
-               id={quoteEditorStyles.GN}
-               onClick={() => setChangeBkgState(quoteEditorStyles.GN)}></span>
-            <span
-               className={quoteEditorStyles.bkgSeven}
-               id={quoteEditorStyles.BLK}
-               onClick={() => setChangeBkgState(quoteEditorStyles.BLK)}></span>
-            <span
-               className={quoteEditorStyles.bkgEight}
-               id={quoteEditorStyles.BR}
-               onClick={() => setChangeBkgState(quoteEditorStyles.BR)}></span>
-            <span
-               className={quoteEditorStyles.bkgNine}
-               id={quoteEditorStyles.DBD}
-               onClick={() => setChangeBkgState(quoteEditorStyles.DBD)}></span>
-            <span
-               className={quoteEditorStyles.bkgTen}
-               id={quoteEditorStyles.OT0}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT0)}></span>
-            <span
-               className={quoteEditorStyles.bkgOne}
-               id={quoteEditorStyles.OT1}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT1)}></span>
-            <span
-               className={quoteEditorStyles.bkgTwo}
-               id={quoteEditorStyles.OT2}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT2)}></span>
-            <span
-               className={quoteEditorStyles.bkgThree}
-               id={quoteEditorStyles.OT3}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT3)}></span>
-            <span
-               className={quoteEditorStyles.bkgFour}
-               id={quoteEditorStyles.OT4}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT4)}></span>
-            <span
-               className={quoteEditorStyles.bkgSix}
-               id={quoteEditorStyles.OT5}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT5)}></span>
-            <span
-               className={quoteEditorStyles.bkgSeven}
-               id={quoteEditorStyles.OT6}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT6)}></span>
-            <span
-               className={quoteEditorStyles.bkgEight}
-               id={quoteEditorStyles.OT7}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT7)}></span>
-            <span
-               className={quoteEditorStyles.bkgNine}
-               id={quoteEditorStyles.OT8}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT8)}></span>
-            <span
-               className={quoteEditorStyles.bkgTen}
-               id={quoteEditorStyles.OT9}
-               onClick={() => setChangeBkgState(quoteEditorStyles.OT9)}></span>
-         </div>
-         <div
-            className={`${quoteEditorStyles.contentUserWrapper}`}
-            style={{ background: "transparent" }}>
-            <textarea
-               className={`${quoteEditorStyles.textarea}`}
-               maxLength={255}
-               ref={textArea}
-               defaultValue={story.body}></textarea>
-            <input
-               className={quoteEditorStyles.storyByInput}
-               maxLength={200}
-               ref={authorInput}
-               defaultValue={story.author}
-            />
-         </div>
-         <section className={quoteEditorStyles.tagsWrapper}>
-            <span className={quoteEditorStyles.categoryTitle}>Category:</span>
-            <div className={quoteEditorStyles.categories}>
-               {valuesCat.map((cat: IvaluesCat) => (
+      <>
+         {loggedInUserState != story.creator.ID && <div>Youre not authorized #NEEDS_GRAPHICS</div>}
+         {loggedInUserState == story.creator.ID && (
+            <div className={quoteEditorStyles.mainWrapper} id={changeBkgState}>
+               {notificationpoUp}
+               {tagInfoPopupState}
+               <Link href={`/users/${123}`}>
+                  <a className={`closeModal ${quoteEditorStyles.closeModal}`}>X</a>
+               </Link>
+               <div className={quoteEditorStyles.bkgsCarrousel}>
                   <span
-                     key={cat.key}
-                     style={{ backgroundColor: cat.color }}
-                     className={quoteEditorStyles.category}
-                     onClick={() => showCurrentSelectedColor(cat)}>
-                     {cat.tag}
-                     <span
-                        className={quoteEditorStyles.info}
-                        onClick={() => openInfoAboutTagColor(cat)}>
-                        i
-                     </span>
-                  </span>
-               ))}
+                     className={quoteEditorStyles.bkgOne}
+                     id={quoteEditorStyles.BL}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.BL)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgTwo}
+                     id={quoteEditorStyles.YLW}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.YLW)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgThree}
+                     id={quoteEditorStyles.PPL}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.PPL)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgFour}
+                     id={quoteEditorStyles.RD}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.RD)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgFive}
+                     id={quoteEditorStyles.PNK}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.PNK)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgSix}
+                     id={quoteEditorStyles.GN}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.GN)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgSeven}
+                     id={quoteEditorStyles.BLK}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.BLK)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgEight}
+                     id={quoteEditorStyles.BR}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.BR)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgNine}
+                     id={quoteEditorStyles.DBD}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.DBD)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgTen}
+                     id={quoteEditorStyles.OT0}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT0)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgOne}
+                     id={quoteEditorStyles.OT1}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT1)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgTwo}
+                     id={quoteEditorStyles.OT2}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT2)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgThree}
+                     id={quoteEditorStyles.OT3}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT3)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgFour}
+                     id={quoteEditorStyles.OT4}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT4)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgSix}
+                     id={quoteEditorStyles.OT5}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT5)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgSeven}
+                     id={quoteEditorStyles.OT6}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT6)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgEight}
+                     id={quoteEditorStyles.OT7}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT7)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgNine}
+                     id={quoteEditorStyles.OT8}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT8)}></span>
+                  <span
+                     className={quoteEditorStyles.bkgTen}
+                     id={quoteEditorStyles.OT9}
+                     onClick={() => setChangeBkgState(quoteEditorStyles.OT9)}></span>
+               </div>
+               <div
+                  className={`${quoteEditorStyles.contentUserWrapper}`}
+                  style={{ background: "transparent" }}>
+                  <textarea
+                     className={`${quoteEditorStyles.textarea}`}
+                     maxLength={255}
+                     ref={textArea}
+                     defaultValue={story.body}></textarea>
+                  <input
+                     className={quoteEditorStyles.storyByInput}
+                     maxLength={200}
+                     ref={authorInput}
+                     defaultValue={story.author}
+                  />
+               </div>
+               <section className={quoteEditorStyles.tagsWrapper}>
+                  <span className={quoteEditorStyles.categoryTitle}>Category:</span>
+                  <div className={quoteEditorStyles.categories}>
+                     {valuesCat.map((cat: IvaluesCat) => (
+                        <span
+                           key={cat.key}
+                           style={{ backgroundColor: cat.color }}
+                           className={quoteEditorStyles.category}
+                           onClick={() => showCurrentSelectedColor(cat)}>
+                           {cat.tag}
+                           <span
+                              className={quoteEditorStyles.info}
+                              onClick={() => openInfoAboutTagColor(cat)}>
+                              i
+                           </span>
+                        </span>
+                     ))}
+                  </div>
+               </section>
+               {!smallLoaderState && (
+                  <button className={`std-button ${quoteEditorStyles.stdButton}`}>
+                     <p className={`std-button_gradient-text`} onClick={handlePostQuote}>
+                        POST
+                     </p>
+                  </button>
+               )}
+               {smallLoaderState}
+               <div
+                  className={quoteEditorStyles.selectedTagColor}
+                  id={`category-${currentChosenTagState.color}`}></div>
             </div>
-         </section>
-         {!smallLoaderState && (
-            <button className={`std-button ${quoteEditorStyles.stdButton}`}>
-               <p className={`std-button_gradient-text`} onClick={handlePostQuote}>
-                  POST
-               </p>
-            </button>
          )}
-         {smallLoaderState}
-         <div
-            className={quoteEditorStyles.selectedTagColor}
-            id={`category-${currentChosenTagState.color}`}></div>
-      </div>
+      </>
    );
 };
 
