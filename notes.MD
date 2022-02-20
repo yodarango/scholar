@@ -10,6 +10,16 @@
 
 -  turn user profile into its own comp (maybe)
 
+-  add a logout route
+
+-  add a welcome banner the first time user logs in
+
+-  notifications
+
+-  add try catch everywehre needed
+
+-  work on the "select verse" model because if you click out of the <p></p> tag it will not color the text orange
+
 **_ERRORS_**
 
 # The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!

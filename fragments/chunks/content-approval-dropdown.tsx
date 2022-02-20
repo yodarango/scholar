@@ -70,7 +70,7 @@ const ContentApprovalDropdown = ({
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
-                  contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  contentString={error.graphQLErrors[0].message}
                   newClass='notification-wrapper--Error'
                />
             );
