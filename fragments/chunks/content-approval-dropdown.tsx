@@ -20,6 +20,7 @@ type TcontentApprovalDropdownProps = {
    additionalClassOne?: any;
    additionalClassTwo?: any;
    additionalClassThree?: any;
+   user_id: string;
    post_id: {
       comment?: string;
       thought?: string;
@@ -32,6 +33,7 @@ const ContentApprovalDropdown = ({
    additionalClassOne,
    additionalClassTwo,
    additionalClassThree,
+   user_id,
    post_id,
    successfulApproval
 }: TcontentApprovalDropdownProps) => {
@@ -39,7 +41,6 @@ const ContentApprovalDropdown = ({
       false
    );
 
-   console.log(post_id);
    const handleReateContnet = async (rating: number) => {
       // if the content is a commentary call this function
       if (post_id.comment) {
@@ -47,9 +48,9 @@ const ContentApprovalDropdown = ({
             const { data } = await client.mutate({
                mutation: CREATE_COMMENTARY_APPROVAL,
                variables: {
-                  USER_ID: 1,
                   COMMENTARY_ID: post_id.comment,
-                  approval_rate: rating
+                  approval_rate: rating,
+                  USER_ID: user_id
                }
             });
             if (data.rate_commentary) {
@@ -79,13 +80,14 @@ const ContentApprovalDropdown = ({
 
       // if the content is thought call this function
       else if (post_id.thought) {
+         console.log(post_id);
          try {
             const { data } = await client.mutate({
                mutation: CREATE_THOUGHT_APPROVAL,
                variables: {
-                  USER_ID: 1,
                   THOUGHT_ID: post_id.thought,
-                  approval_rate: rating
+                  approval_rate: rating,
+                  USER_ID: user_id
                }
             });
             if (data.rate_thought) {
@@ -118,9 +120,9 @@ const ContentApprovalDropdown = ({
             const { data } = await client.mutate({
                mutation: CREATE_QUOTE_APPROVAL,
                variables: {
-                  USER_ID: 1,
                   QUOTE_ID: post_id.quote,
-                  approval_rate: rating
+                  approval_rate: rating,
+                  USER_ID: user_id
                }
             });
             if (data.rate_quote) {

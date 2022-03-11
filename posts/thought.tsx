@@ -192,10 +192,10 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(0);
 
-   const postCommentaryComment = async (thought_id: string) => {
+   const postCommentaryComment = async (thought_id: string, user_id: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data: any = await handlePostComment(thought_id, commentBody.current.value);
+         const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
          if (data == true) {
             setPostingState(false);
             setCommentBoxState("");
@@ -244,12 +244,14 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
          {confirmationPopUpState}
          {notificationpopUpState}
          {thoughts.map((thought) => {
+            console.log("thought: ", thought);
             return (
-               <section key={thought.ID} id={thought.ID}>
+               <section key={thought.ID}>
                   {chooseAprovalRating && (
                      <ContentApprovalDropdown
                         handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
                         post_id={{ thought: thought.ID }}
+                        user_id={thought.creator.ID}
                         successfulApproval={() => handleSuccessfulApprovalRating(thought.ID)}
                      />
                   )}
@@ -272,17 +274,17 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                         {thought.creator && thought.creator.signature && (
                            <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
                         )}
-                        {renderAdminOptionsState == thought.creator.ID && (
+                        {thought.creator && renderAdminOptionsState == thought.creator.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.delete)}
                               onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                         )}
-                        {renderAdminOptionsState == thought.creator.ID && (
+                        {thought.creator && renderAdminOptionsState == thought.creator.ID && (
                            <Link href={`/posts/edit-thought/${thought.ID}`}>
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}
-                        {renderAdminOptionsState != thought.creator.ID && (
+                        {thought.creator && renderAdminOptionsState != thought.creator.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.report)}
                               onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
@@ -312,7 +314,9 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                               {!postingState && (
                                  <span
                                     className={`std-button_gradient-text`}
-                                    onClick={() => postCommentaryComment(thought.ID)}>
+                                    onClick={() =>
+                                       postCommentaryComment(thought.ID, thought.creator.ID)
+                                    }>
                                     Post
                                  </span>
                               )}

@@ -200,7 +200,11 @@ export default function Comments({ commentary }: commentsProps) {
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data: any = await handlePostComment(commentary.ID, commentBody.current.value);
+         const data: any = await handlePostComment(
+            commentary.ID,
+            commentBody.current.value,
+            commentary.creator.ID
+         );
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
@@ -248,6 +252,7 @@ export default function Comments({ commentary }: commentsProps) {
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
                post_id={{ comment: commentary.ID }}
+               user_id={commentary.creator.ID}
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
