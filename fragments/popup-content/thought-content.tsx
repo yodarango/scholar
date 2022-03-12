@@ -69,14 +69,18 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    // ======================== FUNCTION 1.1: hande a ssuccessful approval rating ========================= //
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(thought.approvals[0]);
    const handleSuccessfulApprovalRating = async () => {
-      const { data } = await client.query({
-         query: GET_THOUGHT_APPROVALS,
-         variables: {
-            THOUGHT_ID: thought.ID
-         }
-      });
-      setChooseAprovalRating(false);
-      setPostApprovalState(data.commentary_approvals[0]);
+      try {
+         const { data } = await client.query({
+            query: GET_THOUGHT_APPROVALS,
+            variables: {
+               THOUGHT_ID: thought.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.thought_approvals[0]);
+      } catch (error) {
+         console.log("thought-content.tsx line 82: ", error);
+      }
    };
 
    // ========= FUNCTION: open and close the comment text area
@@ -149,7 +153,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       try {
          const { data } = await client.query({
             query: GET_THOUGHT_COMMENTS,
-            variables: { THOUGHT_ID: thought.ID, last_id: 1000 }
+            variables: { THOUGHT_ID: thought.ID, last_id: 999999999 }
          });
          setCommentaryCommentsState(data.thought_comments);
       } catch (error) {

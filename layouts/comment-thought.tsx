@@ -99,7 +99,7 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
          <div className={`large-spacer`}></div>
          {filterThoughtCommentState.comment &&
             commentariesState.map((commentary: Tcommentary) => (
-               <Comment commentary={commentary} reportOption={true} key={commentary.ID} />
+               <Comment commentary={commentary} key={commentary.ID} />
             ))}
          {commentariesState && responseCommentaryState === 20 && filterThoughtCommentState.comment && (
             <button
@@ -110,9 +110,7 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
                <p className={`std-button_gradient-text`}>Load More</p>
             </button>
          )}
-         {filterThoughtCommentState.thought && (
-            <Thought thoughts={thoughtsState} reportOption={true} />
-         )}
+         {filterThoughtCommentState.thought && <Thought thoughts={thoughtsState} />}
          {thoughtsState && responseThoughtState === 20 && filterThoughtCommentState.thought && (
             <button
                className={`std-button`}

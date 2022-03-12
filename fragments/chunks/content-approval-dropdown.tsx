@@ -80,7 +80,7 @@ const ContentApprovalDropdown = ({
 
       // if the content is thought call this function
       else if (post_id.thought) {
-         console.log(post_id);
+         console.log("approval thought id: ", post_id);
          try {
             const { data } = await client.mutate({
                mutation: CREATE_THOUGHT_APPROVAL,
@@ -106,8 +106,8 @@ const ContentApprovalDropdown = ({
             setNotificationPopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  title={`You're not authorized! 👮‍♂️`}
+                  contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
                />
             );
