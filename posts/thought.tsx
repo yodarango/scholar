@@ -295,11 +295,14 @@ const Thought = ({ thoughts }: thoughtProps) => {
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}
-                        {thought.creator && renderAdminOptionsState != thought.creator.ID && (
-                           <span
-                              className={(cardStyles.cardIcon, cardStyles.report)}
-                              onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
-                        )}
+                        {thought.creator &&
+                           renderAdminOptionsState != thought.creator.ID &&
+                           renderAdminOptionsState != "" && (
+                              <span
+                                 id={renderAdminOptionsState}
+                                 className={(cardStyles.cardIcon, cardStyles.report)}
+                                 onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
+                           )}
                      </div>
                      {thought.creator && thought.creator.signature && (
                         <i>{`${thought.creator.signature} expressed a new Tought`}</i>

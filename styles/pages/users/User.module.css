@@ -19,7 +19,7 @@
 }
 
 .settingsLinkIcon {
-   margin-right: var(--medium-spacing-mobile);
+   margin-right: var(--xsmall-spacing-mobile);
    background-image: url("/images/settings.svg");
 }
 
@@ -27,6 +27,7 @@
    width: 2rem;
    height: 2rem;
    position: relative;
+   display: inline-block;
    margin: 0.5rem auto var(--xsmall-spacing-mobile) 0;
 }
 

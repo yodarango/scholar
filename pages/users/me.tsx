@@ -53,6 +53,7 @@ export type Tuser = {
    authority_level: string;
    approval_rating: number;
    avatar: string;
+   has_new_notifications: boolean;
    my_church: string;
    my_favorite_color: string;
    my_job: string;
@@ -65,13 +66,13 @@ export type Tuser = {
 
 const Me = () => {
    // globals
-   const router = useRouter();
+
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userState, setUserState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);
 
    const getUserSettings = async () => {
-      const { loading, error, data } = await client.query({
+      const { data } = await client.query({
          query: GET_MY_PROFILE,
          variables: {
             totalCountOnly: true,
@@ -79,15 +80,14 @@ const Me = () => {
             from_profile: true
          }
       });
-
+      console.log(data);
       if (data.me && data.me.length > 0) {
          setLoadingState(false);
          setUserState(data.me[0]);
-         console.log(data);
       } else if (data.me === null || data.me.length < 0) {
          setLoadingState(false);
          setUserState(null);
-         console.log(data);
+
          location.href = "/login";
       }
    };
@@ -97,7 +97,11 @@ const Me = () => {
    }, []);
    // ================  FUNCTION 2: open the notifications popup   ================= //
    const [notificationsPopupState, setnotificationsPopupState] = useState(false);
+   const [hasNotificationState, setHasNotificationState] = useState<boolean | undefined>(
+      userState?.has_new_notifications
+   );
    const openNotificationsPopup = () => {
+      setHasNotificationState(false);
       setnotificationsPopupState(true);
    };
 
@@ -117,11 +121,15 @@ const Me = () => {
                   <Link href={`/users/settings`}>
                      <a className={userStyles.settingsLinkIcon}></a>
                   </Link>
-                  <div
-                     className={userStyles.notificationBell}
-                     onClick={openNotificationsPopup}></div>
-                  {userState.approval_rating > 100 && (
-                     <div className={userStyles.bellWnotificationWrapper}>
+                  {!hasNotificationState && (
+                     <div
+                        className={userStyles.notificationBell}
+                        onClick={openNotificationsPopup}></div>
+                  )}
+                  {hasNotificationState && (
+                     <div
+                        className={userStyles.bellWnotificationWrapper}
+                        onClick={openNotificationsPopup}>
                         <div className={userStyles.notificationBellWNotification}></div>
                         <span className={userStyles.notificationSignifier}></span>
                      </div>
