@@ -1,5 +1,6 @@
 .mainWrapper {
    width: 100%;
+   position: relative;
 }
 
 .filterWrapper {
@@ -8,6 +9,7 @@
    align-items: center;
    justify-content: space-around;
    max-width: 400px;
+   overflow-x: scroll;
    margin: var(--xsmall-spacing-mobile) auto;
 }
 
@@ -16,57 +18,66 @@
 }
 
 .filterWrapper div {
-   width: 4rem;
-   height: 4rem;
-   font-size: 3rem;
+   width: 3rem;
+   height: 3rem;
+   font-size: 1.5rem;
    border-radius: 50%;
    display: flex;
    align-items: center;
    justify-content: center;
+   transition: 300ms;
+   flex-shrink: 0;
 }
 
-.male:hover,
-.female:hover,
-.skinColorSelection:hover,
-.glasses:hover,
-.hairSelection:hover {
+.filterWrapper div:hover,
+.choiceSelected {
+   background-color: var(--third-color);
    cursor: pointer;
-   border: 5px solid var(--font-color);
-   font-size: 2rem;
 }
 
-.skinColor,
-.hair {
-   position: relative;
-}
-
-.skinColorWrapper,
-.hairStyleWrapper {
-   position: absolute;
-   top: -3rem;
-   left: 0rem;
+.filterItemWrapper {
    display: flex;
    align-items: center;
-   justify-content: space-around;
-   width: 8rem;
-   padding: var(--xsmall-spacing-mobile);
+   justify-content: center;
+   flex-direction: column;
+}
+
+.filterLabel {
+   margin: 0;
+   font: var(--small-primary-font-mobile);
+   color: var(--secondary-color);
+}
+
+.extraOptionsWrapper {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: auto;
+   margin: auto;
+   max-width: 10rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: calc(var(--xsmall-spacing-mobile) - 0.3rem);
    background-color: var(--fourth-color);
    border-radius: var(--input-radius-mobile);
 }
-.hairStyleWrapper {
-   left: -5rem;
+
+.extraOptionsWrapper span {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 2rem;
+   height: 2rem;
+   font-size: 1rem;
+   margin: 0 var(--xsmall-spacing-mobile);
+   transition: 300ms;
 }
 
-.skinColorWrapper div,
-.hairStyleWrapper div {
-   width: 1.8rem;
-   height: 1.8rem;
-   font-size: 1.5rem;
+.extraOptionsWrapper span:hover {
+   transform: scale(1.2);
    cursor: pointer;
-}
-.filterWrapper .choiceSelected {
-   border: 5px solid var(--font-color);
-   font-size: 2rem;
 }
 
 /* =============== avatar wraper ============= */
