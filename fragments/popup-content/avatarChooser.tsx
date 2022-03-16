@@ -1,5 +1,6 @@
 // core
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Image from "next/image";
 
 // styles
 import avatarChoserStyles from "../../styles/fragments/popup-content/AvatarChooser.module.css";
@@ -41,11 +42,11 @@ const AvatarChooser = () => {
       ],
       hair_female: [
          { avatar: "👩", val: "down" },
-         { avatar: "", val: "up" }
+         { avatar: "👱‍♀️", val: "up" }
       ],
       accessories: [
          { avatar: "❌", val: false },
-         { avatar: "👓", val: false }
+         { avatar: "👓", val: true }
       ]
    });
 
@@ -95,93 +96,74 @@ const AvatarChooser = () => {
       glasses: boolean;
       kin?: any;
    };
+
    const [originalAvatarArray, setoriginalAvatarArray] = useState<any>([]);
+   const [genderArray, setGenderArray] = useState<any>();
+   const [skinArray, setSkinArray] = useState<any>();
+   const [accessoriesArray, setAccessoriesArray] = useState<any>();
+   const [hairArray, setHairArray] = useState<any>();
 
    // ------------------------ gender selction function
-   let genderArray: any;
    const handleGenderSelcetion = (avatar: string, val: string) => {
       setcurrSelection({
-         ...currSelection,
          gender: { avatar, val },
          skin: { avatar, val: "" },
          hair: { avatar: avatar == "🙋‍♂️" ? "👱‍♂️" : "👩", val: "" },
          accessories: { avatar: "❌", val: null }
       }),
-         // setcurrSelection({
-         //    gender: { avatar, val },
-         //    skin: { avatar: "🙋‍♂️", val: "" },
-         //    hair: { avatar: "👱‍♂️", val: "" },
-         //    accessories: { avatar: "❌", val: null }
-         // }),
          setchoicesClassState({
-            ...choicesClassState,
-            gender: avatarChoserStyles.choiceSelected
+            gender: avatarChoserStyles.choiceSelected,
+            skin: "",
+            hair: "",
+            accessories: ""
          }),
          setExtraChoicePopUpState({ type: "", content: [] });
 
       // // ------------ fileter array
-      genderArray = sortedAvatar.filter((item) => item.gender);
-      // const skinArray = genderArray.filter((avatar) =>
-      //    currSelection.skin.val == ""
-      //       ? avatar.select == "all"
-      //       : (avatar.skin = currSelection.skin.val)
-      // );
-      // const hairArray = skinArray.filter((avatar) =>
-      //    currSelection.hair.val == ""
-      //       ? avatar.select == "all"
-      //       : avatar.hair == currSelection.skin.val
-      // );
-      // const accessoriesArray = hairArray.filter((avatar) =>
-      //    currSelection.skin.val == ""
-      //       ? avatar.select == "all"
-      //       : (avatar.hair = currSelection.hair.val)
-      // );
-
-      setoriginalAvatarArray(genderArray);
+      setGenderArray(sortedAvatar.filter((item) => item.gender == val));
+      setoriginalAvatarArray(sortedAvatar.filter((item) => item.gender == val));
    };
 
    // ------------------------ skin selction function
    const handleSkinSelection = (avatar: string, val: string) => {
-      setcurrSelection({ ...currSelection, skin: { avatar, val } });
+      setcurrSelection({
+         ...currSelection,
+         skin: { avatar, val },
+         accessories: { avatar: "❌", val: null }
+      });
       setchoicesClassState({
          ...choicesClassState,
-         skin: avatarChoserStyles.choiceSelected
+         skin: avatarChoserStyles.choiceSelected,
+         accessories: "",
+         hair: ""
       });
       setExtraChoicePopUpState({ type: "", content: [] });
 
-      // ------------ fileter array
+      // ------------ filetr array
+      setSkinArray(genderArray.filter((avatar: avatarObj) => avatar.skin == val));
+      setoriginalAvatarArray(genderArray.filter((avatar: avatarObj) => avatar.skin == val));
+   };
 
-      const skinArray = genderArray.filter((avatar: avatarObj) => avatar.skin == val);
-      // const genderArray = skinArray.filter((item) => {
-      //    if (currSelection.gender.val == "") {
-      //       return item.select == "all";
-      //    } else {
-      //       return item.gender == currSelection.gender.val;
-      //    }
-      // });
-      // console.log(genderArray);
-      // const hairArray = genderArray.filter((avatar) => {
-      //    if (currSelection.hair.val == "") {
-      //       return avatar.select == "all";
-      //    } else {
-      //       return avatar.hair == currSelection.skin.val;
-      //    }
-      // });
-      // console.log(hairArray);
-      // const accessoriesArray = hairArray.filter((avatar) => {
-      //    if (currSelection.accessories.val == null) {
-      //       return avatar.select == "all";
-      //    } else {
-      //       return (avatar.glasses = currSelection.accessories.val);
-      //    }
-      // });
-      // console.log(currSelection);
-      // console.log(accessoriesArray);
-      setoriginalAvatarArray(skinArray);
+   // -------------------- handle accessories seletion
+   const handleAccessoriesSelection = (avatar: string, val: boolean) => {
+      setcurrSelection({
+         ...currSelection,
+         accessories: { avatar, val }
+      }),
+         setchoicesClassState({
+            ...choicesClassState,
+            accessories: avatarChoserStyles.choiceSelected,
+            hair: ""
+         }),
+         setExtraChoicePopUpState({ type: "", content: [] });
+
+      // ------------ fileter array
+      setAccessoriesArray(skinArray.filter((item: avatarObj) => item.glasses == val));
+      setoriginalAvatarArray(skinArray.filter((item: avatarObj) => item.glasses == val));
    };
 
    // ------------------------ accessories selction function
-   const handleAccessoriesSelection = (avatar: string, val: string) => {
+   const handleHairSelection = (avatar: string, val: string) => {
       setcurrSelection({ ...currSelection, hair: { avatar, val } }),
          setchoicesClassState({
             ...choicesClassState,
@@ -190,76 +172,9 @@ const AvatarChooser = () => {
          setExtraChoicePopUpState({ type: "", content: [] });
 
       // ------------ fileter array
-      // const newArray = sortedAvatar.filter((item) => {
-      //    const skinVal =
-      //       currSelection.skin.val == ""
-      //          ? item.select == "all"
-      //          : item.skin == currSelection.skin.val;
-      //    const accessoriesVal =
-      //       currSelection.accessories.val == null
-      //          ? item.select == "all"
-      //          : item.glasses == currSelection.accessories.val;
-      //    const hairVal =
-      //       currSelection.hair.val == ""
-      //          ? item.select == "all"
-      //          : item.hair == currSelection.hair.val;
-
-      //    return item.gender == val && skinVal && accessoriesVal && hairVal;
-      // });
-      // setoriginalAvatarArray(newArray);
+      setHairArray(accessoriesArray.filter((item: avatarObj) => item.hair == val));
+      setoriginalAvatarArray(accessoriesArray.filter((item: avatarObj) => item.hair == val));
    };
-
-   // -------------------- handle hair seletion
-   const handleHairSelection = (avatar: string, val: boolean) => {
-      setcurrSelection({ ...currSelection, accessories: { avatar, val } }),
-         setchoicesClassState({
-            ...choicesClassState,
-            accessories: avatarChoserStyles.choiceSelected
-         }),
-         setExtraChoicePopUpState({ type: "", content: [] });
-
-      // ------------ fileter array
-      // const newArray = sortedAvatar.filter((item) => {
-      //    const skinVal =
-      //       currSelection.skin.val == ""
-      //          ? item.select == "all"
-      //          : item.skin == currSelection.skin.val;
-      //    const accessoriesVal =
-      //       currSelection.accessories.val == null
-      //          ? item.select == "all"
-      //          : item.glasses == currSelection.accessories.val;
-      //    const hairVal =
-      //       currSelection.hair.val == ""
-      //          ? item.select == "all"
-      //          : item.hair == currSelection.hair.val;
-
-      //    return item.gender == val && skinVal && accessoriesVal && hairVal;
-      // });
-      // setoriginalAvatarArray(newArray);
-   };
-
-   // type avaterObjArray = {
-   //    gender?: avatarObj[];
-   //    skin?: avatarObj[];
-   //    accessoires?: avatarObj[];
-   //    hair?: avatarObj[];
-   //    all?: avatarObj[]
-   // };
-
-   // useEffect(() => {
-   //    const filters = currSelection.gender.val;
-   //    const newArray = originalAvatarArray.filter((item) => {
-   //       console.log("value", filters);
-   //       return item.gender == filters;
-   //       // item.skin == currSelection.skin.val &&
-   //       // item.glasses == currSelection.accessories.val &&
-   //       // item.hair == currSelection.hair.val;
-   //    });
-   //    console.log("current", filters);
-   //    console.log("new array: ", newArray);
-   //    console.log("currSelection: ", currSelection);
-   //    setoriginalAvatarArray(newArray);
-   // }, [currSelection]);
 
    return (
       <div className={avatarChoserStyles.mainWrapper}>
@@ -286,14 +201,14 @@ const AvatarChooser = () => {
                   ) : // ------------------ hair --------------------
                   extraChoicePopUpState.type == "hair" ? (
                      <span
-                        onClick={() => handleAccessoriesSelection(avatar.avatar, avatar.val)}
+                        onClick={() => handleHairSelection(avatar.avatar, avatar.val)}
                         key={Math.random()}>
                         {avatar.avatar}
                      </span>
                   ) : (
                      // ------------------ accressories --------------------
                      <span
-                        onClick={() => handleHairSelection(avatar.avatar, avatar.val)}
+                        onClick={() => handleAccessoriesSelection(avatar.avatar, avatar.val)}
                         key={Math.random()}>
                         {avatar.avatar}
                      </span>
@@ -389,7 +304,9 @@ const AvatarChooser = () => {
          {originalAvatarArray.length > 0 && (
             <section className={avatarChoserStyles.avatarWrapper}>
                {originalAvatarArray.map((avatarLink: avatarObj) => (
-                  <img src={avatarLink.url} className={avatarChoserStyles.avatar} />
+                  <div>
+                     <img className={avatarChoserStyles.avatar} src={avatarLink.url} />
+                  </div>
                ))}
             </section>
          )}

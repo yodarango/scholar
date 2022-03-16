@@ -88,8 +88,30 @@
    flex-wrap: wrap;
 }
 
+.avatarWrapper div {
+   padding: var(--xsmall-spacing-mobile);
+   border-radius: var(--input-radius-mobile);
+}
+
+.avatarWrapper div:hover {
+   cursor: pointer;
+   background: var(--secondary-color);
+}
+
 .avatar {
+   position: relative;
    width: 5rem;
    height: 5rem;
+   object-fit: contain;
+   object-position: center;
    margin: var(--xsmall-spacing-mobile);
+   transition: 300ms;
+}
+
+@media (min-width: 1000px) {
+   .avatarWrapper div {
+      padding: var(--xsmall-spacing-mobile);
+      border-radius: var(--input-radius-mobile);
+      margin: var(--xsmall-spacing-mobile);
+   }
 }

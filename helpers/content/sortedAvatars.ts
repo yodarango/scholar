@@ -307,7 +307,7 @@ export const sortedAvatar = [
       url: "/images/user-avatars/males/39.png",
       gender: "male",
       skin: "medium",
-      hair: "bald",
+      hair: "hair",
       glasses: true
    },
 
