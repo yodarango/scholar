@@ -16,12 +16,24 @@ import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.m
 // types / helpers
 import { Tcommentary } from "../comment";
 import { TverseContent } from "../../pages";
+import getCookie from "../../helpers/get-cookie";
+import parseJwt from "../../helpers/auth/decodeJWT";
 
 type editCommentaryPostProps = {
    commentary: Tcommentary;
 };
 
 const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
+   // check if the user is authenticated in order to render the content
+   const [loggedInUserState, setLoggedInUserState] = useState<string>("");
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setLoggedInUserState(user.ID);
+      }
+   }, []);
+
    // ===========  FUNCTION: add the selected Verse to editor
    type IreferencedVerseState = {
       id: string;
@@ -93,38 +105,43 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
 
    return (
       <>
-         <div className={`${editCommentaryStyles.mainWrapper}`}>
-            <Link href={`/users/me`}>
-               <a className='closeModal'>X</a>
-            </Link>
-            {/* ---------------- verse commenting on ------------------- */}
-            <div>
-               <div className={editCommentaryStyles.commentaryVerseWrapper}>
-                  <p className='std-text-block--info'>{verseDataStata.reference}</p>
-                  <p className='std-text-block'>{verseDataStata.content}</p>
+         {loggedInUserState != commentary.creator.ID && (
+            <div>You are not authorized #NEEDS_GRAPHICS</div>
+         )}
+         {loggedInUserState == commentary.creator.ID && (
+            <div className={`${editCommentaryStyles.mainWrapper}`}>
+               <Link href={`/users/me`}>
+                  <a className='closeModal'>X</a>
+               </Link>
+               {/* ---------------- verse commenting on ------------------- */}
+               <div>
+                  <div className={editCommentaryStyles.commentaryVerseWrapper}>
+                     <p className='std-text-block--info'>{verseDataStata.reference}</p>
+                     <p className='std-text-block'>{verseDataStata.content}</p>
+                  </div>
+               </div>
+
+               {/* ---------------- text editor ------------------- */}
+               <div>
+                  <TextEditor
+                     contentTypeToPost='COMMENTARY-EDIT'
+                     verseBeingCommented={verseDataStata}
+                     title='Edit Commentary'
+                     currentText={commentary.body}
+                     postId={commentary.ID}
+                     formattingRules={
+                        <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
+                     }
+                     assignedTags={{
+                        first: commentary.category_tags.split(" ")[0],
+                        second: commentary.category_tags.split(" ")[1]
+                     }}
+                     referencedVerses={referencedVerseState}
+                     removeVerse={removeVerse}
+                  />
                </div>
             </div>
-
-            {/* ---------------- text editor ------------------- */}
-            <div>
-               <TextEditor
-                  contentTypeToPost='COMMENTARY-EDIT'
-                  verseBeingCommented={verseDataStata}
-                  title='Edit Commentary'
-                  currentText={commentary.body}
-                  postId={commentary.ID}
-                  formattingRules={
-                     <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
-                  }
-                  assignedTags={{
-                     first: commentary.category_tags.split(" ")[0],
-                     second: commentary.category_tags.split(" ")[1]
-                  }}
-                  referencedVerses={referencedVerseState}
-                  removeVerse={removeVerse}
-               />
-            </div>
-         </div>
+         )}
       </>
    );
 };

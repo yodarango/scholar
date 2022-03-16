@@ -6,6 +6,7 @@ import { GET_ONE_THOUGHT } from "../../../graphql/posts/thoughts";
 
 // child comps
 import EditThoughtPost from "../../../posts/edit-posts/edit-thought-post";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 // helpers / types
 import { Tthought } from "../../../posts/thought";
@@ -18,11 +19,12 @@ const EditCommentary = ({ thought }: editCommentaryProps) => {
    return (
       <>
          {thought && (
-            <div>
+            <div className='main-wrapper'>
                <EditThoughtPost thought={thought} />
             </div>
          )}
-         {!thought && <div>this comment does not exists anymore!</div>}
+         {!thought && <div>this comment does not exists anymore! #NEEDS_GRAPHICS</div>}
+         <NavigationMenu />
       </>
    );
 };
@@ -35,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       query: GET_ONE_THOUGHT,
       variables: { ID: postId, showComments: true }
    });
-
    return {
       props: { thought: data.thought[0] || null }
    };

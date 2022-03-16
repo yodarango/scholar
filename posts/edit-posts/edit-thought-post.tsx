@@ -16,12 +16,24 @@ import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.m
 // types / helpers
 import { Tthought } from "../thought";
 import { TverseContent } from "../../pages/index";
+import getCookie from "../../helpers/get-cookie";
+import parseJwt from "../../helpers/auth/decodeJWT";
 
 type editCommentaryPostProps = {
    thought: Tthought;
 };
 
 const EditThoughtPost = ({ thought }: editCommentaryPostProps) => {
+   // check if the user is authenticated in order to render the content
+   const [loggedInUserState, setLoggedInUserState] = useState<string>("");
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user = parseJwt(authCookie);
+         setLoggedInUserState(user.ID);
+      }
+   }, []);
+
    // ===========  FUNCTION: add the selected Verse to editor
    type IreferencedVerseState = {
       id: string;
@@ -77,31 +89,36 @@ const EditThoughtPost = ({ thought }: editCommentaryPostProps) => {
 
    return (
       <>
-         <div className={`${editCommentaryStyles.mainWrapper}`}>
-            <Link href={`/users/me`}>
-               <a className='closeModal'>X</a>
-            </Link>
+         {loggedInUserState != thought.creator.ID && (
+            <div>Youre not authorized #NEEDS_GRAPHICS</div>
+         )}
+         {loggedInUserState != thought.creator.ID && (
+            <div className={`${editCommentaryStyles.mainWrapper}`}>
+               <Link href={`/users/me`}>
+                  <a className='closeModal'>X</a>
+               </Link>
 
-            {/* ---------------- text editor ------------------- */}
-            <div>
-               <TextEditor
-                  contentTypeToPost='THOUGHT-EDIT'
-                  verseBeingCommented={verseDataStata}
-                  title='Edit Thought'
-                  currentText={thought.body}
-                  postId={thought.ID}
-                  formattingRules={
-                     <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
-                  }
-                  assignedTags={{
-                     first: thought.category_tags.split(" ")[0],
-                     second: thought.category_tags.split(" ")[1]
-                  }}
-                  referencedVerses={referencedVerseState}
-                  removeVerse={removeVerse}
-               />
+               {/* ---------------- text editor ------------------- */}
+               <div>
+                  <TextEditor
+                     contentTypeToPost='THOUGHT-EDIT'
+                     verseBeingCommented={verseDataStata}
+                     title='Edit Thought'
+                     currentText={thought.body}
+                     postId={thought.ID}
+                     formattingRules={
+                        <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
+                     }
+                     assignedTags={{
+                        first: thought.category_tags.split(" ")[0],
+                        second: thought.category_tags.split(" ")[1]
+                     }}
+                     referencedVerses={referencedVerseState}
+                     removeVerse={removeVerse}
+                  />
+               </div>
             </div>
-         </div>
+         )}
       </>
    );
 };

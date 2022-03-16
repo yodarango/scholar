@@ -280,7 +280,11 @@ a:active {
 }
 
 .std-button--clear:hover {
-   background-color: #dddddd;
+   background-color: #c5c2c2;
+   cursor: pointer;
+}
+.std-button--warning:hover {
+   background-color: #f56666;
    cursor: pointer;
 }
 

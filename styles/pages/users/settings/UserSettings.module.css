@@ -110,6 +110,12 @@
    justify-content: center;
    flex-wrap: wrap;
 }
+.buttonSave,
+.buttonCancel,
+.buttonLogout {
+   width: 100%;
+   margin: var(--xsmall-spacing-mobile) auto;
+}
 
 .changePasswordLink {
    color: var(--graient-one);
@@ -119,6 +125,16 @@
 }
 .changePasswordLink:hover {
    color: var(--gradient-two);
+   cursor: pointer;
+}
+
+.changeAvatarButton {
+   color: var(--graient-one);
+   text-decoration: underline;
+}
+
+.changeAvatarButton:hover {
+   color: var(--font-color);
    cursor: pointer;
 }
 

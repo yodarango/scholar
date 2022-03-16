@@ -54,17 +54,9 @@ export type Tcommentary = {
 
 type commentsProps = {
    commentary: Tcommentary;
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
 };
 
-export default function Comments({
-   commentary,
-   deleteOption,
-   editOption,
-   reportOption
-}: commentsProps) {
+export default function Comments({ commentary }: commentsProps) {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
@@ -208,7 +200,11 @@ export default function Comments({
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data: any = await handlePostComment(commentary.ID, commentBody.current.value);
+         const data: any = await handlePostComment(
+            commentary.ID,
+            commentBody.current.value,
+            commentary.creator.ID
+         );
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
@@ -256,6 +252,7 @@ export default function Comments({
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
                post_id={{ comment: commentary.ID }}
+               user_id={commentary.creator.ID}
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}

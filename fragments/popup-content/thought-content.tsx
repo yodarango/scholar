@@ -19,6 +19,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 // helpers
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 import { Tthought } from "../../posts/thought";
+import { GET_THOUGHT_APPROVALS } from "../../graphql/posts/approvals";
 
 // others
 
@@ -60,6 +61,28 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       );
    };
 
+   // =================    FUNCTION 1: handle the approve click  ================== //
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleApproveContent = () => {
+      setChooseAprovalRating(true);
+   };
+   // ======================== FUNCTION 1.1: hande a ssuccessful approval rating ========================= //
+   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(thought.approvals[0]);
+   const handleSuccessfulApprovalRating = async () => {
+      try {
+         const { data } = await client.query({
+            query: GET_THOUGHT_APPROVALS,
+            variables: {
+               THOUGHT_ID: thought.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.thought_approvals[0]);
+      } catch (error) {
+         console.log("thought-content.tsx line 82: ", error);
+      }
+   };
+
    // ========= FUNCTION: open and close the comment text area
    type IopenCommentInputState = {
       status: boolean;
@@ -77,7 +100,6 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       func: openCommentArea
    });
 
-   const handleApproveContent = () => {};
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
@@ -91,7 +113,11 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    const postThoughtComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data: any = await handlePostComment(thought.ID, commentBody.current.value);
+         const data: any = await handlePostComment(
+            thought.ID,
+            commentBody.current.value,
+            thought.creator.ID
+         );
          if (data == true) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
@@ -127,7 +153,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       try {
          const { data } = await client.query({
             query: GET_THOUGHT_COMMENTS,
-            variables: { THOUGHT_ID: thought.ID, last_id: 1000 }
+            variables: { THOUGHT_ID: thought.ID, last_id: 999999999 }
          });
          setCommentaryCommentsState(data.thought_comments);
       } catch (error) {
@@ -137,6 +163,14 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
 
    return (
       <>
+         {chooseAprovalRating && (
+            <ContentApprovalDropdown
+               handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+               post_id={{ thought: thought.ID }}
+               user_id={thought.creator.ID}
+               successfulApproval={handleSuccessfulApprovalRating}
+            />
+         )}
          {notificationpopUpState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
@@ -179,7 +213,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                   handleComment={openCommentInputState.func}
                   handleRateContent={handleApproveContent}
                   comments={commentsCountState}
-                  approvals={thought.approvals[0]}
+                  approvals={postApprovalState}
                />
 
                {/* Assigned Tags */}

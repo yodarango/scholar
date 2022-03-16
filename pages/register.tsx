@@ -42,34 +42,49 @@ export default function Register() {
    const hanldeNewUserRegistration = async () => {
       if (emailInput.current && signatureInput.current && passwordInput.current) {
          setSmallLoaderState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: CREATE_NEW_USER,
-            variables: {
-               signature: `#${signatureInput.current.value.toUpperCase()}`,
-               email: `${emailInput.current.value.toLocaleLowerCase()}`,
-               password: `${passwordInput.current.value}`
-            }
-         });
-
-         if (data.create_new_user.ID) {
-            const expTime = new Date(new Date().getTime() * 1000 * 60);
-            Cookies.set("authorization", data.create_new_user.token, {
-               secure: true,
-               sameSite: "strict",
-               expires: expTime
+         try {
+            const { data } = await client.mutate({
+               mutation: CREATE_NEW_USER,
+               variables: {
+                  signature: `#${signatureInput.current.value.toUpperCase()}`,
+                  email: `${emailInput.current.value.toLocaleLowerCase()}`,
+                  password: `${passwordInput.current.value}`,
+                  authority_level: "general"
+               }
             });
 
-            location.href = "/register";
-         } else if (data.create_new_user.message) {
+            if (data.create_new_user.ID) {
+               const expTime = new Date(new Date().getTime() * 1000 * 60);
+               Cookies.set("authorization", data.create_new_user.token, {
+                  secure: true,
+                  sameSite: "strict",
+                  expires: expTime
+               });
+
+               location.href = "/register";
+            } else if (data.create_new_user.message) {
+               setSmallLoaderState(false);
+               setNotificationpopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationpopUpState(false)}
+                     title='There was a problem 😔'
+                     contentString={`${data.create_new_user.message}`}
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            }
+         } catch (error: any) {
+            console.log(error);
             setSmallLoaderState(false);
             setNotificationpopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
                   title='There was a problem 😔'
-                  contentString={`${data.create_new_user.message}`}
+                  contentString={`Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!`}
                   newClass='notification-wrapper--Error'
                />
             );
+            return;
          }
       }
    };

@@ -65,7 +65,11 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
          setPostingState(true);
 
          try {
-            const data: any = await handlePostComment(story.ID, commentBody.current.value);
+            const data: any = await handlePostComment(
+               story.ID,
+               commentBody.current.value,
+               story.creator.ID
+            );
 
             if (data == true) {
                setCommentsCountState(commentsCountState + 1);
@@ -132,6 +136,7 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                   additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
                   additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
                   post_id={{ quote: story.ID }}
+                  user_id={story.creator.ID}
                   successfulApproval={handleSuccessfulApprovalRating}
                />
             )}

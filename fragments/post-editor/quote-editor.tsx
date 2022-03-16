@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // graphQL
@@ -16,11 +16,25 @@ import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.m
 // helpers
 import { valuesCat } from "../../helpers/dropdown-values";
 import { IvaluesCat } from "../../helpers/dropdown-values";
+import { Tuser } from "../../pages/users/[userId]";
+
+import getCookie from "../../helpers/get-cookie";
+import parseJwt from "../../helpers/auth/decodeJWT";
 
 type quoteEditorProps = {
    handleCloseStories: any;
 };
 const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
+   // check if the user is authenticated in order to get user details
+   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user: Tuser = parseJwt(authCookie);
+         setLoggedInUserState(user);
+      }
+   }, []);
+
    // ================ FUNCTION 1:  Change the Background of the story on choice  ================ ///
    const [changeBkgState, setChangeBkgState] = useState<string>(quoteEditorStyles.DEFAULT_BKG);
 
@@ -70,7 +84,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                   category_tags: `${currentChosenTagState.tag}`,
                   author: authorInput.current?.value,
                   background: changeBkgState,
-                  approval_level: "general"
+                  approval_level: loggedInUserState?.authority_level
                }
             });
             data.quote

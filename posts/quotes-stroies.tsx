@@ -193,7 +193,11 @@ const QuoteStories = ({
          setPostingState(true);
 
          try {
-            const data: any = await handlePostComment(storyId, commentBody.current.value);
+            const data: any = await handlePostComment(
+               storyId,
+               commentBody.current.value,
+               creator.ID
+            );
             if (data == true) {
                setCommentsCountState(commentsCountState + 1);
                setPostingState(false);
@@ -260,6 +264,7 @@ const QuoteStories = ({
                additionalClassTwo={contentApprovalDDStyles.listWrapper_quotes}
                additionalClassThree={contentApprovalDDStyles.listWrapper_list_quotes}
                post_id={{ quote: quoteState[countState].ID }}
+               user_id={creator.ID}
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}

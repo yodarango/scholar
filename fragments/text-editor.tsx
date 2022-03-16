@@ -1,5 +1,5 @@
 // core
-import React, { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // graohwl
@@ -17,9 +17,13 @@ import SmallLoader from "./chunks/small-loader";
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
-// others
+// helpers / types
 import { valuesCat } from "../helpers/dropdown-values";
 import { TverseContent } from "../pages";
+import { Tuser } from "../pages/users/[userId]";
+
+import getCookie from "../helpers/get-cookie";
+import parseJwt from "../helpers/auth/decodeJWT";
 
 // Component Props
 type editorProps = {
@@ -49,6 +53,16 @@ const TextEditor = ({
    assignedTags,
    postId
 }: editorProps) => {
+   // check if the user is authenticated in order to get user details
+   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
+   useEffect(() => {
+      const authCookie = getCookie("authorization");
+      if (authCookie) {
+         const user: Tuser = parseJwt(authCookie);
+         setLoggedInUserState(user);
+      }
+   }, []);
+
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
    const textArea = useRef<HTMLTextAreaElement>(null);
@@ -195,7 +209,7 @@ const TextEditor = ({
                         ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
                         : null,
                   verse_citation: verseBeingCommented?.reference,
-                  approval_level: "general"
+                  approval_level: loggedInUserState?.authority_level
                }
             });
             if (data.commentary) {
@@ -267,7 +281,7 @@ const TextEditor = ({
                      referencedVerses.length > 0
                         ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
                         : null,
-                  approval_level: "general"
+                  approval_level: loggedInUserState?.authority_level
                }
             });
             if (data.thought) {

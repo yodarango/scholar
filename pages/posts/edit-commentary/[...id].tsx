@@ -7,6 +7,7 @@ import { GET_ONE_COMMENTARY } from "../../../graphql/posts/commentaries";
 
 // child comps
 import EditPost from "../../../posts/edit-posts/edit-commentary-post";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 // helpers / types
 import { Tcommentary } from "../../../posts/comment";
@@ -18,11 +19,12 @@ const EditCommentary = ({ commentary }: editComentaryProps) => {
    return (
       <>
          {commentary && (
-            <div>
+            <div className='main-wrapper'>
                <EditPost commentary={commentary} />
             </div>
          )}
          {!commentary && <div>this comment does not exists anymore!</div>}
+         <NavigationMenu />
       </>
    );
 };

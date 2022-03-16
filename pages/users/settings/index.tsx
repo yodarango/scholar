@@ -14,6 +14,7 @@ import userSettingsStyles from "../../../styles/pages/users/settings/UserSetting
 import NotificationPopup from "../../../fragments/notification-popup";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
+import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
 
 // helpers
 const Cookies = require("js-cookie");
@@ -257,6 +258,19 @@ const UserSettings = () => {
       );
    };
 
+   // ======================== LOGOUT USER OUT =================== //
+   const logout = () => {
+      //document.cookie = "authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      Cookies.remove("authorization");
+      router.reload();
+   };
+
+   // ======================== CHOSE AVATAR =================== //
+   const openChooseAvatar = () => {
+      setFullScreenPopUp(
+         <PopupWrapper content={<AvatarChooser />} closeModal={() => setFullScreenPopUp(false)} />
+      );
+   };
    return (
       <>
          {loadingState && <div>Loading</div>}
@@ -274,6 +288,11 @@ const UserSettings = () => {
                      className={`${userSettingsStyles.avatar}`}
                      style={{ backgroundImage: `url(${userSettingsState.avatar})` }}></div>
                </div>
+               <p
+                  className={`std-text-block--info ${userSettingsStyles.changeAvatarButton}`}
+                  onClick={openChooseAvatar}>
+                  change Avatar
+               </p>
                <h2 className={userSettingsStyles.stdH2}>General</h2>
                <div className={userSettingsStyles.inputWrapper}>
                   <label htmlFor='signature'>Signature</label>
@@ -449,14 +468,23 @@ const UserSettings = () => {
 
                <div className={userSettingsStyles.buttonsWrapper}>
                   {saveButtonIsDisiableState && !smallLoaderState && (
-                     <button className={`std-button`} onClick={checkValidation}>
+                     <button
+                        className={`std-button ${userSettingsStyles.buttonSave}`}
+                        onClick={checkValidation}>
                         <p className={`std-button_gradient-text`}>SAVE</p>
                      </button>
                   )}
                   {smallLoaderState && <SmallLoader />}
                   <Link href={`/users/me`}>
-                     <a className={`std-button--warning`}>Cancel</a>
+                     <a className={`std-button--warning ${userSettingsStyles.buttonCancel}`}>
+                        Cancel
+                     </a>
                   </Link>
+                  <button
+                     className={`std-button--clear ${userSettingsStyles.buttonLogout}`}
+                     onClick={logout}>
+                     <p className={`std-button_gradient-text`}>Log out</p>
+                  </button>
                </div>
             </div>
          )}

@@ -54,12 +54,9 @@ export type Tthought = {
 
 type thoughtProps = {
    thoughts: Tthought[];
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
 };
 
-const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtProps) => {
+const Thought = ({ thoughts }: thoughtProps) => {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderAdminOptionsState, setRenderAdminOptionsState] = useState<string>("");
 
@@ -104,9 +101,29 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    };
 
    // =================    FUNCTION 4: handle the approve click  ================== //
-   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
-   const handleApproveContent = () => {
-      setChooseAprovalRating(true);
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean | JSX.Element>(false);
+   const handleApproveContent = (thought_id: any, creator_id: any) => {
+      setChooseAprovalRating(
+         <ContentApprovalDropdown
+            handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
+            post_id={{ thought: thought_id }}
+            user_id={creator_id}
+            successfulApproval={() => handleSuccessfulApprovalRating(thought_id)}
+         />
+      );
+   };
+   // ======================== FUNCTION 5: hande a ssuccessful approval rating ========================= //
+   //const [approvalsCountState, setApprovalsCountState] = useState<number>(0);
+   const handleSuccessfulApprovalRating = async (thought_id: string) => {
+      // currently not refetching approvals since thought.tx needs to be moved to its own comp
+      // const { data } = await client.query({
+      //    query: GET_THOUGHT_APPROVALS,
+      //    variables: {
+      //       THOUGHT_ID: thought_id
+      //    }
+      // });
+      //setApprovalsCountState((approvalsCountState) => approvalsCountState + 1);
+      setChooseAprovalRating(false);
    };
    // ------------------------- REPORT, DELETE, EDIT OPTIONS ------------------ //
    const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
@@ -115,7 +132,7 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
    const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
       false
    );
-   // ================= FUNCTION 5: Delete Post  ===================//
+   // ================= FUNCTION 6: Delete Post  ===================//
    const handleDeletePost = async (id: string) => {
       const data = await client.mutate({
          mutation: DELETE_ONE_THOUGHT,
@@ -144,39 +161,53 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       );
    };
 
-   // ================= FUNCTION 6: Handle the report post  ===================//
+   // ================= FUNCTION 7: Handle the report post  ===================//
    const handleReportPost = async (id: string) => {
-      const data = await client.mutate({
-         mutation: REPORT_THOUGHT,
-         variables: {
-            THOUGHT_ID: id,
-            USER_ID: 1
+      try {
+         const { data } = await client.mutate({
+            mutation: REPORT_THOUGHT,
+            variables: {
+               THOUGHT_ID: id,
+               USER_ID: 1
+            }
+         });
+         //console.log(errors);
+         if (data.report_thought) {
+            setConfirmationPopUpState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='Report Has Been Submitted'
+                  contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+                  newClass='notification-wrapper--Sucess'
+               />
+            );
+         } else if (data && !data.data.report_thought) {
+            setConfirmationPopUpState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
-      });
-
-      if (data.data.report_thought) {
+      } catch (error: any) {
          setConfirmationPopUpState(false);
+
          setNotificationpopUpState(
             <NotificationPopup
                closeModal={() => setNotificationpopUpState(false)}
-               title='Report Has Been Submitted'
-               contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
-               newClass='notification-wrapper--Sucess'
-            />
-         );
-      } else {
-         setNotificationpopUpState(
-            <NotificationPopup
-               closeModal={() => setNotificationpopUpState(false)}
-               title='Oh no!'
-               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               title={`You're not authorized! 👮‍♂️`}
+               contentString={error.graphQLErrors[0]?.message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                newClass='notification-wrapper--Error'
             />
          );
       }
    };
 
-   // ======================= FUNCTION 7: Delete the post ============================= //
+   // ======================= FUNCTION 8: Delete the post ============================= //
    const handleReportPostCnofirmtation = (id: string) => {
       setConfirmationPopUpState(
          <ConfirmationPopup
@@ -187,15 +218,15 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       );
    };
 
-   // ============================= FUNCTION 7: post the comment ============================================== //
+   // ============================= FUNCTION 9: post the comment ============================================== //
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(0);
 
-   const postCommentaryComment = async (thought_id: string) => {
+   const postCommentaryComment = async (thought_id: string, user_id: string) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data: any = await handlePostComment(thought_id, commentBody.current.value);
+         const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
          if (data == true) {
             setPostingState(false);
             setCommentBoxState("");
@@ -225,35 +256,16 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
       }
    };
 
-   // ======================== FUNCTION 9: hande a ssuccessful approval rating ========================= //
-   //const [approvalsCountState, setApprovalsCountState] = useState<number>(0);
-   const handleSuccessfulApprovalRating = async (thought_id: string) => {
-      // currently not refetching approvals since thought.tx needs to be moved to its own comp
-      // const { data } = await client.query({
-      //    query: GET_THOUGHT_APPROVALS,
-      //    variables: {
-      //       THOUGHT_ID: thought_id
-      //    }
-      // });
-      //setApprovalsCountState((approvalsCountState) => approvalsCountState + 1);
-      setChooseAprovalRating(false);
-   };
    return (
       <>
          {seeWholePost}
          {confirmationPopUpState}
          {notificationpopUpState}
-         {thoughts.map((thought) => {
-            console.log(thought);
+         {chooseAprovalRating}
+         {thoughts.map((thought, index) => {
+            console.log("thought: ", thought);
             return (
-               <section key={thought.ID} id={thought.ID}>
-                  {chooseAprovalRating && (
-                     <ContentApprovalDropdown
-                        handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
-                        post_id={{ thought: thought.ID }}
-                        successfulApproval={() => handleSuccessfulApprovalRating(thought.ID)}
-                     />
-                  )}
+               <section key={thought.ID}>
                   <div
                      className={`${cardStyles.commentCard}`}
                      key={thought.ID}
@@ -273,21 +285,24 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                         {thought.creator && thought.creator.signature && (
                            <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
                         )}
-                        {renderAdminOptionsState == thought.ID && (
+                        {thought.creator && renderAdminOptionsState == thought.creator.ID && (
                            <span
                               className={(cardStyles.cardIcon, cardStyles.delete)}
                               onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                         )}
-                        {renderAdminOptionsState == thought.ID && (
+                        {thought.creator && renderAdminOptionsState == thought.creator.ID && (
                            <Link href={`/posts/edit-thought/${thought.ID}`}>
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}
-                        {renderAdminOptionsState != thought.ID && (
-                           <span
-                              className={(cardStyles.cardIcon, cardStyles.report)}
-                              onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
-                        )}
+                        {thought.creator &&
+                           renderAdminOptionsState != thought.creator.ID &&
+                           renderAdminOptionsState != "" && (
+                              <span
+                                 id={renderAdminOptionsState}
+                                 className={(cardStyles.cardIcon, cardStyles.report)}
+                                 onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
+                           )}
                      </div>
                      {thought.creator && thought.creator.signature && (
                         <i>{`${thought.creator.signature} expressed a new Tought`}</i>
@@ -295,7 +310,9 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                      <p>{thought.body}</p>
                      <PostReactions
                         handleComment={() => openComment(thought.ID)}
-                        handleRateContent={handleApproveContent}
+                        handleRateContent={() =>
+                           handleApproveContent(thought.ID, thought.creator.ID)
+                        }
                         handleMore={() => openPost(thought)}
                         comments={thought.comments[0].total_count + commentsCountState}
                         approvals={thought.approvals ? thought.approvals[0] : null}
@@ -313,7 +330,9 @@ const Thought = ({ thoughts, editOption, reportOption, deleteOption }: thoughtPr
                               {!postingState && (
                                  <span
                                     className={`std-button_gradient-text`}
-                                    onClick={() => postCommentaryComment(thought.ID)}>
+                                    onClick={() =>
+                                       postCommentaryComment(thought.ID, thought.creator.ID)
+                                    }>
                                     Post
                                  </span>
                               )}

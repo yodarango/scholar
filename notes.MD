@@ -1,16 +1,28 @@
 # ------------------------- DAIYLYS ------------------------
 
-**02/17/22**
+**02/06/22**
+
+-  For some reason only one 162 ID post is being handling content approvals, and thus not sending notificartions. find out why
 
 ## TO DO's
 
 -  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
 
--  Edit sermon_notes-post needs the Edit route implemented
-
--  implement user roles (trusted not trusted)
+-  set a way for users to get "trusted level"
 
 -  turn user profile into its own comp (maybe)
+
+-  add a logout route
+
+-  add a welcome banner the first time user logs in
+
+-  notifications
+
+-  add try catch everywehre needed
+
+-  Make sure there is conditional Rendering EVERYWHERE Like Post Contnet Pupup, which trhows error if anything is null!
+
+-  work on the "select verse" model because if you click out of the <p></p> tag it will not color the text orange
 
 **_ERRORS_**
 

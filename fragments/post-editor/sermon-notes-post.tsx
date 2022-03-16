@@ -1,5 +1,5 @@
 // core
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // graphQL
@@ -16,15 +16,19 @@ import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost
 
 // helpers
 import { valuesCat } from "../../helpers/dropdown-values";
+import { Tuser } from "../../pages/users/[userId]";
 import getCookie from "../../helpers/get-cookie";
 import parseJwt from "../../helpers/auth/decodeJWT";
 
 const SermonNotesPost = () => {
-   // check if the user is authenticated in order to upload to dropbox
-   const [isUserAuth, setIsUserAuth] = useState<boolean>(false);
+   // check if the user is authenticated in order to get user details
+   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
    useEffect(() => {
       const authCookie = getCookie("authorization");
-      authCookie ? setIsUserAuth(true) : setIsUserAuth(false);
+      if (authCookie) {
+         const user: Tuser = parseJwt(authCookie);
+         setLoggedInUserState(user);
+      }
    }, []);
 
    // ===============  opend the categories dropdoen  ==================  //
@@ -118,7 +122,7 @@ const SermonNotesPost = () => {
                description: null,
                file_url,
                category_tags: currSelectionState.text,
-               approval_level: "general",
+               approval_level: loggedInUserState?.authority_level,
                title: sermonTitleRef.current?.value
             }
          });
@@ -139,7 +143,7 @@ const SermonNotesPost = () => {
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
    const router = useRouter();
    const handlePost = async () => {
-      if (!isUserAuth) {
+      if (!loggedInUserState) {
          setnotificationsPopupState(
             <NotificationPopup
                closeModal={() => setnotificationsPopupState(false)}

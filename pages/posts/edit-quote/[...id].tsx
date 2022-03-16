@@ -7,6 +7,7 @@ import client from "../../../apollo-client";
 
 // child comps
 import EditQuotePost from "../../../posts/edit-posts/edit-quote-post";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 // helpers/ types
 import { Tstory } from "../../../posts/quotes-stroies";
@@ -15,7 +16,13 @@ type editQuoteProps = {
    story: Tstory;
 };
 const EditQuote = ({ story }: editQuoteProps) => {
-   return <div>{<EditQuotePost story={story} />}</div>;
+   return (
+      <>
+         {story && <div className='main-wrapper'>{<EditQuotePost story={story} />}</div>}
+         {!story && <div>this post does not exists anymore #NEEDS_GRAPHICS</div>}
+         <NavigationMenu />
+      </>
+   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {

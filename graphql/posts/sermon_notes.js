@@ -5,6 +5,25 @@ export const GET_SERMON_NOTES = gql`
       sermon_notes(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags) {
          ID
          content
+         title
+         USER_ID
+         category_tags
+         creator {
+            ID
+            signature
+            authority_level
+            approval_rating
+         }
+      }
+   }
+`;
+
+export const GET_ONE_SERMON_NOTE = gql`
+   query ($ID: ID) {
+      sermon_notes(ID: $ID) {
+         ID
+         content
+         title
          USER_ID
          category_tags
          creator {
@@ -62,6 +81,16 @@ export const CREATE_NEW_SERMON_NOTE = gql`
    }
 `;
 
+//================== EDIT ================== //
+export const EDIT_SERMON_NOTE = gql`
+   mutation ($title: String, $category_tags: String, $ID: ID) {
+      edit_sermon_notes(data: { title: $title, category_tags: $category_tags, ID: $ID }) {
+         ID
+      }
+   }
+`;
+
+//================== DELETE ================== //
 export const DELETE_ONE_SEMRON_POST = gql`
    mutation ($ID: ID) {
       delete_one_sermon_note(ID: $ID) {

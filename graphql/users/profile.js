@@ -15,6 +15,7 @@ export const GET_MY_PROFILE = gql`
          authority_level
          approval_rating
          avatar
+         has_new_notifications
          my_church
          my_favorite_color
          my_job
