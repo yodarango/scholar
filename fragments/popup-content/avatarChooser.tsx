@@ -7,8 +7,13 @@ import avatarChoserStyles from "../../styles/fragments/popup-content/AvatarChoos
 
 // helpers
 import { sortedAvatar } from "../../helpers/content/sortedAvatars";
+import AvatarChooserPopup from "../squares/avatar-chooser-popup";
 
-const AvatarChooser = () => {
+type avatarChooserProps = {
+   closeAvatarChooser: any;
+};
+
+const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
    type choiceType = {
       gender: { avatar: string; val: string }[];
       skin_male: { avatar: string; val: string }[];
@@ -176,141 +181,157 @@ const AvatarChooser = () => {
       setoriginalAvatarArray(accessoriesArray.filter((item: avatarObj) => item.hair == val));
    };
 
+   // -------------------------- bring up the avatar pop up --------------
+   const [avatarChooserPopUpState, setAvatarChooserPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
+   const bringUpAvatarChooserPopUp = (avatarLink: string) => {
+      setAvatarChooserPopUpState(
+         <AvatarChooserPopup image={avatarLink} closePopUp={closeAvatarChooser} />
+      );
+   };
    return (
-      <div className={avatarChoserStyles.mainWrapper}>
-         <p className={`std-text-block ${avatarChoserStyles.textBlock}`}>Filter Avatars</p>
+      <>
+         {avatarChooserPopUpState}
+         <div className={avatarChoserStyles.mainWrapper}>
+            <p className={`std-text-block ${avatarChoserStyles.textBlock}`}>Filter Avatars</p>
 
-         {/* ---------------------- EXTRA CHOICES WRAP BUBBLE ------------------ */}
-         {extraChoicePopUpState?.content.length > 0 && (
-            <div className={avatarChoserStyles.extraOptionsWrapper}>
-               {extraChoicePopUpState.content.map((avatar: { avatar: string; val: any }) =>
-                  extraChoicePopUpState.type == "gender" ? (
-                     // ------------------ gender --------------------
-                     <span
-                        onClick={() => handleGenderSelcetion(avatar.avatar, avatar.val)}
-                        key={Math.random()}>
-                        {avatar.avatar}
-                     </span>
-                  ) : // ------------------ skin --------------------
-                  extraChoicePopUpState.type == "skin" ? (
-                     <span
-                        onClick={() => handleSkinSelection(avatar.avatar, avatar.val)}
-                        key={Math.random()}>
-                        {avatar.avatar}
-                     </span>
-                  ) : // ------------------ hair --------------------
-                  extraChoicePopUpState.type == "hair" ? (
-                     <span
-                        onClick={() => handleHairSelection(avatar.avatar, avatar.val)}
-                        key={Math.random()}>
-                        {avatar.avatar}
-                     </span>
-                  ) : (
-                     // ------------------ accressories --------------------
-                     <span
-                        onClick={() => handleAccessoriesSelection(avatar.avatar, avatar.val)}
-                        key={Math.random()}>
-                        {avatar.avatar}
-                     </span>
-                  )
-               )}
-            </div>
-         )}
-
-         {/* ---------------------- MAIN FILTERS WRAPPER ----------------- */}
-         <div className={avatarChoserStyles.filterWrapper}>
-            {/* ------------------------- gender options --------------------- */}
-            <section className={avatarChoserStyles.filterItemWrapper}>
-               <div
-                  onClick={() =>
-                     setExtraChoicePopUpState({
-                        type: "gender",
-                        content: choicesState.gender
-                     })
-                  }
-                  className={choicesClassState.gender ? avatarChoserStyles.choiceSelected : ""}>
-                  {currSelection.gender.avatar}
+            {/* ---------------------- EXTRA CHOICES WRAP BUBBLE ------------------ */}
+            {extraChoicePopUpState?.content.length > 0 && (
+               <div className={avatarChoserStyles.extraOptionsWrapper}>
+                  {extraChoicePopUpState.content.map((avatar: { avatar: string; val: any }) =>
+                     extraChoicePopUpState.type == "gender" ? (
+                        // ------------------ gender --------------------
+                        <span
+                           onClick={() => handleGenderSelcetion(avatar.avatar, avatar.val)}
+                           key={Math.random()}>
+                           {avatar.avatar}
+                        </span>
+                     ) : // ------------------ skin --------------------
+                     extraChoicePopUpState.type == "skin" ? (
+                        <span
+                           onClick={() => handleSkinSelection(avatar.avatar, avatar.val)}
+                           key={Math.random()}>
+                           {avatar.avatar}
+                        </span>
+                     ) : // ------------------ hair --------------------
+                     extraChoicePopUpState.type == "hair" ? (
+                        <span
+                           onClick={() => handleHairSelection(avatar.avatar, avatar.val)}
+                           key={Math.random()}>
+                           {avatar.avatar}
+                        </span>
+                     ) : (
+                        // ------------------ accressories --------------------
+                        <span
+                           onClick={() => handleAccessoriesSelection(avatar.avatar, avatar.val)}
+                           key={Math.random()}>
+                           {avatar.avatar}
+                        </span>
+                     )
+                  )}
                </div>
-               <p className={avatarChoserStyles.filterLabel}>gender</p>
-            </section>
-
-            {/* ------------------------- skin options --------------------- */}
-
-            {currSelection.gender.val != "" && (
-               <section className={avatarChoserStyles.filterItemWrapper}>
-                  <div
-                     onClick={() => {
-                        currSelection.gender.avatar == "🙋‍♂️"
-                           ? setExtraChoicePopUpState({
-                                type: "skin",
-                                content: choicesState.skin_male
-                             })
-                           : setExtraChoicePopUpState({
-                                type: "skin",
-                                content: choicesState.skin_female
-                             });
-                     }}
-                     className={choicesClassState.skin ? avatarChoserStyles.choiceSelected : ""}>
-                     {currSelection.skin.avatar}
-                  </div>
-                  <p className={avatarChoserStyles.filterLabel}>skin</p>
-               </section>
             )}
 
-            {/* ------------------------- accessories options --------------------- */}
-            {currSelection.skin.val != "" && (
+            {/* ---------------------- MAIN FILTERS WRAPPER ----------------- */}
+            <div className={avatarChoserStyles.filterWrapper}>
+               {/* ------------------------- gender options --------------------- */}
                <section className={avatarChoserStyles.filterItemWrapper}>
                   <div
                      onClick={() =>
                         setExtraChoicePopUpState({
-                           type: "accessories",
-                           content: choicesState.accessories
+                           type: "gender",
+                           content: choicesState.gender
                         })
                      }
-                     className={
-                        choicesClassState.accessories ? avatarChoserStyles.choiceSelected : ""
-                     }>
-                     {currSelection.accessories.avatar}
+                     className={choicesClassState.gender ? avatarChoserStyles.choiceSelected : ""}>
+                     {currSelection.gender.avatar}
                   </div>
-                  <p className={avatarChoserStyles.filterLabel}>glasses</p>
+                  <p className={avatarChoserStyles.filterLabel}>gender</p>
                </section>
-            )}
 
-            {/* ------------------------- hair options --------------------- */}
+               {/* ------------------------- skin options --------------------- */}
 
-            {currSelection.accessories.val != null && (
-               <section className={avatarChoserStyles.filterItemWrapper}>
-                  <div
-                     onClick={() => {
-                        currSelection.gender.avatar == "🙋‍♂️"
-                           ? setExtraChoicePopUpState({
-                                type: "hair",
-                                content: choicesState.hair_male
-                             })
-                           : setExtraChoicePopUpState({
-                                type: "hair",
-                                content: choicesState.hair_female
-                             });
-                     }}
-                     className={choicesClassState.hair ? avatarChoserStyles.choiceSelected : ""}>
-                     {currSelection.hair.avatar}
-                  </div>
-                  <p className={avatarChoserStyles.filterLabel}>hair</p>
+               {currSelection.gender.val != "" && (
+                  <section className={avatarChoserStyles.filterItemWrapper}>
+                     <div
+                        onClick={() => {
+                           currSelection.gender.avatar == "🙋‍♂️"
+                              ? setExtraChoicePopUpState({
+                                   type: "skin",
+                                   content: choicesState.skin_male
+                                })
+                              : setExtraChoicePopUpState({
+                                   type: "skin",
+                                   content: choicesState.skin_female
+                                });
+                        }}
+                        className={choicesClassState.skin ? avatarChoserStyles.choiceSelected : ""}>
+                        {currSelection.skin.avatar}
+                     </div>
+                     <p className={avatarChoserStyles.filterLabel}>skin</p>
+                  </section>
+               )}
+
+               {/* ------------------------- accessories options --------------------- */}
+               {currSelection.skin.val != "" && (
+                  <section className={avatarChoserStyles.filterItemWrapper}>
+                     <div
+                        onClick={() =>
+                           setExtraChoicePopUpState({
+                              type: "accessories",
+                              content: choicesState.accessories
+                           })
+                        }
+                        className={
+                           choicesClassState.accessories ? avatarChoserStyles.choiceSelected : ""
+                        }>
+                        {currSelection.accessories.avatar}
+                     </div>
+                     <p className={avatarChoserStyles.filterLabel}>glasses</p>
+                  </section>
+               )}
+
+               {/* ------------------------- hair options --------------------- */}
+
+               {currSelection.accessories.val != null && (
+                  <section className={avatarChoserStyles.filterItemWrapper}>
+                     <div
+                        onClick={() => {
+                           currSelection.gender.avatar == "🙋‍♂️"
+                              ? setExtraChoicePopUpState({
+                                   type: "hair",
+                                   content: choicesState.hair_male
+                                })
+                              : setExtraChoicePopUpState({
+                                   type: "hair",
+                                   content: choicesState.hair_female
+                                });
+                        }}
+                        className={choicesClassState.hair ? avatarChoserStyles.choiceSelected : ""}>
+                        {currSelection.hair.avatar}
+                     </div>
+                     <p className={avatarChoserStyles.filterLabel}>hair</p>
+                  </section>
+               )}
+            </div>
+
+            {/* ================== avatars ================= */}
+            {originalAvatarArray.length > 0 && (
+               <section className={avatarChoserStyles.avatarWrapper}>
+                  {originalAvatarArray.map((avatarLink: avatarObj) => (
+                     <div>
+                        <img
+                           className={avatarChoserStyles.avatar}
+                           src={avatarLink.url}
+                           onClick={() => bringUpAvatarChooserPopUp(avatarLink.url)}
+                        />
+                     </div>
+                  ))}
                </section>
             )}
          </div>
-
-         {/* ================== avatars ================= */}
-         {originalAvatarArray.length > 0 && (
-            <section className={avatarChoserStyles.avatarWrapper}>
-               {originalAvatarArray.map((avatarLink: avatarObj) => (
-                  <div>
-                     <img className={avatarChoserStyles.avatar} src={avatarLink.url} />
-                  </div>
-               ))}
-            </section>
-         )}
-      </div>
+      </>
    );
 };
 

@@ -26,6 +26,7 @@ export const GET_PODCASTS = gql`
          googleLink
          overcastLink
          currentRanking
+         totalReviews
          user {
             fullName
             avatar

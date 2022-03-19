@@ -1,5 +1,5 @@
 .mainWrapper {
-   width: 12rem;
+   width: 14rem;
    flex-shrink: 0;
    flex-grow: 0;
    margin: var(--medium-spacing-mobile) var(--xsmall-spacing-mobile);

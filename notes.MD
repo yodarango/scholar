@@ -1,22 +1,20 @@
 # ------------------------- DAIYLYS ------------------------
 
-**02/06/22**
-
--  For some reason only one 162 ID post is being handling content approvals, and thus not sending notificartions. find out why
-
 ## TO DO's
 
 -  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
 
--  set a way for users to get "trusted level"
+-  set a way for users to request a "trusted level"
 
--  turn user profile into its own comp (maybe)
+-  add a distinguisher in the avatar for certified users
 
--  add a logout route
+-  adda denomination sign maybe
+
+-  turn user profile avatar into its own comp (maybe)
+
+-  set geder on Sign up route and set a default avatar image
 
 -  add a welcome banner the first time user logs in
-
--  notifications
 
 -  add try catch everywehre needed
 
@@ -71,7 +69,7 @@ see why. Also commentaries and wuotes doing it
 ///////// 01/03/22
 ✅ implementing quote editor
 
-// ----------------------------- BEFORE RELEASE ---------------------- //
+**BEFORE RELEASE**
 
 -  Make sure that the count of characters for each input field mathc with the count length set in the DB
 
@@ -81,7 +79,14 @@ see why. Also commentaries and wuotes doing it
 
 *  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
 
-// ----------------------------- COOL TO HAVES/ LATER RELEASES ---------------------- //
+**COOL TO HAVES/ LATER RELEASES**
+
+-  Find a better way to refetch queries after data updates
+
+   -  options are:
+      1. refetch data by calling DB again _(currently doing so)_
+      2. Implement apollo [client.refetchQueries](https://www.apollographql.com/docs/react/data/refetching/)
+      3. just add an extra query to the DB and send the data
 
 -  Move Thought.tsx to its own component and not a carrousel mapping
 
@@ -92,4 +97,4 @@ see why. Also commentaries and wuotes doing it
 -  add all the error and success messages displayed upon CTA's under one file
    for better maintanability and salability
 
--  change the wayt that stories are rendered. currently is kinda messy!
+*  change the wayt that stories are rendered. currently is kinda messy!

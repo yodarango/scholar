@@ -28,6 +28,7 @@ const PodcastCarrousel = ({ podcast }: podcastCarrouselProps) => {
                <Podcasts
                   id={podcast.id}
                   key={podcast.id}
+                  totalReviews={podcast.totalReviews}
                   thumbnail={podcast.thumbnail}
                   podcastName={podcast.podcastName}
                   host={podcast.host}

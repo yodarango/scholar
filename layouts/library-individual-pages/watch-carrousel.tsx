@@ -30,6 +30,7 @@ const WatchCarrousel = ({ watch }: watchCarrouselProps) => {
                   key={video.id}
                   thumbnail={video.thumbnail}
                   title={video.title}
+                  totalReviews={video.totalReviews}
                   by={video.user === null ? "" : video.user.fullName}
                   userId={video.userId}
                   currentRanking={video.currentRanking}

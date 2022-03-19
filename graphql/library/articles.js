@@ -26,6 +26,7 @@ export const GET_ARTICLES = gql`
          tagColors
          description
          currentRanking
+         totalReviews
          userId
          user {
             fullName

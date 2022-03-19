@@ -25,6 +25,7 @@ export const GET_SERMON_NOTES = gql`
          categoryTags
          tagColors
          currentRanking
+         totalReviews
          fileUrl
          user {
             fullName

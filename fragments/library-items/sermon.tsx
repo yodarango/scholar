@@ -19,10 +19,11 @@ export type Tsermon = {
    tagColors: string[];
    title: string;
    author: string;
-   currentRanking: Number;
+   currentRanking: number;
    description?: string;
    fileUrl: string;
    newClass?: string;
+   totalReviews: number;
    user?: any;
 };
 
@@ -35,11 +36,11 @@ export type sermonProps = {
 };
 
 const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: sermonProps) => {
+   console.log("sermon ", sermon);
    // ===============   SUNCTION 2: Open the actions wrapper   ============== ///
    const [actionsWrapper, setActionsWrapper] = useState<boolean>(false);
    const handleOpenActionsWrapper = () => {
       setActionsWrapper(true);
-      console.log("hey");
    };
 
    // ================= FUNCTION 1: Handle the delete popup  ===================//
@@ -129,7 +130,12 @@ const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: se
                </div>
             </div>
 
-            <StarReviews contentId={sermon.id} currentRanking={sermon.currentRanking} />
+            <StarReviews
+               contentId={sermon.id}
+               contentType={"SERMONNOTE"}
+               totalReviews={sermon.totalReviews}
+               currentRanking={sermon.currentRanking}
+            />
          </div>
       </>
    );

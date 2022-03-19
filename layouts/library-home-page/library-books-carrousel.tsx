@@ -27,6 +27,7 @@ const LibraryBookCarrousel = ({ books }: libraryBookCarrouselProps) => {
                   author={book.author}
                   categoryTags={book.categoryTags}
                   currentRanking={book.currentRanking}
+                  totalReviews={book.totalReviews}
                   bookUrl={book.bookUrl}
                   description={book.description}
                   thumbnail={book.thumbnail}

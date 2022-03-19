@@ -14,14 +14,24 @@ export type watchProps = {
    title: string;
    by: string;
    userId: string;
-   currentRanking: Number;
+   currentRanking: number;
+   totalReviews: number;
    description?: string;
    sermonUrl: string;
    user?: any;
    newClass?: string;
 };
 
-const Watch = ({ thumbnail, title, by, currentRanking, sermonUrl, id, newClass }: watchProps) => {
+const Watch = ({
+   thumbnail,
+   title,
+   by,
+   currentRanking,
+   sermonUrl,
+   id,
+   newClass,
+   totalReviews
+}: watchProps) => {
    return (
       <div className={`${watchStyles.mainWrapper} ${newClass}`}>
          <a
@@ -36,7 +46,12 @@ const Watch = ({ thumbnail, title, by, currentRanking, sermonUrl, id, newClass }
                className={watchStyles.thumbnail}
             />
          </a>
-         <StarReviews contentId={id} currentRanking={currentRanking} />
+         <StarReviews
+            totalReviews={totalReviews}
+            contentType='SERMON'
+            contentId={id}
+            currentRanking={currentRanking}
+         />
          <h2 className={watchStyles.name}>{title}</h2>
          <h3 className={watchStyles.author}>{by}</h3>
       </div>

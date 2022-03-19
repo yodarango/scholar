@@ -13,7 +13,8 @@ export type articleProps = {
    tagColors: string[];
    title: string;
    author: string;
-   currentRanking: Number;
+   currentRanking: number;
+   totalReviews: number;
    description?: string;
    fileUrl: string;
    user?: any;
@@ -28,6 +29,7 @@ const Article = ({
    title,
    author,
    currentRanking,
+   totalReviews,
    description,
    fileUrl,
    user,
@@ -58,7 +60,12 @@ const Article = ({
                </div>
             </a>
          </Link>
-         <StarReviews contentId={id} currentRanking={currentRanking} />
+         <StarReviews
+            contentType='ARTICLE'
+            totalReviews={totalReviews}
+            contentId={id}
+            currentRanking={currentRanking}
+         />
       </div>
    );
 };

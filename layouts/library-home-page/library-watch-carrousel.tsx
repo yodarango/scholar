@@ -27,6 +27,7 @@ const LibraryWatchCarrousel = ({ watch }: librarySermonCarrouselProps) => {
                      by={video.user === null ? "" : video.user.fullName}
                      thumbnail={video.thumbnail}
                      currentRanking={video.currentRanking}
+                     totalReviews={video.totalReviews}
                      sermonUrl={video.sermonUrl}
                   />
                );

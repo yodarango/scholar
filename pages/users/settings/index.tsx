@@ -60,6 +60,7 @@ const UserSettings = () => {
          query: GET_MY_SETTINGS,
          variables: {}
       });
+      console.log(data);
       if (data.me && data.me.length > 0) {
          setLoadingState(false);
          setUserSettingsState(data.me[0]);
@@ -260,15 +261,22 @@ const UserSettings = () => {
 
    // ======================== LOGOUT USER OUT =================== //
    const logout = () => {
-      //document.cookie = "authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       Cookies.remove("authorization");
       router.reload();
    };
 
    // ======================== CHOSE AVATAR =================== //
+   const [userCurrAvatarState, setUserCurrAvatarState] = useState<string | undefined>(undefined);
+   const closeAvatarChooser = (imgLink: string) => {
+      setUserCurrAvatarState(imgLink);
+      setFullScreenPopUp(false);
+   };
    const openChooseAvatar = () => {
       setFullScreenPopUp(
-         <PopupWrapper content={<AvatarChooser />} closeModal={() => setFullScreenPopUp(false)} />
+         <PopupWrapper
+            content={<AvatarChooser closeAvatarChooser={closeAvatarChooser} />}
+            closeModal={() => setFullScreenPopUp(false)}
+         />
       );
    };
    return (
@@ -284,9 +292,16 @@ const UserSettings = () => {
                   style={{
                      backgroundImage: `linear-gradient(130deg, #ff9214, #ff0045)`
                   }}>
-                  <div
-                     className={`${userSettingsStyles.avatar}`}
-                     style={{ backgroundImage: `url(${userSettingsState.avatar})` }}></div>
+                  {!userCurrAvatarState && (
+                     <div
+                        className={`${userSettingsStyles.avatar}`}
+                        style={{ backgroundImage: `url(${userSettingsState.avatar})` }}></div>
+                  )}
+                  {userCurrAvatarState && (
+                     <div
+                        className={`${userSettingsStyles.avatar}`}
+                        style={{ backgroundImage: `url(${userCurrAvatarState})` }}></div>
+                  )}
                </div>
                <p
                   className={`std-text-block--info ${userSettingsStyles.changeAvatarButton}`}

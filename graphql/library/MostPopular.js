@@ -3,18 +3,21 @@ import { gql } from "@apollo/client";
 export const GET_MOST_POPULAR = gql`
    {
       getMostPopularArticles {
+         id
          title
          fileUrl
          categoryTags
          tagColors
          description
          currentRanking
+         totalReviews
          userId
          user {
             fullName
          }
       }
       getMostPopularBlogs {
+         id
          thumbnail
          blogName
          description
@@ -25,6 +28,7 @@ export const GET_MOST_POPULAR = gql`
          }
       }
       getMostPopularBooks {
+         id
          title
          author
          categoryTags
@@ -33,8 +37,10 @@ export const GET_MOST_POPULAR = gql`
          bookUrl
          thumbnail
          currentRanking
+         totalReviews
       }
       getMostPopularPodcasts {
+         id
          thumbnail
          podcastName
          description
@@ -43,12 +49,14 @@ export const GET_MOST_POPULAR = gql`
          googleLink
          overcastLink
          currentRanking
+         totalReviews
          userId
          user {
             fullName
          }
       }
       getMostPopularSermons {
+         id
          title
          thumbnail
          addedOn
@@ -57,12 +65,14 @@ export const GET_MOST_POPULAR = gql`
          tagColors
          description
          currentRanking
+         totalReviews
          userId
          user {
             fullName
          }
       }
       getMostPopularSermonNotes {
+         id
          title
          uploadedDate
          fileUrl
@@ -71,6 +81,7 @@ export const GET_MOST_POPULAR = gql`
          description
          userId
          currentRanking
+         totalReviews
          user {
             fullName
             avatar

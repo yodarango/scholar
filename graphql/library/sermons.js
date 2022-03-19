@@ -27,6 +27,7 @@ export const GET_SERMONS = gql`
          tagColors
          description
          currentRanking
+         totalReviews
          userId
          user {
             fullName

@@ -13,7 +13,8 @@ export type podcastsProps = {
    thumbnail: string;
    podcastName: string;
    host: string;
-   currentRanking: Number;
+   currentRanking: number;
+   totalReviews: number;
    description: string;
    appleLink: string;
    spotifyLink: string;
@@ -29,6 +30,7 @@ const Podcasts = ({
    podcastName,
    host,
    currentRanking,
+   totalReviews,
    description,
    appleLink,
    spotifyLink,
@@ -36,6 +38,7 @@ const Podcasts = ({
    overcastLink,
    newClass
 }: podcastsProps) => {
+   console.log(currentRanking, totalReviews);
    // set the images not directly from props but by state to set img fallback if it does not exist
    const [imageThumbnailState, setImageThumbnailState] = useState<string>(thumbnail);
 
@@ -56,7 +59,12 @@ const Podcasts = ({
                <Image layout='fill' src={imageThumbnailState} alt='podcast thumbnail' />
             </div>
             <div className={podcastStyles.starReviewWrapper}>
-               <StarReviews contentId={id} currentRanking={currentRanking} />
+               <StarReviews
+                  totalReviews={totalReviews}
+                  contentType='PODCAST'
+                  contentId={id}
+                  currentRanking={currentRanking}
+               />
             </div>
             <section className={podcastStyles.popupDescription}>{description}</section>
             <p className={`std-text-block--info ${podcastStyles.descPopupFooter}`}>
@@ -99,7 +107,12 @@ const Podcasts = ({
                   className={podcastStyles.thumbnail}
                />
             </div>
-            <StarReviews contentId={id} currentRanking={currentRanking} />
+            <StarReviews
+               totalReviews={totalReviews}
+               contentType={"PODCAST"}
+               contentId={id}
+               currentRanking={currentRanking}
+            />
             <h2 className={podcastStyles.name}>{podcastName}</h2>
             <h3 className={podcastStyles.host}>{host}</h3>
             <div className={podcastStyles.links}>
