@@ -3,7 +3,6 @@ import { onError } from "@apollo/client/link/error";
 
 const Cookies = require("js-cookie");
 const isAuth = Cookies.get("authorization");
-console.log(isAuth);
 
 const defaultOptions = {
    watchQuery: {

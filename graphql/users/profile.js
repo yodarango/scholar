@@ -288,3 +288,8 @@ export const VALIDATE_CURRENT_PASSWORD = gql`
       }
    }
 `;
+export const UPDATE_MY_AVATAR = gql`
+   mutation ($avatar: String) {
+      update_user_avatar(avatar: $avatar)
+   }
+`;
