@@ -29,6 +29,7 @@ const LibraryArticleCarrousel = ({ articles }: LibraryArticleCarrouselProps) => 
                      title={article.title}
                      author={article.user === null ? "" : article.user.fullName}
                      currentRanking={article.currentRanking}
+                     totalReviews={article.totalReviews}
                      description={article.description}
                      fileUrl={article.fileUrl}
                   />

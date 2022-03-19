@@ -1,22 +1,20 @@
 # ------------------------- DAIYLYS ------------------------
 
-**02/06/22**
-
--  For some reason only one 162 ID post is being handling content approvals, and thus not sending notificartions. find out why
-
 ## TO DO's
 
 -  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
 
--  set a way for users to get "trusted level"
+-  set a way for users to request a "trusted level"
 
--  turn user profile into its own comp (maybe)
+-  add a distinguisher in the avatar for certified users
 
--  add a logout route
+-  adda denomination sign maybe
+
+-  turn user profile avatar into its own comp (maybe)
+
+-  set geder on Sign up route and set a default avatar image
 
 -  add a welcome banner the first time user logs in
-
--  notifications
 
 -  add try catch everywehre needed
 

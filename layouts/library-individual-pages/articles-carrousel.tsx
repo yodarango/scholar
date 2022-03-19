@@ -27,6 +27,7 @@ const ArticlesCarrousel = ({ articles }: articleCarrouselProps) => {
             {articles.map((article: articleProps) => (
                <Article
                   id={article.id}
+                  totalReviews={article.totalReviews}
                   key={article.id}
                   title={article.title}
                   userId={article.userId}

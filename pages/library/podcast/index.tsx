@@ -80,6 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       variables: { skip, alphOrd, dateOrd, userId, podcastName, id }
    });
 
+   //console.log(data);
    return {
       props: {
          podcast: data.podcasts

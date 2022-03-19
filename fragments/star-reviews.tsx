@@ -9,9 +9,9 @@ import starReviewsStyles from "../styles/fragments/StarReviews.module.css";
 import NotificationPopup from "./notification-popup";
 
 type starReviewsProps = {
-   currentRanking?: Number;
+   currentRanking?: number;
    contentId: string;
-   totalReviews: Number;
+   totalReviews: number;
    contentType: string;
 };
 
@@ -22,13 +22,17 @@ const starReviews = ({
    contentId,
    totalReviews
 }: starReviewsProps) => {
+   console.log(totalReviews);
    // notifiation state
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
    );
    let starClass: string = "";
-   const [displayCurrentRanking, setDisplayCurrentRanking] = useState<Number | undefined>(
+   const [displayCurrentRanking, setDisplayCurrentRanking] = useState<number | undefined>(
       currentRanking
+   );
+   const [displayCurrentReviews, setDisplayCurrentReviews] = useState<number | undefined>(
+      totalReviews
    );
 
    if (displayCurrentRanking) {
@@ -36,7 +40,7 @@ const starReviews = ({
       displayCurrentRanking > 0 && displayCurrentRanking < 0.5
          ? (starClass = starReviewsStyles.halfStar)
          : null; // 0.5 stars
-      displayCurrentRanking >= 1 ? (starClass = starReviewsStyles.oneStar) : null; // 1 star
+      displayCurrentRanking >= 0.5 ? (starClass = starReviewsStyles.oneStar) : null; // 1 star
       displayCurrentRanking >= 1.5 && displayCurrentRanking < 2
          ? (starClass = starReviewsStyles.oneHalfStar)
          : null; // 1.5 stars
@@ -71,6 +75,7 @@ const starReviews = ({
    const handleSuccessfulRanking = (newRaking: number) => {
       setOpenReviewPopupState(false);
       setDisplayCurrentRanking(newRaking);
+      setDisplayCurrentReviews(displayCurrentReviews ? displayCurrentReviews + 1 : 1);
       setNotificationPopUpState(
          <NotificationPopup
             title='Success!'
@@ -98,7 +103,7 @@ const starReviews = ({
             )}
             {starClass !== "" && (
                <>
-                  <div className={`${starClass}`}></div> <span>{totalReviews}</span>
+                  <div className={`${starClass}`}></div> <span>{displayCurrentReviews}</span>
                </>
             )}
          </div>

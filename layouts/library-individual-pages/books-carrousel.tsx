@@ -30,6 +30,7 @@ const BookCarrousel = ({ books }: bookCarrouselProps) => {
                   key={book.id}
                   title={book.title}
                   author={book.author}
+                  totalReviews={book.totalReviews}
                   currentRanking={book.currentRanking}
                   bookUrl={book.bookUrl}
                   newClass={bookCarrouselStyles.bookMainWrapper}

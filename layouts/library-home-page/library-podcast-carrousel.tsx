@@ -15,25 +15,30 @@ type LibraryPodcastCarrouselProps = {
 };
 const LibraryPodcastCarrousel = ({ podcasts }: LibraryPodcastCarrouselProps) => {
    // ===============   FUNCTION 1: fetch the podcast =====================//
+   console.log("from carrousel: ", podcasts);
    return (
       <div className={`${libraryContentCarrouselStyles.mainWrapper}`}>
          <h1 className={libraryContentCarrouselStyles.title}>PODCASTS</h1>
          <div className={libraryContentCarrouselStyles.scrollSection}>
             {podcasts.map((podcast: any) => {
+               console.log(podcast.totalReviews);
                return (
-                  <Podcast
-                     key={podcast.id}
-                     id={podcast.id}
-                     thumbnail={podcast.thumbnail}
-                     podcastName={podcast.podcastName}
-                     host={podcast.user === null ? "" : podcast.user.fullName}
-                     currentRanking={podcast.currentRanking}
-                     description={podcast.description}
-                     appleLink={podcast.appleLink}
-                     spotifyLink={podcast.spotifyLink}
-                     googleLink={podcast.googleLink}
-                     overcastLink={podcast.overcastLink}
-                  />
+                  <div id={`${podcast.totalReviews}`} className={"here"}>
+                     <Podcast
+                        key={podcast.id}
+                        id={podcast.id}
+                        thumbnail={podcast.thumbnail}
+                        podcastName={podcast.podcastName}
+                        host={podcast.user === null ? "" : podcast.user}
+                        currentRanking={podcast.currentRanking}
+                        totalReviews={podcast.totalReviews}
+                        description={podcast.description}
+                        appleLink={podcast.appleLink}
+                        spotifyLink={podcast.spotifyLink}
+                        googleLink={podcast.googleLink}
+                        overcastLink={podcast.overcastLink}
+                     />
+                  </div>
                );
             })}
          </div>

@@ -9,6 +9,7 @@ export const GET_BOOKS = gql`
          tagColors
          bookUrl
          currentRanking
+         totalReviews
          thumbnail
       }
    }

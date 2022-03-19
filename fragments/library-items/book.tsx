@@ -18,6 +18,7 @@ export type bookProps = {
    categoryTags: string[];
    tagColors: string[];
    currentRanking: number;
+   totalReviews: number;
    thumbnail: string;
    description: string;
    bookUrl: string;
@@ -31,6 +32,7 @@ const Book = ({
    categoryTags,
    tagColors,
    currentRanking,
+   totalReviews,
    description,
    thumbnail,
    bookUrl,
@@ -68,7 +70,12 @@ const Book = ({
                <Image src={imageThumbnailState} alt='book thumbnail' layout='fill' />
             </a>
          )}
-         <StarReviews contentId={id} currentRanking={currentRanking} />
+         <StarReviews
+            contentType='BOOK'
+            totalReviews={totalReviews}
+            contentId={id}
+            currentRanking={currentRanking}
+         />
       </div>
    );
 };
