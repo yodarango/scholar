@@ -1,16 +1,27 @@
 // core
 import React, { useState } from "react";
 
+// graphQL
+import client from "../../apollo-client";
+import { HANDLE_CONTENT_REVIEW } from "../../graphql/library/shared";
+
 // style
 import libraryRecommendContenntStyles from "../../styles/buttons/LibraryReviewContent.module.css";
 
 type libraryReviewContentProps = {
    contentId: string;
+   contentType: String;
+   handleSuccessfulRanking: any;
    closeModal: React.MouseEventHandler;
 };
 
-const LibraryReviewContent = ({ contentId, closeModal }: libraryReviewContentProps) => {
-   // ============ FUNCTION 1: Handle POS request on star click
+const LibraryReviewContent = ({
+   contentId,
+   contentType,
+   closeModal,
+   handleSuccessfulRanking
+}: libraryReviewContentProps) => {
+   // ============ FUNCTION 1: Handle POST request on star click
    const [slidingLineClassState, setSlidingLineClassState] = useState<string>("");
 
    type IhideReviewSliderState = {
@@ -27,25 +38,25 @@ const LibraryReviewContent = ({ contentId, closeModal }: libraryReviewContentPro
    });
    const handleReviewClick = async (review: number, newclass: string, id: string) => {
       // change the color of the bar on click
+      console.log(id, review, contentType);
       setSlidingLineClassState(newclass);
-
-      await fetch("https://scholar-be.herokuapp.com/recommend-new-resource", {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json"
-         },
-         body: JSON.stringify({ contentId: id, review: review, userId: "1245" })
-      });
-
-      // notify the user about the successful submission
-      setTimeout(() => {
-         setHideReviewSliderState({
-            newClass: "none",
-            message: "Thank you for submitting your review 😃",
-            bkgColor: "green",
-            newHeight: "10rem"
+      try {
+         const { data } = await client.mutate({
+            mutation: HANDLE_CONTENT_REVIEW,
+            variables: {
+               contentId: id,
+               starsRated: review,
+               contentType: contentType
+            }
          });
-      }, 1000);
+
+         //handle a sucessful notification
+         if (data.handleContentReview) {
+            handleSuccessfulRanking(data.handleContentReview.newRating);
+         }
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    return (

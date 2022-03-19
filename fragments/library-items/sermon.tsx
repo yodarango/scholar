@@ -23,6 +23,7 @@ export type Tsermon = {
    description?: string;
    fileUrl: string;
    newClass?: string;
+   totalReview: Number;
    user?: any;
 };
 
@@ -39,7 +40,6 @@ const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: se
    const [actionsWrapper, setActionsWrapper] = useState<boolean>(false);
    const handleOpenActionsWrapper = () => {
       setActionsWrapper(true);
-      console.log("hey");
    };
 
    // ================= FUNCTION 1: Handle the delete popup  ===================//
@@ -129,7 +129,12 @@ const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: se
                </div>
             </div>
 
-            <StarReviews contentId={sermon.id} currentRanking={sermon.currentRanking} />
+            <StarReviews
+               contentId={sermon.id}
+               contentType={"SERMONNOTE"}
+               totalReviews={sermon.totalReview}
+               currentRanking={sermon.currentRanking}
+            />
          </div>
       </>
    );

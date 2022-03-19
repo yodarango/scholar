@@ -71,7 +71,7 @@ see why. Also commentaries and wuotes doing it
 ///////// 01/03/22
 ✅ implementing quote editor
 
-// ----------------------------- BEFORE RELEASE ---------------------- //
+**BEFORE RELEASE**
 
 -  Make sure that the count of characters for each input field mathc with the count length set in the DB
 
@@ -81,7 +81,14 @@ see why. Also commentaries and wuotes doing it
 
 *  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
 
-// ----------------------------- COOL TO HAVES/ LATER RELEASES ---------------------- //
+**COOL TO HAVES/ LATER RELEASES**
+
+-  Find a better way to refetch queries after data updates
+
+   -  options are:
+      1. refetch data by calling DB again _(currently doing so)_
+      2. Implement apollo [client.refetchQueries](https://www.apollographql.com/docs/react/data/refetching/)
+      3. just add an extra query to the DB and send the data
 
 -  Move Thought.tsx to its own component and not a carrousel mapping
 
@@ -92,4 +99,4 @@ see why. Also commentaries and wuotes doing it
 -  add all the error and success messages displayed upon CTA's under one file
    for better maintanability and salability
 
--  change the wayt that stories are rendered. currently is kinda messy!
+*  change the wayt that stories are rendered. currently is kinda messy!
