@@ -38,6 +38,8 @@
    --gradient-two: #ff0045;
    --warning-color: #ec3b3b;
    --proceed-color: #90d171;
+   --user-trusted-level: linear-gradient(45deg, rgb(76, 187, 86), rgb(255, 242, 66));
+   --shadow-color: #17151b;
 
    /**************** aprroval level ==========m***********/
    --aprval-level-a: rgb(91, 202, 91);
@@ -78,8 +80,8 @@
    --quote-bkg-seventeen: linear-gradient(120deg, #0051ff, #00eeff);
    --quote-bkg-eighteen: linear-gradient(120deg, #f5cc15, #880eda);
    --quote-bkg-nineteen: linear-gradient(120deg, #f5159f, #e38ce6);
-   /********** Possible second theme ******/
 
+   /********** Possible second theme ******/
    --primary-color-2: #20042f;
 
    /****************************************/

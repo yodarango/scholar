@@ -78,6 +78,9 @@ rename it and reuse it in other instaces if needed.
 }
 
 /* Comments Card */
+.commentCard {
+   box-shadow: 5px 5px 10px 5px var(--shadow-color);
+}
 
 .commentCard,
 .commentCardOpen {
@@ -121,6 +124,12 @@ rename it and reuse it in other instaces if needed.
    -webkit-box-orient: vertical;
 }
 
+.creatorimMainWrapper {
+   position: relative;
+   width: 2.5rem;
+   height: 3rem;
+}
+
 .commentCardHeaderAvatarImg {
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
    width: 2rem;
@@ -133,6 +142,7 @@ rename it and reuse it in other instaces if needed.
 }
 
 .commentCardHeaderAvatarImgBkg {
+   background-color: var(--font-color);
    margin-top: 0.5rem;
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
    background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
@@ -141,6 +151,47 @@ rename it and reuse it in other instaces if needed.
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+.commentCardHeaderAvatarImgBkgTrusted {
+   background: var(--user-trusted-level);
+}
+
+.trustedPointer {
+   display: block;
+   position: absolute;
+   width: 1.5rem;
+   height: 1.5rem;
+   background-color: rgb(255, 217, 0);
+   -webkit-clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+   );
+   clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+   );
+   top: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+   bottom: -3em;
 }
 
 .cardIconWrapper {
@@ -384,6 +435,12 @@ rename it and reuse it in other instaces if needed.
       height: 3.5rem;
    }
 
+   .creatorimMainWrapper {
+      position: relative;
+      width: 3rem;
+      height: 3.5rem;
+   }
+
    .commentCard > i {
       margin: 3rem auto 0;
       padding: 0 var(--xsmall-spacing-desktop);
@@ -445,6 +502,12 @@ rename it and reuse it in other instaces if needed.
 
    .commentCardHeaderAvatarImgBkg {
       margin-top: 0.5rem;
+      width: 3.3rem;
+      height: 3.8rem;
+   }
+
+   .creatorimMainWrapper {
+      position: relative;
       width: 3.3rem;
       height: 3.8rem;
    }

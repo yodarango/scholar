@@ -53,10 +53,11 @@ export type Tthought = {
 };
 
 type thoughtProps = {
+   user_authority_level?: string;
    thoughts: Tthought[];
 };
 
-const Thought = ({ thoughts }: thoughtProps) => {
+const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderAdminOptionsState, setRenderAdminOptionsState] = useState<string>("");
 
@@ -263,7 +264,7 @@ const Thought = ({ thoughts }: thoughtProps) => {
          {notificationpopUpState}
          {chooseAprovalRating}
          {thoughts.map((thought, index) => {
-            console.log("thought: ", thought);
+            thought.creator.authority_level = user_authority_level ? user_authority_level : "";
             return (
                <section key={thought.ID}>
                   <div
@@ -273,15 +274,25 @@ const Thought = ({ thoughts }: thoughtProps) => {
                      <div
                         className={cardStyles.commentCardHeader}
                         id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                        <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                           {thought.creator && thought.creator.avatar && (
-                              <img
-                                 src={thought.creator.avatar}
-                                 alt='Avatar'
-                                 className={cardStyles.commentCardHeaderAvatarImg}
-                              />
-                           )}
-                        </div>
+                        {thought.creator && thought.creator.authority_level && (
+                           <div className={cardStyles.creatorimMainWrapper}>
+                              <div
+                                 className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
+                                    thought.creator.authority_level == "trusted"
+                                       ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                       : ""
+                                 }`}>
+                                 <img
+                                    src={thought.creator.avatar}
+                                    alt='Avatar'
+                                    className={`${cardStyles.commentCardHeaderAvatarImg}`}
+                                 />
+                              </div>
+                              {thought.creator.authority_level == "trusted" && (
+                                 <span className={cardStyles.trustedPointer}></span>
+                              )}
+                           </div>
+                        )}
                         {thought.creator && thought.creator.signature && (
                            <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
                         )}

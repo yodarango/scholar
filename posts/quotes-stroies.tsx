@@ -69,20 +69,11 @@ export type last24SingleQuote = {
       avatar: string;
       signature: string;
       approval_rating: string;
+      authority_level: string;
    };
-   deleteOption?: boolean;
-   reportOption?: boolean;
-   editOption?: boolean;
 };
 
-const QuoteStories = ({
-   ID,
-   creator,
-   approvals,
-   deleteOption,
-   editOption,
-   reportOption
-}: last24SingleQuote) => {
+const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
    // globals
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
@@ -274,14 +265,18 @@ const QuoteStories = ({
             className={quoteStoriesStyles.mainStoryWrapper}
             onClick={() => handleOpenStroies(creator.ID)}>
             <div
-               className={quoteStoriesStyles.userReputationWrapper}
-               style={{
-                  backgroundImage: "linear-gradient(130deg, #ff9214ed, #ff0045)"
-               }}>
+               className={`${quoteStoriesStyles.userReputationWrapper} ${
+                  creator.authority_level == "trusted"
+                     ? quoteStoriesStyles.userReputationWrapperTrusted
+                     : ""
+               }`}>
                <div
                   className={quoteStoriesStyles.avatarImage}
                   style={{ backgroundImage: `url(${creator.avatar})` }}></div>
             </div>
+            {creator.authority_level == "trusted" && (
+               <span className={quoteStoriesStyles.trustedPointer}></span>
+            )}
             <p className={quoteStoriesStyles.userSignature}>{creator.signature}</p>
          </section>
 

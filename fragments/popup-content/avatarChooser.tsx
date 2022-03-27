@@ -1,6 +1,5 @@
 // core
 import { useState } from "react";
-import Image from "next/image";
 
 // styles
 import avatarChoserStyles from "../../styles/fragments/popup-content/AvatarChooser.module.css";

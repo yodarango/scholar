@@ -44,12 +44,10 @@ export type TsingleStory = {
 };
 
 type quoteProfileProps = {
+   user_authority_level: string;
    story: TsingleStory;
-   deleteOption: boolean;
-   editOption: boolean;
-   reportOption: boolean;
 };
-const QuotesProfile = ({ story, deleteOption, editOption, reportOption }: quoteProfileProps) => {
+const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);

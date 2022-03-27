@@ -27,6 +27,7 @@ const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
          query: QUOTE_STORIES_IN_LAST_24,
          variables: { ID: null, last_id: last_id, category_tags: null }
       });
+      console.log("user stories", data.quote_stories);
       const newStoriesArray = data.quote_stories;
       setStoriesArrayState((storiesArrayState) => [...storiesArrayState, ...newStoriesArray]);
    };

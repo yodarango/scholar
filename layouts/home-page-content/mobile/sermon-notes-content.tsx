@@ -61,9 +61,6 @@ const SermonNotesContent = ({ user, handleCloseSermonNotes }: sermonNotesContent
                            approval_rating: user.approval_rating
                         }
                      }}
-                     deleteOption={true}
-                     editOption={true}
-                     reportOption={true}
                   />
                </section>
             ))}

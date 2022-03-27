@@ -9,11 +9,18 @@ import { DELETE_ONE_SEMRON_POST } from "../graphql/posts/sermon_notes";
 // child comps
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import NotificationPopup from "../fragments/notification-popup";
+import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
 import sermonNotesPostStyles from "../styles/posts/SermonNotesPost.module.css";
+import cardStyles from "../styles/components/Cards.module.css";
+
+// helpers
 import getCookie from "../helpers/get-cookie";
 import parseJwt from "../helpers/auth/decodeJWT";
+
+// types
+import { Tuser } from "../pages/users/[userId]";
 
 export type TsermonPost = {
    ID: string;
@@ -106,9 +113,21 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
 
    const handleEditOption = () => {};
 
+   // open the user info popup
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   const handleQuickInfoAccessPopup = (user: any) => {
+      setUserQuickAccessInfoPopup(
+         <QuickUserInfoPopup user={user} closeModal={() => setUserQuickAccessInfoPopup(false)} />
+      );
+   };
+
    return (
       <>
          {notificationPupUpState}
+         {userQuickAccessInfoPopup}
          {!deletedPostState && (
             <div className={sermonNotesPostStyles.mainWrapper}>
                {confirmationPopUpState}
@@ -135,11 +154,27 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                         onClick={handleReportConfirmation}></span>
                   )}
                </div>
-               <div className={sermonNotesPostStyles.reputationWrapper}>
+               {sermonPost.creator && sermonPost.creator.authority_level && (
                   <div
-                     className={sermonNotesPostStyles.avatar}
-                     style={{ backgroundImage: `url(${sermonPost.creator.avatar})` }}></div>
-               </div>
+                     className={sermonNotesPostStyles.creatorMainWrapper}
+                     onClick={() => handleQuickInfoAccessPopup(sermonPost.creator)}>
+                     <div
+                        className={`${sermonNotesPostStyles.reputationWrapper} ${
+                           sermonPost.creator.authority_level == "trusted"
+                              ? sermonNotesPostStyles.commentCardHeaderAvatarImgBkgTrusted
+                              : ""
+                        }`}>
+                        <img
+                           src={sermonPost.creator.avatar}
+                           alt='Avatar'
+                           className={`${sermonNotesPostStyles.avatar}`}
+                        />
+                     </div>
+                     {sermonPost.creator.authority_level == "trusted" && (
+                        <span className={sermonNotesPostStyles.trustedPointer}></span>
+                     )}
+                  </div>
+               )}
                <h3 className={sermonNotesPostStyles.title}>{sermonPost.title}</h3>
                <h4 className={sermonNotesPostStyles.signature}>{sermonPost.creator.signature}</h4>
                <p className={sermonNotesPostStyles.postedOn}>{sermonPost.posted_on}</p>

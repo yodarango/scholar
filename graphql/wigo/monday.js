@@ -74,6 +74,7 @@ export const GET_MONDAY_CONTENT = gql`
             avatar
             signature
             approval_rating
+            authority_level
          }
       }
 

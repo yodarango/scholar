@@ -44,6 +44,7 @@ export const QUOTE_STORIES_IN_LAST_24 = gql`
             avatar
             signature
             approval_rating
+            authority_level
          }
       }
    }

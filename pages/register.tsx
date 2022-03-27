@@ -1,13 +1,15 @@
 // core
-import { title } from "process";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
+// components
+import SmallLoader from "../fragments/chunks/small-loader";
+import NotificationPopup from "../fragments/notification-popup";
 
 // graphql
 import client from "../apollo-client";
-import SmallLoader from "../fragments/chunks/small-loader";
-import NotificationPopup from "../fragments/notification-popup";
 import { CREATE_NEW_USER } from "../graphql/users/new_user";
+import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 
 // styles
 import registerStyles from "../styles/pages/Register.module.css";
@@ -15,19 +17,33 @@ import registerStyles from "../styles/pages/Register.module.css";
 //helpers
 import { checkForValidSignature } from "../helpers/input-validaton";
 const Cookies = require("js-cookie");
-import parseJwt from "../helpers/auth/decodeJWT";
 
 export default function Register() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
    const router = useRouter();
-   const token: string = Cookies.get("authorization");
-   const parsedUser = parseJwt(token);
 
-   if (typeof window !== "undefined") {
-      if (parsedUser && parsedUser.ID) {
-         router.replace("/users/me");
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+   const checkedIfUserLoggedIn = async () => {
+      try {
+         const { data } = await client.query({
+            query: CHECK_IF_USER_LOGGED_IN,
+            variables: {}
+         });
+
+         setIsLoggedIn(data.is_user_logged_in);
+
+         if (data.is_user_logged_in === true) {
+            router.replace("/users/me");
+         }
+      } catch (error) {
+         console.log(error);
       }
-   }
+   };
+
+   useEffect(() => {
+      checkedIfUserLoggedIn();
+   }, []);
 
    // ====================== FUNCTION: register the new user ============================ //
    const emailInput = useRef<HTMLInputElement>(null);
@@ -109,7 +125,7 @@ export default function Register() {
    return (
       <>
          {notificationpopUpState}
-         {!parsedUser && (
+         {!isLoggedIn && (
             <div className='main-wrapper'>
                <div className={`${registerStyles.wrapFlexRow} wrap-flex-row`}>
                   {/* Left side, shows on mobile*/}

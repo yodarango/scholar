@@ -138,6 +138,7 @@ export const CREATE_NEW_COMMENTARY = gql`
          ID
          VERSE_ID
          USER_ID
+         authority_level
       }
    }
 `;

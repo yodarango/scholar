@@ -1,9 +1,11 @@
 .mainStoryWrapper {
+   position: relative;
    width: 3.5rem;
    margin: var(--medium-spacing-mobile) 0.4rem 0.1rem;
    cursor: pointer;
 }
 .userReputationWrapper {
+   background-image: linear-gradient(130deg, #ff9214ed, #ff0045);
    display: flex;
    align-items: center;
    justify-content: center;
@@ -13,6 +15,10 @@
    margin: 0 0 0.1rem;
 }
 
+.userReputationWrapperTrusted {
+   background: var(--user-trusted-level);
+}
+
 .avatarImage,
 .avatarImageStory {
    background-position: center;
@@ -20,7 +26,45 @@
    background-size: cover;
    height: 3.5rem;
    width: 3rem;
+   background-color: var(--font-color);
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+}
+
+.trustedPointer {
+   display: block;
+   position: absolute;
+   width: 1.5rem;
+   height: 1.5rem;
+   background-color: rgb(255, 217, 0);
+   -webkit-clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+   );
+   clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+   );
+   top: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+   bottom: -2em;
 }
 
 .userSignature {

@@ -57,6 +57,7 @@ type commentsProps = {
 };
 
 export default function Comments({ commentary }: commentsProps) {
+   console.log("commentary", commentary);
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
@@ -267,15 +268,25 @@ export default function Comments({ commentary }: commentsProps) {
                <div
                   className={cardStyles.commentCardHeader}
                   id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
-                  <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                     {commentary.creator && (
-                        <img
-                           src={commentary.creator.avatar}
-                           alt='Avatar'
-                           className={cardStyles.commentCardHeaderAvatarImg}
-                        />
-                     )}
-                  </div>
+                  {commentary.creator && commentary.creator.authority_level && (
+                     <div className={cardStyles.creatorimMainWrapper}>
+                        <div
+                           className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
+                              commentary.creator.authority_level == "trusted"
+                                 ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                 : ""
+                           }`}>
+                           <img
+                              src={commentary.creator.avatar}
+                              alt='Avatar'
+                              className={`${cardStyles.commentCardHeaderAvatarImg}`}
+                           />
+                        </div>
+                        {commentary.creator.authority_level == "trusted" && (
+                           <span className={cardStyles.trustedPointer}></span>
+                        )}
+                     </div>
+                  )}
                   {commentary.creator && <h1>{commentary.creator.signature}</h1>}
                   {renderDeleteEditOptionsState && (
                      <span

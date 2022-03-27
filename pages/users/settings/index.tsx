@@ -15,6 +15,7 @@ import NotificationPopup from "../../../fragments/notification-popup";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
+import PopupWrapper from "../../../layouts/popup-wrapper";
 
 // helpers
 const Cookies = require("js-cookie");
@@ -23,7 +24,6 @@ import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
 import { Tuser } from "../[userId]";
-import PopupWrapper from "../../../layouts/popup-wrapper";
 
 type userSettingsProps = {
    user: Tuser;

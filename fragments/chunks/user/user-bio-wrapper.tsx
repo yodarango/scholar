@@ -10,16 +10,22 @@ type userBioWrapperProps = {
 const UserBioWrapper = ({ user }: userBioWrapperProps) => {
    return (
       <section className={userBioWrapperStyles.userBioWrapper}>
-         <div
-            className={userBioWrapperStyles.reputationWrapper}
-            style={{
-               backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)`
-            }}>
+         <div className={userBioWrapperStyles.avatarReputationWrapper}>
             <div
-               className={userBioWrapperStyles.avatar}
-               style={{ backgroundImage: `url(${user.avatar})` }}></div>
+               className={`${userBioWrapperStyles.reputationWrapper} ${
+                  user.authority_level == "trusted"
+                     ? userBioWrapperStyles.reputationWrapperTrusted
+                     : ""
+               }`}>
+               <div
+                  className={userBioWrapperStyles.avatar}
+                  style={{ backgroundImage: `url(${user.avatar})` }}></div>
+            </div>
+            {user.authority_level == "trusted" && (
+               <span className={userBioWrapperStyles.trustedPointer}></span>
+            )}
          </div>
-         {user.approval_rating >= 97 && (
+         {/* {user.approval_rating >= 97 && (
             <h2 className={userBioWrapperStyles.reliabilityA}>Approval Rating: A+</h2>
          )}
          {user.approval_rating >= 94 && user.approval_rating < 97 && (
@@ -54,7 +60,7 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
          )}
          {user.approval_rating <= 60 && (
             <h2 className={userBioWrapperStyles.reliabilityF}>Reliability: F</h2>
-         )}
+         )} */}
          <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>
          <p>Thoughts: {user.all_posts.thoughts[0].total_count}</p>
          <p>Quotes: {user.all_posts.quotes[0].total_count}</p>

@@ -64,9 +64,6 @@ const CommentariesContent = ({ handleCloseCommentaries, user }: commentariesCont
                            approval_rating: user.approval_rating
                         }
                      }}
-                     deleteOption={true}
-                     editOption={true}
-                     reportOption={true}
                   />
                </section>
             ))}

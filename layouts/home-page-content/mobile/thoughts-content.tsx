@@ -54,12 +54,7 @@ const ThoughtsContent = ({ user, handleCloseThoughts }: thoughtContentProps) => 
             <h1 className={homePageContentStyles.popUpContentWrapper_title}>
                Thoughts by {user.signature}
             </h1>
-            <Thought
-               thoughts={thoughtsState}
-               deleteOption={true}
-               editOption={true}
-               reportOption={true}
-            />
+            <Thought thoughts={thoughtsState} user_authority_level={user.authority_level} />
             {!hideLoadMoreBttnState && (
                <button
                   className={"std-button"}

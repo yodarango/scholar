@@ -50,6 +50,7 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
                <section>
                   <QuotesProfile
                      key={story.ID}
+                     user_authority_level={user.authority_level}
                      story={{
                         ...story,
                         creator: {
@@ -60,9 +61,6 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
                            authority_level: user.authority_level
                         }
                      }}
-                     deleteOption={true}
-                     editOption={true}
-                     reportOption={true}
                   />
                </section>
             ))}
