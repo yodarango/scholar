@@ -34,6 +34,7 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
          setQuoteState((quoteState) => [...quoteState, ...data.users[0].all_posts.quotes]);
          data.users[0].all_posts.quotes.length < 20 ? setHideLoadMoreBttnState(true) : null;
       };
+
       requestQuotes();
    }, [quoteLastIdState]);
 

@@ -10,13 +10,14 @@ import {
    SHOW_COMMENTS_OF_THOUGHTS,
    DELETE_ONE_THOUGHT
 } from "../graphql/posts/thoughts";
-import { GET_THOUGHT_APPROVALS } from "../graphql/posts/approvals";
+//import { GET_THOUGHT_APPROVALS } from "../graphql/posts/approvals";
 
 // components
 import ThoughtContent from "../fragments/popup-content/thought-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 import NotificationPopup from "../fragments/notification-popup";
+import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -228,7 +229,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
          const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
-         if (data == true) {
+         if (data.ID) {
             setPostingState(false);
             setCommentBoxState("");
             //commentBody.current.value = "comment posted";
@@ -257,9 +258,20 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       }
    };
 
+   // open the user info popup
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   const handleQuickInfoAccessPopup = (user: any) => {
+      setUserQuickAccessInfoPopup(
+         <QuickUserInfoPopup user={user} closeModal={() => setUserQuickAccessInfoPopup(false)} />
+      );
+   };
    return (
       <>
          {seeWholePost}
+         {userQuickAccessInfoPopup}
          {confirmationPopUpState}
          {notificationpopUpState}
          {chooseAprovalRating}
@@ -274,14 +286,15 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                      <div
                         className={cardStyles.commentCardHeader}
                         id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                        {thought.creator && thought.creator.authority_level && (
+                        {thought.creator && thought.creator.authority_level != undefined && (
                            <div className={cardStyles.creatorimMainWrapper}>
                               <div
                                  className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
                                     thought.creator.authority_level == "trusted"
                                        ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
                                        : ""
-                                 }`}>
+                                 }`}
+                                 onClick={() => handleQuickInfoAccessPopup(thought.creator)}>
                                  <img
                                     src={thought.creator.avatar}
                                     alt='Avatar'

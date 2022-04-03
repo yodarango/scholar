@@ -95,7 +95,8 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(
-      commentary.comments[0].total_count
+      //commentary.comments[0].total_count
+      postReactionContent.comments.length
    );
    const [commentaryCommentsState, setCommentaryCommentsState] = useState(
       postReactionContent.comments
@@ -112,11 +113,17 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
             commentBody.current.value,
             commentary.creator.ID
          );
-         if (data == true) {
+         // if the helper function returns true then everything went well
+         if (data.ID) {
+            // increase comment count
             setCommentsCountState(commentsCountState + 1);
+
+            // reset the comment textarea state
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
-            fetchComments();
+
+            // create the new comment
+            fetchComments(data);
          } else if (data == false) {
             setPostingState(false);
             setNotificationPopUpState(
@@ -133,7 +140,11 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
-                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  contentString={
+                     data.graphQLErrors
+                        ? data.graphQLErrors[0]?.message
+                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                  }
                   newClass='notification-wrapper--Error'
                />
             );
@@ -143,16 +154,19 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
 
    // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
 
-   const fetchComments = async () => {
-      try {
-         const { data } = await client.query({
-            query: GET_COMMENTARY_COMMENTS,
-            variables: { COMMENTARY_ID: commentary.ID, last_id: 1000 }
-         });
-         setCommentaryCommentsState(data.commentary_comments);
-      } catch (error) {
-         console.log(error);
-      }
+   const fetchComments = async (data: Tcomment) => {
+      const newCommentary: Tcomment = {
+         ID: data.ID,
+         body: data.body,
+         creator_avatar: data.creator_avatar,
+         creator_signature: data.creator_signature,
+         creator_approval_rate: data.creator_approval_rate
+      };
+
+      setCommentaryCommentsState((commentaryCommentsState) => [
+         newCommentary,
+         ...commentaryCommentsState
+      ]);
    };
 
    return (

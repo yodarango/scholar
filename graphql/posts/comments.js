@@ -36,6 +36,10 @@ export const CREATE_COMMENTARY_COMMENT = gql`
    mutation ($COMMENTARY_ID: ID, $body: String, $USER_ID: ID) {
       Commentary_Comment(data: { COMMENTARY_ID: $COMMENTARY_ID, body: $body, USER_ID: $USER_ID }) {
          ID
+         body
+         creator_avatar
+         creator_signature
+         creator_approval_rate
       }
    }
 `;
@@ -44,6 +48,10 @@ export const CREATE_QUOTE_COMMENT = gql`
    mutation ($QUOTE_ID: ID, $body: String, $USER_ID: ID) {
       Quote_Comment(data: { QUOTE_ID: $QUOTE_ID, body: $body, USER_ID: $USER_ID }) {
          ID
+         body
+         creator_avatar
+         creator_signature
+         creator_approval_rate
       }
    }
 `;
@@ -52,6 +60,10 @@ export const CREATE_THOUGHT_COMMENT = gql`
    mutation ($THOUGHT_ID: ID, $body: String, $USER_ID: ID) {
       Thought_Comment(data: { THOUGHT_ID: $THOUGHT_ID, body: $body, USER_ID: $USER_ID }) {
          ID
+         body
+         creator_avatar
+         creator_signature
+         creator_approval_rate
       }
    }
 `;

@@ -3,7 +3,7 @@
    flex-grow: 0;
    flex-shrink: 0;
    display: grid;
-   grid-template-columns: 32.5% 67.5%;
+   grid-template-columns: 25% 75%;
    grid-template-rows: auto auto auto auto auto;
    background-color: var(--secondary-color);
    border-radius: var(--input-radius-mobile);
@@ -60,12 +60,12 @@
    left: 0;
    right: 0;
    margin: auto;
-   bottom: -1em;
+   bottom: 0.5em;
 }
 
 .reputationWrapper {
-   width: 4rem;
-   height: 4.5rem;
+   width: 3rem;
+   height: 3.5rem;
    display: flex;
    align-items: center;
    margin: var(--xsmall-spacing-mobile) auto;
@@ -81,8 +81,8 @@
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
-   width: 3.5rem;
-   height: 4rem;
+   width: 2.5rem;
+   height: 3rem;
    background-color: var(--font-color);
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
    grid-column: 1/2;
@@ -175,7 +175,7 @@
       display: grid;
       grid-template-columns: 6rem 12rem;
       border-radius: var(--input-radius-desktop);
-      padding: var(--xsmall-spacing-desktop) 0;
+      padding: 0 0 var(--xsmall-spacing-desktop);
       margin: var(--xsmall-spacing-desktop);
    }
 

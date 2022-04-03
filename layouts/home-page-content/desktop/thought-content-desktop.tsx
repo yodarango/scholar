@@ -36,7 +36,14 @@ const ThoughtContentDesktop = ({ user }: commentaryContentDesktopProps) => {
          data.users[0].all_posts.thoughts.map((thought: Tthought) =>
             modifiedThoughts.push({
                ...thought,
-               creator: { ID: user.ID, avatar: user.avatar, signature: user.signature }
+               creator: {
+                  ID: user.ID,
+                  avatar: user.avatar,
+                  signature: user.signature,
+                  first_name: user.first_name,
+                  last_night: user.last_name,
+                  my_church: user.my_church
+               }
             })
          );
          setThoughtState((thoughtState) => [...thoughtState, ...modifiedThoughts]);

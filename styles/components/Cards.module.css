@@ -153,6 +153,10 @@ rename it and reuse it in other instaces if needed.
    justify-content: center;
 }
 
+.commentCardHeaderAvatarImgBkg:hover {
+   cursor: pointer;
+}
+
 .commentCardHeaderAvatarImgBkgTrusted {
    background: var(--user-trusted-level);
 }

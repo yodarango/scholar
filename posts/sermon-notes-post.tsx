@@ -38,6 +38,9 @@ export type TsermonPost = {
       avatar: string;
       authority_level: string;
       approval_rating: string | number;
+      first_name?: string;
+      last_name?: string;
+      my_church: string;
    };
 };
 

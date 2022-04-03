@@ -53,12 +53,12 @@ const SermonNotesContentDesktop = ({ user }: commentaryContentDesktopProps) => {
                      avatar: user.avatar,
                      signature: user.signature,
                      authority_level: user.authority_level,
-                     approval_rating: user.approval_rating
+                     approval_rating: user.approval_rating,
+                     my_church: user.my_church,
+                     first_name: user.first_name,
+                     last_name: user.last_name
                   }
                }}
-               deleteOption={true}
-               editOption={true}
-               reportOption={true}
             />
          ))}
          {!hideLoadMoreBttnState && (

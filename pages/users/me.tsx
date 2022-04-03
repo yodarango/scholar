@@ -80,7 +80,7 @@ const Me = () => {
             from_profile: true
          }
       });
-      console.log(data);
+
       if (data.me && data.me.length > 0) {
          setLoadingState(false);
          setUserState(data.me[0]);

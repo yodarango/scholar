@@ -2,6 +2,7 @@
 import userBioWrapperStyles from "../../../styles/fragments/chunks/users/UserBioWrapper.module.css";
 
 // helpers / types
+import calulateApprovalLevel from "../../../helpers/math/calculateArppovalLevel";
 import { Tuser } from "../../../pages/users/[userId]";
 
 type userBioWrapperProps = {
@@ -25,7 +26,7 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
                <span className={userBioWrapperStyles.trustedPointer}></span>
             )}
          </div>
-         {/* {user.approval_rating >= 97 && (
+         {user.approval_rating >= 97 && (
             <h2 className={userBioWrapperStyles.reliabilityA}>Approval Rating: A+</h2>
          )}
          {user.approval_rating >= 94 && user.approval_rating < 97 && (
@@ -60,7 +61,7 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
          )}
          {user.approval_rating <= 60 && (
             <h2 className={userBioWrapperStyles.reliabilityF}>Reliability: F</h2>
-         )} */}
+         )}
          <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>
          <p>Thoughts: {user.all_posts.thoughts[0].total_count}</p>
          <p>Quotes: {user.all_posts.quotes[0].total_count}</p>

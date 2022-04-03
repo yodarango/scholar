@@ -11,12 +11,13 @@ import {
 } from "../graphql/posts/commentaries";
 import { GET_COMMENTARY_APPROVALS } from "../graphql/posts/approvals";
 
-// componenets
+// components
 import CommentaryContent from "../fragments/popup-content/commentary-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 import NotificationPopup from "../fragments/notification-popup";
+import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -44,6 +45,9 @@ export type Tcommentary = {
       signature: string;
       authority_level: string;
       approval_rating: string | number;
+      first_name?: string;
+      last_name?: string;
+      my_church?: string;
       avatar: string;
    };
    comments: {
@@ -57,7 +61,6 @@ type commentsProps = {
 };
 
 export default function Comments({ commentary }: commentsProps) {
-   console.log("commentary", commentary);
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
@@ -206,7 +209,8 @@ export default function Comments({ commentary }: commentsProps) {
             commentBody.current.value,
             commentary.creator.ID
          );
-         if (data == true) {
+
+         if (data.ID) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setCommentBoxState("");
@@ -226,7 +230,11 @@ export default function Comments({ commentary }: commentsProps) {
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
-                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  contentString={
+                     data.graphQLErrors
+                        ? data.graphQLErrors[0]?.message
+                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                  }
                   newClass='notification-wrapper--Error'
                />
             );
@@ -247,6 +255,16 @@ export default function Comments({ commentary }: commentsProps) {
       setPostApprovalState(data.commentary_approvals[0]);
    };
 
+   // open the user info popup
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   const handleQuickInfoAccessPopup = (user: any) => {
+      setUserQuickAccessInfoPopup(
+         <QuickUserInfoPopup user={user} closeModal={() => setUserQuickAccessInfoPopup(false)} />
+      );
+   };
    return (
       <>
          {chooseAprovalRating && (
@@ -257,6 +275,7 @@ export default function Comments({ commentary }: commentsProps) {
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
+         {userQuickAccessInfoPopup}
          {confirmationPopUpState}
          {notificationPopUpState}
          {seeWholePost}
@@ -275,7 +294,8 @@ export default function Comments({ commentary }: commentsProps) {
                               commentary.creator.authority_level == "trusted"
                                  ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
                                  : ""
-                           }`}>
+                           }`}
+                           onClick={() => handleQuickInfoAccessPopup(commentary.creator)}>
                            <img
                               src={commentary.creator.avatar}
                               alt='Avatar'

@@ -104,7 +104,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(
-      thought.comments[0].total_count
+      postReactionContent.comments.length
    );
    const [commentaryCommentsState, setCommentaryCommentsState] = useState(
       postReactionContent.comments
@@ -118,11 +118,11 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             commentBody.current.value,
             thought.creator.ID
          );
-         if (data == true) {
+         if (data.ID) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
-            fetchComments();
+            fetchComments(data);
          } else if (data == false) {
             setPostingState(false);
             setNotificationpopUpState(
@@ -148,17 +148,19 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    };
 
    // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
+   const fetchComments = async (data: Tcomment) => {
+      const newCommentary: Tcomment = {
+         ID: data.ID,
+         body: data.body,
+         creator_avatar: data.creator_avatar,
+         creator_signature: data.creator_signature,
+         creator_approval_rate: data.creator_approval_rate
+      };
 
-   const fetchComments = async () => {
-      try {
-         const { data } = await client.query({
-            query: GET_THOUGHT_COMMENTS,
-            variables: { THOUGHT_ID: thought.ID, last_id: 999999999 }
-         });
-         setCommentaryCommentsState(data.thought_comments);
-      } catch (error) {
-         console.log(error);
-      }
+      setCommentaryCommentsState((commentaryCommentsState) => [
+         newCommentary,
+         ...commentaryCommentsState
+      ]);
    };
 
    return (

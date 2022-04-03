@@ -2,8 +2,7 @@
 
 **Left Off**
 
--  set the /helpers/math/calcualterating... helper on th euserBioWrapper
--  Find a way to pass users info the the "Quick info Access" component
+-  avoid calling for comments every time a new comment is created. I have finished comments and thoughts. get quotes done next
 
 ## TO DO's
 
@@ -11,11 +10,7 @@
 
 -  set a way for users to request a "trusted level"
 
--  add a distinguisher in the avatar for certified users
-
 -  adda denomination sign maybe
-
--  turn user profile avatar into its own comp (maybe)
 
 -  set geder on Sign up route and set a default avatar image
 
@@ -68,3 +63,7 @@
 -  Have a way for users to search content by _TAG_, _USER_ID_, _VERSE_ and be able to render them in their own page for sharing purposes, rahter than just putting them in a bkg layer. I mean this is the heart of the app so....
 
 -  have a way to share posts
+
+-  set the /helpers/math/calcualterating... helper on the userBioWrapper
+
+-  turn user profile avatar into its own component

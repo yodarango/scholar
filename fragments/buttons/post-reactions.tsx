@@ -10,7 +10,7 @@ export type Tcomment = {
    creator_avatar: string;
    creator_signature: string;
    creator_approval_rate: string;
-   posted_on: string;
+   posted_on?: string;
 };
 export type Tapprovals = {
    average_count: number;

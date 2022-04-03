@@ -19,6 +19,8 @@ export const GET_COMMENTARIES = gql`
             approval_rating
             authority_level
             avatar
+            first_name
+            last_name
          }
          comments {
             total_count
@@ -138,7 +140,6 @@ export const CREATE_NEW_COMMENTARY = gql`
          ID
          VERSE_ID
          USER_ID
-         authority_level
       }
    }
 `;

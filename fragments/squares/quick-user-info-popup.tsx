@@ -14,6 +14,17 @@ type quickUserInfoPopupProps = {
    closeModal: any;
 };
 const QuickUserInfoPopup = ({ user, closeModal }: quickUserInfoPopupProps) => {
+   // figure it out what class to apply based in the authority level
+   const authorityLevel =
+      calulateApprovalLevel(user.approval_rating)?.styles == "A"
+         ? quickUserInfoStyles.reliabilityA
+         : calulateApprovalLevel(user.approval_rating)?.styles == "B"
+         ? quickUserInfoStyles.reliabilityB
+         : calulateApprovalLevel(user.approval_rating)?.styles == "C"
+         ? quickUserInfoStyles.reliabilityC
+         : calulateApprovalLevel(user.approval_rating)?.styles == "D"
+         ? quickUserInfoStyles.reliabilityD
+         : quickUserInfoStyles.reliabilityF;
    return (
       <div className={quickUserInfoStyles.mainWrapper}>
          <span className={`closeModal ${quickUserInfoStyles.closeModal}`} onClick={closeModal}>
@@ -23,16 +34,24 @@ const QuickUserInfoPopup = ({ user, closeModal }: quickUserInfoPopupProps) => {
             <a className={quickUserInfoStyles.signature}>{user.signature}</a>
          </Link>
          <p className={quickUserInfoStyles.name}>
-            <span>Name:</span> {user.first_name} {user.last_name}
+            <span>🔖 Name:</span> {user.first_name} {user.last_name}
          </p>
          <p className={quickUserInfoStyles.approval}>
-            <span>Approval Level:</span> {calulateApprovalLevel(user.approval_rating)}
+            <span>📊 Approval Level:</span>{" "}
+            <span className={`${quickUserInfoStyles.gradeSpan} ${authorityLevel}`}>
+               {calulateApprovalLevel(user.approval_rating)?.grade}
+            </span>
          </p>
          <p className={quickUserInfoStyles.authority}>
-            <span>Authority Level:</span> {user.authority_level}
+            <span>⭐️ Authority Level:</span>{" "}
+            {user.authority_level == "trusted" ? (
+               <span className={quickUserInfoStyles.trustedSpan}>{user.authority_level}🎖</span>
+            ) : (
+               user.authority_level
+            )}
          </p>
          <p className={quickUserInfoStyles.church}>
-            <span>Home Church:</span> {user.my_church}
+            <span>⛪️ Home Church:</span> {user.my_church}
          </p>
       </div>
    );
