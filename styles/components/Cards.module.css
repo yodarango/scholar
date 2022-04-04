@@ -352,6 +352,7 @@ rename it and reuse it in other instaces if needed.
    object-position: center;
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
    display: inline-block;
+   background-color: var(--font-color);
 }
 .commentsOfCommentsImgWrapper {
    margin: 0.5rem;

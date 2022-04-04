@@ -6,6 +6,7 @@ export const CREATE_NEW_USER = gql`
       $signature: String
       $email: String
       $password: String
+      $gender: String
    ) {
       create_new_user(
          data: {
@@ -13,6 +14,7 @@ export const CREATE_NEW_USER = gql`
             email: $email
             password: $password
             authority_level: $authority_level
+            gender: $gender
          }
       ) {
          ... on NewSession {

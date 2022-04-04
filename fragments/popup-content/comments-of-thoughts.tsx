@@ -43,42 +43,51 @@ const CommentsOfThoughtContent = ({ comments }: commentsOfThoughtContentProps) =
                      Be the first to comment on this post!
                   </h1>
                )}
-               {comments.map((comm) => (
-                  <div
-                     className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
-                     key={comm.ID}>
-                     <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
-                        <div className={`${cardStyles.commentsOfCommentsImgWrapper}`}>
-                           <img
-                              src={comm.creator_avatar}
-                              alt='Avatar Image used as a user profile'
-                              className={cardStyles.commentsOfCommentsImg}
-                           />
+               {comments.map((comm) => {
+                  console.log(comm);
+                  return (
+                     <div
+                        className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
+                        key={comm.ID}>
+                        <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
+                           <div className={`${cardStyles.commentsOfCommentsImgWrapper}`}>
+                              <img
+                                 src={comm.creator_avatar}
+                                 alt='Avatar Image used as a user profile'
+                                 className={cardStyles.commentsOfCommentsImg}
+                              />
+                           </div>
+                           <div className={cardStyles.commentsOfCommentsName}>
+                              {comm.creator_signature}
+                           </div>
                         </div>
-                        <div className={cardStyles.commentsOfCommentsName}>
-                           {comm.creator_signature}
+                        {openCommentState === comm.ID && (
+                           <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.body}</p>
+                        )}
+                        {openCommentState !== comm.ID && (
+                           <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
+                        )}
+                        <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
+                           {openCommentFuncState === false && (
+                              <div onClick={() => openComment(comm.ID)}>
+                                 <div
+                                    className={
+                                       (cardStyles.cardIcon, cardStyles.cardIconMore)
+                                    }></div>
+                              </div>
+                           )}
+                           {openCommentFuncState === true && (
+                              <div onClick={closeComment}>
+                                 <div
+                                    className={
+                                       (cardStyles.cardIcon, cardStyles.cardIconMore)
+                                    }></div>
+                              </div>
+                           )}
                         </div>
                      </div>
-                     {openCommentState === comm.ID && (
-                        <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.body}</p>
-                     )}
-                     {openCommentState !== comm.ID && (
-                        <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
-                     )}
-                     <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
-                        {openCommentFuncState === false && (
-                           <div onClick={() => openComment(comm.ID)}>
-                              <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
-                           </div>
-                        )}
-                        {openCommentFuncState === true && (
-                           <div onClick={closeComment}>
-                              <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
-                           </div>
-                        )}
-                     </div>
-                  </div>
-               ))}
+                  );
+               })}
             </div>
          </div>
       </>

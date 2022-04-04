@@ -103,7 +103,7 @@ const UserSettings = () => {
       maleClass: string | undefined;
    }>({ gender: userSettingsState?.gender, femaleClass: "", maleClass: "" });
 
-   // convert strign passed down by DB
+   // convert string passed down by DB
    const rawDate = userSettingsState?.birth_date
       ? parseInt(userSettingsState?.birth_date)
       : new Date();
@@ -197,7 +197,7 @@ const UserSettings = () => {
                newPassword: newPassword.current?.value.trim()
             }
          });
-         console.log(data);
+
          if (data.change_password.update_successful === true) {
             setNotificationPopUpState(
                <NotificationPopup

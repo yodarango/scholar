@@ -1,8 +1,8 @@
-# ------------------------- DAIYLYS ------------------------
+# ----------------------- DAIYLYS ---------------------
 
 **Left Off**
 
--  avoid calling for comments every time a new comment is created. I have finished comments and thoughts. get quotes done next
+-  pull authority level into the comments of content so that the "trusted" signifier appears
 
 ## TO DO's
 
@@ -67,3 +67,5 @@
 -  set the /helpers/math/calcualterating... helper on the userBioWrapper
 
 -  turn user profile avatar into its own component
+
+-  comentary-content.tsx is using comments-of-thoughts.tsx when it should be using comments-of comments-content.tsx instead

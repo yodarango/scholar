@@ -71,6 +71,9 @@ const Me = () => {
    const [userState, setUserState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);
 
+   // set notifications
+   const [hasNotificationState, setHasNotificationState] = useState<boolean | undefined>(false);
+
    const getUserSettings = async () => {
       const { data } = await client.query({
          query: GET_MY_PROFILE,
@@ -81,6 +84,7 @@ const Me = () => {
          }
       });
 
+      setHasNotificationState(data.me[0].has_new_notifications);
       if (data.me && data.me.length > 0) {
          setLoadingState(false);
          setUserState(data.me[0]);
@@ -97,9 +101,7 @@ const Me = () => {
    }, []);
    // ================  FUNCTION 2: open the notifications popup   ================= //
    const [notificationsPopupState, setnotificationsPopupState] = useState(false);
-   const [hasNotificationState, setHasNotificationState] = useState<boolean | undefined>(
-      userState?.has_new_notifications
-   );
+
    const openNotificationsPopup = () => {
       setHasNotificationState(false);
       setnotificationsPopupState(true);
