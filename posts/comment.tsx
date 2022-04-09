@@ -82,6 +82,7 @@ export default function Comments({ commentary }: commentsProps) {
          variables: { ID: commentary_id, showComment: true }
       });
 
+      console.log("data from SHOW_COMMENTS_PF_COMMENTARY ", data);
       setseeWholePost(
          <div className='dark-bkg'>
             <div className='closeModal' onClick={() => setseeWholePost(false)}>

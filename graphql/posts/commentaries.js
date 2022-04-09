@@ -73,6 +73,8 @@ export const SHOW_COMMENTS_OF_COMMENTARY = gql`
             creator_avatar
             creator_signature
             creator_approval_rate
+            creator_authority_level
+            creator_id
             posted_on
          }
          approvals {

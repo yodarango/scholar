@@ -82,6 +82,9 @@ export const OPEN_QUOTE_STORY_COMMENTS = gql`
             creator_avatar
             creator_signature
             creator_approval_rate
+            creator_authority_level
+            posted_on
+            creator_id
          }
       }
    }

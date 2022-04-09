@@ -283,9 +283,22 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
          {/* ---------------- Wrapper of the open stories ---------------*/}
          {handleStoriePopupState && (
             <section className={quoteStoriesStyles.storyPostWrapper}>
-               <div
-                  className={quoteStoriesStyles.avatarImageStory}
-                  style={{ backgroundImage: `url(${creator.avatar})` }}></div>
+               <div className={quoteStoriesStyles.wholeAvatarWrapper}>
+                  <div
+                     className={`${quoteStoriesStyles.userReputationWrapperView} ${
+                        creator.authority_level == "trusted"
+                           ? quoteStoriesStyles.userReputationWrapperTrusted
+                           : ""
+                     }`}>
+                     <div
+                        className={quoteStoriesStyles.avatarImageStory}
+                        style={{ backgroundImage: `url(${creator.avatar})` }}></div>
+                     {creator.authority_level == "trusted" && (
+                        <span className={quoteStoriesStyles.trustedPointer}></span>
+                     )}
+                  </div>
+               </div>
+
                <div className={quoteStoriesStyles.count}>
                   {countState + 1} of {quoteState.length}
                </div>

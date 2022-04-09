@@ -154,7 +154,9 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
          body: data.body,
          creator_avatar: data.creator_avatar,
          creator_signature: data.creator_signature,
-         creator_approval_rate: data.creator_approval_rate
+         creator_approval_rate: data.creator_approval_rate,
+         creator_authority_level: data.creator_authority_level,
+         creator_id: data.creator_id
       };
 
       setCommentaryCommentsState((commentaryCommentsState) => [

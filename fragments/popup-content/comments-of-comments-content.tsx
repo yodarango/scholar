@@ -71,19 +71,27 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                   </h1>
                )}
                {comments.map((comm) => {
-                  console.log(comm);
                   return (
                      <div
                         className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
                         key={comm.ID}>
                         <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
-                           <div className={`${cardStyles.commentsOfCommentsImgWrapper}`}>
+                           <div
+                              className={`${cardStyles.commentsOfCommentsImgWrapper} ${
+                                 comm.creator_authority_level == "trusted"
+                                    ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                    : ""
+                              }`}>
                               <img
                                  src={comm.creator_avatar}
                                  alt='Avatar Image used as a user profile'
                                  className={cardStyles.commentsOfCommentsImg}
                               />
+                              {comm.creator_authority_level == "trusted" && (
+                                 <span className={cardStyles.trustedPointer}></span>
+                              )}
                            </div>
+
                            <div className={cardStyles.commentsOfCommentsName}>
                               {comm.creator_signature}
                            </div>

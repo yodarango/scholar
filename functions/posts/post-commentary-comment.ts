@@ -10,7 +10,7 @@ const handlePostComment = async (COMMENTARY_ID: string, body: string, USER_ID: s
          mutation: CREATE_COMMENTARY_COMMENT,
          variables: { COMMENTARY_ID, body, USER_ID }
       });
-      console.log("commentary data returned", data);
+
       let result: boolean | Tcomment;
       data.Commentary_Comment ? (result = data.Commentary_Comment) : (result = false);
       return result;

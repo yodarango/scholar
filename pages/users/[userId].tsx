@@ -81,7 +81,6 @@ const User = () => {
       }
    }
 
-   console.log(router.query);
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userState, setUserState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);

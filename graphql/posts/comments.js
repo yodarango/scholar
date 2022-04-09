@@ -40,6 +40,7 @@ export const CREATE_COMMENTARY_COMMENT = gql`
          creator_avatar
          creator_signature
          creator_approval_rate
+         creator_id
       }
    }
 `;
@@ -52,6 +53,7 @@ export const CREATE_QUOTE_COMMENT = gql`
          creator_avatar
          creator_signature
          creator_approval_rate
+         creator_id
       }
    }
 `;
@@ -64,6 +66,7 @@ export const CREATE_THOUGHT_COMMENT = gql`
          creator_avatar
          creator_signature
          creator_approval_rate
+         creator_id
       }
    }
 `;

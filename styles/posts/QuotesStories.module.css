@@ -78,6 +78,9 @@
 }
 
 /* story posts bakground */
+.userReputationWrapperView {
+}
+
 .storyPostWrapper {
    position: fixed;
    top: 0;
@@ -300,7 +303,7 @@
    justify-content: flex-start;
    position: relative;
    top: calc(100vh - 18rem);
-   padding: 3rem 1rem 1rem 2rem;
+   padding: var(--medium-spacing-mobile) var(--small-spacing-mobile);
    overflow-x: scroll;
    animation: slideUp 300ms ease-in;
 }
@@ -327,8 +330,16 @@
    color: var(--fourth-color);
    position: sticky;
    margin-top: -2rem;
-   top: -2rem;
+   top: -1.5rem;
    left: 0;
+   display: flex;
+   height: 2rem;
+   width: 2rem;
+   background-color: var(--primary-color);
+   color: var(--font-color);
+   border-radius: 50%;
+   align-items: center;
+   justify-content: center;
 }
 
 .selectedTagColor {

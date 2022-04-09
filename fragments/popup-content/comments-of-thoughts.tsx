@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import { useState } from "react";
 
 // styles
 import cardStyles from "../../styles/components/Cards.module.css";
@@ -50,12 +50,25 @@ const CommentsOfThoughtContent = ({ comments }: commentsOfThoughtContentProps) =
                         className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
                         key={comm.ID}>
                         <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
-                           <div className={`${cardStyles.commentsOfCommentsImgWrapper}`}>
-                              <img
-                                 src={comm.creator_avatar}
-                                 alt='Avatar Image used as a user profile'
-                                 className={cardStyles.commentsOfCommentsImg}
-                              />
+                           <div className={cardStyles.wholeAvatarWrapperCommOfComm}>
+                              <a href={`/users/${comm.creator_id}`}>
+                                 <div
+                                    className={`${cardStyles.commentsOfCommentsImgWrapper} ${
+                                       comm.creator_authority_level == "trusted"
+                                          ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                          : ""
+                                    }`}>
+                                    <img
+                                       src={comm.creator_avatar}
+                                       alt='Avatar Image used as a user profile'
+                                       className={cardStyles.commentsOfCommentsImg}
+                                    />
+                                 </div>
+                                 {comm.creator_authority_level == "trusted" && (
+                                    <span
+                                       className={`${cardStyles.trustedPointer} ${cardStyles.trustedPointerCommentsOfCommentaries}`}></span>
+                                 )}
+                              </a>
                            </div>
                            <div className={cardStyles.commentsOfCommentsName}>
                               {comm.creator_signature}

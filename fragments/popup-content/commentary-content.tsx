@@ -113,6 +113,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
             commentBody.current.value,
             commentary.creator.ID
          );
+
          // if the helper function returns true then everything went well
          if (data.ID) {
             // increase comment count
@@ -160,7 +161,9 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
          body: data.body,
          creator_avatar: data.creator_avatar,
          creator_signature: data.creator_signature,
-         creator_approval_rate: data.creator_approval_rate
+         creator_approval_rate: data.creator_approval_rate,
+         creator_authority_level: data.creator_authority_level,
+         creator_id: data.creator_id
       };
 
       setCommentaryCommentsState((commentaryCommentsState) => [

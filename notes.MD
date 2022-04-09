@@ -2,7 +2,7 @@
 
 **Left Off**
 
--  pull authority level into the comments of content so that the "trusted" signifier appears
+-  set a way for users to delete theri commetns on content
 
 ## TO DO's
 
@@ -11,8 +11,6 @@
 -  set a way for users to request a "trusted level"
 
 -  adda denomination sign maybe
-
--  set geder on Sign up route and set a default avatar image
 
 -  add a welcome banner the first time user logs in
 
