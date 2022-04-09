@@ -14,8 +14,7 @@ import SmallLoader from "../chunks/small-loader";
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
 
 // helpers
-import { valuesCat } from "../../helpers/dropdown-values";
-import { IvaluesCat } from "../../helpers/dropdown-values";
+import { IvaluesCat, valuesCat } from "../../helpers/dropdown-values";
 import { Tuser } from "../../pages/users/[userId]";
 
 import getCookie from "../../helpers/get-cookie";

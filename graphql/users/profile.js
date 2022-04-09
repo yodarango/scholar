@@ -211,10 +211,18 @@ export const GET_PROFILE_SERMON_NOTES = gql`
       }
    }
 `;
+
+export const CHECK_IF_USER_LOGGED_IN = gql`
+   query {
+      is_user_logged_in
+   }
+`;
+
 // ======================= POSTS ROUTES ===================== //
 export const UPDATE_MY_SETTINGS = gql`
    mutation (
       $signature: String
+      $MONGO_DB_ID: String
       $first_name: String
       $last_name: String
       $birth_date: String
@@ -231,6 +239,7 @@ export const UPDATE_MY_SETTINGS = gql`
       me(
          data: {
             signature: $signature
+            MONGO_DB_ID: $MONGO_DB_ID
             first_name: $first_name
             last_name: $last_name
             birth_date: $birth_date
@@ -288,6 +297,7 @@ export const VALIDATE_CURRENT_PASSWORD = gql`
       }
    }
 `;
+
 export const UPDATE_MY_AVATAR = gql`
    mutation ($avatar: String) {
       update_user_avatar(avatar: $avatar)

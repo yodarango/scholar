@@ -12,6 +12,7 @@ import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 import NotificationPopup from "../fragments/notification-popup";
+import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
@@ -19,10 +20,13 @@ import cardStyles from "../styles/components/Cards.module.css";
 import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
 
 // helpers
-import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-quote-comment";
 import getCookie from "../helpers/get-cookie";
 import parseJwt from "../helpers/auth/decodeJWT";
+
+//types
+import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
+import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
 
 export type Tstory = {
    ID: string;
@@ -69,20 +73,11 @@ export type last24SingleQuote = {
       avatar: string;
       signature: string;
       approval_rating: string;
+      authority_level: string;
    };
-   deleteOption?: boolean;
-   reportOption?: boolean;
-   editOption?: boolean;
 };
 
-const QuoteStories = ({
-   ID,
-   creator,
-   approvals,
-   deleteOption,
-   editOption,
-   reportOption
-}: last24SingleQuote) => {
+const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
    // globals
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
@@ -247,10 +242,42 @@ const QuoteStories = ({
       setPostApprovalState(data.quote_approvals[0]);
    };
 
+   // ================ FUNCTION 14:  open categroy popup on category tag click  ================ ///
+   const [tagInfoPopupState, setTagInfoPopupState] = useState<boolean | JSX.Element>(false);
+   const openInfoAboutTagColor = (cat: string) => {
+      const selectedTag = valuesCat.filter((obj: IvaluesCat) => obj.tag === cat);
+
+      setTagInfoPopupState(
+         <NotificationPopup
+            title={selectedTag[0].title}
+            closeModal={() => setTagInfoPopupState(false)}
+            contentArray={selectedTag[0].subjects}
+            newClass={`notification-wrapper--${selectedTag[0].title}`}
+         />
+      );
+   };
+
+   // ================== FUNCTION 15: open the user info popup
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   const handleQuickInfoAccessPopup = (user: any) => {
+      setUserQuickAccessInfoPopup(
+         <QuickUserInfoPopup
+            user={user}
+            closeModal={() => setUserQuickAccessInfoPopup(false)}
+            additionalStyles={{ zIndex: 20 }}
+         />
+      );
+   };
+
    return (
       <div className={quoteStoriesStyles.mainWrapper}>
          {deletePopupState}
          {notificationPopUpState}
+         {tagInfoPopupState}
+         {userQuickAccessInfoPopup}
          {reportPopupState && (
             <ConfirmationPopup
                title={`Are you sure you want to report this story`}
@@ -274,14 +301,18 @@ const QuoteStories = ({
             className={quoteStoriesStyles.mainStoryWrapper}
             onClick={() => handleOpenStroies(creator.ID)}>
             <div
-               className={quoteStoriesStyles.userReputationWrapper}
-               style={{
-                  backgroundImage: "linear-gradient(130deg, #ff9214ed, #ff0045)"
-               }}>
+               className={`${quoteStoriesStyles.userReputationWrapper} ${
+                  creator.authority_level == "trusted"
+                     ? quoteStoriesStyles.userReputationWrapperTrusted
+                     : ""
+               }`}>
                <div
                   className={quoteStoriesStyles.avatarImage}
                   style={{ backgroundImage: `url(${creator.avatar})` }}></div>
             </div>
+            {creator.authority_level == "trusted" && (
+               <span className={quoteStoriesStyles.trustedPointer}></span>
+            )}
             <p className={quoteStoriesStyles.userSignature}>{creator.signature}</p>
          </section>
 
@@ -289,8 +320,25 @@ const QuoteStories = ({
          {handleStoriePopupState && (
             <section className={quoteStoriesStyles.storyPostWrapper}>
                <div
-                  className={quoteStoriesStyles.avatarImageStory}
-                  style={{ backgroundImage: `url(${creator.avatar})` }}></div>
+                  className={quoteStoriesStyles.wholeAvatarWrapperView}
+                  onClick={() => handleQuickInfoAccessPopup(creator)}>
+                  {/* <a href={`/users/${creator.ID}`}> */}
+                  <div
+                     className={`${quoteStoriesStyles.userReputationWrapperView} ${
+                        creator.authority_level == "trusted"
+                           ? quoteStoriesStyles.userReputationWrapperViewTrusted
+                           : ""
+                     }`}>
+                     <div
+                        className={quoteStoriesStyles.avatarImageStoryView}
+                        style={{ backgroundImage: `url(${creator.avatar})` }}></div>
+                  </div>
+                  {creator.authority_level == "trusted" && (
+                     <span className={quoteStoriesStyles.trustedPointerView}></span>
+                  )}
+                  {/* </a> */}
+               </div>
+
                <div className={quoteStoriesStyles.count}>
                   {countState + 1} of {quoteState.length}
                </div>
@@ -314,7 +362,6 @@ const QuoteStories = ({
                      }}></span>
                </div>
 
-               {/* ------------------------ actual story post on "view mode" ---------------------- */}
                <div
                   className={`${quoteStoriesStyles.storyPost}`}
                   id={quoteState[countState].background}>
@@ -405,6 +452,9 @@ const QuoteStories = ({
                )}
                <div
                   className={quoteStoriesStyles.selectedTagColor}
+                  onClick={() =>
+                     openInfoAboutTagColor(quoteState[countState].category_tags.split(" ")[0])
+                  }
                   id={`category-${quoteState[countState].category_tags
                      .split(" ")[0]
                      .replace("#", "")}`}></div>

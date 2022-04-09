@@ -1,4 +1,8 @@
-# ------------------------- DAIYLYS ------------------------
+# ----------------------- DAIYLYS ---------------------
+
+**Left Off**
+
+-  set a way for users to delete theri commetns on content
 
 ## TO DO's
 
@@ -6,13 +10,7 @@
 
 -  set a way for users to request a "trusted level"
 
--  add a distinguisher in the avatar for certified users
-
 -  adda denomination sign maybe
-
--  turn user profile avatar into its own comp (maybe)
-
--  set geder on Sign up route and set a default avatar image
 
 -  add a welcome banner the first time user logs in
 
@@ -22,52 +20,13 @@
 
 -  work on the "select verse" model because if you click out of the <p></p> tag it will not color the text orange
 
+-  make the category tag indicator small circles rather than whole lines across the content: looks ugly
+
+-  change the colors of categories fore more pastelish colors
+
 **_ERRORS_**
 
 # The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
-
-// ---------------------------- COMPLETED -------------------- //
-The following things have been aware of and need to be improved:
-✅ = done
-❌ = not longer needed.changed my mind
-
-///// 07/05/2021
-✅ let off at comments-of-comments.tsx
-❌ style the comments cards to be comments on a comment no the main commnet cards - No comments to comments allowed for now
-
-////// 07/12/2021
-✅ the timers that schedule the daily questions and the daily verse will have to be done from the back end
-❌ start the timer in node and save it to the databse - Saving manually to the DB for now
-
-//////// 08/04/21
-✅ instead of having a totally new "create new post" page just render it as a popup fpr
-all types of new posts.
-
-//////// 08/04/21
-✅ after finishing the Library page finsih up the home page
-
-///////// 08/11/2021
-✅ convert fetch requests to getStaticProps
-
-//////// 12/19/2021
-✅ Left off on implementing the QUOTE editor which is positin to the db but the tags and bkg are not working
-
-////// 12/19/2021
-✅ chagned the background property on the db so the quotes everytwehre need to be changed. the bkg went
-from using colors to IDs
-
-////// 12/19/2021
-✅ Left off on posting thought content but it is returning NULL and not the values after being submitted
-see why. Also commentaries and wuotes doing it
-
-////// 12/24/2021
-✅ Submitting the sermon notes is kinda mess but it is where i left off
-
-///////// 12/31/21
-✅ implement edit route for commentary post
-
-///////// 01/03/22
-✅ implementing quote editor
 
 **BEFORE RELEASE**
 
@@ -77,7 +36,7 @@ see why. Also commentaries and wuotes doing it
 
 -  Add user authorization or CORS-ORIGIN limitations in all forms being submitted to avoid vendors
 
-*  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
+-  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
 
 **COOL TO HAVES/ LATER RELEASES**
 
@@ -97,4 +56,14 @@ see why. Also commentaries and wuotes doing it
 -  add all the error and success messages displayed upon CTA's under one file
    for better maintanability and salability
 
-*  change the wayt that stories are rendered. currently is kinda messy!
+-  change the wayt that stories are rendered. currently is kinda messy!
+
+-  Have a way for users to search content by _TAG_, _USER_ID_, _VERSE_ and be able to render them in their own page for sharing purposes, rahter than just putting them in a bkg layer. I mean this is the heart of the app so....
+
+-  have a way to share posts
+
+-  set the /helpers/math/calcualterating... helper on the userBioWrapper
+
+-  turn user profile avatar into its own component
+
+-  comentary-content.tsx is using comments-of-thoughts.tsx when it should be using comments-of comments-content.tsx instead

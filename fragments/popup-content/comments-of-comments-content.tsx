@@ -70,51 +70,68 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                      Be the first to comment on this post!
                   </h1>
                )}
-               {comments.map((comm) => (
-                  <div
-                     className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
-                     key={comm.ID}>
-                     <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
-                        <div className={`${cardStyles.commentsOfCommentsImgWrapper}`}>
-                           <img
-                              src={comm.creator_avatar}
-                              alt='Avatar Image used as a user profile'
-                              className={cardStyles.commentsOfCommentsImg}
-                           />
-                        </div>
-                        <div className={cardStyles.commentsOfCommentsName}>
-                           {comm.creator_signature}
-                        </div>
-                     </div>
-                     {openCommentState === comm.ID && (
-                        <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.body}</p>
-                     )}
-                     {openCommentState !== comm.ID && (
-                        <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
-                     )}
-                     <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
-                        {openCommentFuncState === false && (
-                           <div onClick={() => openComment(comm.ID)}>
-                              <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
+               {comments.map((comm) => {
+                  return (
+                     <div
+                        className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
+                        key={comm.ID}>
+                        <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
+                           <div
+                              className={`${cardStyles.commentsOfCommentsImgWrapper} ${
+                                 comm.creator_authority_level == "trusted"
+                                    ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                    : ""
+                              }`}>
+                              <img
+                                 src={comm.creator_avatar}
+                                 alt='Avatar Image used as a user profile'
+                                 className={cardStyles.commentsOfCommentsImg}
+                              />
+                              {comm.creator_authority_level == "trusted" && (
+                                 <span className={cardStyles.trustedPointer}></span>
+                              )}
                            </div>
-                        )}
-                        {openCommentFuncState === true && (
-                           <div onClick={closeComment}>
-                              <div className={(cardStyles.cardIcon, cardStyles.cardIconMore)}></div>
+
+                           <div className={cardStyles.commentsOfCommentsName}>
+                              {comm.creator_signature}
                            </div>
+                        </div>
+                        {openCommentState === comm.ID && (
+                           <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.body}</p>
                         )}
+                        {openCommentState !== comm.ID && (
+                           <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
+                        )}
+                        <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
+                           {openCommentFuncState === false && (
+                              <div onClick={() => openComment(comm.ID)}>
+                                 <div
+                                    className={
+                                       (cardStyles.cardIcon, cardStyles.cardIconMore)
+                                    }></div>
+                              </div>
+                           )}
+                           {openCommentFuncState === true && (
+                              <div onClick={closeComment}>
+                                 <div
+                                    className={
+                                       (cardStyles.cardIcon, cardStyles.cardIconMore)
+                                    }></div>
+                              </div>
+                           )}
+                        </div>
+                        <div className={cardStyles.commentsOfContentActionWrapper}>
+                           <span
+                              className={(cardStyles.cardIcon, cardStyles.delete)}
+                              onClick={handleDeleteConfirmation}></span>
+                           <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
+                           <span
+                              className={(cardStyles.cardIcon, cardStyles.report)}
+                              onClick={handleReportConfirmation}></span>
+                        </div>
                      </div>
-                     <div className={cardStyles.commentsOfContentActionWrapper}>
-                        <span
-                           className={(cardStyles.cardIcon, cardStyles.delete)}
-                           onClick={handleDeleteConfirmation}></span>
-                        <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
-                        <span
-                           className={(cardStyles.cardIcon, cardStyles.report)}
-                           onClick={handleReportConfirmation}></span>
-                     </div>
-                  </div>
-               ))}
+                  );
+               })}
             </div>
          </div>
       </>

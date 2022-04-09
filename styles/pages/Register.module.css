@@ -3,7 +3,7 @@
    width: 9.3rem;
    height: 9.3rem;
    margin: var(--xlarge-spacing-mobile) auto var(--large-spacing-mobile);
-   background-image: url('../../public/Parks10.png');
+   background-image: url("../../public/Parks10.png");
    background-size: cover;
    background-position: center;
 }
@@ -20,6 +20,48 @@
 .loginRigth {
    background-color: var(--font-color);
    display: none;
+}
+
+.inputWrapper {
+   max-width: var(--input-width-mobile);
+   position: relative;
+   height: 4rem;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.inputWrapper label {
+   text-align: center;
+   width: 100%;
+}
+
+.genderInputWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.genderInputWrapper > label {
+   width: 100%;
+}
+
+.genderInput {
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 2rem;
+   height: 2rem;
+   border-radius: 50%;
+   background-color: var(--secondary-color);
+   margin: var(--xsmall-spacing-mobile) auto;
+}
+
+.genderInput:hover,
+.genderInputMaleActive,
+.genderInputFemaleActive {
+   background-color: var(--third-color);
+   cursor: pointer;
 }
 
 @media only screen and (min-width: var(--ipad-break)) {

@@ -2,6 +2,7 @@
 import userBioWrapperStyles from "../../../styles/fragments/chunks/users/UserBioWrapper.module.css";
 
 // helpers / types
+import calulateApprovalLevel from "../../../helpers/math/calculateArppovalLevel";
 import { Tuser } from "../../../pages/users/[userId]";
 
 type userBioWrapperProps = {
@@ -10,14 +11,20 @@ type userBioWrapperProps = {
 const UserBioWrapper = ({ user }: userBioWrapperProps) => {
    return (
       <section className={userBioWrapperStyles.userBioWrapper}>
-         <div
-            className={userBioWrapperStyles.reputationWrapper}
-            style={{
-               backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)`
-            }}>
+         <div className={userBioWrapperStyles.avatarReputationWrapper}>
             <div
-               className={userBioWrapperStyles.avatar}
-               style={{ backgroundImage: `url(${user.avatar})` }}></div>
+               className={`${userBioWrapperStyles.reputationWrapper} ${
+                  user.authority_level == "trusted"
+                     ? userBioWrapperStyles.reputationWrapperTrusted
+                     : ""
+               }`}>
+               <div
+                  className={userBioWrapperStyles.avatar}
+                  style={{ backgroundImage: `url(${user.avatar})` }}></div>
+            </div>
+            {user.authority_level == "trusted" && (
+               <span className={userBioWrapperStyles.trustedPointer}></span>
+            )}
          </div>
          {user.approval_rating >= 97 && (
             <h2 className={userBioWrapperStyles.reliabilityA}>Approval Rating: A+</h2>

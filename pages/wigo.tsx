@@ -134,6 +134,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
          last_id: lastId
       }
    });
+
    return {
       props: {
          verseContent,

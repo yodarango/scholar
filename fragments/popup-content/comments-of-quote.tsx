@@ -7,6 +7,8 @@ import ConfirmationPopup from "../confirmation-popup";
 // styles
 import commentsOfStoryStyles from "../../styles/fragments/popup-content/CommentsOfQuote.module.css";
 import cardStyles from "../../styles/components/Cards.module.css";
+
+// types
 import { Tcomment } from "../buttons/post-reactions";
 
 export type TcommentType = {
@@ -18,6 +20,8 @@ export type TcommentType = {
    creator_signature: string;
    creator_avatar: string;
    creator_approval_rate: number;
+   creator_authority_level: string;
+   creator_id: string;
    total_count: number;
 };
 
@@ -53,10 +57,23 @@ const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
          {comments.map((comment) => (
             <div className={commentsOfStoryStyles.mainWrapper}>
                <div className={commentsOfStoryStyles.avatarUserSignatureWrapper}>
-                  <div className={commentsOfStoryStyles.commentAvatarWrapper}>
-                     <div
-                        style={{ backgroundImage: `url(${comment.creator_avatar})` }}
-                        className={commentsOfStoryStyles.avatar}></div>
+                  <div className={`${commentsOfStoryStyles.wholeAvatarWrapper}`}>
+                     <a href={`/users/${comment.creator_id}`}>
+                        <div
+                           className={`${commentsOfStoryStyles.commentAvatarWrapper}  ${
+                              comment.creator_authority_level == "trusted"
+                                 ? commentsOfStoryStyles.commentCardHeaderAvatarImgBkgTrusted
+                                 : ""
+                           }`}>
+                           <div
+                              style={{ backgroundImage: `url(${comment.creator_avatar})` }}
+                              className={`${commentsOfStoryStyles.avatar}`}></div>
+                        </div>
+                        {comment.creator_authority_level == "trusted" && (
+                           <span
+                              className={`${commentsOfStoryStyles.trustedPointer} ${cardStyles.trustedPointerCommentsOfCommentaries}`}></span>
+                        )}
+                     </a>
                   </div>
                   <h4>{comment.creator_signature}</h4>
                </div>

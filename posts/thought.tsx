@@ -10,13 +10,14 @@ import {
    SHOW_COMMENTS_OF_THOUGHTS,
    DELETE_ONE_THOUGHT
 } from "../graphql/posts/thoughts";
-import { GET_THOUGHT_APPROVALS } from "../graphql/posts/approvals";
+//import { GET_THOUGHT_APPROVALS } from "../graphql/posts/approvals";
 
 // components
 import ThoughtContent from "../fragments/popup-content/thought-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
 import NotificationPopup from "../fragments/notification-popup";
+import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
 import cardStyles from "../styles/components/Cards.module.css";
@@ -53,10 +54,11 @@ export type Tthought = {
 };
 
 type thoughtProps = {
+   user_authority_level?: string;
    thoughts: Tthought[];
 };
 
-const Thought = ({ thoughts }: thoughtProps) => {
+const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderAdminOptionsState, setRenderAdminOptionsState] = useState<string>("");
 
@@ -227,7 +229,7 @@ const Thought = ({ thoughts }: thoughtProps) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
          const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
-         if (data == true) {
+         if (data.ID) {
             setPostingState(false);
             setCommentBoxState("");
             //commentBody.current.value = "comment posted";
@@ -256,14 +258,25 @@ const Thought = ({ thoughts }: thoughtProps) => {
       }
    };
 
+   // open the user info popup
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
+      false
+   );
+
+   const handleQuickInfoAccessPopup = (user: any) => {
+      setUserQuickAccessInfoPopup(
+         <QuickUserInfoPopup user={user} closeModal={() => setUserQuickAccessInfoPopup(false)} />
+      );
+   };
    return (
       <>
          {seeWholePost}
+         {userQuickAccessInfoPopup}
          {confirmationPopUpState}
          {notificationpopUpState}
          {chooseAprovalRating}
          {thoughts.map((thought, index) => {
-            console.log("thought: ", thought);
+            thought.creator.authority_level = user_authority_level ? user_authority_level : "";
             return (
                <section key={thought.ID}>
                   <div
@@ -273,15 +286,26 @@ const Thought = ({ thoughts }: thoughtProps) => {
                      <div
                         className={cardStyles.commentCardHeader}
                         id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                        <div className={cardStyles.commentCardHeaderAvatarImgBkg}>
-                           {thought.creator && thought.creator.avatar && (
-                              <img
-                                 src={thought.creator.avatar}
-                                 alt='Avatar'
-                                 className={cardStyles.commentCardHeaderAvatarImg}
-                              />
-                           )}
-                        </div>
+                        {thought.creator && thought.creator.authority_level != undefined && (
+                           <div className={cardStyles.creatorimMainWrapper}>
+                              <div
+                                 className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
+                                    thought.creator.authority_level == "trusted"
+                                       ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                       : ""
+                                 }`}
+                                 onClick={() => handleQuickInfoAccessPopup(thought.creator)}>
+                                 <img
+                                    src={thought.creator.avatar}
+                                    alt='Avatar'
+                                    className={`${cardStyles.commentCardHeaderAvatarImg}`}
+                                 />
+                              </div>
+                              {thought.creator.authority_level == "trusted" && (
+                                 <span className={cardStyles.trustedPointer}></span>
+                              )}
+                           </div>
+                        )}
                         {thought.creator && thought.creator.signature && (
                            <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
                         )}

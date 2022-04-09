@@ -34,6 +34,7 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
          setQuoteState((quoteState) => [...quoteState, ...data.users[0].all_posts.quotes]);
          data.users[0].all_posts.quotes.length < 20 ? setHideLoadMoreBttnState(true) : null;
       };
+
       requestQuotes();
    }, [quoteLastIdState]);
 
@@ -50,6 +51,7 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
                <section>
                   <QuotesProfile
                      key={story.ID}
+                     user_authority_level={user.authority_level}
                      story={{
                         ...story,
                         creator: {
@@ -60,9 +62,6 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
                            authority_level: user.authority_level
                         }
                      }}
-                     deleteOption={true}
-                     editOption={true}
-                     reportOption={true}
                   />
                </section>
             ))}

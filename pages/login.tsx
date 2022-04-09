@@ -1,11 +1,12 @@
 // core
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 // graphQL
 import client from "../apollo-client";
 import { AUTHENTICATE_USER } from "../graphql/users/authenticate_user";
+import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 
 // child comps
 import SmallLoader from "../fragments/chunks/small-loader";
@@ -16,19 +17,33 @@ import loginStyles from "../styles/pages/Login.module.css";
 
 // helpers
 const Cookies = require("js-cookie");
-import parseJwt from "../helpers/auth/decodeJWT";
 
 export default function Login() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
    const router = useRouter();
-   const token: string = Cookies.get("authorization");
-   const parsedUser = parseJwt(token);
 
-   if (typeof window !== "undefined") {
-      if (parsedUser && parsedUser.ID) {
-         router.replace("/users/me");
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+   const checkedIfUserLoggedIn = async () => {
+      try {
+         const { data } = await client.query({
+            query: CHECK_IF_USER_LOGGED_IN,
+            variables: {}
+         });
+
+         setIsLoggedIn(data.is_user_logged_in);
+
+         if (data.is_user_logged_in === true) {
+            router.replace("/users/me");
+         }
+      } catch (error) {
+         console.log(error);
       }
-   }
+   };
+
+   useEffect(() => {
+      checkedIfUserLoggedIn();
+   }, []);
 
    // ====================== FUNCTION: Login the user ============================ //
    const signatureInput = useRef<HTMLInputElement>(null);
@@ -74,7 +89,7 @@ export default function Login() {
 
    return (
       <>
-         {!parsedUser && (
+         {!isLoggedIn && (
             <div className='main-wrapper'>
                {notificationpopUpState}
                <div className={loginStyles.loginLogo}></div>

@@ -42,7 +42,9 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
          variables: { ID: quote_id, showComment: true }
       });
 
+      console.log("comments from qutoe commetns comp ", data);
       setCommentsOfQuote(data.quote[0].comments);
+      setCommentsCountState(data.quote[0].comments.length);
    };
 
    // ==============   FUNCTION 8: see the story data when the user clicks "More" =============== //
@@ -71,7 +73,7 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                story.creator.ID
             );
 
-            if (data == true) {
+            if (data === true) {
                setCommentsCountState(commentsCountState + 1);
                setPostingState(false);
                setCommentPopUpState(false);
@@ -119,7 +121,6 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
             }
          });
          setChooseAprovalRating(false);
-         setPostApprovalState(data.quote_approvals[0]);
       } catch (error: any) {
          console.log(error);
       }
@@ -190,7 +191,7 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                         X
                      </span>
                      <CommentsOfQuote comments={commentsOfQuote} />
-                     {story.comments[0].total_count <= 0 && (
+                     {commentsCountState <= 0 && (
                         <h3 className={quoteStoriesStyles.noCommentsYet}>
                            Be the first one to comment! 😊
                         </h3>

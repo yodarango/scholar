@@ -15,6 +15,7 @@ import NotificationPopup from "../../../fragments/notification-popup";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
+import PopupWrapper from "../../../layouts/popup-wrapper";
 
 // helpers
 const Cookies = require("js-cookie");
@@ -23,7 +24,6 @@ import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
 import { Tuser } from "../[userId]";
-import PopupWrapper from "../../../layouts/popup-wrapper";
 
 type userSettingsProps = {
    user: Tuser;
@@ -103,7 +103,7 @@ const UserSettings = () => {
       maleClass: string | undefined;
    }>({ gender: userSettingsState?.gender, femaleClass: "", maleClass: "" });
 
-   // convert strign passed down by DB
+   // convert string passed down by DB
    const rawDate = userSettingsState?.birth_date
       ? parseInt(userSettingsState?.birth_date)
       : new Date();
@@ -116,7 +116,7 @@ const UserSettings = () => {
          const { data } = await client.mutate({
             mutation: UPDATE_MY_SETTINGS,
             variables: {
-               signature: `#${signatureInput.current?.value}`
+               signature: `${signatureInput.current?.value}`
                   ? signatureInput.current?.value.toUpperCase()
                   : "", //reomve hashtag before submitting to DB
                first_name: firstName.current?.value ? firstName.current?.value : "",
@@ -197,7 +197,7 @@ const UserSettings = () => {
                newPassword: newPassword.current?.value.trim()
             }
          });
-         console.log(data);
+
          if (data.change_password.update_successful === true) {
             setNotificationPopUpState(
                <NotificationPopup

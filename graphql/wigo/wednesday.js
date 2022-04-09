@@ -70,6 +70,10 @@ export const GET_WEDNESDAY_CONTENT = gql`
             avatar
             signature
             approval_rating
+            authority_level
+            my_church
+            first_name
+            last_name
          }
       }
 
