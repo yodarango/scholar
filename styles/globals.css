@@ -49,7 +49,8 @@
    --aprval-level-f: rgb(207, 58, 47);
 
    /**************** category tags colors ==========m***********/
-   --category-BLK: rgb(32, 32, 32);
+   /* ------ ODL ----- */
+   /* --category-BLK: rgb(37, 37, 37);
    --category-BL: rgb(1, 96, 240);
    --category-BR: #9c6644;
    --category-CYN: rgb(50, 190, 167);
@@ -58,7 +59,18 @@
    --category-PNK: rgb(255, 84, 170);
    --category-PPL: rgb(142, 54, 224);
    --category-RD: rgb(224, 0, 0);
-   --category-YLW: rgb(255, 174, 0);
+   --category-YLW: rgb(255, 174, 0); */
+
+   --category-BLK: rgb(37, 37, 37);
+   --category-BL: #8093f1;
+   --category-BR: #d3ab9e;
+   --category-CYN: #55d6c2;
+   --category-GRN: #6ba969;
+   --category-OR: #fcab64;
+   --category-PNK: #ffa6c1;
+   --category-PPL: #9381ff;
+   --category-RD: #dd5254;
+   --category-YLW: #ffe45e;
 
    /**************** quotes background colors ==========m***********/
    --quote-bkg-one: linear-gradient(120deg, rgba(0, 232, 238, 1) 0%, rgba(235, 2, 2, 1) 100%);
@@ -426,7 +438,10 @@ a:active {
    grid-column: 2/3;
    grid-row: 1/2;
    width: 100%;
+   min-height: 2rem;
    text-align: center;
+   overflow-x: scroll;
+   display: block;
 }
 
 .new-post-trigger,
@@ -570,14 +585,17 @@ a:active {
 /* Tag Color Notification  */
 .notification-wrapper--Blue {
    background-color: var(--category-BL);
+   color: var(--primary-color);
 }
 
 .notification-wrapper--Brown {
    background-color: var(--category-BR);
+   color: var(--primary-color);
 }
 
 .notification-wrapper--Cyan {
    background-color: var(--category-CYN);
+   color: var(--primary-color);
 }
 
 .notification-wrapper--Green {
@@ -586,10 +604,12 @@ a:active {
 
 .notification-wrapper--Orange {
    background-color: var(--category-OR);
+   color: var(--primary-color);
 }
 
 .notification-wrapper--Pink {
    background-color: var(--category-PNK);
+   color: var(--primary-color);
 }
 
 .notification-wrapper--Purple {
@@ -837,14 +857,15 @@ a:active {
       padding: var(--xsmall-spacing-desktop);
    }
 
+   /* -------- card looks too bid on desktop so i commented this out to make it smaller */
    /* Notification Wrapper */
-   .notification-wrapper {
+   /* .notification-wrapper {
       max-width: 650px;
-   }
+   } */
 
-   .notification-wrapper_title {
+   /* .notification-wrapper_title {
       font: var(--secondary-font-desktop);
-   }
+   } */
 
    .notification-wrapper_content {
       font: var(--widget-font-desktop);

@@ -11,9 +11,10 @@ import calulateApprovalLevel from "../../helpers/math/calculateArppovalLevel";
 
 type quickUserInfoPopupProps = {
    user: Tuser;
+   additionalStyles?: {};
    closeModal: any;
 };
-const QuickUserInfoPopup = ({ user, closeModal }: quickUserInfoPopupProps) => {
+const QuickUserInfoPopup = ({ user, closeModal, additionalStyles }: quickUserInfoPopupProps) => {
    // figure it out what class to apply based in the authority level
    const authorityLevel =
       calulateApprovalLevel(user.approval_rating)?.styles == "A"
@@ -26,12 +27,16 @@ const QuickUserInfoPopup = ({ user, closeModal }: quickUserInfoPopupProps) => {
          ? quickUserInfoStyles.reliabilityD
          : quickUserInfoStyles.reliabilityF;
    return (
-      <div className={quickUserInfoStyles.mainWrapper}>
+      <div className={quickUserInfoStyles.mainWrapper} style={additionalStyles}>
          <span className={`closeModal ${quickUserInfoStyles.closeModal}`} onClick={closeModal}>
             x
          </span>
          <Link href={`/users/${user.ID}`}>
-            <a className={quickUserInfoStyles.signature}>{user.signature}</a>
+            <a
+               onClick={() => (document.body.style.overflow = "scroll")}
+               className={quickUserInfoStyles.signature}>
+               {user.signature}
+            </a>
          </Link>
          <p className={quickUserInfoStyles.name}>
             <span>🔖 Name:</span> {user.first_name} {user.last_name}

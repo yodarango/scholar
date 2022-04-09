@@ -222,6 +222,7 @@ export const CHECK_IF_USER_LOGGED_IN = gql`
 export const UPDATE_MY_SETTINGS = gql`
    mutation (
       $signature: String
+      $MONGO_DB_ID: String
       $first_name: String
       $last_name: String
       $birth_date: String
@@ -238,6 +239,7 @@ export const UPDATE_MY_SETTINGS = gql`
       me(
          data: {
             signature: $signature
+            MONGO_DB_ID: $MONGO_DB_ID
             first_name: $first_name
             last_name: $last_name
             birth_date: $birth_date

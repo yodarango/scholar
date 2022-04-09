@@ -116,7 +116,7 @@ const UserSettings = () => {
          const { data } = await client.mutate({
             mutation: UPDATE_MY_SETTINGS,
             variables: {
-               signature: `#${signatureInput.current?.value}`
+               signature: `${signatureInput.current?.value}`
                   ? signatureInput.current?.value.toUpperCase()
                   : "", //reomve hashtag before submitting to DB
                first_name: firstName.current?.value ? firstName.current?.value : "",

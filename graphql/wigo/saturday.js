@@ -75,6 +75,9 @@ export const GET_SATURDAY_CONTENT = gql`
             signature
             approval_rating
             authority_level
+            my_church
+            first_name
+            last_name
          }
       }
 

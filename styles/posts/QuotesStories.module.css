@@ -4,6 +4,17 @@
    margin: var(--medium-spacing-mobile) 0.4rem 0.1rem;
    cursor: pointer;
 }
+
+.wholeAvatarWrapperView {
+   position: relative;
+   top: var(--xsmall-spacing-mobile);
+   left: var(--xsmall-spacing-mobile);
+   height: 4rem;
+   width: 3.5rem;
+   z-index: 12;
+   cursor: pointer;
+}
+
 .userReputationWrapper {
    background-image: linear-gradient(130deg, #ff9214ed, #ff0045);
    display: flex;
@@ -20,7 +31,8 @@
 }
 
 .avatarImage,
-.avatarImageStory {
+.avatarImageStory,
+.avatarImageStoryView {
    background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
@@ -30,7 +42,8 @@
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
 }
 
-.trustedPointer {
+.trustedPointer,
+.trustedPointerView {
    display: block;
    position: absolute;
    width: 1.5rem;
@@ -67,6 +80,10 @@
    bottom: -2em;
 }
 
+.trustedPointerView {
+   bottom: -3.5rem;
+}
+
 .userSignature {
    font-size: 0.7rem;
    margin: 0;
@@ -79,6 +96,21 @@
 
 /* story posts bakground */
 .userReputationWrapperView {
+   margin: 0.5rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+   height: 4rem;
+   width: 3.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   margin: 0;
+   top: 0;
+   left: 0;
+}
+.userReputationWrapperViewTrusted {
+   background-image: var(--user-trusted-level);
 }
 
 .storyPostWrapper {
@@ -145,6 +177,10 @@
    top: 2rem;
    left: 2rem;
    z-index: 12;
+}
+
+.avatarImageStoryView {
+   position: static;
 }
 
 .count {
@@ -335,6 +371,8 @@
    display: flex;
    height: 2rem;
    width: 2rem;
+   z-index: 11;
+   min-width: 2rem;
    background-color: var(--primary-color);
    color: var(--font-color);
    border-radius: 50%;
@@ -343,18 +381,32 @@
 }
 
 .selectedTagColor {
-   height: 100vh;
-   width: 1rem;
+   height: 1.5rem;
+   width: 1.5rem;
    position: fixed;
-   top: 0;
-   left: 0;
+   border-radius: 50%;
+   top: 1.2rem;
+   left: 10rem;
+   right: 0;
+   bottom: auto;
+   margin: auto;
    z-index: 10;
+   cursor: pointer;
 }
 
 @media only screen and (min-width: 1000px) {
    .mainStoryWrapper {
       width: 4rem;
       margin: var(--medium-spacing-desktop) 0.5rem 0.2rem;
+   }
+
+   .wholeAvatarWrapperView {
+      position: relative;
+      top: var(--small-spacing-desktop);
+      left: var(--xlarge-spacing-desktop);
+      height: 4rem;
+      width: 3.5rem;
+      z-index: 12;
    }
    .userReputationWrapper {
       height: 4.5rem;
@@ -373,6 +425,10 @@
       font-size: 0.8rem;
    }
 
+   .selectedTagColor {
+      top: 2rem;
+      left: 12rem;
+   }
    /* ============    story posts bakground   ==================== */
 
    .storyPost {

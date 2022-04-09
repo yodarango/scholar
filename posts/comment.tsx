@@ -23,11 +23,14 @@ import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 import cardStyles from "../styles/components/Cards.module.css";
 import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
-// types and helpres
-import { Tapprovals } from "../fragments/buttons/post-reactions";
+//helpres
 import handlePostComment from "../functions/posts/post-commentary-comment";
 import getCookie from "../helpers/get-cookie";
 import parseJwt from "../helpers/auth/decodeJWT";
+
+// types
+import { Tapprovals } from "../fragments/buttons/post-reactions";
+import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
 
 export type Tcommentary = {
    ID: string;
@@ -256,7 +259,7 @@ export default function Comments({ commentary }: commentsProps) {
       setPostApprovalState(data.commentary_approvals[0]);
    };
 
-   // open the user info popup
+   // ================== FUNCTION 10: open the user info popup
    const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
       false
    );
@@ -264,6 +267,21 @@ export default function Comments({ commentary }: commentsProps) {
    const handleQuickInfoAccessPopup = (user: any) => {
       setUserQuickAccessInfoPopup(
          <QuickUserInfoPopup user={user} closeModal={() => setUserQuickAccessInfoPopup(false)} />
+      );
+   };
+
+   // ================ FUNCTION 11:  open categroy popup on category tag click  ================ ///
+   const [tagInfoPopupState, setTagInfoPopupState] = useState<boolean | JSX.Element>(false);
+   const openInfoAboutTagColor = (cat: string) => {
+      const selectedTag = valuesCat.filter((obj: IvaluesCat) => obj.tag === cat);
+
+      setTagInfoPopupState(
+         <NotificationPopup
+            title={selectedTag[0].title}
+            closeModal={() => setTagInfoPopupState(false)}
+            contentArray={selectedTag[0].subjects}
+            newClass={`notification-wrapper--${selectedTag[0].title}`}
+         />
       );
    };
    return (
@@ -276,6 +294,7 @@ export default function Comments({ commentary }: commentsProps) {
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
+         {tagInfoPopupState}
          {userQuickAccessInfoPopup}
          {confirmationPopUpState}
          {notificationPopUpState}
@@ -285,9 +304,13 @@ export default function Comments({ commentary }: commentsProps) {
                className={`${cardStyles.commentCard}`}
                key={commentary.ID}
                id={`${commentary.ID}`}>
-               <div
-                  className={cardStyles.commentCardHeader}
-                  id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
+               <div className={cardStyles.commentCardHeader}>
+                  <span
+                     className={cardStyles.categoryTagPointer}
+                     onClick={() => openInfoAboutTagColor(commentary.category_tags.split(" ")[0])}
+                     id={`category-${commentary.category_tags
+                        .split(" ")[0]
+                        .replace("#", "")}`}></span>
                   {commentary.creator && commentary.creator.authority_level && (
                      <div className={cardStyles.creatorimMainWrapper}>
                         <div
