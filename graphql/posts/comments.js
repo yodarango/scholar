@@ -40,6 +40,7 @@ export const CREATE_COMMENTARY_COMMENT = gql`
          creator_avatar
          creator_signature
          creator_approval_rate
+         creator_authority_level
          creator_id
       }
    }
@@ -53,6 +54,7 @@ export const CREATE_QUOTE_COMMENT = gql`
          creator_avatar
          creator_signature
          creator_approval_rate
+         creator_authority_level
          creator_id
       }
    }
@@ -66,7 +68,27 @@ export const CREATE_THOUGHT_COMMENT = gql`
          creator_avatar
          creator_signature
          creator_approval_rate
+         creator_authority_level
          creator_id
       }
+   }
+`;
+
+// ====================== DELETE ROUTES =========================== //
+export const DELETE_COMMENTARY_COMMENT = gql`
+   mutation ($ID: ID) {
+      delete_commentary_comment(ID: $ID)
+   }
+`;
+
+export const DELETE_QUOTE_COMMENT = gql`
+   mutation ($ID: ID) {
+      delete_quote_comment(ID: $ID)
+   }
+`;
+
+export const DELETE_THOUGHT_COMMENT = gql`
+   mutation ($ID: ID) {
+      delete_thought_comment(ID: $ID)
    }
 `;

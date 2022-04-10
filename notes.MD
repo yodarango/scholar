@@ -2,7 +2,7 @@
 
 **Left Off**
 
--  set a way for users to delete theri commetns on content
+-  make sure bio comp displays correct statistics
 
 ## TO DO's
 
@@ -20,9 +20,9 @@
 
 -  work on the "select verse" model because if you click out of the <p></p> tag it will not color the text orange
 
--  make the category tag indicator small circles rather than whole lines across the content: looks ugly
+-  Emails
 
--  change the colors of categories fore more pastelish colors
+-  passowrd recovery
 
 **_ERRORS_**
 

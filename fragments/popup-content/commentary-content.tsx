@@ -4,7 +4,6 @@ import ReactMarkdown from "react-markdown";
 
 // graphql
 import client from "../../apollo-client";
-import { GET_COMMENTARY_COMMENTS } from "../../graphql/posts/comments";
 import { GET_COMMENTARY_APPROVALS } from "../../graphql/posts/approvals";
 
 // components
@@ -154,7 +153,8 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
    };
 
    // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
-
+   //--- send the notification to the child component "comments of content" to include the new posted comment
+   const [fetchNewCommentsState, setFetchNewCommentsState] = useState<number>(0);
    const fetchComments = async (data: Tcomment) => {
       const newCommentary: Tcomment = {
          ID: data.ID,
@@ -170,6 +170,13 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
          newCommentary,
          ...commentaryCommentsState
       ]);
+
+      setFetchNewCommentsState(fetchNewCommentsState + 1);
+   };
+
+   // ============= FUNCTION 5:  Update the commentary count once a comment is deleted
+   const updateCommentaryCount = () => {
+      setCommentsCountState(commentsCountState - 1);
    };
 
    return (
@@ -257,7 +264,12 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                </div>
             </div>
          </div>
-         <CommentsOfCcommentsContent comments={commentaryCommentsState} />
+         <CommentsOfCcommentsContent
+            loadedFrom={"comment"}
+            comments={commentaryCommentsState}
+            fetchNewComment={fetchNewCommentsState}
+            updateCommentaryCount={() => updateCommentaryCount()}
+         />
       </>
    );
 };

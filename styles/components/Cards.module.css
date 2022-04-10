@@ -257,6 +257,7 @@ rename it and reuse it in other instaces if needed.
 .report {
    background-image: url("/images/report.svg");
 }
+
 .delete:hover,
 .edit:hover,
 .report:hover {
@@ -441,6 +442,11 @@ rename it and reuse it in other instaces if needed.
 
 .trustedPointerCommentsOfCommentaries {
    bottom: -2.8rem;
+}
+
+.deleteComOfCom {
+   display: block;
+   margin: 0 auto auto 0;
 }
 
 @media only screen and (min-width: 800px) {

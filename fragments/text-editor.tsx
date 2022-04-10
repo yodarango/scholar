@@ -219,12 +219,11 @@ const TextEditor = ({
                setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
          } catch (error: any) {
-            console.log("error from comentary text editor ", error);
             setLoadingState(false);
             setNotificationPopupState(
                <NotificationPopup
                   closeModal={() => setNotificationPopupState(false)}
-                  title={`You're not authorized! 👮‍♂️`}
+                  title={`Something went wrong!`}
                   contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
                />
