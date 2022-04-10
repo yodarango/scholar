@@ -50,6 +50,7 @@
    color: var(--graient-one);
    font: var(--secondary-font-mobile);
    text-align: left;
+   word-break: break-all;
 }
 
 .halfWidthRight p {

@@ -59,8 +59,11 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
          {user.approval_rating > 60 && user.approval_rating < 67 && (
             <h2 className={userBioWrapperStyles.reliabilityC}>Approval Rating: D</h2>
          )}
-         {user.approval_rating <= 60 && (
+         {user.approval_rating > 0 && user.approval_rating <= 60 && (
             <h2 className={userBioWrapperStyles.reliabilityF}>Reliability: F</h2>
+         )}
+         {user.approval_rating == 0 && (
+            <h2 className={userBioWrapperStyles.reliabilityNR}>Reliability: NR</h2>
          )}
          <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>
          <p>Thoughts: {user.all_posts.thoughts[0].total_count}</p>

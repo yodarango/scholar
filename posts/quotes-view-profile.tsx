@@ -36,15 +36,14 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
    const [commentsOfQuote, setCommentsOfQuote] = useState([]);
    const handleMoreClick = async (quote_id: string) => {
-      setMorePopUpState(true);
       const { data } = await client.query({
          query: OPEN_QUOTE_STORY_COMMENTS,
          variables: { ID: quote_id, showComment: true }
       });
 
-      console.log("comments from qutoe commetns comp ", data);
       setCommentsOfQuote(data.quote[0].comments);
       setCommentsCountState(data.quote[0].comments.length);
+      setMorePopUpState(true);
    };
 
    // ==============   FUNCTION 8: see the story data when the user clicks "More" =============== //
