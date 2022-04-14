@@ -67,3 +67,7 @@
 -  turn user profile avatar into its own component
 
 -  comentary-content.tsx is using comments-of-thoughts.tsx when it should be using comments-of comments-content.tsx instead
+
+-  get read of realoading the page upon data submission, there might be more places but the known as of now are:
+   1. settings page: Upon settings update
+   2. profile page: upon creating a new post
