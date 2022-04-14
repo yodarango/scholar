@@ -64,6 +64,7 @@ export type Tuser = {
    my_ministry: string;
    my_favorite_verse: string;
    all_posts: TallPosts;
+   all_posts_profile?: TallPosts;
 };
 
 const User = () => {

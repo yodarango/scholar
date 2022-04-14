@@ -79,15 +79,14 @@ const Me = () => {
          query: GET_MY_PROFILE,
          variables: {
             totalCountOnly: true,
-            getApprovalCount: true,
-            from_profile: true
+            getApprovalCount: true
          }
       });
 
-      setHasNotificationState(data.me[0].has_new_notifications);
-      if (data.me && data.me.length > 0) {
+      if (data.me) {
          setLoadingState(false);
-         setUserState(data.me[0]);
+         setUserState(data.me);
+         setHasNotificationState(data.me.has_new_notifications);
       } else if (data.me === null || data.me.length < 0) {
          setLoadingState(false);
          setUserState(null);

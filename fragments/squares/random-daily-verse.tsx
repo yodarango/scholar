@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // components
 import Chapter from "../../layouts/fetch-bible-chapter";
@@ -10,15 +10,76 @@ import Commentary from "../../layouts/popup-new-comment";
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";
 import fetchNewChapterStyles from "../../styles/layouts/FetchNewChapter.module.css";
 
-// helpers
-import { TverseContent } from "../../pages";
+// types
+import { getNewVerseId } from "../../helpers/random-daily-verses";
 
 type randomDailyVerseProps = {
-   verseContent: TverseContent;
    versionId: string;
 };
-const RandomDailyVerse = ({ verseContent, versionId }: randomDailyVerseProps) => {
-   // ===============   FUNCTION 1: read the entire chapter based on the daily verse
+
+const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
+   // ===============   FUNCTINO 1: Get the daily verse
+   const [verseContent, setVerseContent] = useState<any>({});
+
+   // get the date
+   const date = new Date();
+   const dateFormat = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}`;
+
+   const getVerse = async () => {
+      const request = await fetch(
+         `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
+         {
+            method: "GET",
+            headers: {
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+            }
+         }
+      );
+
+      const response = await request.json();
+      response.data.lastCall = dateFormat;
+
+      return response;
+   };
+
+   // ============== Function 0.1 : Check if verse exists in the cache
+   const checkCache = async () => {
+      const saveVerseinCache: any = localStorage.getItem("todays-verse");
+
+      if (!saveVerseinCache) {
+         const verseCall: any = await getVerse();
+         const verseData = verseCall.data;
+
+         // update state with the new data
+         setVerseContent(verseData);
+
+         // update the local storage
+         const stringifiedResponse = JSON.stringify(verseData);
+         localStorage.setItem("todays-verse", stringifiedResponse);
+      } else {
+         const JsonData = JSON.parse(saveVerseinCache);
+
+         if (JsonData.lastCall === dateFormat) {
+            setVerseContent(JsonData);
+         } else {
+            const verseCall: any = await getVerse();
+            const verseData = verseCall.data;
+
+            // update state with the new data
+            setVerseContent(verseData);
+
+            // update the local storage
+            const stringifiedResponse = JSON.stringify(verseData);
+            localStorage.setItem("todays-verse", stringifiedResponse);
+         }
+      }
+   };
+
+   useEffect(() => {
+      checkCache();
+   }, []);
+
+   // ===============   FUNCTION 2: read the entire chapter based on the daily verse
    const [readFullChapterSrtate, setReadFullChapterSrtate] = useState<JSX.Element | boolean>(false);
    const readDailyVerse = () => {
       setReadFullChapterSrtate(

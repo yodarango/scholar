@@ -61,9 +61,9 @@ const UserSettings = () => {
          variables: {}
       });
       console.log(data);
-      if (data.me && data.me.length > 0) {
+      if (data.me) {
          setLoadingState(false);
-         setUserSettingsState(data.me[0]);
+         setUserSettingsState(data.me);
       } else if (data.me === null || data.me.length < 0) {
          router.replace("/login");
          setLoadingState(false);
@@ -137,10 +137,10 @@ const UserSettings = () => {
                my_ministry: ministry.current?.value ? ministry.current?.value : ""
             }
          });
+         console.log(data);
          if (data.me.update_successful) {
             router.replace("/users/me");
          } else if (!data.me.update_successful || data.me.message) {
-            console.log(data.me);
             if (
                data.me.__typename == "SignatureAlreadyTaken" ||
                data.me.__typename == "EmailExists"

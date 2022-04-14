@@ -34,21 +34,16 @@ import Saturday from "../fragments/wigo-content/7.saturday";
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
 
-// helpers
-import { getNewVerseId } from "../helpers/random-daily-verses";
-import { TverseContent } from ".";
-
 // others
 const versionId: string = "de4e12af7f28f599-01";
 
 type feedProps = {
-   verseContent: TverseContent;
    content: any;
 };
 // =================== GET THE DAY OF THE WEEK ==================== //
 const today = new Date().getDay();
 
-const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ }: feedProps) => {
+const Wigo = ({ content }: feedProps) => {
    // set day of the week
    const [dayOfTheWeekState] = useState<number>(today);
 
@@ -64,8 +59,8 @@ const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
             <StoriesCarrousel quotes_in_the_last24={content.quote_stories} />
             <div className={interactStyles.gridWrapper}>
                <div className={`${interactStyles.gridWrapperRight}`}>
-                  <h2 className='std-text-block--small-title'>Today's Verse</h2>
-                  <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
+                  <h2 className='std-text-block--small-title'>today's verse just for you</h2>
+                  <RandomDailyVerse versionId={versionId} />
                   <div className='std-text-block--small-title'></div>
                   {dayOfTheWeekState === 0 && <Sunday sundayContent={content.sunday} />}
                   {dayOfTheWeekState === 1 && <Monday mondayContent={content.monday} />}
@@ -95,18 +90,6 @@ const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ 
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
    const lastId = query.last_id ? query.last_id : "999999999";
-   const verseReq = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
-      {
-         method: "GET",
-         headers: {
-            "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
-         }
-      }
-   );
-
-   const jsonReq = await verseReq.json();
-   const verseContent = jsonReq.data;
 
    // make query according to the day of the week
    let GET_CONTENT_QUERY: any;
@@ -137,7 +120,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
    return {
       props: {
-         verseContent,
          content: data
       }
    };
