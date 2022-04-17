@@ -1,5 +1,5 @@
 // core
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // graphQL
 import client from "../apollo-client";
@@ -18,16 +18,8 @@ import { TsermonPost } from "./sermon-notes-post";
 
 type librarySermonCarrouselProps = {
    sermonPost: TsermonPost[];
-   // deleteOption?: boolean;
-   // editOption?: boolean;
-   // reportOption?: boolean;
 };
-const LibrarySermonPostCarrousel = ({
-   sermonPost
-}: // editOption,
-// deleteOption,
-// reportOption
-librarySermonCarrouselProps) => {
+const LibrarySermonPostCarrousel = ({ sermonPost }: librarySermonCarrouselProps) => {
    // ============== FUNCTION 1: request more sermon notes
    const [sermonPostState, setSermonPostState] = useState<TsermonPost[]>(sermonPost);
    const requestMoreSermonNotes = async (last_id: string) => {
@@ -47,13 +39,20 @@ librarySermonCarrouselProps) => {
                   <SermonNotesPost key={sermon.ID} sermonPost={sermon} />
                </div>
             ))}
-            <button
-               className={`std-button ${librarySermonPostCarrouselStyles.stdButton}`}
-               onClick={() =>
-                  requestMoreSermonNotes(sermonPostState[sermonPostState.length - 1].ID)
-               }>
-               <p className={`std-button_gradient-text`}>Load More</p>
-            </button>
+            {sermonPostState.length > 0 && (
+               <button
+                  className={`std-button ${librarySermonPostCarrouselStyles.stdButton}`}
+                  onClick={() =>
+                     requestMoreSermonNotes(sermonPostState[sermonPostState.length - 1].ID)
+                  }>
+                  <p className={`std-button_gradient-text`}>Load More</p>
+               </button>
+            )}
+            {sermonPost.length === 0 && (
+               <h2 className={librarySermonPostCarrouselStyles.noContrastTitle}>
+                  upload your sermons
+               </h2>
+            )}
          </div>
       </div>
    );

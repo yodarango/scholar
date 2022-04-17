@@ -94,11 +94,11 @@
 
 .genderInputMaleActive,
 .genderInputFemaleActive {
-   background-color: var(--third-color);
+   background-color: var(--graient-one);
 }
 
 .genderInput:hover {
-   background-color: var(--third-color);
+   background-color: var(--graient-one);
    cursor: pointer;
 }
 
@@ -118,13 +118,20 @@
    margin: var(--xsmall-spacing-mobile) auto;
 }
 
-.changePasswordLink {
+.changePasswordLink,
+.userVerification {
    color: var(--graient-one);
    font: var(--primary-font-mobile);
    text-decoration: underline;
    width: 8em;
 }
-.changePasswordLink:hover {
+
+.userVerification {
+   width: 13em;
+}
+
+.changePasswordLink:hover,
+.userVerification:hover {
    color: var(--gradient-two);
    cursor: pointer;
 }

@@ -110,7 +110,13 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
                <p className={`std-button_gradient-text`}>Load More</p>
             </button>
          )}
+         {filterThoughtCommentState.comment && commentariesState.length === 0 && (
+            <h2 className={commentThoughtStyles.noContrastTitle}>what have you nearned today 🕮</h2>
+         )}
          {filterThoughtCommentState.thought && <Thought thoughts={thoughtsState} />}
+         {filterThoughtCommentState.thought && thoughtsState.length === 0 && (
+            <h2 className={commentThoughtStyles.noContrastTitle}>what's on your 🧠?</h2>
+         )}
          {thoughtsState && responseThoughtState === 20 && filterThoughtCommentState.thought && (
             <button
                className={`std-button`}

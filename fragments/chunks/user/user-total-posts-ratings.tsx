@@ -8,21 +8,28 @@ type userTotalPostsAndRatingsProps = {
    user: Tuser;
 };
 const UserTotalPostsAndRatings = ({ user }: userTotalPostsAndRatingsProps) => {
+   // check if the parent loading this comp is "User" or "Me"
+   const allPosts = user.all_posts ? user.all_posts : user.all_posts_profile;
+
    return (
       <section className={userTotalPostsAndRatingsStyles.totalsWrapper}>
-         <p>
-            Total Posts:
-            {user.all_posts.commentaries[0].total_count +
-               user.all_posts.thoughts[0].total_count +
-               user.all_posts.quotes[0].total_count +
-               user.all_posts.sermon_notes[0].total_count}
-         </p>
-         <p>
-            Total Ratings:{" "}
-            {user.all_posts.thought_approval_total_count +
-               user.all_posts.quote_approval_total_count +
-               user.all_posts.commentaries_approval_total_count}
-         </p>
+         {allPosts && (
+            <p>
+               Total Posts:
+               {allPosts?.commentaries[0].total_count +
+                  allPosts?.thoughts[0].total_count +
+                  allPosts?.quotes[0].total_count +
+                  allPosts?.sermon_notes[0].total_count}
+            </p>
+         )}
+         {allPosts && (
+            <p>
+               Total Ratings:{" "}
+               {allPosts?.thought_approval_total_count +
+                  allPosts?.quote_approval_total_count +
+                  allPosts?.commentaries_approval_total_count}
+            </p>
+         )}
       </section>
    );
 };

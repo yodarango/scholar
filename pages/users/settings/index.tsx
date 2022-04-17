@@ -24,6 +24,7 @@ import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
 import { Tuser } from "../[userId]";
+import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
 
 type userSettingsProps = {
    user: Tuser;
@@ -137,7 +138,7 @@ const UserSettings = () => {
                my_ministry: ministry.current?.value ? ministry.current?.value : ""
             }
          });
-         console.log(data);
+
          if (data.me.update_successful) {
             router.replace("/users/me");
          } else if (!data.me.update_successful || data.me.message) {
@@ -275,6 +276,24 @@ const UserSettings = () => {
       setFullScreenPopUp(
          <PopupWrapper
             content={<AvatarChooser closeAvatarChooser={closeAvatarChooser} />}
+            closeModal={() => setFullScreenPopUp(false)}
+         />
+      );
+   };
+
+   // ================== submit verificaton   ===============
+   const openVerificationApplication = () => {
+      setFullScreenPopUp(
+         <PopupWrapper
+            content={
+               <UserVerificationApplication
+                  user_data={{
+                     f_name: userSettingsState?.first_name,
+                     l_name: userSettingsState?.last_name,
+                     church: userSettingsState?.my_church
+                  }}
+               />
+            }
             closeModal={() => setFullScreenPopUp(false)}
          />
       );
@@ -479,6 +498,11 @@ const UserSettings = () => {
                   className={userSettingsStyles.changePasswordLink}
                   onClick={openChangePasswordPopUp}>
                   change password
+               </h3>
+               <h3
+                  className={userSettingsStyles.userVerification}
+                  onClick={openVerificationApplication}>
+                  apply for user verification
                </h3>
 
                <div className={userSettingsStyles.buttonsWrapper}>

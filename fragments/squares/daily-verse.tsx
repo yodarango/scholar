@@ -118,14 +118,14 @@ const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
                <p className='std-text-block'>{verseContent.content}</p>
 
                <div className={`${cardStyles.squaredCardWrapperFooter}`}>
-                  <Link href={`/?verse=${verseContent.next.id}`}>
+                  <Link href={`/?verse=${verseContent.previous.id}`}>
                      <a
                         className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseBackward}`}></a>
                   </Link>
                   <div
                      className={`std-vector-icon ${cardStyles.dailyVerseIcon}`}
                      onClick={handleOpenCommentPopup}></div>
-                  <Link href={`/?verse=${verseContent.previous.id}`}>
+                  <Link href={`/?verse=${verseContent.next.id}`}>
                      <a
                         className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseForward}`}></a>
                   </Link>

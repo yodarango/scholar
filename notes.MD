@@ -2,27 +2,19 @@
 
 **Left Off**
 
--  make sure bio comp displays correct statistics
-
 ## TO DO's
-
--  Oh man this sounds craxy but seeems like auth is almost ready. Please test and double check possible failing scenarios
-
--  set a way for users to request a "trusted level"
-
--  adda denomination sign maybe
-
--  add a welcome banner the first time user logs in
 
 -  add try catch everywehre needed
 
 -  Make sure there is conditional Rendering EVERYWHERE Like Post Contnet Pupup, which trhows error if anything is null!
 
--  work on the "select verse" model because if you click out of the <p></p> tag it will not color the text orange
-
 -  Emails
 
 -  passowrd recovery
+
+-  Make sure that the "last_id" functionality of WIGO page applies to each kind of content individually and not to the whole query
+
+-  build graphics to show on the daily dinamic content if there is no content for the day
 
 **_ERRORS_**
 
@@ -69,5 +61,14 @@
 -  comentary-content.tsx is using comments-of-thoughts.tsx when it should be using comments-of comments-content.tsx instead
 
 -  get read of realoading the page upon data submission, there might be more places but the known as of now are:
+
    1. settings page: Upon settings update
    2. profile page: upon creating a new post
+
+-  adda denomination sign maybe
+
+-  work on the "select verse" model because if you click out of the <p></p> tag it will not color the text orange \*\*not sure about this, might be working, but still the props passed are through the function(e) rather than the data received from the API
+
+-  add general notifiations banner for all users
+
+-  get ready fo the resize query and improve the rendering of me page

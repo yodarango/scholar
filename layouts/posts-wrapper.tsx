@@ -23,18 +23,13 @@ export default function PostsWrapper({ commentaries }: postWrapperProps) {
                   <section
                      key={commentary.ID}
                      className={`${postsWrapperStyle.postsWrapperCommentary}`}>
-                     <Comment
-                        commentary={commentary}
-                        reportOption={true}
-                        deleteOption={true}
-                        editOption={true}
-                     />
+                     <Comment commentary={commentary} />
                   </section>
                );
             })}
          {commentaries.length === 0 && (
             <h2 className={`${postsWrapperStyle.noCommentsTitle} std-text-block_small-title`}>
-               Be the first one to comment on this verse!
+               be the first one to comment on this verse!
             </h2>
          )}
       </div>

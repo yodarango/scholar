@@ -26,9 +26,8 @@ import NavigationMenu from "../../layouts/navigation-menu";
 import userStyles from "../../styles/pages/users/User.module.css";
 
 // helpers
-import parseJwt from "../../helpers/auth/decodeJWT";
 import CheckMediaQuery from "../../helpers/media-query";
-const Cookies = require("js-cookie");
+import NewUser from "../../layouts/sudo-pages/new-user";
 
 export type TallPosts = {
    thought_approval_total_count: number;
@@ -60,6 +59,7 @@ export type Tuser = {
    my_true_color_personality_test: string;
    my_story: string;
    my_ministry: string;
+   first_time_signup: boolean;
    my_favorite_verse: string;
    all_posts: TallPosts;
 };
@@ -106,17 +106,27 @@ const Me = () => {
       setnotificationsPopupState(true);
    };
 
+   // ================  FUNCTION 3: open the notifications popup   ================= //
+   const acceptedIntroTerms = () => {
+      if (userState) {
+         setUserState({ ...userState, first_time_signup: false });
+      }
+   };
+
    return (
       <>
          {loadingState && <div>Loading</div>}
+         {notificationsPopupState && (
+            <PopupWrapper
+               closeModal={() => setnotificationsPopupState(false)}
+               content={<NotificationsWrapper />}
+            />
+         )}
+         {userState?.first_time_signup == true && (
+            <NewUser acceptedIntroTerms={acceptedIntroTerms} />
+         )}
          <div className={userStyles.mainWrapper}>
-            {notificationsPopupState && (
-               <PopupWrapper
-                  closeModal={() => setnotificationsPopupState(false)}
-                  content={<NotificationsWrapper />}
-               />
-            )}
-            {userState && (
+            {userState?.first_time_signup == false && (
                <div className={userStyles.userBioGrid}>
                   <Header currPage={userState.signature} />
                   <Link href={`/users/settings`}>
