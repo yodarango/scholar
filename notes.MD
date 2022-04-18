@@ -1,7 +1,5 @@
 # ----------------------- DAIYLYS ---------------------
 
-**Left Off**
-
 ## TO DO's
 
 -  add try catch everywehre needed
