@@ -1,0 +1,140 @@
+.applicationTitle {
+   font: var(--secondary-font-mobile);
+   font-size: 1.5rem;
+   width: 100%;
+   text-align: center;
+   color: var(--graient-one);
+   margin: var(--large-spacing-mobile) auto 0;
+}
+.smallTitle {
+   color: var(--graient-one);
+   text-align: left;
+   font: var(--primary-font-mobile);
+}
+
+.radioInputWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+}
+
+.radioInputWrapper p {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto 0;
+}
+
+.inputsWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.inputWrapper label {
+   display: block;
+   width: 100%;
+}
+
+.sudoRadioInput {
+   margin: var(--xsmall-spacing-mobile);
+   width: 2rem;
+   height: 2rem;
+   background-color: var(--secondary-color);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+   font-size: 0.9rem;
+}
+
+.sudoRadioInput:hover {
+   cursor: pointer;
+   background-color: var(--graient-one);
+}
+
+.inputChecked {
+   background-color: var(--graient-one);
+}
+
+.inputChecked:hover {
+   background-color: var(--secondsary-color);
+}
+
+@media (min-width: 800px) {
+   .applicationTitle {
+      font: var(--secondary-font-desktop);
+      font-size: 1.8rem;
+      margin: var(--large-spacing-desktop) auto 0;
+   }
+   .smallTitle {
+      font: var(--primary-font-desktop);
+   }
+
+   .radioInputWrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      margin-top: var(--medium-spacing-desktop);
+   }
+
+   .radioInputWrapper p {
+      width: 70%;
+      text-align: left;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+   }
+
+   .inputsWrapper {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+   }
+
+   .inputWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+   }
+
+   .inputWrapper label {
+      display: block;
+      width: 50%;
+   }
+
+   .inputWrapper input {
+      display: block;
+      width: 50%;
+   }
+
+   .sudoRadioInput {
+      margin: var(--xsmall-spacing-mobile);
+      width: 2rem;
+      height: 2rem;
+      background-color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 0.9rem;
+   }
+
+   .sudoRadioInput:hover {
+      cursor: pointer;
+      background-color: var(--graient-one);
+   }
+
+   .inputChecked {
+      background-color: var(--graient-one);
+   }
+
+   .inputChecked:hover {
+      background-color: var(--secondsary-color);
+   }
+}

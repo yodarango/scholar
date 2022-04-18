@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_MY_PROFILE = gql`
-   query ($totalCountOnly: Boolean, $getApprovalCount: Boolean, $from_profile: Boolean) {
+   query ($totalCountOnly: Boolean, $getApprovalCount: Boolean) {
       me {
          ID
          MONGO_DB_ID
@@ -23,7 +23,8 @@ export const GET_MY_PROFILE = gql`
          my_story
          my_ministry
          my_favorite_verse
-         all_posts(getApprovalCount: $getApprovalCount, from_profile: $from_profile) {
+         first_time_signup
+         all_posts_profile(getApprovalCount: $getApprovalCount) {
             thought_approval_total_count
             quote_approval_total_count
             commentaries_approval_total_count
@@ -301,5 +302,11 @@ export const VALIDATE_CURRENT_PASSWORD = gql`
 export const UPDATE_MY_AVATAR = gql`
    mutation ($avatar: String) {
       update_user_avatar(avatar: $avatar)
+   }
+`;
+
+export const ACCEPT_INTRO_INTRUCTIONS = gql`
+   mutation {
+      accept_intro_terms
    }
 `;

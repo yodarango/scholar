@@ -44,7 +44,7 @@ const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
                />
             ))}
          {storiesArrayState.length === 0 && (
-            <h2 className={storiesCarrouselStyles.noContrastTitle}>No Quotes Today!</h2>
+            <h2 className={storiesCarrouselStyles.noContrastTitle}>ready, set, quote</h2>
          )}
          {storiesArrayState.length > 49 && (
             <button

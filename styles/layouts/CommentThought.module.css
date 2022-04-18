@@ -35,3 +35,9 @@
    max-width: 15rem;
    margin: var(--medium-spacing-mobile) auto var(--medium-spacing-mobile) 0;
 }
+
+.noContrastTitle {
+   color: var(--secondary-color);
+   margin: 0 auto;
+   text-align: center;
+}

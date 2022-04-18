@@ -1,6 +1,7 @@
 // core
-import React, { useState } from "react";
-import { GetServerSideProps } from "next";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+//import { GetServerSideProps } from "next";
 
 // graphQl
 import client from "../apollo-client";
@@ -34,113 +35,152 @@ import Saturday from "../fragments/wigo-content/7.saturday";
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
 
-// helpers
-import { getNewVerseId } from "../helpers/random-daily-verses";
-import { TverseContent } from ".";
-
 // others
 const versionId: string = "de4e12af7f28f599-01";
 
 type feedProps = {
-   verseContent: TverseContent;
-   content: any;
+   sunday: any;
+   monday: any;
+   tuesday: any;
+   wednesday: any;
+   thursday: any;
+   friday: any;
+   saturday: any;
+   thought: any;
+   commentary: any;
+   quote_stories: any;
+   sermon_notes: any;
 };
 // =================== GET THE DAY OF THE WEEK ==================== //
 const today = new Date().getDay();
 
-const Wigo = ({ verseContent, content /*sermons, sundayContent, mondayContent*/ }: feedProps) => {
+const Wigo = () => {
+   // globals
+   const router = useRouter();
+
    // set day of the week
    const [dayOfTheWeekState] = useState<number>(today);
 
+   // ================ FUNCTION: fetch the data
+   //                   Moving away from serverside props to be able to see the page before the data loads
+   const [content, setContent] = useState<feedProps>();
+   const last_id = router.query.last_id ? router.query.last_id : "9999999999";
+   const getInitialData = async () => {
+      let GET_CONTENT_QUERY: any;
+      today === 0
+         ? (GET_CONTENT_QUERY = GET_SUNDAY_CONTENT)
+         : today === 1
+         ? (GET_CONTENT_QUERY = GET_MONDAY_CONTENT)
+         : today === 2
+         ? (GET_CONTENT_QUERY = GET_TUESDAY_CONTENT)
+         : today === 3
+         ? (GET_CONTENT_QUERY = GET_WEDNESDAY_CONTENT)
+         : today === 4
+         ? (GET_CONTENT_QUERY = GET_THURSDAY_CONTENT)
+         : today === 5
+         ? (GET_CONTENT_QUERY = GET_FRIDAY_CONTENT)
+         : today === 6
+         ? (GET_CONTENT_QUERY = GET_SATURDAY_CONTENT)
+         : null;
+
+      const { data } = await client.query({
+         query: GET_CONTENT_QUERY,
+         variables: {
+            ID: null,
+            category_tags: null,
+            last_id
+         }
+      });
+
+      setContent(data);
+   };
+
+   useEffect(() => {
+      getInitialData();
+   }, []);
+
    return (
       <>
-         <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
-            <Header currPage={"WIGO TODAY"} />
-            <div className='large-spacer'></div>
-            <h2 className='std-text-block--small-title'>Quotes</h2>
-            <StoriesCarrousel quotes_in_the_last24={content.quote_stories} />
-            <div className={interactStyles.gridWrapper}>
-               <div className={`${interactStyles.gridWrapperRight}`}>
-                  <h2 className='std-text-block--small-title'>Today's Verse</h2>
-                  <RandomDailyVerse versionId={versionId} verseContent={verseContent} />
-                  <div className='std-text-block--small-title'></div>
-                  {dayOfTheWeekState === 0 && <Sunday sundayContent={content.sunday} />}
-                  {dayOfTheWeekState === 1 && <Monday mondayContent={content.monday} />}
-                  {dayOfTheWeekState === 2 && <Tuesday tuesdayContent={content.tuesday} />}
-                  {dayOfTheWeekState === 3 && <Wednesday wednesdayContent={content.wednesday} />}
-                  {dayOfTheWeekState === 4 && <Thursday thursdayContent={content.thursday} />}
-                  {dayOfTheWeekState === 5 && <Friday fridayContent={content.friday} />}
-                  {dayOfTheWeekState === 6 && <Saturday saturdayContent={content.saturday} />}
-               </div>
-               <div className={interactStyles.gridWrapperMiddle}>
-                  <h2 className='std-text-block--small-title'>Sermon Notes</h2>
-                  <SermonsPostCarrousel sermonPost={content.sermon_notes} />
-               </div>
-               <div className={`${interactStyles.gridWrapperLeft}`}>
-                  <h2 className='std-text-block--small-title'>Writtings</h2>
-                  <div className={interactStyles.commentsWrapper}>
-                     <CommentThought commentaries={content.commentary} thoughts={content.thought} />
+         {content && (
+            <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
+               <Head>
+                  <meta name='keyword' content='tags' />
+               </Head>
+               <Header currPage={"WIGO TODAY"} />
+               <div className='large-spacer'></div>
+               <h2 className='std-text-block--small-title'>Quotes</h2>
+               <StoriesCarrousel quotes_in_the_last24={content.quote_stories} />
+               <div className={interactStyles.gridWrapper}>
+                  <div className={`${interactStyles.gridWrapperRight}`}>
+                     <h2 className='std-text-block--small-title'>today's verse just for you</h2>
+                     <RandomDailyVerse versionId={versionId} />
+                     <div className='std-text-block--small-title'></div>
+                     {dayOfTheWeekState === 0 && <Sunday sundayContent={content.sunday} />}
+                     {dayOfTheWeekState === 1 && <Monday mondayContent={content.monday} />}
+                     {dayOfTheWeekState === 2 && <Tuesday tuesdayContent={content.tuesday} />}
+                     {dayOfTheWeekState === 3 && <Wednesday wednesdayContent={content.wednesday} />}
+                     {dayOfTheWeekState === 4 && <Thursday thursdayContent={content.thursday} />}
+                     {dayOfTheWeekState === 5 && <Friday fridayContent={content.friday} />}
+                     {dayOfTheWeekState === 6 && <Saturday saturdayContent={content.saturday} />}
+                  </div>
+                  <div className={interactStyles.gridWrapperMiddle}>
+                     <h2 className='std-text-block--small-title'>Sermon Notes</h2>
+                     <SermonsPostCarrousel sermonPost={content.sermon_notes} />
+                  </div>
+                  <div className={`${interactStyles.gridWrapperLeft}`}>
+                     <h2 className='std-text-block--small-title'>Writtings</h2>
+                     <div className={interactStyles.commentsWrapper}>
+                        <CommentThought
+                           commentaries={content.commentary}
+                           thoughts={content.thought}
+                        />
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
+         )}
+         {!content && <p>Loading</p>}
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
       </>
    );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-   const lastId = query.last_id ? query.last_id : "999999999";
-   const verseReq = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
-      {
-         method: "GET",
-         headers: {
-            "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
-         }
-      }
-   );
+// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+//    const lastId = query.last_id ? query.last_id : "999999999";
 
-   const jsonReq = await verseReq.json();
-   const verseContent = jsonReq.data;
+//    // make query according to the day of the week
+//    let GET_CONTENT_QUERY: any;
+//    today === 0
+//       ? (GET_CONTENT_QUERY = GET_SUNDAY_CONTENT)
+//       : today === 1
+//       ? (GET_CONTENT_QUERY = GET_MONDAY_CONTENT)
+//       : today === 2
+//       ? (GET_CONTENT_QUERY = GET_TUESDAY_CONTENT)
+//       : today === 3
+//       ? (GET_CONTENT_QUERY = GET_WEDNESDAY_CONTENT)
+//       : today === 4
+//       ? (GET_CONTENT_QUERY = GET_THURSDAY_CONTENT)
+//       : today === 5
+//       ? (GET_CONTENT_QUERY = GET_FRIDAY_CONTENT)
+//       : today === 6
+//       ? (GET_CONTENT_QUERY = GET_SATURDAY_CONTENT)
+//       : null;
 
-   // make query according to the day of the week
-   let GET_CONTENT_QUERY: any;
-   today === 0
-      ? (GET_CONTENT_QUERY = GET_SUNDAY_CONTENT)
-      : today === 1
-      ? (GET_CONTENT_QUERY = GET_MONDAY_CONTENT)
-      : today === 2
-      ? (GET_CONTENT_QUERY = GET_TUESDAY_CONTENT)
-      : today === 3
-      ? (GET_CONTENT_QUERY = GET_WEDNESDAY_CONTENT)
-      : today === 4
-      ? (GET_CONTENT_QUERY = GET_THURSDAY_CONTENT)
-      : today === 5
-      ? (GET_CONTENT_QUERY = GET_FRIDAY_CONTENT)
-      : today === 6
-      ? (GET_CONTENT_QUERY = GET_SATURDAY_CONTENT)
-      : null;
+//    const { data } = await client.query({
+//       query: GET_CONTENT_QUERY,
+//       variables: {
+//          ID: null,
+//          category_tags: null,
+//          last_id: lastId
+//       }
+//    });
 
-   const { data } = await client.query({
-      query: GET_CONTENT_QUERY,
-      variables: {
-         ID: null,
-         category_tags: null,
-         last_id: lastId
-      }
-   });
-
-   return {
-      props: {
-         verseContent,
-         content: data
-      }
-   };
-};
+//    return {
+//       props: {
+//          content: data
+//       }
+//    };
+// };
 
 export default Wigo;

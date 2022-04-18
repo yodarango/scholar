@@ -9,6 +9,9 @@ type userBioWrapperProps = {
    user: Tuser;
 };
 const UserBioWrapper = ({ user }: userBioWrapperProps) => {
+   // check if the parent loading this comp is "User" or "Me"
+   const allPosts = user.all_posts ? user.all_posts : user.all_posts_profile;
+
    return (
       <section className={userBioWrapperStyles.userBioWrapper}>
          <div className={userBioWrapperStyles.avatarReputationWrapper}>
@@ -26,7 +29,7 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
                <span className={userBioWrapperStyles.trustedPointer}></span>
             )}
          </div>
-         {user.approval_rating >= 97 && (
+         {user.approval_rating >= 97 && user.approval_rating < 101 && (
             <h2 className={userBioWrapperStyles.reliabilityA}>Approval Rating: A+</h2>
          )}
          {user.approval_rating >= 94 && user.approval_rating < 97 && (
@@ -62,13 +65,13 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
          {user.approval_rating > 0 && user.approval_rating <= 60 && (
             <h2 className={userBioWrapperStyles.reliabilityF}>Reliability: F</h2>
          )}
-         {user.approval_rating == 0 && (
+         {user.approval_rating == 101 && (
             <h2 className={userBioWrapperStyles.reliabilityNR}>Reliability: NR</h2>
          )}
-         <p>Commentaries: {user.all_posts.commentaries[0].total_count}</p>
-         <p>Thoughts: {user.all_posts.thoughts[0].total_count}</p>
-         <p>Quotes: {user.all_posts.quotes[0].total_count}</p>
-         <p>Sermons {user.all_posts.sermon_notes[0].total_count}</p>
+         <p>Commentaries: {allPosts?.commentaries[0].total_count}</p>
+         <p>Thoughts: {allPosts?.thoughts[0].total_count}</p>
+         <p>Quotes: {allPosts?.quotes[0].total_count}</p>
+         <p>Sermons {allPosts?.sermon_notes[0].total_count}</p>
       </section>
    );
 };
