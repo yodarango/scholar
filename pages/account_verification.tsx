@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 // graphQL
 import client from "../apollo-client";
-import { AUTHENTICATE_USER } from "../graphql/users/authenticate_user";
+import { VERIFY_ACCOUNT } from "../graphql/users/new_user";
 import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 
 // child comps
@@ -14,13 +14,8 @@ import NotificationPopup from "../fragments/notification-popup";
 
 // styles
 import loginStyles from "../styles/pages/Login.module.css";
-import PopupWrapper from "../layouts/popup-wrapper";
-import ForgotPassword from "../fragments/popup-content/forgot-password-modal";
 
-// helpers
-const Cookies = require("js-cookie");
-
-export default function Login() {
+export default function AccountVerification() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
    const router = useRouter();
 
@@ -48,38 +43,47 @@ export default function Login() {
    }, []);
 
    // ====================== FUNCTION: Login the user ============================ //
-   const signatureInput = useRef<HTMLInputElement>(null);
-   const passwordInput = useRef<HTMLInputElement>(null);
+   const verificationCode = useRef<HTMLInputElement>(null);
 
    const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
       false
    );
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
    const hanldeNewUserRegistration = async () => {
-      if (signatureInput.current && passwordInput.current) {
+      if (verificationCode.current) {
          setSmallLoaderState(<SmallLoader />);
          const { data } = await client.mutate({
-            mutation: AUTHENTICATE_USER,
+            mutation: VERIFY_ACCOUNT,
             variables: {
-               signature: `#${signatureInput.current.value.toUpperCase()}`,
-               password: `${passwordInput.current.value}`
+               verification_code: `${verificationCode.current.value}`
             }
          });
-         if (data.authenticate_user.ID) {
+         if (data.verify_account && data.verify_account.__typename === "NewSession") {
+            console.log(data.verify_account);
+
             const today = Date.now();
             const expTime = new Date(today + 1209600000);
 
             document.cookie = `authorization=${data.verify_account.token}; expires=${expTime}; path=/`;
 
-            location.href = "/login";
-         }
-         if (data.authenticate_user.message) {
+            location.href = "/account_verification";
+         } else if (data.verify_account.__typename === "IncorrectVerificatoinCode") {
             setSmallLoaderState(false);
             setNotificationpopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
-                  title='Are you who you say you are? 🕵️‍♂️'
-                  contentString={`${data.authenticate_user.message}`}
+                  title='Wrong Code 🖩'
+                  contentString={`${data.verify_account.message}`}
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         } else {
+            setSmallLoaderState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
                />
             );
@@ -87,55 +91,27 @@ export default function Login() {
       }
    };
 
-   // ==================== FUNCTION: Handle the forgot password popup ============
-   const [forgotPasswordPopup, setPorgotPasswordPopup] = useState<boolean | JSX.Element>(false);
-   const handleForgotPassword = () => {
-      setPorgotPasswordPopup(
-         <PopupWrapper
-            closeModal={() => setPorgotPasswordPopup(false)}
-            content={<ForgotPassword />}
-         />
-      );
-   };
-
    return (
       <>
-         {forgotPasswordPopup}
          {!isLoggedIn && (
             <div className='main-wrapper'>
                {notificationpopUpState}
                <div className={loginStyles.loginLogo}></div>
-               <div className={loginStyles.loginTitle}>"...SHOW THYSELF APPROVED..."</div>
+               <h1 className={loginStyles.loginTitle}>"...SHOW THYSELF APPROVED..."</h1>
+               <p>Please check your email for a code. This code will expire within 24 hours</p>
                <div className='nowrap-flex-column'>
                   <input
                      type='text'
-                     placeholder='Your Signature'
-                     className='std-input'
-                     ref={signatureInput}
-                  />
-                  <input
-                     type='password'
                      placeholder='Password'
                      className='std-input'
-                     ref={passwordInput}
+                     ref={verificationCode}
                   />
                   {!smallLoaderState && (
                      <div className='std-button' onClick={hanldeNewUserRegistration}>
-                        <div className='std-button_gradient-text'>Login</div>
+                        <div className='std-button_gradient-text'>Verify</div>
                      </div>
                   )}
                   {smallLoaderState}
-                  <p className='std-text-block--info'>Don't have an account yet? </p>
-                  <Link href='/register'>
-                     <a className='std-button std-button--no-margin std-button--clear'>
-                        <div className='std-button_gradient-text'>Sign Up</div>
-                     </a>
-                  </Link>
-                  <div className={loginStyles.forgotPasswordWrapper}>
-                     <button className={loginStyles.forgotPassword} onClick={handleForgotPassword}>
-                        Forgot Passoword
-                     </button>
-                  </div>
                   <div className='large-spacer'></div>
                </div>
             </div>

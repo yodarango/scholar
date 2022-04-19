@@ -17,6 +17,27 @@
    margin: var(--medium-spacing-mobile) auto;
 }
 
+.forgotPasswordWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: var(--small-spacing-mobile);
+}
+
+.forgotPassword {
+   color: var(--graient-one);
+   font: var(--primary-font-mobile);
+   text-decoration: underline;
+   border: none;
+   background: none;
+}
+
+.forgotPassword:hover {
+   cursor: pointer;
+   color: var(--gradient-two);
+}
+
 @media only screen and (min-width: 1025px) {
    .loginLogo {
       width: 15.6rem;
@@ -45,5 +66,13 @@
    .loginLeft input,
    .loginLeft > div > div {
       display: none;
+   }
+
+   .forgotPasswordWrapper {
+      margin: var(--small-spacing-desktop);
+   }
+
+   .forgotPassword {
+      font: var(--primary-font-desktop);
    }
 }
