@@ -1,6 +1,13 @@
 // core
 import { useRef, useState } from "react";
 
+// graphQl
+import client from "../../../apollo-client";
+import { NEW_TRUSTED_USER_REQUEST } from "../../../graphql/emails/content";
+
+// comps
+import SmallLoader from "../small-loader";
+
 // styles
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
 import userVerificationApplicationStyles from "../../../styles/fragments/chunks/users/UserVerificationApplicaton.module.css";
@@ -28,6 +35,11 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
       false
    );
 
+   // small loader state
+   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
+   // has user submitted the form?
+   const [isFormSubmittedState, setIsFormSubmittedState] = useState(false);
+
    // input references
    const firstName = useRef<HTMLInputElement>(null);
    const lastName = useRef<HTMLInputElement>(null);
@@ -44,7 +56,7 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
    });
 
    // ============= submit the request
-   const submitRequest = () => {
+   const submitRequest = async () => {
       const firstnameValue = firstName.current;
       const lastameValue = lastName.current;
       const churchValue = church.current;
@@ -61,14 +73,45 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
             (questionaryState.bibleEducation && degreeValue?.value != "") ||
             !questionaryState.bibleEducation
          ) {
-            console.log(questionaryState);
-            console.log(
-               firstName.current,
-               lastName.current,
-               church.current,
-               degreeValue?.value,
-               ministry.current
-            );
+            setSmallLoaderState(true);
+            const { data } = await client.mutate({
+               mutation: NEW_TRUSTED_USER_REQUEST,
+               variables: {
+                  church: churchValue.value,
+                  f_name: firstnameValue.value,
+                  l_name: lastameValue.value,
+                  age: questionaryState.age,
+                  ministry: minsitryValue.value,
+                  timeInMinistry: questionaryState.timeInMinistry,
+                  bibleEducation: questionaryState.bibleEducation,
+                  degree: degreeValue?.value
+               }
+            });
+
+            if (data.trusted_user_application === true) {
+               setSmallLoaderState(false);
+               setIsFormSubmittedState(true);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     newClass='notification-wrapper--Success'
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Success ✔️'
+                     contentString={
+                        "We will notify you of the final decision via them email associated with the account"
+                     }
+                  />
+               );
+            } else {
+               setSmallLoaderState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            }
          } else if (questionaryState.bibleEducation && !degreeValue?.value) {
             setNotificationPopUpState(
                <NotificationPopup
@@ -257,9 +300,12 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
             </div>
          )}
 
-         <button className={`std-button`} onClick={submitRequest}>
-            <p className={`std-button_gradient-text`}>Update</p>
-         </button>
+         {!smallLoaderState && !isFormSubmittedState && (
+            <button className={`std-button`} onClick={submitRequest}>
+               <p className={`std-button_gradient-text`}>Submit</p>
+            </button>
+         )}
+         {smallLoaderState && <SmallLoader />}
       </div>
    );
 };

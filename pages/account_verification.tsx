@@ -50,44 +50,48 @@ export default function AccountVerification() {
    );
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
    const hanldeNewUserRegistration = async () => {
-      if (verificationCode.current) {
-         setSmallLoaderState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: VERIFY_ACCOUNT,
-            variables: {
-               verification_code: `${verificationCode.current.value}`
+      try {
+         if (verificationCode.current) {
+            setSmallLoaderState(<SmallLoader />);
+            const { data } = await client.mutate({
+               mutation: VERIFY_ACCOUNT,
+               variables: {
+                  verification_code: `${verificationCode.current.value}`
+               }
+            });
+            if (data.verify_account && data.verify_account.__typename === "NewSession") {
+               console.log(data.verify_account);
+
+               const today = Date.now();
+               const expTime = new Date(today + 1209600000);
+
+               document.cookie = `authorization=${data.verify_account.token}; expires=${expTime}; path=/`;
+
+               location.href = "/account_verification";
+            } else if (data.verify_account.__typename === "IncorrectVerificatoinCode") {
+               setSmallLoaderState(false);
+               setNotificationpopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationpopUpState(false)}
+                     title='Wrong Code 🖩'
+                     contentString={`${data.verify_account.message}`}
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            } else {
+               setSmallLoaderState(false);
+               setNotificationpopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationpopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
             }
-         });
-         if (data.verify_account && data.verify_account.__typename === "NewSession") {
-            console.log(data.verify_account);
-
-            const today = Date.now();
-            const expTime = new Date(today + 1209600000);
-
-            document.cookie = `authorization=${data.verify_account.token}; expires=${expTime}; path=/`;
-
-            location.href = "/account_verification";
-         } else if (data.verify_account.__typename === "IncorrectVerificatoinCode") {
-            setSmallLoaderState(false);
-            setNotificationpopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationpopUpState(false)}
-                  title='Wrong Code 🖩'
-                  contentString={`${data.verify_account.message}`}
-                  newClass='notification-wrapper--Error'
-               />
-            );
-         } else {
-            setSmallLoaderState(false);
-            setNotificationpopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationpopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                  newClass='notification-wrapper--Error'
-               />
-            );
          }
+      } catch (error) {
+         console.log(error);
       }
    };
 
@@ -98,11 +102,13 @@ export default function AccountVerification() {
                {notificationpopUpState}
                <div className={loginStyles.loginLogo}></div>
                <h1 className={loginStyles.loginTitle}>"...SHOW THYSELF APPROVED..."</h1>
-               <p>Please check your email for a code. This code will expire within 24 hours</p>
+               <p className={loginStyles.pText}>
+                  Please check your email for a code. This code will expire within 24 hours
+               </p>
                <div className='nowrap-flex-column'>
                   <input
                      type='text'
-                     placeholder='Password'
+                     placeholder='Verification Code'
                      className='std-input'
                      ref={verificationCode}
                   />

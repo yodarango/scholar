@@ -7,6 +7,7 @@ export const AUTHENTICATE_USER = gql`
             token
             ID
             signature
+            authority_level
          }
          ... on IncorrecctCredentials {
             message

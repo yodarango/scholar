@@ -448,7 +448,7 @@ a:active {
 .go-pro-button {
    grid-column: 3/4;
    grid-row: 1/2;
-   background-image: url("/images/new-post.svg");
+   background-image: url("/images/icons/plus.png");
    width: 1.5rem;
    height: 1.5rem;
    background-size: cover;
@@ -459,7 +459,11 @@ a:active {
 .go-pro-button {
    grid-column: 4/5;
    grid-row: 1/2;
-   background-image: url("/images/go-pro.png");
+   width: 2rem;
+   height: 2rem;
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-image: url("/images/icons/hearts.png");
 }
 
 .go-pro-button:hover {

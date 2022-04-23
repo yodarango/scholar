@@ -23,7 +23,7 @@
    height: 1.5rem;
    margin: 0;
    background-position: center;
-   background-size: 90%;
+   background-size: 75%;
    background-repeat: no-repeat;
    border-radius: 50%;
    transition: 300ms ease-in;
@@ -37,26 +37,25 @@
 }
 
 .home {
-   background-image: url("/images/home.svg");
+   background-image: url("/images/icons/home.png");
 }
 
 .library {
-   background-image: url("/images/library.svg");
+   background-image: url("/images/icons/library.png");
 }
 
 .feed {
    width: 2rem;
    height: 2rem;
-   background-size: 80%;
-   background-image: url("/images/feed.svg");
-   border: 2px solid var(--font-color);
+   background-size: 90%;
+   background-image: url("/images/icons/clock.png");
 }
 .read {
-   background-image: url("/images/read.svg");
+   background-image: url("/images/icons/book.png");
 }
 
 .profile {
-   background-image: url("/images/profile.svg");
+   background-image: url("/images/icons/prof.png");
 }
 
 @media only screen and (min-width: 1000px) {

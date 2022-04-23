@@ -9,7 +9,7 @@ export const CREATE_NEW_USER = gql`
             token
             ID
             signature
-            email
+            authority_level
          }
          ... on SignatureAlreadyTaken {
             message

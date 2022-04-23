@@ -14,6 +14,7 @@ import NotificationPopup from "../notification-popup";
 
 // styles
 import forgotPasswordStyles from "../../styles/fragments/popup-content/ForgotPasswordModal.module.css";
+import Image from "next/image";
 
 const ForgotPassword = () => {
    // references
@@ -55,6 +56,7 @@ const ForgotPassword = () => {
    };
 
    // ============= FUNCTION 2: Proceed if the email passed verification
+   const [userIDState, setUserIDState] = useState<number>(0);
    const checkCode = async () => {
       if (codeInput.current?.value != "" || !codeInput.current?.value) {
          try {
@@ -84,7 +86,7 @@ const ForgotPassword = () => {
       }
    };
 
-   const [userIDState, setUserIDState] = useState<number>(0);
+   // ============= FUNCTION 3: Proceed if the code passed the verification
    const updatePassword = async () => {
       if (newPassword.current?.value != "" || !newPassword.current?.value) {
          try {
@@ -104,8 +106,8 @@ const ForgotPassword = () => {
                      newClass='notification-wrapper--Error'
                   />
                );
-            } else if (data.forgotten_password_code > 0) {
-               setVerificationStepsState(2);
+            } else if (data.recover_password === true) {
+               setVerificationStepsState(3);
             }
          } catch (error) {
             console.log(error);
@@ -117,7 +119,9 @@ const ForgotPassword = () => {
       <div className={forgotPasswordStyles.mainWrapper}>
          {notificationPopUp}
          <div>
-            <div className='x-large-spacer'></div>
+            <div className={forgotPasswordStyles.imageWrapper}>
+               <Image layout='fill' alt='logo' src='/Parks10.png' />
+            </div>
             {/* ----------------- verify that the email exists ------------ */}
             {verificationStepsState === 0 && (
                <div className={forgotPasswordStyles.inputWrapper}>
@@ -185,6 +189,11 @@ const ForgotPassword = () => {
                   <button className={`std-button`} onClick={updatePassword}>
                      <p className={`std-button_gradient-text`}>Enter</p>
                   </button>
+               </div>
+            )}
+            {verificationStepsState === 3 && (
+               <div>
+                  <p>Your passswrod has been successfully updated. You can login again 🎉</p>
                </div>
             )}
          </div>

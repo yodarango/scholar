@@ -58,28 +58,44 @@ export default function Login() {
    const hanldeNewUserRegistration = async () => {
       if (signatureInput.current && passwordInput.current) {
          setSmallLoaderState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: AUTHENTICATE_USER,
-            variables: {
-               signature: `#${signatureInput.current.value.toUpperCase()}`,
-               password: `${passwordInput.current.value}`
+
+         try {
+            const { data } = await client.mutate({
+               mutation: AUTHENTICATE_USER,
+               variables: {
+                  signature: `#${signatureInput.current.value.toUpperCase()}`,
+                  password: `${passwordInput.current.value}`
+               }
+            });
+
+            if (data.authenticate_user.ID) {
+               const today = Date.now();
+               const expTime = new Date(today + 1209600000);
+
+               document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; path=/`;
+
+               location.href = "/login";
             }
-         });
-         if (data.authenticate_user.ID) {
-            const today = Date.now();
-            const expTime = new Date(today + 1209600000);
+            if (data.authenticate_user.message) {
+               setSmallLoaderState(false);
+               setNotificationpopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationpopUpState(false)}
+                     title='Are you who you say you are? 🕵️‍♂️'
+                     contentString={`${data.authenticate_user.message}`}
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+            }
+         } catch (error) {
+            console.log(error);
 
-            document.cookie = `authorization=${data.verify_account.token}; expires=${expTime}; path=/`;
-
-            location.href = "/login";
-         }
-         if (data.authenticate_user.message) {
             setSmallLoaderState(false);
             setNotificationpopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
-                  title='Are you who you say you are? 🕵️‍♂️'
-                  contentString={`${data.authenticate_user.message}`}
+                  title={`Something went wrong!`}
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
                />
             );
