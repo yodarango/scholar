@@ -72,7 +72,7 @@ const Congregation = ({
                   layout='fill'
                   src={`${imageLogoState}`}
                   onClick={hanleSeeChurchInfo}
-                  onError={() => setImageLogoState("/Parks10.png")}
+                  onError={() => setImageLogoState("/images/library/locations/default.png")}
                />
             </div>
             <h2 className={congregationStyles.name}>{name}</h2>

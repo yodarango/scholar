@@ -34,19 +34,19 @@
 }
 
 .oneView {
-   background-image: url("../../../public/images/Page-read/gridView--One.svg");
+   background-image: url("/images/icons/read_grid_1.png");
 }
 
 .twoView {
-   background-image: url("../../../public/images/Page-read/gridView--Two.svg");
+   background-image: url("/images/icons/read_grid_2.png");
 }
 
 .threeView {
-   background-image: url("../../../public/images/Page-read/gridView--three.svg");
+   background-image: url("/images/icons/read_grid_3.png");
 }
 
 .fourView {
-   background-image: url("../../../public/images/Page-read/gridView--four.svg");
+   background-image: url("/images/icons/read_grid_4.png");
 }
 
 @media only screen and (min-width: 700px) {

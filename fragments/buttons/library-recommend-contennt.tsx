@@ -1,14 +1,21 @@
 // core
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
+
+// graphQl
+import client from "../../apollo-client";
+import { RECOMMNED_NEW_LIB_CONTENT } from "../../graphql/emails/content";
 
 // components
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationPopup from "../notification-popup";
+import SmallLoader from "../../fragments/chunks/small-loader";
 
 //styles
 import libraryRecommendContennt from "../../styles/buttons/LibraryRecommnedContent.module.css";
 
 const LibraryRecommendContennt = () => {
+   // small loader state
+   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
    // ================  FUNCTION 1: allow users to submit a source recommendation =================//
 
    /// ========  FUNCTION 1.1 submission form  Component=======
@@ -39,7 +46,7 @@ const LibraryRecommendContennt = () => {
             newPlaceHolderId: "#f2f2f2"
          });
       };
-      /// =========== select each of the fileds in the form to check for field emptyness ========= //
+      // =========== select each of the fileds in the form to check for field emptyness ========= //
       const contentType = useRef<HTMLDivElement>(null);
       const sourceName = useRef<HTMLInputElement>(null);
       const sourceUrl = useRef<HTMLInputElement>(null);
@@ -51,9 +58,9 @@ const LibraryRecommendContennt = () => {
          false
       );
 
-      //// ============ FUNCTION 1.1.3 send the form using fetch ========= //
+      // ============ FUNCTION 1.1.3 send the form using fetch ========= //
       const handleDataSubmission = async () => {
-         //// ============ Check that all fileds exist========= //
+         // ============ Check that all fileds exist========= //
          if (
             contentType.current &&
             sourceName.current &&
@@ -62,7 +69,7 @@ const LibraryRecommendContennt = () => {
             submitterEmail.current &&
             message.current
          ) {
-            /////  ============ Check for an empty filed and set the popup error notification ========= //
+            //  ============ Check for an empty filed and set the popup error notification ========= //
             if (
                contentType.current.textContent === "Content Type" ||
                sourceName.current.value === "" ||
@@ -80,7 +87,7 @@ const LibraryRecommendContennt = () => {
                   />
                );
             }
-            //// ============ Check that all fileds are filled out and if so go ahead and send the request========= //
+            // ============ Check that all fileds are filled out and if so go ahead and send the request========= //
             if (
                contentType.current.textContent !== "Content Type" &&
                sourceName.current.value !== "" &&
@@ -89,31 +96,42 @@ const LibraryRecommendContennt = () => {
                submitterEmail.current.value !== "" &&
                message.current.value !== ""
             ) {
-               await fetch("https://scholar-be.herokuapp.com/recommend-new-resource", {
-                  method: "POST",
-                  mode: "cors",
-                  headers: {
-                     "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                     contentType: contentType.current.textContent,
-                     sourceName: sourceName.current.value,
-                     sourceUrl: sourceUrl.current.value,
-                     submitterName: submitterName.current.value,
-                     submitterEmail: submitterEmail.current.value,
+               setSmallLoaderState(true);
+               const { data } = await client.mutate({
+                  mutation: RECOMMNED_NEW_LIB_CONTENT,
+                  variables: {
+                     content_type: contentType.current.textContent,
+                     source_name: sourceName.current.value,
+                     source_url: sourceUrl.current.value,
+                     submitter_name: submitterName.current.value,
+                     submitter_email: submitterEmail.current.value,
                      message: message.current.value
-                  })
+                  }
                });
-               ///// ====== close the popup and then set a notification that the email was sent ====== //
-               setOpenpopUpFormState(false);
-               setNotificationPopupState(
-                  <NotificationPopup
-                     title='Thank you!'
-                     closeModal={() => setNotificationPopupState(false)}
-                     newClass='notification-wrapper--Green'
-                     contentString='Your recommendation has been submitted and will be reviewed soon! 😀'
-                  />
-               );
+
+               if (data.recomend_new_library_content === true) {
+                  setSmallLoaderState(false);
+                  setOpenpopUpFormState(false);
+                  setNotificationPopupState(
+                     <NotificationPopup
+                        title='Thank you!'
+                        closeModal={() => setNotificationPopupState(false)}
+                        newClass='.notification-wrapper--Success'
+                        contentString='Your recommendation has been submitted and will be reviewed soon! 😀'
+                     />
+                  );
+               } else {
+                  setOpenpopUpFormState(false);
+                  setSmallLoaderState(false);
+                  setNotificationPopupState(
+                     <NotificationPopup
+                        closeModal={() => setNotificationPopupState(false)}
+                        title={`Something went wrong!`}
+                        contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                        newClass='notification-wrapper--Error'
+                     />
+                  );
+               }
             }
          }
       };
@@ -198,14 +216,17 @@ const LibraryRecommendContennt = () => {
                   maxLength={500}
                   className={`std-text-area ${libraryRecommendContennt.stdTextArea}`}></textarea>
 
-               <button
-                  className={`std-button ${libraryRecommendContennt.stdButton}`}
-                  onClick={handleDataSubmission}>
-                  <p
-                     className={`std-button_gradient-text ${libraryRecommendContennt.stdButtonGradientText}`}>
-                     Submit
-                  </p>
-               </button>
+               {!smallLoaderState && (
+                  <button
+                     className={`std-button ${libraryRecommendContennt.stdButton}`}
+                     onClick={handleDataSubmission}>
+                     <p
+                        className={`std-button_gradient-text ${libraryRecommendContennt.stdButtonGradientText}`}>
+                        Submit
+                     </p>
+                  </button>
+               )}
+               {smallLoaderState && <SmallLoader />}
             </div>
          </>
       );

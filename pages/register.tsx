@@ -74,7 +74,7 @@ export default function Register() {
                }
             });
 
-            console.log(data)
+            console.log(data);
             if (data.create_new_user.ID) {
                const expTime = new Date(new Date().getTime() * 1000 * 60);
                Cookies.set("authorization", data.create_new_user.token, {
@@ -88,7 +88,9 @@ export default function Register() {
                setSmallLoaderState(false);
                setNotificationpopUpState(
                   <NotificationPopup
-                     closeModal={() => (setNotificationpopUpState(false),setSmallLoaderState(false))}
+                     closeModal={() => (
+                        setNotificationpopUpState(false), setSmallLoaderState(false)
+                     )}
                      title='There was a problem 😔'
                      contentString={`${data.create_new_user.message}`}
                      newClass='notification-wrapper--Error'
@@ -100,7 +102,7 @@ export default function Register() {
             setSmallLoaderState(false);
             setNotificationpopUpState(
                <NotificationPopup
-                  closeModal={() => (setNotificationpopUpState(false),setSmallLoaderState(false))}
+                  closeModal={() => (setNotificationpopUpState(false), setSmallLoaderState(false))}
                   title='There was a problem 😔'
                   contentString={`Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!`}
                   newClass='notification-wrapper--Error'
@@ -111,7 +113,7 @@ export default function Register() {
       } else {
          setNotificationpopUpState(
             <NotificationPopup
-               closeModal={() => (setNotificationpopUpState(false),setSmallLoaderState(false))}
+               closeModal={() => (setNotificationpopUpState(false), setSmallLoaderState(false))}
                title='Empty fields detected ✋'
                contentString={`Please make sure all data is entered `}
                newClass='notification-wrapper--Error'

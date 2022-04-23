@@ -25,6 +25,7 @@ import { checkForValidSignature } from "../../../helpers/input-validaton";
 // types
 import { Tuser } from "../[userId]";
 import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
+import BugReport from "../../../fragments/popup-content/forms/bug-report";
 
 type userSettingsProps = {
    user: Tuser;
@@ -298,6 +299,14 @@ const UserSettings = () => {
          />
       );
    };
+
+   // =============== submit a bug report ============
+   const openBugReport = () => {
+      setFullScreenPopUp(
+         <PopupWrapper content={<BugReport />} closeModal={() => setFullScreenPopUp(false)} />
+      );
+   };
+
    return (
       <>
          {loadingState && <div>Loading</div>}
@@ -497,12 +506,15 @@ const UserSettings = () => {
                <h3
                   className={userSettingsStyles.changePasswordLink}
                   onClick={openChangePasswordPopUp}>
-                  change password
+                  🔐 change password
                </h3>
                <h3
                   className={userSettingsStyles.userVerification}
                   onClick={openVerificationApplication}>
-                  apply for user verification
+                  📝 apply for user verification
+               </h3>
+               <h3 className={userSettingsStyles.userVerification} onClick={openBugReport}>
+                  🐛 Submit a bug report
                </h3>
 
                <div className={userSettingsStyles.buttonsWrapper}>

@@ -53,7 +53,8 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
                </div>
                <section>
                   <p>
-                     Thank you for registring <br />
+                     Thank you for registring 😃
+                     <br />
                      It is the goal of <span>Scholar</span> to help you love, learn, and share the
                      Word of God with others. Here are some ways you can help shcolar be a safe and
                      godly platform:

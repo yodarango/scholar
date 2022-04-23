@@ -15,22 +15,24 @@
 
 .leftTrigger,
 .rightTrigger {
-   width: 1.5rem;
-   height: 1.5rem;
+   width: 2rem;
+   height: 2rem;
    border-radius: 50%;
-   background-image: url("/images/dailyVerse-Back.svg");
-   background-position: center;
-   background-size: 80%;
+   background-image: url("/images/icons/back_white.png");
+   background-position: 0.1rem center;
+   background-size: 70%;
    background-repeat: no-repeat;
    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .leftTrigger:hover,
 .rightTrigger:hover {
+   cursor: pointer;
    transform: scale(0.9);
    transition: 300ms;
 }
 
 .rightTrigger {
-   background-image: url("/images/dailyVerse-Forward.svg");
+   background-position: 0.5rem center;
+   background-image: url("/images/icons/forth_white.png");
 }
