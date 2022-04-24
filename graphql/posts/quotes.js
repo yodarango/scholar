@@ -130,9 +130,15 @@ export const POST_NEW_QUOTE = gql`
             approval_level: $approval_level
          }
       ) {
-         ID
-         USER_ID
-         body
+         ... on Quote {
+            ID
+            USER_ID
+            body
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;

@@ -93,8 +93,8 @@ const SermonNotesPost = () => {
          if (fileUploaded.target.files[0].size > 4000000) {
             setCurrentFileUpState(
                <p className={sermonNotesPost.fileNameErr}>
-                  You file is as large as a Mammoth 🦣, please try something smaller like, a Kangaroo
-                  🦘
+                  You file is as large as a Mammoth 🦣, please try something smaller like, a
+                  Kangaroo 🦘
                </p>
             );
             setLoadedFileState({ file: null, file_path: null });

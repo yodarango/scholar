@@ -86,18 +86,32 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                   approval_level: loggedInUserState?.authority_level
                }
             });
-            data.quote
-               ? router.reload()
-               : setSmallLoaderState(
-                    <p className='std-error-msg'>Sorry, something went wrong! 🙁</p>
-                 );
+
+            console.log(data);
+            if (data.quote.__typename === "Quote") {
+               router.reload();
+            } else if (data.quote.__typename === "ExceedsPostCount") {
+               setSmallLoaderState(false);
+               setNotificationpoUp(
+                  <NotificationPopup
+                     title={"This Is Sad 😔"}
+                     contentString={data.quote.message}
+                     closeModal={() => setNotificationpoUp(false)}
+                     newClass={`notification-wrapper--Error`}
+                  />
+               );
+            } else {
+               setSmallLoaderState(
+                  <p className='std-error-msg'>Sorry, something went wrong! 🙁</p>
+               );
+            }
          } else if (textArea.current.value === "") {
             setNotificationpoUp(
                <NotificationPopup
                   title={"Quote Is Emtpy"}
                   contentString={"Empty quotes are not allowed"}
                   closeModal={() => setNotificationpoUp(false)}
-                  newClass={`notification-wrapper--Red`}
+                  newClass={`notification-wrapper--Error`}
                />
             );
          } else if (authorInput.current.value === "") {
@@ -106,7 +120,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                   title={"Auhtor Is Emtpy"}
                   contentString={"Please enter who the author is"}
                   closeModal={() => setNotificationpoUp(false)}
-                  newClass={`notification-wrapper--Red`}
+                  newClass={`notification-wrapper--Error`}
                />
             );
          } else if (currentChosenTagState.tag === "") {
@@ -115,7 +129,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                   title={"No Category Tag"}
                   contentString={"Please select a category tag"}
                   closeModal={() => setNotificationpoUp(false)}
-                  newClass={`notification-wrapper--Red`}
+                  newClass={`notification-wrapper--Error`}
                />
             );
          }

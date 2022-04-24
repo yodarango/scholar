@@ -659,6 +659,10 @@ a:active {
    background-color: var(--warning-color);
 }
 
+.notification-wrapper--Error > p {
+   color: var(--font-color) !important;
+}
+
 /* ScripturesHTML Styles for popup references */
 
 .c /*chapter*/ {

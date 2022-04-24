@@ -10,6 +10,7 @@ export const CREATE_NEW_USER = gql`
             ID
             signature
             authority_level
+            patron
          }
          ... on SignatureAlreadyTaken {
             message

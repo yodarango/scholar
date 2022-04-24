@@ -129,8 +129,14 @@ export const CREATE_NEW_THOUGHT = gql`
             approval_level: $approval_level
          }
       ) {
-         ID
-         USER_ID
+         ... on Thought {
+            ID
+            USER_ID
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;

@@ -212,8 +212,19 @@ const TextEditor = ({
                   approval_level: loggedInUserState?.authority_level
                }
             });
-            if (data.commentary) {
+
+            if (data.commentary.__typename === "Commentary") {
                router.reload();
+            } else if (data.commentary.__typename === "ExceedsPostCount") {
+               setLoadingState(false);
+               setNotificationPopupState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopupState(false)}
+                     title={`This Is Sad! 😞`}
+                     contentString={`${data.commentary.message}`}
+                     newClass='notification-wrapper--Error'
+                  />
+               );
             } else {
                setLoadingState(false);
                setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
@@ -284,8 +295,18 @@ const TextEditor = ({
                   approval_level: loggedInUserState?.authority_level
                }
             });
-            if (data.thought) {
+            if (data.thought.__typename === "Thought") {
                router.reload();
+            } else if (data.thought.__typename === "ExceedsPostCount") {
+               setLoadingState(false);
+               setNotificationPopupState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopupState(false)}
+                     title={`This Is Sad 😞`}
+                     contentString={data.thought.message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
             } else {
                setLoadingState(false);
                setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);

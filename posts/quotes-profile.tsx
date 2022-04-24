@@ -85,6 +85,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
          mutation: DELETE_ONE_QUOTE,
          variables: { ID: id }
       });
+
       if (data.data.delete_one_quote) {
          setdeletedPostState(true);
          setConfirmationPopUpState(false);

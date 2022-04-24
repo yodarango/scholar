@@ -74,9 +74,15 @@ export const CREATE_NEW_SERMON_NOTE = gql`
             DROPBOX_ID: $DROPBOX_ID
          }
       ) {
-         ID
-         USER_ID
-         body
+         ... on UserContent_SermonNotes {
+            ID
+            USER_ID
+            body
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;

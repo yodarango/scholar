@@ -139,9 +139,14 @@ export const CREATE_NEW_COMMENTARY = gql`
             approval_level: $approval_level
          }
       ) {
-         ID
-         VERSE_ID
-         USER_ID
+         ... on Commentary {
+            ID
+            VERSE_ID
+            USER_ID
+         }
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;
