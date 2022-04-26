@@ -229,12 +229,26 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
          const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
+         console.log(data);
          if (data.ID) {
             setPostingState(false);
             setCommentBoxState("");
             //commentBody.current.value = "comment posted";
             setCommentsCountState(commentsCountState + 1);
-         } else if (data == false) {
+            return;
+         } else if (data === "ExceedsPostCount") {
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='This is sad 😔'
+                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+
+            return;
+         } else if (data === "Error") {
             setPostingState(false);
             setNotificationpopUpState(
                <NotificationPopup
@@ -244,16 +258,24 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          } else {
             setPostingState(false);
             setNotificationpopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
-                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  contentString={
+                     data.graphQLErrors
+                        ? data.graphQLErrors[0]?.message
+                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                  }
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          }
       }
    };

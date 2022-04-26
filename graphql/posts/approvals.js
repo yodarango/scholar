@@ -5,7 +5,13 @@ export const CREATE_COMMENTARY_APPROVAL = gql`
       rate_commentary(
          data: { COMMENTARY_ID: $COMMENTARY_ID, approval_rate: $approval_rate, USER_ID: $USER_ID }
       ) {
+         # ... on Commentary_Approval {
          ID
+         # }
+
+         # ... on ExceedsPostCount {
+         # message
+         # }
       }
    }
 `;
@@ -15,7 +21,12 @@ export const CREATE_THOUGHT_APPROVAL = gql`
       rate_thought(
          data: { THOUGHT_ID: $THOUGHT_ID, approval_rate: $approval_rate, USER_ID: $USER_ID }
       ) {
+         # ... on Quote_Approval {
          ID
+         # }
+         # ... on ExceedsPostCount {
+         #    message
+         # }
       }
    }
 `;
@@ -23,7 +34,12 @@ export const CREATE_THOUGHT_APPROVAL = gql`
 export const CREATE_QUOTE_APPROVAL = gql`
    mutation ($QUOTE_ID: ID, $approval_rate: Int, $USER_ID: ID) {
       rate_quote(data: { QUOTE_ID: $QUOTE_ID, approval_rate: $approval_rate, USER_ID: $USER_ID }) {
+         # ... on Thought_Approval {
          ID
+         # }
+         # ... on ExceedsPostCount {
+         #    message
+         # }
       }
    }
 `;

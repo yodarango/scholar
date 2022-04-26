@@ -113,7 +113,8 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
             commentary.creator.ID
          );
 
-         // if the helper function returns true then everything went well
+         console.log(data);
+         //if the helper function returns true then everything went well
          if (data.ID) {
             // increase comment count
             setCommentsCountState(commentsCountState + 1);
@@ -124,7 +125,20 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
 
             // create the new comment
             fetchComments(data);
-         } else if (data == false) {
+            return;
+         } else if (data === "ExceedsPostCount") {
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='This is sad 😔'
+                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+
+            return;
+         } else if (data === "Error") {
             setPostingState(false);
             setNotificationPopUpState(
                <NotificationPopup
@@ -134,6 +148,8 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          } else {
             setPostingState(false);
             setNotificationPopUpState(
@@ -148,6 +164,8 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          }
       }
    };

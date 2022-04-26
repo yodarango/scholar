@@ -1,21 +1,50 @@
-import React from "react";
+// core
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-const success = () => {
+// graphQL
+import client from "../../apollo-client";
+import { GET_ORDER_SUCCESS_DATA } from "../../graphql/billing/billing";
+
+const Success = () => {
+   // router
+   const router = useRouter();
+
+   // user Details
+   const [checkoutDeets, setCheckoutDeets] = useState<any>(false);
+   const [failedTransaction, setFailedTransaction] = useState<string | boolean>(false);
+
+   const getUserCheckoutData = async () => {
+      const { data } = await client.query({
+         query: GET_ORDER_SUCCESS_DATA,
+         variables: { session_id: router.query.session_id }
+      });
+      console.log(data);
+
+      if (data.order_success.__typename === "Successful_Order") {
+         setCheckoutDeets(data.order_success);
+      } else if (data.order_success.__typename === "Failed_Order") {
+         setFailedTransaction(data.order_success.message);
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         getUserCheckoutData();
+      }
+   }, [router.isReady]);
+
    return (
-      <section>
-         <div className='product Box-root'>
-            <div className='description Box-root'>
-               <h3>Subscription to Starter plan successful!</h3>
+      <div>
+         {checkoutDeets && (
+            <div>
+               <h1>Congratulations {checkoutDeets.name}</h1>
+               <p>a confirmation email has been sent to {checkoutDeets.email}</p>
             </div>
-         </div>
-         <form action='/create-portal-session' method='POST'>
-            <input type='hidden' id='session-id' name='session_id' value='' />
-            <button id='checkout-and-portal-button' type='submit'>
-               Manage your billing information
-            </button>
-         </form>
-      </section>
+         )}
+         {failedTransaction}
+      </div>
    );
 };
 
-export default success;
+export default Success;

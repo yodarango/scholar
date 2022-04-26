@@ -56,6 +56,7 @@ export type Tuser = {
    authority_level: string;
    approval_rating: number;
    avatar: string;
+   patron?: boolean;
    my_church: string;
    my_favorite_color: string;
    my_job: string;

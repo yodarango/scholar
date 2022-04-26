@@ -28,6 +28,7 @@ const SermonNotesPost = () => {
       if (authCookie) {
          const user: Tuser = parseJwt(authCookie);
          setLoggedInUserState(user);
+         console.log(user);
       }
    }, []);
 
@@ -114,7 +115,7 @@ const SermonNotesPost = () => {
 
    const handlePostSermonNotes = async (file_url: string, dropbox_id: string) => {
       try {
-         await client.mutate({
+         const { data } = await client.mutate({
             mutation: CREATE_NEW_SERMON_NOTE,
             variables: {
                DROPBOX_ID: dropbox_id,
@@ -126,6 +127,12 @@ const SermonNotesPost = () => {
                title: sermonTitleRef.current?.value
             }
          });
+
+         if (data.sermon_note.__typename === "UserContent_SermonNotes") {
+            return true;
+         } else {
+            return false;
+         }
       } catch (error) {
          console.log(error);
          setnotificationsPopupState(
@@ -136,6 +143,7 @@ const SermonNotesPost = () => {
                newClass={`notification-wrapper--Red`}
             />
          );
+         return false;
       }
    };
 
@@ -149,6 +157,18 @@ const SermonNotesPost = () => {
                closeModal={() => setnotificationsPopupState(false)}
                title={`You're not authorized! 👮‍♂️`}
                contentString={`Please login in order to execute this action`}
+               newClass='notification-wrapper--Error'
+            />
+         );
+         return;
+      }
+      // check if the user is a patron
+      if (!loggedInUserState.patron) {
+         setnotificationsPopupState(
+            <NotificationPopup
+               closeModal={() => setnotificationsPopupState(false)}
+               title={`This Is Sad 😔`}
+               contentString={`Please consider supporting Scholar to upload your sermon notes`}
                newClass='notification-wrapper--Error'
             />
          );
@@ -184,13 +204,27 @@ const SermonNotesPost = () => {
                const responseText = await request.text();
                const responseObject = JSON.parse(responseText);
                if (request.status === 200) {
-                  handlePostSermonNotes(responseObject.url, responseObject.id);
-                  router.reload();
+                  const sermonUploadResult = await handlePostSermonNotes(
+                     responseObject.url,
+                     responseObject.id
+                  );
+                  if (sermonUploadResult) {
+                     router.reload();
+                  } else {
+                     setnotificationsPopupState(
+                        <NotificationPopup
+                           title={"Something Went Wrong!"}
+                           contentString={`There was a problem uploading your file. Please try again later! ⛔️🖥`}
+                           closeModal={() => setnotificationsPopupState(false)}
+                           newClass={`notification-wrapper--Red`}
+                        />
+                     );
+                  }
                } else {
                   setnotificationsPopupState(
                      <NotificationPopup
                         title={"Something Went Wrong!"}
-                        contentString={`There was a problem uploading your file. Please try again! ⛔️🖥`}
+                        contentString={`There was a problem uploading your file. Please try again later! ⛔️🖥`}
                         closeModal={() => setnotificationsPopupState(false)}
                         newClass={`notification-wrapper--Red`}
                      />
@@ -202,7 +236,7 @@ const SermonNotesPost = () => {
             setnotificationsPopupState(
                <NotificationPopup
                   title={"Something Went Wrong!"}
-                  contentString={`There was a problem uploading your file. Please try again! ⛔️🖥`}
+                  contentString={`There was a problem uploading your file. Please try again later! ⛔️🖥`}
                   closeModal={() => setnotificationsPopupState(false)}
                   newClass={`notification-wrapper--Red`}
                />

@@ -217,7 +217,18 @@ export default function Comments({ commentary }: commentsProps) {
             setCommentsCountState(commentsCountState + 1);
             setPostingState(false);
             setCommentBoxState("");
-         } else if (data == false) {
+         } else if (data === "ExceedsPostCount") {
+            setPostingState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='This is sad 😔'
+                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+            return;
+         } else if (data === "Error") {
             setPostingState(false);
             setNotificationPopUpState(
                <NotificationPopup
@@ -227,6 +238,8 @@ export default function Comments({ commentary }: commentsProps) {
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          } else {
             setPostingState(false);
             setNotificationPopUpState(
@@ -241,6 +254,8 @@ export default function Comments({ commentary }: commentsProps) {
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          }
       }
    };

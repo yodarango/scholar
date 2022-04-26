@@ -1,5 +1,4 @@
 import Head from "next/head";
-
 // core
 import React from "react";
 import { useRouter } from "next/router";
@@ -23,7 +22,7 @@ const GoPro = () => {
       const { data } = await client.mutate({
          mutation: CREATE_CHECKOUT_SESSION,
          variables: {
-            price_id: "price_1KrpBtFRxjIRnSsYxmCcKX2X"
+            price_id: "price_1KspiSFRxjIRnSsY8LpRy8Y7"
          }
       });
 

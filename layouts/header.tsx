@@ -15,6 +15,10 @@ import generalDropDownStyles from "../styles/buttons/GeneralDropDown.module.css"
 //helpers
 import { TdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
 import getCookie from "../helpers/get-cookie";
+import parseJWT from "../helpers/auth/decodeJWT";
+
+// types
+import { Tuser } from "../pages/users/[userId]";
 
 type headerProps = {
    currPage: string;
@@ -22,10 +26,14 @@ type headerProps = {
 
 export default function Header({ currPage }: headerProps) {
    // check if the user is authenticated in order to upload to dropbox
-   const [isUserAuth, setIsUserAuth] = useState<boolean>(false);
+   const [isUserAuth, setIsUserAuth] = useState<Tuser | null>(null);
+
    useEffect(() => {
       const authCookie = getCookie("authorization");
-      authCookie ? setIsUserAuth(true) : setIsUserAuth(false);
+      const decodedUser = parseJWT(authCookie);
+      setIsUserAuth(decodedUser);
+
+      console.log(decodedUser);
    }, []);
 
    // =================   FUNCTION 1: open the new post dropdown   ================= //
@@ -104,17 +112,24 @@ export default function Header({ currPage }: headerProps) {
                </Link>
             </div>
             <h2 className='header-curr-page'>{currPage}</h2>
-            {!openDropDownState && isUserAuth && (
+            {!openDropDownState && isUserAuth?.ID && (
                <span className={"new-post-trigger"} onClick={handleShowDropDown}></span>
             )}
-            {openDropDownState && isUserAuth && (
+            {openDropDownState && isUserAuth?.ID && (
                <span
                   className={"new-post-trigger"}
                   onClick={() => setOpenDropDownState(false)}></span>
             )}
-            <Link href={"/go-pro"}>
-               <a className={`go-pro-button`}></a>
-            </Link>
+            {!isUserAuth?.patron && (
+               <Link href={"/go-pro"}>
+                  <a className={`go-pro-button`}></a>
+               </Link>
+            )}
+            {isUserAuth?.patron && (
+               <Link href={"/redirect-to-billing-page"}>
+                  <a className={`go-pro-button`}></a>
+               </Link>
+            )}
          </div>
       </>
    );
