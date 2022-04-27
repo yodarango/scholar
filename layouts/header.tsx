@@ -126,7 +126,7 @@ export default function Header({ currPage }: headerProps) {
                </Link>
             )}
             {isUserAuth?.patron && (
-               <Link href={"/redirect-to-billing-page"}>
+               <Link href={"/subscription/billing"}>
                   <a className={`go-pro-button`}></a>
                </Link>
             )}

@@ -15,16 +15,23 @@ const Success = () => {
    const [failedTransaction, setFailedTransaction] = useState<string | boolean>(false);
 
    const getUserCheckoutData = async () => {
-      const { data } = await client.query({
-         query: GET_ORDER_SUCCESS_DATA,
-         variables: { session_id: router.query.session_id }
-      });
-      console.log(data);
+      try {
+         const { data } = await client.query({
+            query: GET_ORDER_SUCCESS_DATA,
+            variables: { session_id: router.query.session_id }
+         });
 
-      if (data.order_success.__typename === "Successful_Order") {
-         setCheckoutDeets(data.order_success);
-      } else if (data.order_success.__typename === "Failed_Order") {
-         setFailedTransaction(data.order_success.message);
+         if (data.order_success.__typename === "Successful_Order") {
+            const today = Date.now();
+            const expTime = new Date(today + 1209600000);
+
+            document.cookie = `authorization=${data.order_success.token}; expires=${expTime}; path=/`;
+            setCheckoutDeets(data.order_success);
+         } else if (data.order_success.__typename === "Failed_Order") {
+            setFailedTransaction(data.order_success.message);
+         }
+      } catch (error) {
+         setFailedTransaction("your transaction failed. Please try again later");
       }
    };
 
