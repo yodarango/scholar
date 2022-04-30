@@ -1,16 +1,21 @@
 export const getInitialData = async (verse: string | string[] | undefined) => {
    if (verse) {
-      const request = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${verse}?content-type=text&include-verse-numbers=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      try {
+         const request = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/verses/${verse}?content-type=text&include-verse-numbers=false`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+               }
             }
-         }
-      );
-      const response = await request.json();
-      return response.data;
+         );
+         const response = await request.json();
+         return response.data;
+      } catch (error) {
+         console.log(error);
+         return undefined;
+      }
    }
    return {
       id: "JHN.1.8",

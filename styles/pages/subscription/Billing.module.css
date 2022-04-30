@@ -1,0 +1,17 @@
+.mainWrapper {
+   width: 90%;
+   max-width: 800px;
+   margin: var(--large-spacing-mobile) auto;
+}
+
+.imageWrapper {
+   position: relative;
+   width: 100%;
+   height: 90vw;
+   max-width: 500px;
+   max-height: 500px;
+}
+.dashboardButton {
+   width: 90%;
+   max-width: 350px;
+}

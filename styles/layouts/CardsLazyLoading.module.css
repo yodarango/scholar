@@ -1,0 +1,83 @@
+/* ---------------  globals ------------------ */
+.mainWrapper div {
+   background-color: var(--font-color);
+   background-image: linear-gradient(
+      110deg,
+      var(--secondary-color) 8%,
+      #433b55c2 18%,
+      var(--secondary-color) 33%
+   );
+   background-size: 250% 100%;
+   background-position: 10% 0%;
+   animation: 2s shine linear infinite;
+   border-radius: var(--input-radius-mobile);
+}
+
+.errorImage {
+   position: relative;
+   height: 10rem;
+   width: 10rem;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.errorImage img {
+   object-fit: contain;
+   object-position: center;
+}
+
+.stdLoadingText {
+   opacity: 1;
+   animation: 1500ms blink linear infinite;
+}
+
+@keyframes blink {
+   0% {
+      opacity: 1;
+   }
+
+   50% {
+      opacity: 0;
+   }
+
+   100% {
+      opacity: 1;
+   }
+}
+/* -------- Home page commentaries ---------- */
+.homeCommentstaries {
+   width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.homeCommentstaries div {
+   width: 350px;
+   height: 13rem;
+   margin: var(--medium-spacing-mobile) var(--medium-spacing-mobile) 0 0;
+   flex-shrink: 0;
+}
+
+/* ------- Daily bible verse card ------------ */
+.dailyVerseCard {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto;
+   max-width: var(--max-width-main-wrapper-mobile);
+}
+.dailyVerseCard div {
+   width: 100%;
+   height: 13rem;
+}
+
+@media (min-width: 1000px) {
+   .dailyVerseCard div {
+      height: 16rem;
+   }
+}
+
+@keyframes shine {
+   to {
+      background-position-x: -250%;
+   }
+}

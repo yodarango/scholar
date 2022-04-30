@@ -6,7 +6,7 @@
 
 // core
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 
 // components
 import TextEditor from "../fragments/text-editor";
@@ -14,14 +14,16 @@ import FormattingRules from "../fragments/buttons/formatting-rules";
 
 // styles
 import popNewCommentStyles from "../styles/layouts/PopupNewComment.module.css";
+import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers: types
 import { TverseContent } from "../pages";
 
 type commentaryProps = {
-   verseData: TverseContent;
+   verseData: TverseContent | undefined;
+   err: boolean;
 };
-const Commentary = ({ verseData }: commentaryProps) => {
+const Commentary = ({ verseData, err }: commentaryProps) => {
    // ===========  FUNCTION: add the selected Verse to editor
    type IreferencedVerseState = {
       id: string;
@@ -48,27 +50,41 @@ const Commentary = ({ verseData }: commentaryProps) => {
    return (
       <>
          <div className={`${popNewCommentStyles.mainWrapper}`}>
-            <div>
-               <div className={popNewCommentStyles.commentaryVerseWrapper}>
-                  <p className='std-text-block--info'>{verseData.reference}</p>
-                  <p className='std-text-block'>{verseData.content}</p>
+            {verseData && !err && (
+               <div>
+                  <div className={popNewCommentStyles.commentaryVerseWrapper}>
+                     <p className='std-text-block--info'>{verseData.reference}</p>
+                     <p className='std-text-block'>{verseData.content}</p>
+                  </div>
                </div>
-            </div>
-            <div>
-               <TextEditor
-                  contentTypeToPost='COMMENTARY'
-                  verseBeingCommented={verseData}
-                  title='Your Commentary'
-                  formattingRules={
-                     <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
-                  }
-                  referencedVerses={referencedVerseState}
-                  removeVerse={removeVerse}
-               />
-            </div>
+            )}
+            {!verseData && (
+               <p className={`std-text-block ${cardsLazyLoadingStyles.stdLoadingText}`}>
+                  Loading...
+               </p>
+            )}
+            {err && (
+               <div className={cardsLazyLoadingStyles.errorImage}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
+            {verseData && !err && (
+               <div>
+                  <TextEditor
+                     contentTypeToPost='COMMENTARY'
+                     verseBeingCommented={verseData}
+                     title='Your Commentary'
+                     formattingRules={
+                        <FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />
+                     }
+                     referencedVerses={referencedVerseState}
+                     removeVerse={removeVerse}
+                  />
+               </div>
+            )}
          </div>
       </>
    );
 };
 
-export default dynamic(() => Promise.resolve(Commentary), { ssr: false });
+export default Commentary;

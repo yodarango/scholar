@@ -1,5 +1,11 @@
+// core
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Router, { useRouter } from "next/router";
+
+// graphQl
+import client from "../apollo-client";
+import { CHECK_IF_PATRON_ACCOUNT } from "../graphql/billing/billing";
 
 // components
 import GeneralDropdown from "../fragments/buttons/general-dropdown";
@@ -25,7 +31,9 @@ type headerProps = {
 };
 
 export default function Header({ currPage }: headerProps) {
-   // check if the user is authenticated in order to upload to dropbox
+   // set up router
+   const router = useRouter();
+   //check if the user is authenticated in order to upload to dropbox
    const [isUserAuth, setIsUserAuth] = useState<Tuser | null>(null);
 
    useEffect(() => {
@@ -89,6 +97,26 @@ export default function Header({ currPage }: headerProps) {
       setOpenDropDownState(false);
    };
 
+   // Check if the user is a patron to redirect them appropiately
+   const checkIfUserPatron = async () => {
+      try {
+         const { data } = await client.query({
+            query: CHECK_IF_PATRON_ACCOUNT,
+            variables: {}
+         });
+
+         if (data.user_has_stripe_account) {
+            router.replace("/subscription/billing");
+         } else {
+            router.replace("/subscription/join");
+         }
+
+         console.log(data);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
    return (
       <>
          {openDropDownState && (
@@ -120,16 +148,8 @@ export default function Header({ currPage }: headerProps) {
                   className={"new-post-trigger"}
                   onClick={() => setOpenDropDownState(false)}></span>
             )}
-            {!isUserAuth?.patron && (
-               <Link href={"/go-pro"}>
-                  <a className={`go-pro-button`}></a>
-               </Link>
-            )}
-            {isUserAuth?.patron && (
-               <Link href={"/subscription/billing"}>
-                  <a className={`go-pro-button`}></a>
-               </Link>
-            )}
+
+            <button className={`go-pro-button`} onClick={checkIfUserPatron}></button>
          </div>
       </>
    );

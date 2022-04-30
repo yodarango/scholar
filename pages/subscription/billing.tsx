@@ -7,12 +7,18 @@ import Image from "next/image";
 import client from "../../apollo-client";
 import { GET_USER_PORTAL_SESSION } from "../../graphql/billing/billing";
 
+// styles
+import billingStlyes from "../../styles/pages/subscription/Billing.module.css";
+
+// comps
+import NavigationMenu from "../../layouts/navigation-menu";
+
 const Billing = () => {
    // set the router
    const router = useRouter();
 
    // user Details
-   const [portalLinkState, setPortalLinkState] = useState<string>("");
+   const [portalLinkState, setPortalLinkState] = useState<string>("loading");
 
    const getUserCheckoutData = async () => {
       try {
@@ -32,7 +38,7 @@ const Billing = () => {
             setPortalLinkState("");
          }
       } catch (error) {
-         setPortalLinkState("");
+         setPortalLinkState("error");
          console.log(error);
       }
    };
@@ -44,25 +50,26 @@ const Billing = () => {
    }, [router.isReady]);
 
    return (
-      <>
-         {/* <div>
-        <Image src="/Parks10.png" layout="fill"/>
-        </div> */}
+      <div className={billingStlyes.mainWrapper}>
+         <div className={billingStlyes.imageWrapper}>
+            <Image src='/Parks10.png' layout='fill' />
+         </div>
 
-         {portalLinkState != "" && (
+         {portalLinkState != "error" && portalLinkState != "loading" && (
             <div>
                <p>
-                  Scholar cares about your security. Scholar uses stripe to keep your billing
-                  information secure and private. To access your Stripe portal click the link below
-                  😊
+                  Scholar cares about your security, that is why stripe is used in all transactions
+                  to keep your billing information secure and private. To access your Stripe portal
+                  click the button below 😊
                </p>
-               <a href={`${portalLinkState}`} className='std-button'>
-                  {" "}
-                  <p className='std-button_gradient-text'>ACCESS DASHOBOARD</p>{" "}
+               <a
+                  href={`${portalLinkState}`}
+                  className={`std-button ${billingStlyes.dashboardButton}`}>
+                  <p className={`std-button_gradient-text`}>ACCESS DASHOBOARD</p>
                </a>
             </div>
          )}
-         {portalLinkState === "" && (
+         {portalLinkState === "error" && (
             <div>
                <p>
                   Your stripe account was not found. Please try again later or contact Scholar at
@@ -70,7 +77,9 @@ const Billing = () => {
                </p>
             </div>
          )}
-      </>
+         {portalLinkState === "loading" && <div></div>}
+         <NavigationMenu />
+      </div>
    );
 };
 

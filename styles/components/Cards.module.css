@@ -1,7 +1,7 @@
 /* Daily Verse Card */
 .squaredCardWrapper {
    width: 100%;
-   height: 15.62;
+   /* height: 15.62rem; */
    background-color: var(--secondary-color);
    padding: var(--xsmall-spacing-mobile);
    margin: var(--medium-spacing-mobile) auto;

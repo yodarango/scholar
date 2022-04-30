@@ -40,3 +40,9 @@ export const GET_USER_PORTAL_SESSION = gql`
       }
    }
 `;
+
+export const CHECK_IF_PATRON_ACCOUNT = gql`
+   query {
+      user_has_stripe_account
+   }
+`;

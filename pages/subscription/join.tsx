@@ -4,14 +4,14 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // react
-import client from "../apollo-client";
-import { CREATE_CHECKOUT_SESSION } from "../graphql/billing/billing";
+import client from "../../apollo-client";
+import { CREATE_CHECKOUT_SESSION } from "../../graphql/billing/billing";
 
 // components
-import NavigationMenu from "../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation-menu";
 
 // style
-import goProPageStyles from "../styles/pages/GoPro.module.css";
+import goProPageStyles from "../../styles/pages/GoPro.module.css";
 
 const GoPro = () => {
    // =================== go back in histroy   ============== //
@@ -35,8 +35,7 @@ const GoPro = () => {
    return (
       <>
          <Head key='payment-apge'>
-            <script src='https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch'></script>
-            <script src='https://js.stripe.com/v3/'></script>
+            <></>
          </Head>
 
          <div className={goProPageStyles.mainWrapper}>
@@ -46,19 +45,13 @@ const GoPro = () => {
             <h1 className={`${goProPageStyles.stdH1} std-button_gradient-text`}>
                HELP SCHOLAR STAY ALIVE!
             </h1>
-            <button
+            {/* <button
                className={`std-button--clear ${goProPageStyles.stdButton} ${goProPageStyles.stdButtonClear}`}>
                <p className={`std-button_gradient-text`}>ONE TIME DONATION</p>
-            </button>
+            </button> */}
 
-            {/* <form action='/create-checkout-session' method='POST'>
-               <input type='hidden' name='lookup_key' value='price_1KrmD2FRxjIRnSsYZRJNZf9o' />
-               <button id='checkout-and-portal-button' type='submit'>
-                  Checkout
-               </button>
-            </form> */}
             <button className={`std-button ${goProPageStyles.stdButton}`} onClick={checkout}>
-               <p className={`std-button_gradient-text`}>JOIN FOR ONLY $2.99/month</p>
+               <p className={`std-button_gradient-text`}>JOIN FOR ONLY $3.99/month</p>
             </button>
             <p className={`std-text-block--info ${goProPageStyles.stdInfoText}`}>Canel any time!</p>
             <div className={`${goProPageStyles.verctorItem}`}></div>
