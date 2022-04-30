@@ -3,11 +3,14 @@
 
 // core
 import React, { MouseEventHandler, useEffect, useState } from "react";
+import CardsLazyLoading from "../../layouts/cards-lazy-loading";
+import Image from "next/image";
 
 //components
 
 // styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 //helpers
 
@@ -20,25 +23,33 @@ type getNewBookProps = {
 };
 
 type bibleBooks = {
-   id?: string;
-   bibleId?: string;
-   abbreviation?: string;
-   name?: string;
-   nameLong?: string;
+   id: string;
+   bibleId: string;
+   abbreviation: string;
+   name: string;
+   nameLong: string;
 };
 const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBookProps) => {
+   const [loadingState, setLoadingState] = useState<string>("loading");
    const [getnewChapter, setGetnewChapter] = useState<bibleBooks[]>([]);
 
    const getNewBook = async () => {
-      const requ = await fetch(`https://api.scripture.api.bible/v1/bibles/${versionId}/books`, {
-         method: "GET",
-         headers: {
-            "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
-         }
-      });
+      try {
+         const requ = await fetch(`https://api.scripture.api.bible/v1/bibles/${versionId}/books`, {
+            method: "GET",
+            headers: {
+               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+            }
+         });
 
-      const json = await requ.json();
-      setGetnewChapter(json.data);
+         const json = await requ.json();
+         setGetnewChapter(json.data);
+         setLoadingState("done");
+      } catch (error) {
+         setGetnewChapter([]);
+         setLoadingState("error");
+         console.log(error);
+      }
    };
 
    useEffect(() => {
@@ -54,17 +65,33 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
             <div className='closeModal' onClick={closeModal}>
                X
             </div>
-            {getnewChapter.map((el) => (
-               <div
-                  key={el.id}
-                  data-book={`${el.id}`}
-                  className={selectNewScriptureStyles.bibleBookRow}
-                  onClick={() => openGetNewChapterFunc(el.id)}>
-                  <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
-                     {el.name}
-                  </p>
+
+            {getnewChapter.length > 0 &&
+               loadingState == "done" &&
+               getnewChapter.map((el) => (
+                  <div
+                     key={el.id}
+                     data-book={`${el.id}`}
+                     className={selectNewScriptureStyles.bibleBookRow}
+                     onClick={() => openGetNewChapterFunc(el.id)}>
+                     <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
+                        {el.name}
+                     </p>
+                  </div>
+               ))}
+
+            {loadingState == "loading" && (
+               <CardsLazyLoading
+                  amount={66}
+                  compClass={cardsLazyLoadingStyles.selectScriptureVerseBook}
+               />
+            )}
+
+            {loadingState == "error" && (
+               <div className={cardsLazyLoadingStyles.errorImage}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
                </div>
-            ))}
+            )}
          </div>
       </div>
    );
