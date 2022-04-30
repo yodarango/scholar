@@ -98,6 +98,7 @@ export default function Home() {
    };
    // fetch the content on initial component render
    useEffect(() => {
+      setVerseState(undefined);
       if (router.isReady) {
          getAllDate();
       }

@@ -8,6 +8,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // components
 import GetNewBook from "../get-new-scriptures/get-new-book";
@@ -30,7 +31,7 @@ import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
 import { TverseContent } from "../../pages";
 
 type dailyVerseProps = {
-   verseContent?: TverseContent;
+   verseContent?: TverseContent | undefined;
    versionId: string;
    err: boolean;
 };

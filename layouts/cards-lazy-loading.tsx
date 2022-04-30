@@ -9,8 +9,8 @@ type cardsLazyLoadingPorops = {
 const CardsLazyLoading = ({ amount, compClass }: cardsLazyLoadingPorops) => {
    return (
       <div className={`${cardsLazyLoadingStyles.mainWrapper} ${compClass}`}>
-         {[...Array(amount)].map((_) => (
-            <div></div>
+         {[...Array(amount)].map((_, index) => (
+            <div key={index}></div>
          ))}
       </div>
    );

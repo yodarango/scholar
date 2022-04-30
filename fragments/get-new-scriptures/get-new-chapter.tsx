@@ -69,6 +69,7 @@ const GetNewChapter = ({
    useEffect(() => {
       getNewChapterFunct();
    }, []);
+
    return (
       <div className={`full-cover-bkg ${selectNewScriptureStyles.majorWrapperChapter}`}>
          <p className={`std-text-block--small-title ${selectNewScriptureStyles.modalTitle}`}>
