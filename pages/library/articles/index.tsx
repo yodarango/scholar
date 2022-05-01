@@ -40,8 +40,7 @@ const Articles = ({ articles }: articlePageProps) => {
    const handleInputSearchReq = (string: string) => {
       if (string) {
          const singleWords = string.split(" ");
-         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
-         console.log(newInput);
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substring(1));
       }
 
       router.replace({ pathname: router.pathname, query: { title: newInput } });

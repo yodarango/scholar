@@ -20,7 +20,7 @@ export type podcastsProps = {
    spotifyLink: string;
    googleLink: string;
    overcastLink: string;
-   user?: string;
+   user?: any;
    newClass?: string;
 };
 
@@ -38,13 +38,11 @@ const Podcasts = ({
    overcastLink,
    newClass
 }: podcastsProps) => {
-   console.log(currentRanking, totalReviews);
    // set the images not directly from props but by state to set img fallback if it does not exist
    const [imageThumbnailState, setImageThumbnailState] = useState<string>(thumbnail);
 
    // ===============   FUNCTIOn: 1 Open the podcast review   =============//
    const [openPodcastDescState, setOpenPodcastDescState] = useState<JSX.Element | boolean>(false);
-
    const handleOpenDescription = () => {
       setOpenPodcastDescState(
          <div className={`${podcastStyles.descPopup}`} key={id}>

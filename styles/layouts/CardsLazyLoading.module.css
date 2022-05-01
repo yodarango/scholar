@@ -103,6 +103,27 @@
    margin: 0.5rem;
 }
 
+/* ------------ library home page -------------- */
+.libraryHomePageSquare,
+.libraryHomePageLong {
+   width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+.libraryHomePageSquare div,
+.libraryHomePageLong div {
+   height: 9.3rem;
+   width: 9.3rem;
+   flex-shrink: 0;
+   margin: var(--medium-spacing-mobile) var(--small-spacing-mobile);
+}
+
+.libraryHomePageLong div {
+   height: 12rem;
+}
+
 @keyframes shine {
    to {
       background-position-x: -250%;

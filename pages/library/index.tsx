@@ -6,9 +6,9 @@
 // *** this page with the content type and userid/signatu *** //
 
 // core
-import React from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import { GetServerSideProps, GetStaticProps } from "next";
+//import { GetServerSideProps, GetStaticProps } from "next";
 
 // graphql
 import client from "../../apollo-client";
@@ -37,15 +37,74 @@ import { bookProps } from "../../fragments/library-items/book";
 import { watchProps } from "../../fragments/library-items/watch";
 import NavigationMenu from "../../layouts/navigation-menu";
 
-type libraryProps = {
-   articles: articleProps[];
-   podcasts: podcastsProps[];
-   blogs: blogProps[];
-   sermons: Tsermon[];
-   books: bookProps[];
-   watch: watchProps[];
-};
-const Library = ({ articles, podcasts, blogs, sermons, books, watch }: libraryProps) => {
+const Library = () => {
+   // data
+   const [articlesState, setArticlesState] = useState<{
+      cont: articleProps[] | undefined;
+      err: boolean;
+   }>({ cont: undefined, err: false });
+   const [podcastState, setPodcastState] = useState<{
+      cont: podcastsProps[] | undefined;
+      err: boolean;
+   }>({ cont: undefined, err: false });
+   const [blogsState, setBlogsState] = useState<{ cont: blogProps[] | undefined; err: boolean }>({
+      cont: undefined,
+      err: false
+   });
+   const [sermonNotesState, setSermonNotesState] = useState<{
+      cont: Tsermon[] | undefined;
+      err: boolean;
+   }>({ cont: undefined, err: false });
+   const [booksState, setBooksState] = useState<{ cont: bookProps[] | undefined; err: boolean }>({
+      cont: undefined,
+      err: false
+   });
+   const [sermonsState, setSermonsState] = useState<{
+      cont: watchProps[] | undefined;
+      err: boolean;
+   }>({ cont: undefined, err: false });
+
+   // get the initial data
+   const getInitialData = async () => {
+      try {
+         const { data } = await client.query({
+            query: GET_MOST_POPULAR
+         });
+
+         setArticlesState({ cont: data.getMostPopularArticles, err: false });
+         setPodcastState({ cont: data.getMostPopularPodcasts, err: false });
+         setBlogsState({ cont: data.getMostPopularBlogs, err: false });
+         setSermonNotesState({ cont: data.getMostPopularSermonNotes, err: false });
+         setBooksState({ cont: data.getMostPopularBooks, err: false });
+         setArticlesState({ cont: data.getMostPopularArticles, err: false });
+         setSermonsState({ cont: data.getMostPopularSermons, err: false });
+
+         return data;
+      } catch (error) {
+         console.log(error);
+         setArticlesState({ cont: undefined, err: true });
+         setPodcastState({ cont: undefined, err: true });
+         setBlogsState({ cont: undefined, err: true });
+         setSermonNotesState({ cont: undefined, err: true });
+         setBooksState({ cont: undefined, err: true });
+         setArticlesState({ cont: undefined, err: true });
+         setSermonsState({ cont: undefined, err: true });
+      }
+   };
+
+   useEffect(() => {
+      getInitialData();
+      return () => {
+         setArticlesState({ cont: undefined, err: false });
+         setPodcastState({ cont: undefined, err: false });
+         setBlogsState({ cont: undefined, err: false });
+         setSermonNotesState({ cont: undefined, err: false });
+         setBooksState({ cont: undefined, err: false });
+         setArticlesState({ cont: undefined, err: false });
+         setSermonsState({ cont: undefined, err: false });
+      };
+   }, []);
+
    return (
       <>
          <div className={`${libraryStyles.mainWrapper}`}>
@@ -60,12 +119,18 @@ const Library = ({ articles, podcasts, blogs, sermons, books, watch }: libraryPr
                contentButtonIcon={"🔥"}
                currentSlectedContentPage={{ popular: "#f2f2f2" }}
             />
-            {sermons && <LibrarySermonCarrousel sermon={sermons} />}
-            {podcasts && <LibraryPodcastCarrousel podcasts={podcasts} />}
-            {watch && <LibraryWatchCarrousel watch={watch} />}
-            {blogs && <LibraryBlogsCarrousel blogs={blogs} />}
-            {articles && <LibraryArticleCarrousel articles={articles} />}
-            {books && <LibraryBooksCarrousel books={books} />}
+
+            <LibrarySermonCarrousel sermon={sermonNotesState.cont} err={sermonNotesState.err} />
+
+            <LibraryPodcastCarrousel podcasts={podcastState.cont} err={podcastState.err} />
+
+            <LibraryWatchCarrousel watch={sermonsState.cont} err={sermonsState.err} />
+
+            <LibraryBlogsCarrousel blogs={blogsState.cont} err={blogsState.err} />
+
+            <LibraryArticleCarrousel articles={articlesState.cont} err={articlesState.err} />
+
+            <LibraryBooksCarrousel books={booksState.cont} err={booksState.err} />
             <LibraryRecommendContennt />
          </div>
          <div className={`large-spacer`}> </div>
@@ -75,19 +140,20 @@ const Library = ({ articles, podcasts, blogs, sermons, books, watch }: libraryPr
 };
 export default Library;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-   const { data } = await client.query({
-      query: GET_MOST_POPULAR
-   });
+// ----------- doing away with server side rendering for now, and then reconsidering after beig in prod
+// export const getServerSideProps: GetServerSideProps = async () => {
+//    const { data } = await client.query({
+//       query: GET_MOST_POPULAR
+//    });
 
-   return {
-      props: {
-         articles: data.getMostPopularArticles,
-         blogs: data.getMostPopularBlogs,
-         books: data.getMostPopularBooks,
-         podcast: data.getMostPopularPodcasts,
-         sermons: data.getMostPopularSermonNotes,
-         watch: data.getMostPopularSermons
-      }
-   };
-};
+//    return {
+//       props: {
+//          articles: data.getMostPopularArticles,
+//          blogs: data.getMostPopularBlogs,
+//          books: data.getMostPopularBooks,
+//          podcast: data.getMostPopularPodcasts,
+//          sermons: data.getMostPopularSermonNotes,
+//          watch: data.getMostPopularSermons
+//       }
+//    };
+// };
