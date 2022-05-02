@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphQL
 import { GET_MY_SETTINGS } from "../../../graphql/users/profile";
@@ -10,22 +11,26 @@ import { VALIDATE_CURRENT_PASSWORD } from "../../../graphql/users/profile";
 import client from "../../../apollo-client";
 
 // components
-import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
 import NotificationPopup from "../../../fragments/notification-popup";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";
 
+// styles
+import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
+
 // helpers
 const Cookies = require("js-cookie");
-import parseJwt from "../../../helpers/auth/decodeJWT";
+//import parseJwt from "../../../helpers/auth/decodeJWT";
 import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
 import { Tuser } from "../[userId]";
 import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
 import BugReport from "../../../fragments/popup-content/forms/bug-report";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 type userSettingsProps = {
    user: Tuser;
@@ -34,6 +39,7 @@ type userSettingsProps = {
 const UserSettings = () => {
    // globals
    const router = useRouter();
+
    // inputs
    const signatureInput = useRef<HTMLInputElement>(null); //signature
    const firstName = useRef<HTMLInputElement>(null);
@@ -50,26 +56,31 @@ const UserSettings = () => {
    const newPassword = useRef<HTMLInputElement>(null);
 
    // ====================== check for token cookie ==================
-   const token: string = Cookies.get("authorization");
-   let parsedUser = parseJwt(token);
-   const userId = parsedUser?.id ? parsedUser?.id : 0;
+   // const token: string = Cookies.get("authorization");
+   // let parsedUser = parseJwt(token);
+   // const userId = parsedUser?.id ? parsedUser?.id : 0;
 
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userSettingsState, setUserSettingsState] = useState<Tuser | null>();
-   const [loadingState, setLoadingState] = useState<boolean>(true);
+   const [loadingState, setLoadingState] = useState<string>("loading");
    const getUserSettings = async () => {
-      const { loading, error, data } = await client.query({
-         query: GET_MY_SETTINGS,
-         variables: {}
-      });
-      console.log(data);
-      if (data.me) {
-         setLoadingState(false);
-         setUserSettingsState(data.me);
-      } else if (data.me === null || data.me.length < 0) {
-         router.replace("/login");
-         setLoadingState(false);
-         setUserSettingsState(null);
+      try {
+         const { data } = await client.query({
+            query: GET_MY_SETTINGS,
+            variables: {}
+         });
+
+         if (data.me) {
+            setLoadingState("done");
+            setUserSettingsState(data.me);
+         } else if (data.me === null || data.me.length < 0) {
+            router.replace("/login");
+            setLoadingState("error");
+            setUserSettingsState(null);
+         }
+      } catch (error) {
+         setLoadingState("error");
+         console.log(error);
       }
    };
    useEffect(() => {
@@ -134,7 +145,6 @@ const UserSettings = () => {
                my_favorite_color: favoriteColor.current?.value ? favoriteColor.current?.value : "",
                my_job: fullTimeJob.current?.value ? fullTimeJob.current?.value : "",
                my_true_color_personality_test: TCP.current?.value ? TCP.current?.value : "",
-               my_story: " ",
                my_favorite_verse: favoriteVerse.current?.value ? favoriteVerse.current?.value : "",
                my_ministry: ministry.current?.value ? ministry.current?.value : ""
             }
@@ -309,9 +319,11 @@ const UserSettings = () => {
 
    return (
       <>
-         {loadingState && <div>Loading</div>}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={12} compClass={cardsLazyLoadingStyles.settingsLoading} />
+         )}
          {fullScreenPopUp}
-         {userSettingsState && (
+         {userSettingsState && loadingState === "done" && (
             <div className={userSettingsStyles.mainWrapper}>
                {notificationPopUpState}
                <h1 className={userSettingsStyles.settingsTitle}>Settings</h1>
@@ -537,6 +549,11 @@ const UserSettings = () => {
                      <p className={`std-button_gradient-text`}>Log out</p>
                   </button>
                </div>
+            </div>
+         )}
+         {loadingState == "error" && (
+            <div className={cardsLazyLoadingStyles.errorImage}>
+               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
             </div>
          )}
          <div className={`large-spacer`}> </div>

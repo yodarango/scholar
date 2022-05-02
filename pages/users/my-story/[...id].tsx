@@ -10,37 +10,64 @@ import Image from "next/image";
 import client from "../../../apollo-client";
 import { GET_USER_STORY } from "../../../graphql/users/users";
 import { NEW_NOTIFICATION } from "../../../graphql/users/notifications";
+import { UPDATE_MY_STORY } from "../../../graphql/users/profile";
 
 // components
 import NavigationMenu from "../../../layouts/navigation-menu";
+import SmallLoader from "../../../fragments/chunks/small-loader";
+import NotificationPopup from "../../../fragments/notification-popup";
+import SimpleTextEditor from "../../../fragments/chunks/simple-text-editor";
 
 // styles
 import myStoryStyles from "../../../styles/pages/users/my-story/MyStory.module.css";
 import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
-// helpers
+// types
 import { Tuser } from "../[userId]";
-import SmallLoader from "../../../fragments/chunks/small-loader";
-import NotificationPopup from "../../../fragments/notification-popup";
+
+// helpers
+import parseJwt from "../../../helpers/auth/decodeJWT";
+import getCookie from "../../../helpers/get-cookie";
 
 // type storyProps = {
 //    user: Tuser | null;
 // };
+
 const Story = () => {
+   // check if the user is authenticated
+   let checkLoggedInUser: number;
+   if (typeof window != "undefined") {
+      const token: string = getCookie("authorization");
+      if (token) {
+         let parsedUser = parseJwt(token);
+         checkLoggedInUser = parsedUser.ID;
+      } else {
+         checkLoggedInUser = 0;
+      }
+   }
+
    // router
    const router = useRouter();
+
+   // states
    const [loadingState, setloadingState] = useState("loading");
    const [initialDataState, setinitialDataState] = useState<Tuser | null>(null);
    const [smallLoaderState, setsmallLoaderState] = useState<boolean>(false);
    const [popUpNotificationState, setpopUpNotificationState] = useState<boolean | JSX.Element>(
       false
    );
+   const [isSameUser, setisSameUser] = useState<boolean>();
+   const [showEditorState, setShowEditorState] = useState<boolean>(false);
+   const [textEditorSmallLoader, setTextEditorSmallLoader] = useState<boolean>(false);
+   const [currentTextState, setCurrentTextState] = useState<string | undefined>(undefined);
+
+   console.log();
 
    //  get the inital data
    const getInitialData = async () => {
       const { id } = router.query;
       try {
-         const userId = id ? id[0] : null;
+         const userId: number = id ? parseInt(id[0]) : 0;
 
          const { data } = await client.query({
             query: GET_USER_STORY,
@@ -50,13 +77,17 @@ const Story = () => {
          });
 
          setinitialDataState(data.users[0]);
+         setCurrentTextState(data.users[0].my_story);
          setloadingState("done");
+
+         setisSameUser(userId == checkLoggedInUser);
       } catch (error) {
          setinitialDataState(null);
          setloadingState("error");
       }
    };
 
+   // call the function load
    useEffect(() => {
       if (router.isReady) {
          getInitialData();
@@ -104,28 +135,92 @@ const Story = () => {
       }
    };
 
+   // ----------------- submit the story -----------
+   const updateMyStory = async (text: string) => {
+      setTextEditorSmallLoader(true);
+
+      try {
+         const { data } = await client.mutate({
+            mutation: UPDATE_MY_STORY,
+            variables: {
+               body: text
+            }
+         });
+
+         if (data.update_my_story === true) {
+            setCurrentTextState(text);
+            setShowEditorState(false);
+            setTextEditorSmallLoader(false);
+         } else {
+            setTextEditorSmallLoader(false);
+            setShowEditorState(false);
+            setpopUpNotificationState(
+               <NotificationPopup
+                  closeModal={() => setpopUpNotificationState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      } catch (error) {
+         setTextEditorSmallLoader(false);
+         setShowEditorState(false);
+         setpopUpNotificationState(
+            <NotificationPopup
+               closeModal={() => setpopUpNotificationState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+         console.log(error);
+      }
+   };
    return (
       <>
          {popUpNotificationState}
          {initialDataState && loadingState === "done" && (
             <div className={myStoryStyles.mainWrapper}>
+               <Link href={`/users/${initialDataState.ID}`}>
+                  <a className={`std-vector-icon ${myStoryStyles.goBackIcon}`}></a>
+               </Link>
+               {isSameUser && !showEditorState && (
+                  <div
+                     className={myStoryStyles.editStoryIcon}
+                     onClick={() => setShowEditorState(true)}></div>
+               )}
+               {isSameUser && showEditorState && (
+                  <div
+                     className={myStoryStyles.editStoryIcon}
+                     onClick={() => setShowEditorState(false)}></div>
+               )}
                <Header currPage={"MY STORY"} />
                <h1 className={myStoryStyles.title}>{initialDataState.signature}</h1>
-               <Link href={`/users/${initialDataState.ID}`}>
-                  <a>
-                     <div
-                        className={myStoryStyles.reputationWrapper}
-                        style={{ backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)` }}>
+               <div
+                  className={myStoryStyles.reputationWrapper}
+                  style={{ backgroundImage: `linear-gradient(130deg, #ff9214ed, #ff0045)` }}>
+                  <Link href={`/users/${initialDataState.ID}`}>
+                     <a>
                         <div
                            className={myStoryStyles.avatar}
                            style={{ backgroundImage: `url(${initialDataState.avatar})` }}></div>
-                     </div>
-                  </a>
-               </Link>
-               {initialDataState.my_story && (
-                  <p className={myStoryStyles.content}>{initialDataState.my_story}</p>
+                     </a>
+                  </Link>
+               </div>
+
+               {currentTextState && !showEditorState && (
+                  <p className={myStoryStyles.content}>{currentTextState}</p>
                )}
-               {!initialDataState.my_story && (
+               {showEditorState && (
+                  <SimpleTextEditor
+                     buttonTitle='UPDATE'
+                     defValue={currentTextState}
+                     handleEvent={updateMyStory}
+                     smallLoader={textEditorSmallLoader}
+                  />
+               )}
+               {!initialDataState.my_story && !isSameUser && (
                   <div>
                      <p className={`${myStoryStyles.content} ${myStoryStyles.noContent}`}>
                         This user has not yet posted a story about them. Let them know you'd like to

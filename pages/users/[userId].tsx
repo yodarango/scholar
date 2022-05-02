@@ -87,7 +87,7 @@ const User = () => {
    const [userState, setUserState] = useState<Tuser | null>();
    const [loadingState, setLoadingState] = useState<boolean>(true);
    const getUserSettings = async () => {
-      const { loading, error, data } = await client.query({
+      const { data } = await client.query({
          query: GET_USER_PROFILE,
          variables: {
             ID: userId,
@@ -119,13 +119,6 @@ const User = () => {
             {userState && (
                <div className={userStyles.userBioGrid}>
                   <Header currPage={userState.signature} />
-
-                  {userState.approval_rating > 100 && (
-                     <div className={userStyles.bellWnotificationWrapper}>
-                        <div className={userStyles.notificationBellWNotification}></div>
-                        <span className={userStyles.notificationSignifier}></span>
-                     </div>
-                  )}
 
                   <UserBioWrapper user={userState} />
                   <UserTotalPostsAndRatings user={userState} />

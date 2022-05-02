@@ -12,6 +12,7 @@ import NavigationMenu from "../../layouts/navigation-menu";
 
 // style
 import goProPageStyles from "../../styles/pages/GoPro.module.css";
+import Link from "next/link";
 
 const GoPro = () => {
    // =================== go back in histroy   ============== //
@@ -31,7 +32,7 @@ const GoPro = () => {
          router.replace(data.create_checkout_session);
       }
    };
-
+   console.log(router);
    return (
       <>
          <Head key='payment-apge'>
@@ -39,9 +40,10 @@ const GoPro = () => {
          </Head>
 
          <div className={goProPageStyles.mainWrapper}>
-            <span className={`goBack ${goProPageStyles.goBack}`} onClick={() => router.back()}>
-               {"<"}
-            </span>
+            <Link href={`/users/me`}>
+               <a className={`goBack ${goProPageStyles.goBack}`}></a>
+            </Link>
+
             <h1 className={`${goProPageStyles.stdH1} std-button_gradient-text`}>
                HELP SCHOLAR STAY ALIVE!
             </h1>

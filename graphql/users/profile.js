@@ -282,6 +282,13 @@ export const UPDATE_MY_SETTINGS = gql`
    }
 `;
 
+// ================= CHANGE STORY =============
+export const UPDATE_MY_STORY = gql`
+   mutation ($body: String) {
+      update_my_story(body: $body)
+   }
+`;
+
 //=================== CHNAGE PASSWORD ================//
 export const VALIDATE_CURRENT_PASSWORD = gql`
    mutation ($currPassword: String, $newPassword: String) {

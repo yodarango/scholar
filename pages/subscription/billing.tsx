@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 
 // graphQL
 import client from "../../apollo-client";
@@ -51,6 +52,9 @@ const Billing = () => {
 
    return (
       <div className={billingStlyes.mainWrapper}>
+         <Link href={`/users/me`}>
+            <a className={`goBack `}></a>
+         </Link>
          <div className={billingStlyes.imageWrapper}>
             <Image src='/Parks10.png' layout='fill' />
          </div>

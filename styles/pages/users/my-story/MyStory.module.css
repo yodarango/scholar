@@ -1,5 +1,6 @@
 .mainWrapper {
    width: 90%;
+   position: relative;
    margin: calc(var(--medium-spacing-mobile) + 5rem) auto 0;
 }
 
@@ -38,13 +39,44 @@
    text-align: center;
 }
 
-.sendIcon {
+.sendIcon,
+.editStoryIcon {
    margin: var(--small-spacing-mobile) auto;
    width: 3rem;
    height: 3rem;
    background-position: center;
    background-size: contain;
    background-image: url("/images/icons/send.png");
+}
+
+.editStoryIcon {
+   width: 1.5rem;
+   height: 1.5rem;
+   position: fixed;
+   top: var(--xlarge-spacing-mobile);
+   right: var(--medium-spacing-mobile);
+   background-color: white;
+}
+
+.editStoryIcon:hover,
+.goBackIcon:hover {
+   border-radius: 50%;
+   background-color: rgba(255, 255, 255, 0.498);
+   cursor: pointer;
+   transform: scale(1.1);
+   transition: 300ms;
+}
+
+.goBackIcon {
+   display: block;
+   height: 2rem;
+   width: 2rem;
+   background-size: 60%;
+   background-position: 4px center;
+   border-radius: 50%;
+   border: 1px solid var(--font-color);
+   background-image: url("/images/icons/back_white.png");
+   background-repeat: no-repeat;
 }
 
 .requestStory {
@@ -76,5 +108,12 @@
    .content {
       font: var(--primary-font-desktop);
       line-height: 2em;
+   }
+
+   .editStoryIcon {
+      width: 2rem;
+      height: 2rem;
+      top: var(--xlarge-spacing-desktop);
+      right: var(--medium-spacing-desktop);
    }
 }
