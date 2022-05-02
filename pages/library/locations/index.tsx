@@ -7,10 +7,11 @@
 // *** congregationProps ***************************************** //
 
 // core
-import React, { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+//import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphql
 import client from "../../../apollo-client";
@@ -21,30 +22,34 @@ import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import CongregationCarrousel from "../../../layouts/library-individual-pages/congregation-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 // styles
 import libraryCongregationsStyles from "../../../styles/pages/library/locations/LibraryCongregations.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
 import { congregationProps } from "../../../fragments/library-items/congregation";
 import NavigationMenu from "../../../layouts/navigation-menu";
 
-type congregationPageProps = {
-   congregations: congregationProps[];
-};
+// type congregationPageProps = {
+//    congregations: congregationProps[];
+// };
 
-const Congregations = ({ congregations }: congregationPageProps) => {
+const Congregations = () => {
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+
    // ============ capitalize and push the new query to router to searh by title ======
    const router = useRouter();
    let newInput: any = "";
    const handleInputSearchReq = (string: string) => {
       if (string) {
          const singleWords = string.split(" ");
-         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substring(1));
          // if array has multiple items make it one word, therwords the search will be messed up ====
          const replaceComma = newInput.toString();
          newInput = replaceComma.replace(",", " ");
-         console.log(newInput);
       }
 
       router.replace({ pathname: router.pathname, query: { area: newInput } });
@@ -52,14 +57,50 @@ const Congregations = ({ congregations }: congregationPageProps) => {
 
    // ====== reference to get input value ======
    const searchInputValue = useRef<HTMLInputElement>(null);
+
+   // get the inital data
+   const [initialDataState, setInitialDataState] = useState<congregationProps[]>([]);
+   const getInitialData = async () => {
+      try {
+         let { skip, id, area } = router.query;
+         const { data } = await client.query({
+            query: GET_LOCATIONS,
+            variables: {
+               skip,
+               id,
+               area
+            }
+         });
+
+         setInitialDataState(data.congregations);
+         setLoadingState("done");
+      } catch (error) {
+         console.log(error);
+         setLoadingState("error");
+         setInitialDataState([]);
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         setLoadingState("loading");
+         getInitialData();
+      }
+
+      return () => {
+         setInitialDataState([]);
+      };
+   }, [router.query]);
    return (
       <>
+         <Head>
+            <meta name='keyword' content='tags' />
+         </Head>
          <div className={`${libraryCongregationsStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <Header currPage={"CONGREGATIONS"} />
-            <SkipContent wrapperMaxWidth={"1050px"} content={congregations} />
+            {initialDataState && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            )}
             <div className='x-large-spacer'></div>
             <LibraryMenu
                includeCategory={false}
@@ -86,7 +127,18 @@ const Congregations = ({ congregations }: congregationPageProps) => {
                   🔎
                </span>
             </div>
-            {congregations && <CongregationCarrousel congregation={congregations} />}
+            {initialDataState && loadingState == "done" && (
+               <CongregationCarrousel congregation={initialDataState} />
+            )}
+            {loadingState == "loading" && (
+               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
+            )}
+            {loadingState === "error" && (
+               <div
+                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -95,22 +147,22 @@ const Congregations = ({ congregations }: congregationPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, id, area } = context.query;
-   const { data } = await client.query({
-      query: GET_LOCATIONS,
-      variables: {
-         skip,
-         id,
-         area
-      }
-   });
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//    let { skip, id, area } = context.query;
+//    const { data } = await client.query({
+//       query: GET_LOCATIONS,
+//       variables: {
+//          skip,
+//          id,
+//          area
+//       }
+//    });
 
-   return {
-      props: {
-         congregations: data.congregations
-      }
-   };
-};
+//    return {
+//       props: {
+//          congregations: data.congregations
+//       }
+//    };
+// };
 
 export default Congregations;

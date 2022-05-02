@@ -124,6 +124,73 @@
    height: 12rem;
 }
 
+/* -------------- libray articles --------- */
+.librayArticles,
+.libraySquareCont,
+.librayBooks,
+.libraySermonNote,
+.librayUsers {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   margin-top: var(--medium-spacing-mobile);
+}
+
+.librayUsers {
+   align-items: flex-start;
+   justify-content: space-around;
+}
+
+.librayArticles div,
+.libraySquareCont div,
+.librayBooks div,
+.libraySermonNote div {
+   width: 8rem;
+   margin: var(--medium-spacing-mobile);
+   flex-grow: 0.5;
+   height: 12rem;
+   border-bottom-right-radius: 1.5rem;
+}
+
+.libraySquareCont div {
+   height: 9.3rem;
+   width: 9.3rem;
+   max-width: 9.3;
+   flex-grow: 0;
+   border-radius: var(--input-radius-mobile);
+}
+
+.librayBooks div {
+   width: 12rem;
+   height: 7rem;
+   -moz-box-flex: 0.6;
+   flex-grow: 0.6;
+   flex-shrink: 0;
+   border-radius: var(--input-radius-mobile);
+   margin: 0 0.3rem var(--medium-spacing-mobile);
+}
+
+.libraySermonNote div {
+   height: 12rem;
+   width: 9.3rem;
+   flex-grow: 0;
+   border-bottom-right-radius: 1rem;
+   border-top-right-radius: 1rem;
+   margin: var(--medium-spacing-mobile) var(--medium-spacing-mobile) var(--medium-spacing-mobile) 0;
+}
+
+.librayUsers div {
+   width: 7rem;
+   height: 8rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   margin: var(--xsmall-spacing-mobile);
+}
+
+.errorImageLibPage {
+   margin-top: var(--xlarge-spacing-mobile);
+}
 @keyframes shine {
    to {
       background-position-x: -250%;

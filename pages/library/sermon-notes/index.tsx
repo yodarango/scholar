@@ -6,10 +6,11 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+//import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphql
 import client from "../../../apollo-client";
@@ -21,18 +22,23 @@ import Header from "../../../layouts/header";
 import SermonCarrousel from "../../../layouts/library-individual-pages/sermons-carrousel";
 import LibraryFilter from "../../../fragments/buttons/library-filter";
 import SkipContent from "../../../fragments/buttons/skipContent";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 // styles
 import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
 import { Tsermon } from "../../../fragments/library-items/sermon";
 import NavigationMenu from "../../../layouts/navigation-menu";
 
-type sermonsPageProps = {
-   sermons: Tsermon[];
-};
-const Sermons = ({ sermons }: sermonsPageProps) => {
+// type sermonsPageProps = {
+//    sermons: Tsermon[];
+// };
+const Sermons = () => {
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+
    // ============ capitalize and push the new query to router to searh by title ======
    const router = useRouter();
    let newInput: any = "";
@@ -45,14 +51,46 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
 
       router.replace({ pathname: router.pathname, query: { title: newInput } });
    };
+
+   // get the inital data
+   const [initialDataState, setInitialDataState] = useState<Tsermon[]>([]);
+   const getInitialData = async () => {
+      try {
+         let { skip, alphOrd, dateOrd, category, userId, title, id } = router.query;
+         const { data } = await client.query({
+            query: GET_SERMON_NOTES,
+            variables: { skip, category, alphOrd, dateOrd, userId, id, title }
+         });
+
+         setInitialDataState(data.sermonNotes);
+         setLoadingState("done");
+      } catch (error) {
+         setInitialDataState([]);
+         console.log(error);
+         setLoadingState("error");
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         setLoadingState("loading");
+         getInitialData();
+      }
+
+      return () => {
+         setInitialDataState([]);
+      };
+   }, [router.query]);
    return (
       <>
+         <Head>
+            <meta name='keyword' content='tags' />
+         </Head>
          <div className={`${librarySermonsPageStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <Header currPage={"SERMONS"} />
-            <SkipContent wrapperMaxWidth={"1050px"} content={sermons} />
+            {initialDataState && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            )}
             <div className='x-large-spacer '></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -63,7 +101,16 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
                currentSlectedContentPage={{ sermons: "#f2f2f2" }}
             />
             <LibraryFilter params={`sermon-notes`} />
-            {sermons && <SermonCarrousel sermon={sermons} />}
+            {initialDataState && <SermonCarrousel sermon={initialDataState} />}
+            {loadingState == "loading" && (
+               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySermonNote} />
+            )}
+            {loadingState === "error" && (
+               <div
+                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -73,17 +120,17 @@ const Sermons = ({ sermons }: sermonsPageProps) => {
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//    let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
 
-   const { data } = await client.query({
-      query: GET_SERMON_NOTES,
-      variables: { skip, category, alphOrd, dateOrd, userId, id, title }
-   });
-   return {
-      props: {
-         sermons: data.sermonNotes
-      }
-   };
-};
+//    const { data } = await client.query({
+//       query: GET_SERMON_NOTES,
+//       variables: { skip, category, alphOrd, dateOrd, userId, id, title }
+//    });
+//    return {
+//       props: {
+//          sermons: data.sermonNotes
+//       }
+//    };
+// };
 export default Sermons;

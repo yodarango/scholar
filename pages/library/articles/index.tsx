@@ -6,10 +6,11 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphql
 import client from "../../../apollo-client";
@@ -21,21 +22,27 @@ import Header from "../../../layouts/header";
 import LibraryFilter from "../../../fragments/buttons/library-filter";
 import ArticlesCarrousel from "../../../layouts/library-individual-pages/articles-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import NavigationMenu from "../../../layouts/navigation-menu";
 
 // styles
 import libraryArticlesPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
 import { articleProps } from "../../../fragments/library-items/article";
-import NavigationMenu from "../../../layouts/navigation-menu";
 
-type articlePageProps = {
-   articles: articleProps[];
-};
+// type articlePageProps = {
+//    articles: articleProps[];
+// };
 
-const Articles = ({ articles }: articlePageProps) => {
-   // ============ capitalize and push the new query to router to searh by title ======
+const Articles = () => {
+   // rotuer
    const router = useRouter();
+
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+   // ============ capitalize and push the new query to router to searh by title ======
    let newInput: any = "";
    const handleInputSearchReq = (string: string) => {
       if (string) {
@@ -45,14 +52,54 @@ const Articles = ({ articles }: articlePageProps) => {
 
       router.replace({ pathname: router.pathname, query: { title: newInput } });
    };
+
+   // get the inital data
+   const [initialDataState, setInitialDataState] = useState<articleProps[]>([]);
+   const getInitialData = async () => {
+      try {
+         let { skip, category, alphOrd, dateOrd, userId, title, id } = router.query;
+         const { data } = await client.query({
+            query: GET_ARTICLES,
+            variables: {
+               skip,
+               category,
+               alphOrd,
+               dateOrd,
+               userId,
+               title,
+               id
+            }
+         });
+         setInitialDataState(data.articles);
+         setLoadingState("done");
+      } catch (error) {
+         console.log(error);
+         setLoadingState("error");
+         setInitialDataState([]);
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         setLoadingState("loading");
+         getInitialData();
+      }
+
+      return () => {
+         setInitialDataState([]);
+      };
+   }, [router.query]);
+
    return (
       <>
+         <Head>
+            <meta name='keyword' content='tags' />
+         </Head>
          <div className={`${libraryArticlesPageStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <Header currPage={"ARTICLES"} />
-            <SkipContent wrapperMaxWidth={"1050px"} content={articles} />
+            {initialDataState && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            )}
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -63,7 +110,18 @@ const Articles = ({ articles }: articlePageProps) => {
                currentSlectedContentPage={{ articles: "#f2f2f2" }}
             />
             <LibraryFilter params={`articles`} />
-            {articles && <ArticlesCarrousel articles={articles} />}
+            {initialDataState && loadingState === "done" && (
+               <ArticlesCarrousel articles={initialDataState} />
+            )}
+            {loadingState == "loading" && (
+               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.librayArticles} />
+            )}
+            {loadingState === "error" && (
+               <div
+                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -72,25 +130,25 @@ const Articles = ({ articles }: articlePageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, category, alphOrd, dateOrd, userId, title, id } = context.query;
-   const { data } = await client.query({
-      query: GET_ARTICLES,
-      variables: {
-         skip,
-         category,
-         alphOrd,
-         dateOrd,
-         userId,
-         title,
-         id
-      }
-   });
-   return {
-      props: {
-         articles: data.articles
-      }
-   };
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//    let { skip, category, alphOrd, dateOrd, userId, title, id } = context.query;
+//    const { data } = await client.query({
+//       query: GET_ARTICLES,
+//       variables: {
+//          skip,
+//          category,
+//          alphOrd,
+//          dateOrd,
+//          userId,
+//          title,
+//          id
+//       }
+//    });
+//    return {
+//       props: {
+//          articles: data.articles
+//       }
+//    };
+// };
 
 export default Articles;
