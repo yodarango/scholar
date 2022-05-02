@@ -7,11 +7,10 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
+//import { GetServerSideProps } from "next";
 import Image from "next/image";
 
 // graphql
-import { gql } from "@apollo/client";
 import client from "../../apollo-client";
 import { GET_LIB_APPROVED_USERS } from "../../graphql/library/users";
 
@@ -48,7 +47,7 @@ const Authors = () => {
       try {
          const { data } = await client.query({
             query: GET_LIB_APPROVED_USERS,
-            variables: { skip }
+            variables: { skip, userType: "AUTHOR" }
          });
 
          setInitialDataState(data.AuthorizedContentProvider);
