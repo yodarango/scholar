@@ -121,7 +121,7 @@
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
       width: 12rem;
-      margin: 0 var(--medium-spacing-desktop) 0 0;
+      margin: var(--large-spacing-desktop) var(--medium-spacing-desktop);
       padding: 1.2rem 0 0;
    }
 

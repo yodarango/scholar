@@ -105,7 +105,10 @@ const Podcast = () => {
                <PodcastCarrousel podcast={initialDataState} />
             )}
             {loadingState == "loading" && (
-               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
+               <CardsLazyLoading
+                  amount={16}
+                  compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryPodcast}`}
+               />
             )}
             {loadingState === "error" && (
                <div

@@ -124,14 +124,16 @@
 
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
-      width: 10.5rem;
+      overflow: hidden;
       box-sizing: content-box;
-      margin: var(--medium-spacing-desktop) var(--small-spacing-desktop);
+      width: 12rem;
+      margin: var(--medium-spacing-desktop) var(--medium-spacing-desktop);
    }
 
    .thumbnailWrapper {
-      height: 10.5rem;
-      max-width: 10.5rem;
+      height: 12rem;
+      max-width: 100%;
+      overflow: hidden;
    }
 
    .thumbnail {

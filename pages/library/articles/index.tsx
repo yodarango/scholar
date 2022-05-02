@@ -114,7 +114,10 @@ const Articles = () => {
                <ArticlesCarrousel articles={initialDataState} />
             )}
             {loadingState == "loading" && (
-               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.librayArticles} />
+               <CardsLazyLoading
+                  amount={16}
+                  compClass={`${cardsLazyLoadingStyles.librayArticles}`}
+               />
             )}
             {loadingState === "error" && (
                <div

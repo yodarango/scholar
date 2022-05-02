@@ -101,7 +101,9 @@ const Sermons = () => {
                currentSlectedContentPage={{ sermons: "#f2f2f2" }}
             />
             <LibraryFilter params={`sermon-notes`} />
-            {initialDataState && <SermonCarrousel sermon={initialDataState} />}
+            {initialDataState && loadingState == "done" && (
+               <SermonCarrousel sermon={initialDataState} />
+            )}
             {loadingState == "loading" && (
                <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySermonNote} />
             )}

@@ -131,7 +131,10 @@ const Congregations = () => {
                <CongregationCarrousel congregation={initialDataState} />
             )}
             {loadingState == "loading" && (
-               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
+               <CardsLazyLoading
+                  amount={16}
+                  compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryLocations}`}
+               />
             )}
             {loadingState === "error" && (
                <div

@@ -37,6 +37,7 @@
 }
 
 .home {
+   background-size: 70%;
    background-image: url("/images/icons/home.png");
 }
 
@@ -45,8 +46,6 @@
 }
 
 .feed {
-   width: 2rem;
-   height: 2rem;
    background-size: 90%;
    background-image: url("/images/icons/clock.png");
 }
@@ -55,6 +54,7 @@
 }
 
 .profile {
+   background-size: 80%;
    background-image: url("/images/icons/prof.png");
 }
 
@@ -78,11 +78,10 @@
    }
 
    .menuOption {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 2rem;
+      height: 2rem;
       margin: 0;
       background-position: center;
-      background-size: 90%;
       background-repeat: no-repeat;
       border-radius: 50%;
       transition: 300ms ease-in;
@@ -95,26 +94,7 @@
       cursor: pointer;
    }
 
-   .home {
-      background-image: url("/images/home.svg");
-   }
-
-   .library {
-      background-image: url("/images/library.svg");
-   }
-
    .feed {
-      width: 2rem;
-      height: 2rem;
       background-size: 80%;
-      background-image: url("/images/feed.svg");
-      border: 2px solid var(--font-color);
-   }
-   .read {
-      background-image: url("/images/read.svg");
-   }
-
-   .profile {
-      background-image: url("/images/profile.svg");
    }
 }

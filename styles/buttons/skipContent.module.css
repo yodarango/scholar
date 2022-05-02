@@ -19,8 +19,8 @@
    height: 2rem;
    border-radius: 50%;
    background-image: url("/images/icons/back_white.png");
-   background-position: 0.1rem center;
-   background-size: 70%;
+   background-position: 0.2rem center;
+   background-size: 60%;
    background-repeat: no-repeat;
    background-color: rgba(255, 255, 255, 0.6);
 }
@@ -35,4 +35,14 @@
 .rightTrigger {
    background-position: 0.5rem center;
    background-image: url("/images/icons/forth_white.png");
+}
+
+@media (min-width: 1000px) {
+   .leftTrigger {
+      transform: translatex(3rem);
+   }
+
+   .leftTrigger:hover {
+      transform: translatex(3rem) scale(0.9);
+   }
 }

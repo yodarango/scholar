@@ -63,6 +63,7 @@ const Blogs = () => {
          });
          setInitialDataState(data.blogs);
          setLoadingState("done");
+         //setLoadingState("loading");
       } catch (error) {
          console.log(error);
          setLoadingState("error");
@@ -105,7 +106,10 @@ const Blogs = () => {
                <BlogCarrousel blogs={initialDataState} />
             )}
             {loadingState == "loading" && (
-               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
+               <CardsLazyLoading
+                  amount={16}
+                  compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryBlogs}`}
+               />
             )}
             {loadingState === "error" && (
                <div

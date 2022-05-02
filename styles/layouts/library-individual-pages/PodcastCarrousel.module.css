@@ -33,6 +33,9 @@
       margin: var(--xlarge-spacing-mobile) auto var(--medium-spacing-mobile);
       transform: translateX(2rem);
    }
+   .gridWrapper {
+      justify-content: space-around;
+   }
 
    .podcastWrapper {
       width: 12rem;

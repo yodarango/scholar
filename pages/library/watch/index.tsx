@@ -89,7 +89,7 @@ const Watch = () => {
          </Head>
          <div className={`${libraryWatchStyles.mainWrapper}`}>
             <Header currPage={"WATCH"} />
-            {initialDataState && (
+            {initialDataState.length > 19 && (
                <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
             )}
             <div className='x-large-spacer'></div>
@@ -102,7 +102,9 @@ const Watch = () => {
                currentSlectedContentPage={{ watch: "#f2f2f2" }}
             />
             <LibraryFilterPreachers />
-            {initialDataState && <WatchCarrousel watch={initialDataState} />}
+            {initialDataState && loadingState === "done" && (
+               <WatchCarrousel watch={initialDataState} />
+            )}
             {loadingState == "loading" && (
                <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
             )}

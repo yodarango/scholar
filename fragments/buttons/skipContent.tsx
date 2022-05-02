@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 //styles
 import skipContentStyles from "../../styles/buttons/skipContent.module.css";
-import { watch } from "fs";
 
 type skipContProps = {
    wrapperMaxWidth: string;
@@ -15,9 +14,8 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
    const router = useRouter();
 
    // ==================== FUNCTION: skip Content =================== //
-   const [showForwardButton, setShowForwardButton] = useState<boolean>(
-      content.length < 20 ? false : true
-   );
+   const [showForwardButton, setShowForwardButton] = useState<boolean>(true);
+
    const [showBackwarButton, setShowBackwarButton] = useState<boolean>(true);
 
    useEffect(() => {
@@ -28,7 +26,9 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
          : content.length < 20
          ? setShowBackwarButton(false)
          : setShowBackwarButton(true);
-   }, []);
+
+      content.length < 20 ? setShowForwardButton(false) : null;
+   }, [router.query]);
    // ==========  skip to the previous 20 items
    const handleSkipBackwards = () => {
       setShowForwardButton(true);
