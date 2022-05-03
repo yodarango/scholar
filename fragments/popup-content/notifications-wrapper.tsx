@@ -1,15 +1,20 @@
 // core
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // graphql
 import client from "../../apollo-client";
 import { GET_MY_NOTIFICATIONS } from "../../graphql/users/notifications";
 
 // components
+import SmallLoader from "../chunks/small-loader";
+import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 
 // styles
 import notificationsWrapperStyles from "../../styles/fragments/popup-content/NotificationWrapper.module.css";
+import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css"
+
 
 const NotificationsWrapper = () => {
    // ==============FUNCTION 1:    fetch all the notifications by user   =============== //
@@ -28,6 +33,8 @@ const NotificationsWrapper = () => {
 
    const [notificationsState, setNotificationsState] = useState<Tnotification[]>([]);
    const [lastnotificationFetchCount, setLastnotificationFetchCount] = useState<number>();
+   const [loadingState, setLoadingState] = useState<string>("loading")
+   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false)
    const fetchNotifications = async (last_id: number) => {
       try {
          const { data } = await client.query({
@@ -36,8 +43,10 @@ const NotificationsWrapper = () => {
          });
          setLastnotificationFetchCount(data.notifications.length);
          setNotificationsState(data.notifications);
+         setLoadingState("done")
       } catch (error) {
          console.log(error);
+         setLoadingState("error")
       }
    };
 
@@ -47,6 +56,7 @@ const NotificationsWrapper = () => {
 
    // ==================== Fetch more notifications
    const fetchMoreNotifications = async (last_id: string) => {
+      setSmallLoaderState(true);
       try {
          const { data } = await client.query({
             query: GET_MY_NOTIFICATIONS,
@@ -57,8 +67,11 @@ const NotificationsWrapper = () => {
             ...notificationsState,
             ...data.notifications
          ]);
+         setSmallLoaderState(false);
       } catch (error) {
          console.log(error);
+         setLoadingState("error")
+         setSmallLoaderState(false);
       }
    };
 
@@ -67,17 +80,17 @@ const NotificationsWrapper = () => {
          <p className={`${notificationsWrapperStyles.notificationDisclaimer} std-text-block`}>
             (All notifications are deleted after 48 hours)
          </p>
-         {notificationsState &&
+         {notificationsState && loadingState === "done" &&
             notificationsState.map((notification: Tnotification) => (
                <Link href={"#"} key={notification.ID}>
                   <a
                      className={notificationsWrapperStyles.notificationWrapper}
                      style={{ borderLeft: `.5rem solid ${notification.color}` }}>
-                     <p className={notificationsWrapperStyles.notificationDate}>
+                     {notification.posted_on && <p className={notificationsWrapperStyles.notificationDate}>
                         {` ${notification.posted_on.split(":")[0]} ${
                            notification.posted_on.split(":")[1]
                         } `}
-                     </p>
+                     </p>}
                      {notification.CONTENT_TYPE === 1 && (
                         <div
                            className={`${notificationsWrapperStyles.icon} ${notificationsWrapperStyles.iconCommentary} std-vector-icon`}></div>
@@ -90,12 +103,16 @@ const NotificationsWrapper = () => {
                         <div
                            className={`${notificationsWrapperStyles.icon} ${notificationsWrapperStyles.iconThought} std-vector-icon`}></div>
                      )}
+                      {notification.CONTENT_TYPE === 5 && (
+                        <div
+                           className={`${notificationsWrapperStyles.icon} ${notificationsWrapperStyles.iconThought} std-vector-icon`}></div>
+                     )}
                      <p className={notificationsWrapperStyles.content}>{notification.body}</p>
                   </a>
                </Link>
             ))}
-         {lastnotificationFetchCount == 25 && (
-            <button
+         {lastnotificationFetchCount == 25 && !smallLoaderState &&(
+             <button
                className={`std-button`}
                onClick={() =>
                   fetchMoreNotifications(
@@ -105,11 +122,18 @@ const NotificationsWrapper = () => {
                <p className={`std-button_gradient-text`}>Load More</p>
             </button>
          )}
+         {lastnotificationFetchCount == 25 && !smallLoaderState && <SmallLoader />}
          {notificationsState.length === 0 && (
             <h2 className={notificationsWrapperStyles.noNotifications}>
                You have 0 notifications!
             </h2>
          )}
+         {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.userNotifications} />}
+         {loadingState == "error" && (
+                     <div className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP }`}>
+                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+                     </div>
+                  )}
       </div>
    );
 };

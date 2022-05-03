@@ -1,11 +1,18 @@
 /* ---------------  globals ------------------ */
 .mainWrapper div {
    background-color: var(--font-color);
-   background-image: linear-gradient(
+   /* background-image: linear-gradient(
       110deg,
       var(--secondary-color) 8%,
       #433b55c2 18%,
       var(--secondary-color) 33%
+   ); */
+   background-image: linear-gradient(
+      110deg,
+      #433b55
+      8%,
+      #433b55c2 18%,
+      #433b55 33%
    );
    background-size: 250% 100%;
    background-position: 10% 0%;
@@ -214,8 +221,71 @@
    height: 3rem;
    margin: var(--medium-spacing-mobile) auto;
 }
+/* -------------------------------------- Profile ----------------------------- */
+.userProfile{
+width: 90%;
+max-width: 800px;
+margin: 0 auto;
+display: flex;
+align-items: flex-start;
+justify-content: space-around;
+flex-wrap: wrap;
+}
 
-/* -------------- desktop ------------ */
+.userProfile div:nth-child(1), .userProfile div:nth-child(2) {
+width: 45%;
+height: 8rem;
+}
+
+.userProfile div:nth-child(3) {
+   width: 100%;
+   height: 3rem;
+   }
+
+   .userProfile div{
+      margin: var(--small-spacing-mobile) 0;
+      width: 7rem;
+      height: 7rem;
+   }
+   /* -------------------------------- user notifications ----------------------------- */
+.userNotifications{
+   width: 100%;
+margin: var(--medium-spacing-mobile) auto;
+max-width: 800px;
+}
+
+.userNotifications div{
+   width: 100%;
+   height: 4rem;
+   margin: var(--small-spacing-mobile) auto;
+}
+
+/* ------------------------------- posts -------------------- */
+
+.postCardCTSN, .postCardQuote {
+   width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+}
+
+.postCardCTSN div, .postCardQuote div {
+   width: 100%;
+   max-width: 350px;
+   height: 8rem;
+   margin: var(--xsmall-spacing-mobile) auto;
+   flex-shrink: 0;
+}
+
+.postCardQuote div{
+   height: 18rem;
+}
+
+/**********************************************************************************************************************/
+/*********************************************************** desktop **************************************************/
+/**********************************************************************************************************************/
 @media (min-width: 1000px) {
    .dailyVerseCard div {
       height: 16rem;

@@ -15,3 +15,15 @@
    min-width: 350px;
    margin: var(--medium-spacing-desktop);
 }
+
+.noNotifications{
+   color: var(--secondary-color);
+   width: 100%;
+   text-align: center;
+   margin: 10rem auto 0;
+}
+
+.popUpContentWrapper_title{
+   width: 100%;
+   text-align: center;
+}

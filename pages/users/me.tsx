@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image
+ from "next/image";
 // graphql
 import client from "../../apollo-client";
 import { GET_MY_PROFILE } from "../../graphql/users/profile";
@@ -24,10 +26,12 @@ import NavigationMenu from "../../layouts/navigation-menu";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";
+import cardaLazyloadingStyles from "../../styles/layouts/CardsLazyLoading.module.css"
 
 // helpers
 import CheckMediaQuery from "../../helpers/media-query";
 import NewUser from "../../layouts/sudo-pages/new-user";
+import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 
 export type TallPosts = {
    thought_approval_total_count: number;
@@ -69,30 +73,38 @@ const Me = () => {
 
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userState, setUserState] = useState<Tuser | null>();
-   const [loadingState, setLoadingState] = useState<boolean>(true);
+   const [loadingState, setLoadingState] = useState<string>("loading");
 
    // set notifications
    const [hasNotificationState, setHasNotificationState] = useState<boolean | undefined>(false);
 
    const getUserSettings = async () => {
-      const { data } = await client.query({
-         query: GET_MY_PROFILE,
-         variables: {
-            totalCountOnly: true,
-            getApprovalCount: true
-         }
-      });
-
-      if (data.me) {
-         setLoadingState(false);
-         setUserState(data.me);
-         setHasNotificationState(data.me.has_new_notifications);
-      } else if (data.me === null || data.me.length < 0) {
-         setLoadingState(false);
-         setUserState(null);
-
-         location.href = "/login";
+try {
+   const { data } = await client.query({
+      query: GET_MY_PROFILE,
+      variables: {
+         totalCountOnly: true,
+         getApprovalCount: true
       }
+   });
+
+   if (data.me) {
+      setLoadingState("done");
+      setUserState(data.me);
+      setHasNotificationState(data.me.has_new_notifications);
+   } else if (data.me === null || data.me.length < 0) {
+      setLoadingState("error");
+      setUserState(null);
+
+      location.href = "/login";
+   }
+} catch (error) {
+   setLoadingState("error");
+   setUserState(null);
+   console.log(error)
+}
+
+     
    };
 
    useEffect(() => {
@@ -102,6 +114,7 @@ const Me = () => {
    const [notificationsPopupState, setnotificationsPopupState] = useState(false);
 
    const openNotificationsPopup = () => {
+      document.body.style.overflowY = 'hidden'
       setHasNotificationState(false);
       setnotificationsPopupState(true);
    };
@@ -115,18 +128,17 @@ const Me = () => {
 
    return (
       <>
-         {loadingState && <div>Loading</div>}
          {notificationsPopupState && (
             <PopupWrapper
-               closeModal={() => setnotificationsPopupState(false)}
+               closeModal={() => (document.body.style.overflowY = 'scroll', setnotificationsPopupState(false))}
                content={<NotificationsWrapper />}
             />
          )}
-         {userState?.first_time_signup == true && (
+         {userState && userState.first_time_signup == true && loadingState === "done" && (
             <NewUser acceptedIntroTerms={acceptedIntroTerms} />
          )}
          <div className={userStyles.mainWrapper}>
-            {userState?.first_time_signup == false && (
+            {userState && userState.first_time_signup == false && loadingState === "done" && (
                <div className={userStyles.userBioGrid}>
                   <Header currPage={userState.signature} />
                   <Link href={`/users/settings`}>
@@ -153,9 +165,15 @@ const Me = () => {
             )}
 
             {/* =================== User Content================ */}
-            {CheckMediaQuery() < 1000 && <AllContentMobile user={userState} />}
-            {CheckMediaQuery() >= 1000 && <AllContentDesktop user={userState} />}
+            {CheckMediaQuery() < 1000 && userState && loadingState === "done" && <AllContentMobile user={userState} />}
+            {CheckMediaQuery() >= 1000 && userState && loadingState === "done" &&<AllContentDesktop user={userState} />}
          </div>
+         {loadingState ==="loading" &&  <CardsLazyLoading amount={7} compClass={cardaLazyloadingStyles.userProfile}/>}
+{loadingState == "error" && (
+                     <div className={`${cardaLazyloadingStyles.errorImage}`}>
+                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+                     </div>
+                  )}
 
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

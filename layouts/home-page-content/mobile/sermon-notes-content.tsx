@@ -1,5 +1,6 @@
 // core
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 //graphQL
 import client from "../../../apollo-client";
@@ -10,10 +11,13 @@ import SermonNotesPost from "../../../posts/sermon-notes-post";
 
 //styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css"
 
 // helpers / state
 import { TsermonPost } from "../../../posts/sermon-notes-post";
 import { Tuser } from "../../../pages/users/[userId]";
+import CardsLazyLoading from "../../cards-lazy-loading";
+import SmallLoader from "../../../fragments/chunks/small-loader";
 
 type sermonNotesContentProps = {
    user: Tuser;
@@ -21,20 +25,35 @@ type sermonNotesContentProps = {
 };
 
 const SermonNotesContent = ({ user, handleCloseSermonNotes }: sermonNotesContentProps) => {
+
+   const [loadingState, setLoadingState] = useState<string>("loading")
+   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false)
    const [sermonState, setsermonState] = useState<TsermonPost[]>([]);
    const [sermonNotesLastIdState, setSermonNotesLastIdState] = useState<string>("99999999999");
    const [hideLoadMoreBttnState, setHideLoadMoreBttnState] = useState<boolean>(false);
 
-   useEffect(() => {
-      const requestSermons = async () => {
+
+   const requestSermons = async () => {
+      setSmallLoadingState(true)
+      try {
          const { data } = await client.query({
             query: GET_PROFILE_SERMON_NOTES,
             variables: { ID: user.ID, totalCountOnly: false, last_id: sermonNotesLastIdState }
          });
-
+   
          setsermonState((sermonState) => [...sermonState, ...data.users[0].all_posts.sermon_notes]);
          data.users[0].all_posts.sermon_notes.length < 20 ? setHideLoadMoreBttnState(true) : null;
-      };
+         setSmallLoadingState(false)
+         setLoadingState("done")
+      } catch (error) {
+         console.log(error)
+         setSmallLoadingState(false)
+         setLoadingState("error")
+      }
+     
+   };
+
+   useEffect(() => {
       requestSermons();
    }, [sermonNotesLastIdState]);
 
@@ -44,10 +63,10 @@ const SermonNotesContent = ({ user, handleCloseSermonNotes }: sermonNotesContent
             X
          </span>
          <section className={homePageContentStyles.popUpContentWrapper}>
-            <h1 className={homePageContentStyles.popUpContentWrapper_title}>
+            {user.signature && <h1 className={homePageContentStyles.popUpContentWrapper_title}>
                Sermons by {user.signature}
-            </h1>
-            {sermonState.map((sermon: TsermonPost) => (
+            </h1>}
+            {sermonState && loadingState === "done" && sermonState.map((sermon: TsermonPost) => (
                <section>
                   <SermonNotesPost
                      key={sermon.ID}
@@ -67,13 +86,25 @@ const SermonNotesContent = ({ user, handleCloseSermonNotes }: sermonNotesContent
                   />
                </section>
             ))}
-            {!hideLoadMoreBttnState && (
-               <button
-                  className={"std-button"}
-                  onClick={() => setSermonNotesLastIdState(sermonState[sermonState.length - 1].ID)}>
-                  <p className='std-button_gradient-text'>Load More</p>
-               </button>
+
+            {sermonState?.length === 0 && loadingState === "done" && <h2 className={homePageContentStyles.noNotifications}>
+               No sermons have been uploaded yet
+            </h2>}
+            {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN}/>}
+            {loadingState == "error" && (
+                     <div className={`${cardsLazyLoadingStyles.errorImage}`}>
+                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+                     </div>
             )}
+
+            {!hideLoadMoreBttnState && !smallLoadingState &&(
+            <button
+               className={"std-button"}
+               onClick={() => setSermonNotesLastIdState(sermonState[sermonState.length - 1].ID)}>
+               <p className='std-button_gradient-text'>Load More</p>
+            </button>
+         )}
+         {smallLoadingState && !hideLoadMoreBttnState && <SmallLoader />}
          </section>
       </div>
    );
