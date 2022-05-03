@@ -4,7 +4,7 @@ import Link from "next/link";
 
 // graphQL
 import client from "../apollo-client";
-import { DELETE_ONE_SEMRON_POST } from "../graphql/posts/sermon_notes";
+import { DELETE_ONE_SEMRON_POST, REPORT_SERMON_NOTE } from "../graphql/posts/sermon_notes";
 
 // child comps
 import ConfirmationPopup from "../fragments/confirmation-popup";
@@ -71,25 +71,43 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
 
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeleteSermonNote = async (id: string) => {
-      await client.mutate({
-         mutation: DELETE_ONE_SEMRON_POST,
-         variables: { ID: id }
-      });
+      try {
+         await client.mutate({
+            mutation: DELETE_ONE_SEMRON_POST,
+            variables: { ID: id }
+         });
+      } catch (error) {
+         console.log(error)
+      }
+
    };
    const handleDeleteConfirmation = async (id: string, DROPBOX_ID: string) => {
-      const request = await fetch("https://api.dropboxapi.com/2/files/delete_v2", {
-         method: "POST",
-         body: `{"path": "${DROPBOX_ID}"}`,
-         headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN}`,
-            "Content-Type": "application/json"
+      try {
+         const request = await fetch("https://api.dropboxapi.com/2/files/delete_v2", {
+            method: "POST",
+            body: `{"path": "${DROPBOX_ID}"}`,
+            headers: {
+               Authorization: `Bearer ${process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN}`,
+               "Content-Type": "application/json"
+            }
+         });
+         if (request.status === 200) {
+            setconfirmationPopUpState(false);
+            handleDeleteSermonNote(id);
+            setDeletedPostState(true);
+         } else {
+            setconfirmationPopUpState(false);
+            setNotificationPupUpState(
+               <NotificationPopup
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️. Please try again later! '
+                  closeModal={() => setNotificationPupUpState(false)}
+                  newClass='notification-wrapper--Red'
+               />
+            );
          }
-      });
-      if (request.status === 200) {
-         setconfirmationPopUpState(false);
-         handleDeleteSermonNote(id);
-         setDeletedPostState(true);
-      } else {
+      } catch (error) {
+         console.log(error)
          setconfirmationPopUpState(false);
          setNotificationPupUpState(
             <NotificationPopup
@@ -100,6 +118,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
             />
          );
       }
+     
    };
 
    const promptConfirmationPopUp = (id: string, DROPBOX_ID: string) => {
@@ -112,9 +131,61 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
       );
    };
 
-   const handleReportConfirmation = () => {};
+    // ================= FUNCTION 7: Handle Reporting the Post  ===================//
+    const handleReportPost = async (id: string) => {
+      try {
+         const data = await client.mutate({
+            mutation: REPORT_SERMON_NOTE,
+            variables: {
+               SERMON_NOTE_ID: id
+            }
+         });
+   
+         if (data.data.report_sermon_note) {
+            setconfirmationPopUpState(false);
+            setNotificationPupUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPupUpState(false)}
+                  title='Report Has Been Submitted'
+                  contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+                  newClass='notification-wrapper--Sucess'
+               />
+            );
+         } else {
+            setconfirmationPopUpState(false);
+            setNotificationPupUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPupUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      } catch (error) {
+         console.log(error)
+         setconfirmationPopUpState(false);
+         setNotificationPupUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPupUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+      
+   };
 
-   const handleEditOption = () => {};
+   const handleReportConfirmation = (id: string) => {
+      setconfirmationPopUpState(
+         <ConfirmationPopup
+            cancel={() => setNotificationPupUpState(false)}
+            title={"Are you sure you want to report this post?"}
+            confirm={() => handleReportPost(id)}
+         />
+      );
+   };
 
    // open the user info popup
    const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
@@ -148,13 +219,13 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                      <Link href={`/posts/edit-sermon-note/${sermonPost.ID}`}>
                         <a
                            className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.edit)}
-                           onClick={handleEditOption}></a>
+                           ></a>
                      </Link>
                   )}
                   {renderReportOptionState && (
                      <span
                         className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.report)}
-                        onClick={handleReportConfirmation}></span>
+                        onClick={() => handleReportConfirmation(sermonPost.ID)}></span>
                   )}
                </div>
                {sermonPost.creator && sermonPost.creator.authority_level && (

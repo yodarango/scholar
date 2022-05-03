@@ -179,6 +179,7 @@ export const GET_PROFILE_THOUGHTS = gql`
                body
                USER_ID
                category_tags
+               referenced_verses
                posted_on
                comments {
                   total_count

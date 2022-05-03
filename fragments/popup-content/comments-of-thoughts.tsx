@@ -76,21 +76,37 @@ const CommentsOfThoughtContent = ({
    };
 
    const confirmDeletion = async (id: string) => {
-      const { data } = await client.mutate({
-         mutation: loadedFrom === "comment" ? DELETE_COMMENTARY_COMMENT : DELETE_THOUGHT_COMMENT,
-         variables: { ID: id }
-      });
-      data.delete_commentary_comment === true || data.delete_thought_comment
-         ? (setConfirmationPopUpState(false), removeCommentFromArray(id))
-         : (setNotificationPopUpState(
-              <NotificationPopup
-                 closeModal={() => setNotificationPopUpState(false)}
-                 title={`Something went wrong!`}
-                 contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                 newClass='notification-wrapper--Error'
-              />
-           ),
-           setConfirmationPopUpState(false));
+
+      try {
+         const { data } = await client.mutate({
+            mutation: loadedFrom === "comment" ? DELETE_COMMENTARY_COMMENT : DELETE_THOUGHT_COMMENT,
+            variables: { ID: id }
+         });
+         
+         data.delete_commentary_comment === true || data.delete_thought_comment
+            ? (setConfirmationPopUpState(false), removeCommentFromArray(id))
+            : (setNotificationPopUpState(
+                 <NotificationPopup
+                    closeModal={() => setNotificationPopUpState(false)}
+                    title={`Something went wrong!`}
+                    contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                    newClass='notification-wrapper--Error'
+                 />
+              ),
+              setConfirmationPopUpState(false));
+      } catch (error) {
+         console.log(error)
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title={`Something went wrong!`}
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         )
+         setConfirmationPopUpState(false);
+      }
+     
    };
 
    const removeCommentFromArray = (id: string) => {
@@ -118,7 +134,7 @@ const CommentsOfThoughtContent = ({
                      Be the first to comment on this post!
                   </h1>
                )}
-               {commentsState.map((comm) => {
+               {commentsState && commentsState.map((comm) => {
                   return (
                      <div
                         className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}

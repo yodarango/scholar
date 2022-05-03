@@ -32,7 +32,6 @@ const SermonNotesContent = ({ user, handleCloseSermonNotes }: sermonNotesContent
    const [sermonNotesLastIdState, setSermonNotesLastIdState] = useState<string>("99999999999");
    const [hideLoadMoreBttnState, setHideLoadMoreBttnState] = useState<boolean>(false);
 
-
    const requestSermons = async () => {
       setSmallLoadingState(true)
       try {

@@ -144,7 +144,7 @@ export const POST_NEW_QUOTE = gql`
 `;
 
 export const REPORT_QUOTE = gql`
-   mutation ($QUOTE_ID: ID, $USER_ID: ID) {
+   mutation ($QUOTE_ID: ID) {
       report_quote(data: { QUOTE_ID: $QUOTE_ID }) {
          ID
          QUOTE_ID

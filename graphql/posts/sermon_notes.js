@@ -87,6 +87,16 @@ export const CREATE_NEW_SERMON_NOTE = gql`
    }
 `;
 
+// ================ REPORT ===================== //
+export const REPORT_SERMON_NOTE = gql`
+   mutation ($SERMON_NOTE_ID: ID) {
+      report_sermon_note(data: { SERMON_NOTE_ID: $SERMON_NOTE_ID }) {
+         ID
+         USER_ID
+      }
+   }
+`;
+
 //================== EDIT ================== //
 export const EDIT_SERMON_NOTE = gql`
    mutation ($title: String, $category_tags: String, $ID: ID) {

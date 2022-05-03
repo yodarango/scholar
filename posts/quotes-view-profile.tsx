@@ -36,14 +36,39 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [morePopUpState, setMorePopUpState] = useState<boolean>(false);
    const [commentsOfQuote, setCommentsOfQuote] = useState([]);
    const handleMoreClick = async (quote_id: string) => {
-      const { data } = await client.query({
-         query: OPEN_QUOTE_STORY_COMMENTS,
-         variables: { ID: quote_id, showComment: true }
-      });
+      try {
+         const { data } = await client.query({
+            query: OPEN_QUOTE_STORY_COMMENTS,
+            variables: { ID: quote_id, showComment: true }
+         });
 
-      setCommentsOfQuote(data.quote[0].comments);
-      setCommentsCountState(data.quote[0].comments.length);
-      setMorePopUpState(true);
+         if(data.quote){
+            setCommentsOfQuote(data.quote[0].comments);
+            setCommentsCountState(data.quote[0].comments.length);
+            setMorePopUpState(true);
+         }else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+
+      } catch (error) {
+         console.log(error)
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+ 
    };
 
    // ==============   FUNCTION 8: see the story data when the user clicks "More" =============== //
@@ -139,8 +164,12 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                QUOTE_ID: story.ID
             }
          });
+         if(data.quote_approvals){
+            setPostApprovalState(data.quote_approvals[0])
+         }
          setChooseAprovalRating(false);
       } catch (error: any) {
+         setChooseAprovalRating(false);
          console.log(error);
       }
    };

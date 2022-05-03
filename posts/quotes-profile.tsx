@@ -81,15 +81,28 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
    const [notificatonPopUpState, setNotificatonPopUpState] = useState<JSX.Element | boolean>(false);
    //    ==================   FUNCTION 3: Delete Popup for quote    =============  //
    const handlePostDeletion = async (id: string) => {
-      const data = await client.mutate({
-         mutation: DELETE_ONE_QUOTE,
-         variables: { ID: id }
-      });
-
-      if (data.data.delete_one_quote) {
-         setdeletedPostState(true);
+      try {
+         const data = await client.mutate({
+            mutation: DELETE_ONE_QUOTE,
+            variables: { ID: id }
+         });
+   
+         if (data.data.delete_one_quote) {
+            setdeletedPostState(true);
+            setConfirmationPopUpState(false);
+         } else {
+            setConfirmationPopUpState(false);
+            setNotificatonPopUpState(
+               <NotificationPopup
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  closeModal={() => setNotificatonPopUpState(false)}
+               />
+            );
+         }
+      } catch (error) {
+         console.log(error)
          setConfirmationPopUpState(false);
-      } else {
          setNotificatonPopUpState(
             <NotificationPopup
                title='Oh no!'
@@ -99,6 +112,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
          );
       }
    };
+
    const handleDeleteConfirmation = (id: string) => {
       setConfirmationPopUpState(
          <ConfirmationPopup
@@ -111,24 +125,39 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
 
    //    ==================   FUNCTION 3: Report Popup for quote    =============  //
    const handleReportPost = async (id: string) => {
-      const data = await client.mutate({
-         mutation: REPORT_QUOTE,
-         variables: {
-            QUOTE_ID: id
-         }
-      });
 
-      if (data.data.report_quote) {
+      try {
+         const data = await client.mutate({
+            mutation: REPORT_QUOTE,
+            variables: {
+               QUOTE_ID: id
+            }
+         });
+   
+         if (data.data.report_quote) {
+            setConfirmationPopUpState(false);
+            setNotificatonPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificatonPopUpState(false)}
+                  title='Report Has Been Submitted'
+                  contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+                  newClass='notification-wrapper--Sucess'
+               />
+            );
+         } else {
+            setConfirmationPopUpState(false);
+            setNotificatonPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificatonPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      } catch (error) {
+         console.log(error)
          setConfirmationPopUpState(false);
-         setNotificatonPopUpState(
-            <NotificationPopup
-               closeModal={() => setNotificatonPopUpState(false)}
-               title='Report Has Been Submitted'
-               contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
-               newClass='notification-wrapper--Sucess'
-            />
-         );
-      } else {
          setNotificatonPopUpState(
             <NotificationPopup
                closeModal={() => setNotificatonPopUpState(false)}
@@ -138,6 +167,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
             />
          );
       }
+     
    };
 
    const handleReportConfirmation = (id: string) => {

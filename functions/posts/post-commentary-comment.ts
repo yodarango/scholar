@@ -15,7 +15,8 @@ const handlePostComment = async (COMMENTARY_ID: string, body: string, USER_ID: s
       data.Commentary_Comment ? (result = data.Commentary_Comment) : (result = false);
       return result;
    } catch (error) {
-      return error;
+      console.log(error)
+      return `Error`;
    }
 };
 

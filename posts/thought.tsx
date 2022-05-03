@@ -74,21 +74,33 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
    const openPost = async (thought: Tthought) => {
-      const { data } = await client.query({
-         query: SHOW_COMMENTS_OF_THOUGHTS,
-         variables: { ID: thought.ID, showComment: true }
-      });
-      setseeWholePost(
-         <div className='dark-bkg'>
-            <div className='closeModal' onClick={() => setseeWholePost(false)}>
-               X
+
+      try {
+         const { data } = await client.query({
+            query: SHOW_COMMENTS_OF_THOUGHTS,
+            variables: { ID: thought.ID, showComment: true }
+         });
+         setseeWholePost(
+            <div className='dark-bkg'>
+               <div className='closeModal' onClick={() => setseeWholePost(false)}>
+                  X
+               </div>
+               <div className={popupStyles.halvesWrapper}>
+                  <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
+                  {/*data.thought[0].comments &&  <CommentsOfThoughtsContent comments={data.thought[0].comments} />*/}
+               </div>
             </div>
-            <div className={popupStyles.halvesWrapper}>
-               <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
-               {/*data.thought[0].comments &&  <CommentsOfThoughtsContent comments={data.thought[0].comments} />*/}
-            </div>
-         </div>
-      );
+         );
+      } catch (error) {
+         setNotificationpopUpState(<NotificationPopup
+            title='Oh no!'
+            contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+            closeModal={() => setNotificationpopUpState(false)}
+            newClass='notification-wrapper--Red'
+         />)
+         console.log(error)
+      }
+     
    };
 
    // ================= FUNCTION 2: Drop down the comment imput   =============== //
@@ -136,13 +148,26 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    );
    // ================= FUNCTION 6: Delete Post  ===================//
    const handleDeletePost = async (id: string) => {
-      const data = await client.mutate({
-         mutation: DELETE_ONE_THOUGHT,
-         variables: { ID: id }
-      });
-      if (data.data.delete_one_thought) {
-         router.reload();
-      } else {
+      try {
+         const data = await client.mutate({
+            mutation: DELETE_ONE_THOUGHT,
+            variables: { ID: id }
+         });
+         if (data.data.delete_one_thought) {
+            router.reload();
+         } else {
+            setNotificationpopUpState(
+               <NotificationPopup
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  closeModal={() => setNotificationpopUpState(false)}
+                  newClass='notification-wrapper--Red'
+               />
+            );
+            setConfirmationPopUpState(false)
+         }
+      } catch (error) {
+         console.log(error)
          setNotificationpopUpState(
             <NotificationPopup
                title='Oh no!'
@@ -151,6 +176,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                newClass='notification-wrapper--Red'
             />
          );
+         setConfirmationPopUpState(false)
       }
    };
    const handleDeletePostConfirmation = (id: string) => {
@@ -197,7 +223,6 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
          }
       } catch (error: any) {
          setConfirmationPopUpState(false);
-
          setNotificationpopUpState(
             <NotificationPopup
                closeModal={() => setNotificationpopUpState(false)}
@@ -298,6 +323,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
          {notificationpopUpState}
          {chooseAprovalRating}
          {thoughts.map((thought, index) => {
+
             thought.creator.authority_level = user_authority_level ? user_authority_level : "";
             return (
                <section key={thought.ID}>

@@ -33,27 +33,44 @@ type commentaryContentProps = {
 const CommentaryContent = ({ commentary, postReactionContent }: commentaryContentProps) => {
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
+   const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true)
 
    const openReferencedVerse = async (id: string) => {
-      const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${id}?content-type=text&include-verse-numbers=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      setShowRefVersesState(false)
+      try {
+         const req = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${id}?content-type=text&include-verse-numbers=false`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+               }
             }
-         }
-      );
-      const json = await req.json();
-      setreferencedVerseState(
-         <NotificationPopup
-            title={json.data.reference}
-            contentString={json.data.content}
-            closeModal={() => {
-               setreferencedVerseState(false);
-            }}
-         />
-      );
+         );
+         const json = await req.json();
+         setreferencedVerseState(
+            <NotificationPopup
+               title={json.data.reference}
+               contentString={json.data.content}
+               closeModal={() => {
+                  setreferencedVerseState(false);
+               }}
+            />
+         );
+         setShowRefVersesState(true)
+      } catch (error) {
+         console.log(error)
+         setShowRefVersesState(true)
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+      
    };
 
    // ========= FUNCTION 1: open and close the comment text areaa
@@ -80,14 +97,29 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
    // ======================== FUNCTION 2.1: hande a ssuccessful approval rating ========================= //
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(commentary.approvals[0]);
    const handleSuccessfulApprovalRating = async () => {
-      const { data } = await client.query({
-         query: GET_COMMENTARY_APPROVALS,
-         variables: {
-            COMMENTARY_ID: commentary.ID
-         }
-      });
-      setChooseAprovalRating(false);
-      setPostApprovalState(data.commentary_approvals[0]);
+      try {
+         const { data } = await client.query({
+            query: GET_COMMENTARY_APPROVALS,
+            variables: {
+               COMMENTARY_ID: commentary.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.commentary_approvals[0]);
+      } catch (error) {
+         console.log(error)
+         setPostApprovalState(postApprovalState);
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+
+      }
+      
    };
 
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
@@ -173,7 +205,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
    // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
    //--- send the notification to the child component "comments of content" to include the new posted comment
    const [fetchNewCommentsState, setFetchNewCommentsState] = useState<number>(0);
-   const fetchComments = async (data: Tcomment) => {
+   const fetchComments = (data: Tcomment) => {
       const newCommentary: Tcomment = {
          ID: data.ID,
          body: data.body,
@@ -270,7 +302,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-                  {commentary.referenced_verses &&
+                  {commentary.referenced_verses && showRefVersesState &&
                      commentary.referenced_verses.split(" ").map((verseId: string) => (
                         <div
                            className={textEditorStyles.textEditorVerse}

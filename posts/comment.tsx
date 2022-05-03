@@ -80,25 +80,48 @@ export default function Comments({ commentary }: commentsProps) {
    // ================= FUNCTION 1: See the whole post
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
    const openPost = async (commentary_id: string) => {
-      const { data } = await client.query({
-         query: SHOW_COMMENTS_OF_COMMENTARY,
-         variables: { ID: commentary_id, showComment: true }
-      });
-
-      setseeWholePost(
-         <div className='dark-bkg'>
-            <div className='closeModal' onClick={() => setseeWholePost(false)}>
-               X
-            </div>
-            <div className={popupStyles.halvesWrapper}>
-               <CommentaryContent
-                  commentary={commentary}
-                  postReactionContent={data.commentary[0]}
+      try {
+         const { data } = await client.query({
+            query: SHOW_COMMENTS_OF_COMMENTARY,
+            variables: { ID: commentary_id, showComment: true }
+         });
+         if(data.commentary){
+            setseeWholePost(
+               <div className='dark-bkg'>
+                  <div className='closeModal' onClick={() => setseeWholePost(false)}>
+                     X
+                  </div>
+                  <div className={popupStyles.halvesWrapper}>
+                     <CommentaryContent
+                        commentary={commentary}
+                        postReactionContent={data.commentary[0]}
+                     />
+                     {/* <CommentsOfCcommentsContent comments={data.commentary[0].comments} /> */}
+                  </div>
+               </div>
+            );
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
                />
-               {/* <CommentsOfCcommentsContent comments={data.commentary[0].comments} /> */}
-            </div>
-         </div>
-      );
+            );
+         }
+         
+      } catch (error) {
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+         console.log(error)
+      }  
    };
 
    // ================= FUNCTION 2: Drop down the comment input   =============== //
@@ -127,14 +150,26 @@ export default function Comments({ commentary }: commentsProps) {
    // ================= FUNCTION 6: Handle deleting the post  ===================//
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeletePost = async (id: string) => {
-      const data = await client.mutate({
-         mutation: DELETE_ONE_COMMENTARY,
-         variables: { ID: id }
-      });
-      if (data.data.delete_one_commentary) {
-         setDeletedPostState(true);
-         setConfirmationPopUpState(false);
-      } else {
+      try {
+         const data = await client.mutate({
+            mutation: DELETE_ONE_COMMENTARY,
+            variables: { ID: id }
+         });
+         if (data.data.delete_one_commentary) {
+            setDeletedPostState(true);
+            setConfirmationPopUpState(false);
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      } catch (error) {
+         console.log(error)
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}
@@ -144,6 +179,7 @@ export default function Comments({ commentary }: commentsProps) {
             />
          );
       }
+     
    };
 
    const handleDeleteConfirmation = (id: string) => {
@@ -158,24 +194,38 @@ export default function Comments({ commentary }: commentsProps) {
 
    // ================= FUNCTION 7: Handle Reporting the Post  ===================//
    const handleReportPost = async (id: string) => {
-      const data = await client.mutate({
-         mutation: REPORT_COMMENTARY,
-         variables: {
-            COMMENTARY_ID: id
+      try {
+         const data = await client.mutate({
+            mutation: REPORT_COMMENTARY,
+            variables: {
+               COMMENTARY_ID: id
+            }
+         });
+   
+         if (data.data.report_commentary) {
+            setConfirmationPopUpState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Report Has Been Submitted'
+                  contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
+                  newClass='notification-wrapper--Sucess'
+               />
+            );
+         } else {
+            setConfirmationPopUpState(false);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
-      });
-
-      if (data.data.report_commentary) {
+      } catch (error) {
+         console.log(error)
          setConfirmationPopUpState(false);
-         setNotificationPopUpState(
-            <NotificationPopup
-               closeModal={() => setNotificationPopUpState(false)}
-               title='Report Has Been Submitted'
-               contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
-               newClass='notification-wrapper--Sucess'
-            />
-         );
-      } else {
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}
@@ -185,6 +235,7 @@ export default function Comments({ commentary }: commentsProps) {
             />
          );
       }
+      
    };
 
    const handleReportConfirmation = (id: string) => {
@@ -263,14 +314,27 @@ export default function Comments({ commentary }: commentsProps) {
    // ======================== FUNCTION 9: hande a ssuccessful approval rating ========================= //
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(commentary.approvals[0]);
    const handleSuccessfulApprovalRating = async () => {
-      const { data } = await client.query({
-         query: GET_COMMENTARY_APPROVALS,
-         variables: {
-            COMMENTARY_ID: commentary.ID
-         }
-      });
-      setChooseAprovalRating(false);
-      setPostApprovalState(data.commentary_approvals[0]);
+
+      try {
+         const { data } = await client.query({
+            query: GET_COMMENTARY_APPROVALS,
+            variables: {
+               COMMENTARY_ID: commentary.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.commentary_approvals[0]);
+      } catch (error) {
+         console.log(error);
+         setNotificationPopUpState(
+            <NotificationPopup
+            closeModal={() => setNotificationPopUpState(false)}
+            title='Oh no!'
+            contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+            newClass='notification-wrapper--Error'
+         />
+         );
+      } 
    };
 
    // ================== FUNCTION 10: open the user info popup
