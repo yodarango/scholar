@@ -31,7 +31,7 @@
 
 .filterWrapper div:hover,
 .choiceSelected {
-   background-color: var(--third-color);
+   background-color: var(--graient-one);
    cursor: pointer;
 }
 
@@ -45,7 +45,7 @@
 .filterLabel {
    margin: 0;
    font: var(--small-primary-font-mobile);
-   color: var(--secondary-color);
+   color: var(--fourth-color);
 }
 
 .extraOptionsWrapper {

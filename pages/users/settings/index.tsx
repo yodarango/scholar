@@ -123,60 +123,78 @@ const UserSettings = () => {
    const ISOdate = new Date(rawDate).toISOString().split("T")[0];
 
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
+
    const saveUserSettings = async () => {
       if (birthDate.current?.value && (userGenderState.gender || userSettingsState?.gender)) {
          setSmallLoaderState(true);
-         const { data } = await client.mutate({
-            mutation: UPDATE_MY_SETTINGS,
-            variables: {
-               signature: `${signatureInput.current?.value}`
-                  ? signatureInput.current?.value.toUpperCase()
-                  : "", //reomve hashtag before submitting to DB
-               first_name: firstName.current?.value ? firstName.current?.value : "",
-               last_name: lastName.current?.value ? lastName.current?.value : "",
-               email: email.current?.value ? email.current?.value : "",
-               gender: userGenderState.gender
-                  ? userGenderState.gender
-                  : userSettingsState?.gender
-                  ? userSettingsState?.gender
-                  : "",
-               birth_date: birthDate.current?.value ? birthDate.current?.value : "",
-               my_church: myChurch.current?.value ? myChurch.current?.value : "",
-               my_favorite_color: favoriteColor.current?.value ? favoriteColor.current?.value : "",
-               my_job: fullTimeJob.current?.value ? fullTimeJob.current?.value : "",
-               my_true_color_personality_test: TCP.current?.value ? TCP.current?.value : "",
-               my_favorite_verse: favoriteVerse.current?.value ? favoriteVerse.current?.value : "",
-               my_ministry: ministry.current?.value ? ministry.current?.value : ""
-            }
-         });
+         try {
+            const { data } = await client.mutate({
+               mutation: UPDATE_MY_SETTINGS,
+               variables: {
+                  signature: `${signatureInput.current?.value}`
+                     ? signatureInput.current?.value.toUpperCase()
+                     : "", //reomve hashtag before submitting to DB
+                  first_name: firstName.current?.value ? firstName.current?.value : "",
+                  last_name: lastName.current?.value ? lastName.current?.value : "",
+                  email: email.current?.value ? email.current?.value : "",
+                  gender: userGenderState.gender
+                     ? userGenderState.gender
+                     : userSettingsState?.gender
+                     ? userSettingsState?.gender
+                     : "",
+                  birth_date: birthDate.current?.value ? birthDate.current?.value : "",
+                  my_church: myChurch.current?.value ? myChurch.current?.value : "",
+                  my_favorite_color: favoriteColor.current?.value
+                     ? favoriteColor.current?.value
+                     : "",
+                  my_job: fullTimeJob.current?.value ? fullTimeJob.current?.value : "",
+                  my_true_color_personality_test: TCP.current?.value ? TCP.current?.value : "",
+                  my_favorite_verse: favoriteVerse.current?.value
+                     ? favoriteVerse.current?.value
+                     : "",
+                  my_ministry: ministry.current?.value ? ministry.current?.value : ""
+               }
+            });
 
-         if (data.me.update_successful) {
-            router.replace("/users/me");
-         } else if (!data.me.update_successful || data.me.message) {
-            if (
-               data.me.__typename == "SignatureAlreadyTaken" ||
-               data.me.__typename == "EmailExists"
-            ) {
-               setNotificationPopUpState(
-                  <NotificationPopup
-                     closeModal={() => setNotificationPopUpState(false)}
-                     title='Oh no 😔!'
-                     contentString={data.me.message}
-                     newClass='notification-wrapper--Error'
-                  />
-               );
-               setSmallLoaderState(false);
-            } else {
-               setNotificationPopUpState(
-                  <NotificationPopup
-                     closeModal={() => setNotificationPopUpState(false)}
-                     title='Oh no!'
-                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                     newClass='notification-wrapper--Error'
-                  />
-               );
-               setSmallLoaderState(false);
+            if (data.me.update_successful) {
+               router.replace("/users/me");
+            } else if (!data.me.update_successful || data.me.message) {
+               if (
+                  data.me.__typename == "SignatureAlreadyTaken" ||
+                  data.me.__typename == "EmailExists"
+               ) {
+                  setNotificationPopUpState(
+                     <NotificationPopup
+                        closeModal={() => setNotificationPopUpState(false)}
+                        title='Oh no 😔!'
+                        contentString={data.me.message}
+                        newClass='notification-wrapper--Error'
+                     />
+                  );
+                  setSmallLoaderState(false);
+               } else {
+                  setNotificationPopUpState(
+                     <NotificationPopup
+                        closeModal={() => setNotificationPopUpState(false)}
+                        title='Oh no!'
+                        contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                        newClass='notification-wrapper--Error'
+                     />
+                  );
+                  setSmallLoaderState(false);
+               }
             }
+         } catch (error) {
+            console.log(error);
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+            setSmallLoaderState(false);
          }
       } else if (!birthDate.current?.value) {
          setNotificationPopUpState(
@@ -202,32 +220,46 @@ const UserSettings = () => {
    // ============== open the password change popup ================= //
    const openChangePasswordSettings = async () => {
       if (currentPassword.current?.value && newPassword.current?.value) {
-         const { data } = await client.mutate({
-            mutation: VALIDATE_CURRENT_PASSWORD,
-            variables: {
-               currPassword: currentPassword.current?.value.trim(),
-               newPassword: newPassword.current?.value.trim()
-            }
-         });
+         try {
+            const { data } = await client.mutate({
+               mutation: VALIDATE_CURRENT_PASSWORD,
+               variables: {
+                  currPassword: currentPassword.current?.value.trim(),
+                  newPassword: newPassword.current?.value.trim()
+               }
+            });
 
-         if (data.change_password.update_successful === true) {
+            if (data.change_password.update_successful === true) {
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     title={"Success ✅"}
+                     contentString={`Your password has been updated successfully! 🔐`}
+                     newClass={"notification-wrapper--Success"}
+                     closeModal={() => setNotificationPopUpState(false)}
+                  />
+               );
+               setFullScreenPopUp(false);
+            } else {
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     title={"Hmmm...! 🤔"}
+                     contentString={data.change_password.message}
+                     newClass={"notification-wrapper--Error"}
+                     closeModal={() => setNotificationPopUpState(false)}
+                  />
+               );
+               setFullScreenPopUp(false);
+            }
+         } catch (error) {
             setNotificationPopUpState(
                <NotificationPopup
-                  title={"Success ✅"}
-                  contentString={`Your password has been updated successfully! 🔐`}
-                  newClass={"notification-wrapper--Success"}
                   closeModal={() => setNotificationPopUpState(false)}
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
                />
             );
-         } else {
-            setNotificationPopUpState(
-               <NotificationPopup
-                  title={"Something went worng! 🤔"}
-                  contentString={data.change_password.message}
-                  newClass={"notification-wrapper--Error"}
-                  closeModal={() => setNotificationPopUpState(false)}
-               />
-            );
+            setFullScreenPopUp(false);
          }
       }
    };
@@ -260,6 +292,7 @@ const UserSettings = () => {
                            ref={newPassword}
                         />
                      </div>
+
                      <button className={`std-button`} onClick={openChangePasswordSettings}>
                         <p className={`std-button_gradient-text`}>Update</p>
                      </button>
@@ -325,6 +358,9 @@ const UserSettings = () => {
          {fullScreenPopUp}
          {userSettingsState && loadingState === "done" && (
             <div className={userSettingsStyles.mainWrapper}>
+               <Link href={`/users/me`}>
+                  <a className={`goBack ${userSettingsStyles.goBack}`}></a>
+               </Link>
                {notificationPopUpState}
                <h1 className={userSettingsStyles.settingsTitle}>Settings</h1>
                <div

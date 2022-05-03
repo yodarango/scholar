@@ -74,34 +74,46 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
             !questionaryState.bibleEducation
          ) {
             setSmallLoaderState(true);
-            const { data } = await client.mutate({
-               mutation: NEW_TRUSTED_USER_REQUEST,
-               variables: {
-                  church: churchValue.value,
-                  f_name: firstnameValue.value,
-                  l_name: lastameValue.value,
-                  age: questionaryState.age,
-                  ministry: minsitryValue.value,
-                  timeInMinistry: questionaryState.timeInMinistry,
-                  bibleEducation: questionaryState.bibleEducation,
-                  degree: degreeValue?.value
-               }
-            });
+            try {
+               const { data } = await client.mutate({
+                  mutation: NEW_TRUSTED_USER_REQUEST,
+                  variables: {
+                     church: churchValue.value,
+                     f_name: firstnameValue.value,
+                     l_name: lastameValue.value,
+                     age: questionaryState.age,
+                     ministry: minsitryValue.value,
+                     timeInMinistry: questionaryState.timeInMinistry,
+                     bibleEducation: questionaryState.bibleEducation,
+                     degree: degreeValue?.value
+                  }
+               });
 
-            if (data.trusted_user_application === true) {
-               setSmallLoaderState(false);
-               setIsFormSubmittedState(true);
-               setNotificationPopUpState(
-                  <NotificationPopup
-                     newClass='notification-wrapper--Success'
-                     closeModal={() => setNotificationPopUpState(false)}
-                     title='Success ✔️'
-                     contentString={
-                        "We will notify you of the final decision via them email associated with the account"
-                     }
-                  />
-               );
-            } else {
+               if (data.trusted_user_application === true) {
+                  setSmallLoaderState(false);
+                  setIsFormSubmittedState(true);
+                  setNotificationPopUpState(
+                     <NotificationPopup
+                        newClass='notification-wrapper--Success'
+                        closeModal={() => setNotificationPopUpState(false)}
+                        title='Success ✔️'
+                        contentString={
+                           "We will notify you of the final decision via the email associated with the account"
+                        }
+                     />
+                  );
+               } else {
+                  setSmallLoaderState(false);
+                  setNotificationPopUpState(
+                     <NotificationPopup
+                        closeModal={() => setNotificationPopUpState(false)}
+                        title='Oh no!'
+                        contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                        newClass='notification-wrapper--Error'
+                     />
+                  );
+               }
+            } catch (error) {
                setSmallLoaderState(false);
                setNotificationPopUpState(
                   <NotificationPopup
