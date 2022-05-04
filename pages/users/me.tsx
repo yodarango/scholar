@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image
- from "next/image";
+import Image from "next/image";
 // graphql
 import client from "../../apollo-client";
 import { GET_MY_PROFILE } from "../../graphql/users/profile";
@@ -26,7 +25,7 @@ import NavigationMenu from "../../layouts/navigation-menu";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";
-import cardaLazyloadingStyles from "../../styles/layouts/CardsLazyLoading.module.css"
+import cardaLazyloadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
 import CheckMediaQuery from "../../helpers/media-query";
@@ -79,32 +78,28 @@ const Me = () => {
    const [hasNotificationState, setHasNotificationState] = useState<boolean | undefined>(false);
 
    const getUserSettings = async () => {
-try {
-   const { data } = await client.query({
-      query: GET_MY_PROFILE,
-      variables: {
-         totalCountOnly: true,
-         getApprovalCount: true
+      try {
+         const { data } = await client.query({
+            query: GET_MY_PROFILE,
+            variables: {
+               totalCountOnly: true,
+               getApprovalCount: true
+            }
+         });
+
+         if (data.me) {
+            setLoadingState("done");
+            setUserState(data.me);
+            setHasNotificationState(data.me.has_new_notifications);
+         } else if (data.me === null || data.me.length < 0) {
+            location.href = "/login";
+            setUserState(null);
+         }
+      } catch (error) {
+         setLoadingState("error");
+         setUserState(null);
+         console.log(error);
       }
-   });
-
-   if (data.me) {
-      setLoadingState("done");
-      setUserState(data.me);
-      setHasNotificationState(data.me.has_new_notifications);
-   } else if (data.me === null || data.me.length < 0) {
-      setLoadingState("error");
-      setUserState(null);
-
-      location.href = "/login";
-   }
-} catch (error) {
-   setLoadingState("error");
-   setUserState(null);
-   console.log(error)
-}
-
-     
    };
 
    useEffect(() => {
@@ -114,7 +109,7 @@ try {
    const [notificationsPopupState, setnotificationsPopupState] = useState(false);
 
    const openNotificationsPopup = () => {
-      document.body.style.overflowY = 'hidden'
+      document.body.style.overflowY = "hidden";
       setHasNotificationState(false);
       setnotificationsPopupState(true);
    };
@@ -130,7 +125,9 @@ try {
       <>
          {notificationsPopupState && (
             <PopupWrapper
-               closeModal={() => (document.body.style.overflowY = 'scroll', setnotificationsPopupState(false))}
+               closeModal={() => (
+                  (document.body.style.overflowY = "scroll"), setnotificationsPopupState(false)
+               )}
                content={<NotificationsWrapper />}
             />
          )}
@@ -165,15 +162,21 @@ try {
             )}
 
             {/* =================== User Content================ */}
-            {CheckMediaQuery() < 1000 && userState && loadingState === "done" && <AllContentMobile user={userState} />}
-            {CheckMediaQuery() >= 1000 && userState && loadingState === "done" &&<AllContentDesktop user={userState} />}
+            {CheckMediaQuery() < 1000 && userState && loadingState === "done" && (
+               <AllContentMobile user={userState} />
+            )}
+            {CheckMediaQuery() >= 1000 && userState && loadingState === "done" && (
+               <AllContentDesktop user={userState} />
+            )}
          </div>
-         {loadingState ==="loading" &&  <CardsLazyLoading amount={7} compClass={cardaLazyloadingStyles.userProfile}/>}
-{loadingState == "error" && (
-                     <div className={`${cardaLazyloadingStyles.errorImage}`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-                  )}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={7} compClass={cardaLazyloadingStyles.userProfile} />
+         )}
+         {loadingState == "error" && (
+            <div className={`${cardaLazyloadingStyles.errorImage}`}>
+               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+            </div>
+         )}
 
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

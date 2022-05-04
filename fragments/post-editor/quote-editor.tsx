@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 // graphQL
 import client from "../../apollo-client";
-import { POST_NEW_QUOTE } from "../../graphql/posts/quotes";
+import { CREATE_NEW_QUOTE } from "../../graphql/posts/quotes";
 
 // components
 import NotificationPopup from "../notification-popup";
@@ -15,25 +15,11 @@ import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.m
 
 // helpers
 import { IvaluesCat, valuesCat } from "../../helpers/dropdown-values";
-import { Tuser } from "../../pages/users/[userId]";
-
-import getCookie from "../../helpers/get-cookie";
-import parseJwt from "../../helpers/auth/decodeJWT";
 
 type quoteEditorProps = {
    handleCloseStories: any;
 };
 const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
-   // check if the user is authenticated in order to get user details
-   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
-   useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user: Tuser = parseJwt(authCookie);
-         setLoggedInUserState(user);
-      }
-   }, []);
-
    // ================ FUNCTION 1:  Change the Background of the story on choice  ================ ///
    const [changeBkgState, setChangeBkgState] = useState<string>(quoteEditorStyles.DEFAULT_BKG);
 
@@ -77,13 +63,12 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
          ) {
             setSmallLoaderState(<SmallLoader />);
             const { data } = await client.mutate({
-               mutation: POST_NEW_QUOTE,
+               mutation: CREATE_NEW_QUOTE,
                variables: {
                   body: textArea.current.value,
                   category_tags: `${currentChosenTagState.tag}`,
                   author: authorInput.current?.value,
-                  background: changeBkgState,
-                  approval_level: loggedInUserState?.authority_level
+                  background: changeBkgState
                }
             });
 

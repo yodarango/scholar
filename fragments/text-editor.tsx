@@ -20,10 +20,6 @@ import textEditorStyles from "../styles/layouts/textEditor.module.css";
 // helpers / types
 import { valuesCat } from "../helpers/dropdown-values";
 import { TverseContent } from "../pages";
-import { Tuser } from "../pages/users/[userId]";
-
-import getCookie from "../helpers/get-cookie";
-import parseJwt from "../helpers/auth/decodeJWT";
 
 // Component Props
 type editorProps = {
@@ -53,16 +49,6 @@ const TextEditor = ({
    assignedTags,
    postId
 }: editorProps) => {
-   // check if the user is authenticated in order to get user details
-   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
-   useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user: Tuser = parseJwt(authCookie);
-         setLoggedInUserState(user);
-      }
-   }, []);
-
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
    const textArea = useRef<HTMLTextAreaElement>(null);
@@ -204,12 +190,12 @@ const TextEditor = ({
                   category_tags: `${addedFirstTagsState.tag} ${
                      addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
                   }`,
+                  // loop through the {object} of referenced verses and get only the ID
                   referenced_verses:
                      referencedVerses.length > 0
-                        ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
+                        ? `${referencedVerses.map((verse: any) => verse.id).join(" ")}`
                         : null,
-                  verse_citation: verseBeingCommented?.reference,
-                  approval_level: loggedInUserState?.authority_level
+                  verse_citation: verseBeingCommented?.reference
                }
             });
 
@@ -290,9 +276,8 @@ const TextEditor = ({
                   }`,
                   referenced_verses:
                      referencedVerses.length > 0
-                        ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                        : null,
-                  approval_level: loggedInUserState?.authority_level
+                        ? `${referencedVerses.map((verse: any) => verse.id).join(" ")}`
+                        : null
                }
             });
             if (data.thought.__typename === "Thought") {
@@ -312,6 +297,7 @@ const TextEditor = ({
                setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
          } catch (error: any) {
+            console.log(error);
             setLoadingState(false);
             setNotificationPopupState(
                <NotificationPopup
@@ -353,34 +339,46 @@ const TextEditor = ({
          verseBeingCommented?.id
       ) {
          setLoadingState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: EDIT_COMMENTARY,
-            variables: {
-               ID: postId,
-               body: textArea.current?.value,
-               // make sure the secondary tag is not undefined!
-               category_tags: `${addedFirstTagsState.tag} ${
-                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
-               }`,
-               referenced_verses:
-                  referencedVerses.length > 0
-                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                     : null
+         try {
+            const { data } = await client.mutate({
+               mutation: EDIT_COMMENTARY,
+               variables: {
+                  ID: postId,
+                  body: textArea.current?.value,
+                  // make sure the secondary tag is not undefined!
+                  category_tags: `${addedFirstTagsState.tag} ${
+                     addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+                  }`,
+                  referenced_verses:
+                     referencedVerses.length > 0
+                        ? `${referencedVerses.map((verse: any) => verse.id).join(" ")}`
+                        : null
+               }
+            });
+            if (data.edit_commentary) {
+               router.replace(`/users/me`);
+               // setNotificationPopupState(
+               //    <NotificationPopup
+               //       title={"Sucess! ✅"}
+               //       contentString={"Your Post has been updated!"}
+               //       closeModal={closeModals}
+               //       newClass={`notification-wrapper--Success`}
+               //    />
+               // );
+            } else {
+               setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
-         });
-         if (data.edit_commentary) {
-            router.replace(`/users/me`);
-            //setLoadingState(false);
-            // setNotificationPopupState(
-            //    <NotificationPopup
-            //       title={"Sucess! ✅"}
-            //       contentString={"Your Post has been updated!"}
-            //       closeModal={closeModals}
-            //       newClass={`notification-wrapper--Success`}
-            //    />
-            // );
-         } else {
-            setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         } catch (error) {
+            console.log(error);
+            setLoadingState(false);
+            setNotificationPopupState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopupState(false)}
+                  title={`Something went wrong!`}
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
@@ -421,34 +419,47 @@ const TextEditor = ({
          addedFirstTagsState.tag !== undefined
       ) {
          setLoadingState(<SmallLoader />);
-         const { data } = await client.mutate({
-            mutation: EDIT_THOUGHT,
-            variables: {
-               ID: postId,
-               body: textArea.current?.value,
-               // make sure the secondary tag is not undefined!
-               category_tags: `${addedFirstTagsState.tag} ${
-                  addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
-               }`,
-               referenced_verses:
-                  referencedVerses.length > 0
-                     ? `${referencedVerses.map((verse: any) => verse.id + " ")}`
-                     : null
+         try {
+            const { data } = await client.mutate({
+               mutation: EDIT_THOUGHT,
+               variables: {
+                  ID: postId,
+                  body: textArea.current?.value,
+                  // make sure the secondary tag is not undefined!
+                  category_tags: `${addedFirstTagsState.tag} ${
+                     addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
+                  }`,
+                  referenced_verses:
+                     referencedVerses.length > 0
+                        ? `${referencedVerses.map((verse: any) => verse.id).join(" ")}`
+                        : null
+               }
+            });
+            if (data.edit_thought) {
+               router.replace(`/users/me`);
+               // setLoadingState(false);
+               // setNotificationPopupState(
+               //    <NotificationPopup
+               //       title={"Sucess! ✅"}
+               //       contentString={"Your Post has been updated!"}
+               //       closeModal={closeModals}
+               //       newClass={`notification-wrapper--Success`}
+               //    />
+               // );
+            } else {
+               setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
-         });
-         if (data.edit_thought) {
-            router.replace(`/users/me`);
-            // setLoadingState(false);
-            // setNotificationPopupState(
-            //    <NotificationPopup
-            //       title={"Sucess! ✅"}
-            //       contentString={"Your Post has been updated!"}
-            //       closeModal={closeModals}
-            //       newClass={`notification-wrapper--Success`}
-            //    />
-            // );
-         } else {
-            setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
+         } catch (error) {
+            console.log(error);
+            setLoadingState(false);
+            setNotificationPopupState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopupState(false)}
+                  title={`Something went wrong!`}
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
@@ -529,8 +540,11 @@ const TextEditor = ({
                {/*====  Referenced Verses Wrapper ======*/}
                <div className={textEditorStyles.textEditorTags}>
                   {referencedVerses &&
-                     referencedVerses.map((el: any) => (
-                        <div className={textEditorStyles.textEditorVerse} data-verseId-={el.id}>
+                     referencedVerses.map((el: any, index: number) => (
+                        <div
+                           className={textEditorStyles.textEditorVerse}
+                           data-verse-id-={el.id}
+                           key={index}>
                            {el.name}
                            <span
                               className={textEditorStyles.textEditorTagsClose}

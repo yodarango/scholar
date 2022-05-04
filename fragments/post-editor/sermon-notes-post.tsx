@@ -21,7 +21,7 @@ import getCookie from "../../helpers/get-cookie";
 import parseJwt from "../../helpers/auth/decodeJWT";
 
 const SermonNotesPost = () => {
-   // check if the user is authenticated in order to get user details
+   // check if the user is authenticated in order to get user details ****BE CAREFUL, ALTHOUGH THE OTHER COMPS SO NOT NEDD THIS, THIS IS NEEDED HERE*******
    const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
    useEffect(() => {
       const authCookie = getCookie("authorization");
@@ -123,7 +123,6 @@ const SermonNotesPost = () => {
                description: null,
                file_url,
                category_tags: currSelectionState.text,
-               approval_level: loggedInUserState?.authority_level,
                title: sermonTitleRef.current?.value
             }
          });

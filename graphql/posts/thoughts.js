@@ -8,6 +8,7 @@ export const GET_THOUGHTS = gql`
          USER_ID
          category_tags
          posted_on
+         referenced_verses
          creator {
             ID
             signature
@@ -39,6 +40,7 @@ export const GET_ONE_THOUGHT = gql`
          USER_ID
          category_tags
          posted_on
+         referenced_verses
          creator {
             ID
             signature
@@ -57,6 +59,22 @@ export const GET_ONE_THOUGHT = gql`
          approvals {
             average_count
             total_count
+         }
+      }
+   }
+`;
+
+export const GET_EDIT_THOUGHT = gql`
+   query ($ID: ID) {
+      thought(ID: $ID) {
+         ID
+         body
+         USER_ID
+         category_tags
+         posted_on
+         referenced_verses
+         creator {
+            ID
          }
       }
    }
@@ -113,20 +131,13 @@ export const SHOW_COMMENTS_OF_THOUGHTS = gql`
 
 // ================== POSTING routes ===================
 export const CREATE_NEW_THOUGHT = gql`
-   mutation (
-      $body: String
-      $category_tags: String
-      $referenced_verses: String
-      $title: String
-      $approval_level: AuthorityLevel
-   ) {
+   mutation ($body: String, $category_tags: String, $referenced_verses: String, $title: String) {
       thought(
          data: {
             body: $body
             category_tags: $category_tags
             referenced_verses: $referenced_verses
             title: $title
-            approval_level: $approval_level
          }
       ) {
          ... on Thought {

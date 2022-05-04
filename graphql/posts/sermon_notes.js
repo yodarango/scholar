@@ -60,7 +60,6 @@ export const CREATE_NEW_SERMON_NOTE = gql`
       $category_tags: String
       $title: String
       $file_url: String
-      $approval_level: AuthorityLevel
       $DROPBOX_ID: ID
    ) {
       sermon_note(
@@ -70,7 +69,6 @@ export const CREATE_NEW_SERMON_NOTE = gql`
             category_tags: $category_tags
             title: $title
             file_url: $file_url
-            approval_level: $approval_level
             DROPBOX_ID: $DROPBOX_ID
          }
       ) {

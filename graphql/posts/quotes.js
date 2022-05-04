@@ -101,6 +101,9 @@ export const GET_ONE_QUOTE = gql`
          background
          created_date
          posted_on
+         creator {
+            ID
+         }
          comments(showComment: $showComment) {
             total_count
          }
@@ -112,22 +115,31 @@ export const GET_ONE_QUOTE = gql`
    }
 `;
 
+export const GET_EDIT_QUOTE = gql`
+   query ($ID: ID) {
+      quote(ID: $ID) {
+         ID
+         USER_ID
+         body
+         category_tags
+         author
+         background
+         creator {
+            ID
+         }
+      }
+   }
+`;
+
 // ========================  POST ===================
-export const POST_NEW_QUOTE = gql`
-   mutation (
-      $body: String
-      $category_tags: String
-      $author: String
-      $background: String
-      $approval_level: AuthorityLevel
-   ) {
+export const CREATE_NEW_QUOTE = gql`
+   mutation ($body: String, $category_tags: String, $author: String, $background: String) {
       quote(
          data: {
             body: $body
             category_tags: $category_tags
             author: $author
             background: $background
-            approval_level: $approval_level
          }
       ) {
          ... on Quote {

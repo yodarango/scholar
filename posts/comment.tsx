@@ -85,7 +85,7 @@ export default function Comments({ commentary }: commentsProps) {
             query: SHOW_COMMENTS_OF_COMMENTARY,
             variables: { ID: commentary_id, showComment: true }
          });
-         if(data.commentary){
+         if (data.commentary) {
             setseeWholePost(
                <div className='dark-bkg'>
                   <div className='closeModal' onClick={() => setseeWholePost(false)}>
@@ -110,7 +110,6 @@ export default function Comments({ commentary }: commentsProps) {
                />
             );
          }
-         
       } catch (error) {
          setNotificationPopUpState(
             <NotificationPopup
@@ -120,8 +119,8 @@ export default function Comments({ commentary }: commentsProps) {
                newClass='notification-wrapper--Error'
             />
          );
-         console.log(error)
-      }  
+         console.log(error);
+      }
    };
 
    // ================= FUNCTION 2: Drop down the comment input   =============== //
@@ -169,7 +168,7 @@ export default function Comments({ commentary }: commentsProps) {
             );
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}
@@ -179,7 +178,6 @@ export default function Comments({ commentary }: commentsProps) {
             />
          );
       }
-     
    };
 
    const handleDeleteConfirmation = (id: string) => {
@@ -201,7 +199,7 @@ export default function Comments({ commentary }: commentsProps) {
                COMMENTARY_ID: id
             }
          });
-   
+
          if (data.data.report_commentary) {
             setConfirmationPopUpState(false);
             setNotificationPopUpState(
@@ -224,7 +222,7 @@ export default function Comments({ commentary }: commentsProps) {
             );
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setConfirmationPopUpState(false);
          setNotificationPopUpState(
             <NotificationPopup
@@ -235,7 +233,6 @@ export default function Comments({ commentary }: commentsProps) {
             />
          );
       }
-      
    };
 
    const handleReportConfirmation = (id: string) => {
@@ -314,7 +311,6 @@ export default function Comments({ commentary }: commentsProps) {
    // ======================== FUNCTION 9: hande a ssuccessful approval rating ========================= //
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(commentary.approvals[0]);
    const handleSuccessfulApprovalRating = async () => {
-
       try {
          const { data } = await client.query({
             query: GET_COMMENTARY_APPROVALS,
@@ -328,13 +324,13 @@ export default function Comments({ commentary }: commentsProps) {
          console.log(error);
          setNotificationPopUpState(
             <NotificationPopup
-            closeModal={() => setNotificationPopUpState(false)}
-            title='Oh no!'
-            contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-            newClass='notification-wrapper--Error'
-         />
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
          );
-      } 
+      }
    };
 
    // ================== FUNCTION 10: open the user info popup
@@ -416,7 +412,7 @@ export default function Comments({ commentary }: commentsProps) {
                         onClick={() => handleDeleteConfirmation(commentary.ID)}></span>
                   )}
                   {renderDeleteEditOptionsState && (
-                     <Link href={`/posts/edit-commentary/${commentary.ID}`}>
+                     <Link href={`/posts/commentary/edit/${commentary.ID}`}>
                         <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                      </Link>
                   )}

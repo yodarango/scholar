@@ -86,7 +86,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
             mutation: DELETE_ONE_QUOTE,
             variables: { ID: id }
          });
-   
+
          if (data.data.delete_one_quote) {
             setdeletedPostState(true);
             setConfirmationPopUpState(false);
@@ -101,7 +101,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
             );
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setConfirmationPopUpState(false);
          setNotificatonPopUpState(
             <NotificationPopup
@@ -125,7 +125,6 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
 
    //    ==================   FUNCTION 3: Report Popup for quote    =============  //
    const handleReportPost = async (id: string) => {
-
       try {
          const data = await client.mutate({
             mutation: REPORT_QUOTE,
@@ -133,7 +132,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
                QUOTE_ID: id
             }
          });
-   
+
          if (data.data.report_quote) {
             setConfirmationPopUpState(false);
             setNotificatonPopUpState(
@@ -156,7 +155,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
             );
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setConfirmationPopUpState(false);
          setNotificatonPopUpState(
             <NotificationPopup
@@ -167,7 +166,6 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
             />
          );
       }
-     
    };
 
    const handleReportConfirmation = (id: string) => {
@@ -203,7 +201,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
                         onClick={() => handleDeleteConfirmation(story.ID)}></span>
                   )}
                   {renderDeleteEditOptionsState && (
-                     <Link href={`/posts/edit-quote/${story.ID}`}>
+                     <Link href={`/posts/quote/edit/${story.ID}`}>
                         <a className={`std-vector-icon ${quoteProfileStyles.edit}`}></a>
                      </Link>
                   )}

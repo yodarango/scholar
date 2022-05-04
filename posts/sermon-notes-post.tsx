@@ -77,9 +77,8 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
             variables: { ID: id }
          });
       } catch (error) {
-         console.log(error)
+         console.log(error);
       }
-
    };
    const handleDeleteConfirmation = async (id: string, DROPBOX_ID: string) => {
       try {
@@ -107,7 +106,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
             );
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setconfirmationPopUpState(false);
          setNotificationPupUpState(
             <NotificationPopup
@@ -118,7 +117,6 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
             />
          );
       }
-     
    };
 
    const promptConfirmationPopUp = (id: string, DROPBOX_ID: string) => {
@@ -131,8 +129,8 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
       );
    };
 
-    // ================= FUNCTION 7: Handle Reporting the Post  ===================//
-    const handleReportPost = async (id: string) => {
+   // ================= FUNCTION 7: Handle Reporting the Post  ===================//
+   const handleReportPost = async (id: string) => {
       try {
          const data = await client.mutate({
             mutation: REPORT_SERMON_NOTE,
@@ -140,7 +138,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                SERMON_NOTE_ID: id
             }
          });
-   
+
          if (data.data.report_sermon_note) {
             setconfirmationPopUpState(false);
             setNotificationPupUpState(
@@ -163,7 +161,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
             );
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setconfirmationPopUpState(false);
          setNotificationPupUpState(
             <NotificationPopup
@@ -174,7 +172,6 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
             />
          );
       }
-      
    };
 
    const handleReportConfirmation = (id: string) => {
@@ -216,10 +213,11 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                         }></span>
                   )}
                   {renderDeleteEditOptionsState && (
-                     <Link href={`/posts/edit-sermon-note/${sermonPost.ID}`}>
+                     <Link href={`/posts/sermon-note/edit/${sermonPost.ID}`}>
                         <a
-                           className={(sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.edit)}
-                           ></a>
+                           className={
+                              (sermonNotesPostStyles.cardIcon, sermonNotesPostStyles.edit)
+                           }></a>
                      </Link>
                   )}
                   {renderReportOptionState && (

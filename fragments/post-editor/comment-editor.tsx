@@ -97,6 +97,7 @@ const CommentEditor = ({ versionId }: commentEditorProps) => {
    const [openCommentaryEditorState, setopenCommentaryEditorState] = useState<
       boolean | JSX.Element
    >(false);
+   const [verseError, setVerseError] = useState<boolean>(false);
    const [verseContentState, setVerseContentState] = useState<TverseActualContent>({
       bibleId: "",
       bookId: "",
@@ -112,22 +113,27 @@ const CommentEditor = ({ versionId }: commentEditorProps) => {
    });
 
    const renderSelectedVerseFunc = async (e: TnewVerse) => {
-      const resp = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${e.id}?content-type=text&include-notes=false&include-chapter-numbers=false&include-verse-spans=false&include-titles=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      try {
+         const resp = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${e.id}?content-type=text&include-notes=false&include-chapter-numbers=false&include-verse-spans=false&include-titles=false`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+               }
             }
-         }
-      );
-      const verseData = await resp.json();
-      setVerseContentState(verseData.data);
-      closeGetNewBook();
+         );
+         const verseData = await resp.json();
+         setVerseContentState(verseData.data);
+         closeGetNewBook();
+      } catch (error) {
+         setVerseError(true);
+         console.log(error);
+      }
    };
 
    useEffect(() => {
-      setopenCommentaryEditorState(<Commentary verseData={verseContentState} />);
+      setopenCommentaryEditorState(<Commentary verseData={verseContentState} err={verseError} />);
    }, [verseContentState]);
    return (
       <>

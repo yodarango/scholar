@@ -74,7 +74,6 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
    const openPost = async (thought: Tthought) => {
-
       try {
          const { data } = await client.query({
             query: SHOW_COMMENTS_OF_THOUGHTS,
@@ -92,15 +91,16 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
             </div>
          );
       } catch (error) {
-         setNotificationpopUpState(<NotificationPopup
-            title='Oh no!'
-            contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-            closeModal={() => setNotificationpopUpState(false)}
-            newClass='notification-wrapper--Red'
-         />)
-         console.log(error)
+         setNotificationpopUpState(
+            <NotificationPopup
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               closeModal={() => setNotificationpopUpState(false)}
+               newClass='notification-wrapper--Red'
+            />
+         );
+         console.log(error);
       }
-     
    };
 
    // ================= FUNCTION 2: Drop down the comment imput   =============== //
@@ -164,10 +164,10 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                   newClass='notification-wrapper--Red'
                />
             );
-            setConfirmationPopUpState(false)
+            setConfirmationPopUpState(false);
          }
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setNotificationpopUpState(
             <NotificationPopup
                title='Oh no!'
@@ -176,7 +176,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                newClass='notification-wrapper--Red'
             />
          );
-         setConfirmationPopUpState(false)
+         setConfirmationPopUpState(false);
       }
    };
    const handleDeletePostConfirmation = (id: string) => {
@@ -323,7 +323,6 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
          {notificationpopUpState}
          {chooseAprovalRating}
          {thoughts.map((thought, index) => {
-
             thought.creator.authority_level = user_authority_level ? user_authority_level : "";
             return (
                <section key={thought.ID}>
@@ -363,7 +362,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                               onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                         )}
                         {thought.creator && renderAdminOptionsState == thought.creator.ID && (
-                           <Link href={`/posts/edit-thought/${thought.ID}`}>
+                           <Link href={`/posts/thought/edit/${thought.ID}`}>
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}
