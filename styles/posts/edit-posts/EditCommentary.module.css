@@ -11,6 +11,10 @@
    width: 100%;
 }
 
+.closeModal {
+   position: fixed;
+}
+
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
       display: flex;

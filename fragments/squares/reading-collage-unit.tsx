@@ -346,5 +346,4 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
    );
 };
 
-export default dynamic(() => Promise.resolve(ReadingCollageUnit), { ssr: false });
-//export default ReadingCollageUnit;
+export default ReadingCollageUnit;

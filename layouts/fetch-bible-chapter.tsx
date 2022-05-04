@@ -28,7 +28,6 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
             headers: { "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}` }
          }
       );
-      console.log(versionId);
       const chapterJson = await req.json();
       const chapterData = chapterJson.data;
       const content = chapterData.content;
