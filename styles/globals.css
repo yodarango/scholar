@@ -29,7 +29,7 @@
    /****************************************/
    /*********** Dark Theme Colors *********/
    /**************************************/
-   /* --primary-color: #2a2438;
+   --primary-color: #2a2438;
    --secondary-color: #433b55;
    --third-color: #4f3b78;
    --fourth-color: #5c5470;
@@ -39,7 +39,7 @@
    --warning-color: #ec3b3b;
    --proceed-color: #90d171;
    --user-trusted-level: linear-gradient(70deg, rgb(41, 106, 247), rgb(49, 234, 255));
-   --shadow-color: #17151b; */
+   --shadow-color: #17151b;
 
    /**************** aprroval level ==========m***********/
    --aprval-level-a: rgb(91, 202, 91);

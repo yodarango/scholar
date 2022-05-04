@@ -13,6 +13,7 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 //helpers
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // others
 
@@ -38,7 +39,7 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
          const requ = await fetch(`https://api.scripture.api.bible/v1/bibles/${versionId}/books`, {
             method: "GET",
             headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+               "api-key": `${chosenKey}`
             }
          });
 

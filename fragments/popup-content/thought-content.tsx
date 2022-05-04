@@ -20,6 +20,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 import { Tthought } from "../../posts/thought";
 import { GET_THOUGHT_APPROVALS } from "../../graphql/posts/approvals";
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // others
 
@@ -37,17 +38,17 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
 
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
-   const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true)
+   const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true);
 
    const openReferencedVerse = async (id: string) => {
-      setShowRefVersesState(false)
+      setShowRefVersesState(false);
       try {
          const req = await fetch(
             `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${id}?content-type=text&include-verse-numbers=false`,
             {
                method: "GET",
                headers: {
-                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+                  "api-key": `${chosenKey}`
                }
             }
          );
@@ -61,10 +62,10 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                }}
             />
          );
-         setShowRefVersesState(true)
+         setShowRefVersesState(true);
       } catch (error) {
-         console.log(error)
-         setShowRefVersesState(true)
+         console.log(error);
+         setShowRefVersesState(true);
          setNotificationpopUpState(
             <NotificationPopup
                closeModal={() => setNotificationpopUpState(false)}
@@ -74,7 +75,6 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             />
          );
       }
-      
    };
 
    // =================    FUNCTION 1: handle the approve click  ================== //
@@ -96,7 +96,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
          setChooseAprovalRating(false);
          setPostApprovalState(data.thought_approvals[0]);
       } catch (error) {
-         console.log( error);
+         console.log(error);
          setChooseAprovalRating(false);
       }
    };
@@ -285,7 +285,8 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-               {thought.referenced_verses && showRefVersesState &&
+                  {thought.referenced_verses &&
+                     showRefVersesState &&
                      thought.referenced_verses.split(" ").map((verseId: string) => (
                         <div
                            className={textEditorStyles.textEditorVerse}
@@ -293,7 +294,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                            onClick={() => openReferencedVerse(verseId)}>
                            {verseId}
                         </div>
-               ))}
+                     ))}
                </div>
             </div>
          </div>

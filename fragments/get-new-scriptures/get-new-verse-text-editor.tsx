@@ -4,14 +4,18 @@
 // *** component call for the textEditor comp only ******************* //
 
 // core
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 //components
+import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 
 // styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // others
 
@@ -37,20 +41,29 @@ const GetNewVerseTextEdito = ({
    renderSelectedVerse,
    versionId
 }: getNewVerseProps) => {
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
    const [getNewVerse, setGetNewVerse] = useState<TnewVerse[]>([]);
 
    const getNewChapterFunct = async () => {
-      const resp = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}/verses`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      try {
+         const resp = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}/verses`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${chosenKey}`
+               }
             }
-         }
-      );
-      const json = await resp.json();
-      setGetNewVerse(json.data);
+         );
+         const json = await resp.json();
+         setGetNewVerse(json.data);
+         setLoadingState("done");
+      } catch (error) {
+         setLoadingState("error");
+         setGetNewVerse([]);
+         console.log(error);
+      }
    };
 
    useEffect(() => {
@@ -70,20 +83,34 @@ const GetNewVerseTextEdito = ({
                <div className='goBack' onClick={goBackModal}>
                   {"<"}
                </div>
-               {getNewVerse.map((el) => (
-                  <div onClick={(e: any) => (e.target.style.color = "#ff9214")}>
-                     <div
-                        key={el.id}
-                        data-verse={`${el.id}`}
-                        data-name={`${el.reference}`}
-                        className={selectNewScriptureStyles.bibleBookRow}
-                        onClick={() => renderSelectedVerse(el)}>
-                        <p className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
-                           {el.reference}
-                        </p>
-                     </div>{" "}
+               {getNewVerse.length > 0 &&
+                  getNewVerse.map((el) => (
+                     <div onClick={(e: any) => (e.target.style.color = "#ff9214")}>
+                        <div
+                           key={el.id}
+                           data-verse={`${el.id}`}
+                           data-name={`${el.reference}`}
+                           className={selectNewScriptureStyles.bibleBookRow}
+                           onClick={() => renderSelectedVerse(el)}>
+                           <p
+                              className={`std-text-block ${selectNewScriptureStyles.stdTextNoMargin}`}>
+                              {el.reference}
+                           </p>
+                        </div>{" "}
+                     </div>
+                  ))}
+               {loadingState == "loading" && (
+                  <CardsLazyLoading
+                     amount={30}
+                     compClass={cardsLazyLoadingStyles.selectScriptureVerseBook}
+                  />
+               )}
+
+               {loadingState == "error" && (
+                  <div className={cardsLazyLoadingStyles.errorImage}>
+                     <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
                   </div>
-               ))}
+               )}
             </div>
          </div>
       </>

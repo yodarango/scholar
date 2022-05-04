@@ -20,6 +20,7 @@ import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.mo
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
 import { TverseContent } from "../../pages";
 import { TnewVerse } from "../get-new-scriptures/get-new-verse-text-editor";
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 type commentEditorProps = {
    verseContent?: TverseContent;
@@ -119,7 +120,7 @@ const CommentEditor = ({ versionId }: commentEditorProps) => {
             {
                method: "GET",
                headers: {
-                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+                  "api-key": `${chosenKey}`
                }
             }
          );

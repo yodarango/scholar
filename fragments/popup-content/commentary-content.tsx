@@ -18,6 +18,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
 import { Tcommentary } from "../../posts/comment";
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 
 // others
@@ -33,17 +34,17 @@ type commentaryContentProps = {
 const CommentaryContent = ({ commentary, postReactionContent }: commentaryContentProps) => {
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
-   const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true)
+   const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true);
 
    const openReferencedVerse = async (id: string) => {
-      setShowRefVersesState(false)
+      setShowRefVersesState(false);
       try {
          const req = await fetch(
             `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${id}?content-type=text&include-verse-numbers=false`,
             {
                method: "GET",
                headers: {
-                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+                  "api-key": `${chosenKey}`
                }
             }
          );
@@ -57,10 +58,10 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                }}
             />
          );
-         setShowRefVersesState(true)
+         setShowRefVersesState(true);
       } catch (error) {
-         console.log(error)
-         setShowRefVersesState(true)
+         console.log(error);
+         setShowRefVersesState(true);
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}
@@ -70,7 +71,6 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
             />
          );
       }
-      
    };
 
    // ========= FUNCTION 1: open and close the comment text areaa
@@ -107,7 +107,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
          setChooseAprovalRating(false);
          setPostApprovalState(data.commentary_approvals[0]);
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setPostApprovalState(postApprovalState);
          setNotificationPopUpState(
             <NotificationPopup
@@ -117,9 +117,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                newClass='notification-wrapper--Error'
             />
          );
-
       }
-      
    };
 
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
@@ -302,7 +300,8 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-                  {commentary.referenced_verses && showRefVersesState &&
+                  {commentary.referenced_verses &&
+                     showRefVersesState &&
                      commentary.referenced_verses.split(" ").map((verseId: string) => (
                         <div
                            className={textEditorStyles.textEditorVerse}

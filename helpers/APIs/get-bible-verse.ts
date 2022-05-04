@@ -1,3 +1,6 @@
+// hepers
+import { chosenKey } from "./select-random-api-key";
+
 export const getInitialData = async (verse: string | string[] | undefined) => {
    if (verse) {
       try {
@@ -6,7 +9,7 @@ export const getInitialData = async (verse: string | string[] | undefined) => {
             {
                method: "GET",
                headers: {
-                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+                  "api-key": `${chosenKey}`
                }
             }
          );

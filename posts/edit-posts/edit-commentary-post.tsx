@@ -15,9 +15,12 @@ import FormattingRules from "../../fragments/buttons/formatting-rules";
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";
 import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
-// types / helpers
+// types
 import { Tcommentary } from "../comment";
 import { TverseContent } from "../../pages";
+
+// helpers;
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 type editCommentaryPostProps = {
    commentary: Tcommentary;
@@ -87,7 +90,7 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
             {
                method: "GET",
                headers: {
-                  "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+                  "api-key": `${chosenKey}`
                }
             }
          );

@@ -10,6 +10,9 @@ import Commentary from "../../layouts/popup-new-comment";
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";
 import fetchNewChapterStyles from "../../styles/layouts/FetchNewChapter.module.css";
 
+//helpers
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
+
 // types
 import { getNewVerseId } from "../../helpers/random-daily-verses";
 
@@ -20,26 +23,33 @@ type randomDailyVerseProps = {
 const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
    // ===============   FUNCTINO 1: Get the daily verse
    const [verseContent, setVerseContent] = useState<any>({});
+   const [verseError, setVerseError] = useState(false);
 
    // get the date
    const date = new Date();
    const dateFormat = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}`;
 
    const getVerse = async () => {
-      const request = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      try {
+         const request = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${getNewVerseId()}?content-type=text&include-verse-numbers=false`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${chosenKey}`
+               }
             }
-         }
-      );
+         );
 
-      const response = await request.json();
-      response.data.lastCall = dateFormat;
+         const response = await request.json();
+         response.data.lastCall = dateFormat;
 
-      return response;
+         return response;
+      } catch (error) {
+         console.log(error);
+         setVerseError(true);
+         return false;
+      }
    };
 
    // ============== Function 0.1 : Check if verse exists in the cache
@@ -105,7 +115,7 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
       setOpenCommentModalState(
          <PopupWrapper
             closeModal={() => setOpenCommentModalState(false)}
-            content={<Commentary verseData={verseContent} />}
+            content={<Commentary verseData={verseContent} err={verseError} />}
          />
       );
    };

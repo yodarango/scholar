@@ -1,19 +1,13 @@
 /* ---------------  globals ------------------ */
 .mainWrapper div {
    background-color: var(--font-color);
-   /* background-image: linear-gradient(
+   background-image: linear-gradient(
       110deg,
       var(--secondary-color) 8%,
       #433b55c2 18%,
       var(--secondary-color) 33%
-   ); */
-   background-image: linear-gradient(
-      110deg,
-      #433b55
-      8%,
-      #433b55c2 18%,
-      #433b55 33%
    );
+   /* background-image: linear-gradient(110deg, #433b55 8%, #433b55c2 18%, #433b55 33%); */
    background-size: 250% 100%;
    background-position: 10% 0%;
    animation: 2s shine linear infinite;
@@ -222,39 +216,40 @@
    margin: var(--medium-spacing-mobile) auto;
 }
 /* -------------------------------------- Profile ----------------------------- */
-.userProfile{
-width: 90%;
-max-width: 800px;
-margin: 0 auto;
-display: flex;
-align-items: flex-start;
-justify-content: space-around;
-flex-wrap: wrap;
+.userProfile {
+   width: 90%;
+   max-width: 800px;
+   margin: 0 auto;
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-around;
+   flex-wrap: wrap;
 }
 
-.userProfile div:nth-child(1), .userProfile div:nth-child(2) {
-width: 45%;
-height: 8rem;
+.userProfile div:nth-child(1),
+.userProfile div:nth-child(2) {
+   width: 45%;
+   height: 8rem;
 }
 
 .userProfile div:nth-child(3) {
    width: 100%;
    height: 3rem;
-   }
-
-   .userProfile div{
-      margin: var(--small-spacing-mobile) 0;
-      width: 7rem;
-      height: 7rem;
-   }
-   /* -------------------------------- user notifications ----------------------------- */
-.userNotifications{
-   width: 100%;
-margin: var(--medium-spacing-mobile) auto;
-max-width: 800px;
 }
 
-.userNotifications div{
+.userProfile div {
+   margin: var(--small-spacing-mobile) 0;
+   width: 7rem;
+   height: 7rem;
+}
+/* -------------------------------- user notifications ----------------------------- */
+.userNotifications {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto;
+   max-width: 800px;
+}
+
+.userNotifications div {
    width: 100%;
    height: 4rem;
    margin: var(--small-spacing-mobile) auto;
@@ -262,7 +257,8 @@ max-width: 800px;
 
 /* ------------------------------- posts -------------------- */
 
-.postCardCTSN, .postCardQuote {
+.postCardCTSN,
+.postCardQuote {
    width: 100%;
    overflow-x: scroll;
    display: flex;
@@ -271,7 +267,8 @@ max-width: 800px;
    flex-wrap: wrap;
 }
 
-.postCardCTSN div, .postCardQuote div {
+.postCardCTSN div,
+.postCardQuote div {
    width: 100%;
    max-width: 350px;
    height: 8rem;
@@ -279,12 +276,14 @@ max-width: 800px;
    flex-shrink: 0;
 }
 
-.postCardQuote div{
+.postCardQuote div {
    height: 18rem;
 }
 
 /* --------------------------------- posts edit --------------------- */
-.commentaryEdit, .quoteEdit, .thoughtEdit {
+.commentaryEdit,
+.quoteEdit,
+.thoughtEdit {
    width: 90%;
    max-width: 500px;
    margin: var(--medium-spacing-mobile) auto;
@@ -294,13 +293,15 @@ max-width: 800px;
    flex-wrap: wrap;
 }
 
-.commentaryEdit div, .thoughtEdit div{
+.commentaryEdit div,
+.thoughtEdit div {
    margin: var(--medium-spacing-mobile) auto;
 }
 
-.commentaryEdit div:nth-child(1), .thoughtEdit div:nth-child(1) {
-width: 100%;
-height: 18rem;
+.commentaryEdit div:nth-child(1),
+.thoughtEdit div:nth-child(1) {
+   width: 100%;
+   height: 18rem;
 }
 
 .commentaryEdit div:nth-child(2) {
@@ -308,24 +309,25 @@ height: 18rem;
    height: 28rem;
 }
 
-.commentaryEdit div:nth-child(3), .thoughtEdit div:nth-child(2) {
+.commentaryEdit div:nth-child(3),
+.thoughtEdit div:nth-child(2) {
    width: 100%;
    max-width: 12rem;
    height: 3rem;
 }
 
-.quoteEdit { 
+.quoteEdit {
    max-width: 800px;
 }
 
-.quoteEdit div{
+.quoteEdit div {
    margin: var(--medium-spacing-mobile) auto 0;
 }
 
 .quoteEdit div:nth-child(1) {
-width: 100%;
-height: 2.5rem;
-margin:0 auto ;
+   width: 100%;
+   height: 2.5rem;
+   margin: 0 auto;
 }
 
 .quoteEdit div:nth-child(2) {
@@ -354,6 +356,20 @@ margin:0 auto ;
    max-width: 12rem;
 }
 
+/*  -------------------- whole chapter reading ------------------ */
+.wholeChapterRead {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto;
+}
+.wholeChapterRead div {
+   width: 100%;
+   height: 80vh;
+   margin: var(--small-spacing-mobile) auto;
+}
+
+.wholeChapterRead div:nth-child(2) {
+   height: 3rem;
+}
 /**********************************************************************************************************************/
 /*********************************************************** desktop **************************************************/
 /**********************************************************************************************************************/
@@ -430,31 +446,31 @@ margin:0 auto ;
    }
 
    /* --------------------------------- posts edit --------------------- */
-.commentaryThoughtEdit{
-  max-width: 1000px;
-   margin: var(--medium-spacing-desktop) auto;
-   justify-content: space-between;
-   align-items: center;
-}
+   .commentaryThoughtEdit {
+      max-width: 1000px;
+      margin: var(--medium-spacing-desktop) auto;
+      justify-content: space-between;
+      align-items: center;
+   }
 
-.commentaryThoughtEdit div{
-   margin: var(--medium-spacing-desktop) auto;
-}
+   .commentaryThoughtEdit div {
+      margin: var(--medium-spacing-desktop) auto;
+   }
 
-.commentaryThoughtEdit div:nth-child(1) {
-width: 40%;
-height: 18rem;
-}
+   .commentaryThoughtEdit div:nth-child(1) {
+      width: 40%;
+      height: 18rem;
+   }
 
-.commentaryThoughtEdit div:nth-child(2) {
-   width: 45%;
-   height: 28rem;
-}
+   .commentaryThoughtEdit div:nth-child(2) {
+      width: 45%;
+      height: 28rem;
+   }
 
-.commentaryThoughtEdit div:nth-child(3) {
-   width: 100%;
-   margin: var(--medium-spacing-desktop) 5rem var(--medium-spacing-desktop) auto;
-   max-width: 15rem;
-   height: 4rem;
-}
+   .commentaryThoughtEdit div:nth-child(3) {
+      width: 100%;
+      margin: var(--medium-spacing-desktop) 5rem var(--medium-spacing-desktop) auto;
+      max-width: 15rem;
+      height: 4rem;
+   }
 }

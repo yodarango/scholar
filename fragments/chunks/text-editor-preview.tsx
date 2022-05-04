@@ -10,6 +10,9 @@ import NotificationPopup from "../notification-popup";
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 
+// helpters
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
+
 /*==================  FUNCTION: Preview ReactMarkdown  ===========*/
 type previewProps = {
    tagsAssigned: JSX.Element;
@@ -21,25 +24,38 @@ const TextEditorPreview = ({ tagsAssigned, referencedVerses, content }: previewP
    // ===============  FUNCTION: Open Referenced Verse Tags  =================
    const [openReferencePopUpState, setOpenReferencePopUp] = useState<JSX.Element | boolean>(false);
    const openReferencedVerse = async (verseId: string) => {
-      const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${verseId}?content-type=text&include-verse-numbers=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      try {
+         const req = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${verseId}?content-type=text&include-verse-numbers=false`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${chosenKey}`
+               }
             }
-         }
-      );
-      const json = await req.json();
-      setOpenReferencePopUp(
-         <NotificationPopup
-            title={json.data.reference}
-            contentString={json.data.content}
-            closeModal={() => {
-               setOpenReferencePopUp(false);
-            }}
-         />
-      );
+         );
+         const json = await req.json();
+         setOpenReferencePopUp(
+            <NotificationPopup
+               title={json.data.reference}
+               contentString={json.data.content}
+               closeModal={() => {
+                  setOpenReferencePopUp(false);
+               }}
+            />
+         );
+      } catch (error) {
+         console.log(error);
+         setOpenReferencePopUp(
+            <NotificationPopup
+               title='Sorry 🙁'
+               contentString='Something went wrong while fetching the source 👎'
+               closeModal={() => {
+                  setOpenReferencePopUp(false);
+               }}
+            />
+         );
+      }
    };
    //referencedVerses.map((verse: string) => verse);
    //const hiddenTextArea = useRef(null);
