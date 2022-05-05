@@ -1,0 +1,476 @@
+/* ---------------  globals ------------------ */
+.mainWrapper div {
+   background-color: var(--font-color);
+   background-image: linear-gradient(
+      110deg,
+      var(--secondary-color) 8%,
+      #433b55c2 18%,
+      var(--secondary-color) 33%
+   );
+   /* background-image: linear-gradient(110deg, #433b55 8%, #433b55c2 18%, #433b55 33%); */
+   background-size: 250% 100%;
+   background-position: 10% 0%;
+   animation: 2s shine linear infinite;
+   border-radius: var(--input-radius-mobile);
+}
+
+.errorImage {
+   position: relative;
+   height: 10rem;
+   width: 10rem;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.errorImage img {
+   object-fit: contain;
+   object-position: center;
+}
+
+.stdLoadingText {
+   opacity: 1;
+   animation: 1500ms blink linear infinite;
+}
+
+@keyframes blink {
+   0% {
+      opacity: 1;
+   }
+
+   50% {
+      opacity: 0;
+   }
+
+   100% {
+      opacity: 1;
+   }
+}
+/* -------- Home page commentaries ---------- */
+.homeCommentstaries {
+   width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.homeCommentstaries div {
+   width: 350px;
+   height: 13rem;
+   margin: var(--medium-spacing-mobile) var(--medium-spacing-mobile) 0 0;
+   flex-shrink: 0;
+}
+
+/* ------- Daily bible verse card ------------ */
+.dailyVerseCard {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto;
+   max-width: var(--max-width-main-wrapper-mobile);
+}
+.dailyVerseCard div {
+   width: 100%;
+   height: 13rem;
+}
+
+/* ---------- select new scripture ------- */
+.selectScriptureVerseBook {
+   width: 100%;
+}
+
+.selectScriptureChapter {
+   width: 90%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-wrap: wrap;
+   max-height: 82%;
+   overflow-y: scroll;
+}
+
+.selectScriptureVerseBook div {
+   width: 100%;
+   height: 2.5rem;
+   margin: var(--xsmall-spacing-mobile) auto;
+}
+
+.selectScriptureChapter div {
+   height: 3rem;
+   width: 3rem;
+   margin: 0.5rem;
+}
+
+/* ------------ library home page -------------- */
+.libraryHomePageSquare,
+.libraryHomePageLong {
+   width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+.libraryHomePageSquare div,
+.libraryHomePageLong div {
+   height: 9.3rem;
+   width: 9.3rem;
+   flex-shrink: 0;
+   margin: var(--medium-spacing-mobile) var(--small-spacing-mobile);
+}
+
+.libraryHomePageLong div {
+   height: 12rem;
+}
+
+/* -------------- libray articles --------- */
+.librayArticles,
+.libraySquareCont,
+.librayBooks,
+.libraySermonNote,
+.librayUsers {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   margin-top: var(--medium-spacing-mobile);
+}
+
+.librayUsers {
+   align-items: flex-start;
+   justify-content: space-around;
+}
+
+.librayArticles div,
+.libraySquareCont div,
+.librayBooks div,
+.libraySermonNote div {
+   width: 8rem;
+   margin: var(--medium-spacing-mobile);
+   flex-grow: 0.5;
+   height: 12rem;
+   border-bottom-right-radius: 1.5rem;
+}
+
+.libraySquareCont div {
+   height: 9.3rem;
+   width: 9.3rem;
+   max-width: 9.3;
+   flex-grow: 0;
+   border-radius: var(--input-radius-mobile);
+}
+
+.librayBooks div {
+   width: 12rem;
+   height: 7rem;
+   -moz-box-flex: 0.6;
+   flex-grow: 0.6;
+   flex-shrink: 0;
+   border-radius: var(--input-radius-mobile);
+   margin: 0 0.3rem var(--medium-spacing-mobile);
+}
+
+.libraySermonNote div {
+   height: 12rem;
+   width: 9.3rem;
+   flex-grow: 0;
+   border-bottom-right-radius: 1rem;
+   border-top-right-radius: 1rem;
+   margin: var(--medium-spacing-mobile) var(--medium-spacing-mobile) var(--medium-spacing-mobile) 0;
+}
+
+.librayUsers div {
+   width: 7rem;
+   height: 8rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   margin: var(--xsmall-spacing-mobile);
+}
+
+.errorImageLibPage {
+   margin-top: var(--xlarge-spacing-mobile);
+}
+.errorImageFP {
+   margin-top: 30vh;
+}
+
+@keyframes shine {
+   to {
+      background-position-x: -250%;
+   }
+}
+
+/* ------------------------- setttings ------------------ */
+.settingsLoading {
+   width: 90%;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.settingsLoading div:nth-child(1) {
+   width: 8rem;
+   height: 9rem;
+   clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+   margin: var(--xlarge-spacing-mobile) auto var(--xsmall-spacing-mobile);
+}
+
+.settingsLoading div {
+   width: 100%;
+   max-width: 30rem;
+   height: 3rem;
+   margin: var(--medium-spacing-mobile) auto;
+}
+/* -------------------------------------- Profile ----------------------------- */
+.userProfile {
+   width: 90%;
+   max-width: 800px;
+   margin: 0 auto;
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-around;
+   flex-wrap: wrap;
+}
+
+.userProfile div:nth-child(1),
+.userProfile div:nth-child(2) {
+   width: 45%;
+   height: 8rem;
+}
+
+.userProfile div:nth-child(3) {
+   width: 100%;
+   height: 3rem;
+}
+
+.userProfile div {
+   margin: var(--small-spacing-mobile) 0;
+   width: 7rem;
+   height: 7rem;
+}
+/* -------------------------------- user notifications ----------------------------- */
+.userNotifications {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto;
+   max-width: 800px;
+}
+
+.userNotifications div {
+   width: 100%;
+   height: 4rem;
+   margin: var(--small-spacing-mobile) auto;
+}
+
+/* ------------------------------- posts -------------------- */
+
+.postCardCTSN,
+.postCardQuote {
+   width: 100%;
+   overflow-x: scroll;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+}
+
+.postCardCTSN div,
+.postCardQuote div {
+   width: 100%;
+   max-width: 350px;
+   height: 8rem;
+   margin: var(--xsmall-spacing-mobile) auto;
+   flex-shrink: 0;
+}
+
+.postCardQuote div {
+   height: 18rem;
+}
+
+/* --------------------------------- posts edit --------------------- */
+.commentaryEdit,
+.quoteEdit,
+.thoughtEdit {
+   width: 90%;
+   max-width: 500px;
+   margin: var(--medium-spacing-mobile) auto;
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-around;
+   flex-wrap: wrap;
+}
+
+.commentaryEdit div,
+.thoughtEdit div {
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.commentaryEdit div:nth-child(1),
+.thoughtEdit div:nth-child(1) {
+   width: 100%;
+   height: 18rem;
+}
+
+.commentaryEdit div:nth-child(2) {
+   width: 100%;
+   height: 28rem;
+}
+
+.commentaryEdit div:nth-child(3),
+.thoughtEdit div:nth-child(2) {
+   width: 100%;
+   max-width: 12rem;
+   height: 3rem;
+}
+
+.quoteEdit {
+   max-width: 800px;
+}
+
+.quoteEdit div {
+   margin: var(--medium-spacing-mobile) auto 0;
+}
+
+.quoteEdit div:nth-child(1) {
+   width: 100%;
+   height: 2.5rem;
+   margin: 0 auto;
+}
+
+.quoteEdit div:nth-child(2) {
+   width: 100%;
+   height: 65vh;
+}
+
+.quoteEdit div:nth-child(3) {
+   width: 100%;
+   height: 1.5rem;
+}
+
+.quoteEdit div:nth-child(3) {
+   width: 100%;
+   height: 1.5rem;
+}
+
+.quoteEdit div:nth-child(4) {
+   width: 100%;
+   height: 3rem;
+}
+
+.quoteEdit div:nth-child(5) {
+   width: 100%;
+   height: 3rem;
+   max-width: 12rem;
+}
+
+/*  -------------------- whole chapter reading ------------------ */
+.wholeChapterRead {
+   width: 100%;
+   margin: var(--medium-spacing-mobile) auto;
+}
+.wholeChapterRead div {
+   width: 100%;
+   height: 80vh;
+   margin: var(--small-spacing-mobile) auto;
+}
+
+.wholeChapterRead div:nth-child(2) {
+   height: 3rem;
+}
+/**********************************************************************************************************************/
+/*********************************************************** desktop **************************************************/
+/**********************************************************************************************************************/
+@media (min-width: 1000px) {
+   .dailyVerseCard div {
+      height: 16rem;
+   }
+
+   .librayArticles div {
+      width: 12rem;
+      margin: var(--medium-spacing-desktop);
+      flex-grow: 0;
+      height: 15rem;
+   }
+
+   .libraySermonNote div {
+      width: 12rem;
+      margin: var(--large-spacing-desktop) var(--medium-spacing-desktop);
+      padding: 1.2rem 0 0;
+      height: 15rem;
+   }
+
+   .libraySquareCont div {
+      height: 12rem;
+      width: 15rem;
+      flex-shrink: 1;
+      margin: var(--medium-spacing-mobile);
+   }
+
+   .libraryLocations div {
+      width: 10rem;
+      height: 10rem;
+      box-sizing: content-box;
+      margin: var(--medium-spacing-desktop) var(--xlarge-spacing-desktop);
+   }
+
+   .libraryPodcast {
+      align-items: space-around;
+   }
+
+   .libraryPodcast div {
+      height: 12rem;
+      width: 12rem;
+      align-items: space-around;
+      margin: var(--medium-spacing-desktop) var(--xlarge-spacing-desktop);
+   }
+
+   .librayBooks div {
+      width: 14rem;
+      height: 8.5rem;
+      flex-grow: 0.6;
+      flex-shrink: 1;
+      margin: 0 1rem var(--medium-spacing-desktop);
+   }
+
+   .libraryBlogs {
+      justify-content: space-around;
+   }
+
+   .libraryBlogs div {
+      height: 12rem;
+      width: 12rem;
+      margin: var(--medium-spacing-desktop) var(--medium-spacing-desktop);
+   }
+
+   .libraryUsers {
+      justify-content: space-around;
+   }
+
+   .librayUsers div {
+      width: 8rem;
+      height: 9rem;
+      margin: var(--small-spacing-desktop);
+   }
+
+   /* --------------------------------- posts edit --------------------- */
+   .commentaryThoughtEdit {
+      max-width: 1000px;
+      margin: var(--medium-spacing-desktop) auto;
+      justify-content: space-between;
+      align-items: center;
+   }
+
+   .commentaryThoughtEdit div {
+      margin: var(--medium-spacing-desktop) auto;
+   }
+
+   .commentaryThoughtEdit div:nth-child(1) {
+      width: 40%;
+      height: 18rem;
+   }
+
+   .commentaryThoughtEdit div:nth-child(2) {
+      width: 45%;
+      height: 28rem;
+   }
+
+   .commentaryThoughtEdit div:nth-child(3) {
+      width: 100%;
+      margin: var(--medium-spacing-desktop) 5rem var(--medium-spacing-desktop) auto;
+      max-width: 15rem;
+      height: 4rem;
+   }
+}

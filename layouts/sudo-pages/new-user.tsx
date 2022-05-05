@@ -21,22 +21,35 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
 
    //============= FUNCTION: handle the acceptrance of intro terms
    const acceptIntroInstructions = async () => {
-      const { data } = await client.mutate({
-         mutation: ACCEPT_INTRO_INTRUCTIONS
-      });
-
-      if (data.accept_intro_terms) {
-         acceptedIntroTerms();
-      } else {
-         setNotificationPopUpState(
-            <NotificationPopup
-               closeModal={() => setNotificationPopUpState(false)}
-               title={`Something went wrong!`}
-               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-               newClass='notification-wrapper--Error'
-            />
-         );
+      try {
+         const { data } = await client.mutate({
+            mutation: ACCEPT_INTRO_INTRUCTIONS
+         });
+   
+         if (data.accept_intro_terms) {
+            acceptedIntroTerms();
+         } else {
+            setNotificationPopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationPopUpState(false)}
+                  title={`Something went wrong!`}
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+         }
+      } catch (error) {
+       console.log(error) 
+       setNotificationPopUpState(
+         <NotificationPopup
+            closeModal={() => setNotificationPopUpState(false)}
+            title={`Something went wrong!`}
+            contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+            newClass='notification-wrapper--Error'
+         />
+      ); 
       }
+      
    };
 
    return (

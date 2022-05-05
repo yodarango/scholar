@@ -2,6 +2,12 @@
 
 ## TO DO's
 
+**Daylis**
+
+-  set up chek ups for user patron before posting posts except for sermon notes beacuse of dropbox
+
+-  check up stripe webhook and sripe is working well
+
 -  add try catch everywehre needed
 
 -  Make sure there is conditional Rendering EVERYWHERE Like Post Contnet Pupup, which trhows error if anything is null!

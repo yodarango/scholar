@@ -144,7 +144,7 @@
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
       width: 12rem;
-      margin: 0 var(--medium-spacing-desktop) 0 0;
+      margin: var(--medium-spacing-desktop) var(--medium-spacing-desktop);
    }
 
    .thumbnailWrapper {

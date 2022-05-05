@@ -24,7 +24,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
 
    const [choicesState] = useState<choiceType>({
       gender: [
-         { avatar: "🙋", val: "" },
+         { avatar: "❓", val: "" },
          { avatar: "🙋‍♂️", val: "male" },
          { avatar: "🙋‍♀️", val: "female" }
       ],
@@ -85,7 +85,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
       accessories: { avatar: string; val: boolean | null };
    };
    const [currSelection, setcurrSelection] = useState<currChoiceType>({
-      gender: { avatar: "🙋", val: "" },
+      gender: { avatar: "❓", val: "" },
       skin: { avatar: "🙋‍♂️", val: "" },
       hair: { avatar: "👱‍♂️", val: "" },
       accessories: { avatar: "❌", val: null }

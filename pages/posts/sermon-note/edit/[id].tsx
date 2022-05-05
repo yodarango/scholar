@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // graphQL
-import client from "../../../apollo-client";
-import { GET_ONE_SERMON_NOTE } from "../../../graphql/posts/sermon_notes";
+import client from "../../../../apollo-client";
+import { GET_ONE_SERMON_NOTE } from "../../../../graphql/posts/sermon_notes";
 
 // child comps
-import EditSermonNotesPost from "../../../posts/edit-posts/edit-sermon-note-post";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import EditSermonNotesPost from "../../../../posts/edit-posts/edit-sermon-note-post";
+import NavigationMenu from "../../../../layouts/navigation-menu";
 
 // helpers / types
 import { GetServerSideProps } from "next";
-import { TsermonPost } from "../../../posts/sermon-notes-post";
+import { TsermonPost } from "../../../../posts/sermon-notes-post";
 
 type editCommentaryProps = {
    sermonPost: TsermonPost;

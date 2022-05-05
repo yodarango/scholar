@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
+import Image from "next/image";
+//import { GetServerSideProps } from "next";
 
 // graphql
 import client from "../apollo-client";
@@ -17,12 +18,14 @@ import NavigationMenu from "../layouts/navigation-menu";
 
 // styles
 import homeStyles from "../styles/pages/Home.module.css";
+import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
 import { getInitialData } from "../helpers/APIs/get-bible-verse";
 
 // Types
 import { Tcommentary } from "../posts/comment";
+import CardsLazyLoading from "../layouts/cards-lazy-loading";
 
 // other (might pull form the DB using user preferences)
 const versionId: string = "de4e12af7f28f599-01";
@@ -53,39 +56,54 @@ export default function Home() {
    //                   Moving away from serverside props to be able to see the page before the data loads
    /*                  ****************  watch in prod and see what is he best appraoch *****************/
 
+   // error for verse of the day
+   const [dailyVerseError, setDailyVerseError] = useState(false);
+
+   // content states
    const [commentariesState, setCommentariesState] = useState<Tcommentary[]>([]);
    const [verseState, setVerseState] = useState<TverseContent>();
 
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+
    const getCommentaries = async () => {
-      const query = router.query;
-      const last_id = query.last_id ? query.last_id : "9999999999";
-      const { data } = await client.query({
-         query: GET_COMMENTARIES,
-         variables: {
-            VERSE_ID: query.verse,
-            last_id,
-            ID: null,
-            USER_ID: null,
-            category_tags: null,
-            authority_level: null
-         }
-      });
-      setCommentariesState(data.v_by_v_commentaries);
+      try {
+         const query = router.query;
+         const last_id = query.last_id ? query.last_id : "9999999999";
+         const { data } = await client.query({
+            query: GET_COMMENTARIES,
+            variables: {
+               VERSE_ID: query.verse,
+               last_id,
+               ID: null,
+               USER_ID: null,
+               category_tags: null,
+               authority_level: null
+            }
+         });
+         setCommentariesState(data.v_by_v_commentaries);
+         setLoadingState("done");
+      } catch (error) {
+         console.log(error);
+         setLoadingState("error");
+      }
    };
 
    const getAllDate = async () => {
       getCommentaries();
       const verseDate = await getInitialData(router.query.verse);
-      setVerseState(verseDate);
+      verseDate != undefined
+         ? (setVerseState(verseDate), setDailyVerseError(false))
+         : (setDailyVerseError(true), setVerseState(undefined));
    };
    // fetch the content on initial component render
    useEffect(() => {
+      setVerseState(undefined);
       if (router.isReady) {
          getAllDate();
       }
    }, [router.isReady, router.query]);
 
-   console.log(commentariesState);
    return (
       <>
          <div className='main-wrapper'>
@@ -95,15 +113,32 @@ export default function Home() {
             <Header currPage={"HOME"} />
             <div className={homeStyles.majorGridWrapper}>
                <div className={homeStyles.majorGridWrapperLeft}>
-                  {verseState && <DailyVerse verseContent={verseState} versionId={versionId} />}
+                  <DailyVerse
+                     verseContent={verseState}
+                     versionId={versionId}
+                     err={dailyVerseError}
+                  />
                </div>
                <div className={homeStyles.majorGridWrapperRight}>
                   <h3
                      className={`std-text-block--small-title ${homeStyles.dailyVerseHeaderTitleComments}`}>
                      Comments
                   </h3>
-                  <CommentFilter />
-                  {commentariesState && <PostsWrapper commentaries={commentariesState} />}
+                  {/* <CommentFilter /> */}
+                  {commentariesState && loadingState == "done" && (
+                     <PostsWrapper commentaries={commentariesState} />
+                  )}
+                  {loadingState == "loading" && (
+                     <CardsLazyLoading
+                        amount={6}
+                        compClass={cardsLazyLoadingStyles.homeCommentstaries}
+                     />
+                  )}
+                  {loadingState == "error" && (
+                     <div className={cardsLazyLoadingStyles.errorImage}>
+                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+                     </div>
+                  )}
                </div>
             </div>
          </div>

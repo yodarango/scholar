@@ -3,16 +3,20 @@ import { CREATE_QUOTE_COMMENT } from "../../graphql/posts/comments";
 
 const handlePostComment = async (QUOTE_ID: string, body: string, USER_ID: string) => {
    try {
-      const data = await client.mutate({
+      const { data } = await client.mutate({
          mutation: CREATE_QUOTE_COMMENT,
          variables: { QUOTE_ID, body, USER_ID }
       });
 
-      let result: boolean;
-      data.data.Quote_Comment ? (result = true) : (result = false);
-      return result;
+      if (data.Quote_Comment.__typename === "Quote_Comment") {
+         return "Quote_Comment";
+      }
+      if (data.Quote_Comment.__typename === "ExceedsPostCount") {
+         return "ExceedsPostCount";
+      }
    } catch (error) {
-      return error;
+      console.log(error);
+      return `Error`;
    }
 };
 

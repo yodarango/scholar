@@ -20,6 +20,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 import { Tthought } from "../../posts/thought";
 import { GET_THOUGHT_APPROVALS } from "../../graphql/posts/approvals";
+import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // others
 
@@ -37,28 +38,43 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
 
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
+   const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true);
 
    const openReferencedVerse = async (id: string) => {
-      const req = await fetch(
-         `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${id}?content-type=text&include-verse-numbers=false`,
-         {
-            method: "GET",
-            headers: {
-               "api-key": `${process.env.NEXT_PUBLIC_BIBLE_API_KEY}`
+      setShowRefVersesState(false);
+      try {
+         const req = await fetch(
+            `https://api.scripture.api.bible/v1/bibles/c315fa9f71d4af3a-01/verses/${id}?content-type=text&include-verse-numbers=false`,
+            {
+               method: "GET",
+               headers: {
+                  "api-key": `${chosenKey}`
+               }
             }
-         }
-      );
-      const json = await req.json();
-
-      setNotificationpopUpState(
-         <NotificationPopup
-            title={json.data.reference}
-            contentString={json.data.content}
-            closeModal={() => {
-               setreferencedVerseState(false);
-            }}
-         />
-      );
+         );
+         const json = await req.json();
+         setreferencedVerseState(
+            <NotificationPopup
+               title={json.data.reference}
+               contentString={json.data.content}
+               closeModal={() => {
+                  setreferencedVerseState(false);
+               }}
+            />
+         );
+         setShowRefVersesState(true);
+      } catch (error) {
+         console.log(error);
+         setShowRefVersesState(true);
+         setNotificationpopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationpopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
    };
 
    // =================    FUNCTION 1: handle the approve click  ================== //
@@ -66,6 +82,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    const handleApproveContent = () => {
       setChooseAprovalRating(true);
    };
+
    // ======================== FUNCTION 1.1: hande a ssuccessful approval rating ========================= //
    const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(thought.approvals[0]);
    const handleSuccessfulApprovalRating = async () => {
@@ -79,7 +96,8 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
          setChooseAprovalRating(false);
          setPostApprovalState(data.thought_approvals[0]);
       } catch (error) {
-         console.log("thought-content.tsx line 82: ", error);
+         console.log(error);
+         setChooseAprovalRating(false);
       }
    };
 
@@ -123,7 +141,20 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
             fetchComments(data);
-         } else if (data == false) {
+            return;
+         } else if (data === "ExceedsPostCount") {
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='This is sad 😔'
+                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+
+            return;
+         } else if (data === "Error") {
             setPostingState(false);
             setNotificationpopUpState(
                <NotificationPopup
@@ -133,16 +164,24 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          } else {
             setPostingState(false);
             setNotificationpopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
-                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  contentString={
+                     data.graphQLErrors
+                        ? data.graphQLErrors[0]?.message
+                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                  }
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          }
       }
    };
@@ -184,6 +223,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             />
          )}
          {notificationpopUpState}
+         {referencedVerseState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
                <h1 className={`${popupStyles.stdSmallTitle}`}>{thought.title}</h1>
@@ -246,12 +286,13 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
                   {thought.referenced_verses &&
-                     thought.referenced_verses.split(" ").map((verse: string) => (
+                     showRefVersesState &&
+                     thought.referenced_verses.split(" ").map((verseId: string) => (
                         <div
                            className={textEditorStyles.textEditorVerse}
-                           data-verseId-={verse}
-                           onClick={() => openReferencedVerse(verse)}>
-                           {verse}
+                           data-verseId-={verseId}
+                           onClick={() => openReferencedVerse(verseId)}>
+                           {verseId}
                         </div>
                      ))}
                </div>

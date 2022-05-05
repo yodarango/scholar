@@ -6,10 +6,11 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+//import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphQl
 import client from "../../../apollo-client";
@@ -21,19 +22,23 @@ import Header from "../../../layouts/header";
 import LibraryFilterPodcast from "../../../fragments/buttons/library-filter-podcast";
 import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
+import NavigationMenu from "../../../layouts/navigation-menu";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 // styles
 import libraryPodcastStyles from "../../../styles/pages/library/podcasts/LibraryPodcasts.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
 import { podcastsProps } from "../../../fragments/library-items/podcast";
-import NavigationMenu from "../../../layouts/navigation-menu";
 
-type podcastPageProps = {
-   podcast: podcastsProps[];
-};
+// type podcastPageProps = {
+//    podcast: podcastsProps[];
+// };
 
-const Podcast = ({ podcast }: podcastPageProps) => {
+const Podcast = () => {
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
    // ============ capitalize and push the new query to router to searh by title ======
    const router = useRouter();
    let newInput: any = "";
@@ -46,14 +51,46 @@ const Podcast = ({ podcast }: podcastPageProps) => {
 
       router.replace({ pathname: router.pathname, query: { podcastName: newInput } });
    };
+
+   // get the inital data
+   const [initialDataState, setInitialDataState] = useState<podcastsProps[]>([]);
+   const getInitialData = async () => {
+      try {
+         let { skip, alphOrd, dateOrd, userId, podcastName, id } = router.query;
+         const { data } = await client.query({
+            query: GET_PODCASTS,
+            variables: { skip, alphOrd, dateOrd, userId, podcastName, id }
+         });
+
+         setInitialDataState(data.podcasts);
+         setLoadingState("done");
+      } catch (error) {
+         console.log(error);
+         setLoadingState("error");
+         setInitialDataState([]);
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         setLoadingState("loading");
+         getInitialData();
+      }
+
+      return () => {
+         setInitialDataState([]);
+      };
+   }, [router.query]);
    return (
       <>
+         <Head>
+            <meta name='keyword' content='tags' />
+         </Head>
          <div className={`${libraryPodcastStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <Header currPage={"PODCASTS"} />
-            <SkipContent wrapperMaxWidth={"1050px"} content={podcast} />
+            {initialDataState && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            )}
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -64,7 +101,21 @@ const Podcast = ({ podcast }: podcastPageProps) => {
                currentSlectedContentPage={{ podcasts: "#f2f2f2" }}
             />
             <LibraryFilterPodcast />
-            {podcast && <PodcastCarrousel podcast={podcast} />}
+            {initialDataState && loadingState == "done" && (
+               <PodcastCarrousel podcast={initialDataState} />
+            )}
+            {loadingState == "loading" && (
+               <CardsLazyLoading
+                  amount={16}
+                  compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryPodcast}`}
+               />
+            )}
+            {loadingState === "error" && (
+               <div
+                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -73,18 +124,18 @@ const Podcast = ({ podcast }: podcastPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, userId, podcastName, id } = context.query;
-   const { data } = await client.query({
-      query: GET_PODCASTS,
-      variables: { skip, alphOrd, dateOrd, userId, podcastName, id }
-   });
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//    let { skip, alphOrd, dateOrd, userId, podcastName, id } = context.query;
+//    const { data } = await client.query({
+//       query: GET_PODCASTS,
+//       variables: { skip, alphOrd, dateOrd, userId, podcastName, id }
+//    });
 
-   //console.log(data);
-   return {
-      props: {
-         podcast: data.podcasts
-      }
-   };
-};
+//    //console.log(data);
+//    return {
+//       props: {
+//          podcast: data.podcasts
+//       }
+//    };
+// };
 export default Podcast;

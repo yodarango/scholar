@@ -1,5 +1,5 @@
 // core
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 const Cookie = require("js-cookie");
 
 //Components
@@ -35,33 +35,45 @@ const ReadingCollage = ({ versionId }: readingCollageProps) => {
 
    // ========================   FUNCTION 2 : set the multiviewer screen based on user selection   ============///
    /// check if the Cookie does not exist to rnder only one screen
-   const multiViewCookie = Cookie.get("mvTwo");
-   if (!multiViewCookie) {
-      Cookie.set("mvOne", "", { path: "/read" });
-      Cookie.set("mvTwo", readingCollageStyles.hiddenScreenTwo, { path: "/read" });
-      Cookie.set("mvThree", readingCollageStyles.hiddenScreenThree, { path: "/read" });
-      Cookie.set("mvFour", readingCollageStyles.hiddenScreenFour, { path: "/read" });
-   }
    type TmultiViewerOpenClassState = {
       screenOne: string;
       screenTwo: string;
       screenThree: string;
       screenFour: string;
    };
-
    const [multiViewerOpenClassState, setmultiViewerOpenClassState] =
       useState<TmultiViewerOpenClassState>({
+         screenOne: "",
+         screenTwo: "",
+         screenThree: "",
+         screenFour: ""
+      });
+   const setTheInitialSettings = () => {
+      const multiViewCookie = Cookie.get("mvTwo");
+      if (!multiViewCookie) {
+         Cookie.set("mvOne", "", { path: "/read" });
+         Cookie.set("mvTwo", readingCollageStyles.hiddenScreenTwo, { path: "/read" });
+         Cookie.set("mvThree", readingCollageStyles.hiddenScreenThree, { path: "/read" });
+         Cookie.set("mvFour", readingCollageStyles.hiddenScreenFour, { path: "/read" });
+      }
+   };
+
+   useEffect(() => {
+      setTheInitialSettings();
+      setmultiViewerOpenClassState({
          screenOne: Cookie.get("mvOne"),
          screenTwo: Cookie.get("mvTwo"),
          screenThree: Cookie.get("mvThree"),
          screenFour: Cookie.get("mvFour")
       });
+      return () => {};
+   }, []);
 
    const handleMultiverseView = (numberOfWindows: string[]) => {
-      Cookie.set("mvOne", numberOfWindows[0], { expires: 1, path: "/read" });
-      Cookie.set("mvTwo", numberOfWindows[1], { expires: 1, path: "/read" });
-      Cookie.set("mvThree", numberOfWindows[2], { expires: 1, path: "/read" });
-      Cookie.set("mvFour", numberOfWindows[3], { expires: 1, path: "/read" });
+      Cookie.set("mvOne", numberOfWindows[0], { expires: 7, path: "/read" });
+      Cookie.set("mvTwo", numberOfWindows[1], { expires: 7, path: "/read" });
+      Cookie.set("mvThree", numberOfWindows[2], { expires: 7, path: "/read" });
+      Cookie.set("mvFour", numberOfWindows[3], { expires: 7, path: "/read" });
 
       setmultiViewerOpenClassState({
          screenOne: numberOfWindows[0],
@@ -77,6 +89,7 @@ const ReadingCollage = ({ versionId }: readingCollageProps) => {
       Cookie.remove("mvTwo", { path: "/read" });
       Cookie.remove("mvThree", { path: "/read" });
       Cookie.remove("mvFour", { path: "/read" });
+
       setmultiViewerOpenClassState({
          screenOne: "",
          screenTwo: readingCollageStyles.hiddenScreenTwo,

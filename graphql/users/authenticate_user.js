@@ -8,6 +8,7 @@ export const AUTHENTICATE_USER = gql`
             ID
             signature
             authority_level
+            patron
          }
          ... on IncorrecctCredentials {
             message

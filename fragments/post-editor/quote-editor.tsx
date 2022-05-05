@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 // graphQL
 import client from "../../apollo-client";
-import { POST_NEW_QUOTE } from "../../graphql/posts/quotes";
+import { CREATE_NEW_QUOTE } from "../../graphql/posts/quotes";
 
 // components
 import NotificationPopup from "../notification-popup";
@@ -15,25 +15,11 @@ import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.m
 
 // helpers
 import { IvaluesCat, valuesCat } from "../../helpers/dropdown-values";
-import { Tuser } from "../../pages/users/[userId]";
-
-import getCookie from "../../helpers/get-cookie";
-import parseJwt from "../../helpers/auth/decodeJWT";
 
 type quoteEditorProps = {
    handleCloseStories: any;
 };
 const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
-   // check if the user is authenticated in order to get user details
-   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
-   useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user: Tuser = parseJwt(authCookie);
-         setLoggedInUserState(user);
-      }
-   }, []);
-
    // ================ FUNCTION 1:  Change the Background of the story on choice  ================ ///
    const [changeBkgState, setChangeBkgState] = useState<string>(quoteEditorStyles.DEFAULT_BKG);
 
@@ -77,27 +63,40 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
          ) {
             setSmallLoaderState(<SmallLoader />);
             const { data } = await client.mutate({
-               mutation: POST_NEW_QUOTE,
+               mutation: CREATE_NEW_QUOTE,
                variables: {
                   body: textArea.current.value,
                   category_tags: `${currentChosenTagState.tag}`,
                   author: authorInput.current?.value,
-                  background: changeBkgState,
-                  approval_level: loggedInUserState?.authority_level
+                  background: changeBkgState
                }
             });
-            data.quote
-               ? router.reload()
-               : setSmallLoaderState(
-                    <p className='std-error-msg'>Sorry, something went wrong! 🙁</p>
-                 );
+
+            console.log(data);
+            if (data.quote.__typename === "Quote") {
+               router.reload();
+            } else if (data.quote.__typename === "ExceedsPostCount") {
+               setSmallLoaderState(false);
+               setNotificationpoUp(
+                  <NotificationPopup
+                     title={"This Is Sad 😔"}
+                     contentString={data.quote.message}
+                     closeModal={() => setNotificationpoUp(false)}
+                     newClass={`notification-wrapper--Error`}
+                  />
+               );
+            } else {
+               setSmallLoaderState(
+                  <p className='std-error-msg'>Sorry, something went wrong! 🙁</p>
+               );
+            }
          } else if (textArea.current.value === "") {
             setNotificationpoUp(
                <NotificationPopup
                   title={"Quote Is Emtpy"}
                   contentString={"Empty quotes are not allowed"}
                   closeModal={() => setNotificationpoUp(false)}
-                  newClass={`notification-wrapper--Red`}
+                  newClass={`notification-wrapper--Error`}
                />
             );
          } else if (authorInput.current.value === "") {
@@ -106,7 +105,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                   title={"Auhtor Is Emtpy"}
                   contentString={"Please enter who the author is"}
                   closeModal={() => setNotificationpoUp(false)}
-                  newClass={`notification-wrapper--Red`}
+                  newClass={`notification-wrapper--Error`}
                />
             );
          } else if (currentChosenTagState.tag === "") {
@@ -115,7 +114,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
                   title={"No Category Tag"}
                   contentString={"Please select a category tag"}
                   closeModal={() => setNotificationpoUp(false)}
-                  newClass={`notification-wrapper--Red`}
+                  newClass={`notification-wrapper--Error`}
                />
             );
          }

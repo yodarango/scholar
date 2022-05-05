@@ -15,7 +15,8 @@ const handlePostComment = async (THOUGHT_ID: string, body: string, USER_ID: stri
       data.Thought_Comment ? (result = data.Thought_Comment) : (result = false);
       return result;
    } catch (error) {
-      return error;
+      console.log(error)
+      return `Error`;
    }
 };
 

@@ -7,6 +7,8 @@
 // core
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 // components
 import GetNewBook from "../get-new-scriptures/get-new-book";
@@ -14,11 +16,13 @@ import GetNewChapter from "../get-new-scriptures/get-new-chapter";
 import GetNewVerse from "../get-new-scriptures/get-new-verse";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import Commentary from "../../layouts/popup-new-comment";
+import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 
 // styles
 import cardStyles from "../../styles/components/Cards.module.css";
 import homeStyles from "../../styles/pages/Home.module.css";
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+import cardLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers: types
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
@@ -27,11 +31,12 @@ import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
 import { TverseContent } from "../../pages";
 
 type dailyVerseProps = {
-   verseContent: TverseContent;
+   verseContent?: TverseContent | undefined;
    versionId: string;
+   err: boolean;
 };
 
-const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
+const DailyVerse = ({ verseContent, versionId, err }: dailyVerseProps) => {
    const [getNewBookState, setGetNewBookState] = useState<JSX.Element | boolean>(false);
    const [getNewChapterState, setGetNewChapterState] = useState<JSX.Element | boolean>(false);
    const [getNewVerseState, setGetNewVerseState] = useState<JSX.Element | boolean>(false);
@@ -96,7 +101,7 @@ const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
       setOpenCommentModalState(
          <PopupWrapper
             closeModal={() => setOpenCommentModalState(false)}
-            content={<Commentary verseData={verseContent} />}
+            content={<Commentary verseData={verseContent} err={false} />}
          />
       );
    };
@@ -113,24 +118,34 @@ const DailyVerse = ({ verseContent, versionId }: dailyVerseProps) => {
                onClick={openGetNewBook}>
                <div className='std-button_gradient-text'>Select Verse</div>
             </div>
-            <div className={cardStyles.squaredCardWrapper}>
-               <p className='std-text-block--info'>{verseContent.reference}</p>
-               <p className='std-text-block'>{verseContent.content}</p>
+            {verseContent && !err && (
+               <div className={cardStyles.squaredCardWrapper}>
+                  <p className='std-text-block--info'>{verseContent.reference}</p>
+                  <p className='std-text-block'>{verseContent.content}</p>
 
-               <div className={`${cardStyles.squaredCardWrapperFooter}`}>
-                  <Link href={`/?verse=${verseContent.previous.id}`}>
-                     <a
-                        className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseBackward}`}></a>
-                  </Link>
-                  <div
-                     className={`std-vector-icon ${cardStyles.dailyVerseIcon}`}
-                     onClick={handleOpenCommentPopup}></div>
-                  <Link href={`/?verse=${verseContent.next.id}`}>
-                     <a
-                        className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseForward}`}></a>
-                  </Link>
+                  <div className={`${cardStyles.squaredCardWrapperFooter}`}>
+                     <Link href={`/?verse=${verseContent.previous.id}`}>
+                        <a
+                           className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseBackward}`}></a>
+                     </Link>
+                     <div
+                        className={`std-vector-icon ${cardStyles.dailyVerseIcon}`}
+                        onClick={handleOpenCommentPopup}></div>
+                     <Link href={`/?verse=${verseContent.next.id}`}>
+                        <a
+                           className={`std-vector-icon ${cardStyles.dailyVerseIconSwitchVerseForward}`}></a>
+                     </Link>
+                  </div>
                </div>
-            </div>
+            )}
+            {!verseContent && !err && (
+               <CardsLazyLoading amount={1} compClass={cardLazyLoadingStyles.dailyVerseCard} />
+            )}
+            {err && (
+               <div className={cardLazyLoadingStyles.errorImage}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
       </>
    );

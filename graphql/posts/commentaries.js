@@ -119,6 +119,24 @@ export const GET_ONE_COMMENTARY = gql`
       }
    }
 `;
+
+export const GET_EDIT_COMMENTARY = gql`
+   query ($ID: ID) {
+      commentary(ID: $ID) {
+         ID
+         VERSE_ID
+         USER_ID #needed to fetch child graphQL "parent.creator"
+         body
+         category_tags
+         referenced_verses
+         verse_citation
+         posted_on
+         creator {
+            ID
+         }
+      }
+   }
+`;
 //================== POST ================== //
 export const CREATE_NEW_COMMENTARY = gql`
    mutation (
@@ -127,7 +145,6 @@ export const CREATE_NEW_COMMENTARY = gql`
       $category_tags: String
       $referenced_verses: String
       $verse_citation: String
-      $approval_level: AuthorityLevel
    ) {
       commentary(
          data: {
@@ -136,12 +153,16 @@ export const CREATE_NEW_COMMENTARY = gql`
             category_tags: $category_tags
             referenced_verses: $referenced_verses
             verse_citation: $verse_citation
-            approval_level: $approval_level
          }
       ) {
-         ID
-         VERSE_ID
-         USER_ID
+         ... on Commentary {
+            ID
+            VERSE_ID
+            USER_ID
+         }
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;

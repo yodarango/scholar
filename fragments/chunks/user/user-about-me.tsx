@@ -41,13 +41,11 @@ const UserAboutMe = ({ user }: userAboutMeProps) => {
                <li>📊 My True Color Personality is {user.my_true_color_personality_test}</li>
             )}
             {user.my_favorite_color && <li>🎨 My favorite color is {user.my_favorite_color}</li>}
-            {user.my_story && (
                <li className={usersAboutMeStyles.myStory}>
-                  <Link href={`/my-story/${user.ID}`}>
+                  <Link href={`/users/my-story/${user.ID}`}>
                      <a> This is my sotry </a>
                   </Link>
                </li>
-            )}
          </ul>
       </section>
    );

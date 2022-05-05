@@ -193,11 +193,24 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                commentBody.current.value,
                creator.ID
             );
-            if (data == true) {
+            if (data == "Quote_Comment") {
                setCommentsCountState(commentsCountState + 1);
                setPostingState(false);
                setCommentPopUpState(false);
-            } else if (data == false) {
+               return;
+            } else if (data === "ExceedsPostCount") {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='This is sad 😔'
+                     contentString='You have exceeded the post comments whithin a 24-hour period'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+
+               return;
+            } else if (data === "Error") {
                setPostingState(false);
                setNotificationPopUpState(
                   <NotificationPopup
@@ -207,16 +220,24 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                      newClass='notification-wrapper--Error'
                   />
                );
+
+               return;
             } else {
                setPostingState(false);
                setNotificationPopUpState(
                   <NotificationPopup
                      closeModal={() => setNotificationPopUpState(false)}
                      title={`You're not authorized! 👮‍♂️`}
-                     contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     contentString={
+                        data.graphQLErrors
+                           ? data.graphQLErrors[0]?.message
+                           : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                     }
                      newClass='notification-wrapper--Error'
                   />
                );
+
+               return;
             }
          } catch (error) {
             console.log(error);

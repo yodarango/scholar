@@ -13,7 +13,8 @@ export type blogProps = {
    thumbnail: string;
    blogName: string;
    author: string;
-   currentRanking: Number;
+   currentRanking: number;
+   totalReviews: number;
    description: string;
    blogUrl: string;
    user?: any;
@@ -29,6 +30,7 @@ const Blog = ({
    description,
    id,
    user,
+   totalReviews,
    newClass
 }: blogProps) => {
    // set the images not directly from props but by state to set img fallback if it does not exist
@@ -51,7 +53,12 @@ const Blog = ({
                <Image src={imageThumbnailState} alt='podcast thumbnail' layout='fill' />
             </div>
             <div className={`${blogStyles.starReviewWrapper}`}>
-               <StarReviews contentId={id} currentRanking={currentRanking} />
+               <StarReviews
+                  totalReviews={totalReviews}
+                  contentType='BLOG'
+                  contentId={id}
+                  currentRanking={currentRanking}
+               />
             </div>
             {description && (
                <section className={blogStyles.popupDescription}>{description}</section>
@@ -88,7 +95,12 @@ const Blog = ({
                   />
                </div>
             )}
-            <StarReviews contentId={id} currentRanking={currentRanking} />
+            <StarReviews
+               contentId={id}
+               currentRanking={currentRanking}
+               totalReviews={totalReviews}
+               contentType='BLOG'
+            />
             <h2 className={blogStyles.name}>{blogName}</h2>
             {author && <h3 className={blogStyles.author}>{author}</h3>}
             {blogUrl && (

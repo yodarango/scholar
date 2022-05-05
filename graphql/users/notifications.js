@@ -12,3 +12,13 @@ export const GET_MY_NOTIFICATIONS = gql`
       }
    }
 `;
+
+export const NEW_NOTIFICATION = gql`
+   mutation ($CONTENT_TYPE: Int, $body: String, $USER_ID: ID, $POST_ID: ID) {
+      new_notification(
+         data: { CONTENT_TYPE: $CONTENT_TYPE, body: $body, USER_ID: $USER_ID, POST_ID: $POST_ID }
+      ) {
+         ID
+      }
+   }
+`;

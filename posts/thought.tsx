@@ -74,21 +74,33 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    const [seeWholePost, setseeWholePost] = useState<JSX.Element | boolean>(false);
 
    const openPost = async (thought: Tthought) => {
-      const { data } = await client.query({
-         query: SHOW_COMMENTS_OF_THOUGHTS,
-         variables: { ID: thought.ID, showComment: true }
-      });
-      setseeWholePost(
-         <div className='dark-bkg'>
-            <div className='closeModal' onClick={() => setseeWholePost(false)}>
-               X
+      try {
+         const { data } = await client.query({
+            query: SHOW_COMMENTS_OF_THOUGHTS,
+            variables: { ID: thought.ID, showComment: true }
+         });
+         setseeWholePost(
+            <div className='dark-bkg'>
+               <div className='closeModal' onClick={() => setseeWholePost(false)}>
+                  X
+               </div>
+               <div className={popupStyles.halvesWrapper}>
+                  <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
+                  {/*data.thought[0].comments &&  <CommentsOfThoughtsContent comments={data.thought[0].comments} />*/}
+               </div>
             </div>
-            <div className={popupStyles.halvesWrapper}>
-               <ThoughtContent thought={thought} postReactionContent={data.thought[0]} />
-               {/*data.thought[0].comments &&  <CommentsOfThoughtsContent comments={data.thought[0].comments} />*/}
-            </div>
-         </div>
-      );
+         );
+      } catch (error) {
+         setNotificationpopUpState(
+            <NotificationPopup
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               closeModal={() => setNotificationpopUpState(false)}
+               newClass='notification-wrapper--Red'
+            />
+         );
+         console.log(error);
+      }
    };
 
    // ================= FUNCTION 2: Drop down the comment imput   =============== //
@@ -136,13 +148,26 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    );
    // ================= FUNCTION 6: Delete Post  ===================//
    const handleDeletePost = async (id: string) => {
-      const data = await client.mutate({
-         mutation: DELETE_ONE_THOUGHT,
-         variables: { ID: id }
-      });
-      if (data.data.delete_one_thought) {
-         router.reload();
-      } else {
+      try {
+         const data = await client.mutate({
+            mutation: DELETE_ONE_THOUGHT,
+            variables: { ID: id }
+         });
+         if (data.data.delete_one_thought) {
+            router.reload();
+         } else {
+            setNotificationpopUpState(
+               <NotificationPopup
+                  title='Oh no!'
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  closeModal={() => setNotificationpopUpState(false)}
+                  newClass='notification-wrapper--Red'
+               />
+            );
+            setConfirmationPopUpState(false);
+         }
+      } catch (error) {
+         console.log(error);
          setNotificationpopUpState(
             <NotificationPopup
                title='Oh no!'
@@ -151,6 +176,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                newClass='notification-wrapper--Red'
             />
          );
+         setConfirmationPopUpState(false);
       }
    };
    const handleDeletePostConfirmation = (id: string) => {
@@ -197,7 +223,6 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
          }
       } catch (error: any) {
          setConfirmationPopUpState(false);
-
          setNotificationpopUpState(
             <NotificationPopup
                closeModal={() => setNotificationpopUpState(false)}
@@ -229,12 +254,26 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
          const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
+         console.log(data);
          if (data.ID) {
             setPostingState(false);
             setCommentBoxState("");
             //commentBody.current.value = "comment posted";
             setCommentsCountState(commentsCountState + 1);
-         } else if (data == false) {
+            return;
+         } else if (data === "ExceedsPostCount") {
+            setPostingState(false);
+            setNotificationpopUpState(
+               <NotificationPopup
+                  closeModal={() => setNotificationpopUpState(false)}
+                  title='This is sad 😔'
+                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  newClass='notification-wrapper--Error'
+               />
+            );
+
+            return;
+         } else if (data === "Error") {
             setPostingState(false);
             setNotificationpopUpState(
                <NotificationPopup
@@ -244,16 +283,24 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          } else {
             setPostingState(false);
             setNotificationpopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
-                  contentString={data.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  contentString={
+                     data.graphQLErrors
+                        ? data.graphQLErrors[0]?.message
+                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                  }
                   newClass='notification-wrapper--Error'
                />
             );
+
+            return;
          }
       }
    };
@@ -315,7 +362,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                               onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
                         )}
                         {thought.creator && renderAdminOptionsState == thought.creator.ID && (
-                           <Link href={`/posts/edit-thought/${thought.ID}`}>
+                           <Link href={`/posts/thought/edit/${thought.ID}`}>
                               <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
                            </Link>
                         )}

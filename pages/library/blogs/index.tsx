@@ -6,10 +6,11 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+//import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphql
 import client from "../../../apollo-client";
@@ -20,40 +21,77 @@ import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import BlogCarrousel from "../../../layouts/library-individual-pages/blogs-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
+import NavigationMenu from "../../../layouts/navigation-menu";
+import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 // styles
 import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
 import { blogProps } from "../../../fragments/library-items/blog";
-import NavigationMenu from "../../../layouts/navigation-menu";
-import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
 
-type watchPageProps = {
-   blogs: blogProps[];
-};
+// type watchPageProps = {
+//    blogs: blogProps[];
+// };
 
-const Blogs = ({ blogs }: watchPageProps) => {
+const Blogs = () => {
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+
    // ============ capitalize and push the new query to router to searh by title ======
    const router = useRouter();
    let newInput: any = "";
    const handleInputSearchReq = (string: string) => {
       if (string) {
          const singleWords = string.split(" ");
-         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
-         console.log(newInput);
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substring(1));
       }
 
       router.replace({ pathname: router.pathname, query: { blogName: newInput } });
    };
+
+   // get the inital data
+   const [initialDataState, setInitialDataState] = useState<blogProps[]>([]);
+   const getInitialData = async () => {
+      try {
+         let { skip, alphOrd, dateOrd, userId, id, blogName } = router.query;
+         const { data } = await client.query({
+            query: GET_BLOGS,
+            variables: { skip, alphOrd, dateOrd, userId, blogName, id }
+         });
+         setInitialDataState(data.blogs);
+         setLoadingState("done");
+         //setLoadingState("loading");
+      } catch (error) {
+         console.log(error);
+         setLoadingState("error");
+         setInitialDataState([]);
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         setLoadingState("loading");
+         getInitialData();
+      }
+
+      return () => {
+         setInitialDataState([]);
+      };
+   }, [router.query]);
+
    return (
       <>
+         <Head>
+            <meta name='keyword' content='tags' />
+         </Head>
          <div className={`${libraryBlogsStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <Header currPage={"BLOGS"} />
-            <SkipContent wrapperMaxWidth={"1050px"} content={blogs} />
+            {initialDataState && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            )}
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -64,7 +102,21 @@ const Blogs = ({ blogs }: watchPageProps) => {
                currentSlectedContentPage={{ blogs: "#f2f2f2" }}
             />
             <LibraryFilterBlog />
-            {blogs && <BlogCarrousel blogs={blogs} />}
+            {initialDataState && loadingState == "done" && (
+               <BlogCarrousel blogs={initialDataState} />
+            )}
+            {loadingState == "loading" && (
+               <CardsLazyLoading
+                  amount={16}
+                  compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryBlogs}`}
+               />
+            )}
+            {loadingState === "error" && (
+               <div
+                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -73,18 +125,18 @@ const Blogs = ({ blogs }: watchPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, userId, id, blogName } = context.query;
-   const { data } = await client.query({
-      query: GET_BLOGS,
-      variables: { skip, alphOrd, dateOrd, userId, blogName, id }
-   });
-   console.log(blogName);
-   return {
-      props: {
-         blogs: data.blogs
-      }
-   };
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//    let { skip, alphOrd, dateOrd, userId, id, blogName } = context.query;
+//    const { data } = await client.query({
+//       query: GET_BLOGS,
+//       variables: { skip, alphOrd, dateOrd, userId, blogName, id }
+//    });
+//    console.log(blogName);
+//    return {
+//       props: {
+//          blogs: data.blogs
+//       }
+//    };
+// };
 
 export default Blogs;

@@ -179,6 +179,7 @@ export const GET_PROFILE_THOUGHTS = gql`
                body
                USER_ID
                category_tags
+               referenced_verses
                posted_on
                comments {
                   total_count
@@ -279,6 +280,13 @@ export const UPDATE_MY_SETTINGS = gql`
             message
          }
       }
+   }
+`;
+
+// ================= CHANGE STORY =============
+export const UPDATE_MY_STORY = gql`
+   mutation ($body: String) {
+      update_my_story(body: $body)
    }
 `;
 

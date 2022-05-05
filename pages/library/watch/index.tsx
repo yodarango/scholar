@@ -6,10 +6,11 @@
 // *** same page with the userId and content type in the query *** //
 
 // core
-import React from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+//import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // graphQl
 import client from "../../../apollo-client";
@@ -20,20 +21,25 @@ import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import WatchCarrousel from "../../../layouts/library-individual-pages/watch-carrousel";
 import LibraryFilterPreachers from "../../../fragments/buttons/library-filter-preachers";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 // styles
 import libraryWatchStyles from "../../../styles/pages/library/watch/LibraryWatch.module.css";
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
 import { watchProps } from "../../../fragments/library-items/watch";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SkipContent from "../../../fragments/buttons/skipContent";
 
-type watchPageProps = {
-   watch: watchProps[];
-};
+// type watchPageProps = {
+//    watch: watchProps[];
+// };
 
-const Watch = ({ watch }: watchPageProps) => {
+const Watch = () => {
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+
    // ============ capitalize and push the new query to router to searh by title ======
    const router = useRouter();
    let newInput: any = "";
@@ -46,14 +52,46 @@ const Watch = ({ watch }: watchPageProps) => {
 
       router.replace({ pathname: router.pathname, query: { title: newInput } });
    };
+
+   // get the inital data
+   const [initialDataState, setInitialDataState] = useState<watchProps[]>([]);
+   const getInitialData = async () => {
+      try {
+         let { skip, alphOrd, dateOrd, category, userId, title, id } = router.query;
+         const { data } = await client.query({
+            query: GET_SERMONS,
+            variables: { skip, alphOrd, dateOrd, category, userId, title, id }
+         });
+
+         setInitialDataState(data.sermons);
+         setLoadingState("done");
+      } catch (error) {
+         console.log(error);
+         setLoadingState("error");
+         setInitialDataState([]);
+      }
+   };
+
+   useEffect(() => {
+      if (router.isReady) {
+         setLoadingState("loading");
+         getInitialData();
+      }
+
+      return () => {
+         setInitialDataState([]);
+      };
+   }, [router.query]);
    return (
       <>
+         <Head>
+            <meta name='keyword' content='tags' />
+         </Head>
          <div className={`${libraryWatchStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <Header currPage={"WATCH"} />
-            <SkipContent wrapperMaxWidth={"1050px"} content={watch} />
+            {initialDataState.length > 19 && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            )}
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}
@@ -64,7 +102,18 @@ const Watch = ({ watch }: watchPageProps) => {
                currentSlectedContentPage={{ watch: "#f2f2f2" }}
             />
             <LibraryFilterPreachers />
-            {watch && <WatchCarrousel watch={watch} />}
+            {initialDataState && loadingState === "done" && (
+               <WatchCarrousel watch={initialDataState} />
+            )}
+            {loadingState == "loading" && (
+               <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
+            )}
+            {loadingState === "error" && (
+               <div
+                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
@@ -73,19 +122,19 @@ const Watch = ({ watch }: watchPageProps) => {
 };
 
 // ============== FUNCTION 1: Make a call to the library API to get all the content to load
-export const getServerSideProps: GetServerSideProps = async (context) => {
-   let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//    let { skip, alphOrd, dateOrd, category, userId, title, id } = context.query;
 
-   const { data } = await client.query({
-      query: GET_SERMONS,
-      variables: { skip, alphOrd, dateOrd, category, userId, title, id }
-   });
+//    const { data } = await client.query({
+//       query: GET_SERMONS,
+//       variables: { skip, alphOrd, dateOrd, category, userId, title, id }
+//    });
 
-   return {
-      props: {
-         watch: data.sermons
-      }
-   };
-};
+//    return {
+//       props: {
+//          watch: data.sermons
+//       }
+//    };
+// };
 
 export default Watch;
