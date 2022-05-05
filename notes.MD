@@ -4,10 +4,6 @@
 
 **Daylis**
 
--  set up chek ups for user patron before posting posts except for sermon notes beacuse of dropbox
-
--  check up stripe webhook and sripe is working well
-
 -  add try catch everywehre needed
 
 -  Make sure there is conditional Rendering EVERYWHERE Like Post Contnet Pupup, which trhows error if anything is null!
@@ -23,8 +19,6 @@
 **BEFORE RELEASE**
 
 -  Make sure that the count of characters for each input field mathc with the count length set in the DB
-
--  Implement Lazy loading and create as many statics as possible
 
 -  Add user authorization or CORS-ORIGIN limitations in all forms being submitted to avoid vendors
 
