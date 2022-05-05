@@ -35,6 +35,7 @@ const LibraryBlogsCarrousel = ({ blogs, err }: LibraryBlogsCarrouselProps) => {
                         blogUrl={blog.blogUrl}
                         currentRanking={blog.currentRanking}
                         blogName={blog.blogName}
+                        totalReviews={blog.totalReviews}
                      />
                   );
                })}
