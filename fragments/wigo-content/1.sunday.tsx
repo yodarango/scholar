@@ -20,11 +20,15 @@ const Sunday = ({ sundayContent }: sundayProps) => {
    //================ FUNCTION 1: fetch the video data
    const [fetchVodeoState, setFetchVodeoState] = useState<any>(false);
    const fetchVideoData = async () => {
-      const request = await fetch(
-         `https://www.youtube.com/oembed?url=${sundayContent.videoLink}&format=json`
-      );
-      const jsonData = await request.json();
-      setFetchVodeoState(jsonData);
+      try {
+         const request = await fetch(
+            `https://www.youtube.com/oembed?url=${sundayContent.videoLink}&format=json`
+         );
+         const jsonData = await request.json();
+         setFetchVodeoState(jsonData);
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    useEffect(() => {

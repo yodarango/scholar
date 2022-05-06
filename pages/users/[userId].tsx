@@ -122,11 +122,10 @@ const User = () => {
 
    return (
       <>
+         <Header currPage={userState?.signature ? userState.signature : "loading"} />
          <div className={userStyles.mainWrapper}>
             {userState && loadingState === "done" && (
                <div className={userStyles.userBioGrid}>
-                  <Header currPage={userState.signature} />
-
                   <UserBioWrapper user={userState} />
                   <UserTotalPostsAndRatings user={userState} />
                   <UserAboutMe user={userState} />

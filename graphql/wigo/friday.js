@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_FRIDAY_CONTENT = gql`
-   query ($ID: ID, $category_tags: String, $last_id: ID) {
+   query ($last_id: ID) {
       friday {
          id
          question
@@ -71,7 +71,7 @@ export const GET_FRIDAY_CONTENT = gql`
       }
 
       # quote
-      quote_stories(ID: $ID, category_tags: $category_tags, last_id: $last_id) {
+      quote_stories(last_id: $last_id) {
          ID
          approvals {
             total_count
