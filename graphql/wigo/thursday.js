@@ -98,3 +98,13 @@ export const GET_THURSDAY_CONTENT = gql`
       }
    }
 `;
+
+export const HANDLE_VOTE = gql`
+   mutation ($votesUp: Int, $votesDown: Int, $contentId: ID) {
+      thursdayVotes(content: { votesUp: $votesUp, votesDown: $votesDown, contentId: $contentId }) {
+         votesUp
+         votesDown
+         contentId
+      }
+   }
+`;

@@ -1,5 +1,6 @@
 // core
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 // components
 import Chapter from "../../layouts/fetch-bible-chapter";
@@ -9,12 +10,14 @@ import Commentary from "../../layouts/popup-new-comment";
 // styles
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";
 import fetchNewChapterStyles from "../../styles/layouts/FetchNewChapter.module.css";
+import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 //helpers
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // types
 import { getNewVerseId } from "../../helpers/random-daily-verses";
+import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 
 type randomDailyVerseProps = {
    versionId: string;
@@ -24,6 +27,7 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
    // ===============   FUNCTINO 1: Get the daily verse
    const [verseContent, setVerseContent] = useState<any>({});
    const [verseError, setVerseError] = useState(false);
+   const [loadingState, setloadingState] = useState<string>("loading");
 
    // get the date
    const date = new Date();
@@ -43,12 +47,13 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
 
          const response = await request.json();
          response.data.lastCall = dateFormat;
-
+         setloadingState("done");
          return response;
       } catch (error) {
          console.log(error);
          setVerseError(true);
-         return false;
+         setloadingState("error");
+         return null;
       }
    };
 
@@ -58,29 +63,38 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
 
       if (!saveVerseinCache) {
          const verseCall: any = await getVerse();
-         const verseData = verseCall.data;
-
-         // update state with the new data
-         setVerseContent(verseData);
-
-         // update the local storage
-         const stringifiedResponse = JSON.stringify(verseData);
-         localStorage.setItem("todays-verse", stringifiedResponse);
-      } else {
-         const JsonData = JSON.parse(saveVerseinCache);
-
-         if (JsonData.lastCall === dateFormat) {
-            setVerseContent(JsonData);
-         } else {
-            const verseCall: any = await getVerse();
+         if (verseCall) {
             const verseData = verseCall.data;
-
             // update state with the new data
             setVerseContent(verseData);
 
             // update the local storage
             const stringifiedResponse = JSON.stringify(verseData);
             localStorage.setItem("todays-verse", stringifiedResponse);
+         } else {
+            // set the error state
+            setVerseError(true);
+         }
+      } else {
+         const JsonData = JSON.parse(saveVerseinCache);
+
+         if (JsonData.lastCall === dateFormat) {
+            setVerseContent(JsonData);
+            setloadingState("done");
+         } else {
+            const verseCall: any = await getVerse();
+            if (verseCall) {
+               const verseData = verseCall.data;
+               // update state with the new data
+               setVerseContent(verseData);
+
+               // update the local storage
+               const stringifiedResponse = JSON.stringify(verseData);
+               localStorage.setItem("todays-verse", stringifiedResponse);
+            } else {
+               // set the error state
+               setVerseError(true);
+            }
          }
       }
    };
@@ -124,25 +138,36 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
       <>
          {readFullChapterSrtate}
          {openCommentModalState}
-         <div className={randomDailyVerseStyles.squaredCardWrapper}>
-            <p className='std-text-block--info'>{verseContent.reference}</p>
-            <p className={`std-text-block ${randomDailyVerseStyles.dailyVerse}`}>
-               {verseContent.content}
-            </p>
+         {loadingState === "done" && verseContent && (
+            <div className={randomDailyVerseStyles.squaredCardWrapper}>
+               <p className='std-text-block--info'>{verseContent.reference}</p>
+               <p className={`std-text-block ${randomDailyVerseStyles.dailyVerse}`}>
+                  {verseContent.content}
+               </p>
 
-            <div className={`${randomDailyVerseStyles.squaredCardWrapperFooter}`}>
-               <div className={randomDailyVerseStyles.footerWrapRight}>
-                  <div
-                     className={`std-vector-icon ${randomDailyVerseStyles.commentIcon}`}
-                     onClick={handleOpenCommentPopup}></div>
-               </div>
-               <div className={randomDailyVerseStyles.footerWrapLeft}>
-                  <div
-                     className={`std-vector-icon ${randomDailyVerseStyles.readIcon}`}
-                     onClick={readDailyVerse}></div>
+               <div className={`${randomDailyVerseStyles.squaredCardWrapperFooter}`}>
+                  <div className={randomDailyVerseStyles.footerWrapRight}>
+                     <div
+                        className={`std-vector-icon ${randomDailyVerseStyles.commentIcon}`}
+                        onClick={handleOpenCommentPopup}></div>
+                  </div>
+                  <div className={randomDailyVerseStyles.footerWrapLeft}>
+                     <div
+                        className={`std-vector-icon ${randomDailyVerseStyles.readIcon}`}
+                        onClick={readDailyVerse}></div>
+                  </div>
                </div>
             </div>
-         </div>
+         )}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={1} compClass={cardsLazyLoadingStyles.wigoDailyVerse} />
+         )}
+
+         {loadingState === "error" && (
+            <div className={cardsLazyLoadingStyles.errorImage}>
+               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+            </div>
+         )}
       </>
    );
 };

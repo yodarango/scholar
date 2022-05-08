@@ -104,3 +104,28 @@ export const GET_FRIDAY_CONTENT = gql`
       }
    }
 `;
+
+export const HANDLE_VOTE = gql`
+   mutation (
+      $firstOption: Int
+      $secondOption: Int
+      $thirdOption: Int
+      $fourthOption: Int
+      $contentId: ID
+   ) {
+      fridayVotes(
+         content: {
+            firstOption: $firstOption
+            secondOption: $secondOption
+            thirdOption: $thirdOption
+            fourthOption: $fourthOption
+            contentId: $contentId
+         }
+      ) {
+         firstOption
+         secondOption
+         thirdOption
+         fourthOption
+      }
+   }
+`;

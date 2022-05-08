@@ -81,6 +81,7 @@
    .parragraph {
       margin: 0 auto var(--small-spacing-desktop);
    }
+
    .iframe > iframe {
       width: 100%;
       height: 30vw;

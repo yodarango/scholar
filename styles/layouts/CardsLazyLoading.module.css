@@ -402,6 +402,28 @@
    width: 90%;
    height: 30rem;
 }
+
+.wigoDailyVerse {
+   width: 100%;
+   height: 20rem;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.wigoDailyVerse div {
+   width: 100%;
+   height: 100%;
+}
+
+.wigoSunday {
+   margin: var(--medium-spacing-mobile) auto;
+   max-width: 40rem;
+}
+
+.wigoSunday div {
+   margin: var(--medium-spacing-mobile) auto;
+   max-width: 40rem;
+}
+
 /**********************************************************************************************************************/
 /*********************************************************** desktop **************************************************/
 /**********************************************************************************************************************/
@@ -540,5 +562,10 @@
    .wigo div:nth-child(5) {
       width: 100%;
       height: 12rem;
+   }
+
+   .wigoSunday > div {
+      width: 100%;
+      height: 30vw;
    }
 }

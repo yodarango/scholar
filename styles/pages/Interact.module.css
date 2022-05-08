@@ -43,6 +43,29 @@
    height: 85%;
 }
 
+/* ------------- no content wrappers -------------- */
+.wrapperNoCont {
+   padding: 0;
+}
+
+.wrapperNoCont > p {
+   border: 0.2rem solid var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
+   padding: var(--small-spacing-mobile);
+}
+
+.wrapperNoCont p b {
+   color: var(--graient-one);
+}
+.noContentImgWrapper {
+   border: 0.2rem solid var(--secondary-color);
+   border-radius: var(--input-radius-mobile);
+}
+.noContentImgWrapper img {
+   width: 100%;
+   border-radius: var(--input-radius-mobile);
+}
+
 @media only screen and (min-width: 800px) {
 }
 
