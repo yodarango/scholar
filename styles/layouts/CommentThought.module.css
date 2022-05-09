@@ -40,4 +40,8 @@
    color: var(--secondary-color);
    margin: 0 auto;
    text-align: center;
+   min-height: 10rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }

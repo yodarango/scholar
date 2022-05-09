@@ -104,11 +104,14 @@ export default function Header({ currPage }: headerProps) {
             query: CHECK_IF_PATRON_ACCOUNT,
             variables: {}
          });
-
-         if (data.user_has_stripe_account) {
-            router.replace("/subscription/billing");
+         if (isUserAuth?.ID) {
+            if (data.user_has_stripe_account) {
+               router.replace("/subscription/billing");
+            } else {
+               router.replace("/subscription/join");
+            }
          } else {
-            router.replace("/subscription/join");
+            router.replace("/login");
          }
 
          console.log(data);

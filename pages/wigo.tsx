@@ -1,6 +1,7 @@
 // core
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 //import { GetServerSideProps } from "next";
 
 // graphQl
@@ -23,6 +24,7 @@ import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 import StoriesCarrousel from "../posts/stories-carrousel";
 import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
 import NavigationMenu from "../layouts/navigation-menu";
+import CardsLazyLoading from "../layouts/cards-lazy-loading";
 // ----- content of the day
 import Sunday from "../fragments/wigo-content/1.sunday";
 import Monday from "../fragments/wigo-content/2.monday";
@@ -34,6 +36,7 @@ import Saturday from "../fragments/wigo-content/7.saturday";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
+import cardsLayLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
 // others
 const versionId: string = "de4e12af7f28f599-01";
@@ -58,13 +61,16 @@ const Wigo = () => {
    // globals
    const router = useRouter();
 
+   // loading state
+   const [loadingState, setLoadingState] = useState<string>("loading");
+
    // set day of the week
    const [dayOfTheWeekState] = useState<number>(today);
 
    // ================ FUNCTION: fetch the data
    //                   Moving away from serverside props to be able to see the page before the data loads
-   const [content, setContent] = useState<feedProps>();
-   const last_id = router.query.last_id ? router.query.last_id : "9999999999";
+   const [content, setContent] = useState<feedProps | null>();
+
    const getInitialData = async () => {
       let GET_CONTENT_QUERY: any;
       today === 0
@@ -83,30 +89,39 @@ const Wigo = () => {
          ? (GET_CONTENT_QUERY = GET_SATURDAY_CONTENT)
          : null;
 
-      const { data } = await client.query({
-         query: GET_CONTENT_QUERY,
-         variables: {
-            ID: null,
-            category_tags: null,
-            last_id
-         }
-      });
+      try {
+         const { data } = await client.query({
+            query: GET_CONTENT_QUERY,
+            variables: {
+               last_id: "9999999999"
+            }
+         });
 
-      setContent(data);
+         setContent(data);
+         setLoadingState("done");
+         console.log(data);
+      } catch (error) {
+         setContent(null);
+         setLoadingState("error");
+         console.log(error);
+      }
    };
 
    useEffect(() => {
-      getInitialData();
-   }, []);
+      if (router.isReady) {
+         getInitialData();
+      }
+   }, [router.isReady]);
 
    return (
       <>
-         {content && (
+         <Header currPage={"WIGO TODAY"} />
+         {content && loadingState === "done" && (
             <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
                <Head>
                   <meta name='keyword' content='tags' />
                </Head>
-               <Header currPage={"WIGO TODAY"} />
+
                <div className='large-spacer'></div>
                <h2 className='std-text-block--small-title'>Quotes</h2>
                <StoriesCarrousel quotes_in_the_last24={content.quote_stories} />
@@ -139,7 +154,16 @@ const Wigo = () => {
                </div>
             </div>
          )}
-         {!content && <p>Loading</p>}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={5} compClass={cardsLayLoadingStyles.wigo} />
+         )}
+
+         {loadingState == "error" && (
+            <div
+               className={`${cardsLayLoadingStyles.errorImage} ${cardsLayLoadingStyles.errorImageFP}`}>
+               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+            </div>
+         )}
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
       </>

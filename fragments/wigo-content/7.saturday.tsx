@@ -4,11 +4,12 @@
 /*** Christians ***************************************************************************************/
 
 // core
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 // comps
 import PopupWrapper from "../../layouts/popup-wrapper";
+import DummyPlaceholder from "./dummy-placeholder";
 
 // styles
 import saturdayStyles from "../../styles/fragments/wigo-content/7.Saturday.module.css";
@@ -66,16 +67,34 @@ const Saturday = ({ saturdayContent }: saturdayProps) => {
                }
             />
          )}
-         <div className={saturdayStyles.mainWrapper}>
-            <h3 className={saturdayStyles.title}>{saturdayContent.title}</h3>
-            <div className={saturdayStyles.image}>
-               <Image layout='fill' alt='thumbnail of a news article' src={saturdayContent.image} />
+         {saturdayContent && (
+            <div className={saturdayStyles.mainWrapper}>
+               <h3 className={saturdayStyles.title}>{saturdayContent.title}</h3>
+               <div className={saturdayStyles.image}>
+                  <Image
+                     layout='fill'
+                     alt='thumbnail of a news article'
+                     src={saturdayContent.image}
+                  />
+               </div>
+               <p className={saturdayStyles.context}>{saturdayContent.context}</p>
+               <span
+                  className={`${saturdayStyles.seeMore} std-vector-icon`}
+                  onClick={() => setseeWholeNewsPostState(true)}></span>
             </div>
-            <p className={saturdayStyles.context}>{saturdayContent.context}</p>
-            <span
-               className={`${saturdayStyles.seeMore} std-vector-icon`}
-               onClick={() => setseeWholeNewsPostState(true)}></span>
-         </div>
+         )}
+         {!saturdayContent && (
+            <DummyPlaceholder
+               button='none'
+               context={
+                  <p>
+                     Become a trusted user and show the community your posts can be trusted. On your
+                     settings go to <b>apply for user verification</b> and fill out the form!
+                  </p>
+               }
+               imgLink={`/images/wigo-placeholders/no_content_graphic_four.png`}
+            />
+         )}
       </>
    );
 };

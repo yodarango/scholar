@@ -5,13 +5,21 @@
 /*** Selected each week *************************/
 
 // core
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+// graphQL
 import client from "../../apollo-client";
-import { gql } from "@apollo/client";
-const Cookie = require("js-cookie");
+import { HANDLE_VOTE } from "../../graphql/wigo/thursday";
+
+// comps
+import DummyPlaceholder from "./dummy-placeholder";
 
 //styles
 import thursdayStyles from "../../styles/fragments/wigo-content/5.Thursday.module.css";
+import NotificationPopup from "../notification-popup";
+
+// helpers
+import getCookie from "../../helpers/get-cookie";
 
 type thursdayProps = {
    thursdayContent: {
@@ -26,6 +34,10 @@ type thursdayProps = {
 };
 
 const Thursday = ({ thursdayContent }: thursdayProps) => {
+   const [notificationStatePopUp, setnotificationStatePopUp] = useState<boolean | JSX.Element>(
+      false
+   );
+
    // =============== FUNCTION: set the counter ================
    const [originalDateState] = useState<string>(
       `${thursdayContent ? thursdayContent.countdownLimit : null}`
@@ -73,15 +85,14 @@ const Thursday = ({ thursdayContent }: thursdayProps) => {
 
    // =============== FUNCTION: handle the Vote by user ==============================  //
    const [agreeState, setAgreeState] = useState<number>(
-      thursdayContent.votes ? thursdayContent.votes.votesUp : 0
+      thursdayContent?.votes ? thursdayContent?.votes.votesUp : 0
    );
    const [disagreeState, setDisagreeState] = useState<number>(
-      thursdayContent.votes ? thursdayContent.votes.votesDown : 0
+      thursdayContent?.votes ? thursdayContent?.votes.votesDown : 0
    );
+   const [displayButtons, setdisplayUpdateButton] = useState<string>("none");
    // ========== check if they have already voted via cookie
-   const [votedThursdayState, setVotedThursdayState] = useState<string>(
-      Cookie.get("votedThursday")
-   );
+   const [votedThursdayState, setVotedThursdayState] = useState<string>(getCookie("votedThursday"));
 
    const handleVote = async (
       votesUp: number,
@@ -89,112 +100,153 @@ const Thursday = ({ thursdayContent }: thursdayProps) => {
       contentId: string,
       position: string
    ) => {
-      // set states
-      setAgreeState(agreeState + votesUp);
-      setDisagreeState(disagreeState + votesDown);
-
-      //set cookie
-      Cookie.set("votedThursday", position, {
-         expires: 2,
-         path: "/wigo"
-      });
-      await client.mutate({
-         mutation: gql`
-            mutation ($votesUp: Int, $votesDown: Int, $contentId: ID) {
-               thursdayVotes(
-                  content: { votesUp: $votesUp, votesDown: $votesDown, contentId: $contentId }
-               ) {
-                  votesUp
-                  votesDown
-                  contentId
-               }
+      setdisplayUpdateButton(position);
+      try {
+         const { data } = await client.mutate({
+            mutation: HANDLE_VOTE,
+            variables: {
+               votesUp: votesUp,
+               votesDown: votesDown,
+               contentId: contentId
             }
-         `,
-         variables: {
-            votesUp: votesUp,
-            votesDown: votesDown,
-            contentId: contentId
+         });
+
+         const now = Date.now() + 86400000;
+         const cookieExpiration = new Date(now);
+
+         if (data.thursdayVotes) {
+            // set states
+            setAgreeState(agreeState + votesUp);
+            setDisagreeState(disagreeState + votesDown);
+            setVotedThursdayState(position);
+
+            //set cookie
+            document.cookie = `votedThursday=${position}; expires=${cookieExpiration};
+               path: /wigo;`;
+         } else {
+            setdisplayUpdateButton("none");
+            setnotificationStatePopUp(
+               <NotificationPopup
+                  closeModal={() => setnotificationStatePopUp(false)}
+                  title={`Something went wrong!`}
+                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  newClass='notification-wrapper--Error'
+               />
+            );
          }
-      });
+      } catch (error) {
+         console.log(error);
+         setdisplayUpdateButton("none");
+         setnotificationStatePopUp(
+            <NotificationPopup
+               closeModal={() => setnotificationStatePopUp(false)}
+               title={`Something went wrong!`}
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
    };
 
    return (
-      <div className={thursdayStyles.squaredCardWrapper}>
-         {/* top half: Current position */}
+      <>
          {thursdayContent && (
-            <>
-               <div className={thursdayStyles.topPositionWrapper}>
-                  <div className={thursdayStyles.votesWrapper}>
-                     <div className={`std-text-block--small-title ${thursdayStyles.voteCountUp}`}>
-                        {agreeState}
-                        <span className={`${thursdayStyles.voteCountUpSpan}`}>Agree</span>
-                     </div>
-                     {agreeState > disagreeState && (
-                        <div className={thursdayStyles.votePositionUp}></div>
-                     )}
-                     {agreeState < disagreeState && (
-                        <div className={thursdayStyles.votePositionDown}></div>
-                     )}
-                     {agreeState === disagreeState && (
-                        <div className={thursdayStyles.votePositionEqual}>=</div>
-                     )}
-                     <div className={`std-text-block--small-title ${thursdayStyles.voteCountDown}`}>
-                        {disagreeState}
-                        <span className={`${thursdayStyles.voteCountDownSpan}`}>Disagree</span>
-                     </div>
-                  </div>
-                  <p className={`std-text-block ${thursdayStyles.dailyQuestion}`}>
-                     {thursdayContent.poll}
-                  </p>
-               </div>
-               {/* counter */}
-               <div className={`${thursdayStyles.counterWrapper} std-text-block`}>
-                  <p className={`std-text-block--small-title std-text-block--no-margin`}>
-                     {timerState.advertise}
-                  </p>
-                  <p className={`std-text-block--digit ${thursdayStyles.stdTextBlockDigit}`}>
-                     {timerState.message}
-                  </p>
-               </div>
-               {/* footer: Like / Dislike buttons */}
-               {timerState.isTimeUp === false && !votedThursdayState && (
-                  <div className={thursdayStyles.squaredCardWrapperFooter}>
-                     <div className={thursdayStyles.iconAgreeWrapperLeft}>
+            <div className={thursdayStyles.squaredCardWrapper}>
+               {/* top half: Current position */}
+               <>
+                  {notificationStatePopUp}
+                  <div className={thursdayStyles.topPositionWrapper}>
+                     <div className={thursdayStyles.votesWrapper}>
                         <div
-                           className={`std-vector-icon ${thursdayStyles.iconAgree}`}
-                           onClick={() => {
-                              handleVote(1, 0, `${thursdayContent.id}`, "agree"),
-                                 setVotedThursdayState("agree");
-                           }}></div>
-                     </div>
-                     <div className={thursdayStyles.iconAgreeWrapperRight}>
+                           className={`std-text-block--small-title ${thursdayStyles.voteCountUp}`}>
+                           {agreeState}
+                           <span className={`${thursdayStyles.voteCountUpSpan}`}>Agree</span>
+                        </div>
+                        {agreeState > disagreeState && (
+                           <div className={thursdayStyles.votePositionUp}></div>
+                        )}
+                        {agreeState < disagreeState && (
+                           <div className={thursdayStyles.votePositionDown}></div>
+                        )}
+                        {agreeState === disagreeState && (
+                           <div className={thursdayStyles.votePositionEqual}>=</div>
+                        )}
                         <div
-                           className={`std-vector-icon ${thursdayStyles.iconDisagree}`}
-                           onClick={() => {
-                              handleVote(0, 1, `${thursdayContent.id}`, "disagree"),
-                                 setVotedThursdayState("disagree");
-                           }}></div>
+                           className={`std-text-block--small-title ${thursdayStyles.voteCountDown}`}>
+                           {disagreeState}
+                           <span className={`${thursdayStyles.voteCountDownSpan}`}>Disagree</span>
+                        </div>
                      </div>
+                     <p className={`std-text-block ${thursdayStyles.dailyQuestion}`}>
+                        {thursdayContent.poll}
+                     </p>
                   </div>
-               )}
-               {/* if they have voted and the time is not up yet */}
-               {timerState.isTimeUp === false && votedThursdayState && (
-                  <section className={`${thursdayStyles.alreadyVoted}`}>
-                     You {votedThursdayState} with this statement
-                  </section>
-               )}
-               {/* hide voting buttons once the time is up */}
-               {timerState.isTimeUp === true && agreeState > disagreeState && (
-                  <div className={thursdayStyles.timeIsUpFooterAgree}>Most people have agreed</div>
-               )}
-               {timerState.isTimeUp === true && agreeState < disagreeState && (
-                  <div className={thursdayStyles.timeIsUpFooterDisagree}>
-                     Most people have disagreed
+                  {/* counter */}
+                  <div className={`${thursdayStyles.counterWrapper} std-text-block`}>
+                     <p className={`std-text-block--small-title std-text-block--no-margin`}>
+                        {timerState.advertise}
+                     </p>
+                     <p className={`std-text-block--digit ${thursdayStyles.stdTextBlockDigit}`}>
+                        {timerState.message}
+                     </p>
                   </div>
-               )}
-            </>
+                  {/* footer: Like / Dislike buttons */}
+                  {timerState.isTimeUp === false && !votedThursdayState && (
+                     <div className={thursdayStyles.squaredCardWrapperFooter}>
+                        <div className={thursdayStyles.iconAgreeWrapperLeft}>
+                           {displayButtons !== "agree" && (
+                              <div
+                                 className={`std-vector-icon ${thursdayStyles.iconAgree}`}
+                                 onClick={() => {
+                                    handleVote(1, 0, `${thursdayContent.id}`, "agree");
+                                 }}></div>
+                           )}
+                        </div>
+                        <div className={thursdayStyles.iconAgreeWrapperRight}>
+                           {displayButtons !== "disagree" && (
+                              <div
+                                 className={`std-vector-icon ${thursdayStyles.iconDisagree}`}
+                                 onClick={() => {
+                                    handleVote(0, 1, `${thursdayContent.id}`, "disagree");
+                                 }}></div>
+                           )}
+                        </div>
+                     </div>
+                  )}
+                  {/* if they have voted and the time is not up yet */}
+                  {timerState.isTimeUp === false && votedThursdayState && (
+                     <section className={`${thursdayStyles.alreadyVoted}`}>
+                        You {votedThursdayState} with this statement
+                     </section>
+                  )}
+                  {/* hide voting buttons once the time is up */}
+                  {timerState.isTimeUp === true && agreeState > disagreeState && (
+                     <div className={thursdayStyles.timeIsUpFooterAgree}>
+                        Most people have agreed
+                     </div>
+                  )}
+                  {timerState.isTimeUp === true && agreeState < disagreeState && (
+                     <div className={thursdayStyles.timeIsUpFooterDisagree}>
+                        Most people have disagreed
+                     </div>
+                  )}
+               </>
+            </div>
          )}
-      </div>
+
+         {!thursdayContent && (
+            <DummyPlaceholder
+               button='none'
+               context={
+                  <p>
+                     Become a trusted user and show the community your posts can be trusted. On your
+                     settings go to <b>apply for user verification</b> and fill out the form!
+                  </p>
+               }
+               imgLink={`/images/wigo-placeholders/no_content_graphic_four.png`}
+            />
+         )}
+      </>
    );
 };
 

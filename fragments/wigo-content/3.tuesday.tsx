@@ -1,5 +1,8 @@
 // core
-import React, { useState } from "react";
+import { useState } from "react";
+
+// comps
+import DummyPlaceholder from "./dummy-placeholder";
 
 // style
 import tuesdayStyles from "../../styles/fragments/wigo-content/3.Tuesday.module.css";
@@ -19,25 +22,41 @@ const Tuesday = ({ tuesdayContent }: tuesdayProps) => {
    };
 
    return (
-      <div className={tuesdayStyles.mainWrapper}>
-         <div
-            className={tuesdayStyles.image}
-            style={{
-               backgroundImage: `url(${
-                  "https://drive.google.com/uc?id=" + tuesdayContent.imageUrl
-               })`
-            }}></div>
-         <h1 className={tuesdayStyles.title}>{tuesdayContent.title}</h1>
-         <p className={seeMoreState}>{tuesdayContent.text}</p>
-         {seeMoreState === tuesdayStyles.text && (
-            <div className={`${tuesdayStyles.seeMore}`} onClick={handleSeeMore}></div>
+      <>
+         {tuesdayContent && (
+            <div className={tuesdayStyles.mainWrapper}>
+               <div
+                  className={tuesdayStyles.image}
+                  style={{
+                     backgroundImage: `url(${tuesdayContent.imageUrl})`
+                  }}></div>
+               <h1 className={tuesdayStyles.title}>{tuesdayContent.title}</h1>
+               <p className={seeMoreState}>{tuesdayContent.text}</p>
+               {seeMoreState === tuesdayStyles.text && (
+                  <div className={`${tuesdayStyles.seeMore}`} onClick={handleSeeMore}></div>
+               )}
+               {seeMoreState === tuesdayStyles.textExtended && (
+                  <div
+                     className={`${tuesdayStyles.seeMore}`}
+                     onClick={() => setseeMoreState(tuesdayStyles.text)}></div>
+               )}
+            </div>
          )}
-         {seeMoreState === tuesdayStyles.textExtended && (
-            <div
-               className={`${tuesdayStyles.seeMore}`}
-               onClick={() => setseeMoreState(tuesdayStyles.text)}></div>
+
+         {!tuesdayContent && (
+            <DummyPlaceholder
+               button='none'
+               context={
+                  <p>
+                     What do you think of the library content? Do you host or like a particular
+                     podcast, website, preacher or other resource that you would like to be added?
+                     Recomment a resource from the library page.
+                  </p>
+               }
+               imgLink={`/images/wigo-placeholders/no_content_graphic_three.png`}
+            />
          )}
-      </div>
+      </>
    );
 };
 

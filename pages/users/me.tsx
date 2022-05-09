@@ -134,10 +134,10 @@ const Me = () => {
          {userState && userState.first_time_signup == true && loadingState === "done" && (
             <NewUser acceptedIntroTerms={acceptedIntroTerms} />
          )}
+         <Header currPage={"PROFILE"} />
          <div className={userStyles.mainWrapper}>
             {userState && userState.first_time_signup == false && loadingState === "done" && (
                <div className={userStyles.userBioGrid}>
-                  <Header currPage={userState.signature} />
                   <Link href={`/users/settings`}>
                      <a className={userStyles.settingsLinkIcon}></a>
                   </Link>

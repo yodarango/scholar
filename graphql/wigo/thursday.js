@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_THURSDAY_CONTENT = gql`
-   query ($ID: ID, $category_tags: String, $last_id: ID) {
+   query ($last_id: ID) {
       thursday {
          id
          poll
@@ -65,7 +65,7 @@ export const GET_THURSDAY_CONTENT = gql`
       }
 
       # quote
-      quote_stories(ID: $ID, category_tags: $category_tags, last_id: $last_id) {
+      quote_stories(last_id: $last_id) {
          ID
          approvals {
             total_count
@@ -95,6 +95,16 @@ export const GET_THURSDAY_CONTENT = gql`
             authority_level
             approval_rating
          }
+      }
+   }
+`;
+
+export const HANDLE_VOTE = gql`
+   mutation ($votesUp: Int, $votesDown: Int, $contentId: ID) {
+      thursdayVotes(content: { votesUp: $votesUp, votesDown: $votesDown, contentId: $contentId }) {
+         votesUp
+         votesDown
+         contentId
       }
    }
 `;
