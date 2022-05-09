@@ -357,6 +357,7 @@ export default function Comments({ commentary }: commentsProps) {
             newClass={`notification-wrapper--${selectedTag[0].title}`}
          />
       );
+      console.log(valuesCat, cat, selectedTag);
    };
    return (
       <>
@@ -378,13 +379,16 @@ export default function Comments({ commentary }: commentsProps) {
                className={`${cardStyles.commentCard}`}
                key={commentary.ID}
                id={`${commentary.ID}`}>
-               <div className={cardStyles.commentCardHeader}>
-                  <span
+               <div
+                  className={cardStyles.commentCardHeader}
+                  id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
+                  {/* this is a circle that handles a click to display the category of the post, it has been removed and will be reconsidered for now */}
+                  {/* <span
                      className={cardStyles.categoryTagPointer}
                      onClick={() => openInfoAboutTagColor(commentary.category_tags.split(" ")[0])}
                      id={`category-${commentary.category_tags
                         .split(" ")[0]
-                        .replace("#", "")}`}></span>
+                        .replace("#", "")}`}></span> */}
                   {commentary.creator && commentary.creator.authority_level && (
                      <div className={cardStyles.creatorimMainWrapper}>
                         <div

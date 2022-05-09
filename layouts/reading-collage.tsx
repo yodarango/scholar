@@ -1,6 +1,6 @@
 // core
 import { useState, useEffect } from "react";
-const Cookie = require("js-cookie");
+import { useRouter } from "next/router";
 
 //Components
 import ReadingCollageUnit from "../fragments/squares/reading-collage-unit";
@@ -8,8 +8,10 @@ import MultiViewSettings from "../fragments/popup-content/multi-view-settings";
 
 // Styles
 import readingCollageStyles from "../styles/layouts/ReadingCollage.module.css";
+import { Router } from "next/router";
 
 //helpers
+const Cookie = require("js-cookie");
 
 // others
 
@@ -17,6 +19,7 @@ type readingCollageProps = {
    versionId: string;
 };
 const ReadingCollage = ({ versionId }: readingCollageProps) => {
+   const router = useRouter();
    // =====================   FUNCTION 1 : open the settings popup for Multiview  =================///
    const [viewSettingsPopUpState, setViewSettingsPopUpState] = useState<JSX.Element | boolean>(
       false
@@ -59,13 +62,15 @@ const ReadingCollage = ({ versionId }: readingCollageProps) => {
    };
 
    useEffect(() => {
-      setTheInitialSettings();
-      setmultiViewerOpenClassState({
-         screenOne: Cookie.get("mvOne"),
-         screenTwo: Cookie.get("mvTwo"),
-         screenThree: Cookie.get("mvThree"),
-         screenFour: Cookie.get("mvFour")
-      });
+      if (router.isReady) {
+         setTheInitialSettings();
+         setmultiViewerOpenClassState({
+            screenOne: Cookie.get("mvOne"),
+            screenTwo: Cookie.get("mvTwo"),
+            screenThree: Cookie.get("mvThree"),
+            screenFour: Cookie.get("mvFour")
+         });
+      }
       return () => {};
    }, []);
 

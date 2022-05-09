@@ -1,9 +1,5 @@
 # ----------------------- DAIYLYS ---------------------
 
--  add try catch everywehre needed
-
--  Make sure there is conditional Rendering EVERYWHERE Like Post Contnet Pupup, which trhows error if anything is null!
-
 -  build graphics to show on the daily dinamic content if there is no content for the day
 
 **_ERRORS_**
@@ -13,10 +9,6 @@
 **BEFORE RELEASE**
 
 -  Make sure that the count of characters for each input field mathc with the count length set in the DB
-
--  Add user authorization or CORS-ORIGIN limitations in all forms being submitted to avoid vendors
-
--  the rate content dropdown has the option to cancel all the way to the bottom, notvre itto the top or implement a X to close because right now it looks like youre stuck without option to close it
 
 **COOL TO HAVES/ LATER RELEASES**
 
