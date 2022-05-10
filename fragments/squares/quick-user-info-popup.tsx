@@ -49,7 +49,7 @@ const QuickUserInfoPopup = ({ user, closeModal, additionalStyles }: quickUserInf
          </p>
          <p className={quickUserInfoStyles.authority}>
             <span>⭐️ Authority Level:</span>{" "}
-            {user.authority_level == "trusted" ? (
+            {user.authority_level == 2 ? (
                <span className={quickUserInfoStyles.trustedSpan}>{user.authority_level}🎖</span>
             ) : (
                user.authority_level

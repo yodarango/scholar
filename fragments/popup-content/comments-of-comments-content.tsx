@@ -78,7 +78,7 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                         <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
                            <div
                               className={`${cardStyles.commentsOfCommentsImgWrapper} ${
-                                 comm.creator_authority_level == "trusted"
+                                 comm.creator_authority_level == 2
                                     ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
                                     : ""
                               }`}>
@@ -87,7 +87,7 @@ const CommentsOfCcommentsContent = ({ comments }: commentsOfCcommentsContentProp
                                  alt='Avatar Image used as a user profile'
                                  className={cardStyles.commentsOfCommentsImg}
                               />
-                              {comm.creator_authority_level == "trusted" && (
+                              {comm.creator_authority_level == 2 && (
                                  <span className={cardStyles.trustedPointer}></span>
                               )}
                            </div>

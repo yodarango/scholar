@@ -44,7 +44,7 @@ export type TsingleStory = {
 };
 
 type quoteProfileProps = {
-   user_authority_level: string;
+   user_authority_level: number;
    story: TsingleStory;
 };
 const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {

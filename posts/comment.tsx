@@ -46,7 +46,7 @@ export type Tcommentary = {
    creator: {
       ID: string;
       signature: string;
-      authority_level: string;
+      authority_level: number;
       approval_rating: string | number;
       first_name?: string;
       last_name?: string;
@@ -393,7 +393,7 @@ export default function Comments({ commentary }: commentsProps) {
                      <div className={cardStyles.creatorimMainWrapper}>
                         <div
                            className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
-                              commentary.creator.authority_level == "trusted"
+                              commentary.creator.authority_level == 2
                                  ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
                                  : ""
                            }`}
@@ -404,7 +404,7 @@ export default function Comments({ commentary }: commentsProps) {
                               className={`${cardStyles.commentCardHeaderAvatarImg}`}
                            />
                         </div>
-                        {commentary.creator.authority_level == "trusted" && (
+                        {commentary.creator.authority_level == 2 && (
                            <span className={cardStyles.trustedPointer}></span>
                         )}
                      </div>

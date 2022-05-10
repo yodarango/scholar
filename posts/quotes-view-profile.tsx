@@ -42,11 +42,11 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
             variables: { ID: quote_id, showComment: true }
          });
 
-         if(data.quote){
+         if (data.quote) {
             setCommentsOfQuote(data.quote[0].comments);
             setCommentsCountState(data.quote[0].comments.length);
             setMorePopUpState(true);
-         }else {
+         } else {
             setNotificationPopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
@@ -56,9 +56,8 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                />
             );
          }
-
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}
@@ -68,7 +67,6 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
             />
          );
       }
- 
    };
 
    // ==============   FUNCTION 8: see the story data when the user clicks "More" =============== //
@@ -164,8 +162,8 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                QUOTE_ID: story.ID
             }
          });
-         if(data.quote_approvals){
-            setPostApprovalState(data.quote_approvals[0])
+         if (data.quote_rating) {
+            setPostApprovalState(data.quote_rating[0]);
          }
          setChooseAprovalRating(false);
       } catch (error: any) {

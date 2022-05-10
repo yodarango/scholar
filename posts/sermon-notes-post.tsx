@@ -36,7 +36,7 @@ export type TsermonPost = {
       ID: string;
       signature: string;
       avatar: string;
-      authority_level: string;
+      authority_level: number;
       approval_rating: string | number;
       first_name?: string;
       last_name?: string;
@@ -232,7 +232,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                      onClick={() => handleQuickInfoAccessPopup(sermonPost.creator)}>
                      <div
                         className={`${sermonNotesPostStyles.reputationWrapper} ${
-                           sermonPost.creator.authority_level == "trusted"
+                           sermonPost.creator.authority_level == 2
                               ? sermonNotesPostStyles.commentCardHeaderAvatarImgBkgTrusted
                               : ""
                         }`}>
@@ -242,7 +242,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                            className={`${sermonNotesPostStyles.avatar}`}
                         />
                      </div>
-                     {sermonPost.creator.authority_level == "trusted" && (
+                     {sermonPost.creator.authority_level == 2 && (
                         <span className={sermonNotesPostStyles.trustedPointer}></span>
                      )}
                   </div>

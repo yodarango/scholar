@@ -16,12 +16,12 @@ const UserAboutMe = ({ user }: userAboutMeProps) => {
       <section className={usersAboutMeStyles.aboutMeWrapper}>
          <h3 className={usersAboutMeStyles.aboutMeTitle}>About Me</h3>
          <ul>
-            {user.first_name && user.gender === "male" && (
+            {user.first_name && user.gender === 1 && (
                <li>
                   👨 Full name is {user.first_name} {user.last_name}
                </li>
             )}
-            {user.first_name && user.gender === "female" && (
+            {user.first_name && user.gender === 2 && (
                <li>
                   👩 Full name is {user.first_name} {user.last_name}
                </li>
@@ -41,11 +41,11 @@ const UserAboutMe = ({ user }: userAboutMeProps) => {
                <li>📊 My True Color Personality is {user.my_true_color_personality_test}</li>
             )}
             {user.my_favorite_color && <li>🎨 My favorite color is {user.my_favorite_color}</li>}
-               <li className={usersAboutMeStyles.myStory}>
-                  <Link href={`/users/my-story/${user.ID}`}>
-                     <a> This is my sotry </a>
-                  </Link>
-               </li>
+            <li className={usersAboutMeStyles.myStory}>
+               <Link href={`/users/my-story/${user.ID}`}>
+                  <a> This is my sotry </a>
+               </Link>
+            </li>
          </ul>
       </section>
    );

@@ -49,10 +49,10 @@ export type Tuser = {
    first_name: string;
    last_name: string;
    birth_date: string;
-   gender: string;
+   gender: number;
    email: string;
    date_registered: string;
-   authority_level: string;
+   authority_level: number;
    approval_rating: number;
    avatar: string;
    has_new_notifications: boolean;

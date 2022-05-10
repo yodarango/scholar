@@ -111,7 +111,7 @@ const UserSettings = () => {
 
    // =======================  FUNCTION 3: save the user settings update =============== //
    const [userGenderState, setUserGenderState] = useState<{
-      gender: string | undefined;
+      gender: number | undefined;
       femaleClass: string | undefined;
       maleClass: string | undefined;
    }>({ gender: userSettingsState?.gender, femaleClass: "", maleClass: "" });
@@ -507,7 +507,7 @@ const UserSettings = () => {
                      className={`${userSettingsStyles.genderInput} ${userGenderState.maleClass}`}
                      onClick={() =>
                         setUserGenderState({
-                           gender: "male",
+                           gender: 1,
                            maleClass: userSettingsStyles.genderInputMaleActive,
                            femaleClass: ""
                         })
@@ -518,7 +518,7 @@ const UserSettings = () => {
                      className={`${userSettingsStyles.genderInput} ${userGenderState.femaleClass}`}
                      onClick={() =>
                         setUserGenderState({
-                           gender: "female",
+                           gender: 2,
                            maleClass: "",
                            femaleClass: userSettingsStyles.genderInputFemaleActive
                         })

@@ -228,7 +228,7 @@ export const UPDATE_MY_SETTINGS = gql`
       $first_name: String
       $last_name: String
       $birth_date: String
-      $gender: String
+      $gender: Int
       $email: String
       $my_church: String
       $my_favorite_color: String

@@ -49,7 +49,7 @@ const ContentApprovalDropdown = ({
                mutation: CREATE_COMMENTARY_APPROVAL,
                variables: {
                   COMMENTARY_ID: post_id.comment,
-                  approval_rate: rating,
+                  rating: rating,
                   USER_ID: user_id
                }
             });
@@ -86,7 +86,7 @@ const ContentApprovalDropdown = ({
                mutation: CREATE_THOUGHT_APPROVAL,
                variables: {
                   THOUGHT_ID: post_id.thought,
-                  approval_rate: rating,
+                  rating: rating,
                   USER_ID: user_id
                }
             });
@@ -121,10 +121,11 @@ const ContentApprovalDropdown = ({
                mutation: CREATE_QUOTE_APPROVAL,
                variables: {
                   QUOTE_ID: post_id.quote,
-                  approval_rate: rating,
+                  rating: rating,
                   USER_ID: user_id
                }
             });
+            console.log(data);
             if (data.rate_quote) {
                successfulApproval();
             } else {

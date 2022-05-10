@@ -43,7 +43,7 @@ export type Tthought = {
    creator: {
       ID: string;
       signature: string;
-      authority_level: string;
+      authority_level: number;
       approval_rating: string;
       avatar: string;
    };
@@ -54,7 +54,7 @@ export type Tthought = {
 };
 
 type thoughtProps = {
-   user_authority_level?: string;
+   user_authority_level?: number;
    thoughts: Tthought[];
 };
 
@@ -323,7 +323,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
          {notificationpopUpState}
          {chooseAprovalRating}
          {thoughts.map((thought, index) => {
-            thought.creator.authority_level = user_authority_level ? user_authority_level : "";
+            thought.creator.authority_level == user_authority_level ? user_authority_level : 0;
             return (
                <section key={thought.ID}>
                   <div
@@ -337,7 +337,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                            <div className={cardStyles.creatorimMainWrapper}>
                               <div
                                  className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
-                                    thought.creator.authority_level == "trusted"
+                                    thought.creator.authority_level == 2
                                        ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
                                        : ""
                                  }`}
@@ -348,7 +348,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                                     className={`${cardStyles.commentCardHeaderAvatarImg}`}
                                  />
                               </div>
-                              {thought.creator.authority_level == "trusted" && (
+                              {thought.creator.authority_level == 2 && (
                                  <span className={cardStyles.trustedPointer}></span>
                               )}
                            </div>

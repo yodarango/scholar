@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_COMMENTARIES = gql`
    query (
-      $authority_level: String
+      $authority_level: Int
       $ID: ID
       $category_tags: String
       $USER_ID: ID

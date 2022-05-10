@@ -94,7 +94,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             }
          });
          setChooseAprovalRating(false);
-         setPostApprovalState(data.thought_approvals[0]);
+         setPostApprovalState(data.thought_rating[0]);
       } catch (error) {
          console.log(error);
          setChooseAprovalRating(false);

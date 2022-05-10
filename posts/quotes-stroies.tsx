@@ -41,7 +41,7 @@ export type Tstory = {
    creator: {
       ID: string;
       signature: string;
-      authority_level: string;
+      authority_level: number;
       approval_rating: string;
       avatar: string;
    };
@@ -73,7 +73,7 @@ export type last24SingleQuote = {
       avatar: string;
       signature: string;
       approval_rating: string;
-      authority_level: string;
+      authority_level: number;
    };
 };
 
@@ -259,6 +259,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
             QUOTE_ID: id ? id : quoteState[countState].ID
          }
       });
+      console.log(data);
       setChooseAprovalRating(false);
       setPostApprovalState(data.quote_approvals[0]);
    };
@@ -323,7 +324,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
             onClick={() => handleOpenStroies(creator.ID)}>
             <div
                className={`${quoteStoriesStyles.userReputationWrapper} ${
-                  creator.authority_level == "trusted"
+                  creator.authority_level == 2
                      ? quoteStoriesStyles.userReputationWrapperTrusted
                      : ""
                }`}>
@@ -331,7 +332,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                   className={quoteStoriesStyles.avatarImage}
                   style={{ backgroundImage: `url(${creator.avatar})` }}></div>
             </div>
-            {creator.authority_level == "trusted" && (
+            {creator.authority_level == 2 && (
                <span className={quoteStoriesStyles.trustedPointer}></span>
             )}
             <p className={quoteStoriesStyles.userSignature}>{creator.signature}</p>
@@ -346,7 +347,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                   {/* <a href={`/users/${creator.ID}`}> */}
                   <div
                      className={`${quoteStoriesStyles.userReputationWrapperView} ${
-                        creator.authority_level == "trusted"
+                        creator.authority_level == 2
                            ? quoteStoriesStyles.userReputationWrapperViewTrusted
                            : ""
                      }`}>
@@ -354,7 +355,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                         className={quoteStoriesStyles.avatarImageStoryView}
                         style={{ backgroundImage: `url(${creator.avatar})` }}></div>
                   </div>
-                  {creator.authority_level == "trusted" && (
+                  {creator.authority_level == 2 && (
                      <span className={quoteStoriesStyles.trustedPointerView}></span>
                   )}
                   {/* </a> */}

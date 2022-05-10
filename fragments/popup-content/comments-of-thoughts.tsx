@@ -76,13 +76,12 @@ const CommentsOfThoughtContent = ({
    };
 
    const confirmDeletion = async (id: string) => {
-
       try {
          const { data } = await client.mutate({
             mutation: loadedFrom === "comment" ? DELETE_COMMENTARY_COMMENT : DELETE_THOUGHT_COMMENT,
             variables: { ID: id }
          });
-         
+
          data.delete_commentary_comment === true || data.delete_thought_comment
             ? (setConfirmationPopUpState(false), removeCommentFromArray(id))
             : (setNotificationPopUpState(
@@ -95,7 +94,7 @@ const CommentsOfThoughtContent = ({
               ),
               setConfirmationPopUpState(false));
       } catch (error) {
-         console.log(error)
+         console.log(error);
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}
@@ -103,10 +102,9 @@ const CommentsOfThoughtContent = ({
                contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                newClass='notification-wrapper--Error'
             />
-         )
+         );
          setConfirmationPopUpState(false);
       }
-     
    };
 
    const removeCommentFromArray = (id: string) => {
@@ -134,68 +132,71 @@ const CommentsOfThoughtContent = ({
                      Be the first to comment on this post!
                   </h1>
                )}
-               {commentsState && commentsState.map((comm) => {
-                  return (
-                     <div
-                        className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
-                        key={comm.ID}>
-                        <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
-                           <div className={cardStyles.wholeAvatarWrapperCommOfComm}>
-                              <a href={`/users/${comm.creator_id}`}>
-                                 <div
-                                    className={`${cardStyles.commentsOfCommentsImgWrapper} ${
-                                       comm.creator_authority_level == "trusted"
-                                          ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
-                                          : ""
-                                    }`}>
-                                    <img
-                                       src={comm.creator_avatar}
-                                       alt='Avatar Image used as a user profile'
-                                       className={cardStyles.commentsOfCommentsImg}
-                                    />
+               {commentsState &&
+                  commentsState.map((comm) => {
+                     return (
+                        <div
+                           className={`${cardStyles.commentCard} ${cardStyles.commentOfCommentCard}`}
+                           key={comm.ID}>
+                           <div className={`${cardStyles.commentsOfCommentsImgTitleWrapper}`}>
+                              <div className={cardStyles.wholeAvatarWrapperCommOfComm}>
+                                 <a href={`/users/${comm.creator_id}`}>
+                                    <div
+                                       className={`${cardStyles.commentsOfCommentsImgWrapper} ${
+                                          comm.creator_authority_level == 2
+                                             ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                             : ""
+                                       }`}>
+                                       <img
+                                          src={comm.creator_avatar}
+                                          alt='Avatar Image used as a user profile'
+                                          className={cardStyles.commentsOfCommentsImg}
+                                       />
+                                    </div>
+                                    {comm.creator_authority_level == 2 && (
+                                       <span
+                                          className={`${cardStyles.trustedPointer} ${cardStyles.trustedPointerCommentsOfCommentaries}`}></span>
+                                    )}
+                                 </a>
+                              </div>
+                              <div className={cardStyles.commentsOfCommentsName}>
+                                 {comm.creator_signature}
+                              </div>
+                           </div>
+                           {openCommentState === comm.ID && (
+                              <p className={cardStyles.commentsOfCommentsBodyVisible}>
+                                 {comm.body}
+                              </p>
+                           )}
+                           {openCommentState !== comm.ID && (
+                              <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
+                           )}
+                           <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
+                              {openCommentFuncState === false && (
+                                 <div onClick={() => openComment(comm.ID)}>
+                                    <div
+                                       className={
+                                          (cardStyles.cardIcon, cardStyles.cardIconMore)
+                                       }></div>
                                  </div>
-                                 {comm.creator_authority_level == "trusted" && (
-                                    <span
-                                       className={`${cardStyles.trustedPointer} ${cardStyles.trustedPointerCommentsOfCommentaries}`}></span>
-                                 )}
-                              </a>
-                           </div>
-                           <div className={cardStyles.commentsOfCommentsName}>
-                              {comm.creator_signature}
+                              )}
+                              {openCommentFuncState === true && (
+                                 <div onClick={closeComment}>
+                                    <div
+                                       className={
+                                          (cardStyles.cardIcon, cardStyles.cardIconMore)
+                                       }></div>
+                                 </div>
+                              )}
+                              {user == comm.creator_id && (
+                                 <div
+                                    className={`${cardStyles.cardIcon} ${cardStyles.delete} ${cardStyles.deleteComOfCom}`}
+                                    onClick={() => handleDeleteConfirmation(comm.ID)}></div>
+                              )}
                            </div>
                         </div>
-                        {openCommentState === comm.ID && (
-                           <p className={cardStyles.commentsOfCommentsBodyVisible}>{comm.body}</p>
-                        )}
-                        {openCommentState !== comm.ID && (
-                           <p className={cardStyles.commentsOfCommentsBodyHidden}>{comm.body}</p>
-                        )}
-                        <div className={`wrap-flex-row ${cardStyles.cardIconWrapper}`}>
-                           {openCommentFuncState === false && (
-                              <div onClick={() => openComment(comm.ID)}>
-                                 <div
-                                    className={
-                                       (cardStyles.cardIcon, cardStyles.cardIconMore)
-                                    }></div>
-                              </div>
-                           )}
-                           {openCommentFuncState === true && (
-                              <div onClick={closeComment}>
-                                 <div
-                                    className={
-                                       (cardStyles.cardIcon, cardStyles.cardIconMore)
-                                    }></div>
-                              </div>
-                           )}
-                           {user == comm.creator_id && (
-                              <div
-                                 className={`${cardStyles.cardIcon} ${cardStyles.delete} ${cardStyles.deleteComOfCom}`}
-                                 onClick={() => handleDeleteConfirmation(comm.ID)}></div>
-                           )}
-                        </div>
-                     </div>
-                  );
-               })}
+                     );
+                  })}
             </div>
          </div>
       </>

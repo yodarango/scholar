@@ -17,15 +17,13 @@ const UserBioWrapper = ({ user }: userBioWrapperProps) => {
          <div className={userBioWrapperStyles.avatarReputationWrapper}>
             <div
                className={`${userBioWrapperStyles.reputationWrapper} ${
-                  user.authority_level == "trusted"
-                     ? userBioWrapperStyles.reputationWrapperTrusted
-                     : ""
+                  user.authority_level == 2 ? userBioWrapperStyles.reputationWrapperTrusted : ""
                }`}>
                <div
                   className={userBioWrapperStyles.avatar}
                   style={{ backgroundImage: `url(${user.avatar})` }}></div>
             </div>
-            {user.authority_level == "trusted" && (
+            {user.authority_level == 2 && (
                <span className={userBioWrapperStyles.trustedPointer}></span>
             )}
          </div>

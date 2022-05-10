@@ -28,7 +28,7 @@ export type TcommentType = {
    creator_signature: string;
    creator_avatar: string;
    creator_approval_rate: number;
-   creator_authority_level: string;
+   creator_authority_level: number;
    creator_id: string;
    total_count: number;
 };
@@ -98,7 +98,7 @@ const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
                      <a href={`/users/${comment.creator_id}`}>
                         <div
                            className={`${commentsOfStoryStyles.commentAvatarWrapper}  ${
-                              comment.creator_authority_level == "trusted"
+                              comment.creator_authority_level == 2
                                  ? commentsOfStoryStyles.commentCardHeaderAvatarImgBkgTrusted
                                  : ""
                            }`}>
@@ -106,7 +106,7 @@ const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
                               style={{ backgroundImage: `url(${comment.creator_avatar})` }}
                               className={`${commentsOfStoryStyles.avatar}`}></div>
                         </div>
-                        {comment.creator_authority_level == "trusted" && (
+                        {comment.creator_authority_level == 2 && (
                            <span
                               className={`${commentsOfStoryStyles.trustedPointer} ${cardStyles.trustedPointerCommentsOfCommentaries}`}></span>
                         )}

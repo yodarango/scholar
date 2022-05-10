@@ -143,7 +143,7 @@ export default function Register() {
    // set the gender choosing ability
    // =======================  FUNCTION 3: save the user settings update =============== //
    const [userGenderState, setUserGenderState] = useState<{
-      gender: string | undefined;
+      gender: number | undefined;
       femaleClass: string | undefined;
       maleClass: string | undefined;
    }>({ gender: undefined, femaleClass: "", maleClass: "" });
@@ -185,7 +185,7 @@ export default function Register() {
                               className={`${registerStyles.genderInput} ${userGenderState.maleClass}`}
                               onClick={() =>
                                  setUserGenderState({
-                                    gender: "male",
+                                    gender: 1,
                                     maleClass: registerStyles.genderInputMaleActive,
                                     femaleClass: ""
                                  })
@@ -196,7 +196,7 @@ export default function Register() {
                               className={`${registerStyles.genderInput} ${userGenderState.femaleClass}`}
                               onClick={() =>
                                  setUserGenderState({
-                                    gender: "female",
+                                    gender: 2,
                                     maleClass: "",
                                     femaleClass: registerStyles.genderInputFemaleActive
                                  })
