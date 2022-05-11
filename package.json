@@ -7,7 +7,7 @@
       "dev": "next dev",
       "build": "next build",
       "start": "next start",
-      "prod": "pm2 start --name=scholar-fe npm -- start"
+      "prod": "pm2 start --name=scholar-fe npm -- start --watch"
    },
    "dependencies": {
       "@apollo/client": "^3.4.15",
