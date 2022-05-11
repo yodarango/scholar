@@ -16,7 +16,7 @@ const defaultOptions = {
 };
 
 const httpLink = new HttpLink({
-   uri: "http://localhost:4000/api"
+   uri: "https://localhost:4000/api"
 });
 
 const errorLink = onError(({ graphQLErrors, networkError, response, operation }) => {
