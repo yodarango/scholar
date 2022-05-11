@@ -6,7 +6,8 @@
    "scripts": {
       "dev": "next dev",
       "build": "next build",
-      "start": "next start"
+      "start": "next start",
+      "prod": "pm2 start --name=scholar-fe npm -- start"
    },
    "dependencies": {
       "@apollo/client": "^3.4.15",
