@@ -15,9 +15,9 @@ const defaultOptions = {
    }
 };
 
-const httpLink = new HttpLink({
-   uri: "https://localhost:4000/api"
-});
+// const httpLink = new HttpLink({
+//    uri: "https://localhost:4000/api"
+// });
 
 const errorLink = onError(({ graphQLErrors, networkError, response, operation }) => {
    if (graphQLErrors)
@@ -29,12 +29,7 @@ const errorLink = onError(({ graphQLErrors, networkError, response, operation })
 });
 
 const client = new ApolloClient({
-   //uri: process.env.NEXT_PUBLIC_BACKEND_SOURCE,
    uri: "https://my.biblescholar.app/api",
-   //uri: "http://172.20.10.7:4000/api", //iphone
-   //uri: "http://192.168.1.16:4000/api",
-   //uri: "https://scholar-be-2.herokuapp.com/api",
-   //link: from([errorLink, httpLink]),
    cache: new InMemoryCache(),
    defaultOptions: defaultOptions,
    //credentials: "include",
