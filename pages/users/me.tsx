@@ -88,12 +88,17 @@ const Me = () => {
          });
 
          if (data.me) {
-            setLoadingState("done");
-            setUserState(data.me);
-            setHasNotificationState(data.me.has_new_notifications);
-         } else if (data.me === null || data.me.length < 0) {
+            if (data.me.user_confirmed === false) {
+               location.href = "/account_verification";
+            } else if (data.me.user_confirmed === true) {
+               setLoadingState("done");
+               setUserState(data.me);
+               setHasNotificationState(data.me.has_new_notifications);
+            }
+         } else if (!data.me) {
             location.href = "/login";
-            setUserState(null);
+         } else {
+            setLoadingState("error");
          }
       } catch (error) {
          setLoadingState("error");

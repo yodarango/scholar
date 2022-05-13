@@ -24,6 +24,7 @@ export const GET_MY_PROFILE = gql`
          my_ministry
          my_favorite_verse
          first_time_signup
+         user_confirmed
          all_posts_profile(getApprovalCount: $getApprovalCount) {
             thought_approval_total_count
             quote_approval_total_count
@@ -217,6 +218,12 @@ export const GET_PROFILE_SERMON_NOTES = gql`
 export const CHECK_IF_USER_LOGGED_IN = gql`
    query {
       is_user_logged_in
+   }
+`;
+
+export const CHECK_IF_USER_LOGGED_IN_AND_VERIFIED = gql`
+   query {
+      is_user_logged_in_and_verified
    }
 `;
 

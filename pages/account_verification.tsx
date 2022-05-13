@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 // graphQL
 import client from "../apollo-client";
 import { VERIFY_ACCOUNT } from "../graphql/users/new_user";
-import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
+import { CHECK_IF_USER_LOGGED_IN_AND_VERIFIED } from "../graphql/users/profile";
 
 // child comps
 import SmallLoader from "../fragments/chunks/small-loader";
@@ -24,17 +24,24 @@ export default function AccountVerification() {
    const checkedIfUserLoggedIn = async () => {
       try {
          const { data } = await client.query({
-            query: CHECK_IF_USER_LOGGED_IN,
+            query: CHECK_IF_USER_LOGGED_IN_AND_VERIFIED,
             variables: {}
          });
 
-         setIsLoggedIn(data.is_user_logged_in);
-
-         if (data.is_user_logged_in === true) {
+         console.log(data);
+         if (
+            data.is_user_logged_in_and_verified === "not_logged_in" ||
+            data.is_user_logged_in_and_verified === "logged_in_not_confirmed"
+         ) {
+            setIsLoggedIn(false);
+         } else if (data.is_user_logged_in_and_verified === "logged_in_confirmed") {
             router.replace("/users/me");
+         } else {
+            router.replace("/");
          }
       } catch (error) {
          console.log(error);
+         router.replace("/");
       }
    };
 
