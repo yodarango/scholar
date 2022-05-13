@@ -18,30 +18,38 @@ import { Tcommentary } from "../posts/comment";
 import { Tthought } from "../posts/thought";
 
 type commentThoughtProps = {
-   commentaries: Tcommentary[];
-   thoughts: Tthought[];
+   commentaries: Tcommentary[] | null;
+   thoughts: Tthought[] | null;
 };
 
 const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
    // ===========================    FUNCTION 1: set the initial state for each content  ======== //
    const [responseCommentaryState, setResponseCommentaryState] = useState<number>(
-      commentaries.length
+      commentaries ? commentaries.length : 0
    );
-   const [responseThoughtState, setresponseThoughtState] = useState<number>(thoughts.length);
-   const [commentariesState, setCommentariesState] = useState<Tcommentary[]>(commentaries);
+   const [responseThoughtState, setresponseThoughtState] = useState<number>(
+      thoughts ? thoughts.length : 0
+   );
+   const [commentariesState, setCommentariesState] = useState<Tcommentary[] | null>(commentaries);
 
    const requestMoreComments = async (last_id: string) => {
-      const { data } = await client.query({
-         query: WIGO_REQUEST_MORE_COMMENTARIES,
-         variables: { last_id: last_id }
-      });
+      try {
+         const { data } = await client.query({
+            query: WIGO_REQUEST_MORE_COMMENTARIES,
+            variables: { last_id: last_id }
+         });
 
-      setResponseCommentaryState(data.commentary.length);
-      setCommentariesState((commentariesState) => [...commentariesState, ...data.commentary]);
+         setResponseCommentaryState(data.commentary.length);
+         setCommentariesState((commentariesState) =>
+            commentariesState ? [...commentariesState, ...data.commentary] : []
+         );
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    // ===========================    FUNCTION 2: set the initial state for each content  ======== //
-   const [thoughtsState, setThoughtsState] = useState<Tthought[]>(thoughts);
+   const [thoughtsState, setThoughtsState] = useState<Tthought[] | null>(thoughts);
 
    const requestMoreThoughts = async (last_id: string) => {
       const { data } = await client.query({
@@ -49,7 +57,9 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
          variables: { last_id: last_id }
       });
       setresponseThoughtState(data.thought.length);
-      setThoughtsState((thoughtsState) => [...thoughtsState, ...data.thought]);
+      setThoughtsState((thoughtsState) =>
+         thoughtsState ? [...thoughtsState, ...data.thought] : []
+      );
    };
 
    // ===========================    FUNCTION 3: filter hte posts either by commentaries or by Thought  ======== //
@@ -97,7 +107,8 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
             </span>
          </div>
          <div className={`large-spacer`}></div>
-         {filterThoughtCommentState.comment &&
+         {commentariesState &&
+            filterThoughtCommentState.comment &&
             commentariesState.map((commentary: Tcommentary) => (
                <Comment commentary={commentary} key={commentary.ID} />
             ))}
@@ -110,13 +121,17 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
                <p className={`std-button_gradient-text`}>Load More</p>
             </button>
          )}
-         {filterThoughtCommentState.comment && commentariesState.length === 0 && (
-            <h2 className={commentThoughtStyles.noContrastTitle}>
-               what have you nearned today? 💡
-            </h2>
+         {commentariesState &&
+            filterThoughtCommentState.comment &&
+            commentariesState.length === 0 && (
+               <h2 className={commentThoughtStyles.noContrastTitle}>
+                  what have you nearned today? 💡
+               </h2>
+            )}
+         {thoughtsState && filterThoughtCommentState.thought && (
+            <Thought thoughts={thoughtsState} />
          )}
-         {filterThoughtCommentState.thought && <Thought thoughts={thoughtsState} />}
-         {filterThoughtCommentState.thought && thoughtsState.length === 0 && (
+         {thoughtsState && filterThoughtCommentState.thought && thoughtsState.length === 0 && (
             <h2 className={commentThoughtStyles.noContrastTitle}>what's on your 🧠?</h2>
          )}
          {thoughtsState && responseThoughtState === 20 && filterThoughtCommentState.thought && (
