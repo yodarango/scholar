@@ -28,9 +28,10 @@ const errorLink = onError(({ graphQLErrors, networkError, response, operation })
    if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+console.log(process.env.NODE_ENV);
 const client = new ApolloClient({
-   uri: "https://my.biblescholar.app/api",
-   //uri: "http://localhost:4000/api",
+   //uri: "https://my.biblescholar.app/api",
+   uri: "http://localhost:4000/api",
    cache: new InMemoryCache(),
    defaultOptions: defaultOptions,
    //credentials: "include",

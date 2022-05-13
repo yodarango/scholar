@@ -234,7 +234,7 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
                      settings go to <b>apply for user verification</b> and fill out the form!
                   </p>
                }
-               imgLink={`/images/wigo-placeholders/no_content_graphic_four.png`}
+               imgLink={`/images/wigo-placeholders/no_content_graphic_six.png`}
             />
          )}
       </>

@@ -97,29 +97,6 @@ export default function Header({ currPage }: headerProps) {
       setOpenDropDownState(false);
    };
 
-   // Check if the user is a patron to redirect them appropiately
-   const checkIfUserPatron = async () => {
-      try {
-         const { data } = await client.query({
-            query: CHECK_IF_PATRON_ACCOUNT,
-            variables: {}
-         });
-         if (isUserAuth?.ID) {
-            if (data.user_has_stripe_account) {
-               router.replace("/subscription/billing");
-            } else {
-               router.replace("/subscription/join");
-            }
-         } else {
-            router.replace("/login");
-         }
-
-         console.log(data);
-      } catch (error) {
-         console.log(error);
-      }
-   };
-
    return (
       <>
          {openDropDownState && (
@@ -152,7 +129,9 @@ export default function Header({ currPage }: headerProps) {
                   onClick={() => setOpenDropDownState(false)}></span>
             )}
 
-            <button className={`go-pro-button`} onClick={checkIfUserPatron}></button>
+            <Link href={"/subscription/join"}>
+               <a className={`go-pro-button`}></a>
+            </Link>
          </div>
       </>
    );

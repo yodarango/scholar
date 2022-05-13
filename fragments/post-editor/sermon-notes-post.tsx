@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 // graphQL
 import client from "../../apollo-client";
 import { CREATE_NEW_SERMON_NOTE } from "../../graphql/posts/sermon_notes";
+import { CHECK_IF_USER_PATRON } from "../../graphql/users/users";
 
 // component
 import GeneralDropdown from "../buttons/general-dropdown";
@@ -17,19 +18,23 @@ import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost
 // helpers
 import { valuesCat } from "../../helpers/dropdown-values";
 import { Tuser } from "../../pages/users/[userId]";
-import getCookie from "../../helpers/get-cookie";
-import parseJwt from "../../helpers/auth/decodeJWT";
-
 const SermonNotesPost = () => {
    // check if the user is authenticated in order to get user details ****BE CAREFUL, ALTHOUGH THE OTHER COMPS SO NOT NEDD THIS, THIS IS NEEDED HERE*******
-   const [loggedInUserState, setLoggedInUserState] = useState<Tuser>();
-   useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user: Tuser = parseJwt(authCookie);
-         setLoggedInUserState(user);
-         console.log(user);
+   const [loggedInUserState, setLoggedInUserState] = useState<Tuser | null>(null);
+
+   const checkIsUserPatron = async () => {
+      try {
+         const { data } = await client.query({
+            query: CHECK_IF_USER_PATRON
+         });
+         setLoggedInUserState(data.is_user_patron);
+      } catch (error) {
+         console.log(error);
+         setLoggedInUserState(null);
       }
+   };
+   useEffect(() => {
+      checkIsUserPatron();
    }, []);
 
    // ===============  opend the categories dropdoen  ==================  //
@@ -90,7 +95,6 @@ const SermonNotesPost = () => {
    const [loadedFileState, setLoadedFileState] = useState<any>({ file: null, file_path: null });
    const handleFileUpload = async (fileUploaded: any) => {
       if (fileUploaded.target.files) {
-         console.log(fileUploaded.target.files[0]);
          if (fileUploaded.target.files[0].size > 4000000) {
             setCurrentFileUpState(
                <p className={sermonNotesPost.fileNameErr}>
@@ -162,7 +166,7 @@ const SermonNotesPost = () => {
          return;
       }
       // check if the user is a patron
-      if (!loggedInUserState.patron) {
+      if (!loggedInUserState.is_patron) {
          setnotificationsPopupState(
             <NotificationPopup
                closeModal={() => setnotificationsPopupState(false)}

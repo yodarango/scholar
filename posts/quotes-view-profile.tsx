@@ -162,8 +162,9 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
                QUOTE_ID: story.ID
             }
          });
-         if (data.quote_rating) {
-            setPostApprovalState(data.quote_rating[0]);
+         console.log(data);
+         if (data.quote_approvals) {
+            setPostApprovalState(data.quote_approvals[0]);
          }
          setChooseAprovalRating(false);
       } catch (error: any) {
