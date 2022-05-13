@@ -4,8 +4,6 @@
 
 **_ERRORS_**
 
-fix the way that user verification for the first time is being handled, as it redirects the user to the me page imidiately after registration
-
 # The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
 
 **BEFORE RELEASE**
@@ -54,3 +52,8 @@ fix the way that user verification for the first time is being handled, as it re
 -  add general notifiations banner for all users
 
 -  get ready fo the resize query and improve the rendering of me page
+
+**TEST**
+
+1. Check login cookies are in sync be and fe
+2. Check account verification screeens redirect correctly
