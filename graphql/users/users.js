@@ -10,3 +10,11 @@ export const GET_USER_STORY = gql`
       }
    }
 `;
+
+export const CHECK_IF_USER_PATRON = gql`
+   query {
+      is_user_patron {
+         is_patron
+      }
+   }
+`;

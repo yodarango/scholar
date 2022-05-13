@@ -1,10 +1,15 @@
 // core
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
 
 // graphQL
 import client from "../../apollo-client";
 import { GET_ORDER_SUCCESS_DATA } from "../../graphql/billing/billing";
+
+// styles
+import subscriptionSuccessPageStyle from "../../styles/pages/subscription/Success.module.css";
 
 const Success = () => {
    // router
@@ -44,9 +49,21 @@ const Success = () => {
    return (
       <div>
          {checkoutDeets && (
-            <div>
-               <h1>Congratulations {checkoutDeets.name}</h1>
+            <div className={subscriptionSuccessPageStyle.mainWrapper}>
+               <div className={subscriptionSuccessPageStyle.imageWrapper}>
+                  <Image src='/Parks10.png' layout='fill' />
+               </div>
+               <h1 className={`${subscriptionSuccessPageStyle.stdH1} std-button_gradient-text`}>
+                  Welcome to Scholar
+               </h1>
+               <p>Thank you, {checkoutDeets.name} for keeping Scholar alive!</p>
                <p>a confirmation email has been sent to {checkoutDeets.email}</p>
+
+               <button className={`std-button`}>
+                  <Link href='/users/me'>
+                     <a className={`std-button_gradient-text`}>Done</a>
+                  </Link>
+               </button>
             </div>
          )}
          {failedTransaction}

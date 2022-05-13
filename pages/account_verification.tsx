@@ -104,6 +104,9 @@ export default function AccountVerification() {
 
    return (
       <>
+         <Link href={`/`}>
+            <a className={`goBack `}></a>
+         </Link>
          {!isLoggedIn && (
             <div className='main-wrapper'>
                {notificationpopUpState}

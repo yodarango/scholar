@@ -6,7 +6,7 @@ import Link from "next/link";
 
 // graphQL
 import client from "../../apollo-client";
-import { GET_USER_PORTAL_SESSION } from "../../graphql/billing/billing";
+import { CHECK_IF_PATRON_ACCOUNT, GET_USER_PORTAL_SESSION } from "../../graphql/billing/billing";
 
 // styles
 import billingStlyes from "../../styles/pages/subscription/Billing.module.css";
@@ -27,8 +27,6 @@ const Billing = () => {
             query: GET_USER_PORTAL_SESSION,
             variables: {}
          });
-
-         console.log(data.customer_portal.url);
 
          if (
             data.customer_portal.__typename === "User_Portal_Session" &&
