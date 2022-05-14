@@ -21,12 +21,11 @@ import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalD
 
 // helpers
 import handlePostComment from "../functions/posts/post-quote-comment";
-import getCookie from "../helpers/get-cookie";
-import parseJwt from "../helpers/auth/decodeJWT";
 
 //types
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
 import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
+import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tstory = {
    ID: string;
@@ -88,11 +87,10 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user = parseJwt(authCookie);
-         setRenderDeleteEditOptionsState(creator.ID == user.ID);
-         setRenderReportOptionState(creator.ID != user.ID);
+      const authJWT = loggedInUser();
+      if (authJWT) {
+         setRenderDeleteEditOptionsState(creator.ID == authJWT.ID);
+         setRenderReportOptionState(creator.ID != authJWT.ID);
       }
    }, []);
 

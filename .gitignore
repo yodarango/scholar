@@ -38,3 +38,4 @@ env.js
 .prettierignore
 .env.local
 .env
+.vscode

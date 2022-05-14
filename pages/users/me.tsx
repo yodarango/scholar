@@ -88,7 +88,7 @@ const Me = () => {
          });
 
          if (data.me) {
-            if (data.me.user_confirmed === false || data.me.user_confirmed === 0) {
+            if (!data.me.user_confirmed) {
                location.href = "/account_verification";
             } else if (data.me.user_confirmed === true) {
                setLoadingState("done");

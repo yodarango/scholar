@@ -13,7 +13,7 @@ import SmallLoader from "../../../fragments/chunks/small-loader";
 
 //styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
-import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css"
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers / types
 import { Tuser } from "../../../pages/users/[userId]";
@@ -25,16 +25,14 @@ type quotesContentProps = {
 };
 
 const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
-
-   const [loadingState, setLoadingState] = useState<string>("loading")
-   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false)
+   const [loadingState, setLoadingState] = useState<string>("loading");
+   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<TsingleStory[]>([]);
    const [quoteLastIdState, setQuoteLastIdState] = useState<string>("99999999999");
    const [hideLoadMoreBttnState, setHideLoadMoreBttnState] = useState<boolean>(false);
 
-
    const requestQuotes = async () => {
-      setSmallLoadingState(true)
+      setSmallLoadingState(true);
       try {
          const { data } = await client.query({
             query: GET_PROFILE_QUOTES,
@@ -43,14 +41,13 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
          setQuoteState((quoteState) => [...quoteState, ...data.users[0].all_posts.quotes]);
          data.users[0].all_posts.quotes.length < 20 ? setHideLoadMoreBttnState(true) : null;
 
-         setLoadingState("done")
-         setSmallLoadingState(false)
+         setLoadingState("done");
+         setSmallLoadingState(false);
       } catch (error) {
-         console.log(error)
-         setLoadingState("error")
-         setSmallLoadingState(false)
+         console.log(error);
+         setLoadingState("error");
+         setSmallLoadingState(false);
       }
-      
    };
 
    useEffect(() => {
@@ -63,44 +60,49 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
             X
          </span>
          <section className={homePageContentStyles.popUpContentWrapper}>
-            {user.signature && <h1 className={homePageContentStyles.popUpContentWrapper_title}>
-               Quotes by {user.signature}
-            </h1>}
-            {quoteState && loadingState=== "done" && quoteState.map((story: TsingleStory) => (
-               <section>
-                  <QuotesProfile
-                     key={story.ID}
-                     user_authority_level={user.authority_level}
-                     story={{
-                        ...story,
-                        creator: {
-                           ID: user.ID,
-                           avatar: user.avatar,
-                           signature: user.signature,
-                           approval_rating: user.approval_rating,
-                           authority_level: user.authority_level
-                        }
-                     }}
-                  />
-               </section>
-            ))}
-            {quoteState?.length === 0 && loadingState === "done" && <h2 className={homePageContentStyles.noNotifications}>
-               No quotes have been made yet
-            </h2>}
-            {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardQuote}/>}
+            {user.signature && (
+               <h1 className={homePageContentStyles.popUpContentWrapper_title}>
+                  Quotes by {user.signature}
+               </h1>
+            )}
+            {quoteState &&
+               loadingState === "done" &&
+               quoteState.map((story: TsingleStory) => (
+                  <section key={story.ID}>
+                     <QuotesProfile
+                        user_authority_level={user.authority_level}
+                        story={{
+                           ...story,
+                           creator: {
+                              ID: user.ID,
+                              avatar: user.avatar,
+                              signature: user.signature,
+                              approval_rating: user.approval_rating,
+                              authority_level: user.authority_level
+                           }
+                        }}
+                     />
+                  </section>
+               ))}
+            {quoteState?.length === 0 && loadingState === "done" && (
+               <h2 className={homePageContentStyles.noNotifications}>
+                  No quotes have been made yet
+               </h2>
+            )}
+            {loadingState === "loading" && (
+               <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardQuote} />
+            )}
             {loadingState == "error" && (
-                     <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-                  )}
+               <div className={`${cardsLazyLoadingStyles.errorImage}`}>
+                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
+               </div>
+            )}
          </section>
 
-         {!hideLoadMoreBttnState && !smallLoadingState &&(
+         {!hideLoadMoreBttnState && !smallLoadingState && (
             <button
                className={"std-button"}
-               onClick={() =>
-                  setQuoteLastIdState(quoteState[quoteState.length - 1].ID)
-               }>
+               onClick={() => setQuoteLastIdState(quoteState[quoteState.length - 1].ID)}>
                <p className='std-button_gradient-text'>Load More</p>
             </button>
          )}

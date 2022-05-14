@@ -16,7 +16,6 @@ import registerStyles from "../styles/pages/Register.module.css";
 
 //helpers
 import { checkForValidSignature } from "../helpers/input-validaton";
-const Cookies = require("js-cookie");
 
 export default function Register() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
@@ -74,14 +73,17 @@ export default function Register() {
                }
             });
 
-            console.log(data);
             if (data.create_new_user.ID) {
-               const expTime = new Date(new Date().getTime() * 1000 * 60);
-               Cookies.set("authorization", data.create_new_user.token, {
-                  secure: true,
-                  sameSite: "strict",
-                  expires: expTime
-               });
+               // --------- switching to local storage because apple has a bug that expires cookies at session time
+               // document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; domain=${window.location.hostname}; path=/`;
+               const today = Date.now();
+               const expTime = today + 1209600000;
+
+               const jwtAuth = {
+                  auth: data.authenticate_user.token,
+                  expiresIn: expTime
+               };
+               localStorage.setItem("auth", JSON.stringify(jwtAuth));
 
                location.href = "/account_verification";
             } else if (data.create_new_user.message) {

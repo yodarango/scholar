@@ -22,7 +22,6 @@ const starReviews = ({
    contentId,
    totalReviews
 }: starReviewsProps) => {
-   console.log(totalReviews);
    // notifiation state
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false

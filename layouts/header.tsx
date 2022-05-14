@@ -19,12 +19,11 @@ import SermonNotesPost from "../fragments/post-editor/sermon-notes-post";
 import generalDropDownStyles from "../styles/buttons/GeneralDropDown.module.css";
 
 //helpers
-import { TdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
-import getCookie from "../helpers/get-cookie";
-import parseJWT from "../helpers/auth/decodeJWT";
 
+import { loggedInStatus } from "../helpers/auth/get-loggedin-user";
 // types
 import { Tuser } from "../pages/users/[userId]";
+import { TdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
 
 type headerProps = {
    currPage: string;
@@ -33,16 +32,15 @@ type headerProps = {
 export default function Header({ currPage }: headerProps) {
    // set up router
    const router = useRouter();
-   //check if the user is authenticated in order to upload to dropbox
-   const [isUserAuth, setIsUserAuth] = useState<Tuser | null>(null);
+   //check if the user is authenticated in order to show the create post button
+   const [isUserAuth, setIsUserAuth] = useState<boolean>(false);
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      const decodedUser = parseJWT(authCookie);
-      setIsUserAuth(decodedUser);
-
-      console.log(decodedUser);
-   }, []);
+      if (router.isReady) {
+         const authJWT = loggedInStatus();
+         authJWT ? setIsUserAuth(true) : setIsUserAuth(false);
+      }
+   }, [router.isReady]);
 
    // =================   FUNCTION 1: open the new post dropdown   ================= //
    const [openDropDownState, setOpenDropDownState] = useState<boolean>(false);
@@ -120,10 +118,10 @@ export default function Header({ currPage }: headerProps) {
                </Link>
             </div>
             <h2 className='header-curr-page'>{currPage}</h2>
-            {!openDropDownState && isUserAuth?.ID && (
+            {!openDropDownState && isUserAuth && (
                <span className={"new-post-trigger"} onClick={handleShowDropDown}></span>
             )}
-            {openDropDownState && isUserAuth?.ID && (
+            {openDropDownState && isUserAuth && (
                <span
                   className={"new-post-trigger"}
                   onClick={() => setOpenDropDownState(false)}></span>

@@ -19,7 +19,7 @@ type librarySermonCarrouselProps = {
 const LibraryWatchCarrousel = ({ watch, err }: librarySermonCarrouselProps) => {
    return (
       <div className={`${libraryWatchCarrouselStyles.mainWrapper}`}>
-         <h1 className={libraryWatchCarrouselStyles.title}>VIDEOS</h1>
+         <h1 className={libraryWatchCarrouselStyles.title}>SERMONS</h1>
          <div className={libraryWatchCarrouselStyles.scrollSection}>
             {watch &&
                watch.map((video: watchProps) => {

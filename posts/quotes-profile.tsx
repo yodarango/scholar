@@ -1,6 +1,7 @@
 // core
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // graphQl
 import client from "../apollo-client";
@@ -17,8 +18,7 @@ import cardStyles from "../styles/components/Cards.module.css";
 
 //helpers and types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
-import getCookie from "../helpers/get-cookie";
-import parseJwt from "../helpers/auth/decodeJWT";
+import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type TsingleStory = {
    ID: string;
@@ -48,16 +48,17 @@ type quoteProfileProps = {
    story: TsingleStory;
 };
 const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
+   // router
+   const router = useRouter();
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user = parseJwt(authCookie);
-         setRenderDeleteEditOptionsState(story.USER_ID == user.ID);
-         setRenderReportOptionState(story.USER_ID != user.ID);
+      const authJWT = loggedInUser();
+      if (authJWT) {
+         setRenderDeleteEditOptionsState(story.USER_ID == authJWT.ID);
+         setRenderReportOptionState(story.USER_ID != authJWT.ID);
       }
    }, []);
 
@@ -168,6 +169,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
       }
    };
 
+   // ============== FUNCTION 15: report quote confirmation popup
    const handleReportConfirmation = (id: string) => {
       setConfirmationPopUpState(
          <ConfirmationPopup

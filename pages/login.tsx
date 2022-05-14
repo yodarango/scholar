@@ -69,11 +69,16 @@ export default function Login() {
             });
 
             if (data.authenticate_user.ID) {
+               // --------- switching to local storage because apple has a bug that expires cookies at session time
+               // document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; domain=${window.location.hostname}; path=/`;
                const today = Date.now();
-               const expTime = new Date(today + 1209600000);
+               const expTime = today + 1209600000;
 
-               document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; path=/`;
-
+               const jwtAuth = {
+                  auth: data.authenticate_user.token,
+                  expiresIn: expTime
+               };
+               localStorage.setItem("auth", JSON.stringify(jwtAuth));
                location.href = "/login";
             }
             if (data.authenticate_user.message) {

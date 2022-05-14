@@ -17,9 +17,8 @@ import NavigationMenu from "../../../../layouts/navigation-menu";
 
 // helpers/ types
 import { Tstory } from "../../../../posts/quotes-stroies";
-import getCookie from "../../../../helpers/get-cookie";
-import parseJwt from "../../../../helpers/auth/decodeJWT";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
+import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 
 // type editQuoteProps = {
 //    story: Tstory;
@@ -33,8 +32,7 @@ const EditQuote = () => {
 
    const getInitialData = async () => {
       // =================== Check if there is a Logged in user and fetch its data ========== /
-      const token: string = getCookie("authorization");
-      let parsedUser = parseJwt(token);
+      const authJWT = loggedInUser();
 
       // get the post ID
       const postId = router.query.id ? router.query.id : 0;
@@ -49,7 +47,7 @@ const EditQuote = () => {
          setStory(data.quote[0]);
 
          if (data.quote) {
-            if (parseInt(data.quote[0].creator.ID) !== parsedUser.ID) {
+            if (parseInt(data.quote[0].creator.ID) !== authJWT.ID) {
                router.replace(`/posts/quote/${data.quote[0].ID}`);
             } else {
                setLoadingState("done");

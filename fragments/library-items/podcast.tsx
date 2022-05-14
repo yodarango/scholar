@@ -53,8 +53,13 @@ const Podcasts = ({
             </div>
             <h1 className={`${podcastStyles.descPopupTitle}`}>{podcastName}</h1>
             <h3 className={podcastStyles.popUpHost}>Podcast By: {host}</h3>
+            {/* Moving away from nextJS: too slow
+            
             <div className={`${podcastStyles.descPopupImg}`}>
                <Image layout='fill' src={imageThumbnailState} alt='podcast thumbnail' />
+            </div> */}
+            <div className={`${podcastStyles.descPopupImg}`}>
+               <img src={imageThumbnailState} alt='podcast thumbnail' />
             </div>
             <div className={podcastStyles.starReviewWrapper}>
                <StarReviews
@@ -97,9 +102,17 @@ const Podcasts = ({
       <>
          {openPodcastDescState}
          <div className={`${podcastStyles.mainWrapper} ${newClass}`}>
+            {/* Moving away from nextJs too slow
             <div className={podcastStyles.thumbnailWrapper} onClick={handleOpenDescription}>
                <Image
                   layout='fill'
+                  src={imageThumbnailState}
+                  alt='podcast thumbnail'
+                  className={podcastStyles.thumbnail}
+               />
+            </div> */}
+            <div className={podcastStyles.thumbnailWrapper} onClick={handleOpenDescription}>
+               <img
                   src={imageThumbnailState}
                   alt='podcast thumbnail'
                   className={podcastStyles.thumbnail}

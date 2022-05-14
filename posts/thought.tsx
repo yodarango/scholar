@@ -27,8 +27,7 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 // helpers / types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
 import handlePostComment from "../functions/posts/post-thought-comment";
-import getCookie from "../helpers/get-cookie";
-import parseJwt from "../helpers/auth/decodeJWT";
+import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tthought = {
    ID: string;
@@ -63,10 +62,9 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    const [renderAdminOptionsState, setRenderAdminOptionsState] = useState<string>("");
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user = parseJwt(authCookie);
-         setRenderAdminOptionsState(user.ID);
+      const authJWT = loggedInUser();
+      if (authJWT) {
+         setRenderAdminOptionsState(authJWT.ID);
       }
    }, []);
 
@@ -199,7 +197,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                USER_ID: 1
             }
          });
-         //console.log(errors);
+
          if (data.report_thought) {
             setConfirmationPopUpState(false);
             setNotificationpopUpState(
@@ -254,7 +252,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
          const data: any = await handlePostComment(thought_id, commentBody.current.value, user_id);
-         console.log(data);
+
          if (data.ID) {
             setPostingState(false);
             setCommentBoxState("");

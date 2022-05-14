@@ -22,8 +22,6 @@ import userSettingsStyles from "../../../styles/pages/users/settings/UserSetting
 import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
-const Cookies = require("js-cookie");
-//import parseJwt from "../../../helpers/auth/decodeJWT";
 import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
@@ -54,11 +52,6 @@ const UserSettings = () => {
    const TCP = useRef<HTMLInputElement>(null);
    const currentPassword = useRef<HTMLInputElement>(null);
    const newPassword = useRef<HTMLInputElement>(null);
-
-   // ====================== check for token cookie ==================
-   // const token: string = Cookies.get("authorization");
-   // let parsedUser = parseJwt(token);
-   // const userId = parsedUser?.id ? parsedUser?.id : 0;
 
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userSettingsState, setUserSettingsState] = useState<Tuser | null>();
@@ -306,7 +299,7 @@ const UserSettings = () => {
 
    // ======================== LOGOUT USER OUT =================== //
    const logout = () => {
-      Cookies.remove("authorization");
+      localStorage.removeItem("auth");
       router.reload();
    };
 

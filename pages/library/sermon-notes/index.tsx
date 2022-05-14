@@ -46,7 +46,6 @@ const Sermons = () => {
       if (string) {
          const singleWords = string.split(" ");
          newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
-         console.log(newInput);
       }
 
       router.replace({ pathname: router.pathname, query: { title: newInput } });

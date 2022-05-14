@@ -1,6 +1,7 @@
 // core
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 //graphQL
 import client from "../apollo-client";
@@ -25,12 +26,11 @@ import popupStyles from "../styles/layouts/PopupWrapper.module.css";
 
 //helpres
 import handlePostComment from "../functions/posts/post-commentary-comment";
-import getCookie from "../helpers/get-cookie";
-import parseJwt from "../helpers/auth/decodeJWT";
 
 // types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
 import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
+import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tcommentary = {
    ID: string;
@@ -64,16 +64,19 @@ type commentsProps = {
 };
 
 export default function Comments({ commentary }: commentsProps) {
+   // router
+   const router = useRouter();
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user = parseJwt(authCookie);
-         setRenderDeleteEditOptionsState(commentary.USER_ID == user.ID);
-         setRenderReportOptionState(commentary.USER_ID != user.ID);
+      if (router.isReady) {
+         const authJWT = loggedInUser();
+         if (authJWT) {
+            setRenderDeleteEditOptionsState(commentary.USER_ID == authJWT.ID);
+            setRenderReportOptionState(commentary.USER_ID != authJWT.ID);
+         }
       }
    }, []);
 

@@ -46,7 +46,7 @@ const EditQuotePost = ({ story }: quoteEditorProps) => {
       tag: string;
       color: string;
    }>({ tag: story.category_tags, color: story.category_tags.replace("#", "") });
-   console.log(currentChosenTagState);
+
    const showCurrentSelectedColor = (cat: IvaluesCat) => {
       setCurrentChosenTagState({ tag: cat.tag, color: cat.tag.replace("#", "") });
    };

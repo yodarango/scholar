@@ -1,8 +1,30 @@
 import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
-const Cookies = require("js-cookie");
-const isAuth = Cookies.get("authorization");
+// --------- switching to local storage because apple has a bug that expires cookies at session time
+// const Cookies = require("js-cookie");
+// const isAuth = Cookies.get("authorization");
+
+let isAuth;
+if (typeof window != "undefined") {
+   const localJWT = localStorage.getItem("auth");
+
+   if (localJWT) {
+      const auth = JSON.parse(localJWT).auth;
+      const expiresIn = JSON.parse(localJWT).expiresIn;
+
+      // get todays date
+      const today = Date.now() - 3600000;
+
+      if (expiresIn < today) {
+         isAuth = null;
+      } else {
+         isAuth = auth;
+      }
+   } else {
+      isAuth = null;
+   }
+}
 
 const defaultOptions = {
    watchQuery: {
@@ -28,10 +50,9 @@ const errorLink = onError(({ graphQLErrors, networkError, response, operation })
    if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-console.log(process.env.NODE_ENV);
 const client = new ApolloClient({
    uri: "https://my.biblescholar.app/api",
-   //uri: "http://localhost:4000/api",
+   //uri: "http://192.168.1.16:4000/api",
    cache: new InMemoryCache(),
    defaultOptions: defaultOptions,
    //credentials: "include",

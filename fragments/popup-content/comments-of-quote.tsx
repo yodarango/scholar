@@ -1,5 +1,6 @@
 //core
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // graphQl
 import client from "../../apollo-client";
@@ -14,8 +15,8 @@ import commentsOfStoryStyles from "../../styles/fragments/popup-content/Comments
 import cardStyles from "../../styles/components/Cards.module.css";
 
 // helpes
-import getCookie from "../../helpers/get-cookie";
-import parseJwt from "../../helpers/auth/decodeJWT";
+import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
+
 // types
 import { Tcomment } from "../buttons/post-reactions";
 
@@ -38,17 +39,24 @@ export type commentsOfQuoteProps = {
 };
 
 const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
+   // router
+   const router = useRouter();
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
-   const [user, setUser] = useState<string>();
+   const [user, setUser] = useState<string | null>(null);
    const [commentsState, setCommentsState] = useState<Tcomment[]>(comments);
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
       false
    );
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         setUser(parseJwt(authCookie).ID);
+      if (router.isReady) {
+      }
+      const authJWT = loggedInUser();
+
+      if (authJWT) {
+         setUser(authJWT.ID);
+      } else {
+         setUser(null);
       }
    }, []);
 
@@ -91,8 +99,8 @@ const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
       <>
          {deletePopupState}
          {notificationPopUpState}
-         {commentsState.map((comment) => (
-            <div className={commentsOfStoryStyles.mainWrapper}>
+         {commentsState.map((comment, index) => (
+            <div className={commentsOfStoryStyles.mainWrapper} key={index}>
                <div className={commentsOfStoryStyles.avatarUserSignatureWrapper}>
                   <div className={`${commentsOfStoryStyles.wholeAvatarWrapper}`}>
                      <a href={`/users/${comment.creator_id}`}>

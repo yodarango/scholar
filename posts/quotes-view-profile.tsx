@@ -18,6 +18,7 @@ import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalD
 
 // helpers
 import { TsingleStory } from "./quotes-profile";
+import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
 import handlePostComment from "../functions/posts/post-quote-comment";
 
 export type quoteViewProfileProps = {
@@ -173,9 +174,25 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
       }
    };
 
+   // ================ FUNCTION 14:  open categroy popup on category tag click  ================ ///
+   const [tagInfoPopupState, setTagInfoPopupState] = useState<boolean | JSX.Element>(false);
+   const openInfoAboutTagColor = (cat: string) => {
+      const selectedTag = valuesCat.filter((obj: IvaluesCat) => obj.tag === cat);
+
+      setTagInfoPopupState(
+         <NotificationPopup
+            title={selectedTag[0].title}
+            closeModal={() => setTagInfoPopupState(false)}
+            contentArray={selectedTag[0].subjects}
+            newClass={`notification-wrapper--${selectedTag[0].title}`}
+         />
+      );
+   };
+
    return (
       <>
          {notificationPopUpState}
+         {tagInfoPopupState}
          <div className={quoteStoriesStyles.mainWrapper}>
             {chooseAprovalRating && (
                <ContentApprovalDropdown
@@ -248,7 +265,8 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
             </section>
             <div
                className={quoteStoriesStyles.selectedTagColor}
-               style={{ backgroundImage: `${story.background}` }}></div>
+               onClick={() => openInfoAboutTagColor(story.category_tags.split(" ")[0])}
+               id={`category-${story.category_tags.split(" ")[0].replace("#", "")}`}></div>
          </div>
       </>
    );

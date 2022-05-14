@@ -67,9 +67,17 @@ const Congregation = ({
       <>
          {churchInfoState}
          <div className={congregationStyles.mainWrapper}>
+            {/* Movign away from nextjs Image: too slow
             <div className={congregationStyles.logo}>
                <Image
                   layout='fill'
+                  src={`${imageLogoState}`}
+                  onClick={hanleSeeChurchInfo}
+                  onError={() => setImageLogoState("/images/library/locations/default.png")}
+               />
+            </div> */}
+            <div className={congregationStyles.logo}>
+               <img
                   src={`${imageLogoState}`}
                   onClick={hanleSeeChurchInfo}
                   onError={() => setImageLogoState("/images/library/locations/default.png")}

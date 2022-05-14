@@ -27,14 +27,13 @@ import cardaLazyloadingStyles from "../../styles/layouts/CardsLazyLoading.module
 
 // helpers
 import CheckMediaQuery from "../../helpers/media-query";
-import parseJwt from "../../helpers/auth/decodeJWT";
-import getCookie from "../../helpers/get-cookie";
 
 //types
 import { Tcommentary } from "../../posts/comment";
 import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
 import { TsermonPost } from "../../posts/sermon-notes-post";
+import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 
 export type TallPosts = {
    thought_approval_total_count: number;
@@ -81,9 +80,8 @@ const User = () => {
 
    const getUserProfile = async () => {
       // =================== Check if there is a Logged in user and fetch its data ========== /
-      const token: string = getCookie("authorization");
-      let parsedUser = parseJwt(token);
-      const parsedUserId = parsedUser?.ID ? parsedUser.ID : null;
+      const authJWT = loggedInUser();
+      const parsedUserId = authJWT?.ID ? authJWT.ID : null;
 
       try {
          const { data } = await client.query({
@@ -95,7 +93,6 @@ const User = () => {
             }
          });
 
-         console.log(data);
          if (data.users && data.users.length > 0) {
             if (data.users[0].ID == parsedUserId) {
                router.replace("/users/me");

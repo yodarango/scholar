@@ -9,6 +9,26 @@
 .logo {
    width: 8rem;
    height: 8rem;
+   overflow: hidden;
+   background-color: var(--font-color);
+   border-radius: var(--input-radius-mobile);
+   margin: auto;
+   transition: transform 300ms ease-in;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.logo img {
+   width: 100%;
+   transform: scale(0.9);
+   object-fit: contain;
+   object-position: center;
+}
+
+/***********************? uncoment this if goig back to nextJS **************/
+/* .logo {
+   width: 8rem;
+   height: 8rem;
    position: relative;
    background-color: var(--font-color);
    border-radius: var(--input-radius-mobile);
@@ -19,7 +39,8 @@
    transform: scale(0.9);
    object-fit: contain;
    object-position: center;
-}
+} */
+/*********************************? *****************************************/
 
 .logo:hover {
    cursor: pointer;

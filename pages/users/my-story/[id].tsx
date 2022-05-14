@@ -26,8 +26,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import { Tuser } from "../[userId]";
 
 // helpers
-import parseJwt from "../../../helpers/auth/decodeJWT";
-import getCookie from "../../../helpers/get-cookie";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 // type storyProps = {
 //    user: Tuser | null;
@@ -57,9 +56,9 @@ const Story = () => {
       const { id } = router.query;
 
       // check if the user is authenticated
-      const token: string = getCookie("authorization");
-      if (token) {
-         let parsedUser = parseJwt(token);
+      const authJWT = loggedInUser();
+      if (authJWT) {
+         let parsedUser = authJWT;
          checkLoggedInUser = parsedUser.ID;
       } else {
          checkLoggedInUser = 0;

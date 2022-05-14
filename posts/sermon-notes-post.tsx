@@ -13,11 +13,9 @@ import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
 import sermonNotesPostStyles from "../styles/posts/SermonNotesPost.module.css";
-import cardStyles from "../styles/components/Cards.module.css";
 
 // helpers
-import getCookie from "../helpers/get-cookie";
-import parseJwt from "../helpers/auth/decodeJWT";
+import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 // types
 import { Tuser } from "../pages/users/[userId]";
@@ -54,11 +52,10 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
    const [renderReportOptionState, setRenderReportOptionState] = useState<boolean>(false);
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user = parseJwt(authCookie);
-         setRenderDeleteEditOptionsState(sermonPost.USER_ID == user.ID);
-         setRenderReportOptionState(sermonPost.USER_ID != user.ID);
+      const authJWT = loggedInUser();
+      if (authJWT) {
+         setRenderDeleteEditOptionsState(sermonPost.USER_ID == authJWT.ID);
+         setRenderReportOptionState(sermonPost.USER_ID != authJWT.ID);
       }
    }, []);
 

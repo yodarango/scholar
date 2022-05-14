@@ -7,8 +7,6 @@ import Image from "next/image";
 import EditPost from "../../../../posts/edit-posts/edit-commentary-post";
 import NavigationMenu from "../../../../layouts/navigation-menu";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
-import parseJwt from "../../../../helpers/auth/decodeJWT";
-import getCookie from "../../../../helpers/get-cookie";
 
 // styles
 import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.module.css";
@@ -19,6 +17,7 @@ import { GET_EDIT_COMMENTARY } from "../../../../graphql/posts/commentaries";
 
 // helpers / types
 import { Tcommentary } from "../../../../posts/comment";
+import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 // import { Tuser } from "../../../users/[userId]";
 
 // type editComentaryProps = {
@@ -33,8 +32,7 @@ const EditCommentary = () => {
 
    const getInitialData = async () => {
       // =================== Check if there is a Logged in user and fetch its data ========== /
-      const token: string = getCookie("authorization");
-      let parsedUser = parseJwt(token);
+      const authJWT = loggedInUser();
 
       // get the post ID
       const postId = router.query.id ? router.query.id : 0;
@@ -48,7 +46,7 @@ const EditCommentary = () => {
          setCommentary(data.commentary[0]);
 
          if (data.commentary) {
-            if (parseInt(data.commentary[0].creator.ID) !== parsedUser.ID) {
+            if (parseInt(data.commentary[0].creator.ID) !== authJWT.ID) {
                router.replace(`/posts/commentary/${data.commentary[0].ID}`);
             } else {
                setLoadingState("done");

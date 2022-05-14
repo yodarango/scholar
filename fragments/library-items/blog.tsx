@@ -49,9 +49,13 @@ const Blog = ({
             </div>
             <h1 className={`${blogStyles.descPopupTitle}`}>{blogName}</h1>
             {author && <h3 className={blogStyles.popUpHost}>Blog authored By: {author}</h3>}
-            <div className={`${blogStyles.descPopupImg}`}>
+            {/* <div className={`${blogStyles.descPopupImg}`}>
                <Image src={imageThumbnailState} alt='podcast thumbnail' layout='fill' />
+            </div> */}
+            <div className={`${blogStyles.descPopupImg}`}>
+               <img src={imageThumbnailState} alt='podcast' />
             </div>
+
             <div className={`${blogStyles.starReviewWrapper}`}>
                <StarReviews
                   totalReviews={totalReviews}
@@ -86,12 +90,21 @@ const Blog = ({
          {openBlogDescState}
          <div className={`${blogStyles.mainWrapper} ${newClass}`}>
             {thumbnail && (
-               <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
-                  <Image
-                     src={`${imageThumbnailState}`}
-                     alt='podcast thumbnail'
-                     layout='fill'
+               // chooose to move away from nextJS Image: too slow
+               // <div className={blogStyles.thumbnailWrapper} onClick={handleOpenDescription}>
+               //    <Image
+               //       src={`${imageThumbnailState}`}
+               //       alt='podcast thumbnail'
+               //       layout='fill'
+               //       onError={() => setImageThumbnailState("/Parks10.png")}
+               //    />
+               // </div>
+               <div className={`${blogStyles.thumbnailWrapper}`} onClick={handleOpenDescription}>
+                  <img
+                     src={imageThumbnailState}
+                     alt='podcast'
                      onError={() => setImageThumbnailState("/Parks10.png")}
+                     className={`${blogStyles.thumbnail}`}
                   />
                </div>
             )}

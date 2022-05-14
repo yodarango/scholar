@@ -1,5 +1,6 @@
 // core
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // comps
 import ConfirmationPopup from "../confirmation-popup";
@@ -10,8 +11,7 @@ import cardStyles from "../../styles/components/Cards.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
-import getCookie from "../../helpers/get-cookie";
-import parseJwt from "../../helpers/auth/decodeJWT";
+import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 
 // types
 import { Tcomment } from "../buttons/post-reactions";
@@ -31,16 +31,19 @@ const CommentsOfThoughtContent = ({
    updateCommentaryCount,
    loadedFrom
 }: commentsOfThoughtContentProps) => {
+   // rotuer
+   const router = useRouter();
+
    const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>();
    const [commentsState, setCommentsState] = useState<Tcomment[]>(comments);
 
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
-   const [user, setUser] = useState<string>();
+   const [user, setUser] = useState<string | null>();
 
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         setUser(parseJwt(authCookie).ID);
+      if (router.isReady) {
+         const authJWT = loggedInUser();
+         authJWT ? setUser(authJWT.ID) : setUser(null);
       }
    }, []);
 

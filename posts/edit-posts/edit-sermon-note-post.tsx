@@ -16,9 +16,8 @@ import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost
 
 // helpers
 import { valuesCat } from "../../helpers/dropdown-values";
-import getCookie from "../../helpers/get-cookie";
 import { TsermonPost } from "../sermon-notes-post";
-import parseJwt from "../../helpers/auth/decodeJWT";
+import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 
 type sermonNotesProps = {
    sermonPost: TsermonPost;
@@ -27,10 +26,9 @@ const EditSermonNotesPost = ({ sermonPost }: sermonNotesProps) => {
    // check if the user is authenticated in order to render the content
    const [loggedInUserState, setLoggedInUserState] = useState<string>("");
    useEffect(() => {
-      const authCookie = getCookie("authorization");
-      if (authCookie) {
-         const user = parseJwt(authCookie);
-         setLoggedInUserState(user.ID);
+      const authJWT = loggedInUser();
+      if (authJWT) {
+         setLoggedInUserState(authJWT.ID);
       }
    }, []);
 

@@ -34,6 +34,7 @@ const Watch = ({
 }: watchProps) => {
    return (
       <div className={`${watchStyles.mainWrapper} ${newClass}`}>
+         {/* moving away from next Img too: slow
          <a
             href={`${sermonUrl}`}
             target='_blank'
@@ -45,7 +46,16 @@ const Watch = ({
                layout='fill'
                className={watchStyles.thumbnail}
             />
+         </a> */}
+
+         <a
+            href={`${sermonUrl}`}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={watchStyles.thumbnailWrapper}>
+            <img src={thumbnail} alt='podcast thumbnail' className={watchStyles.thumbnail} />
          </a>
+
          <StarReviews
             totalReviews={totalReviews}
             contentType='SERMON'

@@ -6,7 +6,7 @@
 // };
 //let parsedUser: any;
 
-const parseJwt = (token: string) => {
+export const parseJwt = (token: string) => {
    if (!token) {
       //parsedUser = noAuth;
       return;
@@ -15,5 +15,3 @@ const parseJwt = (token: string) => {
    const base64 = base64Url.replace("-", "+").replace("_", "/");
    return JSON.parse(window.atob(base64));
 };
-
-export default parseJwt;

@@ -15,9 +15,8 @@ import NavigationMenu from "../../../../layouts/navigation-menu";
 
 // helpers / types
 import { Tthought } from "../../../../posts/thought";
-import parseJwt from "../../../../helpers/auth/decodeJWT";
-import getCookie from "../../../../helpers/get-cookie";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
+import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 
 // type editCommentaryProps = {
 //    thought: Tthought;
@@ -30,8 +29,7 @@ const EditCommentary = () => {
 
    const getInitialData = async () => {
       // =================== Check if there is a Logged in user and fetch its data ========== /
-      const token: string = getCookie("authorization");
-      let parsedUser = parseJwt(token);
+      const authJWT = loggedInUser();
 
       // get the post ID
       const postId = router.query.id ? router.query.id : 0;
@@ -45,7 +43,7 @@ const EditCommentary = () => {
          setThought(data.thought[0]);
          console.log(data);
          if (data.thought) {
-            if (parseInt(data.thought[0].creator.ID) !== parsedUser.ID) {
+            if (parseInt(data.thought[0].creator.ID) !== authJWT.ID) {
                router.replace(`/posts/thought/${data.thought[0].ID}`);
             } else {
                setLoadingState("done");
