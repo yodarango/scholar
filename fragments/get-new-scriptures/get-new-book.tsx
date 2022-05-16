@@ -32,7 +32,7 @@ type bibleBooks = {
 };
 const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBookProps) => {
    const [loadingState, setLoadingState] = useState<string>("loading");
-   const [getnewChapter, setGetnewChapter] = useState<bibleBooks[]>([]);
+   const [getnewChapter, setGetnewChapter] = useState<bibleBooks[] | null>(null);
 
    const getNewBook = async () => {
       try {
@@ -44,12 +44,12 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
          });
 
          const json = await requ.json();
-         setGetnewChapter(json.data);
-         setLoadingState("done");
+         json.data
+            ? (setGetnewChapter(json.data), setLoadingState("done"))
+            : setLoadingState("error");
       } catch (error) {
-         setGetnewChapter([]);
+         setGetnewChapter(null);
          setLoadingState("error");
-         console.log(error);
       }
    };
 
@@ -67,7 +67,7 @@ const GetNewBook = ({ closeModal, openGetNewChapterFunc, versionId }: getNewBook
                X
             </div>
 
-            {getnewChapter.length > 0 &&
+            {getnewChapter &&
                loadingState == "done" &&
                getnewChapter.map((el) => (
                   <div
