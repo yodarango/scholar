@@ -112,10 +112,13 @@ export default function Header({ currPage }: headerProps) {
          )}
          {openEditorState}
          <div className='header'>
+            <h1 className='beta-header'>Beta 1.0. </h1>
             <div>
-               <Link href={"/"}>
-                  <a className='header-logo'></a>
-               </Link>
+               {currPage === "HOME" && (
+                  <Link href={"/"}>
+                     <a className='header-logo'></a>
+                  </Link>
+               )}
             </div>
             <h2 className='header-curr-page'>{currPage}</h2>
             {!openDropDownState && isUserAuth && (
