@@ -428,8 +428,8 @@ a:active {
    grid-row: 1/2;
    width: 3.12rem;
    height: 3.12rem;
-   background-image: url("../public/Parks10.png");
-   background-size: cover;
+   background-image: url("/images/logo.png");
+   background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
 }
@@ -752,6 +752,17 @@ a:active {
 #category-YLW {
    background-color: var(--category-YLW);
 }
+
+/* ------------------ Beta Styles ------------------ */
+.beta-header{
+   font: var( --secondary-font-mobile);
+   color: #ffd900;
+   position: fixed;
+   top: -1rem;
+   right: .5rem;
+   z-index: 20;
+}
+
 
 @media only screen and (min-width: 800px) {
    .main-wrapper {
