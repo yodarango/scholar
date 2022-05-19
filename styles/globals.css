@@ -425,20 +425,9 @@ a:active {
 .header-logo-wrapper {
    grid-column: 1/2;
    grid-row: 1/2;
-<<<<<<< HEAD
-   padding-top: 0.5rem;
-}
-
-.header-logo {
-   width: 2rem;
-   height: 2rem;
-   display: block;
-   background-image: url("/images/logo.png");
-=======
    width: 3.12rem;
    height: 3.12rem;
    background-image: url("/images/Logo.png");
->>>>>>> acba45944e5004e0920a78af8001b875d70c2b2f
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
@@ -764,15 +753,14 @@ a:active {
 }
 
 /* ------------------ Beta Styles ------------------ */
-.beta-header{
-   font: var( --secondary-font-mobile);
+.beta-header {
+   font: var(--secondary-font-mobile);
    color: #ffd900;
    position: fixed;
    top: -1rem;
-   right: .5rem;
+   right: 0.5rem;
    z-index: 20;
 }
-
 
 @media only screen and (min-width: 800px) {
    .main-wrapper {
