@@ -43,11 +43,11 @@ const GetNewVerseTextEdito = ({
 }: getNewVerseProps) => {
    // loading state
    const [loadingState, setLoadingState] = useState<string>("loading");
-   const [getNewVerse, setGetNewVerse] = useState<TnewVerse[]>([]);
+   const [getNewVerse, setGetNewVerse] = useState<TnewVerse[] | null>(null);
 
    const getNewChapterFunct = async () => {
       try {
-         const resp = await fetch(
+         const req = await fetch(
             `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}/verses`,
             {
                method: "GET",
@@ -56,12 +56,11 @@ const GetNewVerseTextEdito = ({
                }
             }
          );
-         const json = await resp.json();
-         setGetNewVerse(json.data);
-         setLoadingState("done");
+         const res = await req.json();
+         res.data ? (setGetNewVerse(res.data), setLoadingState("done")) : setLoadingState("error");
       } catch (error) {
          setLoadingState("error");
-         setGetNewVerse([]);
+         setGetNewVerse(null);
          console.log(error);
       }
    };
@@ -83,7 +82,8 @@ const GetNewVerseTextEdito = ({
                <div className='goBack' onClick={goBackModal}>
                   {"<"}
                </div>
-               {getNewVerse.length > 0 &&
+               {getNewVerse &&
+                  loadingState === "done" &&
                   getNewVerse.map((el) => (
                      <div onClick={(e: any) => (e.target.style.color = "#ff9214")}>
                         <div
