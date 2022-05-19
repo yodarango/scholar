@@ -3,9 +3,10 @@
    width: 9.3rem;
    height: 9.3rem;
    margin: var(--large-spacing-mobile) auto;
-   background-image: url("../../public/Parks10.png");
-   background-size: cover;
+   background-image: url("/images/logo.png");
+   background-size: contain;
    background-position: center;
+   background-repeat: no-repeat;
 }
 
 .loginTitle {

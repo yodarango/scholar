@@ -120,7 +120,7 @@ const ForgotPassword = () => {
          {notificationPopUp}
          <div>
             <div className={forgotPasswordStyles.imageWrapper}>
-               <Image layout='fill' alt='logo' src='/Parks10.png' />
+               <Image layout='fill' alt='logo' src='/images/logo.png' />
             </div>
             {/* ----------------- verify that the email exists ------------ */}
             {verificationStepsState === 0 && (

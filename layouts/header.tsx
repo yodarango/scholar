@@ -112,7 +112,7 @@ export default function Header({ currPage }: headerProps) {
          )}
          {openEditorState}
          <div className='header'>
-            <div>
+            <div className='header-logo-wrapper'>
                <Link href={"/"}>
                   <a className='header-logo'></a>
                </Link>
