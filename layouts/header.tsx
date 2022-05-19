@@ -112,12 +112,6 @@ export default function Header({ currPage }: headerProps) {
          )}
          {openEditorState}
          <div className='header'>
-<<<<<<< HEAD
-            <div className='header-logo-wrapper'>
-               <Link href={"/"}>
-                  <a className='header-logo'></a>
-               </Link>
-=======
             <h1 className='beta-header'>Beta 1.0. </h1>
             <div>
                {currPage === "HOME" && (
@@ -125,7 +119,6 @@ export default function Header({ currPage }: headerProps) {
                      <a className='header-logo'></a>
                   </Link>
                )}
->>>>>>> acba45944e5004e0920a78af8001b875d70c2b2f
             </div>
             <h2 className='header-curr-page'>{currPage}</h2>
             {!openDropDownState && isUserAuth && (

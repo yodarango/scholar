@@ -427,7 +427,7 @@ a:active {
    grid-row: 1/2;
    width: 3.12rem;
    height: 3.12rem;
-   background-image: url("/images/Logo.png");
+   background-image: url("/images/logo.png");
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
