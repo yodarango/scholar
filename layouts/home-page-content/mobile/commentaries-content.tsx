@@ -9,6 +9,7 @@ import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 // components
 import Comments from "../../../posts/comment";
 import SmallLoader from "../../../fragments/chunks/small-loader";
+import ResourceNotFoundError from "../../resource-not-found-error";
 
 // styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
@@ -102,11 +103,7 @@ const CommentariesContent = ({ handleCloseCommentaries, user }: commentariesCont
             {loadingState === "loading" && (
                <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN} />
             )}
-            {loadingState == "error" && (
-               <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState == "error" && <ResourceNotFoundError />}
          </section>
 
          {!hideLoadMoreBttnState && !smallLoadingState && (

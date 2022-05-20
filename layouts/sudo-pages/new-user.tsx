@@ -25,7 +25,7 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
          const { data } = await client.mutate({
             mutation: ACCEPT_INTRO_INTRUCTIONS
          });
-   
+
          if (data.accept_intro_terms) {
             acceptedIntroTerms();
          } else {
@@ -39,17 +39,16 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
             );
          }
       } catch (error) {
-       console.log(error) 
-       setNotificationPopUpState(
-         <NotificationPopup
-            closeModal={() => setNotificationPopUpState(false)}
-            title={`Something went wrong!`}
-            contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-            newClass='notification-wrapper--Error'
-         />
-      ); 
+         console.log(error);
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title={`Something went wrong!`}
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
       }
-      
    };
 
    return (
@@ -62,7 +61,7 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
                   WELCOME TO SCHOLAR
                </h2>
                <div className={newUserStyles.introLogo}>
-                  <Image src={"/Parks10.png"} alt='app logo' layout='fill' />
+                  <Image src={"/images/logo.png"} alt='app logo' layout='fill' />
                </div>
                <section>
                   <p>

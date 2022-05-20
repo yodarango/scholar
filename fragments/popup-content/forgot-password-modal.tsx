@@ -71,7 +71,7 @@ const ForgotPassword = () => {
                setNotificationPopUp(
                   <NotificationPopup
                      closeModal={() => setNotificationPopUp(false)}
-                     title='Wrong Code 🖩'
+                     title='Wrong Code ❌'
                      contentString={`The code you entered is incorrect or has expired, please try again!`}
                      newClass='notification-wrapper--Error'
                   />
@@ -94,8 +94,6 @@ const ForgotPassword = () => {
                mutation: PASSWORD_RECOVERY_NEW,
                variables: { new_password: newPassword.current?.value, USER_ID: userIDState }
             });
-
-            console.log(data);
 
             if (data.recover_password === false) {
                setNotificationPopUp(
@@ -120,7 +118,7 @@ const ForgotPassword = () => {
          {notificationPopUp}
          <div>
             <div className={forgotPasswordStyles.imageWrapper}>
-               <Image layout='fill' alt='logo' src='/images/logo.png' />
+               <Image layout='fill' alt='logo' src='/images/layouts/forgot_password.png' />
             </div>
             {/* ----------------- verify that the email exists ------------ */}
             {verificationStepsState === 0 && (

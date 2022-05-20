@@ -10,10 +10,11 @@ import { GET_PROFILE_THOUGHTS } from "../../../graphql/users/profile";
 import Thought from "../../../posts/thought";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
+import ResourceNotFoundError from "../../resource-not-found-error";
 
 // styles
 import homePageContentDesktopStyles from "../../../styles/layouts/home-page-content/HomePageContentDesktop.module.css";
-import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css"
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
 import { Tthought } from "../../../posts/thought";
@@ -25,22 +26,22 @@ type commentaryContentDesktopProps = {
 
 const ThoughtContentDesktop = ({ user }: commentaryContentDesktopProps) => {
    // ================  FUNCTION 1: request the commentaries by user   ================= //
-   const [loadingState, setLoadingState] = useState<string>("loading")
-   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false)
+   const [loadingState, setLoadingState] = useState<string>("loading");
+   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false);
    const [thoughtsState, setThoughtsState] = useState<Tthought[]>([]);
    const [thoughtLastIdState, setThoughtLastIdState] = useState<string>("99999999999");
    const [hideLoadMoreBttnState, setHideLoadMoreBttnState] = useState<boolean>(false);
 
    const requestThoughts = async () => {
-      setSmallLoadingState(true)
+      setSmallLoadingState(true);
       try {
          const { data } = await client.query({
             query: GET_PROFILE_THOUGHTS,
             variables: { ID: user.ID, totalCountOnly: false, last_id: thoughtLastIdState }
          });
-   
+
          // add user values to each thought before passing it to the component
-         if(data.users[0].all_posts.thoughts){
+         if (data.users[0].all_posts.thoughts) {
             const modifiedThoughts: any = [];
             data.users[0].all_posts.thoughts.map((thought: Tthought) =>
                modifiedThoughts.push({
@@ -58,17 +59,14 @@ const ThoughtContentDesktop = ({ user }: commentaryContentDesktopProps) => {
             );
             setThoughtsState((thoughtsState) => [...thoughtsState, ...modifiedThoughts]);
             data.users[0].all_posts.thoughts.length < 20 ? setHideLoadMoreBttnState(true) : null;
-            setLoadingState("done")
-            setSmallLoadingState(false)
+            setLoadingState("done");
+            setSmallLoadingState(false);
          }
-         
       } catch (error) {
-         setLoadingState("error")
-         setSmallLoadingState(false)
-         console.log(error)
-         
+         setLoadingState("error");
+         setSmallLoadingState(false);
+         console.log(error);
       }
-      
    };
 
    useEffect(() => {
@@ -77,19 +75,20 @@ const ThoughtContentDesktop = ({ user }: commentaryContentDesktopProps) => {
 
    return (
       <div className={homePageContentDesktopStyles.contentWrapper}>
-         {thoughtsState && loadingState === "done" && <Thought thoughts={thoughtsState} user_authority_level={user.authority_level} />}
-            {thoughtsState?.length === 0 && loadingState === "done" && <h2 className={homePageContentDesktopStyles.noNotifications}>
+         {thoughtsState && loadingState === "done" && (
+            <Thought thoughts={thoughtsState} user_authority_level={user.authority_level} />
+         )}
+         {thoughtsState?.length === 0 && loadingState === "done" && (
+            <h2 className={homePageContentDesktopStyles.noNotifications}>
                No Thoughts have been posted yet
-            </h2>}
-            {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN}/>}
-            {loadingState == "error" && (
-                     <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-            )}
+            </h2>
+         )}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN} />
+         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
 
-
-            {!hideLoadMoreBttnState && !smallLoadingState &&(
+         {!hideLoadMoreBttnState && !smallLoadingState && (
             <button
                className={"std-button"}
                onClick={() => setThoughtLastIdState(thoughtsState[thoughtsState.length - 1].ID)}>

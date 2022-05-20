@@ -6,6 +6,7 @@ import Image from "next/image";
 import Chapter from "../../layouts/fetch-bible-chapter";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import Commentary from "../../layouts/popup-new-comment";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";
@@ -163,11 +164,7 @@ const RandomDailyVerse = ({ versionId }: randomDailyVerseProps) => {
             <CardsLazyLoading amount={1} compClass={cardsLazyLoadingStyles.wigoDailyVerse} />
          )}
 
-         {loadingState === "error" && (
-            <div className={cardsLazyLoadingStyles.errorImage}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState === "error" && <ResourceNotFoundError />}
       </>
    );
 };

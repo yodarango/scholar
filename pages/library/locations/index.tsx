@@ -23,6 +23,7 @@ import Header from "../../../layouts/header";
 import CongregationCarrousel from "../../../layouts/library-individual-pages/congregation-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import libraryCongregationsStyles from "../../../styles/pages/library/locations/LibraryCongregations.module.css";
@@ -136,12 +137,7 @@ const Congregations = () => {
                   compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryLocations}`}
                />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

@@ -8,12 +8,13 @@ import { GET_PROFILE_QUOTES } from "../../../graphql/users/profile";
 
 // styles
 import homePageContentDesktopStyles from "../../../styles/layouts/home-page-content/HomePageContentDesktop.module.css";
-import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css"
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // comps
 import QuotesProfile from "../../../posts/quotes-profile";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
+import ResourceNotFoundError from "../../resource-not-found-error";
 
 // helpers
 import { TsingleStory } from "../../../posts/quotes-profile";
@@ -25,15 +26,14 @@ type commentaryContentDesktopProps = {
 
 const QuoteContentDesktop = ({ user }: commentaryContentDesktopProps) => {
    // ================  FUNCTION 1: request the commentaries by user   ================= //
-   const [loadingState, setLoadingState] = useState<string>("loading")
-   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false)
+   const [loadingState, setLoadingState] = useState<string>("loading");
+   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false);
    const [quoteState, setQuoteState] = useState<TsingleStory[]>([]);
    const [quoteLastIdState, setQuoteLastIdState] = useState<string>("99999999999");
    const [hideLoadMoreBttnState, setHideLoadMoreBttnState] = useState<boolean>(false);
 
-
    const requestQuotes = async () => {
-      setSmallLoadingState(true)
+      setSmallLoadingState(true);
       try {
          const { data } = await client.query({
             query: GET_PROFILE_QUOTES,
@@ -42,14 +42,13 @@ const QuoteContentDesktop = ({ user }: commentaryContentDesktopProps) => {
          setQuoteState((quoteState) => [...quoteState, ...data.users[0].all_posts.quotes]);
          data.users[0].all_posts.quotes.length < 20 ? setHideLoadMoreBttnState(true) : null;
 
-         setLoadingState("done")
-         setSmallLoadingState(false)
+         setLoadingState("done");
+         setSmallLoadingState(false);
       } catch (error) {
-         console.log(error)
-         setLoadingState("error")
-         setSmallLoadingState(false)
+         console.log(error);
+         setLoadingState("error");
+         setSmallLoadingState(false);
       }
-      
    };
 
    useEffect(() => {
@@ -58,7 +57,9 @@ const QuoteContentDesktop = ({ user }: commentaryContentDesktopProps) => {
 
    return (
       <div className={homePageContentDesktopStyles.contentWrapper}>
-            {quoteState && loadingState=== "done" && quoteState.map((story: TsingleStory) => (
+         {quoteState &&
+            loadingState === "done" &&
+            quoteState.map((story: TsingleStory) => (
                <section>
                   <QuotesProfile
                      key={story.ID}
@@ -76,22 +77,20 @@ const QuoteContentDesktop = ({ user }: commentaryContentDesktopProps) => {
                   />
                </section>
             ))}
-            {quoteState?.length === 0 && loadingState === "done" && <h2 className={homePageContentDesktopStyles.noNotifications}>
+         {quoteState?.length === 0 && loadingState === "done" && (
+            <h2 className={homePageContentDesktopStyles.noNotifications}>
                No quotes have been made yet
-            </h2>}
-            {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardQuote}/>}
-            {loadingState == "error" && (
-                     <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-            )}
+            </h2>
+         )}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardQuote} />
+         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
 
-         {!hideLoadMoreBttnState && !smallLoadingState &&(
+         {!hideLoadMoreBttnState && !smallLoadingState && (
             <button
                className={"std-button"}
-               onClick={() =>
-                  setQuoteLastIdState(quoteState[quoteState.length - 1].ID)
-               }>
+               onClick={() => setQuoteLastIdState(quoteState[quoteState.length - 1].ID)}>
                <p className='std-button_gradient-text'>Load More</p>
             </button>
          )}

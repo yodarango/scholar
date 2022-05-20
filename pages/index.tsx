@@ -15,6 +15,7 @@ import Header from "../layouts/header";
 import PostsWrapper from "../layouts/posts-wrapper";
 import DailyVerse from "../fragments/squares/daily-verse";
 import NavigationMenu from "../layouts/navigation-menu";
+import ResourceNotFoundError from "../layouts/resource-not-found-error";
 
 // styles
 import homeStyles from "../styles/pages/Home.module.css";
@@ -134,11 +135,7 @@ export default function Home() {
                         compClass={cardsLazyLoadingStyles.homeCommentstaries}
                      />
                   )}
-                  {loadingState == "error" && (
-                     <div className={cardsLazyLoadingStyles.errorImage}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-                  )}
+                  {loadingState == "error" && <ResourceNotFoundError />}
                </div>
             </div>
          </div>

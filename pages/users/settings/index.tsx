@@ -16,6 +16,7 @@ import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
@@ -580,11 +581,7 @@ const UserSettings = () => {
                </div>
             </div>
          )}
-         {loadingState == "error" && (
-            <div className={cardsLazyLoadingStyles.errorImage}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
       </>

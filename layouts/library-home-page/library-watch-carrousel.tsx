@@ -5,6 +5,7 @@ import Image from "next/image";
 // components
 import Watch from "../../fragments/library-items/watch";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../resource-not-found-error";
 
 // styles
 import libraryWatchCarrouselStyles from "../../styles/layouts/library-home-page/LibraryWatchCarrousel.module.css";
@@ -12,6 +13,7 @@ import cardsLazyLoadingStyle from "../../styles/layouts/CardsLazyLoading.module.
 
 // types
 import { watchProps } from "../../fragments/library-items/watch";
+
 type librarySermonCarrouselProps = {
    watch: watchProps[] | undefined;
    err: boolean;
@@ -44,11 +46,7 @@ const LibraryWatchCarrousel = ({ watch, err }: librarySermonCarrouselProps) => {
                />
             )}
 
-            {err && (
-               <div className={cardsLazyLoadingStyle.errorImage}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {err && <ResourceNotFoundError />}
          </div>
       </div>
    );

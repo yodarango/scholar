@@ -19,6 +19,7 @@ import Header from "../../layouts/header";
 import LibraryAuthor from "../../fragments/library-author";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 import NavigationMenu from "../../layouts/navigation-menu";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 //styles
 import sermonsByAuthorStyles from "../../styles/pages/library/Authors.module.css";
@@ -87,12 +88,7 @@ const Authors = () => {
                {loadingState == "loading" && (
                   <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.librayUsers} />
                )}
-               {loadingState === "error" && (
-                  <div
-                     className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                     <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                  </div>
-               )}
+               {loadingState === "error" && <ResourceNotFoundError />}
             </div>
          </div>
          <div className={`large-spacer`}> </div>

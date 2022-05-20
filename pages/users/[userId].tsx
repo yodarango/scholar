@@ -20,6 +20,7 @@ import UserAboutMe from "../../fragments/chunks/user/user-about-me";
 import UserTotalPostsAndRatings from "../../fragments/chunks/user/user-total-posts-ratings";
 import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";
@@ -140,11 +141,7 @@ const User = () => {
          {loadingState === "loading" && (
             <CardsLazyLoading amount={7} compClass={cardaLazyloadingStyles.userProfile} />
          )}
-         {loadingState == "error" && (
-            <div className={`${cardaLazyloadingStyles.errorImage}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
       </>

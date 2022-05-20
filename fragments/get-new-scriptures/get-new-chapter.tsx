@@ -9,6 +9,7 @@ import Image from "next/image";
 
 // components
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
@@ -102,11 +103,7 @@ const GetNewChapter = ({
                />
             )}
 
-            {loadingState == "error" && (
-               <div className={cardsLazyLoadingStyles.errorImage}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState == "error" && <ResourceNotFoundError />}
          </div>
       </div>
    );

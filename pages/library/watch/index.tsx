@@ -22,6 +22,7 @@ import Header from "../../../layouts/header";
 import WatchCarrousel from "../../../layouts/library-individual-pages/watch-carrousel";
 import LibraryFilterPreachers from "../../../fragments/buttons/library-filter-preachers";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import libraryWatchStyles from "../../../styles/pages/library/watch/LibraryWatch.module.css";
@@ -108,12 +109,7 @@ const Watch = () => {
             {loadingState == "loading" && (
                <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySquareCont} />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

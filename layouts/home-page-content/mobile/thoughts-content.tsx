@@ -10,6 +10,7 @@ import { GET_PROFILE_THOUGHTS } from "../../../graphql/users/profile";
 import Thought from "../../../posts/thought";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
+import ResourceNotFoundError from "../../resource-not-found-error";
 
 // styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
@@ -94,11 +95,7 @@ const ThoughtsContent = ({ user, handleCloseThoughts }: thoughtContentProps) => 
             {loadingState === "loading" && (
                <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN} />
             )}
-            {loadingState == "error" && (
-               <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState == "error" && <ResourceNotFoundError />}
 
             {!hideLoadMoreBttnState && !smallLoadingState && (
                <button

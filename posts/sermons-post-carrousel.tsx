@@ -9,6 +9,7 @@ import { WIGO_REQUEST_MORE_SERMON_NOTES } from "../graphql/posts/sermon_notes";
 // components
 import SermonNotesPost from "./sermon-notes-post";
 //import ConfirmationPopup from "../fragments/confirmation-popup";
+import ResourceNotFoundError from "../layouts/resource-not-found-error";
 
 // styles
 import librarySermonPostCarrouselStyles from "../styles/posts/SermonPostCarrousel.module.css";
@@ -66,11 +67,7 @@ const LibrarySermonPostCarrousel = ({ sermonPost }: librarySermonCarrouselProps)
                </div>
             </div>
          )}
-         {!sermonPostState && (
-            <div className={cardsLazyLoadingStyles.errorImage}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {!sermonPostState && <ResourceNotFoundError />}
       </>
    );
 };

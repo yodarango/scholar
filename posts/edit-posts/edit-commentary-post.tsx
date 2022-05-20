@@ -10,6 +10,7 @@ import Image from "next/image";
 // child Comps
 import TextEditor from "../../fragments/text-editor";
 import FormattingRules from "../../fragments/buttons/formatting-rules";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styes
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";
@@ -123,12 +124,7 @@ const EditCommentaryPost = ({ commentary }: editCommentaryPostProps) => {
                   </div>
                </div>
             )}
-            {!verseDataStata && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {!verseDataStata && <ResourceNotFoundError />}
 
             {/* ---------------- text editor ------------------- */}
             <div>

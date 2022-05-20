@@ -10,11 +10,11 @@ import { GET_MY_NOTIFICATIONS } from "../../graphql/users/notifications";
 // components
 import SmallLoader from "../chunks/small-loader";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import notificationsWrapperStyles from "../../styles/fragments/popup-content/NotificationWrapper.module.css";
-import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css"
-
+import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 const NotificationsWrapper = () => {
    // ==============FUNCTION 1:    fetch all the notifications by user   =============== //
@@ -33,8 +33,8 @@ const NotificationsWrapper = () => {
 
    const [notificationsState, setNotificationsState] = useState<Tnotification[]>([]);
    const [lastnotificationFetchCount, setLastnotificationFetchCount] = useState<number>();
-   const [loadingState, setLoadingState] = useState<string>("loading")
-   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false)
+   const [loadingState, setLoadingState] = useState<string>("loading");
+   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
    const fetchNotifications = async (last_id: number) => {
       try {
          const { data } = await client.query({
@@ -43,10 +43,10 @@ const NotificationsWrapper = () => {
          });
          setLastnotificationFetchCount(data.notifications.length);
          setNotificationsState(data.notifications);
-         setLoadingState("done")
+         setLoadingState("done");
       } catch (error) {
          console.log(error);
-         setLoadingState("error")
+         setLoadingState("error");
       }
    };
 
@@ -70,7 +70,7 @@ const NotificationsWrapper = () => {
          setSmallLoaderState(false);
       } catch (error) {
          console.log(error);
-         setLoadingState("error")
+         setLoadingState("error");
          setSmallLoaderState(false);
       }
    };
@@ -80,17 +80,20 @@ const NotificationsWrapper = () => {
          <p className={`${notificationsWrapperStyles.notificationDisclaimer} std-text-block`}>
             (All notifications are deleted after 48 hours)
          </p>
-         {notificationsState && loadingState === "done" &&
+         {notificationsState &&
+            loadingState === "done" &&
             notificationsState.map((notification: Tnotification) => (
                <Link href={"#"} key={notification.ID}>
                   <a
                      className={notificationsWrapperStyles.notificationWrapper}
                      style={{ borderLeft: `.5rem solid ${notification.color}` }}>
-                     {notification.posted_on && <p className={notificationsWrapperStyles.notificationDate}>
-                        {` ${notification.posted_on.split(":")[0]} ${
-                           notification.posted_on.split(":")[1]
-                        } `}
-                     </p>}
+                     {notification.posted_on && (
+                        <p className={notificationsWrapperStyles.notificationDate}>
+                           {` ${notification.posted_on.split(":")[0]} ${
+                              notification.posted_on.split(":")[1]
+                           } `}
+                        </p>
+                     )}
                      {notification.CONTENT_TYPE === 1 && (
                         <div
                            className={`${notificationsWrapperStyles.icon} ${notificationsWrapperStyles.iconCommentary} std-vector-icon`}></div>
@@ -103,7 +106,7 @@ const NotificationsWrapper = () => {
                         <div
                            className={`${notificationsWrapperStyles.icon} ${notificationsWrapperStyles.iconThought} std-vector-icon`}></div>
                      )}
-                      {notification.CONTENT_TYPE === 5 && (
+                     {notification.CONTENT_TYPE === 5 && (
                         <div
                            className={`${notificationsWrapperStyles.icon} ${notificationsWrapperStyles.iconThought} std-vector-icon`}></div>
                      )}
@@ -111,8 +114,8 @@ const NotificationsWrapper = () => {
                   </a>
                </Link>
             ))}
-         {lastnotificationFetchCount == 25 && !smallLoaderState &&(
-             <button
+         {lastnotificationFetchCount == 25 && !smallLoaderState && (
+            <button
                className={`std-button`}
                onClick={() =>
                   fetchMoreNotifications(
@@ -128,12 +131,10 @@ const NotificationsWrapper = () => {
                You have 0 notifications!
             </h2>
          )}
-         {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.userNotifications} />}
-         {loadingState == "error" && (
-                     <div className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP }`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-                  )}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.userNotifications} />
+         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
       </div>
    );
 };

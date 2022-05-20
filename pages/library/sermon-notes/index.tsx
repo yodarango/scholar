@@ -23,6 +23,7 @@ import SermonCarrousel from "../../../layouts/library-individual-pages/sermons-c
 import LibraryFilter from "../../../fragments/buttons/library-filter";
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
@@ -106,12 +107,7 @@ const Sermons = () => {
             {loadingState == "loading" && (
                <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.libraySermonNote} />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

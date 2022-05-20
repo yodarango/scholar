@@ -11,6 +11,7 @@ import Image from "next/image";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 import DummyPlaceholder from "./dummy-placeholder";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import sermonSundayStyles from "../../styles/fragments/wigo-content/1.Sunday.module.css";
@@ -67,12 +68,7 @@ const Sunday = ({ sundayContent }: sundayProps) => {
                         />
                      </>
                   )}
-                  {loadingState == "error" && (
-                     <div
-                        className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP}`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-                  )}
+                  {loadingState == "error" && <ResourceNotFoundError />}
                </>
             }
          />

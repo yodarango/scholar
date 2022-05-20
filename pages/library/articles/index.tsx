@@ -24,6 +24,7 @@ import ArticlesCarrousel from "../../../layouts/library-individual-pages/article
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 import NavigationMenu from "../../../layouts/navigation-menu";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import libraryArticlesPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";
@@ -119,12 +120,7 @@ const Articles = () => {
                   compClass={`${cardsLazyLoadingStyles.librayArticles}`}
                />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

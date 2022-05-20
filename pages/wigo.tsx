@@ -33,6 +33,7 @@ import Wednesday from "../fragments/wigo-content/4.wednesday";
 import Thursday from "../fragments/wigo-content/5.thursday";
 import Friday from "../fragments/wigo-content/6.friday";
 import Saturday from "../fragments/wigo-content/7.saturday";
+import ResourceNotFoundError from "../layouts/resource-not-found-error";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";
@@ -158,12 +159,7 @@ const Wigo = () => {
             <CardsLazyLoading amount={5} compClass={cardsLayLoadingStyles.wigo} />
          )}
 
-         {loadingState == "error" && (
-            <div
-               className={`${cardsLayLoadingStyles.errorImage} ${cardsLayLoadingStyles.errorImageFP}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
       </>

@@ -8,12 +8,13 @@ import { GET_PROFILE_SERMON_NOTES } from "../../../graphql/users/profile";
 
 // styles
 import homePageContentDesktopStyles from "../../../styles/layouts/home-page-content/HomePageContentDesktop.module.css";
-import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css"
+import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // comps
 import SermonNotesPost from "../../../posts/sermon-notes-post";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
+import ResourceNotFoundError from "../../resource-not-found-error";
 
 // helpers
 import { TsermonPost } from "../../../posts/sermon-notes-post";
@@ -25,32 +26,30 @@ type commentaryContentDesktopProps = {
 
 const SermonNotesContentDesktop = ({ user }: commentaryContentDesktopProps) => {
    // ================  FUNCTION 1: request the commentaries by user   ================= //
-  
-   const [loadingState, setLoadingState] = useState<string>("loading")
-   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false)
+
+   const [loadingState, setLoadingState] = useState<string>("loading");
+   const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false);
    const [sermonState, setsermonState] = useState<TsermonPost[]>([]);
    const [sermonNotesLastIdState, setSermonNotesLastIdState] = useState<string>("99999999999");
    const [hideLoadMoreBttnState, setHideLoadMoreBttnState] = useState<boolean>(false);
 
-
    const requestSermons = async () => {
-      setSmallLoadingState(true)
+      setSmallLoadingState(true);
       try {
          const { data } = await client.query({
             query: GET_PROFILE_SERMON_NOTES,
             variables: { ID: user.ID, totalCountOnly: false, last_id: sermonNotesLastIdState }
          });
-   
+
          setsermonState((sermonState) => [...sermonState, ...data.users[0].all_posts.sermon_notes]);
          data.users[0].all_posts.sermon_notes.length < 20 ? setHideLoadMoreBttnState(true) : null;
-         setSmallLoadingState(false)
-         setLoadingState("done")
+         setSmallLoadingState(false);
+         setLoadingState("done");
       } catch (error) {
-         console.log(error)
-         setSmallLoadingState(false)
-         setLoadingState("error")
+         console.log(error);
+         setSmallLoadingState(false);
+         setLoadingState("error");
       }
-     
    };
 
    useEffect(() => {
@@ -59,7 +58,9 @@ const SermonNotesContentDesktop = ({ user }: commentaryContentDesktopProps) => {
 
    return (
       <div className={homePageContentDesktopStyles.contentWrapper}>
-            {sermonState && loadingState === "done" && sermonState.map((sermon: TsermonPost) => (
+         {sermonState &&
+            loadingState === "done" &&
+            sermonState.map((sermon: TsermonPost) => (
                <section>
                   <SermonNotesPost
                      key={sermon.ID}
@@ -80,16 +81,16 @@ const SermonNotesContentDesktop = ({ user }: commentaryContentDesktopProps) => {
                </section>
             ))}
 
-            {sermonState?.length === 0 && loadingState === "done" && <h2 className={homePageContentDesktopStyles.noNotifications}>
+         {sermonState?.length === 0 && loadingState === "done" && (
+            <h2 className={homePageContentDesktopStyles.noNotifications}>
                No sermons have been uploaded yet
-            </h2>}
-            {loadingState === "loading" && <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN}/>}
-            {loadingState == "error" && (
-                     <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                        <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-                     </div>
-            )}
-        {!hideLoadMoreBttnState && !smallLoadingState &&(
+            </h2>
+         )}
+         {loadingState === "loading" && (
+            <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardCTSN} />
+         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
+         {!hideLoadMoreBttnState && !smallLoadingState && (
             <button
                className={"std-button"}
                onClick={() => setSermonNotesLastIdState(sermonState[sermonState.length - 1].ID)}>

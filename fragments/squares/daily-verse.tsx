@@ -17,6 +17,7 @@ import GetNewVerse from "../get-new-scriptures/get-new-verse";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import Commentary from "../../layouts/popup-new-comment";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import cardStyles from "../../styles/components/Cards.module.css";
@@ -26,8 +27,6 @@ import cardLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.
 
 // helpers: types
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
-
-// helpers: Types
 import { TverseContent } from "../../pages";
 
 type dailyVerseProps = {
@@ -141,11 +140,7 @@ const DailyVerse = ({ verseContent, versionId, err }: dailyVerseProps) => {
             {!verseContent && !err && (
                <CardsLazyLoading amount={1} compClass={cardLazyLoadingStyles.dailyVerseCard} />
             )}
-            {err && (
-               <div className={cardLazyLoadingStyles.errorImage}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {err && <ResourceNotFoundError />}
          </div>
       </>
    );

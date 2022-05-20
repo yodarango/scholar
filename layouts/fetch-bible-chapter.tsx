@@ -6,6 +6,7 @@ import Image from "next/image";
 
 // components
 import NotificationPopup from "../fragments/notification-popup";
+import ResourceNotFoundError from "./resource-not-found-error";
 
 // styles
 import fetchNewChapterStyles from "../styles/layouts/FetchNewChapter.module.css";
@@ -252,11 +253,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
          {loadingState === "done" && copyrightState && (
             <p className='scriptures-copyright'>{copyrightState}</p>
          )}
-         {loadingState == "error" && (
-            <div className={cardsLazyLoadingStyles.errorImage}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
       </>
    );
 };

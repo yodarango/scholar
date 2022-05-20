@@ -5,6 +5,7 @@ import Image from "next/image";
 // compnents
 import Blog from "../../fragments/library-items/blog";
 import CardsLazyLoading from "../cards-lazy-loading";
+import ResourceNotFoundError from "../resource-not-found-error";
 
 // styles
 import LibraryBlogsCarrouselStyles from "../../styles/layouts/library-home-page/LibraryBlogsCarrousel.module.css";
@@ -46,11 +47,7 @@ const LibraryBlogsCarrousel = ({ blogs, err }: LibraryBlogsCarrouselProps) => {
                />
             )}
 
-            {err && (
-               <div className={cardsLazyLoadingStyle.errorImage}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {err && <ResourceNotFoundError />}
          </div>
       </div>
    );

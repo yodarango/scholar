@@ -22,6 +22,7 @@ import Header from "../../../layouts/header";
 import BooksCarrousel from "../../../layouts/library-individual-pages/books-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import libraryBooksStyles from "../../../styles/pages/library/books/LibraryBooks.module.css";
@@ -105,12 +106,7 @@ const Books = () => {
             {loadingState == "loading" && (
                <CardsLazyLoading amount={16} compClass={cardsLazyLoadingStyles.librayBooks} />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

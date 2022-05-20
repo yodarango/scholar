@@ -17,6 +17,7 @@ import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import NotificationPopup from "../../../fragments/notification-popup";
 import SimpleTextEditor from "../../../fragments/chunks/simple-text-editor";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import myStoryStyles from "../../../styles/pages/users/my-story/MyStory.module.css";
@@ -239,12 +240,7 @@ const Story = () => {
                )}
             </div>
          )}
-         {loadingState == "error" && (
-            <div
-               className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
       </>

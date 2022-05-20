@@ -11,6 +11,7 @@ import Image from "next/image";
 // components
 import TextEditor from "../fragments/text-editor";
 import FormattingRules from "../fragments/buttons/formatting-rules";
+import ResourceNotFoundError from "./resource-not-found-error";
 
 // styles
 import popNewCommentStyles from "../styles/layouts/PopupNewComment.module.css";
@@ -63,11 +64,7 @@ const Commentary = ({ verseData, err }: commentaryProps) => {
                   Loading...
                </p>
             )}
-            {err && (
-               <div className={cardsLazyLoadingStyles.errorImage}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {err && <ResourceNotFoundError />}
             {verseData && !err && (
                <div>
                   <TextEditor

@@ -24,6 +24,7 @@ import SkipContent from "../../../fragments/buttons/skipContent";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs.module.css";
@@ -111,12 +112,7 @@ const Blogs = () => {
                   compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryBlogs}`}
                />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

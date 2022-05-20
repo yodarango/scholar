@@ -7,6 +7,7 @@ import Image from "next/image";
 import EditPost from "../../../../posts/edit-posts/edit-commentary-post";
 import NavigationMenu from "../../../../layouts/navigation-menu";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../../layouts/resource-not-found-error";
 
 // styles
 import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.module.css";
@@ -76,12 +77,7 @@ const EditCommentary = () => {
             <CardsLazyLoading amount={3} compClass={cardsLazyLoadingStyles.commentaryEdit} />
          )}
 
-         {loadingState == "error" && (
-            <div
-               className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
 
          <div className='large-spacer'></div>
          <NavigationMenu />

@@ -22,6 +22,7 @@ import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
 import NavigationMenu from "../../layouts/navigation-menu";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";
@@ -177,11 +178,7 @@ const Me = () => {
          {loadingState === "loading" && (
             <CardsLazyLoading amount={7} compClass={cardaLazyloadingStyles.userProfile} />
          )}
-         {loadingState == "error" && (
-            <div className={`${cardaLazyloadingStyles.errorImage}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
 
          <div className={`large-spacer`}> </div>
          <NavigationMenu />

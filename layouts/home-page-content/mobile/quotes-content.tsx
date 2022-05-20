@@ -10,6 +10,7 @@ import { GET_PROFILE_QUOTES } from "../../../graphql/users/profile";
 import QuotesProfile from "../../../posts/quotes-profile";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import SmallLoader from "../../../fragments/chunks/small-loader";
+import ResourceNotFoundError from "../../resource-not-found-error";
 
 //styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
@@ -92,11 +93,7 @@ const QuotesContent = ({ user, handleCloseQuotes }: quotesContentProps) => {
             {loadingState === "loading" && (
                <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardQuote} />
             )}
-            {loadingState == "error" && (
-               <div className={`${cardsLazyLoadingStyles.errorImage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState == "error" && <ResourceNotFoundError />}
          </section>
 
          {!hideLoadMoreBttnState && !smallLoadingState && (

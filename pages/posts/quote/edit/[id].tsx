@@ -14,6 +14,7 @@ import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.
 // child comps
 import EditQuotePost from "../../../../posts/edit-posts/edit-quote-post";
 import NavigationMenu from "../../../../layouts/navigation-menu";
+import ResourceNotFoundError from "../../../../layouts/resource-not-found-error";
 
 // helpers/ types
 import { Tstory } from "../../../../posts/quotes-stroies";
@@ -74,12 +75,7 @@ const EditQuote = () => {
             <CardsLazyLoading amount={5} compClass={cardsLazyLoadingStyles.quoteEdit} />
          )}
 
-         {loadingState == "error" && (
-            <div
-               className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
          <div className='large-spacer'></div>
          <NavigationMenu />
       </>

@@ -5,6 +5,7 @@ import Image from "next/image";
 // components
 import Sermon from "../../fragments/library-items/sermon";
 import CardsLazyLoading from "../cards-lazy-loading";
+import ResourceNotFoundError from "../resource-not-found-error";
 
 // styles
 import librarySermonCarrouselStyles from "../../styles/layouts/library-home-page/LibrarySermonsCarrousel.module.css";
@@ -33,11 +34,7 @@ const LibrarySermonCarrousel = ({ sermon, err }: librarySermonCarrouselProps) =>
                />
             )}
 
-            {err && (
-               <div className={cardsLazyLoadingStyle.errorImage}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {err && <ResourceNotFoundError />}
          </div>
       </div>
    );

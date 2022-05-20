@@ -8,6 +8,7 @@ import { QUOTE_STORIES_IN_LAST_24 } from "../graphql/posts/quotes";
 
 //components
 import QuoteStories from "./quotes-stroies";
+import ResourceNotFoundError from "../layouts/resource-not-found-error";
 
 //styles
 import storiesCarrouselStyles from "../styles/posts/StoriesCarrousel.module.css";
@@ -67,11 +68,7 @@ const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
                )}
             </div>
          )}
-         {!storiesArrayState && (
-            <div className={cardsLazyLoadingStyles.errorImage}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {!storiesArrayState && <ResourceNotFoundError />}
       </>
    );
 };

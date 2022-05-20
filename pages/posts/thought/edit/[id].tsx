@@ -12,6 +12,7 @@ import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.
 // child comps
 import EditThoughtPost from "../../../../posts/edit-posts/edit-thought-post";
 import NavigationMenu from "../../../../layouts/navigation-menu";
+import ResourceNotFoundError from "../../../../layouts/resource-not-found-error";
 
 // helpers / types
 import { Tthought } from "../../../../posts/thought";
@@ -72,12 +73,7 @@ const EditCommentary = () => {
             <CardsLazyLoading amount={2} compClass={cardsLazyLoadingStyles.thoughtEdit} />
          )}
 
-         {loadingState == "error" && (
-            <div
-               className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageFP}`}>
-               <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-            </div>
-         )}
+         {loadingState == "error" && <ResourceNotFoundError />}
 
          <NavigationMenu />
       </>

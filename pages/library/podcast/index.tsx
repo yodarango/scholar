@@ -24,6 +24,7 @@ import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-
 import SkipContent from "../../../fragments/buttons/skipContent";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
 import libraryPodcastStyles from "../../../styles/pages/library/podcasts/LibraryPodcasts.module.css";
@@ -110,12 +111,7 @@ const Podcast = () => {
                   compClass={`${cardsLazyLoadingStyles.libraySquareCont} ${cardsLazyLoadingStyles.libraryPodcast}`}
                />
             )}
-            {loadingState === "error" && (
-               <div
-                  className={`${cardsLazyLoadingStyles.errorImage} ${cardsLazyLoadingStyles.errorImageLibPage}`}>
-                  <Image layout='fill' alt='resource not found' src={"/Parks10.png"} />
-               </div>
-            )}
+            {loadingState === "error" && <ResourceNotFoundError />}
          </div>
          <div className={`large-spacer`}> </div>
          <NavigationMenu />
