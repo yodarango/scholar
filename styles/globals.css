@@ -423,14 +423,19 @@ a:active {
    justify-content: center;
 }
 .header-logo-wrapper {
+   padding-top: 0.5rem;
    grid-column: 1/2;
    grid-row: 1/2;
-   width: 3.12rem;
-   height: 3.12rem;
-   background-image: url("/images/logo.png");
+}
+
+.header-logo-wrapper a {
+   width: 2rem;
+   height: 2rem;
+   display: block;
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
+   background-image: url("/images/logo.png");
 }
 
 .header-curr-page {
@@ -779,12 +784,6 @@ a:active {
    .goBack {
       left: var(--medium-spacing-ipad);
    }
-
-   .new-post-trigger,
-   .go-pro-button {
-      width: 2rem;
-      height: 2rem;
-   }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -798,7 +797,7 @@ a:active {
    }
 
    .header-logo-wrapper {
-      padding-top: 0;
+      padding-top: var(--xsmall-spacing-mobile);
    }
 
    .header > div {
@@ -887,7 +886,7 @@ a:active {
       padding: var(--xsmall-spacing-desktop);
    }
 
-   /* -------- card looks too bid on desktop so i commented this out to make it smaller */
+   /* -------- card looks too big on desktop so i commented this out to make it smaller */
    /* Notification Wrapper */
    /* .notification-wrapper {
       max-width: 650px;
@@ -908,5 +907,12 @@ a:active {
 
    .goBack {
       left: var(--medium-spacing-desktop);
+   }
+
+   .new-post-trigger,
+   .go-pro-button {
+      width: 1.8rem;
+      height: 1.8rem;
+      margin-top: var(--xsmall-spacing-desktop);
    }
 }

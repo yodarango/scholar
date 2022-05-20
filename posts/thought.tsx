@@ -323,97 +323,90 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
          {thoughts.map((thought, index) => {
             thought.creator.authority_level == user_authority_level ? user_authority_level : 0;
             return (
-               <section key={thought.ID}>
+               <div className={`${cardStyles.commentCard}`} key={thought.ID} id={`${thought.ID}`}>
                   <div
-                     className={`${cardStyles.commentCard}`}
-                     key={thought.ID}
-                     id={`${thought.ID}`}>
-                     <div
-                        className={cardStyles.commentCardHeader}
-                        id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                        {thought.creator && thought.creator.authority_level != undefined && (
-                           <div className={cardStyles.creatorimMainWrapper}>
-                              <div
-                                 className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
-                                    thought.creator.authority_level == 2
-                                       ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
-                                       : ""
-                                 }`}
-                                 onClick={() => handleQuickInfoAccessPopup(thought.creator)}>
-                                 <img
-                                    src={thought.creator.avatar}
-                                    alt='Avatar'
-                                    className={`${cardStyles.commentCardHeaderAvatarImg}`}
-                                 />
-                              </div>
-                              {thought.creator.authority_level == 2 && (
-                                 <span className={cardStyles.trustedPointer}></span>
-                              )}
+                     className={cardStyles.commentCardHeader}
+                     id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
+                     {thought.creator && thought.creator.authority_level != undefined && (
+                        <div className={cardStyles.creatorimMainWrapper}>
+                           <div
+                              className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
+                                 thought.creator.authority_level == 2
+                                    ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                    : ""
+                              }`}
+                              onClick={() => handleQuickInfoAccessPopup(thought.creator)}>
+                              <img
+                                 src={thought.creator.avatar}
+                                 alt='Avatar'
+                                 className={`${cardStyles.commentCardHeaderAvatarImg}`}
+                              />
                            </div>
-                        )}
-                        {thought.creator && thought.creator.signature && (
-                           <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
-                        )}
-                        {thought.creator && renderAdminOptionsState == thought.creator.ID && (
-                           <span
-                              className={(cardStyles.cardIcon, cardStyles.delete)}
-                              onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
-                        )}
-                        {thought.creator && renderAdminOptionsState == thought.creator.ID && (
-                           <Link href={`/posts/thought/edit/${thought.ID}`}>
-                              <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
-                           </Link>
-                        )}
-                        {thought.creator &&
-                           renderAdminOptionsState != thought.creator.ID &&
-                           renderAdminOptionsState != "" && (
-                              <span
-                                 id={renderAdminOptionsState}
-                                 className={(cardStyles.cardIcon, cardStyles.report)}
-                                 onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
+                           {thought.creator.authority_level == 2 && (
+                              <span className={cardStyles.trustedPointer}></span>
                            )}
-                     </div>
-                     {thought.creator && thought.creator.signature && (
-                        <i>{`${thought.creator.signature} expressed a new Tought`}</i>
-                     )}
-                     <p>{thought.body}</p>
-                     <PostReactions
-                        handleComment={() => openComment(thought.ID)}
-                        handleRateContent={() =>
-                           handleApproveContent(thought.ID, thought.creator.ID)
-                        }
-                        handleMore={() => openPost(thought)}
-                        comments={thought.comments[0].total_count + commentsCountState}
-                        approvals={thought.approvals ? thought.approvals[0] : null}
-                     />
-                     {commentBoxState === thought.ID && (
-                        <div
-                           id={`comment-${thought.ID}`}
-                           className={`${cardStyles.stdInputCommentWrapper}`}>
-                           <textarea
-                              maxLength={150}
-                              placeholder='Comment...'
-                              ref={commentBody}
-                              className={`std-input ${cardStyles.stdInputComment}`}></textarea>
-                           <div className={`${cardStyles.postCancelWrapper}`}>
-                              {!postingState && (
-                                 <span
-                                    className={`std-button_gradient-text`}
-                                    onClick={() =>
-                                       postCommentaryComment(thought.ID, thought.creator.ID)
-                                    }>
-                                    Post
-                                 </span>
-                              )}
-                              {postingState && (
-                                 <span className={`std-button_gradient-text`}>Posting...</span>
-                              )}
-                              <span onClick={closeComment}>Cancel</span>
-                           </div>
                         </div>
                      )}
+                     {thought.creator && thought.creator.signature && (
+                        <h1 className={cardStyles.userSignature}>{thought.creator.signature}</h1>
+                     )}
+                     {thought.creator && renderAdminOptionsState == thought.creator.ID && (
+                        <span
+                           className={(cardStyles.cardIcon, cardStyles.delete)}
+                           onClick={() => handleDeletePostConfirmation(thought.ID)}></span>
+                     )}
+                     {thought.creator && renderAdminOptionsState == thought.creator.ID && (
+                        <Link href={`/posts/thought/edit/${thought.ID}`}>
+                           <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
+                        </Link>
+                     )}
+                     {thought.creator &&
+                        renderAdminOptionsState != thought.creator.ID &&
+                        renderAdminOptionsState != "" && (
+                           <span
+                              id={renderAdminOptionsState}
+                              className={(cardStyles.cardIcon, cardStyles.report)}
+                              onClick={() => handleReportPostCnofirmtation(thought.ID)}></span>
+                        )}
                   </div>
-               </section>
+                  {thought.creator && thought.creator.signature && (
+                     <i>{`${thought.creator.signature} expressed a new Tought`}</i>
+                  )}
+                  <p>{thought.body}</p>
+                  <PostReactions
+                     handleComment={() => openComment(thought.ID)}
+                     handleRateContent={() => handleApproveContent(thought.ID, thought.creator.ID)}
+                     handleMore={() => openPost(thought)}
+                     comments={thought.comments[0].total_count + commentsCountState}
+                     approvals={thought.approvals ? thought.approvals[0] : null}
+                  />
+                  {commentBoxState === thought.ID && (
+                     <div
+                        id={`comment-${thought.ID}`}
+                        className={`${cardStyles.stdInputCommentWrapper}`}>
+                        <textarea
+                           maxLength={150}
+                           placeholder='Comment...'
+                           ref={commentBody}
+                           className={`std-input ${cardStyles.stdInputComment}`}></textarea>
+                        <div className={`${cardStyles.postCancelWrapper}`}>
+                           {!postingState && (
+                              <span
+                                 className={`std-button_gradient-text`}
+                                 onClick={() =>
+                                    postCommentaryComment(thought.ID, thought.creator.ID)
+                                 }>
+                                 Post
+                              </span>
+                           )}
+                           {postingState && (
+                              <span className={`std-button_gradient-text`}>Posting...</span>
+                           )}
+                           <span onClick={closeComment}>Cancel</span>
+                        </div>
+                     </div>
+                  )}
+               </div>
             );
          })}
       </>

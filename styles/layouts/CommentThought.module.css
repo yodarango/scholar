@@ -1,7 +1,10 @@
-.mianWrapper {
+.mainWrapper {
    width: 100%;
    margin: auto;
    position: relative;
+   /* display: flex;
+   align-items: flex-start;
+   justify-content: center; */
 }
 
 .buttonWrapper {
@@ -14,6 +17,16 @@
    top: 2rem;
    z-index: 5;
    width: 100%;
+}
+
+.wholeThouchtCommentWrapper {
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   width: 100%;
+   flex-wrap: wrap;
+   height: 85vh;
+   overflow-y: scroll;
 }
 
 .commentariesButton {

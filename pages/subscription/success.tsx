@@ -51,7 +51,7 @@ const Success = () => {
          {checkoutDeets && (
             <div className={subscriptionSuccessPageStyle.mainWrapper}>
                <div className={subscriptionSuccessPageStyle.imageWrapper}>
-                  <Image src='/Parks10.png' layout='fill' />
+                  <Image src='/images/layouts/subscription_thanks.png' layout='fill' />
                </div>
                <h1 className={`${subscriptionSuccessPageStyle.stdH1} std-button_gradient-text`}>
                   Welcome to Scholar

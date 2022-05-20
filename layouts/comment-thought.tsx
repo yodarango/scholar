@@ -91,7 +91,7 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
    };
 
    return (
-      <div className={commentThoughtStyles.mainWrapper}>
+      <div className={`${commentThoughtStyles.mainWrapper}`}>
          <div className={commentThoughtStyles.buttonWrapper}>
             <span
                className={`${commentThoughtStyles.commentariesButton} std-button`}
@@ -107,40 +107,47 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
             </span>
          </div>
          <div className={`large-spacer`}></div>
-         {commentariesState &&
-            filterThoughtCommentState.comment &&
-            commentariesState.map((commentary: Tcommentary) => (
-               <Comment commentary={commentary} key={commentary.ID} />
-            ))}
-         {commentariesState && responseCommentaryState === 20 && filterThoughtCommentState.comment && (
-            <button
-               className={`std-button`}
-               onClick={() =>
-                  requestMoreComments(commentariesState[commentariesState.length - 1].ID)
-               }>
-               <p className={`std-button_gradient-text`}>Load More</p>
-            </button>
-         )}
-         {commentariesState &&
-            filterThoughtCommentState.comment &&
-            commentariesState.length === 0 && (
-               <h2 className={commentThoughtStyles.noContrastTitle}>
-                  what have you nearned today? 💡
-               </h2>
+         <div className={`large-spacer`}></div>
+         <section className={commentThoughtStyles.wholeThouchtCommentWrapper}>
+            {commentariesState &&
+               filterThoughtCommentState.comment &&
+               commentariesState.map((commentary: Tcommentary) => (
+                  <section key={commentary.ID}>
+                     <Comment commentary={commentary} />
+                  </section>
+               ))}
+            {commentariesState &&
+               responseCommentaryState === 20 &&
+               filterThoughtCommentState.comment && (
+                  <button
+                     className={`std-button`}
+                     onClick={() =>
+                        requestMoreComments(commentariesState[commentariesState.length - 1].ID)
+                     }>
+                     <p className={`std-button_gradient-text`}>Load More</p>
+                  </button>
+               )}
+            {commentariesState &&
+               filterThoughtCommentState.comment &&
+               commentariesState.length === 0 && (
+                  <h2 className={commentThoughtStyles.noContrastTitle}>
+                     what have you nearned today? 💡
+                  </h2>
+               )}
+            {thoughtsState && filterThoughtCommentState.thought && (
+               <Thought thoughts={thoughtsState} />
             )}
-         {thoughtsState && filterThoughtCommentState.thought && (
-            <Thought thoughts={thoughtsState} />
-         )}
-         {thoughtsState && filterThoughtCommentState.thought && thoughtsState.length === 0 && (
-            <h2 className={commentThoughtStyles.noContrastTitle}>what's on your 🧠?</h2>
-         )}
-         {thoughtsState && responseThoughtState === 20 && filterThoughtCommentState.thought && (
-            <button
-               className={`std-button`}
-               onClick={() => requestMoreThoughts(thoughtsState[thoughtsState.length - 1].ID)}>
-               <p className={`std-button_gradient-text`}>Load More</p>
-            </button>
-         )}
+            {thoughtsState && filterThoughtCommentState.thought && thoughtsState.length === 0 && (
+               <h2 className={commentThoughtStyles.noContrastTitle}>what's on your 🧠?</h2>
+            )}
+            {thoughtsState && responseThoughtState === 20 && filterThoughtCommentState.thought && (
+               <button
+                  className={`std-button`}
+                  onClick={() => requestMoreThoughts(thoughtsState[thoughtsState.length - 1].ID)}>
+                  <p className={`std-button_gradient-text`}>Load More</p>
+               </button>
+            )}
+         </section>
       </div>
    );
 };

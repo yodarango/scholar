@@ -80,6 +80,8 @@ rename it and reuse it in other instaces if needed.
 /* Comments Card */
 .commentCard {
    box-shadow: 5px 5px 10px 5px var(--shadow-color);
+   max-width: 25rem;
+   margin: auto;
 }
 
 .commentCard,

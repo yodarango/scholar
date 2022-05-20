@@ -84,47 +84,54 @@ const GoPro = () => {
                   Canel any time!
                </p>
                <div className={`${goProPageStyles.verctorItem}`}></div>
-               <h2 className={goProPageStyles.stdH2}>Why go PRO?</h2>
+               <h2 className={goProPageStyles.stdH2}>Why Subscribe?</h2>
                <p className={goProPageStyles.stdP}>
-                  When you go PRO you help Scholar:
+                  When you subscribe you help Scholar:
                   <ul>
                      <li>Stay live</li>
-                     <li>add-free</li>
-                     <li>look slick</li>
-                     <li>function efficiently</li>
+                     <li>Stay ad free</li>
+                     <li>Keept it looking slick</li>
+                     <li>Work efficiently</li>
                      <li>provide great Christian resources</li>
-                     <li>keep growing in all of the above</li>
+                     <li>Continue growing and improving</li>
                   </ul>
                </p>
                <h2 className={goProPageStyles.stdH2}>
-                  What are the benefits of upgrading to the PRO version?
+                  Are there any benefits to the subscription?
                </h2>
                <p className={goProPageStyles.stdP}>
-                  Scholar does not delimit the access to any content for FREE tier users. The
-                  purpose of Scholar is to help Christians fall in love with the word of God,
-                  therefore it does not seem right to block access to any of the resources. However,
-                  there is a limit to how much data FREE tier can create, the PRO version gives you
-                  unlimited content creation. <br />
-                  Below is a table that helps you understand the differences of the FREE and PRO
-                  versions:
+                  Scholar does not limit the consumption of any of its content to any users. The
+                  purpose of Scholar is to help Christians fall in love with the Word of God,
+                  therefore it aims to provide all content for free. However, data and development
+                  are very expensive and therefore ther is a limit to how much data can be created
+                  without a subscription. Purchasing a subscription will allow you unlimited content
+                  creation and future priviledged acces to certain resources <br />
                </p>
                <table className={goProPageStyles.table}>
                   <tbody>
                      <tr>
                         <th>FREE</th>
-                        <th>PRO</th>
+                        <th>SUBS</th>
                      </tr>
                      <tr>
-                        <td>Limit to 10 posts</td>
-                        <td>Unlimited Posts</td>
+                        <td>Limit to 3 commentary posts</td>
+                        <td>Unlimited commentary posts</td>
                      </tr>
                      <tr>
-                        <td>Limit to 5 comments/ day</td>
+                        <td>Limit to 3 quote posts</td>
+                        <td>Unlimited quote posts</td>
+                     </tr>
+                     <tr>
+                        <td>Limit to 3 thought posts</td>
+                        <td>Unlimited thought posts</td>
+                     </tr>
+                     <tr>
+                        <td>0 sermon notes uploads</td>
+                        <td>Unlimited sermon notes uploads</td>
+                     </tr>
+                     <tr>
+                        <td>Limit to 5 post comments/ day</td>
                         <td>Unlimited comments</td>
-                     </tr>
-                     <tr>
-                        <td>Limit to 50 posts reactions/ day</td>
-                        <td>Unlimited reactions</td>
                      </tr>
                   </tbody>
                </table>

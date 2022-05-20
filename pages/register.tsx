@@ -73,6 +73,7 @@ export default function Register() {
                }
             });
 
+            console.log(data);
             if (data.create_new_user.ID) {
                // --------- switching to local storage because apple has a bug that expires cookies at session time
                // document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; domain=${window.location.hostname}; path=/`;
@@ -80,7 +81,7 @@ export default function Register() {
                const expTime = today + 1209600000;
 
                const jwtAuth = {
-                  auth: data.authenticate_user.token,
+                  auth: data.create_new_user.token,
                   expiresIn: expTime
                };
                localStorage.setItem("auth", JSON.stringify(jwtAuth));

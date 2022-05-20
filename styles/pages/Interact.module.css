@@ -39,8 +39,8 @@
 }
 
 .commentsWrapper {
-   overflow-y: scroll;
-   height: 85%;
+   /* overflow-y: scroll;
+   height: 85%; */
 }
 
 /* ------------- no content wrappers -------------- */

@@ -54,7 +54,7 @@ const Billing = () => {
             <a className={`goBack `}></a>
          </Link>
          <div className={billingStlyes.imageWrapper}>
-            <Image src='/Parks10.png' layout='fill' />
+            <Image src='/images/layouts/stripe_dashboard.png' layout='fill' />
          </div>
 
          {portalLinkState != "error" && portalLinkState != "loading" && (

@@ -8,10 +8,16 @@
    position: relative;
    width: 100%;
    height: 90vw;
-   max-width: 500px;
-   max-height: 500px;
+   max-width: 400px;
+   max-height: 400px;
    margin: auto;
 }
+
+.imageWrapper a {
+   object-fit: contain;
+   object-position: center;
+}
+
 .dashboardButton {
    width: 90%;
    max-width: 350px;

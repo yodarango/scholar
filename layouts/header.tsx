@@ -112,8 +112,8 @@ export default function Header({ currPage }: headerProps) {
          )}
          {openEditorState}
          <div className='header'>
-            <h1 className='beta-header'>Beta 1.0. </h1>
-            <div>
+            {/* <h1 className='beta-header'>Beta 1.0. </h1> */}
+            <div className='header-logo-wrapper'>
                {currPage === "HOME" && (
                   <Link href={"/"}>
                      <a className='header-logo'></a>
