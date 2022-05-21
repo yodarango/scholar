@@ -71,10 +71,11 @@ export default function Home() {
       try {
          const query = router.query;
          const last_id = query.last_id ? query.last_id : "9999999999";
+         const verse_id = query.verse ? query.verse : "1PE.1.8";
          const { data } = await client.query({
             query: GET_COMMENTARIES,
             variables: {
-               VERSE_ID: query.verse,
+               VERSE_ID: verse_id,
                last_id,
                ID: null,
                USER_ID: null,

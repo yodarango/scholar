@@ -20,7 +20,6 @@
 
 .loginRigth {
    background-color: var(--font-color);
-   display: none;
 }
 
 .inputWrapper {
@@ -64,10 +63,7 @@
    background-color: var(--third-color);
    cursor: pointer;
 }
-
-@media only screen and (min-width: var(--ipad-break)) {
-}
-
+/* 
 @media only screen and (min-width: 1025px) {
    .logo {
       width: 18.75rem;
@@ -97,4 +93,4 @@
    .loginLeft > div > div {
       display: none;
    }
-}
+} */

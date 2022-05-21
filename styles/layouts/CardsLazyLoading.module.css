@@ -14,18 +14,6 @@
    border-radius: var(--input-radius-mobile);
 }
 
-.errorImage {
-   position: relative;
-   height: 10rem;
-   width: 10rem;
-   margin: var(--medium-spacing-mobile) auto;
-}
-
-.errorImage img {
-   object-fit: contain;
-   object-position: center;
-}
-
 .stdLoadingText {
    opacity: 1;
    animation: 1500ms blink linear infinite;

@@ -21,23 +21,24 @@ export const getInitialData = async (verse: string | string[] | undefined) => {
       }
    }
    return {
-      id: "JHN.1.8",
-      orgId: "JHN.1.8",
-      bookId: "JHN",
-      chapterId: "JHN.1",
+      id: "1PE.1.8",
+      orgId: "1PE.1.8",
+      bookId: "1PE",
+      chapterId: "1PE.1",
       bibleId: "de4e12af7f28f599-01",
-      reference: "John 1:8",
-      content: " He was not that Light, but was sent to bear witness of that Light. \n",
+      reference: "1 Peter 1:8",
+      content:
+         "Whom having not seen, ye love; in whom, though now ye see him not, yet believing, ye rejoice with joy unspeakable and full of glory: \n",
       verseCount: 1,
       copyright:
          "PUBLIC DOMAIN except in the United Kingdom, where a Crown Copyright applies to printing the KJV. See http://www.cambridge.org/about-us/who-we-are/queens-printers-patent",
       next: {
-         id: "JHN.1.9",
-         number: "9"
+         id: "1PE.1.7",
+         number: "7"
       },
       previous: {
-         id: "JHN.1.7",
-         number: "7"
+         id: "1PE.1.9",
+         number: "9"
       }
    };
 };

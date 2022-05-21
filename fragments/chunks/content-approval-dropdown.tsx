@@ -53,6 +53,7 @@ const ContentApprovalDropdown = ({
                   USER_ID: user_id
                }
             });
+            console.log(data);
             if (data.rate_commentary) {
                successfulApproval();
             } else {

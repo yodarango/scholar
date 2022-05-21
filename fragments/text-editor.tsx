@@ -85,10 +85,10 @@ const TextEditor = ({
                         <div
                            className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsFirst}`}>
                            Categories:
-                           <div style={{ backgroundColor: addedFirstTagsState.color }}>
+                           <div id={`category-${addedFirstTagsState.color}`}>
                               {addedFirstTagsState.tag}
                            </div>
-                           <div style={{ backgroundColor: addedSecondTagsState.color }}>
+                           <div id={`category-${addedSecondTagsState.color}`}>
                               {addedSecondTagsState.tag}
                            </div>
                         </div>

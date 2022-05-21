@@ -105,7 +105,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
             }
          });
          setChooseAprovalRating(false);
-         setPostApprovalState(data.commentary_rating[0]);
+         setPostApprovalState(data.commentary_approvals[0]);
       } catch (error) {
          console.log(error);
          setPostApprovalState(postApprovalState);

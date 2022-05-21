@@ -56,9 +56,9 @@ export default function Register() {
 
    const hanldeNewUserRegistration = async () => {
       if (
-         emailInput.current &&
-         signatureInput.current &&
-         passwordInput.current &&
+         emailInput.current?.value &&
+         signatureInput.current?.value &&
+         passwordInput.current?.value &&
          userGenderState.gender
       ) {
          setSmallLoaderState(<SmallLoader />);
@@ -74,6 +74,7 @@ export default function Register() {
             });
 
             console.log(data);
+            console.log(emailInput.current.value);
             if (data.create_new_user.ID) {
                // --------- switching to local storage because apple has a bug that expires cookies at session time
                // document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; domain=${window.location.hostname}; path=/`;
@@ -160,7 +161,9 @@ export default function Register() {
                   {/* Left side, shows on mobile*/}
                   <div className={registerStyles.loginLeft}>
                      <div className={registerStyles.logo}></div>
-                     <div className={registerStyles.title}>"...SHOW THYSELF APPROVED..."</div>
+                     <div className={`${registerStyles.title} std-button_gradient-text`}>
+                        SHOW THYSELF APPROVED
+                     </div>
                      <div className='nowrap-flex-column login-left'>
                         <input
                            type='email'

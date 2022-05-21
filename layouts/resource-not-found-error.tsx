@@ -1,16 +1,17 @@
 // core
 import Image from "next/image";
 
-import cardsLazyLoadingStyles from "../styles/layouts/ResourceNotFoundError.module.css";
+import resourceNotFoundError from "../styles/layouts/ResourceNotFoundError.module.css";
 
 const ResourceNotFoundError = () => {
    return (
-      <div className={cardsLazyLoadingStyles.errorImage}>
+      <div className={resourceNotFoundError.errorImage}>
          <Image
             layout='fill'
             alt='resource not found'
-            src={"/image/layouts/reource_not_found.png"}
+            src={"/images/layouts/resource_not_found.png"}
          />
+         <p>resource not found</p>
       </div>
    );
 };
