@@ -41,7 +41,7 @@ const ThoughtTextEditor = () => {
          <div className={`medium-spacer`}></div>
          <TextEditor
             contentTypeToPost='THOUGHT'
-            title='What Are You Thinking'
+            title='What are you thinking?'
             formattingRules={<FormattingRules renderSelectedVerseFunc={renderSelectedVerseFunc} />}
             referencedVerses={referencedVerseState}
             removeVerse={removeVerse}

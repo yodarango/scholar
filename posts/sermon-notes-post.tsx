@@ -119,7 +119,7 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
    const promptConfirmationPopUp = (id: string, DROPBOX_ID: string) => {
       setconfirmationPopUpState(
          <ConfirmationPopup
-            title='Are you sure you want to delete this commentary?'
+            title='Are you sure you want to delete this post?'
             cancel={() => setconfirmationPopUpState(false)}
             confirm={() => handleDeleteConfirmation(id, DROPBOX_ID)}
          />

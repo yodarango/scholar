@@ -202,7 +202,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                   <NotificationPopup
                      closeModal={() => setNotificationPopUpState(false)}
                      title='This is sad 😔'
-                     contentString='You have exceeded the post comments whithin a 24-hour period'
+                     contentString='You have exceeded the post comment count whithin a 24-hour period'
                      newClass='notification-wrapper--Error'
                   />
                );
@@ -300,7 +300,7 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
          {userQuickAccessInfoPopup}
          {reportPopupState && (
             <ConfirmationPopup
-               title={`Are you sure you want to report this story`}
+               title={`Are you sure you want to report this quote?`}
                cancel={() => setReportPopupState(false)}
             />
          )}

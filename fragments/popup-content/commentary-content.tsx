@@ -162,7 +162,7 @@ const CommentaryContent = ({ commentary, postReactionContent }: commentaryConten
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
                   title='This is sad 😔'
-                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  contentString='You have exceeded the post comment count whithin a 24-hour period'
                   newClass='notification-wrapper--Error'
                />
             );

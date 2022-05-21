@@ -29,7 +29,6 @@ const SermonsCarrousel = ({
    deleteOption,
    reportOption
 }: sermonCarrouselProps) => {
-   console.log("from sermon carrousel" + sermon);
    return (
       <div className={sermonsCarrouselStyles.mainWrapper}>
          <div className={sermonsCarrouselStyles.gridWrapper}>

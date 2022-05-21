@@ -106,7 +106,7 @@ const Story = () => {
             mutation: NEW_NOTIFICATION,
             variables: {
                CONTENT_TYPE: 5,
-               body: "Someone has suggested you should writ your story. You should consider it 😉",
+               body: "Someone has suggested you should write your story. You should consider it 😉",
                USER_ID: initialDataState?.ID,
                POST_ID: initialDataState?.ID
             }
@@ -224,7 +224,7 @@ const Story = () => {
                {!initialDataState.my_story && !isSameUser && (
                   <div>
                      <p className={`${myStoryStyles.content} ${myStoryStyles.noContent}`}>
-                        This user has not yet posted a story about them. Let them know you'd like to
+                        This user has not posted their story about yet. Let them know you'd like to
                         hear their story by clicking the button below!
                      </p>
                      <div className={myStoryStyles.sendIcon}></div>

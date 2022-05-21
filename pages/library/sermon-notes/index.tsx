@@ -87,7 +87,7 @@ const Sermons = () => {
             <meta name='keyword' content='tags' />
          </Head>
          <div className={`${librarySermonsPageStyles.mainWrapper}`}>
-            <Header currPage={"SERMONS"} />
+            <Header currPage={"SERMON NOTES"} />
             {initialDataState && (
                <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
             )}

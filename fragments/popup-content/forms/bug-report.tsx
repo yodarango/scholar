@@ -51,7 +51,7 @@ const BugReport = () => {
                   <NotificationPopup
                      newClass='notification-wrapper--Success'
                      closeModal={() => setNotificationPoupState(false)}
-                     title='Form Submitted Successfully ✅'
+                     title='Form submitted successfully ✅'
                      contentString={
                         "Thank you for making scholar what it is. We are working every day to make it a better place for you! 👷‍♂️"
                      }
@@ -93,11 +93,11 @@ const BugReport = () => {
    return (
       <div className='mian-wrapper'>
          {notificationPoupState}
-         <h2 className={`${bugReportStyles.title}`}>Help Scholar Stay Slick</h2>
+         <h2 className={`${bugReportStyles.title}`}>Help Scholar Remain Efficient</h2>
          <p>
-            Every time you submit a bug report you help scholar to stay alive, slick, and improving.
-            Please give us as much details as you can on how we can reproduce this issue and where
-            did you find it.
+            Every time you submit a bug report you help scholar to stay alive, efficient, and keep
+            improving. Please give us as much details as you can on how we can reproduce this issue
+            and where did you find it.
          </p>
          <h3 className={bugReportStyles.smallTitle}>Thank you for making Scholar what it is! </h3>
          <div>
@@ -113,11 +113,11 @@ const BugReport = () => {
                />
             </div>
             <div className={`${bugReportStyles.inputWrapper}`}>
-               <label htmlFor='password'>When Did you find it</label>
+               <label htmlFor='password'>When did you find it</label>
                <input id='when' type='date' maxLength={100} className={`std-input`} ref={when} />
             </div>
             <div className={`${bugReportStyles.inputWrapper}`}>
-               <label htmlFor='password'>Your Name</label>
+               <label htmlFor='password'>Your name</label>
                <input id='who' type='text' maxLength={100} className={`std-input`} ref={who} />
             </div>
             <div className={`${bugReportStyles.inputWrapper}`}>

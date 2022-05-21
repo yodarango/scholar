@@ -15,6 +15,7 @@ import { TsermonPost } from "../../../../posts/sermon-notes-post";
 type editCommentaryProps = {
    sermonPost: TsermonPost;
 };
+
 const EditSermonNote = ({ sermonPost }: editCommentaryProps) => {
    return (
       <>
@@ -23,7 +24,7 @@ const EditSermonNote = ({ sermonPost }: editCommentaryProps) => {
                <EditSermonNotesPost sermonPost={sermonPost} />
             </div>
          )}
-         {!sermonPost && <div>this comment does not exists anymore! #NEEDS_GRAPHICS</div>}
+         {!sermonPost && <div>this comment does not exist anymore!</div>}
          <NavigationMenu />
       </>
    );

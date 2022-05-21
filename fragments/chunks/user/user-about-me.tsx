@@ -36,14 +36,14 @@ const UserAboutMe = ({ user }: userAboutMeProps) => {
                </li>
             )}
             {user.my_ministry && <li>🧹 My ministry is {user.my_ministry}</li>}
-            {user.my_job && <li>👔 I am full time {user.my_job}</li>}
+            {user.my_job && <li>👔 I am a full time {user.my_job}</li>}
             {user.my_true_color_personality_test && user.my_true_color_personality_test && (
                <li>📊 My True Color Personality is {user.my_true_color_personality_test}</li>
             )}
             {user.my_favorite_color && <li>🎨 My favorite color is {user.my_favorite_color}</li>}
             <li className={usersAboutMeStyles.myStory}>
                <Link href={`/users/my-story/${user.ID}`}>
-                  <a> This is my sotry </a>
+                  <a> This is my story </a>
                </Link>
             </li>
          </ul>

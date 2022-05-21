@@ -81,16 +81,16 @@ const GoPro = () => {
                   <p className={`std-button_gradient-text`}>JOIN FOR ONLY $3.99/month</p>
                </button>
                <p className={`std-text-block--info ${goProPageStyles.stdInfoText}`}>
-                  Canel any time!
+                  Cancel any time!
                </p>
                <div className={`${goProPageStyles.verctorItem}`}></div>
                <h2 className={goProPageStyles.stdH2}>Why Subscribe?</h2>
                <p className={goProPageStyles.stdP}>
                   When you subscribe you help Scholar:
                   <ul>
-                     <li>Stay live</li>
+                     <li>Stay alive</li>
                      <li>Stay ad free</li>
-                     <li>Keept it looking slick</li>
+                     <li>Stay looking slick</li>
                      <li>Work efficiently</li>
                      <li>provide great Christian resources</li>
                      <li>Continue growing and improving</li>
@@ -103,9 +103,9 @@ const GoPro = () => {
                   Scholar does not limit the consumption of any of its content to any users. The
                   purpose of Scholar is to help Christians fall in love with the Word of God,
                   therefore it aims to provide all content for free. However, data and development
-                  are very expensive and therefore ther is a limit to how much data can be created
+                  are very expensive and therefore there is a limit to how much data can be created
                   without a subscription. Purchasing a subscription will allow you unlimited content
-                  creation and future priviledged acces to certain resources <br />
+                  creation and future priviledged access to certain resources <br />
                </p>
                <table className={goProPageStyles.table}>
                   <tbody>

@@ -111,7 +111,7 @@ export default function AccountVerification() {
             <div className='main-wrapper'>
                {notificationpopUpState}
                <div className={loginStyles.loginLogo}></div>
-               <h1 className={loginStyles.loginTitle}>"...SHOW THYSELF APPROVED..."</h1>
+               <h1 className={loginStyles.loginTitle}>SHOW THYSELF APPROVED</h1>
                <p className={loginStyles.pText}>
                   Please check your email for a code. This code will expire within 24 hours
                </p>

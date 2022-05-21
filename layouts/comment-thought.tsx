@@ -131,7 +131,7 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
                filterThoughtCommentState.comment &&
                commentariesState.length === 0 && (
                   <h2 className={commentThoughtStyles.noContrastTitle}>
-                     what have you nearned today? 💡
+                     what have you learned today? 💡
                   </h2>
                )}
             {thoughtsState && filterThoughtCommentState.thought && (

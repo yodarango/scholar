@@ -127,9 +127,6 @@ const EditSermonNotesPost = ({ sermonPost }: sermonNotesProps) => {
 
    return (
       <>
-         {loggedInUserState != sermonPost.creator.ID && (
-            <div>Youre not authorized #NEEDS_GRAPHICS</div>
-         )}
          {loggedInUserState == sermonPost.creator.ID && (
             <div className={sermonNotesPost.mainWrapper}>
                {notificationsPopupState}

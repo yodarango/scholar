@@ -181,7 +181,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       setConfirmationPopUpState(
          <ConfirmationPopup
             cancel={() => setConfirmationPopUpState(false)}
-            title={"Are you sure you want to delete this Thought?"}
+            title={"Are you sure you want to delete this thought?"}
             confirm={() => handleDeletePost(id)}
          />
       );
@@ -237,7 +237,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       setConfirmationPopUpState(
          <ConfirmationPopup
             cancel={() => setConfirmationPopUpState(false)}
-            title={"Are you sure you want to report this Thought?"}
+            title={"Are you sure you want to report this thought?"}
             confirm={() => handleReportPost(id)}
          />
       );
@@ -265,7 +265,7 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                <NotificationPopup
                   closeModal={() => setNotificationpopUpState(false)}
                   title='This is sad 😔'
-                  contentString='You have exceeded the post comments whithin a 24-hour period'
+                  contentString='You have exceeded the post comment count whithin a 24-hour period'
                   newClass='notification-wrapper--Error'
                />
             );

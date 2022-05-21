@@ -81,7 +81,6 @@ const ContentApprovalDropdown = ({
 
       // if the content is thought call this function
       else if (post_id.thought) {
-         console.log("approval thought id: ", post_id);
          try {
             const { data } = await client.mutate({
                mutation: CREATE_THOUGHT_APPROVAL,

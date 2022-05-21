@@ -96,7 +96,7 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
                      <NotificationPopup
                         newClass='notification-wrapper--Success'
                         closeModal={() => setNotificationPopUpState(false)}
-                        title='Success ✔️'
+                        title='Success ✅'
                         contentString={
                            "We will notify you of the final decision via the email associated with the account"
                         }
@@ -129,7 +129,7 @@ const UserVerificationApplication = ({ user_data }: userVerificationApplicationP
                <NotificationPopup
                   newClass='notification-wrapper--Error'
                   closeModal={() => setNotificationPopUpState(false)}
-                  title='Empty Degree Field✋'
+                  title='Empty degree field✋'
                   contentString={"Please specify your degree ✔️"}
                />
             );

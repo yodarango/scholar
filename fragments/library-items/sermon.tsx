@@ -36,7 +36,6 @@ export type sermonProps = {
 };
 
 const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: sermonProps) => {
-   console.log("sermon ", sermon);
    // ===============   SUNCTION 2: Open the actions wrapper   ============== ///
    const [actionsWrapper, setActionsWrapper] = useState<boolean>(false);
    const handleOpenActionsWrapper = () => {

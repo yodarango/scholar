@@ -77,7 +77,6 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
          );
 
          const verseData = await req.json();
-         console.log(verseData.data);
 
          setOpenRefState(
             <NotificationPopup
@@ -98,7 +97,7 @@ const Chapter = ({ chapterId, versionId }: chapterProps) => {
             <NotificationPopup
                title='Sorry 🙁'
                closeModal={() => setOpenRefState(false)}
-               contentString='Something went wrong while fetching the spurce'
+               contentString='Something went wrong while fetching the source'
                newClass='notification-wrapper--Error'
             />
          );

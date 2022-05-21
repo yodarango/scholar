@@ -37,29 +37,26 @@ const Article = ({
 }: articleProps) => {
    return (
       <div className={`${articleStyles.mainWrapper} ${newClass}`}>
-         <Link href={"fileUrl"}>
-            <a>
-               <div className={articleStyles.paperSheet}>
-                  <div className={articleStyles.paperLines}>
-                     <span></span>
-                     <span></span>
-                     <span></span>
-                     <span></span>
-                     <span></span>
-                     <div className={articleStyles.textWrapper}>
-                        <h1
-                           className={articleStyles.title}
-                           style={{ backgroundColor: tagColors[0] }}>
-                           {title}
-                        </h1>
-                        <h3 className={articleStyles.author}>by: {author}</h3>
-                        <p className={articleStyles.category}>Category: {categoryTags[0]}</p>
-                     </div>
+         <a target='_blank' rel='noopener noreferrer' href={fileUrl}>
+            <div className={articleStyles.paperSheet}>
+               <div className={articleStyles.paperLines}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <div className={articleStyles.textWrapper}>
+                     <h1 className={articleStyles.title} style={{ backgroundColor: tagColors[0] }}>
+                        {title}
+                     </h1>
+                     <h3 className={articleStyles.author}>by: {author}</h3>
+                     <p className={articleStyles.category}>Category: {categoryTags[0]}</p>
                   </div>
-                  <span className={articleStyles.paperBent}></span>
                </div>
-            </a>
-         </Link>
+               <span className={articleStyles.paperBent}></span>
+            </div>
+         </a>
+
          <StarReviews
             contentType='ARTICLE'
             totalReviews={totalReviews}

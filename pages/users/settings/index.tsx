@@ -193,7 +193,7 @@ const UserSettings = () => {
       } else if (!birthDate.current?.value) {
          setNotificationPopUpState(
             <NotificationPopup
-               title={"Birthdate is Empty! 🗓"}
+               title={"Birthday is empty! 🗓"}
                contentString={`You must enter your birthday before proceeding`}
                newClass={"notification-wrapper--Error"}
                closeModal={() => setNotificationPopUpState(false)}
@@ -376,7 +376,7 @@ const UserSettings = () => {
                <p
                   className={`std-text-block--info ${userSettingsStyles.changeAvatarButton}`}
                   onClick={openChooseAvatar}>
-                  change Avatar
+                  change avatar
                </p>
                <h2 className={userSettingsStyles.stdH2}>General</h2>
                <div className={userSettingsStyles.inputWrapper}>
@@ -418,7 +418,7 @@ const UserSettings = () => {
                   />
                </div>
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='ministry'>Favorite Bible Verse</label>
+                  <label htmlFor='ministry'>Favorite Bible verse</label>
                   <input
                      id='fav-bible-verse'
                      type='text'
@@ -429,7 +429,7 @@ const UserSettings = () => {
                   />
                </div>
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='full-time-job'>Full Time Job Title</label>
+                  <label htmlFor='full-time-job'>Full time job title</label>
                   <input
                      id='full-time-job'
                      type='text'
@@ -440,7 +440,7 @@ const UserSettings = () => {
                   />
                </div>
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='true-color'>True Color Personality</label>
+                  <label htmlFor='true-color'>True color personality</label>
                   <input
                      id='true-color'
                      type='text'
@@ -459,7 +459,7 @@ const UserSettings = () => {
                   </a>
                </div>
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='ministry'>Favorite Color</label>
+                  <label htmlFor='ministry'>Favorite color</label>
                   <input
                      id='fav-color'
                      type='text'
@@ -471,7 +471,7 @@ const UserSettings = () => {
                </div>
                <h2 className={userSettingsStyles.stdH2}>Privacy</h2>
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='name'>First Name</label>
+                  <label htmlFor='name'>First name</label>
                   <input
                      id='name'
                      type='text'
@@ -483,7 +483,7 @@ const UserSettings = () => {
                   />
                </div>
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='name'>Last Name</label>
+                  <label htmlFor='name'>Last name</label>
                   <input
                      id='name'
                      type='text'
@@ -522,7 +522,7 @@ const UserSettings = () => {
                </div>
 
                <div className={userSettingsStyles.inputWrapper}>
-                  <label htmlFor='name'>Birthdate</label>
+                  <label htmlFor='name'>Birthday</label>
                   <input
                      id='name'
                      type='date'
@@ -564,7 +564,7 @@ const UserSettings = () => {
                      <button
                         className={`std-button ${userSettingsStyles.buttonSave}`}
                         onClick={checkValidation}>
-                        <p className={`std-button_gradient-text`}>SAVE</p>
+                        <p className={`std-button_gradient-text`}>Save</p>
                      </button>
                   )}
                   {smallLoaderState && <SmallLoader />}

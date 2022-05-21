@@ -144,7 +144,7 @@ const Wigo = () => {
                      <SermonsPostCarrousel sermonPost={content.sermon_notes} />
                   </div>
                   <div className={`${interactStyles.gridWrapperLeft}`}>
-                     <h2 className='std-text-block--small-title'>Writtings</h2>
+                     <h2 className='std-text-block--small-title'>Writings</h2>
                      <div className={interactStyles.commentsWrapper}>
                         <CommentThought
                            commentaries={content.commentary}

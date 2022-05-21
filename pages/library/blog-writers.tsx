@@ -77,7 +77,7 @@ const BlogWritter = () => {
                <meta name='keyword' content='tags' />
             </Head>
             <Header currPage={"WRITERS"} />
-            <h1 className={sermonsByAuthorStyles.title}>Select a Writer</h1>
+            <h1 className={sermonsByAuthorStyles.title}>Select a writer</h1>
             <div className={`${sermonsByAuthorStyles.usersGrid}`}>
                {initialDataState &&
                   loadingState == "done" &&

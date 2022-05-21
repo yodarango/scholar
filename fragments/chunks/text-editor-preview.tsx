@@ -1,5 +1,5 @@
 // core
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 // third parties
 import ReactMarkdown from "react-markdown";

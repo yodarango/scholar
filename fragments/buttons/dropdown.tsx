@@ -97,7 +97,7 @@ const Dropdown = ({
             ref={hiddenDropdownCat}>
             {valuesCat?.map((el, index) => (
                <div key={index}>
-                  <div /*data-value={el.key}*/ onClick={() => addTag(el)}>{el.title}</div>
+                  <div onClick={() => addTag(el)}>{el.title}</div>
                   <span
                      className={`std-vector-icon ${ctaStyles.iconInfo}`}
                      onClick={() => openCategoryInfo(el.subjects, el.key)}></span>

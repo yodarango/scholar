@@ -206,7 +206,7 @@ const TextEditor = ({
                setNotificationPopupState(
                   <NotificationPopup
                      closeModal={() => setNotificationPopupState(false)}
-                     title={`This Is Sad! 😞`}
+                     title={`This is sad! 😞`}
                      contentString={`${data.commentary.message}`}
                      newClass='notification-wrapper--Error'
                   />
@@ -229,7 +229,7 @@ const TextEditor = ({
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"Empty Field Detected"}
+               title={"Empty field detected"}
                contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -238,7 +238,7 @@ const TextEditor = ({
       } else if (!addedFirstTagsState.tag) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"No Tag Detected"}
+               title={"No tag detected"}
                contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -247,7 +247,7 @@ const TextEditor = ({
       } else if (verseBeingCommented?.id === undefined || verseBeingCommented?.id === "") {
          setNotificationPopupState(
             <NotificationPopup
-               title={"No Verse Selected"}
+               title={"No verse selected"}
                contentString={"Please select a verse to comment on"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -287,7 +287,7 @@ const TextEditor = ({
                setNotificationPopupState(
                   <NotificationPopup
                      closeModal={() => setNotificationPopupState(false)}
-                     title={`This Is Sad 😞`}
+                     title={`This is sad 😞`}
                      contentString={data.thought.message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                      newClass='notification-wrapper--Error'
                   />
@@ -311,7 +311,7 @@ const TextEditor = ({
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"Empty Field Detected"}
+               title={"Empty field detected"}
                contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -320,7 +320,7 @@ const TextEditor = ({
       } else if (!addedFirstTagsState.tag) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"No Tag Detected"}
+               title={"No tag detected"}
                contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -383,7 +383,7 @@ const TextEditor = ({
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"Empty Field Detected"}
+               title={"Empty field detected"}
                contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -392,7 +392,7 @@ const TextEditor = ({
       } else if (!addedFirstTagsState.tag) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"No Tag Detected"}
+               title={"No tag detected"}
                contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -401,7 +401,7 @@ const TextEditor = ({
       } else if (verseBeingCommented?.id === undefined || verseBeingCommented?.id === "") {
          setNotificationPopupState(
             <NotificationPopup
-               title={"No Verse Selected"}
+               title={"No verse selected"}
                contentString={"Please select a verse to comment on"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -464,7 +464,7 @@ const TextEditor = ({
       } else if (textArea.current && textArea.current.value.length === 0) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"Empty Field Detected"}
+               title={"Empty field detected"}
                contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}
@@ -473,7 +473,7 @@ const TextEditor = ({
       } else if (!addedFirstTagsState.tag) {
          setNotificationPopupState(
             <NotificationPopup
-               title={"No Tag Detected"}
+               title={"No tag detected"}
                contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
                newClass={`notification-wrapper--Red`}

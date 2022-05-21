@@ -80,7 +80,7 @@ const ThoughtContentDesktop = ({ user }: commentaryContentDesktopProps) => {
          )}
          {thoughtsState?.length === 0 && loadingState === "done" && (
             <h2 className={homePageContentDesktopStyles.noNotifications}>
-               No Thoughts have been posted yet
+               No thoughts have been posted yet
             </h2>
          )}
          {loadingState === "loading" && (

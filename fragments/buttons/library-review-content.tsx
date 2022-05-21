@@ -36,15 +36,14 @@ const LibraryReviewContent = ({
       bkgColor: "",
       newHeight: ""
    });
-   const handleReviewClick = async (review: number, newclass: string, id: string) => {
+   const handleReviewClick = async (review: number, newclass: string, _id: string) => {
       // change the color of the bar on click
-      console.log(id, review, contentType);
       setSlidingLineClassState(newclass);
       try {
          const { data } = await client.mutate({
             mutation: HANDLE_CONTENT_REVIEW,
             variables: {
-               contentId: id,
+               contentId: _id,
                starsRated: review,
                contentType: contentType
             }

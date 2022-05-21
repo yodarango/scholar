@@ -125,7 +125,7 @@ export default function Login() {
             <div className='main-wrapper'>
                {notificationpopUpState}
                <div className={loginStyles.loginLogo}></div>
-               <div className={loginStyles.loginTitle}>"...SHOW THYSELF APPROVED..."</div>
+               <div className={loginStyles.loginTitle}>SHOW THYSELF APPROVED</div>
                <div className='nowrap-flex-column'>
                   <input
                      type='text'

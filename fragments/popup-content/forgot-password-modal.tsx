@@ -43,7 +43,7 @@ const ForgotPassword = () => {
                      title='Email Not Found '
                      closeModal={() => setNotificationPopUp(false)}
                      newClass='notification-wrapper--Error'
-                     contentString='Sorry! the email addess provided was not found 🔎. Please try again'
+                     contentString='Sorry! the email address provided was not found 🔎. Please try again'
                   />
                );
             } else if (data.verify_email_exists > 0) {
@@ -100,7 +100,7 @@ const ForgotPassword = () => {
                   <NotificationPopup
                      closeModal={() => setNotificationPopUp(false)}
                      title='Oh no! 😔'
-                     contentString={`something went worng we were unable to update your passowrd, please try again later!`}
+                     contentString={`something went worng we were unable to update your password, please try again later!`}
                      newClass='notification-wrapper--Error'
                   />
                );
@@ -170,7 +170,7 @@ const ForgotPassword = () => {
             {verificationStepsState === 2 && (
                <>
                   <div>
-                     <label htmlFor='password'>Enter your New Password</label>
+                     <label htmlFor='password'>Enter your new password</label>
                      <input
                         id='verification_code'
                         type='text'
@@ -191,7 +191,7 @@ const ForgotPassword = () => {
             )}
             {verificationStepsState === 3 && (
                <div>
-                  <p>Your passswrod has been successfully updated. You can login again 🎉</p>
+                  <p>Your passsword has been successfully updated. You can login again 🎉</p>
                </div>
             )}
          </div>

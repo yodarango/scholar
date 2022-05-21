@@ -116,7 +116,7 @@ const LibraryRecommendContennt = () => {
                      <NotificationPopup
                         title='Thank you!'
                         closeModal={() => setNotificationPopupState(false)}
-                        newClass='.notification-wrapper--Success'
+                        newClass='notification-wrapper--Success'
                         contentString='Your recommendation has been submitted and will be reviewed soon! 😀'
                      />
                   );
@@ -212,7 +212,7 @@ const LibraryRecommendContennt = () => {
                <textarea
                   ref={message}
                   name='reason'
-                  placeholder='Please explain why do you think we shoudl include this resource'
+                  placeholder='Please explain why do you think we should include this resource'
                   maxLength={500}
                   className={`std-text-area ${libraryRecommendContennt.stdTextArea}`}></textarea>
 
@@ -249,8 +249,8 @@ const LibraryRecommendContennt = () => {
          {notificationPopupState}
          <div className={`${libraryRecommendContennt.mainWrapper}`}>
             <p>
-               Do you author, own, host,or like a particular content source that you would ike to be
-               added? Submit a recommnedation form.
+               Do you author, own, host, or like a particular content source that you would like to
+               be added? Submit a recommendation form.
             </p>
             <button
                className={`std-button ${libraryRecommendContennt.button}`}

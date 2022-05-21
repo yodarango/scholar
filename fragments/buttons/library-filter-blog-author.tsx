@@ -45,7 +45,7 @@ const LibraryFilterBlog = () => {
             <a className={`std-button ${libraryFilterStyles.stdButton}`}>
                <p
                   className={`std-button_gradient-text ${libraryFilterStyles.stdButtonTextGradient}`}>
-                  By Writter
+                  By Writer
                </p>
             </a>
          </Link>

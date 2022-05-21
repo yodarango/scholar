@@ -98,7 +98,7 @@ const Congregations = () => {
             <meta name='keyword' content='tags' />
          </Head>
          <div className={`${libraryCongregationsStyles.mainWrapper}`}>
-            <Header currPage={"CONGREGATIONS"} />
+            <Header currPage={"LOCATIONS"} />
             {initialDataState && (
                <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
             )}

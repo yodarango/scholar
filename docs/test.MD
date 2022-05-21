@@ -37,7 +37,7 @@
 
 **HOME PAGE**
 
-1. If verse resources dont load error is handled
+1. If verse resources dont load error is handled ✅
 2. can select new verse ✅
 3. toggling right and left arrows loads new verse ✅
 4. comment is not created wihtout tag ✅
@@ -58,6 +58,23 @@
 19.   can delete comments of commentary ✅
 20.   can delete comment ✅
 21.   redirected to edit comment ✅
+
+**LIBRARY HOME**
+
+1. can reate all types of content ✅
+2. can click to see preview ✅
+3. can rate content from preview ✅
+4. can recommend resource ✅
+5. all content redirects ourside the site ✅
+
+**LIBRARY SEMONS**
+
+1. if count lower than allowed, pagination btn does not show
+2. if count longer than expected pagination shows
+3. can sort
+4. pagination works
+5. can rate contentn
+6. content redirects out website
 
 **PERMISSION**
 
