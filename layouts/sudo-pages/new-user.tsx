@@ -83,6 +83,7 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
                <button className='std-button' onClick={acceptIntroInstructions}>
                   <p className='std-button_gradient-text'>Done</p>
                </button>
+               <div className='large-spacer'></div>
             </div>
          </div>
       </>
