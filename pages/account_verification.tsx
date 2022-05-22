@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../layouts/head-content";
 
 // graphQL
 import client from "../apollo-client";
@@ -104,6 +106,9 @@ export default function AccountVerification() {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          <Link href={`/`}>
             <a className={`goBack `}></a>
          </Link>

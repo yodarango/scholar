@@ -1,6 +1,8 @@
 // core
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import HeadContent from "../../layouts/head-content";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
 // graphql
@@ -129,6 +131,9 @@ const Me = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {notificationsPopupState && (
             <PopupWrapper
                closeModal={() => (

@@ -9,6 +9,7 @@
 // core
 import React from "react";
 import Head from "next/head";
+import HeadContent from "../layouts/head-content";
 
 //components
 import ReadingCollage from "../layouts/reading-collage";
@@ -25,6 +26,9 @@ const versionId = "de4e12af7f28f599-02";
 const Read = () => {
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          <div className={`main-wrapper ${readStyles.mainWrapper}`}>
             <Head>
                <meta name='keyword' content='tags' />

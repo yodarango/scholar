@@ -13,6 +13,7 @@ import NavigationMenu from "../../layouts/navigation-menu";
 // style
 import goProPageStyles from "../../styles/pages/GoPro.module.css";
 import Link from "next/link";
+import HeadContent from "../../layouts/head-content";
 
 const GoPro = () => {
    // =================== go back in histroy   ============== //
@@ -60,7 +61,7 @@ const GoPro = () => {
    return (
       <>
          <Head key='payment-apge'>
-            <></>
+            <HeadContent />
          </Head>
 
          {loadingState === "done" && (

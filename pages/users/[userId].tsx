@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 //import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../../layouts/head-content";
 import Image from "next/image";
 
 // graphql
@@ -120,6 +122,9 @@ const User = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          <Header currPage={userState?.signature ? userState.signature : "loading"} />
          <div className={userStyles.mainWrapper}>
             {userState && loadingState === "done" && (

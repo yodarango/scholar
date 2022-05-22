@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 //import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import HeadContent from "../../../layouts/head-content";
 import Image from "next/image";
 
 // graphQl
@@ -85,7 +86,7 @@ const Podcast = () => {
    return (
       <>
          <Head>
-            <meta name='keyword' content='tags' />
+            <HeadContent />
          </Head>
          <div className={`${libraryPodcastStyles.mainWrapper}`}>
             <Header currPage={"PODCASTS"} />

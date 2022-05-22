@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import HeadContent from "../../../layouts/head-content";
+import Head from "next/head";
 import Image from "next/image";
 
 // graphQL
@@ -346,6 +348,9 @@ const UserSettings = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {loadingState === "loading" && (
             <CardsLazyLoading amount={12} compClass={cardsLazyLoadingStyles.settingsLoading} />
          )}

@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 //import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import HeadContent from "../../../layouts/head-content";
 import Image from "next/image";
 
 // graphql
@@ -84,7 +85,7 @@ const Sermons = () => {
    return (
       <>
          <Head>
-            <meta name='keyword' content='tags' />
+            <HeadContent />
          </Head>
          <div className={`${librarySermonsPageStyles.mainWrapper}`}>
             <Header currPage={"SERMON NOTES"} />

@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../layouts/head-content";
 
 // graphQL
 import client from "../apollo-client";
@@ -16,9 +18,6 @@ import NotificationPopup from "../fragments/notification-popup";
 import loginStyles from "../styles/pages/Login.module.css";
 import PopupWrapper from "../layouts/popup-wrapper";
 import ForgotPassword from "../fragments/popup-content/forgot-password-modal";
-
-// helpers
-const Cookies = require("js-cookie");
 
 export default function Login() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
@@ -120,6 +119,9 @@ export default function Login() {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {forgotPasswordPopup}
          {!isLoggedIn && (
             <div className='main-wrapper'>

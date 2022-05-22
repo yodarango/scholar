@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 //import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../../../../layouts/head-content";
 import Image from "next/image";
 
 // child comps
@@ -67,6 +69,9 @@ const EditCommentary = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {commentary && loadingState === "done" && (
             <div className='main-wrapper'>
                <EditPost commentary={commentary} />

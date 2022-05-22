@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import HeadContent from "../../../../layouts/head-content";
+import Head from "next/head";
 import Image from "next/image";
 
 // graphQL
@@ -64,6 +66,9 @@ const EditCommentary = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {thought && loadingState === "done" && (
             <div className='main-wrapper'>
                <EditThoughtPost thought={thought} />

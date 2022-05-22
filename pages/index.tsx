@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import HeadContent from "../layouts/head-content";
 import Image from "next/image";
 //import { GetServerSideProps } from "next";
 
@@ -110,7 +111,7 @@ export default function Home() {
       <>
          <div className='main-wrapper'>
             <Head>
-               <meta name='keyword' content='tags' />
+               <HeadContent />
             </Head>
             <Header currPage={"HOME"} />
             <div className={homeStyles.majorGridWrapper}>

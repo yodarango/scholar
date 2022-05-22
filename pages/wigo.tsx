@@ -1,6 +1,8 @@
 // core
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../layouts/head-content";
 import Image from "next/image";
 //import { GetServerSideProps } from "next";
 
@@ -17,7 +19,6 @@ import { GET_FRIDAY_CONTENT } from "../graphql/wigo/friday";
 import { GET_SATURDAY_CONTENT } from "../graphql/wigo/saturday";
 
 // components
-import Head from "next/head";
 import Header from "../layouts/header";
 import CommentThought from "../layouts/comment-thought";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
@@ -116,13 +117,12 @@ const Wigo = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          <Header currPage={"WIGO TODAY"} />
          {content && loadingState === "done" && (
             <div className={`main-wrapper ${interactStyles.mainWrapper}`}>
-               <Head>
-                  <meta name='keyword' content='tags' />
-               </Head>
-
                <div className='large-spacer'></div>
                <h2 className='std-text-block--small-title'>Quotes</h2>
                <StoriesCarrousel quotes_in_the_last24={content.quote_stories} />

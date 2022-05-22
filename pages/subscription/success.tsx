@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
+import HeadContent from "../../layouts/head-content";
 
 // graphQL
 import client from "../../apollo-client";
@@ -47,27 +49,32 @@ const Success = () => {
    }, [router.isReady]);
 
    return (
-      <div>
-         {checkoutDeets && (
-            <div className={subscriptionSuccessPageStyle.mainWrapper}>
-               <div className={subscriptionSuccessPageStyle.imageWrapper}>
-                  <Image src='/images/layouts/subscription_thanks.png' layout='fill' />
-               </div>
-               <h1 className={`${subscriptionSuccessPageStyle.stdH1} std-button_gradient-text`}>
-                  Welcome to Scholar
-               </h1>
-               <p>Thank you, {checkoutDeets.name} for keeping Scholar alive!</p>
-               <p>a confirmation email has been sent to {checkoutDeets.email}</p>
+      <>
+         <Head>
+            <HeadContent />
+         </Head>
+         <div>
+            {checkoutDeets && (
+               <div className={subscriptionSuccessPageStyle.mainWrapper}>
+                  <div className={subscriptionSuccessPageStyle.imageWrapper}>
+                     <Image src='/images/layouts/subscription_thanks.png' layout='fill' />
+                  </div>
+                  <h1 className={`${subscriptionSuccessPageStyle.stdH1} std-button_gradient-text`}>
+                     Welcome to Scholar
+                  </h1>
+                  <p>Thank you, {checkoutDeets.name} for keeping Scholar alive!</p>
+                  <p>a confirmation email has been sent to {checkoutDeets.email}</p>
 
-               <button className={`std-button`}>
-                  <Link href='/users/me'>
-                     <a className={`std-button_gradient-text`}>Done</a>
-                  </Link>
-               </button>
-            </div>
-         )}
-         {failedTransaction}
-      </div>
+                  <button className={`std-button`}>
+                     <Link href='/users/me'>
+                        <a className={`std-button_gradient-text`}>Done</a>
+                     </Link>
+                  </button>
+               </div>
+            )}
+            {failedTransaction}
+         </div>
+      </>
    );
 };
 

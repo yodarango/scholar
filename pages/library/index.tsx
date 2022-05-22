@@ -8,6 +8,7 @@
 // core
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import HeadContent from "../../layouts/head-content";
 //import { GetServerSideProps, GetStaticProps } from "next";
 
 // graphql
@@ -109,7 +110,7 @@ const Library = () => {
       <>
          <div className={`${libraryStyles.mainWrapper}`}>
             <Head>
-               <meta name='keyword' content='tags' />
+               <HeadContent />
             </Head>
             <Header currPage={"LIBRARY"} />
             <LibraryMenu

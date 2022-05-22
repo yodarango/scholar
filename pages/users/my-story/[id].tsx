@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Header from "../../../layouts/header";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../../../layouts/head-content";
 import Image from "next/image";
 
 // graphql
@@ -180,6 +182,9 @@ const Story = () => {
    };
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {popUpNotificationState}
          {initialDataState && loadingState === "done" && (
             <div className={myStoryStyles.mainWrapper}>

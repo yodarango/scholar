@@ -32,6 +32,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import { watchProps } from "../../../fragments/library-items/watch";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SkipContent from "../../../fragments/buttons/skipContent";
+import HeadContent from "../../../layouts/head-content";
 
 // type watchPageProps = {
 //    watch: watchProps[];
@@ -86,7 +87,7 @@ const Watch = () => {
    return (
       <>
          <Head>
-            <meta name='keyword' content='tags' />
+            <HeadContent />
          </Head>
          <div className={`${libraryWatchStyles.mainWrapper}`}>
             <Header currPage={"WATCH"} />

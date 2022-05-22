@@ -7,6 +7,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import HeadContent from "../../layouts/head-content";
 //import { GetServerSideProps } from "next";
 import Image from "next/image";
 
@@ -75,7 +76,7 @@ const Authors = () => {
       <>
          <div className={`${sermonsByAuthorStyles.mainWrapper}`}>
             <Head>
-               <meta name='keyword' content='tags' />
+               <HeadContent />
             </Head>
             <Header currPage={"AUTHORS"} />
             <h1 className={`${sermonsByAuthorStyles.title}`}>Select an author</h1>

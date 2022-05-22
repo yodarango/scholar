@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../../../../layouts/head-content";
 //import { GetServerSideProps } from "next";
 
 //graphQL
@@ -68,6 +70,9 @@ const EditQuote = () => {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {story && loadingState === "done" && (
             <div className='main-wrapper'>{<EditQuotePost story={story} />}</div>
          )}

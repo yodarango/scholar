@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import HeadContent from "../../layouts/head-content";
 //import { GetServerSideProps } from "next";
 
 // graphql
@@ -74,7 +75,7 @@ const PodcastHosts = () => {
       <>
          <div className={`${sermonsByAuthorStyles.mainWrapper}`}>
             <Head>
-               <meta name='keyword' content='tags' />
+               <HeadContent />
             </Head>
             <Header currPage={"HOSTS"} />
             <h1 className={sermonsByAuthorStyles.title}>Select a host</h1>

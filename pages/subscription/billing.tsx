@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
+import HeadContent from "../../layouts/head-content";
 
 // graphQL
 import client from "../../apollo-client";
@@ -49,39 +51,44 @@ const Billing = () => {
    }, [router.isReady]);
 
    return (
-      <div className={billingStlyes.mainWrapper}>
-         <Link href={`/users/me`}>
-            <a className={`goBack `}></a>
-         </Link>
-         <div className={billingStlyes.imageWrapper}>
-            <Image src='/images/layouts/stripe_dashboard.png' layout='fill' />
-         </div>
+      <>
+         <Head>
+            <HeadContent />
+         </Head>
+         <div className={billingStlyes.mainWrapper}>
+            <Link href={`/users/me`}>
+               <a className={`goBack `}></a>
+            </Link>
+            <div className={billingStlyes.imageWrapper}>
+               <Image src='/images/layouts/stripe_dashboard.png' layout='fill' />
+            </div>
 
-         {portalLinkState != "error" && portalLinkState != "loading" && (
-            <div>
-               <p>
-                  Scholar cares about your security, that is why stripe is used in all transactions
-                  to keep your billing information secure and private. To access your Stripe portal
-                  click the button below 😊
-               </p>
-               <a
-                  href={`${portalLinkState}`}
-                  className={`std-button ${billingStlyes.dashboardButton}`}>
-                  <p className={`std-button_gradient-text`}>ACCESS DASHOBOARD</p>
-               </a>
-            </div>
-         )}
-         {portalLinkState === "error" && (
-            <div>
-               <p>
-                  Your stripe account was not found. Please try again later or contact Scholar at
-                  help@biblescholar.app
-               </p>
-            </div>
-         )}
-         {portalLinkState === "loading" && <div></div>}
-         <NavigationMenu />
-      </div>
+            {portalLinkState != "error" && portalLinkState != "loading" && (
+               <div>
+                  <p>
+                     Scholar cares about your security, that is why stripe is used in all
+                     transactions to keep your billing information secure and private. To access
+                     your Stripe portal click the button below 😊
+                  </p>
+                  <a
+                     href={`${portalLinkState}`}
+                     className={`std-button ${billingStlyes.dashboardButton}`}>
+                     <p className={`std-button_gradient-text`}>ACCESS DASHOBOARD</p>
+                  </a>
+               </div>
+            )}
+            {portalLinkState === "error" && (
+               <div>
+                  <p>
+                     Your stripe account was not found. Please try again later or contact Scholar at
+                     help@biblescholar.app
+                  </p>
+               </div>
+            )}
+            {portalLinkState === "loading" && <div></div>}
+            <NavigationMenu />
+         </div>
+      </>
    );
 };
 

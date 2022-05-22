@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import HeadContent from "../../../../layouts/head-content";
+import Head from "next/head";
+
 // graphQL
 import client from "../../../../apollo-client";
 import { GET_ONE_SERMON_NOTE } from "../../../../graphql/posts/sermon_notes";
@@ -19,6 +22,9 @@ type editCommentaryProps = {
 const EditSermonNote = ({ sermonPost }: editCommentaryProps) => {
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {sermonPost && (
             <div className='main-wrapper'>
                <EditSermonNotesPost sermonPost={sermonPost} />

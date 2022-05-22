@@ -1,6 +1,8 @@
 // core
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import HeadContent from "../layouts/head-content";
 
 // components
 import SmallLoader from "../fragments/chunks/small-loader";
@@ -154,6 +156,9 @@ export default function Register() {
 
    return (
       <>
+         <Head>
+            <HeadContent />
+         </Head>
          {notificationpopUpState}
          {!isLoggedIn && (
             <div className='main-wrapper'>
