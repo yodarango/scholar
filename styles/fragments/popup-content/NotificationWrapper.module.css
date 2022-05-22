@@ -58,13 +58,13 @@
    margin: auto;
 }
 .iconCommentary {
-   background-image: url(/images/page-profile/pen.svg);
+   background-image: url("/images/icons/commentaries.png");
 }
 .iconQuote {
-   background-image: url(/images/page-profile/chat.svg);
+   background-image: url("/images/icons/quote.png");
 }
 .iconThought {
-   background-image: url(/images/page-profile/talk.svg);
+   background-image: url("/images/icons/thoughts.png");
 }
 
 /* 

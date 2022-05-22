@@ -102,7 +102,7 @@ const Podcast = () => {
                contentButtonIcon={"🎧"}
                currentSlectedContentPage={{ podcasts: "#f2f2f2" }}
             />
-            <LibraryFilterPodcast />
+            <LibraryFilterPodcast includeCreator={false} />
             {initialDataState && loadingState == "done" && (
                <PodcastCarrousel podcast={initialDataState} />
             )}

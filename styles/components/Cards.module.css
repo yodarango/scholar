@@ -249,19 +249,20 @@ rename it and reuse it in other instaces if needed.
 }
 
 .delete {
-   background-image: url("/images/delete.svg");
+   background-image: url("/images/icons/delete_white.png");
    grid-column: 4/5;
    grid-row: 1/2;
+   background-size: 70%;
 }
 
 .edit {
-   background-image: url("/images/edit.svg");
+   background-image: url("/images/icons/edit_white.png");
    grid-column: 3/4;
    grid-row: 1/2;
 }
 
 .report {
-   background-image: url("/images/report.svg");
+   background-image: url("/images/icons/report_white.report");
    grid-column: 5/6;
    grid-row: 1/2;
 }

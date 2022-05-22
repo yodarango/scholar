@@ -5,7 +5,11 @@ import { useRouter } from "next/router";
 
 // styles
 import libraryFilterStyles from "../../styles/buttons/LibraryFilter.module.css";
-const LibraryFilterPodcast = () => {
+
+type libraryFilterPodcast = {
+   includeCreator: boolean;
+};
+const LibraryFilterPodcast = ({ includeCreator }: libraryFilterPodcast) => {
    // ====================   FUNCTINO 1: Sort contnent by letter    =========== //
    const [sortByLetterState, setSortByLetterState] = useState<boolean>(false);
 
@@ -41,14 +45,16 @@ const LibraryFilterPodcast = () => {
 
    return (
       <div className={`${libraryFilterStyles.mainWrapper}`}>
-         <Link href={`/library/podcast-hosts`}>
-            <a className={`std-button ${libraryFilterStyles.stdButton}`}>
-               <p
-                  className={`std-button_gradient-text ${libraryFilterStyles.stdButtonTextGradient}`}>
-                  By Host
-               </p>
-            </a>
-         </Link>
+         {includeCreator && (
+            <Link href={`/library/podcast-hosts`}>
+               <a className={`std-button ${libraryFilterStyles.stdButton}`}>
+                  <p
+                     className={`std-button_gradient-text ${libraryFilterStyles.stdButtonTextGradient}`}>
+                     By Host
+                  </p>
+               </a>
+            </Link>
+         )}
          {!sortByLetterState && (
             <span
                className={`${libraryFilterStyles.aTozButton}`}

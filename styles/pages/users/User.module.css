@@ -9,9 +9,9 @@
 .settingsLinkIcon {
    width: 2rem;
    height: 2rem;
-   background-image: url("/images/bell.svg");
+   background-image: url("/images/icons/bell.png");
    background-position: center;
-   background-size: 90%;
+   background-size: 70%;
    background-repeat: no-repeat;
    margin: 0.5rem auto var(--xsmall-spacing-mobile) 0;
    cursor: pointer;
@@ -19,8 +19,9 @@
 }
 
 .settingsLinkIcon {
+   background-size: 90%;
    margin-right: var(--xsmall-spacing-mobile);
-   background-image: url("/images/settings.svg");
+   background-image: url("/images/icons/settings.png");
 }
 
 .bellWnotificationWrapper {
@@ -45,7 +46,7 @@
 .notificationBellWNotification {
    width: 2rem;
    height: 2rem;
-   background-image: url("/images/bellWnotification.svg");
+   background-image: url("/images/icons/bell_white.png");
    background-position: center;
    background-size: 90%;
    background-repeat: no-repeat;

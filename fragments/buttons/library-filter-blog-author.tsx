@@ -41,6 +41,8 @@ const LibraryFilterBlog = () => {
 
    return (
       <div className={`${libraryFilterStyles.mainWrapper}`}>
+         {/* 
+         Most users wont have bu tone blog, therefore removing this filter.
          <Link href={`/library/blog-writers`}>
             <a className={`std-button ${libraryFilterStyles.stdButton}`}>
                <p
@@ -48,7 +50,7 @@ const LibraryFilterBlog = () => {
                   By Writer
                </p>
             </a>
-         </Link>
+         </Link> */}
          {!sortByLetterState && (
             <span
                className={`${libraryFilterStyles.aTozButton}`}

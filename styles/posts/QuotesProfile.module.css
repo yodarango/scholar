@@ -44,12 +44,13 @@
 
 .delete {
    display: block;
-   background-image: url("/images/delete.svg");
+   background-size: 70%;
+   background-image: url("/images/icons/delete_white.png");
 }
 
 .edit {
    display: block;
-   background-image: url("/images/edit.svg");
+   background-image: url("/images/icons/edit_white.png");
 }
 
 .actionsWrapper span {
