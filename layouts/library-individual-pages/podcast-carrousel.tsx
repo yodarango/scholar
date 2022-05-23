@@ -23,25 +23,28 @@ type podcastCarrouselProps = {
 const PodcastCarrousel = ({ podcast }: podcastCarrouselProps) => {
    return (
       <div className={podcastCarrouselStyles.mainWrapper}>
-         <div className={podcastCarrouselStyles.gridWrapper}>
-            {podcast.map((podcast: podcastsProps) => (
-               <Podcasts
-                  id={podcast.id}
-                  key={podcast.id}
-                  totalReviews={podcast.totalReviews}
-                  thumbnail={podcast.thumbnail}
-                  podcastName={podcast.podcastName}
-                  host={podcast.host}
-                  currentRanking={podcast.currentRanking}
-                  description={podcast.description}
-                  appleLink={podcast.appleLink}
-                  spotifyLink={podcast.spotifyLink}
-                  googleLink={podcast.googleLink}
-                  overcastLink={podcast.overcastLink}
-                  // newClass={podcastCarrouselStyles.podcastWrapper}
-               />
-            ))}
-         </div>
+         {podcast.length > 0 && (
+            <div className={podcastCarrouselStyles.gridWrapper}>
+               {podcast.map((podcast: podcastsProps) => (
+                  <Podcasts
+                     id={podcast.id}
+                     key={podcast.id}
+                     totalReviews={podcast.totalReviews}
+                     thumbnail={podcast.thumbnail}
+                     podcastName={podcast.podcastName}
+                     host={podcast.host}
+                     currentRanking={podcast.currentRanking}
+                     description={podcast.description}
+                     appleLink={podcast.appleLink}
+                     spotifyLink={podcast.spotifyLink}
+                     googleLink={podcast.googleLink}
+                     overcastLink={podcast.overcastLink}
+                     // newClass={podcastCarrouselStyles.podcastWrapper}
+                  />
+               ))}
+            </div>
+         )}
+         {podcast.length === 0 && <h2 className={"no-content-text"}>no content found</h2>}
       </div>
    );
 };

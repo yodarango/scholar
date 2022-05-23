@@ -55,7 +55,7 @@ const Blogs = () => {
    };
 
    // get the inital data
-   const [initialDataState, setInitialDataState] = useState<blogProps[]>([]);
+   const [initialDataState, setInitialDataState] = useState<blogProps[] | null>(null);
    const getInitialData = async () => {
       try {
          let { skip, alphOrd, dateOrd, userId, id, blogName } = router.query;
@@ -65,11 +65,10 @@ const Blogs = () => {
          });
          setInitialDataState(data.blogs);
          setLoadingState("done");
-         //setLoadingState("loading");
       } catch (error) {
          console.log(error);
          setLoadingState("error");
-         setInitialDataState([]);
+         setInitialDataState(null);
       }
    };
 
@@ -92,7 +91,7 @@ const Blogs = () => {
          <div className={`${libraryBlogsStyles.mainWrapper}`}>
             <Header currPage={"BLOGS"} />
             {initialDataState && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
             <div className='x-large-spacer'></div>
             <LibraryMenu

@@ -66,7 +66,7 @@ const Book = ({
                target='_blank'
                rel='noopener noreferrer'
                className={bookStyles.bookImg}
-               onError={() => setImageThumbnailState("/Parks10.png")}>
+               onError={() => setImageThumbnailState("/images/Page-library/book.png")}>
                <Image src={imageThumbnailState} alt='book thumbnail' layout='fill' />
             </a>
          )}

@@ -20,7 +20,15 @@
    color: var(--fourth-color);
 }
 
+.goBackLibrary {
+   top: var(--large-spacing-desktop);
+}
+
 @media only screen and (min-width: 1000px) {
+   .goBackLibrary {
+      top: var(--xlarge-spacing-desktop);
+      left: var(--xlarge-spacing-desktop);
+   }
    .mainWrapper {
       max-width: 900px;
       margin: calc(7rem + var(--medium-spacing-desktop)) auto 0;

@@ -47,7 +47,7 @@ const Sermons = () => {
    const handleInputSearchReq = (string: string) => {
       if (string) {
          const singleWords = string.split(" ");
-         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substr(1));
+         newInput = singleWords.map((word) => word[0].toUpperCase() + word.substring(1));
       }
 
       router.replace({ pathname: router.pathname, query: { title: newInput } });
@@ -90,7 +90,7 @@ const Sermons = () => {
          <div className={`${librarySermonsPageStyles.mainWrapper}`}>
             <Header currPage={"SERMON NOTES"} />
             {initialDataState && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
             <div className='x-large-spacer '></div>
             <LibraryMenu

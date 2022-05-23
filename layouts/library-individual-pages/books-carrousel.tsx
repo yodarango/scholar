@@ -23,24 +23,27 @@ type bookCarrouselProps = {
 const BookCarrousel = ({ books }: bookCarrouselProps) => {
    return (
       <div className={bookCarrouselStyles.mainWrapper}>
-         <div className={bookCarrouselStyles.gridWrapper}>
-            {books.map((book: bookProps) => (
-               <Book
-                  id={book.id}
-                  key={book.id}
-                  title={book.title}
-                  author={book.author}
-                  totalReviews={book.totalReviews}
-                  currentRanking={book.currentRanking}
-                  bookUrl={book.bookUrl}
-                  newClass={bookCarrouselStyles.bookMainWrapper}
-                  categoryTags={book.categoryTags}
-                  tagColors={book.tagColors}
-                  description={book.description}
-                  thumbnail={book.thumbnail}
-               />
-            ))}
-         </div>
+         {books.length > 0 && (
+            <div className={bookCarrouselStyles.gridWrapper}>
+               {books.map((book: bookProps) => (
+                  <Book
+                     id={book.id}
+                     key={book.id}
+                     title={book.title}
+                     author={book.author}
+                     totalReviews={book.totalReviews}
+                     currentRanking={book.currentRanking}
+                     bookUrl={book.bookUrl}
+                     newClass={bookCarrouselStyles.bookMainWrapper}
+                     categoryTags={book.categoryTags}
+                     tagColors={book.tagColors}
+                     description={book.description}
+                     thumbnail={book.thumbnail}
+                  />
+               ))}
+            </div>
+         )}
+         {books.length === 0 && <h2 className={"no-content-text"}>no content found</h2>}
       </div>
    );
 };

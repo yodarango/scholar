@@ -345,6 +345,12 @@ a:active {
    margin: var(--medium-spacing-mobile) auto;
    display: block;
 }
+.no-content-text {
+   color: var(--secondary-color);
+   width: 100%;
+   text-align: center;
+   margin: 10rem auto 0;
+}
 
 .std-logo {
    width: 3.12rem;

@@ -55,7 +55,7 @@ const Podcast = () => {
    };
 
    // get the inital data
-   const [initialDataState, setInitialDataState] = useState<podcastsProps[]>([]);
+   const [initialDataState, setInitialDataState] = useState<podcastsProps[] | null>(null);
    const getInitialData = async () => {
       try {
          let { skip, alphOrd, dateOrd, userId, podcastName, id } = router.query;
@@ -69,7 +69,7 @@ const Podcast = () => {
       } catch (error) {
          console.log(error);
          setLoadingState("error");
-         setInitialDataState([]);
+         setInitialDataState(null);
       }
    };
 
@@ -91,7 +91,7 @@ const Podcast = () => {
          <div className={`${libraryPodcastStyles.mainWrapper}`}>
             <Header currPage={"PODCASTS"} />
             {initialDataState && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
             <div className='x-large-spacer'></div>
             <LibraryMenu

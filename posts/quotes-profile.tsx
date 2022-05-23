@@ -98,6 +98,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
                   title='Oh no!'
                   contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   closeModal={() => setNotificatonPopUpState(false)}
+                  newClass='notification-wrapper--Error'
                />
             );
          }
@@ -109,6 +110,7 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
                title='Oh no!'
                contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                closeModal={() => setNotificatonPopUpState(false)}
+               newClass='notification-wrapper--Error'
             />
          );
       }

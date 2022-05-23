@@ -96,14 +96,14 @@ const Blog = ({
                //       src={`${imageThumbnailState}`}
                //       alt='podcast thumbnail'
                //       layout='fill'
-               //       onError={() => setImageThumbnailState("/Parks10.png")}
+               //       onError={() => setImageThumbnailState("/images/Page-library/blog.png)}
                //    />
                // </div>
                <div className={`${blogStyles.thumbnailWrapper}`} onClick={handleOpenDescription}>
                   <img
                      src={imageThumbnailState}
                      alt='podcast'
-                     onError={() => setImageThumbnailState("/Parks10.png")}
+                     onError={() => setImageThumbnailState("/images/Page-library/blog.png")}
                      className={`${blogStyles.thumbnail}`}
                   />
                </div>

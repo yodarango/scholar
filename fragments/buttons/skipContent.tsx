@@ -7,7 +7,7 @@ import skipContentStyles from "../../styles/buttons/skipContent.module.css";
 
 type skipContProps = {
    wrapperMaxWidth: string;
-   content: any;
+   content: number;
 };
 
 const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
@@ -19,21 +19,20 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
    const [showBackwarButton, setShowBackwarButton] = useState<boolean>(true);
 
    useEffect(() => {
-      router.query.skip === "0"
-         ? setShowBackwarButton(false)
-         : !router.query.skip
-         ? setShowBackwarButton(false)
-         : content.length < 20
-         ? setShowBackwarButton(false)
-         : setShowBackwarButton(true);
-
-      content.length < 20 ? setShowForwardButton(false) : null;
-   }, [router.query]);
+      if (router.isReady) {
+         console.log(content);
+         if (router.query.skip === "0" || !router.query.skip) {
+            setShowBackwarButton(false);
+         } else {
+            setShowBackwarButton(true);
+         }
+         content < 20 ? setShowForwardButton(false) : null;
+      }
+   }, [router.isReady, router.query]);
    // ==========  skip to the previous 20 items
    const handleSkipBackwards = () => {
       setShowForwardButton(true);
       if (router.query.skip) {
-         console.log(router.query.skip);
          if (parseInt(`${router.query.skip}`) - 20 === 0) {
             setShowBackwarButton(false);
          }
@@ -62,7 +61,7 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
       ) {
          const currPath = router.asPath.replace(`?skip=${router.query.skip}`, "");
          router.replace(`${currPath}?skip=${parseInt(`${router.query.skip}`) + 20}`);
-      } else if (router.query.skip && content.length === 20) {
+      } else if (router.query.skip && content === 20) {
          const currPath = router.asPath.replace(`&skip=${router.query.skip}`, "");
          router.replace(`${currPath}&skip=${parseInt(`${router.query.skip}`) + 20}`);
       } else {

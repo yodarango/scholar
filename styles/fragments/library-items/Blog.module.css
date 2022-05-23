@@ -13,7 +13,9 @@
    background-color: var(--font-color);
    max-width: 9.3rem;
    border-radius: var(--input-radius-mobile);
-   background-color: var(--secondary-color);
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 .thumbnail {
    width: 100%;
@@ -27,6 +29,10 @@
    border-radius: var(--input-radius-mobile);
 }
 
+.thumbnail[src="/images/Page-library/blog.png"] {
+   width: 80%;
+   height: 80%;
+}
 .thumbnail:hover {
    cursor: pointer;
    opacity: 0.8;
@@ -104,6 +110,13 @@
    z-index: 5;
    overflow-y: scroll;
    border-bottom: 1rem solid var(--secondary-color);
+}
+
+.descPopup img[src="/images/Page-library/blog.png"] {
+   object-fit: contain;
+   background-color: var(--font-color);
+   max-width: 7rem;
+   margin: var(--medium-spacing-mobile) auto;
 }
 
 .descPopupCloseModal {

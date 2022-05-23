@@ -52,9 +52,6 @@ export type Tstory = {
 
 export type quoteStoriesProps = {
    stories: Tstory[];
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
 };
 
 export type last24SingleQuote = {
@@ -393,14 +390,6 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                   {/* ------------------------ author and admin features ------------------------ */}
                   <span className={quoteStoriesStyles.storyBy}>
                      -By: {quoteState[countState].author}
-                     {renderDeleteEditOptionsState && (
-                        <span
-                           className={(cardStyles.cardIcon, cardStyles.delete)}
-                           onClick={handleDeleteConfirmation}></span>
-                     )}
-                     {renderDeleteEditOptionsState && (
-                        <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
-                     )}
                      {renderReportOptionState && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.report)}

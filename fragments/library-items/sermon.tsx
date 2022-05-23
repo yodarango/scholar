@@ -105,12 +105,11 @@ const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: se
                className={sermonStyles.outerCover}
                style={{ backgroundColor: sermon.tagColors[0] }}>
                <div className={sermonStyles.textWrapper}>
-                  <Link href={sermon.fileUrl}>
-                     <a>
-                        <h1 className={sermonStyles.title}>{sermon.title}</h1>
-                        <h3 className={sermonStyles.author}>by: {sermon.author}</h3>
-                     </a>
-                  </Link>
+                  <a href={sermon.fileUrl} target='_blank' rel='noopener noreferrer'>
+                     <h1 className={sermonStyles.title}>{sermon.title}</h1>
+                     <h3 className={sermonStyles.author}>by: {sermon.author}</h3>
+                  </a>
+
                   <div
                      className={`${sermonStyles.userReputation}`}
                      style={{

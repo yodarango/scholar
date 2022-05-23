@@ -18,24 +18,19 @@ import { Tsermon } from "../../fragments/library-items/sermon";
 
 type sermonCarrouselProps = {
    sermon: Tsermon[];
-   editOption?: boolean;
-   deleteOption?: boolean;
-   reportOption?: boolean;
 };
 
-const SermonsCarrousel = ({
-   sermon,
-   editOption,
-   deleteOption,
-   reportOption
-}: sermonCarrouselProps) => {
+const SermonsCarrousel = ({ sermon }: sermonCarrouselProps) => {
    return (
       <div className={sermonsCarrouselStyles.mainWrapper}>
-         <div className={sermonsCarrouselStyles.gridWrapper}>
-            {sermon.map((sermon: Tsermon) => (
-               <Sermon sermon={sermon} />
-            ))}
-         </div>
+         {sermon.length > 0 && (
+            <div className={sermonsCarrouselStyles.gridWrapper}>
+               {sermon.map((sermon: Tsermon) => (
+                  <Sermon sermon={sermon} />
+               ))}
+            </div>
+         )}
+         {sermon.length === 0 && <h2 className={"no-content-text"}>no content found</h2>}
       </div>
    );
 };

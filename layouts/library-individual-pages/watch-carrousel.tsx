@@ -23,22 +23,25 @@ type watchCarrouselProps = {
 const WatchCarrousel = ({ watch }: watchCarrouselProps) => {
    return (
       <div className={watchCarrouselStyles.mainWrapper}>
-         <div className={watchCarrouselStyles.gridWrapper}>
-            {watch.map((video: watchProps) => (
-               <Watch
-                  id={video.id}
-                  key={video.id}
-                  thumbnail={video.thumbnail}
-                  title={video.title}
-                  totalReviews={video.totalReviews}
-                  by={video.user === null ? "" : video.user.fullName}
-                  userId={video.userId}
-                  currentRanking={video.currentRanking}
-                  sermonUrl={video.sermonUrl}
-                  newClass={watchCarrouselStyles.watchMainWrapper}
-               />
-            ))}
-         </div>
+         {watch.length && (
+            <div className={watchCarrouselStyles.gridWrapper}>
+               {watch.map((video: watchProps) => (
+                  <Watch
+                     id={video.id}
+                     key={video.id}
+                     thumbnail={video.thumbnail}
+                     title={video.title}
+                     totalReviews={video.totalReviews}
+                     by={video.user === null ? "" : video.user.fullName}
+                     userId={video.userId}
+                     currentRanking={video.currentRanking}
+                     sermonUrl={video.sermonUrl}
+                     newClass={watchCarrouselStyles.watchMainWrapper}
+                  />
+               ))}
+            </div>
+         )}
+         {watch.length === 0 && <h2 className={"no-content-text"}>no content found</h2>}
       </div>
    );
 };

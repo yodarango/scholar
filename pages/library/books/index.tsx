@@ -53,7 +53,7 @@ const Books = () => {
    };
 
    // get the inital data
-   const [initialDataState, setInitialDataState] = useState<bookProps[]>([]);
+   const [initialDataState, setInitialDataState] = useState<bookProps[] | null>(null);
    const getInitialData = async () => {
       try {
          let { skip, category, title, author } = router.query;
@@ -63,12 +63,10 @@ const Books = () => {
          });
          setInitialDataState(data.books);
          setLoadingState("done");
-
-         console.log(data);
       } catch (error) {
          console.log(error);
          setLoadingState("error");
-         setInitialDataState([]);
+         setInitialDataState(null);
       }
    };
 
@@ -90,7 +88,7 @@ const Books = () => {
          <div className={`${libraryBooksStyles.mainWrapper}`}>
             <Header currPage={"BOOKS"} />
             {initialDataState && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
             <div className='x-large-spacer'></div>
             <LibraryMenu

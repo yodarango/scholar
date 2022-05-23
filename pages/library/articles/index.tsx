@@ -56,7 +56,7 @@ const Articles = () => {
    };
 
    // get the inital data
-   const [initialDataState, setInitialDataState] = useState<articleProps[]>([]);
+   const [initialDataState, setInitialDataState] = useState<articleProps[] | null>(null);
    const getInitialData = async () => {
       try {
          let { skip, category, alphOrd, dateOrd, userId, title, id } = router.query;
@@ -77,7 +77,7 @@ const Articles = () => {
       } catch (error) {
          console.log(error);
          setLoadingState("error");
-         setInitialDataState([]);
+         setInitialDataState(null);
       }
    };
 
@@ -100,7 +100,7 @@ const Articles = () => {
          <div className={`${libraryArticlesPageStyles.mainWrapper}`}>
             <Header currPage={"ARTICLES"} />
             {initialDataState && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
             <div className='x-large-spacer'></div>
             <LibraryMenu

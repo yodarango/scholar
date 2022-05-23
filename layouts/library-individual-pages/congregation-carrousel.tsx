@@ -24,24 +24,27 @@ const CongregationCarrousel = ({ congregation }: congregationCarrouselProps) => 
    console.log(congregation);
    return (
       <div className={congregationCarrouselStyles.mainWrapper}>
-         <div className={congregationCarrouselStyles.gridWrapper}>
-            {congregation.map((congregation: congregationProps) => (
-               <Congregation
-                  id={congregation.id}
-                  key={congregation.id}
-                  logo={congregation.logo}
-                  name={congregation.name}
-                  schedule={congregation.schedule}
-                  state={congregation.state}
-                  zip={congregation.zip}
-                  city={congregation.city}
-                  address={congregation.address}
-                  location={congregation.location}
-                  website={congregation.website}
-                  iFrame={congregation.iFrame}
-               />
-            ))}
-         </div>
+         {congregation.length > 0 && (
+            <div className={congregationCarrouselStyles.gridWrapper}>
+               {congregation.map((congregation: congregationProps) => (
+                  <Congregation
+                     id={congregation.id}
+                     key={congregation.id}
+                     logo={congregation.logo}
+                     name={congregation.name}
+                     schedule={congregation.schedule}
+                     state={congregation.state}
+                     zip={congregation.zip}
+                     city={congregation.city}
+                     address={congregation.address}
+                     location={congregation.location}
+                     website={congregation.website}
+                     iFrame={congregation.iFrame}
+                  />
+               ))}
+            </div>
+         )}
+         {congregation.length === 0 && <h2 className={"no-content-text"}>no content found</h2>}
       </div>
    );
 };

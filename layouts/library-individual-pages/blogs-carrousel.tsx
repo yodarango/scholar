@@ -23,21 +23,24 @@ type blogCarrouselProps = {
 const BlogCarrousel = ({ blogs }: blogCarrouselProps) => {
    return (
       <div className={blogCarrouselStyles.mainWrapper}>
-         <div className={blogCarrouselStyles.gridWrapper}>
-            {blogs.map((blog: blogProps) => (
-               <Blog
-                  id={blog.id}
-                  key={blog.id}
-                  thumbnail={blog.thumbnail}
-                  blogName={blog.blogName}
-                  author={blog.author}
-                  currentRanking={blog.currentRanking}
-                  blogUrl={blog.blogUrl}
-                  description={blog.description}
-                  totalReviews={blog.totalReviews}
-               />
-            ))}
-         </div>
+         {blogs.length > 0 && (
+            <div className={blogCarrouselStyles.gridWrapper}>
+               {blogs.map((blog: blogProps) => (
+                  <Blog
+                     id={blog.id}
+                     key={blog.id}
+                     thumbnail={blog.thumbnail}
+                     blogName={blog.blogName}
+                     author={blog.author}
+                     currentRanking={blog.currentRanking}
+                     blogUrl={blog.blogUrl}
+                     description={blog.description}
+                     totalReviews={blog.totalReviews}
+                  />
+               ))}
+            </div>
+         )}
+         {blogs.length === 0 && <h2 className={"no-content-text"}>no content found</h2>}
       </div>
    );
 };

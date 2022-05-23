@@ -56,7 +56,7 @@ const Watch = () => {
    };
 
    // get the inital data
-   const [initialDataState, setInitialDataState] = useState<watchProps[]>([]);
+   const [initialDataState, setInitialDataState] = useState<watchProps[] | null>(null);
    const getInitialData = async () => {
       try {
          let { skip, alphOrd, dateOrd, category, userId, title, id } = router.query;
@@ -70,7 +70,7 @@ const Watch = () => {
       } catch (error) {
          console.log(error);
          setLoadingState("error");
-         setInitialDataState([]);
+         setInitialDataState(null);
       }
    };
 
@@ -91,8 +91,8 @@ const Watch = () => {
          </Head>
          <div className={`${libraryWatchStyles.mainWrapper}`}>
             <Header currPage={"WATCH"} />
-            {initialDataState.length > 19 && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState} />
+            {initialDataState && (
+               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
             <div className='x-large-spacer'></div>
             <LibraryMenu
