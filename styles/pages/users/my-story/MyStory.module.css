@@ -46,6 +46,11 @@
    height: 3rem;
    background-position: center;
    background-size: contain;
+   background-repeat: no-repeat;
+   background-image: url("/images/icons/edit.png");
+}
+
+.sendIcon {
    background-image: url("/images/icons/send.png");
 }
 
@@ -55,7 +60,6 @@
    position: fixed;
    top: var(--xlarge-spacing-mobile);
    right: var(--medium-spacing-mobile);
-   background-color: white;
 }
 
 .editStoryIcon:hover,
