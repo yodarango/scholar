@@ -74,7 +74,7 @@ const QuoteEditor = ({ handleCloseStories }: quoteEditorProps) => {
 
             console.log(data);
             if (data.quote.__typename === "Quote") {
-               router.reload();
+               //router.reload();
             } else if (data.quote.__typename === "ExceedsPostCount") {
                setSmallLoaderState(false);
                setNotificationpoUp(
