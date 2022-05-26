@@ -34,13 +34,11 @@ import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tcommentary = {
    ID: string;
-   USER_ID: string;
    VERSE_ID: string;
    body: string;
    category_tags: string;
    referenced_verses: string;
-   created_date: string;
-   commented_on: string;
+   posted_on: string;
    verse_citation: string;
    total_count: number;
    creator: {
@@ -74,8 +72,8 @@ export default function Comments({ commentary }: commentsProps) {
       if (router.isReady) {
          const authJWT = loggedInUser();
          if (authJWT) {
-            setRenderDeleteEditOptionsState(commentary.USER_ID == authJWT.ID);
-            setRenderReportOptionState(commentary.USER_ID != authJWT.ID);
+            setRenderDeleteEditOptionsState(commentary.creator.ID == authJWT.ID);
+            setRenderReportOptionState(commentary.creator.ID != authJWT.ID);
          }
       }
    }, []);
@@ -430,6 +428,9 @@ export default function Comments({ commentary }: commentsProps) {
                   )}
                </div>
                <i>{`comment on ${commentary.verse_citation}`}</i>
+               <p className={`std-text-block--widget ${cardStyles.postTime}`}>
+                  {commentary.posted_on}
+               </p>
                <p>{commentary.body}</p>
                {
                   <PostReactions

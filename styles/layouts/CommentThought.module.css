@@ -19,6 +19,12 @@
    width: 100%;
 }
 
+.commentThoughtCommentWrapper {
+   flex-shrink: 0;
+   width: 100%;
+   max-width: 25rem;
+}
+
 .wholeThouchtCommentWrapper {
    display: flex;
    align-items: flex-start;

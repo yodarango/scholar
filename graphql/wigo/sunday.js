@@ -12,13 +12,12 @@ export const GET_SUNDAY_CONTENT = gql`
       # commentaries
       commentary(last_id: $last_id) {
          ID
-         USER_ID
+         # USER_ID
          VERSE_ID
          body
          category_tags
          referenced_verses
          verse_citation
-         created_date
          posted_on
          creator {
             ID
@@ -41,7 +40,7 @@ export const GET_SUNDAY_CONTENT = gql`
          ID
          title
          body
-         USER_ID
+         # USER_ID
          category_tags
          posted_on
          creator {
@@ -83,8 +82,11 @@ export const GET_SUNDAY_CONTENT = gql`
       sermon_notes(last_id: $last_id) {
          ID
          content
-         USER_ID
+         # USER_ID
          category_tags
+         title
+         posted_on
+         file_url
          creator {
             ID
             signature

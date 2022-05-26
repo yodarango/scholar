@@ -8,6 +8,7 @@
 **HTML**
 
 1. fragments > Library Items > sermon: Delete the "delete" and "report"
+2. WIGO wed thurs, and Fri have the same description for content placeholder
 
 **FUNCTIONALITY**
 

@@ -112,7 +112,9 @@ const CommentThought = ({ commentaries, thoughts }: commentThoughtProps) => {
             {commentariesState &&
                filterThoughtCommentState.comment &&
                commentariesState.map((commentary: Tcommentary) => (
-                  <section key={commentary.ID}>
+                  <section
+                     key={commentary.ID}
+                     className={commentThoughtStyles.commentThoughtCommentWrapper}>
                      <Comment commentary={commentary} />
                   </section>
                ))}

@@ -11,7 +11,7 @@
    box-shadow: 5px 5px 10px 5px var(--shadow-color);
 }
 
-.mainWrapper > * {
+.mainWrapper * {
    font: var(--primary-font-mobile);
    text-align: left;
    width: 100%;
@@ -103,10 +103,11 @@
    margin: 0 auto;
 }
 
-.postedOn {
+.mainWrapper > .postedOn {
    grid-column: 2/3;
    grid-row: 4/5;
    margin: 0 auto;
+   font-size: 1rem;
    font: var(--small-primary-font-mobile);
    opacity: 0.35;
 }

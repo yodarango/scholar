@@ -81,7 +81,9 @@ rename it and reuse it in other instaces if needed.
 .commentCard {
    box-shadow: 5px 5px 10px 5px var(--shadow-color);
    max-width: 25rem;
+   width: 100%;
    margin: auto;
+   flex-shrink: 0;
 }
 
 .commentCard,
@@ -289,6 +291,14 @@ rename it and reuse it in other instaces if needed.
    width: 100%;
    font: var(--primary-font-mobile);
    overflow: visible;
+}
+
+.commentCard .postTime {
+   text-align: left;
+   margin: 0;
+   font-size: 1rem;
+   color: var(--font-color);
+   opacity: 0.5;
 }
 
 .smallTitleNoMargin {
