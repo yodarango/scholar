@@ -359,6 +359,11 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
                <div className={quoteStoriesStyles.count}>
                   {countState + 1} of {quoteState.length}
                </div>
+
+               <div className={quoteStoriesStyles.posted_on}>
+                  {quoteState[countState].posted_on}
+               </div>
+
                <div
                   className={`closeModal ${quoteStoriesStyles.closeModal}`}
                   onClick={handleCloseStories}>

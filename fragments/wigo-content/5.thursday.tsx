@@ -239,8 +239,8 @@ const Thursday = ({ thursdayContent }: thursdayProps) => {
                button='none'
                context={
                   <p>
-                     Become a trusted user and show the community your posts can be trusted. On your
-                     settings go to <b>apply for user verification</b> and fill out the form!
+                     Help Scholar stay a Godly, safe, and reliable place for everyone by honestly
+                     rating content, giving feedback and reporting inappropiate content
                   </p>
                }
                imgLink={`/images/wigo-placeholders/no_content_graphic_five.png`}

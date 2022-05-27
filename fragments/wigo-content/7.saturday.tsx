@@ -88,8 +88,9 @@ const Saturday = ({ saturdayContent }: saturdayProps) => {
                button='none'
                context={
                   <p>
-                     Become a trusted user and show the community your posts can be trusted. On your
-                     settings go to <b>apply for user verification</b> and fill out the form!
+                     Your enjoyment, security, and privacy are Scholar's priority. This is the
+                     reason why we limit the number of third party partners as much as we can to
+                     assure your information is secure.
                   </p>
                }
                imgLink={`/images/wigo-placeholders/no_content_graphic_seven.png`}

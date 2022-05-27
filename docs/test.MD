@@ -176,6 +176,18 @@
 23.   ✅ Link on sermon_notes works and redirects to a new window
 24.   ✅ all data in posts is correct
 25.   ✅ Can interact with the libraries dynamic content
-      **PERMISSIONS**
+
+**READ PAGE**
+
+1. ✅ only the screens specified on cookie load
+2. ✅ color specified on cookie loads
+3. ✅ can choose on multiple translations
+4. ✅ theme and theme cookie works
+5. ✅ font size and and font size cookie works
+6. ✅ different token is used for every API call
+7. ✅ each verse redirects to the commentary page
+8. ✅ can choose on multiple languages
+
+   **PERMISSIONS**
 
 **SUBSCRIPTIONS**

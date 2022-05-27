@@ -1,6 +1,6 @@
 // core
-import React, { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 const Cookie = require("js-cookie");
 
 // components
@@ -37,6 +37,7 @@ type ReadingCollageUnitProps = {
    versionId: string;
 };
 const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitProps) => {
+   const router = useRouter();
    //// handles the dropdown popup wrappin glist of bible translations
    type IlangListDropdown = {
       dropdown: JSX.Element | boolean;
@@ -60,8 +61,8 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
          dropdown: false,
          openCta: false
       });
-      console.log(currLangIcon.lang, selectedOption.textContent);
    };
+
    // 3. opens the "openLangOption" dropdown right after the language changes
    useEffect(() => {
       openVerChapPopup();
@@ -238,11 +239,16 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
       color?: string;
       darkTheme?: string;
    };
-   const [readingSettings, setReadingSettings] = useState<IreadingSettings>({
-      color: Cookie.get("bkgColor"),
-      darkTheme: Cookie.get("darkTheme")
+   const [readingSettings, setReadingSettings] = useState<IreadingSettings | undefined>({
+      color: undefined,
+      darkTheme: undefined
    });
 
+   useEffect(() => {
+      if (router.isReady) {
+         setReadingSettings({ color: Cookie.get("bkgColor"), darkTheme: Cookie.get("darkTheme") });
+      }
+   }, [router.isReady]);
    // 2. handle color change
    ///// The following list of useRefs is used instead in documentgetElementBy... to stay more within react protocol
    const collageUnitBkg = useRef<HTMLDivElement>(null);
@@ -267,8 +273,11 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
    ///// 3.1 No cookies are set for font change
    const chapterBody = useRef<HTMLDivElement>(null);
    const changeFontSize = (size: string) => {
-      const verse = document.querySelectorAll(".ScripturesHTML_verse__1Gbv-");
+      const verse = document.querySelectorAll(
+         ".readingCollageUnit_currentChapterWrapper__R59Gr span"
+      );
       verse.forEach((el: any) => (el.style.fontSize = `${size}`));
+      console.log(size);
    };
 
    // 4. handle color reset
@@ -290,12 +299,12 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
          <div
             className={`${readingCollageUnitStyles.mainWrapper} ${multiViewClass}`}
             ref={collageUnitBkg}
-            style={{ background: readingSettings.color }}>
+            style={{ background: readingSettings?.color }}>
             <div className={readingCollageUnitStyles.header}>
                {langListDropdown.openCta === false && (
                   <div className={readingCollageUnitStyles.langugageButtonWrapper}>
                      <div
-                        className={`${readingCollageUnitStyles.langugageButton} ${readingSettings.darkTheme}`}
+                        className={`${readingCollageUnitStyles.langugageButton} ${readingSettings?.darkTheme}`}
                         onClick={openLangOption}
                         ref={collageUnitBorder0}>
                         {currLangIcon.icon}
@@ -305,7 +314,7 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
                )}
                {langListDropdown.openCta === true && (
                   <div
-                     className={`${readingCollageUnitStyles.langugageButtonWrapper} ${readingSettings.darkTheme}`}>
+                     className={`${readingCollageUnitStyles.langugageButtonWrapper} ${readingSettings?.darkTheme}`}>
                      <div
                         className={readingCollageUnitStyles.langugageButton}
                         onClick={closeLangOption}>
@@ -316,14 +325,14 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
                )}
                <div className={readingCollageUnitStyles.versionChapterDropDownWrapper}>
                   <div
-                     className={`${readingCollageUnitStyles.versionDropDownWrapper} ${readingSettings.darkTheme}`}
+                     className={`${readingCollageUnitStyles.versionDropDownWrapper} ${readingSettings?.darkTheme}`}
                      onClick={openVerChapPopup}
                      ref={collageUnitBorder1}>
                      <p className={`std-button_gradient-text`}>{currVersionState.initials}</p>
                   </div>
                   <div
                      data-currentversion='JHN'
-                     className={`${readingCollageUnitStyles.chapterDropDownWrapper} ${readingSettings.darkTheme}`}
+                     className={`${readingCollageUnitStyles.chapterDropDownWrapper} ${readingSettings?.darkTheme}`}
                      onClick={openChapterPopup}
                      ref={collageUnitBorder2}>
                      <p className={`std-button_gradient-text`}>
@@ -332,7 +341,7 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
                   </div>
                </div>
                <div
-                  className={`${readingCollageUnitStyles.settingsButton} ${readingSettings.darkTheme}`}
+                  className={`${readingCollageUnitStyles.settingsButton} ${readingSettings?.darkTheme}`}
                   onClick={openSettingsPopup}
                   ref={collageUnitBorder3}>
                   ⚙️

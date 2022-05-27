@@ -30,9 +30,6 @@ const Read = () => {
             <HeadContent />
          </Head>
          <div className={`main-wrapper ${readStyles.mainWrapper}`}>
-            <Head>
-               <meta name='keyword' content='tags' />
-            </Head>
             <ReadingCollage versionId={versionId} />
          </div>
          <div className={`large-spacer`}> </div>

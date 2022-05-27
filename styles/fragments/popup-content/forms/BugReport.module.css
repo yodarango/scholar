@@ -44,11 +44,20 @@
    color: var(--fourth-color);
    font-size: 1.8rem;
 }
+.inputWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+}
 
 .inputWrapper label {
    margin: 0 var(--xlarge-spacing-mobile) 0 0;
    font: var(--secondary-font-mobile);
    font-size: 1.2rem;
+   width: 100%;
+   max-width: 20rem;
+   display: block;
 }
 
 .inputWrapper input {
@@ -179,7 +188,6 @@
 
    .inputWrapper {
       position: relative;
-      height: 4rem;
       margin: 0 auto var(--medium-spacing-mobile);
    }
 

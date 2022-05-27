@@ -372,7 +372,10 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
                   {thought.creator && thought.creator.signature && (
                      <i>{`${thought.creator.signature} expressed a new Tought`}</i>
                   )}
-                  <p>{thought.body}</p>
+                  <p className={`std-text-block--widget ${cardStyles.postTime}`}>
+                     {thought.posted_on}
+                  </p>
+                  <p className={cardStyles.thoughtBody}>{thought.body}</p>
                   <PostReactions
                      handleComment={() => openComment(thought.ID)}
                      handleRateContent={() => handleApproveContent(thought.ID, thought.creator.ID)}

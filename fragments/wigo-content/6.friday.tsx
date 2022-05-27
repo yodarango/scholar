@@ -230,8 +230,8 @@ const Friday = ({ fridayContent }: fridayPropsT) => {
                button='none'
                context={
                   <p>
-                     Become a trusted user and show the community your posts can be trusted. On your
-                     settings go to <b>apply for user verification</b> and fill out the form!
+                     You make scholar. Please send an email to hey@biblescholar.app and tell us how
+                     can it improve or what other features would you like to see 😃
                   </p>
                }
                imgLink={`/images/wigo-placeholders/no_content_graphic_six.png`}

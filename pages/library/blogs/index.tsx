@@ -89,7 +89,7 @@ const Blogs = () => {
             <HeadContent />
          </Head>
          <div className={`${libraryBlogsStyles.mainWrapper}`}>
-            <Header currPage={"BLOGS"} />
+            <Header currPage={"WEBSITES"} />
             {initialDataState && (
                <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
             )}
@@ -99,7 +99,7 @@ const Blogs = () => {
                includeCategory={false}
                includeContent={true}
                includeSearch={true}
-               contentButtonIcon={"📑"}
+               contentButtonIcon={"💻"}
                currentSlectedContentPage={{ blogs: "#f2f2f2" }}
             />
             <LibraryFilterBlog />

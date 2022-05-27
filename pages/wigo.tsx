@@ -81,13 +81,13 @@ const Wigo = () => {
          ? (GET_CONTENT_QUERY = GET_MONDAY_CONTENT)
          : today === 2
          ? (GET_CONTENT_QUERY = GET_TUESDAY_CONTENT)
-         : today === 13
+         : today === 3
          ? (GET_CONTENT_QUERY = GET_WEDNESDAY_CONTENT)
          : today === 4
          ? (GET_CONTENT_QUERY = GET_THURSDAY_CONTENT)
          : today === 5
          ? (GET_CONTENT_QUERY = GET_FRIDAY_CONTENT)
-         : today === 3
+         : today === 6
          ? (GET_CONTENT_QUERY = GET_SATURDAY_CONTENT)
          : null;
 
@@ -134,12 +134,10 @@ const Wigo = () => {
                      {dayOfTheWeekState === 0 && <Sunday sundayContent={content.sunday} />}
                      {dayOfTheWeekState === 1 && <Monday mondayContent={content.monday} />}
                      {dayOfTheWeekState === 2 && <Tuesday tuesdayContent={content.tuesday} />}
-                     {dayOfTheWeekState === 13 && (
-                        <Wednesday wednesdayContent={content.wednesday} />
-                     )}
+                     {dayOfTheWeekState === 3 && <Wednesday wednesdayContent={content.wednesday} />}
                      {dayOfTheWeekState === 4 && <Thursday thursdayContent={content.thursday} />}
                      {dayOfTheWeekState === 5 && <Friday fridayContent={content.friday} />}
-                     {dayOfTheWeekState === 3 && <Saturday saturdayContent={content.saturday} />}
+                     {dayOfTheWeekState === 6 && <Saturday saturdayContent={content.saturday} />}
                   </div>
                   <div className={interactStyles.gridWrapperMiddle}>
                      <h2 className='std-text-block--small-title'>Sermon Notes</h2>

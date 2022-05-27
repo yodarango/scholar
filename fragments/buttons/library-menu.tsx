@@ -125,7 +125,7 @@ const libraryMenu = ({
                   <a
                      style={{ color: currentSlectedContentPage.blogs }}
                      className={`${libraryMenuStyles.contentSingleItemDesktop}`}>
-                     📑 Blogs
+                     💻 Web
                   </a>
                </Link>
                <Link href={"/library/books"}>
@@ -240,7 +240,7 @@ const libraryMenu = ({
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>📺</a>
                         </Link>
                         <Link href={"/library/blogs"}>
-                           <a className={`${libraryMenuStyles.contentSingleItem}`}>📑</a>
+                           <a className={`${libraryMenuStyles.contentSingleItem}`}>💻</a>
                         </Link>
                         <Link href={"/library/books"}>
                            <a className={`${libraryMenuStyles.contentSingleItem}`}>📚</a>

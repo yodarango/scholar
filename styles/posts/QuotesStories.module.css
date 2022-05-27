@@ -183,22 +183,30 @@
    position: static;
 }
 
-.count {
+.count,
+.posted_on {
    position: fixed;
    z-index: 15;
    background-color: rgba(255, 255, 255, 0.5);
    width: 6rem;
-   font-size: 1rem;
+   font: var(--widget-font-mobile);
    text-align: center;
    height: 2rem;
    padding: 0.27rem;
    border-radius: 2.5rem;
    color: var(--primary-color);
-   top: 1rem;
+   top: 3rem;
    left: 0;
    right: 0;
    bottom: 0;
    margin: 0 auto;
+}
+
+.posted_on {
+   top: 1rem;
+   width: 8rem;
+   height: 1.5rem;
+   padding: 0;
 }
 
 .closeModal {
@@ -385,7 +393,7 @@
    width: 1.5rem;
    position: fixed;
    border-radius: 50%;
-   top: 1.2rem;
+   top: 3.2rem;
    left: 8rem;
    right: 0;
    bottom: auto;
