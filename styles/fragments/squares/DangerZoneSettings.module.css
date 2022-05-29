@@ -1,0 +1,19 @@
+.deleteButton {
+   width: 90%;
+   max-width: 400px;
+}
+
+.inputWrapper label {
+   margin: 0 var(--xlarge-spacing-mobile) 0 0;
+   font: var(--secondary-font-mobile);
+   font-size: 1.2rem;
+}
+
+.inputWrapper input {
+   margin: 0.5rem auto 0;
+   max-width: 22rem;
+}
+
+.inputWrapper {
+   margin: 0 auto var(--medium-spacing-mobile);
+}

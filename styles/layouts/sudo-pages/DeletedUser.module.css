@@ -1,0 +1,38 @@
+.contentWrapper {
+   width: 90%;
+   margin: auto;
+   max-width: 600px;
+}
+
+.title {
+   font: var(--secondary-font-mobile);
+   text-align: center;
+   margin: var(--large-spacing-mobile) 0 var(--medium-spacing-mobile);
+   font-size: 2.5rem;
+}
+
+.introLogo {
+   position: relative;
+   width: 100%;
+   height: 90vw;
+   max-width: 400px;
+   max-height: 400px;
+   margin: var(--medium-spacing-mobile) auto;
+}
+
+.introLogo img {
+   object-fit: contain;
+   object-position: center;
+}
+
+@media (min-width: var(--laptop-break)) {
+   .title {
+      font: var(--secondary-font-desktop);
+      margin: var(--large-spacing-desktop) 0 var(--medium-spacing-desktop);
+      font-size: 2.8rem;
+   }
+
+   .introLogo {
+      margin: var(--medium-spacing-desktop) auto;
+   }
+}

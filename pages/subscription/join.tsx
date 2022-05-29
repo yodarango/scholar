@@ -48,7 +48,7 @@ const GoPro = () => {
       const { data } = await client.mutate({
          mutation: CREATE_CHECKOUT_SESSION,
          variables: {
-            price_id: "price_1KspiSFRxjIRnSsY8LpRy8Y7"
+            price_id: "price_1L4U8tFRxjIRnSsYIkhkQc38"
          }
       });
 
@@ -115,15 +115,15 @@ const GoPro = () => {
                         <th>SUBS</th>
                      </tr>
                      <tr>
-                        <td>Limit to 3 commentary posts</td>
+                        <td>Limit to 5 commentary posts</td>
                         <td>Unlimited commentary posts</td>
                      </tr>
                      <tr>
-                        <td>Limit to 3 quote posts</td>
+                        <td>Limit to 5 quote posts</td>
                         <td>Unlimited quote posts</td>
                      </tr>
                      <tr>
-                        <td>Limit to 3 thought posts</td>
+                        <td>Limit to 5 thought posts</td>
                         <td>Unlimited thought posts</td>
                      </tr>
                      <tr>

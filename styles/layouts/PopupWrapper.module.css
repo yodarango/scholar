@@ -128,7 +128,7 @@
    transform: scale(1.1);
 }
 .cardIconComment {
-   background-image: url("/images/icons/comment_white.png");
+   background-image: url("/images/icons/comment.svg");
 }
 
 /* .cardIconLike {

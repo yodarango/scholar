@@ -19,6 +19,10 @@ import SmallLoader from "../../../fragments/chunks/small-loader";
 import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";
 import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
+import BugReport from "../../../fragments/popup-content/forms/bug-report";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import DangerZoneSettings from "../../../fragments/squares/danger-zone-settings";
 
 // styles
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
@@ -29,9 +33,6 @@ import { checkForValidSignature } from "../../../helpers/input-validaton";
 
 // types
 import { Tuser } from "../[userId]";
-import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
-import BugReport from "../../../fragments/popup-content/forms/bug-report";
-import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 
 type userSettingsProps = {
    user: Tuser;
@@ -55,6 +56,9 @@ const UserSettings = () => {
    const TCP = useRef<HTMLInputElement>(null);
    const currentPassword = useRef<HTMLInputElement>(null);
    const newPassword = useRef<HTMLInputElement>(null);
+
+   // delete acount state
+   const [delteAccountModal, setDelteAccountModal] = useState<boolean>(false);
 
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userSettingsState, setUserSettingsState] = useState<Tuser | null>();
@@ -346,6 +350,15 @@ const UserSettings = () => {
       );
    };
 
+   // =============== submit a bug report ============
+   const deleteAccount = () => {
+      setFullScreenPopUp(
+         <PopupWrapper
+            content={<DangerZoneSettings />}
+            closeModal={() => setFullScreenPopUp(false)}
+         />
+      );
+   };
    return (
       <>
          <Head>
@@ -584,6 +597,17 @@ const UserSettings = () => {
                      <p className={`std-button_gradient-text`}>Log out</p>
                   </button>
                </div>
+
+               {/* --------------- Danger Zone ----------- */}
+
+               <section className={userSettingsStyles.dangerZone}>
+                  <h3>Danger Zone</h3>
+                  <button
+                     className={`std-button--danger ${userSettingsStyles.buttonDelete}`}
+                     onClick={deleteAccount}>
+                     <p>Delete My Account</p>
+                  </button>
+               </section>
             </div>
          )}
          {loadingState == "error" && <ResourceNotFoundError />}

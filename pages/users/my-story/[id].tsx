@@ -113,7 +113,7 @@ const Story = () => {
                POST_ID: initialDataState?.ID
             }
          });
-
+         console.log(data);
          if (data.new_notification.ID) {
             setpopUpNotificationState(
                <NotificationPopup
@@ -125,16 +125,21 @@ const Story = () => {
             );
             setsmallLoaderState(false);
          }
-      } catch (error) {
+      } catch (error: any) {
          console.log(error);
          setpopUpNotificationState(
             <NotificationPopup
                closeModal={() => setpopUpNotificationState(false)}
-               title='Oh no!'
-               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               title={error.graphQLErrors ? "You're not authorized! 👮‍♂️" : "Oh no!"}
+               contentString={
+                  error.graphQLErrors
+                     ? error.graphQLErrors[0]?.message
+                     : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+               }
                newClass='notification-wrapper--Error'
             />
          );
+         setsmallLoaderState(false);
       }
    };
 

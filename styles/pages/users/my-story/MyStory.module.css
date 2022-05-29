@@ -76,10 +76,10 @@
    height: 2rem;
    width: 2rem;
    background-size: 60%;
-   background-position: 4px center;
+   background-position: center;
    border-radius: 50%;
    border: 1px solid var(--font-color);
-   background-image: url("/images/icons/back_white.png");
+   background-image: url("/images/icons/back.svg");
    background-repeat: no-repeat;
 }
 

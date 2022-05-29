@@ -36,7 +36,8 @@
    --font-color: #f2f2f2;
    --graient-one: #ff9214;
    --gradient-two: #ff0045;
-   --warning-color: #ec3b3b;
+   --danger-color: #ec3b3b;
+   --warning-color: #ecc63b;
    --proceed-color: #90d171;
    --user-trusted-level: linear-gradient(70deg, rgb(41, 106, 247), rgb(49, 234, 255));
    --shadow-color: #17151b;
@@ -241,7 +242,8 @@ a:active {
 
 .std-button,
 .std-button--clear,
-.std-button--warning {
+.std-button--warning,
+.std-button--danger {
    display: block;
    width: var(--button-width-mobile);
    padding: var(--button-padding-mobile);
@@ -284,10 +286,21 @@ a:active {
 
 .std-button--warning {
    box-shadow: inset 1.5px 1.5px 3px 3px rgba(105, 2, 2, 0.3),
-      inset -1.5px -1.5px 3px 2px rgba(255, 102, 102, 0.8);
+      inset -1.5px -1.5px 3px 2px rgba(255, 237, 155, 0.8);
    background-color: var(--warning-color);
 }
 
+.std-button--danger {
+   box-shadow: inset 1.5px 1.5px 3px 3px rgba(105, 2, 2, 0.3),
+      inset -1.5px -1.5px 3px 2px rgba(255, 102, 102, 0.8);
+   background-color: var(--danger-color);
+}
+
+.std-button--warning p,
+.std-button--danger p {
+   font: var(--primary-font-mobile);
+   margin: 0;
+}
 .std-button:hover {
    background-color: var(--fourth-color);
    cursor: pointer;
@@ -298,7 +311,11 @@ a:active {
    cursor: pointer;
 }
 .std-button--warning:hover {
-   background-color: #f56666;
+   background-color: #f5e266;
+   cursor: pointer;
+}
+.std-button--danger:hover {
+   background-color: #ef5345;
    cursor: pointer;
 }
 
@@ -314,9 +331,19 @@ a:active {
    text-align: center;
 }
 
-.std-text-block--info {
+.std-text-block--info,
+.std-text-block--warning,
+.std-text-block--danger {
    font: var(--third-font-mobile);
    margin: var(--xsmall-spacing-mobile) auto;
+}
+
+.std-text-block--warning {
+   color: var(--warning-color);
+}
+
+.std-text-block--danger {
+   color: var(--danger-color);
 }
 
 .std-text-block--small-title {
@@ -345,6 +372,13 @@ a:active {
    margin: var(--medium-spacing-mobile) auto;
    display: block;
 }
+
+.std-url,
+.std-url:visited {
+   font: var(--third-font-mobile);
+   color: var(--graient-one);
+}
+
 .no-content-text {
    color: var(--secondary-color);
    width: 100%;
@@ -387,7 +421,7 @@ a:active {
    border-radius: var(--input-radius-mobile);
    margin: var(--medium-spacing-mobile) auto;
    padding: var(--xsmall-spacing-mobile);
-   background-color: var(--warning-color);
+   background-color: var(--danger-color);
 }
 
 .small-spacer {
@@ -458,7 +492,7 @@ a:active {
 .go-pro-button {
    grid-column: 3/4;
    grid-row: 1/2;
-   background-image: url("/images/icons/plus.png");
+   background-image: url("/images/icons/plus.svg");
    width: 1.5rem;
    height: 1.5rem;
    background-size: cover;
@@ -469,16 +503,16 @@ a:active {
 .go-pro-button {
    grid-column: 4/5;
    grid-row: 1/2;
-   width: 2rem;
-   height: 2rem;
+   width: 1.5rem;
+   height: 1.5rem;
    background-size: contain;
    background-repeat: no-repeat;
    background-color: transparent;
-   background-image: url("/images/icons/hearts.png");
+   background-image: url("/images/icons/hearts.svg");
 }
 
 .go-pro-button:hover {
-   transform: scale(1.5);
+   transform: scale(1.2);
    transition: transform 300ms ease-in;
 }
 
@@ -560,10 +594,10 @@ a:active {
    font: var(--widget-font-mobile);
    display: block;
    background-size: 60%;
-   background-position: 4px center;
+   background-position: center;
    border-radius: 50%;
    border: 1px solid var(--font-color);
-   background-image: url("/images/icons/back_white.png");
+   background-image: url("/images/icons/back.svg");
    background-repeat: no-repeat;
 }
 
@@ -674,7 +708,7 @@ a:active {
 }
 
 .notification-wrapper--Error {
-   background-color: var(--warning-color);
+   background-color: var(--danger-color);
 }
 
 .notification-wrapper--Error > p {

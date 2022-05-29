@@ -1,6 +1,5 @@
 // core
-import React, { useState } from "react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
 
 // components
 import StarReviews from "../star-reviews";
@@ -30,12 +29,9 @@ export type Tsermon = {
 export type sermonProps = {
    sermon: Tsermon;
    newClass?: String;
-   deleteOption?: boolean;
-   editOption?: boolean;
-   reportOption?: boolean;
 };
 
-const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: sermonProps) => {
+const Sermon = ({ sermon, newClass }: sermonProps) => {
    // ===============   SUNCTION 2: Open the actions wrapper   ============== ///
    const [actionsWrapper, setActionsWrapper] = useState<boolean>(false);
    const handleOpenActionsWrapper = () => {
@@ -78,19 +74,19 @@ const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: se
                         onClick={() => setActionsWrapper(false)}>
                         X
                      </span>
-                     {deleteOption && (
+                     {/* {isUserAuth && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.delete)}
                            onClick={handleDeleteConfirmation}></span>
                      )}
-                     {editOption && (
+                     {isUserAuth && (
                         <span className={(cardStyles.cardIcon, cardStyles.edit)}></span>
                      )}
                      {reportOption && (
                         <span
                            className={(cardStyles.cardIcon, cardStyles.report)}
                            onClick={handleReportConfirmation}></span>
-                     )}
+                     )} */}
                   </div>
                </>
             )}
@@ -120,11 +116,11 @@ const Sermon = ({ sermon, deleteOption, editOption, reportOption, newClass }: se
                         style={{ backgroundImage: `url(${sermon.userAvatar})` }}></div>
                   </div>
                   <span className={sermonStyles.category}>Category: {sermon.categoryTags[0]}</span>
-                  {reportOption && (
+                  {/* {reportOption && (
                      <span
                         className={`std-vector-icon ${sermonStyles.actionTrigger}`}
                         onClick={handleOpenActionsWrapper}></span>
-                  )}
+                  )} */}
                </div>
             </div>
 

@@ -7,9 +7,9 @@
 
 .notificationBell,
 .settingsLinkIcon {
-   width: 2rem;
-   height: 2rem;
-   background-image: url("/images/icons/bell_white.png");
+   width: 1.8rem;
+   height: 1.8rem;
+   background-image: url(/images/icons/bell_white.svg);
    background-position: center;
    background-size: 70%;
    background-repeat: no-repeat;
@@ -22,7 +22,7 @@
 .settingsLinkIcon {
    background-size: 90%;
    margin-right: var(--xsmall-spacing-mobile);
-   background-image: url("/images/icons/settings_white.png");
+   background-image: url(/images/icons/settings_white.svg);
    opacity: 1;
 }
 
@@ -47,9 +47,9 @@
 }
 
 .notificationBellWNotification {
-   width: 2rem;
-   height: 2rem;
-   background-image: url("/images/icons/bell_white.png");
+   width: 1.8rem;
+   height: 1.8rem;
+   background-image: url(/images/icons/bell_white.svg);
    background-position: center;
    background-size: 90%;
    background-repeat: no-repeat;

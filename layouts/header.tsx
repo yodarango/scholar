@@ -130,9 +130,9 @@ export default function Header({ currPage }: headerProps) {
                   onClick={() => setOpenDropDownState(false)}></span>
             )}
 
-            {/* <Link href={"/subscription/join"}>
+            <Link href={"/subscription/join"}>
                <a className={`go-pro-button`}></a>
-            </Link> */}
+            </Link>
          </div>
       </>
    );

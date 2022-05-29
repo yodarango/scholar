@@ -57,17 +57,17 @@ rename it and reuse it in other instaces if needed.
    background-repeat: no-repeat;
    background-position: center;
    transition: background-color 300ms ease-in;
-   background-image: url("../../public/images/icons/comment_white.png");
+   background-image: url("../../public/images/icons/comment.svg");
 }
 
 .dailyVerseIconSwitchVerseBackward {
    background-size: 70%;
-   background-image: url("../../public/images/icons/back_white.png");
+   background-image: url("../../public/images/icons/back.svg");
 }
 
 .dailyVerseIconSwitchVerseForward {
    background-size: 70%;
-   background-image: url("../../public/images/icons/forth_white.png");
+   background-image: url("../../public/images/icons/forth.svg");
 }
 
 .dailyVerseIconSwitchVerseBackward:hover,
@@ -211,7 +211,7 @@ rename it and reuse it in other instaces if needed.
    width: 1rem;
    grid-column: 3/4;
    grid-row: 1/2;
-   background-image: url("../../public/images/post.svg");
+   background-image: url("/images/post.svg");
    background-position: center;
    background-size: contain;
    margin: 0.4rem 0;
@@ -222,14 +222,14 @@ rename it and reuse it in other instaces if needed.
 }
 
 .cardIconComment {
-   background-image: url("/images/icons/comment_white.png");
+   background-image: url("/images/icons/comment.svg");
 }
 .cardIconLike {
-   background-image: url("../../public/images/likke.svg");
+   background-image: url("/images/likke.svg");
 }
 
 .cardIconThouth {
-   background-image: url("../../public/images/thought.svg");
+   background-image: url("/images/thought.svg");
 }
 .cardIconMore,
 .cardIconComment,

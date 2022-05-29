@@ -17,21 +17,17 @@
    background-size: 50%;
    border-radius: var(--input-radius-mobile);
    margin: var(--xsmall-spacing-mobile);
-   background-image: url("/images/icons/commentaries.png");
+   background-image: url("/images/icons/commentary.svg");
 }
 .quoteLink {
-   background-image: url("/images/icons/quote.png");
+   background-image: url("/images/icons/quote.svg");
 }
 .thoughtLink {
-   background-size: 30%;
-   background-position: 50% 20%;
-   background-image: url("/images/icons/thoughts.png");
+   background-image: url("/images/icons/thoughts.svg");
 }
 
 .sermonLink {
-   background-size: 23%;
-   background-position: 50% 20%;
-   background-image: url("/images/icons/sermon_notes.png");
+   background-image: url("/images/icons/sermon_notes.svg");
 }
 
 .mobileAllLink {

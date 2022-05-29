@@ -66,10 +66,10 @@ const CommentaryContentDesktop = ({ user }: commentaryContentDesktopProps) => {
       <div className={homePageContentDesktopStyles.contentWrapper}>
          {commentaryState &&
             loadingState === "done" &&
-            commentaryState.map((commentary: Tcommentary) => (
+            commentaryState.map((commentary: Tcommentary, index: number) => (
                <>
                   {user && (
-                     <section>
+                     <section key={index}>
                         <Comment
                            commentary={{
                               ...commentary,

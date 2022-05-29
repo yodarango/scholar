@@ -70,6 +70,7 @@ const Success = () => {
                         <a className={`std-button_gradient-text`}>Done</a>
                      </Link>
                   </button>
+                  <div className='large-spacer'></div>
                </div>
             )}
             {failedTransaction}

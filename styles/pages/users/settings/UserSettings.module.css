@@ -152,6 +152,23 @@
    left: 0;
 }
 
+.dangerZone {
+   border: 2px solid var(--danger-color);
+   padding: var(--xsmall-spacing-mobile);
+   border-radius: var(--input-radius-mobile);
+}
+
+.dangerZone h3 {
+   font: var(--secondary-font-mobile);
+   color: var(--danger-color);
+   font-size: 1.4rem;
+   margin: 0;
+}
+
+.buttonDelete {
+   width: 100%;
+   margin: var(--xsmall-spacing-mobile) auto;
+}
 @media only screen and (min-width: 1000px) {
    .mainWrapper {
       max-width: 800px;

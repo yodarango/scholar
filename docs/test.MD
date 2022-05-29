@@ -188,6 +188,50 @@
 7. ✅ each verse redirects to the commentary page
 8. ✅ can choose on multiple languages
 
-   **PERMISSIONS**
+**PROFILE PAGE**
+
+1. ✅ totals load and are correct
+2. ✅ ratign is accurate
+3. ✅ about me section loads accurately
+4. ✅ Can open commentaries and its content
+5. ✅ Can open thuoughts and its content
+6. ✅ Can open quote and its content
+7. ✅ Can open sermons and its content
+8. ✅ can open settings
+9. ✅ Only that which is updated is saved in settings
+10.   ✅ can open notifications and notifications work
+11.   ✅ if opening other profiles settings and notifications do not load
+12.   ✅ My story loads correctly
+13.   ✅ can edit my story
+14.   ✅ If user's story is empty the notifiaction button show
+15.   ✅ Notification is created for story
+16.   ✅ Notification is created for commentary comment/ approval
+17.   ✅ Notification is created for quote comment/ approval
+18.   ✅ Notification is created for thought comment/ approval
+19.   ✅ If user has story then the button does not load
+
+**PERMISSIONS**
+
+-  If user not logged
+
+1. ✅ it it cannot coment
+2. ✅ it it cannot rate
+3. ✅ it cannot post
+4. ✅ new post icon is not displayed in screen
+5. ✅ delete and edit icons to post do not show
+6. /users/me redirects to login
+7. ✅ cannot suggest content
+8. ✅ cannot ask users to post their story
+9. ❌ report icons should show
+   # report icons do not show, perhaps because i went from cookies to local storage or might be just css icons issues
 
 **SUBSCRIPTIONS**
+
+1. ✅ if patron = 0 cannot post sermon notes otherwise unlimted
+2. ✅ if patron = 0 can only post up to 5 posts of each post otherwise unlimted
+3. ✅ if patron = 0 comments only up to 10 otherwise unlimted
+4. ✅ if patron = 0 the "subscription/join" loads otherwise the "go to dashboard loads"
+5. ✅ if successful subscription patron changes from 0 to 1
+6. ✅ if patron cancels check the active goes from 1 = 0 and canceled day is entered
+7. 🟨 after stripe webhook to cancel subscription the user is patron goes from 1 = 0
+   -  Check tomorrow accounts 93, 92 and 95

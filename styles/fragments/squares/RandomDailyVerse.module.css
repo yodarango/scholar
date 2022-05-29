@@ -40,7 +40,7 @@
    margin: 0 auto;
    display: block;
    grid-area: right;
-   background-image: url("/images/icons/comment_white.png");
+   background-image: url("/images/icons/comment.svg");
 }
 
 .readIcon {

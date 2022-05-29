@@ -26,7 +26,7 @@
    flex-grow: 0;
    flex-shrink: 0;
    margin: 0 var(--xsmall-spacing-mobile);
-   background-image: url("/images/dailyVerse-Back.svg");
+   background-image: url("/images/icons/back.svg");
    z-index: 11;
    background-color: rgba(255, 255, 255, 0.5);
    height: 1.3rem;
@@ -46,5 +46,5 @@
 }
 
 .loadMoreButton {
-   background-image: url("/images/dailyVerse-Forward.svg");
+   background-image: url("/images/icons/forth.svg");
 }

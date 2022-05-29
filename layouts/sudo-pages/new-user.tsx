@@ -1,6 +1,7 @@
 // core
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // graphQL
 import client from "../../apollo-client";
@@ -80,6 +81,16 @@ const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
                      <li>Share this app with friends and family 📱</li>
                   </ul>
                </section>
+               <p>
+                  By proceeding you agree to our{" "}
+                  <Link href='/privacy'>
+                     <a className='std-url'>Privacy Policy</a>
+                  </Link>{" "}
+                  and our{" "}
+                  <Link href='/terms-of-use'>
+                     <a className='std-url'>Terms Of Use</a>
+                  </Link>
+               </p>
                <button className='std-button' onClick={acceptIntroInstructions}>
                   <p className='std-button_gradient-text'>Done</p>
                </button>

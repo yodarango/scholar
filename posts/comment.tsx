@@ -256,55 +256,71 @@ export default function Comments({ commentary }: commentsProps) {
    const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
-         const data: any = await handlePostComment(
-            commentary.ID,
-            commentBody.current.value,
-            commentary.creator.ID
-         );
 
-         if (data.ID) {
-            setCommentsCountState(commentsCountState + 1);
-            setPostingState(false);
-            setCommentBoxState("");
-         } else if (data === "ExceedsPostCount") {
-            setPostingState(false);
-            setNotificationPopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationPopUpState(false)}
-                  title='This is sad 😔'
-                  contentString='You have exceeded the post comments whithin a 24-hour period'
-                  newClass='notification-wrapper--Error'
-               />
-            );
-            return;
-         } else if (data === "Error") {
-            setPostingState(false);
-            setNotificationPopUpState(
-               <NotificationPopup
-                  closeModal={() => setNotificationPopUpState(false)}
-                  title='Oh no!'
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                  newClass='notification-wrapper--Error'
-               />
+         try {
+            const data: any = await handlePostComment(
+               commentary.ID,
+               commentBody.current.value,
+               commentary.creator.ID
             );
 
-            return;
-         } else {
+            if (data.ID) {
+               setCommentsCountState(commentsCountState + 1);
+               setPostingState(false);
+               setCommentBoxState("");
+            } else if (data === "ExceedsPostCount") {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='This is sad 😔'
+                     contentString='You have exceeded the post comments whithin a 24-hour period'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+               return;
+            } else if (data === "Error") {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title='Oh no!'
+                     contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+
+               return;
+            } else {
+               setPostingState(false);
+               setNotificationPopUpState(
+                  <NotificationPopup
+                     closeModal={() => setNotificationPopUpState(false)}
+                     title={`You're not authorized! 👮‍♂️`}
+                     contentString={
+                        data.graphQLErrors
+                           ? data.graphQLErrors[0]?.message
+                           : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                     }
+                     newClass='notification-wrapper--Error'
+                  />
+               );
+
+               return;
+            }
+         } catch (error) {
+            console.log(error);
             setPostingState(false);
             setNotificationPopUpState(
                <NotificationPopup
                   closeModal={() => setNotificationPopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
                   contentString={
-                     data.graphQLErrors
-                        ? data.graphQLErrors[0]?.message
-                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                     "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
                   }
                   newClass='notification-wrapper--Error'
                />
             );
-
-            return;
          }
       }
    };

@@ -53,9 +53,11 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
 
    useEffect(() => {
       const authJWT = loggedInUser();
+      const creatorID = sermonPost.creator.ID ? parseInt(sermonPost.creator.ID) : null;
       if (authJWT) {
-         setRenderDeleteEditOptionsState(sermonPost.USER_ID == authJWT.ID);
-         setRenderReportOptionState(sermonPost.USER_ID != authJWT.ID);
+         setRenderDeleteEditOptionsState(creatorID === authJWT.ID);
+         setRenderReportOptionState(creatorID !== authJWT.ID);
+         console.log(creatorID === authJWT.ID);
       }
    }, []);
 

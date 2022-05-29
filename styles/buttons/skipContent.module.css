@@ -18,7 +18,7 @@
    width: 2rem;
    height: 2rem;
    border-radius: 50%;
-   background-image: url("/images/icons/back_white.png");
+   background-image: url("/images/icons/back.svg");
    background-position: 0.2rem center;
    background-size: 60%;
    background-repeat: no-repeat;
@@ -34,7 +34,7 @@
 
 .rightTrigger {
    background-position: 0.5rem center;
-   background-image: url("/images/icons/forth_white.png");
+   background-image: url("/images/icons/forth.svg");
 }
 
 @media (min-width: 1000px) {

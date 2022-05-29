@@ -97,37 +97,59 @@ const LibraryRecommendContennt = () => {
                message.current.value !== ""
             ) {
                setSmallLoaderState(true);
-               const { data } = await client.mutate({
-                  mutation: RECOMMNED_NEW_LIB_CONTENT,
-                  variables: {
-                     content_type: contentType.current.textContent,
-                     source_name: sourceName.current.value,
-                     source_url: sourceUrl.current.value,
-                     submitter_name: submitterName.current.value,
-                     submitter_email: submitterEmail.current.value,
-                     message: message.current.value
-                  }
-               });
+               try {
+                  const { data } = await client.mutate({
+                     mutation: RECOMMNED_NEW_LIB_CONTENT,
+                     variables: {
+                        content_type: contentType.current.textContent,
+                        source_name: sourceName.current.value,
+                        source_url: sourceUrl.current.value,
+                        submitter_name: submitterName.current.value,
+                        submitter_email: submitterEmail.current.value,
+                        message: message.current.value
+                     }
+                  });
 
-               if (data.recomend_new_library_content === true) {
-                  setSmallLoaderState(false);
+                  if (data.recomend_new_library_content === true) {
+                     setSmallLoaderState(false);
+                     setOpenpopUpFormState(false);
+                     setNotificationPopupState(
+                        <NotificationPopup
+                           title='Thank you!'
+                           closeModal={() => setNotificationPopupState(false)}
+                           newClass='notification-wrapper--Success'
+                           contentString='Your recommendation has been submitted and will be reviewed soon! 😀'
+                        />
+                     );
+                  } else {
+                     setOpenpopUpFormState(false);
+                     setSmallLoaderState(false);
+                     setNotificationPopupState(
+                        <NotificationPopup
+                           closeModal={() => setNotificationPopupState(false)}
+                           title={`Something went wrong!`}
+                           contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                           newClass='notification-wrapper--Error'
+                        />
+                     );
+                  }
+               } catch (error: any) {
+                  console.log(error);
                   setOpenpopUpFormState(false);
+                  setSmallLoaderState(false);
                   setNotificationPopupState(
                      <NotificationPopup
-                        title='Thank you!'
                         closeModal={() => setNotificationPopupState(false)}
-                        newClass='notification-wrapper--Success'
-                        contentString='Your recommendation has been submitted and will be reviewed soon! 😀'
-                     />
-                  );
-               } else {
-                  setOpenpopUpFormState(false);
-                  setSmallLoaderState(false);
-                  setNotificationPopupState(
-                     <NotificationPopup
-                        closeModal={() => setNotificationPopupState(false)}
-                        title={`Something went wrong!`}
-                        contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                        title={
+                           error.graphQLErrors
+                              ? `You are not authorized 👮‍♂️`
+                              : `Something went wrong!`
+                        }
+                        contentString={
+                           error.graphQLErrors
+                              ? error.graphQLErrors[0]?.message
+                              : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                        }
                         newClass='notification-wrapper--Error'
                      />
                   );

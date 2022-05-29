@@ -216,12 +216,19 @@ const TextEditor = ({
                setLoadingState(<p className='std-error-msg'>Sorry, something went wrong 🙁!</p>);
             }
          } catch (error: any) {
+            console.log(error);
             setLoadingState(false);
             setNotificationPopupState(
                <NotificationPopup
                   closeModal={() => setNotificationPopupState(false)}
-                  title={`Something went wrong!`}
-                  contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+                  title={
+                     error.graphQLErrors ? `You are not authorized 👮‍♂️` : `Something went wrong!`
+                  }
+                  contentString={
+                     error.graphQLErrors
+                        ? error.graphQLErrors[0]?.message
+                        : "Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!"
+                  }
                   newClass='notification-wrapper--Error'
                />
             );
