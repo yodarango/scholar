@@ -14,6 +14,7 @@ import NavigationMenu from "../../layouts/navigation-menu";
 import goProPageStyles from "../../styles/pages/GoPro.module.css";
 import Link from "next/link";
 import HeadContent from "../../layouts/head-content";
+import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 const GoPro = () => {
    // =================== go back in histroy   ============== //
@@ -29,13 +30,19 @@ const GoPro = () => {
             query: CHECK_IF_PATRON_ACCOUNT
          });
 
-         if (data.user_has_stripe_account) {
+         console.log(data);
+         if (data.user_has_stripe_account > 0) {
             router.replace("/subscription/billing");
-         } else {
+         } else if (data.user_has_stripe_account === 0) {
             setLoadingState("done");
+         } else if (data.user_has_stripe_account === -1) {
+            router.replace("/login");
+         } else {
+            setLoadingState("error");
          }
       } catch (error) {
          console.log(error);
+         setLoadingState("error");
       }
    };
 
@@ -63,7 +70,6 @@ const GoPro = () => {
          <Head key='payment-apge'>
             <HeadContent />
          </Head>
-
          {loadingState === "done" && (
             <div className={goProPageStyles.mainWrapper}>
                <Link href={`/users/me`}>
@@ -145,6 +151,7 @@ const GoPro = () => {
                <NavigationMenu />
             </div>
          )}
+         {loadingState === "error" && <ResourceNotFoundError />}
       </>
    );
 };

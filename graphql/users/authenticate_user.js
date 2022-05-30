@@ -34,3 +34,9 @@ export const PASSWORD_RECOVERY_NEW = gql`
       recover_password(new_password: $new_password, USER_ID: $USER_ID)
    }
 `;
+
+// export const LOG_OUT_USER = gql`
+// mutation ($new) {
+
+// }
+// `;
