@@ -79,7 +79,6 @@ const GoPro = () => {
 
                <h1 className={`${goProPageStyles.stdH1} std-button_gradient-text`}>
                   HELP SCHOLAR STAY ALIVE!
-                  {process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID}
                </h1>
                {/* <button
                className={`std-button--clear ${goProPageStyles.stdButton} ${goProPageStyles.stdButtonClear}`}>
