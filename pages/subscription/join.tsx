@@ -51,11 +51,12 @@ const GoPro = () => {
    }, []);
 
    // =================== Create checkout Session ============= //
+   const productId = process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID;
    const checkout = async () => {
       const { data } = await client.mutate({
          mutation: CREATE_CHECKOUT_SESSION,
          variables: {
-            price_id: process.env.NEXT_PUBLIC_BSTRIPE_PRODUCT_ID
+            price_id: `${productId}`
          }
       });
 
@@ -78,6 +79,7 @@ const GoPro = () => {
 
                <h1 className={`${goProPageStyles.stdH1} std-button_gradient-text`}>
                   HELP SCHOLAR STAY ALIVE!
+                  {process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID}
                </h1>
                {/* <button
                className={`std-button--clear ${goProPageStyles.stdButton} ${goProPageStyles.stdButtonClear}`}>
