@@ -55,7 +55,7 @@ const GoPro = () => {
       const { data } = await client.mutate({
          mutation: CREATE_CHECKOUT_SESSION,
          variables: {
-            price_id: "price_1L4U8tFRxjIRnSsYIkhkQc38"
+            price_id: process.env.NEXT_PUBLIC_BSTRIPE_PRODUCT_ID
          }
       });
 
