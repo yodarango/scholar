@@ -86,7 +86,7 @@ const GoPro = () => {
             </button> */}
 
                <button className={`std-button ${goProPageStyles.stdButton}`} onClick={checkout}>
-                  <p className={`std-button_gradient-text`}>JOIN FOR ONLY $3.99/month</p>
+                  <p className={`std-button_gradient-text`}>JOIN FOR ONLY $0.50/month</p>
                </button>
                <p className={`std-text-block--info ${goProPageStyles.stdInfoText}`}>
                   Cancel any time!
