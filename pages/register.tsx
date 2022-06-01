@@ -60,8 +60,8 @@ export default function Register() {
       if (
          emailInput.current?.value &&
          signatureInput.current?.value &&
-         passwordInput.current?.value &&
-         userGenderState.gender
+         passwordInput.current?.value
+         // userGenderState.gender
       ) {
          setSmallLoaderState(<SmallLoader />);
          try {
@@ -189,7 +189,7 @@ export default function Register() {
                            ref={passwordInput}
                         />
 
-                        <div
+                        {/* <div
                            className={`${registerStyles.inputWrapper} ${registerStyles.genderInputWrapper}`}>
                            <label htmlFor='name'>Gender</label>
                            <span
@@ -214,7 +214,7 @@ export default function Register() {
                               }>
                               🙋‍♀️
                            </span>
-                        </div>
+                        </div> */}
 
                         {!smallLoaderState && (
                            <div className='std-button'>

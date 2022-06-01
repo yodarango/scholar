@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import HeadContent from "../../../layouts/head-content";
 import Head from "next/head";
-import Image from "next/image";
 
 // graphQL
 import { GET_MY_SETTINGS } from "../../../graphql/users/profile";
@@ -56,9 +55,6 @@ const UserSettings = () => {
    const TCP = useRef<HTMLInputElement>(null);
    const currentPassword = useRef<HTMLInputElement>(null);
    const newPassword = useRef<HTMLInputElement>(null);
-
-   // delete acount state
-   const [delteAccountModal, setDelteAccountModal] = useState<boolean>(false);
 
    // =======================  FUNCTION 1: Get User Settings =============== //
    const [userSettingsState, setUserSettingsState] = useState<Tuser | null>();
@@ -123,9 +119,9 @@ const UserSettings = () => {
    const ISOdate = new Date(rawDate).toISOString().split("T")[0];
 
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
-
+   // apple rejected the app for forcing users to select gender, thus removing it
    const saveUserSettings = async () => {
-      if (birthDate.current?.value && (userGenderState.gender || userSettingsState?.gender)) {
+      if (birthDate.current?.value /*&& (userGenderState.gender || userSettingsState?.gender)*/) {
          setSmallLoaderState(true);
          try {
             const { data } = await client.mutate({
@@ -205,18 +201,20 @@ const UserSettings = () => {
                closeModal={() => setNotificationPopUpState(false)}
             />
          );
-      } else if (!userGenderState.gender) {
-         setNotificationPopUpState(
-            <NotificationPopup
-               title={"No Gender Selected! 🙋‍♂️ 🙋‍♀️"}
-               contentString={`You must select a gender before proceeding`}
-               newClass={"notification-wrapper--Error"}
-               closeModal={() => setNotificationPopUpState(false)}
-            />
-         );
       }
+      // else if (!userGenderState.gender) {
+      //    setNotificationPopUpState(
+      //       <NotificationPopup
+      //          title={"No Gender Selected! 🙋‍♂️ 🙋‍♀️"}
+      //          contentString={`You must select a gender before proceeding`}
+      //          newClass={"notification-wrapper--Error"}
+      //          closeModal={() => setNotificationPopUpState(false)}
+      //       />
+      //    );
+      // }
    };
 
+   console.log(userGenderState);
    // ============== open the password change popup ================= //
    const openChangePasswordSettings = async () => {
       if (currentPassword.current?.value && newPassword.current?.value) {
