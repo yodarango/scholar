@@ -1,5 +1,6 @@
 // core
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import HeadContent from "../layouts/head-content";
@@ -224,6 +225,12 @@ export default function Register() {
                            </div>
                         )}
                         {smallLoaderState}
+                        <Link href='/register'>
+                           <a className='std-button std-button--no-margin std-button--clear'>
+                              <div className='std-button_gradient-text'>Login</div>
+                           </a>
+                        </Link>
+                        <div className='medium-spacer'></div>
                      </div>
                   </div>
                </div>

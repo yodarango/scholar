@@ -86,7 +86,7 @@ const GoPro = () => {
             </button> */}
 
                <button className={`std-button ${goProPageStyles.stdButton}`} onClick={checkout}>
-                  <p className={`std-button_gradient-text`}>JOIN FOR ONLY $0.50/month</p>
+                  <p className={`std-button_gradient-text`}>JOIN FOR ONLY $3.99/month</p>
                </button>
                <p className={`std-text-block--info ${goProPageStyles.stdInfoText}`}>
                   Cancel any time!
@@ -94,7 +94,7 @@ const GoPro = () => {
                <div className={`${goProPageStyles.verctorItem}`}></div>
                <h2 className={goProPageStyles.stdH2}>Why Subscribe?</h2>
                <p className={goProPageStyles.stdP}>
-                  When you subscribe you help Scholar:
+                  When you become a patron you help Scholar:
                   <ul>
                      <li>Stay alive</li>
                      <li>Stay ad free</li>
@@ -105,7 +105,7 @@ const GoPro = () => {
                   </ul>
                </p>
                <h2 className={goProPageStyles.stdH2}>
-                  Are there any benefits to the subscription?
+                  Are there any benefits to the being a patron?
                </h2>
                <p className={goProPageStyles.stdP}>
                   Scholar does not limit the consumption of any of its content to any users. The
@@ -143,6 +143,12 @@ const GoPro = () => {
                      </tr>
                   </tbody>
                </table>
+               <div className='medium-spacer'></div>
+               <p className={goProPageStyles.stdP}>
+                  In addition of helping scholar stay alive you will be helping other ministries for
+                  the Glory of God and the advancemnet of His Kingdom as a great percentage of the
+                  profits goes out to different ministries nationally and internationally.
+               </p>
                {/* <h2 className={goProPageStyles.stdH2}>Does it really take alot to run Scholar?</h2>
          <div className={`${goProPageStyles.infrastructureIcons}`}>
 
