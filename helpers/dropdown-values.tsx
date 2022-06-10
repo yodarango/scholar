@@ -20,6 +20,7 @@ export const valuesType = [
 export type IvaluesCat = {
    title: string;
    key: string;
+   categoryID: number;
    color: string;
    tag: string;
    subjects: string[];
@@ -29,6 +30,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Black",
       key: "Black",
+      categoryID: 1,
       color: "rgb(37, 37, 37)",
       tag: "#BLK",
       subjects: ["Context", "Original", "Manuscripts", "Septuagint", "gematria"]
@@ -36,6 +38,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Blue",
       key: "Blue",
+      categoryID: 2,
       tag: "#BL",
       color: "#8093f1",
       subjects: [
@@ -56,6 +59,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Brown",
       key: "Brown",
+      categoryID: 3,
       tag: "#BR",
       color: "#d3ab9e",
       subjects: [
@@ -79,6 +83,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Cyan",
       key: "Cyan",
+      categoryID: 4,
       tag: "#CYN",
       color: "#55d6c2",
       subjects: [
@@ -95,6 +100,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Green",
       key: "Green",
+      categoryID: 5,
       tag: "#GRN",
       color: "#6ba969",
       subjects: ["Heaven", "Earth", "New Jerusalem", "Salvation", "Repentance", "Born Again"]
@@ -102,6 +108,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Orange",
       key: "Orange",
+      categoryID: 6,
       tag: "#OR",
       color: "#fcab64",
       subjects: [
@@ -119,6 +126,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Pink",
       key: "Pink",
+      categoryID: 7,
       tag: "#PNK",
       color: "#ffa6c1",
       subjects: ["Remarkable", "Women", "For Women", "Family", "Marriage", "Relationships"]
@@ -126,6 +134,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Purple",
       key: "Purple",
+      categoryID: 8,
       tag: "#PPL",
       color: "#9381ff",
       subjects: ["Father", "Son", "Holy Spirit", "Christ", "Anointing", "Oneness"]
@@ -133,6 +142,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Red",
       key: "Red",
+      categoryID: 9,
       tag: "#RD",
       color: "#dd5254",
       subjects: ["Love", "Mercy", "Compassion", "Peace", "Grace", "Hope", "Gifts", "Happiness"]
@@ -140,6 +150,7 @@ export const valuesCat: IvaluesCat[] = [
    {
       title: "Yellow",
       key: "Yellow",
+      categoryID: 10,
       tag: "#YLW",
       color: "#ffe45e",
       subjects: ["Faith", "Obedience", "Growth", "Fruit", "Fellowship", "Common Life", "Birth"]

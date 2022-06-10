@@ -90,9 +90,7 @@ const Podcast = () => {
          </Head>
          <div className={`${libraryPodcastStyles.mainWrapper}`}>
             <Header currPage={"PODCASTS"} />
-            {initialDataState && (
-               <SkipContent wrapperMaxWidth={"1050px"} content={initialDataState.length} />
-            )}
+            {initialDataState && <SkipContent wrapperMaxWidth={"1050px"} content={100} />}
             <div className='x-large-spacer'></div>
             <LibraryMenu
                handleInputSearchReq={handleInputSearchReq}

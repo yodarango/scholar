@@ -75,6 +75,7 @@ const Billing = () => {
                      className={`std-button ${billingStlyes.dashboardButton}`}>
                      <p className={`std-button_gradient-text`}>ACCESS DASHOBOARD</p>
                   </a>
+                  <div className='medium-spacer'></div>
                </div>
             )}
             {portalLinkState === "error" && (

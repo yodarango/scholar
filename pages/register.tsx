@@ -90,7 +90,7 @@ export default function Register() {
                };
                localStorage.setItem("auth", JSON.stringify(jwtAuth));
 
-               location.href = "/account_verification";
+               location.href = `/account_verification?email=${emailInput.current.value.toLocaleLowerCase()}`;
             } else if (data.create_new_user.message) {
                setSmallLoaderState(false);
                setNotificationpopUpState(

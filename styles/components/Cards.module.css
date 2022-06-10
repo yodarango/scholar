@@ -62,12 +62,12 @@ rename it and reuse it in other instaces if needed.
 
 .dailyVerseIconSwitchVerseBackward {
    background-size: 70%;
-   background-image: url("../../public/images/icons/back.svg");
+   background-image: url("../../public/images/icons/back.png");
 }
 
 .dailyVerseIconSwitchVerseForward {
    background-size: 70%;
-   background-image: url("../../public/images/icons/forth.svg");
+   background-image: url("../../public/images/icons/forth.png");
 }
 
 .dailyVerseIconSwitchVerseBackward:hover,
@@ -251,20 +251,20 @@ rename it and reuse it in other instaces if needed.
 }
 
 .delete {
-   background-image: url("/images/icons/delete_white.png");
+   background-image: url("/images/icons/delete.png");
    grid-column: 4/5;
    grid-row: 1/2;
    background-size: 70%;
 }
 
 .edit {
-   background-image: url("/images/icons/edit_white.png");
+   background-image: url("/images/icons/edit.png");
    grid-column: 3/4;
    grid-row: 1/2;
 }
 
 .report {
-   background-image: url("/images/icons/report_white.report");
+   background-image: url("/images/icons/warning.png");
    grid-column: 5/6;
    grid-row: 1/2;
 }

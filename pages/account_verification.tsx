@@ -118,7 +118,9 @@ export default function AccountVerification() {
                <div className={loginStyles.loginLogo}></div>
                <h1 className={loginStyles.loginTitle}>SHOW THYSELF APPROVED</h1>
                <p className={loginStyles.pText}>
-                  Please check your email for a code. This code will expire within 24 hours
+                  A verification code was sent to{" "}
+                  <span className='std-url'>{router.query.email}.</span> Please enter the code.{" "}
+                  <br /> (you might want to check your spam)
                </p>
                <div className='nowrap-flex-column'>
                   <input

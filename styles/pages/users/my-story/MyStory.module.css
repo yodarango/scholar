@@ -75,11 +75,11 @@
    display: block;
    height: 2rem;
    width: 2rem;
-   background-size: 60%;
+   background-size: 30%;
    background-position: center;
    border-radius: 50%;
    border: 1px solid var(--font-color);
-   background-image: url("/images/icons/back.svg");
+   background-image: url("/images/icons/back.png");
    background-repeat: no-repeat;
 }
 
