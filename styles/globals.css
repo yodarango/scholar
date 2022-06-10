@@ -593,12 +593,12 @@ a:active {
    left: var(--small-spacing-mobile);
    font: var(--widget-font-mobile);
    display: block;
-   background-size: 60%;
    background-position: center;
    border-radius: 50%;
    border: 1px solid var(--font-color);
-   background-image: url("/images/icons/back.svg");
+   background-image: url("/images/icons/back.png");
    background-repeat: no-repeat;
+   background-size: 30%;
 }
 
 /* Notification Modal */

@@ -45,12 +45,12 @@
 .delete {
    display: block;
    background-size: 70%;
-   background-image: url("/images/icons/delete_white.png");
+   background-image: url("/images/icons/delete.png");
 }
 
 .edit {
    display: block;
-   background-image: url("/images/icons/edit_white.png");
+   background-image: url("/images/icons/edit.png");
 }
 
 .actionsWrapper span {

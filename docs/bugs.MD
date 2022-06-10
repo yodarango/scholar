@@ -12,3 +12,4 @@
 1. pages > posts > edit > sermon move it away from serverseide props call
 2. Any post > report icons does not show
    # report icons do not show, perhaps because i went from cookies to local storage
+3. /libary/podcasts/

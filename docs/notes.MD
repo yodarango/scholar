@@ -1,7 +1,3 @@
-# ----------------------- DAIYLYS ---------------------
-
--  build graphics to show on the daily dinamic content if there is no content for the day
-
 **_ERRORS_**
 
 # The ideal is to implement apollo error with Link and Http in the apollo-client.js, however, doing this breaks Auth, research why!
@@ -52,8 +48,3 @@
 -  add general notifiations banner for all users
 
 -  get ready fo the resize query and improve the rendering of me page
-
-**TEST**
-
-1. Check login cookies are in sync be and fe
-2. Check account verification screeens redirect correctly

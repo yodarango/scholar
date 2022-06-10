@@ -66,11 +66,11 @@ const libraryMenu = ({
       tag: string;
    }>({ color: "", tag: "#ALL" });
 
-   const handleCategoryChoice = (color: string, tag: string) => {
+   const handleCategoryChoice = (color: string, tag: string, categoryID: number) => {
       console.log(router);
       setCurrentCategorySelectedState({ color, tag });
       setopenCatDropdownState(false);
-      router.replace({ pathname: router.route, query: { category: tag.replace("#", "") } });
+      router.replace({ pathname: router.route, query: { category: categoryID } });
    };
 
    // clear out the router from tags and fetch all resutls again
@@ -194,7 +194,9 @@ const libraryMenu = ({
                               key={value.key}
                               className={`${libraryMenuStyles.contentSingleItem}`}
                               style={{ backgroundColor: value.color }}
-                              onClick={() => handleCategoryChoice(value.color, value.tag)}>
+                              onClick={() =>
+                                 handleCategoryChoice(value.color, value.tag, value.categoryID)
+                              }>
                               {value.tag}
                            </span>
                         ))}
@@ -302,7 +304,9 @@ const libraryMenu = ({
                               key={value.key}
                               className={`${libraryMenuStyles.contentSingleItem}`}
                               style={{ backgroundColor: value.color }}
-                              onClick={() => handleCategoryChoice(value.color, value.tag)}>
+                              onClick={() =>
+                                 handleCategoryChoice(value.color, value.tag, value.categoryID)
+                              }>
                               {value.tag}
                            </span>
                         ))}

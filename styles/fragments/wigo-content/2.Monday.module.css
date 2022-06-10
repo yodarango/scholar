@@ -39,7 +39,7 @@
    background-position: center;
    background-size: 90%;
    background-color: rgba(255, 255, 255, 0.8);
-   background-image: url("/images/icons/back.svg");
+   background-image: url("/images/icons/back.png");
    cursor: pointer;
    margin: 0 var(--small-spacing-mobile);
 }
@@ -50,7 +50,7 @@
 }
 
 .buttonWrapper div:nth-child(2) {
-   background-image: url("/images/icons/forth.svg");
+   background-image: url("/images/icons/forth.png");
 }
 
 #emptyButton {

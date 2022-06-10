@@ -70,7 +70,7 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
    };
 
    return (
-      <div className={`${skipContentStyles.mainWrapper}`} style={{ maxWidth: wrapperMaxWidth }}>
+      <>
          {showBackwarButton && (
             <div className={`${skipContentStyles.leftTrigger}`} onClick={handleSkipBackwards}></div>
          )}
@@ -79,7 +79,7 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
             <div className={`${skipContentStyles.rightTrigger}`} onClick={handleSkipForward}></div>
          )}
          {!showForwardButton && <div></div>}
-      </div>
+      </>
    );
 };
 
