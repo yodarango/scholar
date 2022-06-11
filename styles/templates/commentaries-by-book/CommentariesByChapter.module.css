@@ -1,0 +1,10 @@
+.chaptersWrapper {
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.chaptersWrapper div {
+   flex-shrink: 0;
+}
