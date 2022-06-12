@@ -1,8 +1,8 @@
 // core
 import { useState } from "react";
+import Link from "next/link";
 
 // comps
-import CommentariesContent from "./commentaries-content";
 import ThoughtsContent from "./thoughts-content";
 import SermonNotesContent from "./sermon-notes-content";
 import QuotesContent from "./quotes-content";
@@ -23,21 +23,6 @@ const allContentMobile = ({ user }: allContentMobileProps) => {
       thoughts?: JSX.Element | boolean;
       sermonNotes?: JSX.Element | boolean;
    }>({ commentaries: false, quotes: false, thoughts: false, sermonNotes: false });
-
-   // ================  FUNCTION 1: request the commentaries by user   ================= //
-   const requestCommentaries = (user: Tuser) => {
-      setContentPopupState({
-         commentaries: (
-            <CommentariesContent
-               handleCloseCommentaries={() => setContentPopupState({ commentaries: false })}
-               user={user}
-            />
-         ),
-         quotes: false,
-         thoughts: false,
-         sermonNotes: false
-      });
-   };
 
    // ================  FUNCTION 2: request the quotes by user   ================= //
    const requestQuotes = (user: Tuser) => {
@@ -87,11 +72,11 @@ const allContentMobile = ({ user }: allContentMobileProps) => {
       <>
          {user && (
             <section className={allContentMobileStyles.mobilePostsGrid}>
-               <div
-                  className={`std-button ${allContentMobileStyles.commentaryLink}`}
-                  onClick={() => requestCommentaries(user)}>
-                  <h5 className={`${allContentMobileStyles.link}`}>Commentaries</h5>
-               </div>
+               <Link href={`/users/${user.ID}/commentaries/`}>
+                  <a className={`std-button ${allContentMobileStyles.commentaryLink}`}>
+                     <h5 className={`${allContentMobileStyles.link}`}>Commentaries</h5>
+                  </a>
+               </Link>
                <div
                   className={`std-button ${allContentMobileStyles.quoteLink}`}
                   onClick={() => requestQuotes(user)}>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // comps
-import CommentaryByChapter from "../../fragments/chunks/commentary-chapters/commentaries-by-chapter";
+import CommentaryByChapter from "../../fragments/chunks/commentary-profile/commentaries-by-chapter";
 
 // styles
 import commentaryByBookTempStyle from "../../styles/templates/commentaries-by-book/CommentariesByChapter.module.css";

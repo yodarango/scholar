@@ -1,5 +1,5 @@
 import React from "react";
-import CommentariesByChapterTemp from "../../../../templates/commentary-folders/commentaries-by-chapter";
+import CommentariesByChapterTemp from "../../../../../templates/commentary-folders/commentaries-by-chapter";
 
 const Book = () => {
    return (

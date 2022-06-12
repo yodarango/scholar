@@ -8,16 +8,18 @@ type commentaryByBookProps = {
    bookTitle: string;
    bookBkg: string;
    bookId: string;
-   totalComments: number;
+   totalComments: number | null;
+   userId: string | undefined;
 };
 const CommentariesByBook = ({
    bookTitle,
    bookBkg,
    bookId,
-   totalComments
+   totalComments,
+   userId
 }: commentaryByBookProps) => {
    return (
-      <Link href={`/users/commentaries/by-book/${bookId}`}>
+      <Link href={`/users/${userId}/commentaries/by-book/${bookId}`}>
          <a className={commentsByBookStyles.mainWrapper}>
             <div className={commentsByBookStyles.header}>
                <p>{bookTitle}</p>

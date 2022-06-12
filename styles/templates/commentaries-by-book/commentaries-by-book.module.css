@@ -20,5 +20,5 @@
    text-align: center;
    font: var(--secondary-font-mobile);
    color: var(--graient-one);
-   margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
+   margin: calc(var(--large-spacing-mobile) + 1rem) auto var(--small-spacing-mobile);
 }

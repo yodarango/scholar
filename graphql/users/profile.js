@@ -72,6 +72,97 @@ export const GET_MY_SETTINGS = gql`
    }
 `;
 
+export const GET_CONTENT_CREATOR = gql`
+   query ($ID: ID) {
+      users(ID: $ID) {
+         ID
+         avatar
+         signature
+         authority_level
+         approval_rating
+         my_church
+         first_name
+         last_name
+      }
+   }
+`;
+
+export const GET_COMMETNARIES_BY_BOOK_DATA = gql`
+   query ($USER_ID: ID) {
+      users(ID: $USER_ID) {
+         ID
+         signature
+      }
+      commentaries_by_book_count(USER_ID: $USER_ID) {
+         genesis
+         exodus
+         leviticus
+         numbers
+         deuteronomy
+         joshua
+         judges
+         ruth
+         one_samuel
+         two_samuel
+         one_kings
+         two_kings
+         one_chronicles
+         two_chronicles
+         ezra
+         nehemiah
+         esther
+         job
+         psalms
+         proverbs
+         ecclesiastes
+         sing_of_songs
+         isaiah
+         jeremiah
+         lamentations
+         ezekiel
+         daniel
+         hosea
+         joel
+         amos
+         obadiah
+         jonah
+         micah
+         nahum
+         habakkuk
+         zephaniah
+         haggai
+         zechariah
+         malachi
+         matthew
+         mark
+         luke
+         john
+         acts
+         romans
+         one_corinthians
+         two_corinthians
+         galatians
+         ephesians
+         philippians
+         colossians
+         one_thessalonians
+         two_thessalonians
+         one_timothy
+         two_timothy
+         titus
+         philemon
+         hebrews
+         james
+         one_peter
+         two_peter
+         one_john
+         two_john
+         three_john
+         jude
+         revelation
+      }
+   }
+`;
 export const GET_USER_PROFILE = gql`
    query ($ID: ID, $totalCountOnly: Boolean, $getApprovalCount: Boolean) {
       users(ID: $ID) {

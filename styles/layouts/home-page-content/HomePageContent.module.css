@@ -13,7 +13,7 @@
    text-align: center;
    font: var(--secondary-font-mobile);
    color: var(--graient-one);
-   margin: var(--large-spacing-mobile) auto var(--small-spacing-mobile);
+   margin: var(--large-spacing-mobile) auto var(--xsmall-spacing-mobile);
 }
 
 .popUpContentWrapper > section {
@@ -22,7 +22,7 @@
    margin: var(--xsmall-spacing-mobile);
 }
 
-.noNotifications{
+.noNotifications {
    color: var(--secondary-color);
    width: 100%;
    text-align: center;
