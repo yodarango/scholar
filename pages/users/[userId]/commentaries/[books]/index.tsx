@@ -1,5 +1,6 @@
 // comps
-import CommentariesByBookTemp from "../../../../../templates/commentary-folders/commentaries-by-book";
+
+import CommentariesByBookTemp from "../../../../../templates/users/userId/commentaries/book/commentaries-by-book";
 
 const Book = () => {
    return (

@@ -8,11 +8,12 @@ type commentaryByChaopteProps = {
    chapterId: string;
    chapter: string | number;
    handleOpenCommentsByChapter?: any;
+   userId: string | string[];
 };
 
-const CommentaryByChapter = ({ chapter, chapterId }: commentaryByChaopteProps) => {
+const CommentaryByChapter = ({ chapter, chapterId, userId }: commentaryByChaopteProps) => {
    return (
-      <Link href={`/users/commentaries/by-book/${chapterId}?chapter=${chapterId}`}>
+      <Link href={`/users/${userId}/commentaries/by-book/${chapterId}`}>
          <a className={commentaryByChatoperStyles.mainWrapper}>
             <p className='std-text-block'>{chapter}</p>
          </a>
