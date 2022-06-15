@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import CommentaryByChapter from "../../fragments/chunks/commentary-profile/commentaries-by-chapter";
 
 // styles
-import commentaryByBookTempStyle from "../../styles/templates/commentaries-by-book/CommentariesByChapter.module.css";
+import commentaryByBookTempStyle from "../../styles/fragments/popup-content/CommentariesByBook.module.css";
 
 // data
 import { bible, Tbible } from "../../data/bible-books-w-chapters";
@@ -36,7 +36,7 @@ const CommentariesByChapterTemp = ({ bookId, userId }: commentariesByChapterTemp
                   <CommentaryByChapter
                      userId={userId}
                      chapter={index + 1}
-                     chapterId={`${chapters.bookId}.${index}`}
+                     chapterId={`${chapters.bookId}.${index + 1}`}
                      key={index}
                   />
                ))}

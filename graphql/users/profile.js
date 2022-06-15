@@ -87,6 +87,7 @@ export const GET_CONTENT_CREATOR = gql`
    }
 `;
 
+// gets the amount of verses for each book of the bible and the user they belong to
 export const GET_COMMETNARIES_BY_BOOK_DATA = gql`
    query ($USER_ID: ID) {
       users(ID: $USER_ID) {

@@ -12,9 +12,12 @@ import CommentariesByBook from "../../../../../fragments/squares/commentary-book
 import CommentariesProfileMenu from "../../../../../fragments/buttons/commentaries-profile-menu";
 import PopupWrapper from "../../../../../layouts/popup-wrapper";
 import CommentariesByChapterTemp from "../../../../../fragments/popup-content/commentaries-by-book-chapter";
+import CardsLazyLoading from "../../../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../../../layouts/resource-not-found-error";
 
 //styles
-import commentariesByBookStyles from "../../styles/templates/commentaries-by-book/commentaries-by-book.module.css";
+import commentariesByBookStyles from "../../../../../styles/templates/users/userId/commentaries-by-book/commentaries-by-book.module.css";
+import cardsLazyLoadingStyles from "../../../../../styles/layouts/CardsLazyLoading.module.css";
 
 // data
 import { bible, Tbible } from "../../../../../data/bible-books-w-chapters";
@@ -28,10 +31,13 @@ const CommentariesByBookTemp = () => {
    const [books, setBooks] = useState<any>(null);
    const [user, setUser] = useState<Tuser | null>(null);
    const [chaptersModal, setchaptersModal] = useState<Boolean | JSX.Element>(false);
+   const [loading, setLoading] = useState("loading");
 
+   // router
    const router = useRouter();
+
+   // get the userId from the router to know what user to fetch data from
    const user_id = router.query.userId;
-   console.log(user_id);
 
    // get count of commentaries by book
    const getCommentariesByBook = async () => {
@@ -41,14 +47,15 @@ const CommentariesByBookTemp = () => {
             variables: { USER_ID: user_id }
          });
 
-         console.log(data);
          if (data.commentaries_by_book_count && data.users) {
             setbookKeys(Object.keys(data.commentaries_by_book_count));
             setBooks(data.commentaries_by_book_count);
             setUser(data.users[0]);
+            setLoading("done");
          }
       } catch (error) {
          console.log(error);
+         setLoading("error");
       }
    };
 
@@ -74,11 +81,11 @@ const CommentariesByBookTemp = () => {
             <a className='goBack'></a>
          </Link>
 
-         {user && (
+         {user && loading === "done" && (
             <h1 className={commentariesByBookStyles.header}>Commentaries by {user.signature}</h1>
          )}
-         <CommentariesProfileMenu />
-         {books && user && (
+         {user && loading === "done" && <CommentariesProfileMenu />}
+         {books && user && loading === "done" && (
             <section className={commentariesByBookStyles.commentariesWrapper}>
                {bible.map((book: Tbible, index: number) => (
                   <CommentariesByBook
@@ -91,6 +98,10 @@ const CommentariesByBookTemp = () => {
                ))}
             </section>
          )}
+         {loading === "loading" && (
+            <CardsLazyLoading amount={25} compClass={cardsLazyLoadingStyles.postCardQuote} />
+         )}
+         {loading == "error" && <ResourceNotFoundError />}
       </div>
    );
 };
