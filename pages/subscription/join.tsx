@@ -122,7 +122,7 @@ const GoPro = () => {
                         <th>SUBS</th>
                      </tr>
                      <tr>
-                        <td>Limit to 5 commentary posts</td>
+                        <td>Limit to 20 commentary posts</td>
                         <td>Unlimited commentary posts</td>
                      </tr>
                      <tr>

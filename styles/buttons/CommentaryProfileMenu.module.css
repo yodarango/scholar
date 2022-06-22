@@ -5,6 +5,18 @@
    justify-content: center;
 }
 
-.mainWrapper a {
+.mainWrapper .option {
    display: block;
+   margin: 0 var(--medium-spacing-mobile);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 2.5rem;
+   width: 2.5rem;
+   border-radius: 50%;
+   background-color: var(--third-color);
+}
+
+.option.selected {
+   background-color: var(--graient-one);
 }

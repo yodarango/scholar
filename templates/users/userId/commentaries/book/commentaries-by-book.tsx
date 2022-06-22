@@ -24,6 +24,7 @@ import { bible, Tbible } from "../../../../../data/bible-books-w-chapters";
 
 // helpers
 import { Tuser } from "../../../../../pages/users/[userId]";
+import TextPrimaryInput from "../../../../../fragments/inputs/text_primary-input";
 
 const CommentariesByBookTemp = () => {
    // states
@@ -32,6 +33,7 @@ const CommentariesByBookTemp = () => {
    const [user, setUser] = useState<Tuser | null>(null);
    const [chaptersModal, setchaptersModal] = useState<Boolean | JSX.Element>(false);
    const [loading, setLoading] = useState("loading");
+   const [bibleBooks, setbibleBooks] = useState<Tbible[]>(bible);
 
    // router
    const router = useRouter();
@@ -74,6 +76,15 @@ const CommentariesByBookTemp = () => {
          />
       );
    };
+
+   //  ---------- filter the books on typing
+   const filterBooks = (e: any) => {
+      const filteredBooks = bible.filter((book: Tbible) => {
+         return book.bookTitle.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase());
+      });
+      setbibleBooks(filteredBooks);
+   };
+
    return (
       <div className={commentariesByBookStyles.mainWrapper}>
          {chaptersModal}
@@ -85,9 +96,14 @@ const CommentariesByBookTemp = () => {
             <h1 className={commentariesByBookStyles.header}>Commentaries by {user.signature}</h1>
          )}
          {user && loading === "done" && <CommentariesProfileMenu />}
+         {user && loading === "done" && (
+            <div className={commentariesByBookStyles.searchInputWrapper}>
+               <TextPrimaryInput placeholder='search book' cta={filterBooks} />
+            </div>
+         )}
          {books && user && loading === "done" && (
             <section className={commentariesByBookStyles.commentariesWrapper}>
-               {bible.map((book: Tbible, index: number) => (
+               {bibleBooks.map((book: Tbible, index: number) => (
                   <CommentariesByBook
                      bookTitle={book.bookTitle}
                      bookBkg={book.bookBkg}

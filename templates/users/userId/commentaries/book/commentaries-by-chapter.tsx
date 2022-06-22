@@ -50,7 +50,6 @@ export const CommentariesByChapter = () => {
             }
          });
 
-         console.log(data);
          if (data.commentary && data.users) {
             setCommentaryState((commentaryState) =>
                commentaryState ? [...commentaryState, ...data.commentary] : null

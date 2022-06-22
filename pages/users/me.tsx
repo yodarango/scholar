@@ -74,7 +74,7 @@ const Me = () => {
    // globals
 
    // =======================  FUNCTION 1: Get User Settings =============== //
-   const [userState, setUserState] = useState<Tuser | null>();
+   const [userState, setUserState] = useState<Tuser | null>(null);
    const [loadingState, setLoadingState] = useState<string>("loading");
 
    // set notifications

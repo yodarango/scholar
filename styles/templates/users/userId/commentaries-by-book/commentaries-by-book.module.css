@@ -7,7 +7,7 @@
    display: flex;
    align-items: flex-start;
    justify-content: space-around;
-   margin: var(--medium-spacing-mobile) auto;
+   margin: var(--xsmall-spacing-mobile) auto;
    flex-wrap: wrap;
 }
 
@@ -21,4 +21,12 @@
    font: var(--secondary-font-mobile);
    color: var(--graient-one);
    margin: calc(var(--large-spacing-mobile) + 1rem) auto var(--small-spacing-mobile);
+}
+
+.searchInputWrapper {
+   max-width: 15rem;
+   margin: 0 auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }

@@ -101,7 +101,6 @@ const Wigo = () => {
 
          setContent(data);
          setLoadingState("done");
-         console.log(data);
       } catch (error) {
          setContent(null);
          setLoadingState("error");
