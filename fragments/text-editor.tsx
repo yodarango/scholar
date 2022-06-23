@@ -49,6 +49,8 @@ const TextEditor = ({
    assignedTags,
    postId
 }: editorProps) => {
+   // ---------- states
+   const [isPrivatePost, setIsPrivatePost] = useState(false);
    /*==================  FUNCTION: Grow Text Area on Change  ===========*/
    // References to textarea and ReactMarkdown wrappers
    const textArea = useRef<HTMLTextAreaElement>(null);
@@ -186,6 +188,7 @@ const TextEditor = ({
                variables: {
                   VERSE_ID: verseBeingCommented.id,
                   body: textArea.current?.value,
+                  is_private: isPrivatePost,
                   // make sure the secondary tag is not undefined!
                   category_tags: `${addedFirstTagsState.tag} ${
                      addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
@@ -352,6 +355,7 @@ const TextEditor = ({
                variables: {
                   ID: postId,
                   body: textArea.current?.value,
+                  is_private: isPrivatePost,
                   // make sure the secondary tag is not undefined!
                   category_tags: `${addedFirstTagsState.tag} ${
                      addedSecondTagsState.tag !== undefined ? addedSecondTagsState.tag : ""
@@ -474,7 +478,7 @@ const TextEditor = ({
                title={"Empty field detected"}
                contentString={"Commentary text is required 🕵️‍♂️"}
                closeModal={closeModals}
-               newClass={`notification-wrapper--Red`}
+               newClass={`notification-wrapper--Error`}
             />
          );
       } else if (!addedFirstTagsState.tag) {
@@ -483,7 +487,31 @@ const TextEditor = ({
                title={"No tag detected"}
                contentString={"At least one category tag is required 🕵️‍♂️"}
                closeModal={closeModals}
-               newClass={`notification-wrapper--Red`}
+               newClass={`notification-wrapper--Error`}
+            />
+         );
+      }
+   };
+
+   // --------------- handle the post privacy ------------
+   const handlePostPrivacy = (choice: boolean) => {
+      setIsPrivatePost(choice);
+      if (choice) {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Private Post"}
+               contentString={"This post will be private and only you'll be able to see it!"}
+               closeModal={() => setNotificationPopupState(false)}
+               newClass={`notification-wrapper--Info`}
+            />
+         );
+      } else {
+         setNotificationPopupState(
+            <NotificationPopup
+               title={"Public Post"}
+               contentString={"This post will be public and everyone will be able to see it!"}
+               closeModal={() => setNotificationPopupState(false)}
+               newClass={`notification-wrapper--Info`}
             />
          );
       }
@@ -496,6 +524,20 @@ const TextEditor = ({
          {/*===  title  ======*/}
          <div className={textEditorStyles.titleWrapper}>
             <h2 className={`std-text-block--small-title ${textEditorStyles.title}`}>{title}</h2>
+            {!isPrivatePost && (
+               <button className={`std-button-secondary`} onClick={() => handlePostPrivacy(true)}>
+                  🔒
+               </button>
+            )}
+            {isPrivatePost && (
+               <div>
+                  <button
+                     className={`std-button-secondary selected`}
+                     onClick={() => handlePostPrivacy(false)}>
+                     🔒
+                  </button>
+               </div>
+            )}
          </div>
          {/*===  Dropdown  ======*/}
          <div>

@@ -319,6 +319,28 @@ a:active {
    cursor: pointer;
 }
 
+.std-button-secondary {
+   width: 2.5rem;
+   height: 2.5rem;
+   font-size: 1.5rem;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: 300ms;
+   flex-shrink: 0;
+   background-color: var(--third-color);
+}
+
+.std-button-secondary:hover {
+   cursor: pointer;
+   background-color: var(--graient-one);
+}
+
+.std-button-secondary.selected {
+   background-color: var(--graient-one);
+}
+
 .std-text-block,
 .std-text-block--info,
 .std-text-block--small-title,
@@ -711,7 +733,12 @@ a:active {
    background-color: var(--danger-color);
 }
 
-.notification-wrapper--Error > p {
+.notification-wrapper--Info {
+   background-color: var(--third-color);
+}
+
+.notification-wrapper--Error > p,
+.notification-wrapper--Info > p {
    color: var(--font-color) !important;
 }
 

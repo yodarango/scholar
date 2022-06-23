@@ -19,7 +19,11 @@ const CommentariesByBook = ({
          <div className={commentsByBookStyles.header}>
             <p>{bookTitle}</p>
          </div>
-         <div className={commentsByBookStyles.bkg} style={{ backgroundImage: bookBkg }}></div>
+         <img
+            className={commentsByBookStyles.bkg}
+            src={bookBkg}
+            alt='background art for a book of the bible'
+         />
          <div className={commentsByBookStyles.footer}>
             <p className='std-text-block--widget '>Comments: {totalComments}</p>
          </div>
