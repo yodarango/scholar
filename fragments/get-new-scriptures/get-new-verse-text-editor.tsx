@@ -80,9 +80,7 @@ const GetNewVerseTextEdito = ({
                <div className='closeModal' onClick={closeModal}>
                   X
                </div>
-               <div className='goBack' onClick={goBackModal}>
-                  {"<"}
-               </div>
+               <div className='goBack' onClick={goBackModal}></div>
                {getNewVerse &&
                   loadingState === "done" &&
                   getNewVerse.map((el) => (

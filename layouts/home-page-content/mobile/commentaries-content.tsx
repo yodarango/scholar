@@ -1,6 +1,6 @@
 // core
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Link from "next/link";
 
 //graphQL
 import client from "../../../apollo-client";
@@ -10,6 +10,7 @@ import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 import Comments from "../../../posts/comment";
 import SmallLoader from "../../../fragments/chunks/small-loader";
 import ResourceNotFoundError from "../../resource-not-found-error";
+import CommentariesProfileMenu from "../../../fragments/buttons/commentaries-profile-menu";
 
 // styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";
@@ -21,11 +22,10 @@ import { Tuser } from "../../../pages/users/[userId]";
 import CardsLazyLoading from "../../cards-lazy-loading";
 
 type commentariesContent = {
-   user: Tuser;
-   handleCloseCommentaries: any;
+   user: Tuser | null;
 };
 
-const CommentariesContent = ({ handleCloseCommentaries, user }: commentariesContent) => {
+const CommentariesContent = ({ user }: commentariesContent) => {
    const [loadingState, setLoadingState] = useState<string>("loading");
    const [smallLoadingState, setSmallLoadingState] = useState<boolean>(false);
    const [commentaryState, setCommentaryState] = useState<Tcommentary[]>([]);
@@ -38,7 +38,7 @@ const CommentariesContent = ({ handleCloseCommentaries, user }: commentariesCont
       try {
          const { data } = await client.query({
             query: GET_PROFILE_COMMENTARIES,
-            variables: { ID: user.ID, totalCountOnly: false, last_id: commentaryLastIdState }
+            variables: { ID: user?.ID, totalCountOnly: false, last_id: commentaryLastIdState }
          });
 
          if (data.users[0].all_posts.commentaries) {
@@ -65,16 +65,18 @@ const CommentariesContent = ({ handleCloseCommentaries, user }: commentariesCont
 
    return (
       <div className={"dark-bkg"}>
-         <span className={"closeModal"} onClick={handleCloseCommentaries}>
-            X
-         </span>
+         <Link href={`/users/${user?.ID}`}>
+            <a className={"closeModal"}>X</a>
+         </Link>
          <section className={homePageContentStyles.popUpContentWrapper}>
-            {user.signature && (
+            {user && user.signature && (
                <h1 className={homePageContentStyles.popUpContentWrapper_title}>
                   Commentaries by {user.signature}
                </h1>
             )}
-            {commentaryState &&
+            <CommentariesProfileMenu />
+            {user &&
+               commentaryState &&
                loadingState === "done" &&
                commentaryState.map((commentary: Tcommentary) => (
                   <section key={commentary.ID}>

@@ -3,40 +3,40 @@ import { useState, useEffect } from "react";
 //import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import HeadContent from "../../layouts/head-content";
+import HeadContent from "../../../layouts/head-content";
 import Image from "next/image";
 
 // graphql
-import client from "../../apollo-client";
-import { GET_USER_PROFILE } from "../../graphql/users/profile";
+import client from "../../../apollo-client";
+import { GET_USER_PROFILE } from "../../../graphql/users/profile";
 
 // components
-import Header from "../../layouts/header";
-import AllContentMobile from "../../layouts/home-page-content/mobile/all-content-mobile";
-import AllContentDesktop from "../../layouts/home-page-content/desktop/all-content-desktop";
+import Header from "../../../layouts/header";
+import AllContentMobile from "../../../layouts/home-page-content/mobile/all-content-mobile";
+import AllContentDesktop from "../../../layouts/home-page-content/desktop/all-content-desktop";
 //-----------------------
-import PopupWrapper from "../../layouts/popup-wrapper";
-import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
-import NavigationMenu from "../../layouts/navigation-menu";
-import UserAboutMe from "../../fragments/chunks/user/user-about-me";
-import UserTotalPostsAndRatings from "../../fragments/chunks/user/user-total-posts-ratings";
-import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
-import CardsLazyLoading from "../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import PopupWrapper from "../../../layouts/popup-wrapper";
+import NotificationsWrapper from "../../../fragments/popup-content/notifications-wrapper";
+import NavigationMenu from "../../../layouts/navigation-menu";
+import UserAboutMe from "../../../fragments/chunks/user/user-about-me";
+import UserTotalPostsAndRatings from "../../../fragments/chunks/user/user-total-posts-ratings";
+import UserBioWrapper from "../../../fragments/chunks/user/user-bio-wrapper";
+import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
+import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 
 // styles
-import userStyles from "../../styles/pages/users/User.module.css";
-import cardaLazyloadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
+import userStyles from "../../../styles/pages/users/User.module.css";
+import cardaLazyloadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
-import CheckMediaQuery from "../../helpers/media-query";
+import CheckMediaQuery from "../../../helpers/media-query";
 
 //types
-import { Tcommentary } from "../../posts/comment";
-import { Tthought } from "../../posts/thought";
-import { TsingleStory } from "../../posts/quotes-profile";
-import { TsermonPost } from "../../posts/sermon-notes-post";
-import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
+import { Tcommentary } from "../../../posts/comment";
+import { Tthought } from "../../../posts/thought";
+import { TsingleStory } from "../../../posts/quotes-profile";
+import { TsermonPost } from "../../../posts/sermon-notes-post";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 export type TallPosts = {
    thought_approval_total_count: number;
@@ -139,6 +139,7 @@ const User = () => {
             {CheckMediaQuery() < 1000 && userState && loadingState === "done" && (
                <AllContentMobile user={userState} />
             )}
+
             {CheckMediaQuery() >= 1000 && userState && loadingState === "done" && (
                <AllContentDesktop user={userState} />
             )}

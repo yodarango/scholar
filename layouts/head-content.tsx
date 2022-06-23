@@ -2,7 +2,7 @@ const HeadContent = () => {
    return (
       <>
          <meta charSet='UTF-8' />
-         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
          <meta
             name='keywords'
             content='web app, bible scholar, commentary, posts, social media, app, like, comment, quote, books, preaching, podcast, oneness, aljc, upci, wpf'

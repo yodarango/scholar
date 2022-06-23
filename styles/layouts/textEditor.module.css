@@ -4,10 +4,13 @@
 
 .titleWrapper {
    position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
 .title {
-   margin: var(--large-spacing-mobile) auto 0;
+   margin: auto;
 }
 
 .textAreasWrapper {

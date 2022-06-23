@@ -48,3 +48,5 @@
 -  add general notifiations banner for all users
 
 -  get ready fo the resize query and improve the rendering of me page
+
+-  instead of saving an array of categories to the db save an enum nuber from 1-10 and have cats in hteir own table with meaning
