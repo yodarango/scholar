@@ -144,8 +144,8 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
                <NotificationPopup
                   closeModal={() => setNotificationPupUpState(false)}
                   title='Report Has Been Submitted'
-                  contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
-                  newClass='notification-wrapper--Sucess'
+                  contentString='Wrong credentials 🕵️‍♂️'
+                  newClass='notification-wrapper--Success'
                />
             );
          } else {
