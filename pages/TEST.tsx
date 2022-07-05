@@ -1,6 +1,5 @@
 import client from "../apollo-client";
 import { CREATE_NEW_COMMENTARY } from "../graphql/posts/commentaries";
-import verses from "../data/commentaries/charles_hidge/ephesians.json";
 
 const TEST = () => {
    const createPost = async (verseId: string, body: string, verse_citation: string) => {
