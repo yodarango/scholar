@@ -13,3 +13,6 @@
 2. Any post > report icons does not show
    # report icons do not show, perhaps because i went from cookies to local storage
 3. /libary/podcasts/
+4. open commentary from the thre dots (...) a exception is thrown
+5. user/:id (not me) > profile > commentaries > by book > numbers do not reflect the count
+6. Profile > User Info profile > Rating count = 0
