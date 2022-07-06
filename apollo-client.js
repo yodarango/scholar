@@ -51,9 +51,9 @@ const errorLink = onError(({ graphQLErrors, networkError, response, operation })
 });
 
 const client = new ApolloClient({
-   //uri: "https://my.biblescholar.app/api",
+   uri: "https://my.biblescholar.app/api",
    // uri: "http://192.168.1.16:4000/api",
-   uri: "http://localhost:4000/api",
+   // uri: "http://localhost:4000/api",
    //uri: "https://scholar-be-2.herokuapp.com/api",
    cache: new InMemoryCache(),
    defaultOptions: defaultOptions,
