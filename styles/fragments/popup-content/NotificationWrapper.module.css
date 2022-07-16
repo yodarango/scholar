@@ -72,7 +72,7 @@
    height: 3.7rem;
    width: 3rem;
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
-   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+   background-image: linear-gradient(130deg, var(--gradient-1--dark), var(--gradient-1--light));
    display: flex;
    align-items: center;
    justify-content: center;

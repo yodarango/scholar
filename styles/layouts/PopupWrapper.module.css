@@ -47,7 +47,7 @@
    padding: var(--xsmall-spacing-mobile);
    width: 100%;
    display: block;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    font: var(--secondary-font-mobile);
    text-align: left;
    word-break: break-all;
@@ -72,7 +72,7 @@
 
 .table a {
    text-decoration: underline;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 .table tr,
 .table td {
@@ -82,7 +82,7 @@
 }
 
 .table tr td:nth-child(1) {
-   color: var(--gradient-two);
+   color: var(--gradient-1--light);
 } */
 
 /* View Post  */

@@ -50,7 +50,7 @@
 }
 
 .confirm {
-   background-color: var(--proceed-color);
+   background-color: var(--safe-color);
 }
 
 .smallLoaderHolder {

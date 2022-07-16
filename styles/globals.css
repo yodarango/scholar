@@ -497,7 +497,7 @@ a:active {
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
-   /* background-image: url("/images/logo.png"); */
+   background-image: url("/images/logo.png");
 }
 
 .header-curr-page {
@@ -514,7 +514,7 @@ a:active {
 .go-pro-button {
    grid-column: 3/4;
    grid-row: 1/2;
-   /* background-image: url("/images/icons/plus.svg"); */
+   background-image: url("/images/icons/plus.svg");
    width: 1.5rem;
    height: 1.5rem;
    background-size: cover;
@@ -530,7 +530,7 @@ a:active {
    background-size: contain;
    background-repeat: no-repeat;
    background-color: transparent;
-   /* background-image: url("/images/icons/hearts.svg"); */
+   background-image: url("/images/icons/hearts.svg");
 }
 
 .go-pro-button:hover {
@@ -618,7 +618,7 @@ a:active {
    background-position: center;
    border-radius: 50%;
    border: 1px solid var(--font-color);
-   /* background-image: url("/images/icons/back.png"); */
+   background-image: url("/images/icons/back.png");
    background-repeat: no-repeat;
    background-size: 30%;
 }

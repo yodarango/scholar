@@ -55,7 +55,7 @@
 }
 
 .wrapperNoCont p b {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 .noContentImgWrapper {
    border: 0.2rem solid var(--secondary-color);

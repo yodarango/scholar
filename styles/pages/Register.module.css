@@ -60,7 +60,7 @@
 .genderInput:hover,
 .genderInputMaleActive,
 .genderInputFemaleActive {
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
    cursor: pointer;
 }
 /* 

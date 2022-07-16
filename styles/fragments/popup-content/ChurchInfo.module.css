@@ -4,7 +4,7 @@
 }
 
 .name {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-align: center;
    margin: var(--medium-spacing-mobile) auto;
    width: 100%;
@@ -31,7 +31,7 @@
 }
 
 .website {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-decoration: underline;
    display: block;
    margin: var(--medium-spacing-mobile) auto;

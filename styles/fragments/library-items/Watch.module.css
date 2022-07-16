@@ -74,7 +74,7 @@
    font: var(--primary-font-mobile);
    font-size: 0.8rem;
    text-decoration: underline;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 
 @media only screen and (min-width: 1000px) {

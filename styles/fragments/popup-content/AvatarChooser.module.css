@@ -31,7 +31,7 @@
 
 .filterWrapper div:hover,
 .choiceSelected {
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
    cursor: pointer;
 }
 

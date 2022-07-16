@@ -98,7 +98,7 @@
 .userReputationWrapperView {
    margin: 0.5rem;
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
-   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+   background-image: linear-gradient(130deg, var(--gradient-1--dark), var(--gradient-1--light));
    height: 4rem;
    width: 3.5rem;
    display: flex;

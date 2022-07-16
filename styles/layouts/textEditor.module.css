@@ -27,7 +27,7 @@
 
 .textEditorVerse {
    background-color: var(--fourth-color);
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-decoration: underline;
 }
 
@@ -158,7 +158,7 @@
 
 .textAreaPreview a {
    text-decoration: underline;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 
 .textAreaPreview ul,

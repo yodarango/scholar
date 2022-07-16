@@ -14,14 +14,14 @@
 }
 
 .reference {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    size: 8rem;
    display: inline-block;
    text-decoration: underline;
 }
 
 .chapter {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    font: var(--secondary-font-mobile);
    display: inline-block;
    width: 100%;
@@ -30,7 +30,7 @@
 }
 
 .title {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    font: var(--secondary-font-mobile);
    font-size: 1.2rem;
    display: inline-block;
@@ -59,7 +59,7 @@
    width: 1.5rem;
    border-radius: 50%;
    text-align: center;
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
    transition: transform 300ms ease-in;
 }
 
@@ -70,11 +70,11 @@
 
 .noteCTA {
    position: relative;
-   color: var(--gradient-two);
+   color: var(--gradient-1--light);
    font: var(--widget-font-mobile);
    font-size: 0.6rem;
    display: inline-block;
-   border: 1px solid var(--gradient-two);
+   border: 1px solid var(--gradient-1--light);
    padding: 0.1rem;
    top: -0.2rem;
    margin: 0 0.3rem;
@@ -149,7 +149,7 @@
       width: 1.5rem;
       border-radius: 50%;
       text-align: center;
-      background-color: var(--graient-one);
+      background-color: var(--gradient-1--dark);
       transition: transform 300ms ease-in;
    }
 

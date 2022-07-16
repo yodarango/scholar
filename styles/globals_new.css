@@ -1,0 +1,311 @@
+/* @import url("https://use.typekit.net/hir1zga.css"); */
+
+/* --------------- lset up fonts ---------- */
+/* Open Sans regular */
+@font-face {
+   font-family: "Open Sans";
+   font-style: normal;
+   font-weight: 400;
+   src: local(""),
+      url("../public/fonts/Open_Sans/open-sans-v29-latin-regular.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* open-sans-500 - latin */
+@font-face {
+   font-family: "Open Sans";
+   font-style: normal;
+   font-weight: 500;
+   src: local(""), url("../public/fonts/Open_Sans/open-sans-v29-latin-500.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-500.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Open Sans 700 */
+@font-face {
+   font-family: "Open Sans";
+   font-style: normal;
+   font-weight: 700;
+   src: local(""), url("../public/fonts/Open_Sans/open-sans-v29-latin-700.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* Open Sans 800 */
+@font-face {
+   font-family: "Open Sans";
+   font-style: normal;
+   font-weight: 800;
+   src: local(""), url("../public/fonts/Open_Sans/open-sans-v29-latin-800.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-800.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Open Sans 400 --italic */
+@font-face {
+   font-family: "Open Sans";
+   font-style: italic;
+   font-weight: 400;
+   src: local(""), url("../public/fonts/Open_Sans/open-sans-v29-latin-italic.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Open Sans 500 --italic */
+@font-face {
+   font-family: "Open Sans";
+   font-style: italic;
+   font-weight: 500;
+   src: local(""),
+      url("../public/fonts/Open_Sans/open-sans-v29-latin-500italic.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-500italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Open Sans 700 --italic */
+@font-face {
+   font-family: "Open Sans";
+   font-style: italic;
+   font-weight: 700;
+   src: local(""),
+      url("../public/fonts/Open_Sans/open-sans-v29-latin-700italic.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-700italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Open Sans 800 --italic */
+@font-face {
+   font-family: "Open Sans";
+   font-style: italic;
+   font-weight: 800;
+   src: local(""),
+      url("../public/fonts/Open_Sans/open-sans-v29-latin-800italic.woff2") format("woff2"),
+      /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url("../public/fonts/Open_Sans/open-sans-v29-latin-800italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+:root {
+   /* --------------- font ---------- */
+   --primary-font: "Open Sans", sans-serif;
+
+   --line-heihgt: 1.8em;
+
+   /* --------------- dark mode colors ---------- */
+   --primary-color: #2a2438;
+   --secondary-color: #38304b;
+   --third-color: #5c5470;
+   --gradient-1--dark: #7350ec;
+   --gradient-1--light: #b293fe;
+   --gradient-2--dark: #ff3269;
+   --gradient-2--light: #ff8655;
+   --font-color: #f1eaff;
+   --danger-color: #ff4d62;
+   --warning-color: #e9d259;
+   --safe-color: #7fdc7d;
+   --rating-star-dark: #fca101;
+   --rating-star-light: #ffe600;
+   --shadow-color: #1a1723;
+
+   /* --------------- reading modal ---------- */
+   --reading-modal-1--dark: #2b2b2a;
+   --reading-modal-1--light: #fefffe;
+   --reading-modal-2--dark: #050825;
+   --reading-modal-2--light: #2c3674;
+   --reading-modal-3--dark: #1e1f1e;
+   --reading-modal-3--light: #414041;
+
+   /* --------------- approval level ---------- */
+   --aprval-level-a: #75d975;
+   --aprval-level-b: #b3eeb3;
+   --aprval-level-c: #ebcf5e;
+   --aprval-level-d: #f4745e;
+   --aprval-level-f: #db4c42;
+
+   /* --------------- category colors ---------- */
+   --category-BLK: #252525;
+   --category-BL: #8093f1;
+   --category-BR: #d3ab9e;
+   --category-CYN: #55d6c2;
+   --category-GRN: #a1df9f;
+   --category-OR: #fcab64;
+   --category-PNK: #ffa6c1;
+   --category-PPL: #9381ff;
+   --category-RD: #dd5254;
+   --category-YLW: #ffe45e;
+
+   /* --------------- content backgrounds ---------- */
+   --content-bkg-1: linear-gradient(120deg, #00e8ee, #eb0202);
+   --content-bkg-2: linear-gradient(120deg, #ffd002, #e043f1);
+   --content-bkg-3: linear-gradient(120deg, #9902ed, #0acfd5);
+   --content-bkg-4: linear-gradient(120deg, #ee0303, #0a7dd5);
+   --content-bkg-5: linear-gradient(120deg, #f559fa, #02fff2);
+   --content-bkg-6: linear-gradient(120deg, #00ab16, #05bce3);
+   --content-bkg-7: linear-gradient(120deg, #252424, #393c58);
+   --content-bkg-8: linear-gradient(120deg, #964b00, #1f0000);
+   --content-bkg-9: linear-gradient(120deg, #030874, #cb0202);
+   --content-bkg-10: linear-gradient(120deg, #f57a15, #0e8fda);
+   --content-bkg-11: linear-gradient(120deg, #ffffff, #54befc);
+   --content-bkg-12: linear-gradient(120deg, #8fda18, #ffffff);
+   --content-bkg-13: linear-gradient(120deg, #ffffff, #f7a0f2);
+   --content-bkg-14: linear-gradient(120deg, #36322e, #8249dd);
+   --content-bkg-15: linear-gradient(120deg, #ffbb00, #da0e0e);
+   --content-bkg-16: linear-gradient(120deg, #06f7eb, #8cda0e);
+   --content-bkg-17: linear-gradient(120deg, #0051ff, #00eeff);
+   --content-bkg-18: linear-gradient(120deg, #f5cc15, #880eda);
+   --content-bkg-19: linear-gradient(120deg, #f5159f, #e38ce6);
+
+   /* --------------- Possible second theme ---------- */
+   --primary-color-2: #20042f;
+
+   /* --------------- spacings ---------- */
+   /* -- padding -- */
+   --spacing-h-xxs: 0.5rem; /*-- ex: padding btw elements in small components like cards*/
+   --spacing-h-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
+   --spacing-h-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
+   --spacing-h-m: 2rem; /*-- ex: marign between components */
+   --spacing-h-l: 3rem; /*-- ex: spacing between sections */
+
+   --spacing-h-xxs: 0.5rem; /*-- ex: padding btw elements in small components like cards*/
+   --spacing-h-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
+   --spacing-h-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
+   --spacing-h-m: 2rem; /*-- ex: marign between components */
+   --spacing-h-l: 3rem; /*-- ex: spacing between sections */
+
+   /* --------------- main wrappers ---------- */
+   --main-wrapper-width: 92%;
+   --main-wrapper-max-width: 500px;
+
+   /* --------------- size breaks ---------- */
+   --ipad-break: 600px;
+   --laptop-break: 800px;
+   --desktop-break: 1050px;
+}
+
+html,
+body {
+   padding: 0;
+   margin: 0;
+   font: var((--primary-font));
+   color: var(--font-color);
+   background-color: var(--primary-color);
+}
+
+html {
+   font-size: 10px;
+}
+*::-webkit-scrollbar {
+   display: none;
+}
+
+a,
+a:visited,
+a:active {
+   color: inherit;
+   text-decoration: none;
+}
+
+* {
+   box-sizing: border-box;
+   border: none;
+   scrollbar-width: none;
+}
+
+.flex-row,
+.flex-row-wrap,
+.flex-column-wrap,
+.flex-column-wrap {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+}
+
+.flex-column {
+   flex-direction: column;
+}
+
+.flex-row-wrap {
+   flex-wrap: wrap;
+}
+
+.flex-column-wrap {
+   flex-direction: column;
+}
+
+/* --------------- ScripturesHTML Styles for popup references */
+
+.c /*chapter*/ {
+   color: var(--gradient-1--dark);
+}
+.s1 /*subtitle*/ {
+   color: var(--gradient-1--dark);
+   font: var(--secondary-font-mobile);
+}
+
+.v /*verse*/ {
+   color: var(--gradient-1--dark);
+   margin: 0 0.3rem 0 0;
+}
+
+.fr /*reference*/ {
+   font-size: 0.6em;
+   color: var(--gradient-1--light);
+
+   display: inline-block;
+   margin: 0 0.3rem 0 0.5rem;
+   position: relative;
+   top: -0.5rem;
+   text-align: center;
+   display: inline-block;
+}
+
+.ft /*reference text*/ {
+   font-size: 0.8em;
+   font-style: italic;
+}
+
+.scriptures-copyright {
+   font: var(--third-font-mobile);
+   font-size: 0.7rem;
+   color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------------  category tags colors ----------------- */
+#category-BLK {
+   background-color: var(--category-BLK);
+}
+
+#category-BR {
+   background-color: var(--category-BR);
+}
+
+#category-BL {
+   background-color: var(--category-BL);
+}
+
+#category-CYN {
+   background-color: var(--category-CYN);
+}
+
+#category-GRN {
+   background-color: var(--category-GRN);
+}
+
+#category-OR {
+   background-color: var(--category-OR);
+}
+
+#category-PNK {
+   background-color: var(--category-PNK);
+}
+
+#category-PPL {
+   background-color: var(--category-PPL);
+}
+
+#category-RD {
+   background-color: var(--category-RD);
+}
+
+#category-YLW {
+   background-color: var(--category-YLW);
+}
