@@ -1,38 +1,30 @@
 .mainWrapper {
-   width: 2.5rem;
-   height: 2.5rem;
-<<<<<<< HEAD
-   border-radius: 50%;
-=======
->>>>>>> 82c012a6682802492925fb0884f3952845548de6
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
-.mainWrapperCustomSize {
-   width: 100%;
-   height: 100%;
-<<<<<<< HEAD
+.mainWrapper .ratingIcon,
+.mainWrapperCustomSize .ratingIcon {
+   width: 2rem;
+   height: 2rem;
    border-radius: 50%;
    overflow: hidden;
-=======
->>>>>>> 82c012a6682802492925fb0884f3952845548de6
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
-.ratingIcon {
+.mainWrapperCustomSize .ratingIcon {
    width: 100%;
    height: 100%;
-   border-radius: 50%;
 }
 
-<<<<<<< HEAD
 .ratingIcon p {
    width: 100%;
    height: 100%;
    border-radius: 50%;
-=======
-.ratingIcon span {
-   width: 100%;
-   height: 100%;
->>>>>>> 82c012a6682802492925fb0884f3952845548de6
 }
 
 .noRatings,

@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { UserRating } from "../../fragments/chunks/user_rating";
+import { PostRating } from "../../fragments/chunks/post_rating";
 
 export default {
    title: "fragments/chunks/User Rating",
-   component: UserRating
-} as ComponentMeta<typeof UserRating>;
+   component: PostRating
+} as ComponentMeta<typeof PostRating>;
 
-export const APlus: ComponentStory<typeof UserRating> = () => (
-   <UserRating rating={{ average_count: 100, total_count: 100 }} cta={() => console.log("...")} />
+export const APlus: ComponentStory<typeof PostRating> = () => (
+   <PostRating rating={{ average_count: 100, total_count: 100 }} cta={() => console.log("...")} />
 );

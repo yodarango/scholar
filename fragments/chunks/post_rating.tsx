@@ -1,5 +1,8 @@
+// styles
+import styles from "./post_rating.module.css";
+
+// comps
 import { Parragraph } from "../Typography/parragraph";
-import styles from "./user_rating.module.css";
 
 export type Trating = {
    average_count: number;
@@ -12,12 +15,15 @@ type TuserRatingProps = {
    customSize?: boolean;
 };
 
-export const UserRating = ({ rating, cta, customSize }: TuserRatingProps) => {
+export const PostRating = ({ rating, cta, customSize }: TuserRatingProps) => {
    return (
       <div
-         className={`${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper} flex-row`}
+         className={`flex-row ${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}`}
          onClick={cta}>
-         <Parragraph text={rating?.total_count ? rating?.total_count : ""} size='xsmall' />
+         {/* ----------- ratings count ---------- */}
+         <Parragraph text={rating?.total_count ? rating?.total_count : ""} size='small' />
+
+         {/* ----------- ratings average in grade ---------- */}
          <div onClick={cta} className={styles.ratingIcon}>
             {rating && rating.total_count == 0 && (
                <p className={styles.noRatings}>
