@@ -58,4 +58,7 @@
 /fragmanets/chunks/icons.tsx
 /fragmanets/chunks/user_avatar.tsx
 /fragments/chuks/rating.tsx
+<<<<<<< HEAD
 /fragments/Typography/\*
+=======
+>>>>>>> 82c012a6682802492925fb0884f3952845548de6
