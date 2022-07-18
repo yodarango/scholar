@@ -39,3 +39,4 @@ env.js
 .env.local
 .env
 .vscode
+/public/images
