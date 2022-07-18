@@ -37,7 +37,7 @@
 }
 
 .forgotPassword {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    font: var(--primary-font-mobile);
    text-decoration: underline;
    border: none;
@@ -46,7 +46,7 @@
 
 .forgotPassword:hover {
    cursor: pointer;
-   color: var(--gradient-two);
+   color: var(--gradient-1--light);
 }
 
 /* -------------- verify account page -------- */

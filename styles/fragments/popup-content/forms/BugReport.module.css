@@ -10,11 +10,11 @@
    font-size: 2rem;
    width: 100%;
    text-align: center;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 
 .smallTitle {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-align: left;
    font: var(--primary-font-mobile);
 }
@@ -72,7 +72,7 @@
 #takeTest {
    margin: 0.3rem auto 0 0;
    text-align: left;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-decoration: underline;
    font-size: 1rem;
 }
@@ -109,11 +109,11 @@
 
 .genderInputMaleActive,
 .genderInputFemaleActive {
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
 }
 
 .genderInput:hover {
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
    cursor: pointer;
 }
 
@@ -135,7 +135,7 @@
 
 .changePasswordLink,
 .userVerification {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    font: var(--primary-font-mobile);
    text-decoration: underline;
    width: 8em;
@@ -147,12 +147,12 @@
 
 .changePasswordLink:hover,
 .userVerification:hover {
-   color: var(--gradient-two);
+   color: var(--gradient-1--light);
    cursor: pointer;
 }
 
 .changeAvatarButton {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-decoration: underline;
 }
 
@@ -194,7 +194,7 @@
    #takeTest {
       margin: 0.3rem auto 0 0;
       text-align: left;
-      color: var(--graient-one);
+      color: var(--gradient-1--dark);
       text-decoration: underline;
       font-size: 1rem;
    }

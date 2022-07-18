@@ -19,7 +19,7 @@
 }
 
 .myStory {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-decoration: underline;
    cursor: pointer;
 }

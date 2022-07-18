@@ -6,7 +6,7 @@
 }
 
 .title {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    font: var(--primary-font-mobile);
    font-weight: 700;
    width: 100%;
@@ -66,7 +66,7 @@
 
 .popupTitle {
    font: var(--rare-font-mobile);
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 
 .popupImage {
@@ -81,7 +81,7 @@
 
 .popupLink,
 #popupLink {
-   color: var(--gradient-two);
+   color: var(--gradient-1--light);
 }
 
 @media only screen and (min-width: 800px) {

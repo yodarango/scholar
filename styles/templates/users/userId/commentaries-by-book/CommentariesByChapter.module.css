@@ -13,6 +13,6 @@
    width: 100%;
    text-align: center;
    font: var(--secondary-font-mobile);
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    margin: calc(var(--medium-spacing-mobile) + 1rem) auto var(--small-spacing-mobile);
 }

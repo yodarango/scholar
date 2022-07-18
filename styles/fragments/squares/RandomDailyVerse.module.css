@@ -23,13 +23,13 @@
 }
 
 .footerWrapRight {
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
    border-bottom-left-radius: var(--input-radius-mobile);
    padding: 0.5rem 0;
 }
 
 .footerWrapLeft {
-   background-color: var(--gradient-two);
+   background-color: var(--gradient-1--light);
    border-bottom-right-radius: var(--input-radius-mobile);
    padding: 0.5rem 0;
 }

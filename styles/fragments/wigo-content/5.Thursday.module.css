@@ -54,7 +54,7 @@
    height: 5.5rem;
    grid-area: middle;
    border-radius: 50%;
-   background-color: var(--proceed-color);
+   background-color: var(--safe-color);
    background-image: url("../../../public/images/likke.svg");
    background-size: 80%;
    background-repeat: no-repeat;
@@ -118,7 +118,7 @@
 
 .iconAgreeWrapperLeft {
    grid-area: left;
-   background-color: var(--proceed-color);
+   background-color: var(--safe-color);
    padding: 0.5rem 0;
    border-bottom-right-radius: var(--input-radius-mobile);
 }
@@ -155,7 +155,7 @@
    border-bottom-right-radius: var(--input-radius-mobile);
    padding: 0.5rem 1rem;
    text-align: center;
-   background-color: var(--proceed-color);
+   background-color: var(--safe-color);
 }
 
 .timeIsUpFooterDisagree {
@@ -193,7 +193,7 @@
       height: 5.5rem;
       grid-area: middle;
       border-radius: 50%;
-      background-color: var(--proceed-color);
+      background-color: var(--safe-color);
       background-image: url("../../../public/images/likke.svg");
       background-size: 80%;
       background-repeat: no-repeat;
@@ -257,7 +257,7 @@
 
    .iconAgreeWrapperLeft {
       grid-area: left;
-      background-color: var(--proceed-color);
+      background-color: var(--safe-color);
       padding: 0.5rem 0;
       border-bottom-right-radius: var(--input-radius-mobile);
    }

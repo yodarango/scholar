@@ -1,0 +1,75 @@
+.mainWrapper {
+   width: 2.5rem;
+   height: 2.5rem;
+   border-radius: 50%;
+}
+
+.mainWrapperCustomSize {
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+   overflow: hidden;
+}
+
+.ratingIcon {
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+}
+
+.ratingIcon p {
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+}
+
+.noRatings,
+.ratingA,
+.ratingB,
+.ratingC,
+.ratingD,
+.ratingF {
+   background-color: var(--aprval-level-a);
+   color: var(--font-color);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font: var(--primary-font);
+   font-weight: 500;
+   font-size: 2rem;
+   transition: transform 300ms ease-in;
+}
+
+.noRatings,
+.ratingA:hover,
+.ratingB:hover,
+.ratingC:hover,
+.ratingD:hover,
+.ratingF:hover {
+   transform: scale(1.1);
+   cursor: pointer;
+}
+
+.noRatings {
+   background-color: var(--third-color);
+}
+
+.noRatings {
+   background-color: var(--rating-level-a);
+}
+
+.ratingB {
+   background-color: var(--rating-level-b);
+}
+
+.ratingC {
+   background-color: var(--rating-level-c);
+}
+
+.ratingD {
+   background-color: var(--rating-level-d);
+}
+
+.ratingF {
+   background-color: var(--rating-level-f);
+}

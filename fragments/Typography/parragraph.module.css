@@ -1,0 +1,57 @@
+.mainWrapper {
+    width: 100%;
+}
+
+.parragraph {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    color: var(--font-color);
+}
+
+.xxsmall {
+    font-size: var(--fs-xxsmall);
+}
+
+.xsmall {
+    font-size: var(--fs-xsmall);
+}
+
+.small {
+    font-size: var(--fs-small);
+}
+
+.main {
+    font-size: var(--fs-main);
+}
+
+.large {
+    font-size: var(--fs-large);
+}
+
+.xlarge {
+    font-size: var(--fs-xlarge);
+}
+
+.quiet {
+    color: var(--third-color)
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.bold {
+    font-weight: 800;
+}

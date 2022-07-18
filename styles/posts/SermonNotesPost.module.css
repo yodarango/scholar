@@ -70,7 +70,7 @@
    align-items: center;
    margin: var(--xsmall-spacing-mobile) auto;
    justify-content: center;
-   background-image: linear-gradient(130deg, var(--graient-one), var(--gradient-two));
+   background-image: linear-gradient(130deg, var(--gradient-1--dark), var(--gradient-1--light));
    clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
 }
 
@@ -94,7 +94,7 @@
    grid-column: 2/3;
    grid-row: 2/3;
    margin: 0 auto;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
 }
 
 .signature {
@@ -112,7 +112,7 @@
 }
 
 .sermonLink {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-decoration: underline;
    font: var(--small-primary-font-mobile);
    grid-column: 1/3;

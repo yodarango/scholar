@@ -3,11 +3,11 @@
    font-size: 1.5rem;
    width: 100%;
    text-align: center;
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    margin: var(--large-spacing-mobile) auto 0;
 }
 .smallTitle {
-   color: var(--graient-one);
+   color: var(--gradient-1--dark);
    text-align: left;
    font: var(--primary-font-mobile);
 }
@@ -51,11 +51,11 @@
 
 .sudoRadioInput:hover {
    cursor: pointer;
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
 }
 
 .inputChecked {
-   background-color: var(--graient-one);
+   background-color: var(--gradient-1--dark);
 }
 
 .inputChecked:hover {
@@ -127,11 +127,11 @@
 
    .sudoRadioInput:hover {
       cursor: pointer;
-      background-color: var(--graient-one);
+      background-color: var(--gradient-1--dark);
    }
 
    .inputChecked {
-      background-color: var(--graient-one);
+      background-color: var(--gradient-1--dark);
    }
 
    .inputChecked:hover {

@@ -47,7 +47,7 @@
 
 .fileName,
 .fileNameErr {
-   background-color: var(--proceed-color);
+   background-color: var(--safe-color);
    padding: 0.5rem;
    border-radius: var(--input-radius-mobile);
 }
