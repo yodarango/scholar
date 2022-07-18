@@ -1,5 +1,6 @@
 // global styles
 import "../styles/globals.css";
+import "../styles/globals_new.css";
 
 // use optimized prop for Next.js images in storybook
 import * as NextImage from "next/image";

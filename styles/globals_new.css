@@ -113,11 +113,11 @@
    --reading-modal-3--light: #414041;
 
    /* --------------- approval level ---------- */
-   --aprval-level-a: #75d975;
-   --aprval-level-b: #b3eeb3;
-   --aprval-level-c: #ebcf5e;
-   --aprval-level-d: #f4745e;
-   --aprval-level-f: #db4c42;
+   --rating-level-a: #75d975;
+   --rating-level-b: #b3eeb3;
+   --rating-level-c: #ebcf5e;
+   --rating-level-d: #f4745e;
+   --rating-level-f: #db4c42;
 
    /* --------------- category colors ---------- */
    --category-BLK: #252525;

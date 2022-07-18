@@ -1,10 +1,11 @@
+// revamp 2.0
 import React from "react";
 
 type TiconsProps = {
    name: string;
    strokeWidth?: string;
    color: string;
-   size: number;
+   size: number | string;
 };
 
 export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
