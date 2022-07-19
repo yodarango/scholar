@@ -1,6 +1,6 @@
-.parragraph {
+.header {
     font-family: "Open Sans", sans-serif;
-    font-weight: 400;
+    font-weight: 700;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -44,8 +44,20 @@
     text-align: justify;
 }
 
-.bold {
+.b4{
+    font-weight: 400;
+}
+
+.b5{
+    font-weight: 500;
+}
+
+.b7{
     font-weight: 700;
+}
+
+.b8 {
+    font-weight: 800;
 }
 
 .inline {

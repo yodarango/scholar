@@ -3,7 +3,7 @@ import styles from "./user_avatar.module.css";
 import { Icon } from "./icons";
 
 type TuserAvatarProps = {
-   src: string;
+   src: string | undefined | null;
    userAuthority: number;
    customSize?: boolean;
    cta?: React.MouseEventHandler<HTMLDivElement> | undefined;
@@ -16,14 +16,14 @@ export const UserAvatar = ({ src, userAuthority, customSize, cta }: TuserAvatarP
          {userAuthority === 1 && (
             <div className={`flex-row ${styles.ratingOutlineGeneral}`}>
                <div className={`${styles.background}`}>
-                  <img className={styles.avatar} alt='user avatar' src={src} />
+                  <img className={styles.avatar} alt='user avatar' src={src ? src : ""} />
                </div>
             </div>
          )}
          {userAuthority === 2 && (
             <div className={`flex-row ${styles.ratingOutlineTrusted}`}>
                <div className={`${styles.background}`}>
-                  <img className={styles.avatar} alt='user avatar' src={src} />
+                  <img className={styles.avatar} alt='user avatar' src={src ? src : ""} />
                   <div className={styles.authorityLevel}>
                      <Icon name='star' color='#2A2438' size={"100%"} />
                   </div>
@@ -33,7 +33,7 @@ export const UserAvatar = ({ src, userAuthority, customSize, cta }: TuserAvatarP
          {userAuthority === 3 && (
             <div className={`flex-row ${styles.ratingOutlineClassic}`}>
                <div className={`${styles.background}`}>
-                  <img className={styles.avatar} alt='user avatar' src={src} />
+                  <img className={styles.avatar} alt='user avatar' src={src ? src : ""} />
                   <div className={styles.authorityLevel}>
                      <Icon name='star' color='#2A2438' size={"100%"} />
                   </div>

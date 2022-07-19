@@ -86,7 +86,7 @@
    /* --------------- font ---------- */
    --primary-font: "Open Sans", sans-serif;
 
-   --line-heihgt: 1.8em;
+   --line-heihgt: 1.6em;
 
    --fs-xxsmall: 1rem;
    --fs-xsmall: 1.2rem;
@@ -163,18 +163,11 @@
    --primary-color-2: #20042f;
 
    /* --------------- spacings ---------- */
-   /* -- padding -- */
-   --spacing-h-xxs: 0.5rem; /*-- ex: padding btw elements in small components like cards*/
-   --spacing-h-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
-   --spacing-h-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
-   --spacing-h-m: 2rem; /*-- ex: marign between components */
-   --spacing-h-l: 3rem; /*-- ex: spacing between sections */
-
-   --spacing-h-xxs: 0.5rem; /*-- ex: padding btw elements in small components like cards*/
-   --spacing-h-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
-   --spacing-h-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
-   --spacing-h-m: 2rem; /*-- ex: marign between components */
-   --spacing-h-l: 3rem; /*-- ex: spacing between sections */
+   --spacing-xxs: 0.5rem; /*-- ex: padding btw elements in small components like cards*/
+   --spacing-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
+   --spacing-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
+   --spacing-m: 2rem; /*-- ex: marign between components */
+   --spacing-l: 3rem; /*-- ex: spacing between sections */
 
    /* --------------- main wrappers ---------- */
    --main-wrapper-width: 92%;

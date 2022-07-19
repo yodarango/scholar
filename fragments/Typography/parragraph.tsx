@@ -12,6 +12,7 @@ type TParragraphProps = {
    inline?: boolean;
    italics?: boolean;
    color?: string;
+   lineHieght?: string;
    quiet?: boolean;
 };
 
@@ -23,12 +24,14 @@ export const Parragraph = ({
    color,
    inline,
    italics,
-   bold
+   bold,
+   lineHieght
 }: TParragraphProps) => {
    // states
    let fontSize: string = "";
    let fontAlign: string = "";
-   let fontColor = color ? color : "#F1EAFF";
+   let fontColor = color ? color : quiet ? "#5C5470" : "#F1EAFF";
+   let fontLineHeight = lineHieght ? lineHieght : "1.6em";
 
    // determine the size
    switch (size) {
@@ -67,32 +70,26 @@ export const Parragraph = ({
 
    return (
       <>
-         {!inline && (
+         {!inline && !italics && !bold && (
             <p
-               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
-                  quiet ? styles.quiet : ""
-               }`}
-               style={{ color: fontColor }}>
+               className={`${styles.parragraph} ${fontSize} ${fontAlign}`}
+               style={{ color: fontColor, lineHeight: fontLineHeight }}>
                {text}
             </p>
          )}
 
-         {inline && (
+         {inline && !italics && !bold && (
             <span
-               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
-                  styles.quiet ? styles.quiet : ""
-               }`}
-               style={{ color: fontColor }}>
+               className={`${styles.parragraph} ${styles.inline} ${fontSize} ${fontAlign}`}
+               style={{ color: fontColor, lineHeight: fontLineHeight }}>
                {text}
             </span>
          )}
 
          {italics && (
             <i
-               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
-                  quiet ? styles.quiet : ""
-               }`}
-               style={{ color: fontColor }}>
+               className={`${styles.parragraph} ${fontSize} ${fontAlign}`}
+               style={{ color: fontColor, lineHeight: fontLineHeight }}>
                {text}
             </i>
          )}
@@ -100,9 +97,9 @@ export const Parragraph = ({
          {bold && (
             <b
                className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
-                  quiet ? styles.quiet : ""
-               } ${bold ? styles.bold : ""}`}
-               style={{ color: fontColor }}>
+                  bold ? styles.bold : ""
+               }`}
+               style={{ color: fontColor, lineHeight: fontLineHeight }}>
                {text}
             </b>
          )}

@@ -1,0 +1,17 @@
+.mainWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.mainWrapper:hover{
+    cursor: pointer;
+}
+
+.starsWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: var(--spacing-xxs);
+}

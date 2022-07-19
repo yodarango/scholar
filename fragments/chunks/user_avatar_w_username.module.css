@@ -1,0 +1,21 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center; 
+}
+
+.mainWrapper:hover {
+    cursor: pointer;
+}
+
+.mainWrapper.vertical {
+    flex-direction: column;
+}
+
+.avatarWrapper {
+    margin-right: var(--spacing-xs);
+}
+
+.mainWrapper.vertical .avatarWrapper{
+    margin: 0 0 var(--spacing-xs) 0;
+}

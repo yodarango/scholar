@@ -2,5 +2,15 @@
    width: 100%;
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   justify-content: flex-start;
+}
+
+.commentIconWrapper{
+   width: 2rem;
+   margin-left: var(--spacing-xxs);
+}
+
+.commentIconWrapper:hover{
+   transform: scale(1.1);
+   cursor: pointer;
 }

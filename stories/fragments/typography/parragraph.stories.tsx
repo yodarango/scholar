@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Parragraph } from "../../fragments/Typography/parragraph";
+import { Parragraph } from "../../../fragments/Typography/parragraph";
 
 export default {
    title: "fragments/typography/parragraph",

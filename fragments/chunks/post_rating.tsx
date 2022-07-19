@@ -17,14 +17,18 @@ type TuserRatingProps = {
 
 export const PostRating = ({ rating, cta, customSize }: TuserRatingProps) => {
    return (
-      <div
-         className={`flex-row ${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}`}
-         onClick={cta}>
+      <div className={`${styles.mainWrapper}`} onClick={cta}>
          {/* ----------- ratings count ---------- */}
-         <Parragraph text={rating?.total_count ? rating?.total_count : ""} size='small' />
+         <Parragraph
+            text={rating?.total_count ? rating?.total_count : ""}
+            size='small'
+            inline={true}
+         />
 
          {/* ----------- ratings average in grade ---------- */}
-         <div onClick={cta} className={styles.ratingIcon}>
+         <div
+            onClick={cta}
+            className={`${customSize ? styles.ratingIconCustomSize : styles.ratingIcon}`}>
             {rating && rating.total_count == 0 && (
                <p className={styles.noRatings}>
                   <Parragraph size='xsmall' text='R' inline={true} align='center' />

@@ -1,0 +1,10 @@
+.mainWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.title{
+    margin-bottom: .5rem;
+}

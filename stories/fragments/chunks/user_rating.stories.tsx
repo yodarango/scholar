@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { PostRating } from "../../fragments/chunks/post_rating";
+import { PostRating } from "../../../fragments/chunks/post_rating";
 
 export default {
    title: "fragments/chunks/User Rating",

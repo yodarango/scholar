@@ -1,11 +1,9 @@
 // revamp 2.0
-import React from "react";
-
 type TiconsProps = {
    name: string;
    strokeWidth?: string;
    color: string;
-   size: number | string;
+   size: string;
 };
 
 export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
@@ -1188,5 +1186,5 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
          break;
    }
 
-   return <div style={{ width: size }}>{icon}</div>;
+   return <div style={{ width: size, height: size }}>{icon}</div>;
 };

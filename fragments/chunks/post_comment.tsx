@@ -12,9 +12,9 @@ type TPostCommentProps = {
 
 export const PostComment = ({ comments, cta }: TPostCommentProps) => {
    return (
-      <div className={`flex-row ${styles.mainWrapper}`}>
+      <div className={`${styles.mainWrapper}`}>
          {/* -------------- comment count ------------ */}
-         <Parragraph text={comments ? comments : ""} size='small' />
+         <Parragraph text={comments ? comments : ""} size='small' inline={true} />
          <div className={styles.commentIconWrapper} onClick={cta}>
             <Icon name='comment' color={"#F1EAFF"} size={"2rem"} />
          </div>

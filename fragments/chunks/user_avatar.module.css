@@ -3,10 +3,21 @@
    height: 5rem;
 }
 
+.mainWrapper:hover{ 
+   transform: scale(1.1);
+   cursor: pointer;
+}
+
 .mainWrapperCustomSize {
    width: 100%;
    height: 100%;
 }
+
+.mainWrapperCustomSize:hover{ 
+   transform: scale(1.1);
+   cursor: pointer;
+}
+
 
 .ratingOutlineGeneral,
 .ratingOutlineTrusted,
