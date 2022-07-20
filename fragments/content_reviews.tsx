@@ -8,7 +8,7 @@ type TReviewContentProps = {
    reviews: number;
    cta: React.MouseEventHandler<HTMLDivElement>;
    fontSize?: string;
-   startSize: string;
+   startSize?: string;
    contentType?: string;
    contentId?: string;
    quiet?: boolean;
@@ -20,7 +20,7 @@ export const ContentReviews = ({
    quiet,
    cta,
    fontSize,
-   startSize,
+   startSize = "1.2rem",
    contentType,
    contentId
 }: TReviewContentProps) => {
@@ -36,7 +36,7 @@ export const ContentReviews = ({
          />
          <div className={styles.starsWrapper}>
             {[...Array(totalStars)].map((star, index) => (
-               <ReviewStar size={startSize ? startSize : "1.2rem"} key={index} />
+               <ReviewStar size={startSize} key={index} />
             ))}
          </div>
       </div>
