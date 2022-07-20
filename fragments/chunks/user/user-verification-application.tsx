@@ -11,7 +11,7 @@ import SmallLoader from "../small-loader";
 // styles
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";
 import userVerificationApplicationStyles from "../../../styles/fragments/chunks/users/UserVerificationApplicaton.module.css";
-import NotificationPopup from "../../notification-popup";
+import NotificationPopup from "../../popups/notification";
 
 type userVerificationApplicationProps = {
    user_data: {
@@ -31,9 +31,8 @@ type TquestionaryProps = {
 
 const UserVerificationApplication = ({ user_data }: userVerificationApplicationProps) => {
    // notificatipn wrapper
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    // small loader state
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);

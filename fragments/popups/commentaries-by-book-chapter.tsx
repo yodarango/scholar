@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 // comps
-import CommentaryByChapter from "../../fragments/chunks/commentary-profile/commentaries-by-chapter";
+import CommentaryByChapter from "../chunks/commentary-profile/commentaries-by-chapter";
 
 // styles
 import commentaryByBookTempStyle from "../../styles/fragments/popup-content/CommentariesByBook.module.css";

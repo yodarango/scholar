@@ -8,7 +8,7 @@ import client from "../../apollo-client";
 
 // comp
 import DummyPlaceholder from "./dummy-placeholder";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 // styles
 import fridayStyles from "../../styles/fragments/wigo-content/6.friday.module.css";
@@ -35,9 +35,8 @@ type fridayPropsT = {
 };
 
 const Friday = ({ fridayContent }: fridayPropsT) => {
-   const [notificationStatePopUp, setnotificationStatePopUp] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationStatePopUp, setnotificationStatePopUp] =
+      useState<boolean | JSX.Element>(false);
    const [displayButtons, setdisplayUpdateButton] = useState<string>("none");
    // =================== HANDLE THE VOTE BY USER ================
    const handleVote = async (

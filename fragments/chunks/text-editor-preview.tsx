@@ -5,7 +5,7 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 //comps
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";

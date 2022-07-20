@@ -4,7 +4,7 @@ import React, { useState, ReactElement } from "react";
 import GetNewBook from "../get-new-scriptures/get-new-book";
 import GetNewChapter from "../get-new-scriptures/get-new-chapter";
 import GetNewVerseTextEditor from "../get-new-scriptures/get-new-verse-text-editor";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 // styles
 import textEditorStyles from "../../styles/layouts/textEditor.module.css";
@@ -130,9 +130,8 @@ const FormattingRules = ({ renderSelectedVerseFunc }: FormattingRulesProps) => {
    ];
 
    //==============  FUNCTION: open popup instructions for each link
-   const [openFormattingRulePopUp, setOpenFormattingRulePopUp] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [openFormattingRulePopUp, setOpenFormattingRulePopUp] =
+      useState<JSX.Element | boolean>(false);
    const openTextFormattingRule = (popupInfo: any) => {
       console.log(popupInfo.div);
       setOpenFormattingRulePopUp(

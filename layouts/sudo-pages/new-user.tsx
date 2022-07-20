@@ -9,16 +9,15 @@ import { ACCEPT_INTRO_INTRUCTIONS } from "../../graphql/users/profile";
 
 // styles
 import newUserStyles from "../../styles/layouts/sudo-pages/NewUser.module.css";
-import NotificationPopup from "../../fragments/notification-popup";
+import NotificationPopup from "../../fragments/popups/notification";
 
 type newuserProps = {
    acceptedIntroTerms: any;
 };
 
 const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    //============= FUNCTION: handle the acceptrance of intro terms
    const acceptIntroInstructions = async () => {

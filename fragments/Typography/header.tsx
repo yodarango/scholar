@@ -7,7 +7,7 @@ type THeaderProps = {
    quiet?: boolean;
    size: string;
    type: number;
-   text: string | number;
+   text: string | number | JSX.Element;
    weight?: number;
 };
 

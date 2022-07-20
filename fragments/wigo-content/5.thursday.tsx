@@ -16,7 +16,7 @@ import DummyPlaceholder from "./dummy-placeholder";
 
 //styles
 import thursdayStyles from "../../styles/fragments/wigo-content/5.Thursday.module.css";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 // helpers
 import getCookie from "../../helpers/get-cookie";
@@ -34,9 +34,8 @@ type thursdayProps = {
 };
 
 const Thursday = ({ thursdayContent }: thursdayProps) => {
-   const [notificationStatePopUp, setnotificationStatePopUp] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationStatePopUp, setnotificationStatePopUp] =
+      useState<boolean | JSX.Element>(false);
 
    // =============== FUNCTION: set the counter ================
    const [originalDateState] = useState<string>(

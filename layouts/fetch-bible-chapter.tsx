@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // components
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 import ResourceNotFoundError from "./resource-not-found-error";
 
 // styles

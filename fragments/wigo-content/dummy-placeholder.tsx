@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 
 //styles
 import interactStyles from "../../styles/pages/Interact.module.css";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 type dummyPlaceholderProps = {
    imgLink: string;
@@ -11,9 +11,8 @@ type dummyPlaceholderProps = {
    context: JSX.Element;
 };
 const DummyPlaceholder = ({ imgLink, button, context }: dummyPlaceholderProps) => {
-   const [notificationPopUpState, setnotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setnotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    const copyCitation = () => {
       navigator.clipboard.writeText("http://my.biblescholar.app");

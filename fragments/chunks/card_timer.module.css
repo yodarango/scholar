@@ -3,5 +3,5 @@
    border-radius: 1em;
    background-color: var(--secondary-color);
    display: inline-block;
-   box-shadow: 4px 4px 4px var(--shadow-color);
+   box-shadow: var(--shadow-s);
 }

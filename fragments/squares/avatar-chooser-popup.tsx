@@ -7,7 +7,7 @@ import { UPDATE_MY_AVATAR } from "../../graphql/users/profile";
 // styles
 import avatarChooserPopUpStyles from "../../styles/fragments/squares/AvatarChooserPopUp.module.css";
 import SmallLoader from "../chunks/small-loader";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 type avatarChooserPopupProps = {
    image: string;
@@ -16,9 +16,8 @@ type avatarChooserPopupProps = {
 
 const AvatarChooserPopup = ({ image, closePopUp }: avatarChooserPopupProps) => {
    const [smallLoaderState, setSmallLoaderState] = useState<boolean | JSX.Element>(false);
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    const handleAvatarSelection = async (image: string) => {
       try {

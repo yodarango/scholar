@@ -13,10 +13,10 @@ import {
 //import { GET_THOUGHT_APPROVALS } from "../graphql/posts/approvals";
 
 // components
-import ThoughtContent from "../fragments/popup-content/thought-content";
+import ThoughtContent from "../fragments/popups/thought-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
@@ -138,12 +138,10 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
       setChooseAprovalRating(false);
    };
    // ------------------------- REPORT, DELETE, EDIT OPTIONS ------------------ //
-   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
-   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [confirmationPopUpState, setConfirmationPopUpState] =
+      useState<boolean | JSX.Element>(false);
+   const [notificationpopUpState, setNotificationpopUpState] =
+      useState<JSX.Element | boolean>(false);
    // ================= FUNCTION 6: Delete Post  ===================//
    const handleDeletePost = async (id: string) => {
       try {
@@ -304,9 +302,8 @@ const Thought = ({ thoughts, user_authority_level }: thoughtProps) => {
    };
 
    // open the user info popup
-   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] =
+      useState<boolean | JSX.Element>(false);
 
    const handleQuickInfoAccessPopup = (user: any) => {
       setUserQuickAccessInfoPopup(

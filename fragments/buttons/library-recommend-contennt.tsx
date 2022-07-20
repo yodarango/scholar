@@ -7,7 +7,7 @@ import { RECOMMNED_NEW_LIB_CONTENT } from "../../graphql/emails/content";
 
 // components
 import PopupWrapper from "../../layouts/popup-wrapper";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 import SmallLoader from "../../fragments/chunks/small-loader";
 
 //styles
@@ -54,9 +54,8 @@ const LibraryRecommendContennt = () => {
       const submitterEmail = useRef<HTMLInputElement>(null);
       const message = useRef<HTMLTextAreaElement>(null);
 
-      const [emptyFieldPopUpState, setEmptyFieldPopUpState] = useState<boolean | JSX.Element>(
-         false
-      );
+      const [emptyFieldPopUpState, setEmptyFieldPopUpState] =
+         useState<boolean | JSX.Element>(false);
 
       // ============ FUNCTION 1.1.3 send the form using fetch ========= //
       const handleDataSubmission = async () => {
@@ -255,9 +254,8 @@ const LibraryRecommendContennt = () => {
    };
 
    const [openpopUpFormState, setOpenpopUpFormState] = useState<boolean | JSX.Element>(false);
-   const [notificationPopupState, setNotificationPopupState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopupState, setNotificationPopupState] =
+      useState<boolean | JSX.Element>(false);
 
    // Will trigger "Function 1" above
    const handleOpenSubmitForm = () => {

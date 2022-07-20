@@ -9,7 +9,7 @@ import GetNewBook from "../get-new-scriptures/get-new-book";
 import GetNewChapter from "../get-new-scriptures/get-new-chapter";
 import Chapter from "../../layouts/fetch-bible-chapter";
 import GeneralDropdown from "../buttons/general-dropdown";
-import ReadingColleageSettingsPopup from "../popup-content/reading-colleage-settings-popup";
+import ReadingColleageSettingsPopup from "../popups/reading-colleage-settings-popup";
 
 // styles
 import readingCollageUnitStyles from "../../styles/fragments/squares/readingCollageUnit.module.css";

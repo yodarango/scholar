@@ -12,14 +12,14 @@ import { VALIDATE_CURRENT_PASSWORD } from "../../../graphql/users/profile";
 import client from "../../../apollo-client";
 
 // components
-import NotificationPopup from "../../../fragments/notification-popup";
+import NotificationPopup from "../../../fragments/popups/notification";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small-loader";
-import AvatarChooser from "../../../fragments/popup-content/avatarChooser";
+import AvatarChooser from "../../../fragments/popups/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";
 import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
 import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
-import BugReport from "../../../fragments/popup-content/forms/bug-report";
+import BugReport from "../../../fragments/popups/forms/bug-report";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 import DangerZoneSettings from "../../../fragments/squares/danger-zone-settings";
 
@@ -83,9 +83,8 @@ const UserSettings = () => {
       getUserSettings();
    }, []);
    // =======================  FUNCTION 2: Check that the signature can only contian characters and numbers =============== //
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
    const [saveButtonIsDisiableState, setsaveButtonIsDisiableState] = useState<boolean>(true);
 
    const failValidation = () => {

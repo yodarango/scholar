@@ -8,7 +8,7 @@ import { EDIT_SERMON_NOTE } from "../../graphql/posts/sermon_notes";
 
 // components
 import GeneralDropdown from "../../fragments/buttons/general-dropdown";
-import NotificationPopup from "../../fragments/notification-popup";
+import NotificationPopup from "../../fragments/popups/notification";
 import SmallLoader from "../../fragments/chunks/small-loader";
 
 // styles
@@ -65,9 +65,8 @@ const EditSermonNotesPost = ({ sermonPost }: sermonNotesProps) => {
    };
 
    // ===============   make sure that no fields are empty ==================  //
-   const [notificationsPopupState, setnotificationsPopupState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationsPopupState, setnotificationsPopupState] =
+      useState<boolean | JSX.Element>(false);
    const sermonTitleRef = useRef<HTMLInputElement>(null);
    const validateInput = () => {
       if (

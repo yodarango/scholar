@@ -6,7 +6,7 @@ import LibraryReviewContent from "./buttons/library-review-content";
 
 // styles
 import starReviewsStyles from "../styles/fragments/StarReviews.module.css";
-import NotificationPopup from "./notification-popup";
+import NotificationPopup from "./popups/notification";
 
 type starReviewsProps = {
    currentRanking?: number;
@@ -23,16 +23,13 @@ const starReviews = ({
    totalReviews
 }: starReviewsProps) => {
    // notifiation state
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
    let starClass: string = "";
-   const [displayCurrentRanking, setDisplayCurrentRanking] = useState<number | undefined>(
-      currentRanking
-   );
-   const [displayCurrentReviews, setDisplayCurrentReviews] = useState<number | undefined>(
-      totalReviews
-   );
+   const [displayCurrentRanking, setDisplayCurrentRanking] =
+      useState<number | undefined>(currentRanking);
+   const [displayCurrentReviews, setDisplayCurrentReviews] =
+      useState<number | undefined>(totalReviews);
 
    if (displayCurrentRanking) {
       //displayCurrentRanking === 0 ? (starClass = starReviewsStyles.zeroStar) : null;

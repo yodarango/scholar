@@ -10,7 +10,7 @@ import {
 } from "../../graphql/posts/approvals";
 
 // childs comps
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 
 // styles
 import contentApprovalStlyes from "../../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
@@ -37,9 +37,8 @@ const ContentApprovalDropdown = ({
    post_id,
    successfulApproval
 }: TcontentApprovalDropdownProps) => {
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    const handleReateContnet = async (rating: number) => {
       // if the content is a commentary call this function

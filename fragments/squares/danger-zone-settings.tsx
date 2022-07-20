@@ -7,7 +7,7 @@ import client from "../../apollo-client";
 import { DELETE_MY_ACCOUNT } from "../../graphql/users/danger-zone";
 
 // comps
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import DeletedUser from "../../layouts/sudo-pages/deleted-user";
 

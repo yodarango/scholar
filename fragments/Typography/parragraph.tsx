@@ -6,7 +6,7 @@ import styles from "./parragraph.module.css";
 
 type TParragraphProps = {
    size: string;
-   text: string | number;
+   text: string | number | JSX.Element;
    align?: string;
    bold?: boolean;
    inline?: boolean;

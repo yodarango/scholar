@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 //Components
 import ReadingCollageUnit from "../fragments/squares/reading-collage-unit";
-import MultiViewSettings from "../fragments/popup-content/multi-view-settings";
+import MultiViewSettings from "../fragments/popups/multi-view-settings";
 
 // Styles
 import readingCollageStyles from "../styles/layouts/ReadingCollage.module.css";
@@ -21,9 +21,8 @@ type readingCollageProps = {
 const ReadingCollage = ({ versionId }: readingCollageProps) => {
    const router = useRouter();
    // =====================   FUNCTION 1 : open the settings popup for Multiview  =================///
-   const [viewSettingsPopUpState, setViewSettingsPopUpState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [viewSettingsPopUpState, setViewSettingsPopUpState] =
+      useState<JSX.Element | boolean>(false);
    const openMultiViewPopup = () => {
       setViewSettingsPopUpState(
          <MultiViewSettings

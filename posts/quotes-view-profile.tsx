@@ -8,9 +8,9 @@ import { GET_QUOTE_APPROVALS } from "../graphql/posts/approvals";
 
 // components
 import PostReactions, { Tapprovals } from "../fragments/buttons/post-reactions";
-import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
+import CommentsOfQuote from "../fragments/popups/comments-of-quote";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";
@@ -81,9 +81,8 @@ const QuoteViewProfile = ({ story, handleCloseStories }: quoteViewProfileProps) 
    const [commentsCountState, setCommentsCountState] = useState<number>(
       story.comments[0].total_count
    );
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    const postQuoteComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {

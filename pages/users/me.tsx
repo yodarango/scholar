@@ -22,7 +22,7 @@ import UserTotalPostsAndRatings from "../../fragments/chunks/user/user-total-pos
 import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 
 import PopupWrapper from "../../layouts/popup-wrapper";
-import NotificationsWrapper from "../../fragments/popup-content/notifications-wrapper";
+import NotificationsWrapper from "../../fragments/popups/notifications-wrapper";
 import NavigationMenu from "../../layouts/navigation-menu";
 import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 

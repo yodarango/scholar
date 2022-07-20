@@ -12,7 +12,7 @@ import { CHECK_IF_USER_LOGGED_IN_AND_VERIFIED } from "../graphql/users/profile";
 
 // child comps
 import SmallLoader from "../fragments/chunks/small-loader";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 
 // styles
 import loginStyles from "../styles/pages/Login.module.css";
@@ -54,9 +54,8 @@ export default function AccountVerification() {
    // ====================== FUNCTION: Login the user ============================ //
    const verificationCode = useRef<HTMLInputElement>(null);
 
-   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [notificationpopUpState, setNotificationpopUpState] =
+      useState<JSX.Element | boolean>(false);
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
    const hanldeNewUserRegistration = async () => {
       try {

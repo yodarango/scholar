@@ -8,7 +8,7 @@ import { DELETE_ONE_SEMRON_POST, REPORT_SERMON_NOTE } from "../graphql/posts/ser
 
 // child comps
 import ConfirmationPopup from "../fragments/confirmation-popup";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
@@ -61,12 +61,10 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
       }
    }, []);
 
-   const [confirmationPopUpState, setconfirmationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
-   const [notificationPupUpState, setNotificationPupUpState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [confirmationPopUpState, setconfirmationPopUpState] =
+      useState<boolean | JSX.Element>(false);
+   const [notificationPupUpState, setNotificationPupUpState] =
+      useState<JSX.Element | boolean>(false);
 
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeleteSermonNote = async (id: string) => {
@@ -184,9 +182,8 @@ const SermonNotesPost = ({ sermonPost }: sermonNotesPostProps) => {
    };
 
    // open the user info popup
-   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] =
+      useState<boolean | JSX.Element>(false);
 
    const handleQuickInfoAccessPopup = (user: any) => {
       setUserQuickAccessInfoPopup(

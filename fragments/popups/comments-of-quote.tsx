@@ -8,7 +8,7 @@ import { DELETE_QUOTE_COMMENT } from "../../graphql/posts/comments";
 
 // components
 import ConfirmationPopup from "../confirmation-popup";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "./notification";
 
 // styles
 import commentsOfStoryStyles from "../../styles/fragments/popup-content/CommentsOfQuote.module.css";
@@ -44,9 +44,8 @@ const CommentsOfQuote = ({ comments }: commentsOfQuoteProps) => {
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [user, setUser] = useState<string | null>(null);
    const [commentsState, setCommentsState] = useState<Tcomment[]>(comments);
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    useEffect(() => {
       if (router.isReady) {

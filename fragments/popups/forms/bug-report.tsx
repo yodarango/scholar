@@ -7,7 +7,7 @@ import { BUG_REPORT } from "../../../graphql/emails/content";
 
 // comps
 import SmallLoader from "../../chunks/small-loader";
-import NotificationPopup from "../../notification-popup";
+import NotificationPopup from "../notification";
 
 // styles
 import bugReportStyles from "../../../styles/fragments/popup-content/forms/BugReport.module.css";

@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import React from "react";
 
 // component
-import { congregationProps } from "../../fragments/library-items/congregation";
+import { congregationProps } from "../library-items/congregation";
 
 //styles
 import churchInfoStyles from "../../styles/fragments/popup-content/ChurchInfo.module.css";

@@ -2,14 +2,14 @@
 import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
-// graphQL
+// graphql
 import client from "../../apollo-client";
-import { GET_THOUGHT_COMMENTS } from "../../graphql/posts/comments";
+import { GET_COMMENTARY_APPROVALS } from "../../graphql/posts/approvals";
 
 // components
-import NotificationPopup from "../notification-popup";
-import CommentsOfThoughtContent from "./comments-of-thoughts";
-import handlePostComment from "../../functions/posts/post-thought-comment";
+import NotificationPopup from "./notification";
+import CommentsOfCcommentsContent from "./comments-of-thoughts";
+import handlePostComment from "../../functions/posts/post-commentary-comment";
 import ContentApprovalDropdown from "../chunks/content-approval-dropdown";
 
 // styles
@@ -17,25 +17,21 @@ import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
-import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
-import { Tthought } from "../../posts/thought";
-import { GET_THOUGHT_APPROVALS } from "../../graphql/posts/approvals";
+import { Tcommentary } from "../../posts/comment";
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
+import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 
 // others
 
-type thoughtContentProps = {
-   thought: Tthought;
+type commentaryContentProps = {
+   //commentsArray:;
+   commentary: Tcommentary;
    postReactionContent: {
-      approvals: Tapprovals;
+      approvals: Tapprovals[];
       comments: Tcomment[];
    };
 };
-const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) => {
-   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
-      false
-   );
-
+const CommentaryContent = ({ commentary, postReactionContent }: commentaryContentProps) => {
    // open the referenced scriptures on a popup
    const [referencedVerseState, setreferencedVerseState] = useState<JSX.Element | boolean>(false);
    const [showRefVersesState, setShowRefVersesState] = useState<boolean>(true);
@@ -66,9 +62,9 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       } catch (error) {
          console.log(error);
          setShowRefVersesState(true);
-         setNotificationpopUpState(
+         setNotificationPopUpState(
             <NotificationPopup
-               closeModal={() => setNotificationpopUpState(false)}
+               closeModal={() => setNotificationPopUpState(false)}
                title='Oh no!'
                contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                newClass='notification-wrapper--Error'
@@ -77,36 +73,11 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       }
    };
 
-   // =================    FUNCTION 1: handle the approve click  ================== //
-   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
-   const handleApproveContent = () => {
-      setChooseAprovalRating(true);
-   };
-
-   // ======================== FUNCTION 1.1: hande a ssuccessful approval rating ========================= //
-   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(thought.approvals[0]);
-   const handleSuccessfulApprovalRating = async () => {
-      try {
-         const { data } = await client.query({
-            query: GET_THOUGHT_APPROVALS,
-            variables: {
-               THOUGHT_ID: thought.ID
-            }
-         });
-         setChooseAprovalRating(false);
-         setPostApprovalState(data.thought_rating[0]);
-      } catch (error) {
-         console.log(error);
-         setChooseAprovalRating(false);
-      }
-   };
-
-   // ========= FUNCTION: open and close the comment text area
+   // ========= FUNCTION 1: open and close the comment text areaa
    type IopenCommentInputState = {
       status: boolean;
       func: React.MouseEventHandler;
    };
-
    const openCommentArea = () => {
       setOpenCommentInputState({ status: true, func: closeCommentArea });
    };
@@ -118,35 +89,77 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
       func: openCommentArea
    });
 
+   // =================    FUNCTION 2: handle the approve click  ================== //
+   const [chooseAprovalRating, setChooseAprovalRating] = useState<boolean>(false);
+   const handleApproveContent = () => {
+      setChooseAprovalRating(true);
+   };
+   // ======================== FUNCTION 2.1: hande a ssuccessful approval rating ========================= //
+   const [postApprovalState, setPostApprovalState] = useState<Tapprovals>(commentary.approvals[0]);
+   const handleSuccessfulApprovalRating = async () => {
+      try {
+         const { data } = await client.query({
+            query: GET_COMMENTARY_APPROVALS,
+            variables: {
+               COMMENTARY_ID: commentary.ID
+            }
+         });
+         setChooseAprovalRating(false);
+         setPostApprovalState(data.commentary_approvals[0]);
+      } catch (error) {
+         console.log(error);
+         setPostApprovalState(postApprovalState);
+         setNotificationPopUpState(
+            <NotificationPopup
+               closeModal={() => setNotificationPopUpState(false)}
+               title='Oh no!'
+               contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+               newClass='notification-wrapper--Error'
+            />
+         );
+      }
+   };
+
    // ========================= FUNCTION 3: post the comment of the commentary ============================ //
    const commentBody = useRef<HTMLTextAreaElement>(null);
    const [postingState, setPostingState] = useState<boolean>(false);
    const [commentsCountState, setCommentsCountState] = useState<number>(
+      //commentary.comments[0].total_count
       postReactionContent.comments.length
    );
    const [commentaryCommentsState, setCommentaryCommentsState] = useState(
       postReactionContent.comments
    );
 
-   const postThoughtComment = async () => {
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
+   const postCommentaryComment = async () => {
       if (commentBody.current && commentBody.current.value.length > 0) {
          setPostingState(true);
          const data: any = await handlePostComment(
-            thought.ID,
+            commentary.ID,
             commentBody.current.value,
-            thought.creator.ID
+            commentary.creator.ID
          );
+
+         console.log(data);
+         //if the helper function returns true then everything went well
          if (data.ID) {
+            // increase comment count
             setCommentsCountState(commentsCountState + 1);
+
+            // reset the comment textarea state
             setPostingState(false);
             setOpenCommentInputState({ status: false, func: openCommentArea });
+
+            // create the new comment
             fetchComments(data);
             return;
          } else if (data === "ExceedsPostCount") {
             setPostingState(false);
-            setNotificationpopUpState(
+            setNotificationPopUpState(
                <NotificationPopup
-                  closeModal={() => setNotificationpopUpState(false)}
+                  closeModal={() => setNotificationPopUpState(false)}
                   title='This is sad 😔'
                   contentString='You have exceeded the post comment count whithin a 24-hour period'
                   newClass='notification-wrapper--Error'
@@ -156,9 +169,9 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             return;
          } else if (data === "Error") {
             setPostingState(false);
-            setNotificationpopUpState(
+            setNotificationPopUpState(
                <NotificationPopup
-                  closeModal={() => setNotificationpopUpState(false)}
+                  closeModal={() => setNotificationPopUpState(false)}
                   title='Oh no!'
                   contentString='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
                   newClass='notification-wrapper--Error'
@@ -168,9 +181,9 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
             return;
          } else {
             setPostingState(false);
-            setNotificationpopUpState(
+            setNotificationPopUpState(
                <NotificationPopup
-                  closeModal={() => setNotificationpopUpState(false)}
+                  closeModal={() => setNotificationPopUpState(false)}
                   title={`You're not authorized! 👮‍♂️`}
                   contentString={
                      data.graphQLErrors
@@ -189,7 +202,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    // ========================= FUNSTION 4: get an updated array of comments after the post is made ============ //
    //--- send the notification to the child component "comments of content" to include the new posted comment
    const [fetchNewCommentsState, setFetchNewCommentsState] = useState<number>(0);
-   const fetchComments = async (data: Tcomment) => {
+   const fetchComments = (data: Tcomment) => {
       const newCommentary: Tcomment = {
          ID: data.ID,
          body: data.body,
@@ -204,6 +217,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
          newCommentary,
          ...commentaryCommentsState
       ]);
+
       setFetchNewCommentsState(fetchNewCommentsState + 1);
    };
 
@@ -214,21 +228,22 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
 
    return (
       <>
+         {notificationPopUpState}
          {chooseAprovalRating && (
             <ContentApprovalDropdown
                handleCloseApprovalDropdown={() => setChooseAprovalRating(false)}
-               post_id={{ thought: thought.ID }}
-               user_id={thought.creator.ID}
+               post_id={{ comment: commentary.ID }}
+               user_id={commentary.creator.ID}
                successfulApproval={handleSuccessfulApprovalRating}
             />
          )}
-         {notificationpopUpState}
          {referencedVerseState}
          <div className={`${popupStyles.halfWidth}`}>
             <div className={popupStyles.halfWidthRight}>
-               <h1 className={`${popupStyles.stdSmallTitle}`}>{thought.title}</h1>
+               <h1
+                  className={`${popupStyles.stdSmallTitle}`}>{`Comment on ${commentary.verse_citation} by ${commentary.creator.signature}`}</h1>
                <ReactMarkdown className={popupStyles.commentaryBodyContent}>
-                  {thought.body}
+                  {commentary.body}
                </ReactMarkdown>
 
                {/* Comment text area */}
@@ -244,7 +259,7 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                         <div
                            id={popupStyles.stdButton}
                            className={`std-button`}
-                           onClick={postThoughtComment}>
+                           onClick={postCommentaryComment}>
                            <p id={popupStyles.gradientText} className='std-button_gradient-text'>
                               Post
                            </p>
@@ -270,14 +285,13 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
 
                {/* Assigned Tags */}
                <div className={textEditorStyles.textEditorTags}>
-                  {thought.category_tags.split(" ")[0] && (
-                     <div id={`category-${thought.category_tags.split(" ")[0].replace("#", "")}`}>
-                        {thought.category_tags.split(" ")[0]}
-                     </div>
-                  )}
-                  {thought.category_tags.split(" ")[1] && (
-                     <div id={`category-${thought.category_tags.split(" ")[1].replace("#", "")}`}>
-                        {thought.category_tags.split(" ")[1]}
+                  <div id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
+                     {commentary.category_tags.split(" ")[0]}
+                  </div>
+                  {commentary.category_tags.split(" ")[1] && (
+                     <div
+                        id={`category-${commentary.category_tags.split(" ")[1].replace("#", "")}`}>
+                        {commentary.category_tags.split(" ")[1]}
                      </div>
                   )}
                </div>
@@ -285,9 +299,9 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                {/* referenced verses */}
                <div
                   className={`${textEditorStyles.textEditorTags} ${textEditorStyles.textEditorTagsSecond}`}>
-                  {thought.referenced_verses &&
+                  {commentary.referenced_verses &&
                      showRefVersesState &&
-                     thought.referenced_verses.split(" ").map((verseId: string) => (
+                     commentary.referenced_verses.split(" ").map((verseId: string) => (
                         <div
                            className={textEditorStyles.textEditorVerse}
                            data-verseId-={verseId}
@@ -298,8 +312,8 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
                </div>
             </div>
          </div>
-         <CommentsOfThoughtContent
-            loadedFrom={"thought"}
+         <CommentsOfCcommentsContent
+            loadedFrom={"comment"}
             comments={commentaryCommentsState}
             fetchNewComment={fetchNewCommentsState}
             updateCommentaryCount={() => updateCommentaryCount()}
@@ -308,4 +322,4 @@ const ThoughtContent = ({ thought, postReactionContent }: thoughtContentProps) =
    );
 };
 
-export default ThoughtContent;
+export default CommentaryContent;

@@ -12,12 +12,12 @@ import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 
 // child comps
 import SmallLoader from "../fragments/chunks/small-loader";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 
 // styles
 import loginStyles from "../styles/pages/Login.module.css";
 import PopupWrapper from "../layouts/popup-wrapper";
-import ForgotPassword from "../fragments/popup-content/forgot-password-modal";
+import ForgotPassword from "../fragments/popups/forgot-password-modal";
 
 export default function Login() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
@@ -50,9 +50,8 @@ export default function Login() {
    const signatureInput = useRef<HTMLInputElement>(null);
    const passwordInput = useRef<HTMLInputElement>(null);
 
-   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [notificationpopUpState, setNotificationpopUpState] =
+      useState<JSX.Element | boolean>(false);
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
    const hanldeNewUserRegistration = async () => {
       if (signatureInput.current && passwordInput.current) {

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 //components
 import PopupWrapper from "../../layouts/popup-wrapper";
-import ChurchInfo from "../popup-content/church-info";
+import ChurchInfo from "../popups/church-info";
 
 // styles
 import congregationStyles from "../../styles/fragments/library-items/Congregation.module.css";

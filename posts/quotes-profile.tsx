@@ -10,7 +10,7 @@ import { DELETE_ONE_QUOTE, REPORT_QUOTE } from "../graphql/posts/quotes";
 // components
 import QuoteViewProfile from "./quotes-view-profile";
 import ConfirmationPopup from "../fragments/confirmation-popup";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 
 // styles
 import quoteProfileStyles from "../styles/posts/QuotesProfile.module.css";
@@ -75,9 +75,8 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
       document.body.style.overflow = "scroll";
    };
    // ------------------------ DELETE, REPORT, EDIT STORY ----------------------- //
-   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [confirmationPopUpState, setConfirmationPopUpState] =
+      useState<boolean | JSX.Element>(false);
    const [deletedPostState, setdeletedPostState] = useState<boolean>(false);
    const [notificatonPopUpState, setNotificatonPopUpState] = useState<JSX.Element | boolean>(false);
    //    ==================   FUNCTION 3: Delete Popup for quote    =============  //

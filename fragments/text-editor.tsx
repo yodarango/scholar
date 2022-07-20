@@ -10,7 +10,7 @@ import { CREATE_NEW_THOUGHT, EDIT_THOUGHT } from "../graphql/posts/thoughts";
 // components
 import Dropdown from "./buttons/dropdown";
 import PopupWrapper from "../layouts/popup-wrapper";
-import NotificationPopup from "./notification-popup";
+import NotificationPopup from "./popups/notification";
 import TextEditorPreview from "./chunks/text-editor-preview";
 import SmallLoader from "./chunks/small-loader";
 
@@ -119,9 +119,8 @@ const TextEditor = ({
    };
 
    /*==================  FUNCTION: open category popup info  ===========*/
-   const [notificationPopupState, setNotificationPopupState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [notificationPopupState, setNotificationPopupState] =
+      useState<JSX.Element | boolean>(false);
    const openCategoryInfo = (subjects: [], key: string) => {
       setNotificationPopupState(
          <NotificationPopup

@@ -11,7 +11,7 @@ import { GET_COMMETNARIES_BY_BOOK_DATA } from "../../../../../graphql/users/prof
 import CommentariesByBook from "../../../../../fragments/squares/commentary-books/commentaries-by-book";
 import CommentariesProfileMenu from "../../../../../fragments/buttons/commentaries-profile-menu";
 import PopupWrapper from "../../../../../layouts/popup-wrapper";
-import CommentariesByChapterTemp from "../../../../../fragments/popup-content/commentaries-by-book-chapter";
+import CommentariesByChapterTemp from "../../../../../fragments/popups/commentaries-by-book-chapter";
 import CardsLazyLoading from "../../../../../layouts/cards-lazy-loading";
 import ResourceNotFoundError from "../../../../../layouts/resource-not-found-error";
 

@@ -8,10 +8,10 @@ import { OPEN_QUOTE_STORY, OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/qu
 
 // components
 import PostReactions from "../fragments/buttons/post-reactions";
-import CommentsOfQuote from "../fragments/popup-content/comments-of-quote";
+import CommentsOfQuote from "../fragments/popups/comments-of-quote";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
@@ -75,9 +75,8 @@ export type last24SingleQuote = {
 
 const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
    // globals
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
 
    // ================= FUNCTION 0: Check if there is a logged in user to render edit and delete buttons
    const [renderDeleteEditOptionsState, setRenderDeleteEditOptionsState] = useState<boolean>(false);
@@ -275,9 +274,8 @@ const QuoteStories = ({ ID, creator, approvals }: last24SingleQuote) => {
    };
 
    // ================== FUNCTION 15: open the user info popup
-   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] =
+      useState<boolean | JSX.Element>(false);
 
    const handleQuickInfoAccessPopup = (user: any) => {
       setUserQuickAccessInfoPopup(

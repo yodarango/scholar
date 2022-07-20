@@ -7,7 +7,7 @@ import client from "../../apollo-client";
 import { CREATE_NEW_QUOTE } from "../../graphql/posts/quotes";
 
 // components
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 import SmallLoader from "../chunks/small-loader";
 
 // styles

@@ -9,7 +9,7 @@ import { CHECK_IF_USER_PATRON } from "../../graphql/users/users";
 
 // component
 import GeneralDropdown from "../buttons/general-dropdown";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "../popups/notification";
 import SmallLoader from "../chunks/small-loader";
 
 // styles
@@ -70,9 +70,8 @@ const SermonNotesPost = () => {
    };
 
    // ===============   make sure that no fields are empty ==================  //
-   const [notificationsPopupState, setnotificationsPopupState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [notificationsPopupState, setnotificationsPopupState] =
+      useState<boolean | JSX.Element>(false);
    const sermonTitleRef = useRef<HTMLInputElement>(null);
    const validateInput = () => {
       if (
@@ -98,8 +97,8 @@ const SermonNotesPost = () => {
          if (fileUploaded.target.files[0].size > 4000000) {
             setCurrentFileUpState(
                <p className={sermonNotesPost.fileNameErr}>
-                  You file is as large as a Mammoth 🦣, please try something smaller like, a
-                  Kangaroo 🦘
+                  You file is as large as a Mammoth 🦣, please try something smaller like, a Kangaroo
+                  🦘
                </p>
             );
             setLoadedFileState({ file: null, file_path: null });

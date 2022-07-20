@@ -7,7 +7,7 @@ import HeadContent from "../layouts/head-content";
 
 // components
 import SmallLoader from "../fragments/chunks/small-loader";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 
 // graphql
 import client from "../apollo-client";
@@ -52,9 +52,8 @@ export default function Register() {
    const signatureInput = useRef<HTMLInputElement>(null);
    const passwordInput = useRef<HTMLInputElement>(null);
 
-   const [notificationpopUpState, setNotificationpopUpState] = useState<JSX.Element | boolean>(
-      false
-   );
+   const [notificationpopUpState, setNotificationpopUpState] =
+      useState<JSX.Element | boolean>(false);
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
 
    const hanldeNewUserRegistration = async () => {

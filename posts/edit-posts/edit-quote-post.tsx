@@ -8,7 +8,7 @@ import client from "../../apollo-client";
 import { EDIT_ONE_QUOTE } from "../../graphql/posts/quotes";
 
 // components
-import NotificationPopup from "../../fragments/notification-popup";
+import NotificationPopup from "../../fragments/popups/notification";
 import SmallLoader from "../../fragments/chunks/small-loader";
 
 // styles

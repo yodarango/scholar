@@ -16,7 +16,7 @@ import AllContentMobile from "../../../layouts/home-page-content/mobile/all-cont
 import AllContentDesktop from "../../../layouts/home-page-content/desktop/all-content-desktop";
 //-----------------------
 import PopupWrapper from "../../../layouts/popup-wrapper";
-import NotificationsWrapper from "../../../fragments/popup-content/notifications-wrapper";
+import NotificationsWrapper from "../../../fragments/popups/notifications-wrapper";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import UserAboutMe from "../../../fragments/chunks/user/user-about-me";
 import UserTotalPostsAndRatings from "../../../fragments/chunks/user/user-total-posts-ratings";

@@ -173,6 +173,9 @@
    --main-wrapper-width: 92%;
    --main-wrapper-max-width: 500px;
 
+   /* --------------- nested variables ------- */
+   --shadow-s: 4px 4px 4px var(--shadow-color);
+
    /* --------------- size breaks ---------- */
    --ipad-break: 600px;
    --laptop-break: 800px;
@@ -231,6 +234,9 @@ a:active {
    flex-direction: column;
 }
 
+.shadow-s {
+   box-shadow: 4px 4px 4px var(--shadow-color);
+}
 /* --------------- ScripturesHTML Styles for popup references */
 
 .c /*chapter*/ {

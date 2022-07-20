@@ -10,7 +10,7 @@ import {
 } from "../../graphql/users/authenticate_user";
 
 // comps
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "./notification";
 
 // styles
 import forgotPasswordStyles from "../../styles/fragments/popup-content/ForgotPasswordModal.module.css";

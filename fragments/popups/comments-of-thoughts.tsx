@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 // comps
 import ConfirmationPopup from "../confirmation-popup";
-import NotificationPopup from "../notification-popup";
+import NotificationPopup from "./notification";
 
 // styles
 import cardStyles from "../../styles/components/Cards.module.css";
@@ -65,9 +65,8 @@ const CommentsOfThoughtContent = ({
    };
 
    // ========= FUNCTION: Delete comment ==================== //
-   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [confirmationPopUpState, setConfirmationPopUpState] =
+      useState<boolean | JSX.Element>(false);
    const handleDeleteConfirmation = (id: string) => {
       setConfirmationPopUpState(
          <ConfirmationPopup

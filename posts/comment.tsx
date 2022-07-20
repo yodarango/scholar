@@ -13,11 +13,11 @@ import {
 import { GET_COMMENTARY_APPROVALS } from "../graphql/posts/approvals";
 
 // components
-import CommentaryContent from "../fragments/popup-content/commentary-content";
+import CommentaryContent from "../fragments/popups/commentary-content";
 import PostReactions from "../fragments/buttons/post-reactions";
 import ConfirmationPopup from "../fragments/confirmation-popup";
 import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
-import NotificationPopup from "../fragments/notification-popup";
+import NotificationPopup from "../fragments/popups/notification";
 import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
 
 // styles
@@ -141,12 +141,10 @@ export default function Comments({ commentary }: commentsProps) {
    };
 
    // ------------------- DELETE, REATE, AND EDIT ------------------------- //
-   const [confirmationPopUpState, setConfirmationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
-   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [confirmationPopUpState, setConfirmationPopUpState] =
+      useState<boolean | JSX.Element>(false);
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
    // ================= FUNCTION 6: Handle deleting the post  ===================//
    const [deletedPostState, setDeletedPostState] = useState(false);
    const handleDeletePost = async (id: string) => {
@@ -351,9 +349,8 @@ export default function Comments({ commentary }: commentsProps) {
    };
 
    // ================== FUNCTION 10: open the user info popup
-   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [userQuickAccessInfoPopup, setUserQuickAccessInfoPopup] =
+      useState<boolean | JSX.Element>(false);
 
    const handleQuickInfoAccessPopup = (user: any) => {
       setUserQuickAccessInfoPopup(

@@ -9,7 +9,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 import ConfirmationPopup from "../confirmation-popup";
 
 // helpers / types
-import { Tcomment } from "../../fragments/buttons/post-reactions";
+import { Tcomment } from "../buttons/post-reactions";
 
 type commentsOfCcommentsContentProps = {
    comments: Tcomment[];
