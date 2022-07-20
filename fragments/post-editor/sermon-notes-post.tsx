@@ -16,7 +16,7 @@ import SmallLoader from "../chunks/small-loader";
 import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost.module.css";
 
 // helpers
-import { valuesCat } from "../../helpers/dropdown-values";
+import { valuesCat } from "../../data/category_meta";
 import { Tuser } from "../../pages/users/[userId]";
 const SermonNotesPost = () => {
    // check if the user is authenticated in order to get user details ****BE CAREFUL, ALTHOUGH THE OTHER COMPS SO NOT NEDD THIS, THIS IS NEEDED HERE*******

@@ -15,7 +15,7 @@ import SmallLoader from "../../fragments/chunks/small-loader";
 import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost.module.css";
 
 // helpers
-import { valuesCat } from "../../helpers/dropdown-values";
+import { valuesCat } from "../../data/category_meta";
 import { TsermonPost } from "../sermon-notes-post";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 

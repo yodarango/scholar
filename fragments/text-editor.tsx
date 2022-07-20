@@ -18,7 +18,7 @@ import SmallLoader from "./chunks/small-loader";
 import textEditorStyles from "../styles/layouts/textEditor.module.css";
 
 // helpers / types
-import { valuesCat } from "../helpers/dropdown-values";
+import { valuesCat } from "../data/category_meta";
 import { TverseContent } from "../pages";
 
 // Component Props

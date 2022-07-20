@@ -29,7 +29,7 @@ import handlePostComment from "../functions/posts/post-commentary-comment";
 
 // types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
-import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
+import { IvaluesCat, valuesCat } from "../data/category_meta";
 import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tcommentary = {

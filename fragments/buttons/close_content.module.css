@@ -1,0 +1,4 @@
+.mainWrapper:hover div {
+   cursor: pointer;
+   transform: scale(1.1);
+}

@@ -7,10 +7,10 @@ import { useRouter } from "next/router";
 import libraryMenuStyles from "../../styles/buttons/LibraryMenu.module.css";
 
 // helpers
-import { valuesCat } from "../../helpers/dropdown-values";
+import { valuesCat } from "../../data/category_meta";
 
 //types
-import { IvaluesCat } from "../../helpers/dropdown-values";
+import { IvaluesCat } from "../../data/category_meta";
 
 type currentPageNewClass = {
    popular?: string;

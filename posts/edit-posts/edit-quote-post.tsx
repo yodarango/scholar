@@ -15,8 +15,8 @@ import SmallLoader from "../../fragments/chunks/small-loader";
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
 
 // helpers
-import { valuesCat } from "../../helpers/dropdown-values";
-import { IvaluesCat } from "../../helpers/dropdown-values";
+import { valuesCat } from "../../data/category_meta";
+import { IvaluesCat } from "../../data/category_meta";
 import { Tstory } from "../quotes-stroies";
 
 type quoteEditorProps = {

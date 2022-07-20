@@ -24,7 +24,7 @@ import handlePostComment from "../functions/posts/post-quote-comment";
 
 //types
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";
-import { IvaluesCat, valuesCat } from "../helpers/dropdown-values";
+import { IvaluesCat, valuesCat } from "../data/category_meta";
 import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tstory = {

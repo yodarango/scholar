@@ -1,0 +1,38 @@
+.mainWrapper {
+   position: fixed;
+   width: 90%;
+   max-width: var(--max-width-main-wrapper-mobile);
+   top: var(--spacing-m);
+   bottom: auto;
+   left: 0;
+   right: 0;
+   margin: auto;
+   z-index: 17;
+   padding: var(--spacing-s) var(--spacing-s) var(--spacing-l);
+   border-radius: 2em;
+}
+
+.info {
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.safe {
+   background-image: linear-gradient(-10deg, #b2dfb1, var(--safe-color));
+}
+
+.warning {
+   background-image: linear-gradient(-10deg, #e4daaa, var(--warning-color));
+}
+
+.danger {
+   background-image: linear-gradient(-10deg, #e18e98, var(--danger-color));
+}
+
+.title {
+   margin-bottom: var(--spacing-xs);
+}
+.close {
+   position: absolute;
+   top: var(--spacing-xs);
+   right: var(--spacing-s);
+}

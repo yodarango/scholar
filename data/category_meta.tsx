@@ -17,7 +17,7 @@ export const valuesType = [
    }
 ];
 
-export type IvaluesCat = {
+export type TcategoryMeta = {
    title: string;
    key: string;
    categoryID: number;
@@ -26,12 +26,12 @@ export type IvaluesCat = {
    subjects: string[];
 };
 
-export const valuesCat: IvaluesCat[] = [
+export const categoryMeta: TcategoryMeta[] = [
    {
       title: "Black",
       key: "Black",
       categoryID: 1,
-      color: "rgb(37, 37, 37)",
+      color: "#252525",
       tag: "#BLK",
       subjects: ["Context", "Original", "Manuscripts", "Septuagint", "gematria"]
    },
@@ -102,7 +102,7 @@ export const valuesCat: IvaluesCat[] = [
       key: "Green",
       categoryID: 5,
       tag: "#GRN",
-      color: "#6ba969",
+      color: "#a1df9f",
       subjects: ["Heaven", "Earth", "New Jerusalem", "Salvation", "Repentance", "Born Again"]
    },
    {

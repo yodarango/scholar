@@ -1,10 +1,12 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CategoryTag } from "../../../fragments/chunks/category_tag";
+import { CloseContent } from "../../../fragments/buttons/close_content";
 
 export default {
-   title: "fragments/chunks/Category Tag",
-   component: CategoryTag
-} as ComponentMeta<typeof CategoryTag>;
+   title: "fragments/buttons/Close Content",
+   component: CloseContent
+} as ComponentMeta<typeof CloseContent>;
 
-export const Default: ComponentStory<typeof CategoryTag> = () => <CategoryTag id={"CYN"} />;
+export const Default: ComponentStory<typeof CloseContent> = () => (
+   <CloseContent cta={() => console.log("...")} />
+);

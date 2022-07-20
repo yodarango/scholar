@@ -14,7 +14,7 @@ import SmallLoader from "../chunks/small-loader";
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
 
 // helpers
-import { IvaluesCat, valuesCat } from "../../helpers/dropdown-values";
+import { IvaluesCat, valuesCat } from "../../data/category_meta";
 
 type quoteEditorProps = {
    handleCloseStories: any;
