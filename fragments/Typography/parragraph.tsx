@@ -30,8 +30,8 @@ export const Parragraph = ({
    // states
    let fontSize: string = "";
    let fontAlign: string = "";
-   let fontColor = color ? color : quiet ? "#5C5470" : "#F1EAFF";
    let fontLineHeight = lineHieght ? lineHieght : "1.6em";
+   let fontColor: string = quiet ? styles.quiet : color ? styles.inherit : styles.default;
 
    // determine the size
    switch (size) {
@@ -69,27 +69,27 @@ export const Parragraph = ({
    }
 
    return (
-      <>
+      <div style={{ color: color }} className={inline ? styles.inline : ""}>
          {!inline && !italics && !bold && (
             <p
-               className={`${styles.parragraph} ${fontSize} ${fontAlign}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </p>
          )}
 
          {inline && !italics && !bold && (
             <span
-               className={`${styles.parragraph} ${styles.inline} ${fontSize} ${fontAlign}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.parragraph} ${styles.inline} ${fontSize} ${fontAlign} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </span>
          )}
 
          {italics && (
             <i
-               className={`${styles.parragraph} ${fontSize} ${fontAlign}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </i>
          )}
@@ -98,11 +98,11 @@ export const Parragraph = ({
             <b
                className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
                   bold ? styles.bold : ""
-               }`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               } ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </b>
          )}
-      </>
+      </div>
    );
 };

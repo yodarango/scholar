@@ -73,7 +73,9 @@ export const MenuPrimaryOption = ({
 
          {textType === "text" && (
             <div className={styles.text}>
-               <Parragraph size='main' text={optionProperties.text} />
+               <div className={styles.textText}>
+                  <Parragraph size='main' text={optionProperties.text} />
+               </div>
             </div>
          )}
 

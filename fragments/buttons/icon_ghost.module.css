@@ -11,7 +11,7 @@
 .mainWrapper:hover {
    transition: 300ms;
    cursor: pointer;
-   background-color: var(--third-color);
+   transform: scale(1.05);
 }
 
 .iconWrapper {

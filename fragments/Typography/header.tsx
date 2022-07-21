@@ -24,7 +24,7 @@ export const Header = ({
    // defaults
    let fontSize: string = "";
    let fontAlign: string = "";
-   let fontColor = color ? color : quiet ? "#5C5470" : "#F1EAFF";
+   let fontColor: string = quiet ? styles.quiet : color ? styles.inherit : styles.default;
    let fontWeight = "";
    let fontLineHeight = lineHieght ? lineHieght : "1.6em";
 
@@ -80,54 +80,54 @@ export const Header = ({
    }
 
    return (
-      <>
+      <div style={{ color: color }}>
          {type === 1 && (
             <h1
-               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </h1>
          )}
 
          {type === 2 && (
             <h2
-               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </h2>
          )}
 
          {type === 3 && (
             <h3
-               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </h3>
          )}
 
          {type === 4 && (
             <h4
-               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </h4>
          )}
 
          {type === 5 && (
             <h5
-               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </h5>
          )}
 
          {type === 6 && (
             <h6
-               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight}`}
-               style={{ color: fontColor, lineHeight: fontLineHeight }}>
+               className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}
+               style={{ lineHeight: fontLineHeight }}>
                {text}
             </h6>
          )}
-      </>
+      </div>
    );
 };

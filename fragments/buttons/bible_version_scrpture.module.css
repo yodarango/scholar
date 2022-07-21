@@ -1,0 +1,28 @@
+.optionsWrapper {
+    padding: var(--spacing-xs);
+    height: 3.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    border: .1rem solid var(--third-color);
+    border-radius: 1em;
+}
+
+.version {
+    padding-right: var(--spacing-xs);
+    border-right: .1rem solid var(--third-color);
+}
+
+
+.scriptureRef {
+    padding-left: var(--spacing-xs);
+}
+
+.optionsWrapper:hover {
+    cursor: pointer;
+}
+
+.option:hover div p{
+    transition: 300ms;
+    color: var(--font-color);
+}

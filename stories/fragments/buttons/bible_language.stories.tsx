@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BibleVersionLanguage } from "../../../fragments/buttons/bible_language";
+import { BibleLanguage } from "../../../fragments/buttons/bible_language";
 
 export default {
    title: "fragments/buttons/Choose Bible Language",
-   component: BibleVersionLanguage
-} as ComponentMeta<typeof BibleVersionLanguage>;
+   component: BibleLanguage
+} as ComponentMeta<typeof BibleLanguage>;
 
-export const APlus: ComponentStory<typeof BibleVersionLanguage> = () => (
-   <BibleVersionLanguage cta={(item) => console.log("language selected", item)} />
+export const Default: ComponentStory<typeof BibleLanguage> = () => (
+   <BibleLanguage cta={(item) => console.log("language selected", item)} />
 );

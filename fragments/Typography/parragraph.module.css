@@ -52,3 +52,15 @@
     display: inline;
     width: auto;
 }
+
+.default {
+    color: var(--font-color)
+}
+
+.quiet {
+    color: var(--third-color)
+}
+
+.inherit {
+    color: inherit;
+}

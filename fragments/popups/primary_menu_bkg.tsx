@@ -41,7 +41,7 @@ export const PrimaryMenuBkg = ({ content, color, customColors, cta }: TPrimaryMe
          <div className={styles.close}>
             <CloseContent cta={cta} size='2.5rem' />
          </div>
-         <div>{content}</div>
+         <div className={styles.contentWrapper}>{content}</div>
       </div>
    );
 };

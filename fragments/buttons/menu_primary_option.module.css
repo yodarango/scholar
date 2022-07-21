@@ -29,6 +29,8 @@
 .iconWrapper {
    height: 2rem;
    width: 2rem;
+min-width: 2rem;
+min-height: 2rem;
 }
 
 .text {
@@ -37,6 +39,15 @@
    display: flex;
    align-items: center;
    justify-content: flex-start;
+}
+
+.textText div {
+   overflow: hidden;
+   white-space: nowrap;
+}
+
+.textText div p{
+   text-overflow: ellipsis;
 }
 
 .textJsx {
