@@ -1,0 +1,24 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.icon {
+   height: 4.5rem;
+   width: 4.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 0.9em;
+}
+
+.iconWrapper {
+   height: 2rem;
+   width: 2rem;
+}
+
+.text {
+   margin-left: var(--spacing-m);
+}

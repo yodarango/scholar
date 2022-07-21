@@ -1,0 +1,17 @@
+.mainWrapper {
+   width: 3.5rem;
+   height: 3.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 0.9em;
+   border: 0.1rem solid var(--third-color);
+}
+
+.iconWrapper {
+   width: 2.5rem;
+   height: 2.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
