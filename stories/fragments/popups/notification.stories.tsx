@@ -7,6 +7,17 @@ export default {
    component: Notification
 } as ComponentMeta<typeof Notification>;
 
-export const Default: ComponentStory<typeof Notification> = () => (
-   <Notification cta={() => console.log("...")} title={"Title"} type='danger' body='lorem ipsum' />
+export const Info: ComponentStory<typeof Notification> = () => (
+   <Notification cta={() => console.log("...")} title={"Title"} type='1' body='lorem ipsum' />
+);
+
+export const Safe: ComponentStory<typeof Notification> = () => (
+   <Notification cta={() => console.log("...")} title={"Title"} type='2' body='lorem ipsum' />
+);
+export const Warning: ComponentStory<typeof Notification> = () => (
+   <Notification cta={() => console.log("...")} title={"Title"} type='3' body='lorem ipsum' />
+);
+
+export const Danger: ComponentStory<typeof Notification> = () => (
+   <Notification cta={() => console.log("...")} title={"Title"} type='4' body='lorem ipsum' />
 );

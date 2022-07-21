@@ -22,17 +22,18 @@ type TMenuPrimaryOptionProps = {
 export const MenuPrimaryOption = ({
    iconType,
    textType,
-   optionProperties
+   optionProperties,
+   cta
 }: TMenuPrimaryOptionProps) => {
    // determine the color of the shadow
    let shadowClr: string = "";
 
    switch (optionProperties.iconShadow) {
-      case "light":
+      case "1":
          shadowClr = "2px 2px 6px #F1EAFF";
          break;
 
-      case "dark":
+      case "2":
          shadowClr = "4px 4px 6px #1a1723";
          break;
 
@@ -42,7 +43,7 @@ export const MenuPrimaryOption = ({
    }
 
    return (
-      <div className={`${styles.mainWrapper}`}>
+      <div className={`${styles.mainWrapper}`} onClick={cta}>
          {/*  if the left side button is an icon retrun this */}
          {iconType === "icon" && (
             <div className={`${styles.icon}`} style={{ boxShadow: shadowClr }}>

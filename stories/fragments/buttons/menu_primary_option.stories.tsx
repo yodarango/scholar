@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { MenuPrimaryOption } from "../../../fragments/buttons/menu_primary_option";
-import { Parragraph } from "../../../fragments/Typography/parragraph";
 import { Icon } from "../../../fragments/chunks/icons";
 
 export default {
@@ -16,7 +15,7 @@ export const WithIcon: ComponentStory<typeof MenuPrimaryOption> = () => (
       iconType='icon'
       optionProperties={{
          icon: <Icon name='flame' size='2rem' color='#F1EAFF' />,
-         iconShadow: "light",
+         iconShadow: "1",
          text: "On fire"
       }}
    />
@@ -29,7 +28,7 @@ export const WithText: ComponentStory<typeof MenuPrimaryOption> = () => (
       iconType='text'
       optionProperties={{
          icon: "5.0",
-         iconShadow: "dark",
+         iconShadow: "2",
          text: <Icon name='star' size='2rem' color='#F1EAFF' />
       }}
    />

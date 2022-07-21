@@ -21,19 +21,19 @@ export const Notification = ({ title, cta, type, body, customColor }: notificatr
    let notificationType: string = "";
 
    switch (type) {
-      case "info":
+      case "1":
          notificationType = styles.info;
          break;
 
-      case "safe":
+      case "2":
          notificationType = styles.safe;
          break;
 
-      case "warning":
+      case "3":
          notificationType = styles.warning;
          break;
 
-      case "danger":
+      case "4":
          notificationType = styles.danger;
          break;
    }

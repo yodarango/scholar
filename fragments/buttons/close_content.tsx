@@ -10,7 +10,7 @@ type TCloseContentProps = {
    cta: React.MouseEventHandler<HTMLDivElement>;
 };
 
-export const CloseContent = ({ size = "2rem", color = "#F1EAFF", cta }: TCloseContentProps) => {
+export const CloseContent = ({ size = "2.5rem", color = "#F1EAFF", cta }: TCloseContentProps) => {
    return (
       <div className={`${styles.mainWrapper}`} onClick={cta}>
          <Icon name='close' color={color} size={size} strokeWidth='60' />
