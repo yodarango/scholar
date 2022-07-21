@@ -21,4 +21,13 @@
 
 .text {
    margin-left: var(--spacing-m);
+   height: 4.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.textJsx {
+   height: 2rem;
+   width: 100%;
 }

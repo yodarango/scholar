@@ -11,17 +11,17 @@ export function calcElapsedTime(date: string) {
     const timeInYears:number = timeInMonths / 12;
   
   if(timeInSeconds < 60) {
-    return `${Math.ceil(timeInSeconds)}secs`;
+    return `${Math.floor(timeInSeconds)}secs`;
   } else if(timeInSeconds > 60 && timeInMinutes < 60 ){
-    return `${Math.ceil(timeInMinutes)}mins`;
+    return `${Math.floor(timeInMinutes)}mins`;
   } else if(timeInMinutes > 60 && timeInHours < 60){
-    return `${Math.ceil(timeInHours)}hrs`;
+    return `${Math.floor(timeInHours)}hrs`;
   }else if (timeInHours > 60 && timeInDays < 30){
-    return `${Math.ceil(timeInDays)}days`;
+    return `${Math.floor(timeInDays)}days`;
   }else if(timeInDays > 30 && timeInMonths < 12){
-    return `${Math.ceil(timeInMonths)}mths`;
+    return `${Math.floor(timeInMonths)}mths`;
   }else if(timeInMonths > 12){
-    return `${Math.ceil(timeInYears)}yrs`;
+    return `${Math.floor(timeInYears)}yrs`;
   }
   }
   
