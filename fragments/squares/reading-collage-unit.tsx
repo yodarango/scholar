@@ -20,16 +20,16 @@ import { TdropdownObjectSingleOption } from "../../fragments/buttons/general-dro
 
 // helpers
 ///// bible translations supported
-import { dropdownOptions as english } from "../../helpers/supported-bible-languages/english-bible-versions";
-import { dropdownOptions as greek } from "../../helpers/supported-bible-languages/greek-bible-versions";
-import { dropdownOptions as spanish } from "../../helpers/supported-bible-languages/spanish-bible-versoins";
-import { dropdownOptions as german } from "../../helpers/supported-bible-languages/german-bible-versions";
-import { dropdownOptions as polish } from "../../helpers/supported-bible-languages/polish-bible-versions";
-import { dropdownOptions as czech } from "../../helpers/supported-bible-languages/czech-bible-versions";
-import { dropdownOptions as italian } from "../../helpers/supported-bible-languages/czech-bible-versions";
-import { dropdownOptions as dutch } from "../../helpers/supported-bible-languages/dutch-bible-versions";
-import { dropdownOptions as urdu } from "../../helpers/supported-bible-languages/urdu-bible-versions";
-import { dropdownOptions as thai } from "../../helpers/supported-bible-languages/thai-bible-version";
+import { dropdownOptions as english } from "../../data/supported_bible_versions/english";
+import { dropdownOptions as greek } from "../../data/supported_bible_versions/greek";
+import { dropdownOptions as spanish } from "../../data/supported_bible_versions/spanish";
+import { dropdownOptions as german } from "../../data/supported_bible_versions/german";
+import { dropdownOptions as polish } from "../../data/supported_bible_versions/polish";
+import { dropdownOptions as czech } from "../../data/supported_bible_versions/czech";
+import { dropdownOptions as italian } from "../../data/supported_bible_versions/czech";
+import { dropdownOptions as dutch } from "../../data/supported_bible_versions/dutch";
+import { dropdownOptions as urdu } from "../../data/supported_bible_versions/urdu";
+import { dropdownOptions as thai } from "../../data/supported_bible_versions/thai";
 
 // ==================   1 FUNCTION: set the desire language    =========================
 type ReadingCollageUnitProps = {

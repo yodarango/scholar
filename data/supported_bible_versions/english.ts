@@ -1,11 +1,6 @@
-export type IdropdownOptions = {
-   name: string;
-   id: string;
-   abbreviation: string;
-   newClass?: string;
-};
+import {TVersion} from "./version_type";
 
-export const dropdownOptions: IdropdownOptions[] = [
+export const english: TVersion[] = [
    { name: "American Standard Version", id: "685d1470fe4d5c3b-01", abbreviation: "ASV" },
    { name: "Berean Study Bible", id: "bba9f40183526463-01", abbreviation: "BSB" },
    { name: "Brenton English Septuagint", id: "6bab4d6c61b31b80-01", abbreviation: "BES" },

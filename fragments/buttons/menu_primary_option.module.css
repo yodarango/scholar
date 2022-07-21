@@ -5,6 +5,18 @@
    justify-content: flex-start;
 }
 
+.mainWrapper:hover .text {
+   cursor: pointer;
+   border-bottom: .1rem solid #F1EAFF50;
+   transition: 300ms border;
+}
+
+.mainWrapper:hover .icon {
+   cursor: pointer;
+   transition: 300ms transform;
+   transform: scale(.9);
+}
+
 .icon {
    height: 4.5rem;
    width: 4.5rem;

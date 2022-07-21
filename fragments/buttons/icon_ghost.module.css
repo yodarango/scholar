@@ -8,6 +8,12 @@
    border: 0.1rem solid var(--third-color);
 }
 
+.mainWrapper:hover {
+   transition: 300ms;
+   cursor: pointer;
+   background-color: var(--third-color);
+}
+
 .iconWrapper {
    width: 2.5rem;
    height: 2.5rem;

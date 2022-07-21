@@ -17,7 +17,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M256 112v288M400 256H112'
                />
@@ -42,7 +42,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M244 400L100 256l144-144M120 256h292'
                />
@@ -57,7 +57,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M328 112L184 256l144 144'
                />
@@ -72,7 +72,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M268 112l144 144-144 144M392 256H100'
                />
@@ -87,7 +87,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M184 112l144 144-144 144'
                />
@@ -102,21 +102,21 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   d='M368 415.86V72a24.07 24.07 0 00-24-24H72a24.07 24.07 0 00-24 24v352a40.12 40.12 0 0040 40h328'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
                   d='M416 464h0a48 48 0 01-48-48V128h72a24 24 0 0124 24v264a48 48 0 01-48 48z'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M240 128h64M240 192h64M112 256h192M112 320h192M112 384h192'
                />
@@ -133,7 +133,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -156,7 +156,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                stroke={color}
                strokeWidth={strokeWidth ? strokeWidth : "32"}
                strokeLinecap='round'
-               stroke-linejoin='round'>
+               strokeLinejoin='round'>
                <path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'></path>
                <path d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'></path>
             </svg>
@@ -179,7 +179,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -194,7 +194,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -209,7 +209,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -217,7 +217,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -225,7 +225,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -247,7 +247,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M416 128L192 384l-96-96'
                />
@@ -263,7 +263,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path d='M233.38 278.63l-79-113a8.13 8.13 0 0111.32-11.32l113 79a32.5 32.5 0 01-37.25 53.26 33.21 33.21 0 01-8.07-7.94z' />
@@ -278,7 +278,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M368 368L144 144M368 144L144 368'
                />
@@ -294,7 +294,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -324,7 +324,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -339,7 +339,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -396,7 +396,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <circle
@@ -420,7 +420,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -437,14 +437,14 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M256 336v144M314 416H198'
                />
@@ -460,7 +460,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -468,7 +468,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -483,7 +483,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -497,7 +497,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M244 400L100 256l144-144M120 256h292'
                />
@@ -529,7 +529,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -544,7 +544,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -552,7 +552,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -579,14 +579,14 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   ry='16'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M112 224h128M112 400h128'
                />
@@ -599,7 +599,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   ry='16'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <rect
@@ -611,14 +611,14 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   ry='16'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
                   d='M422.46 96.11l-40.4 4.25c-11.12 1.17-19.18 11.57-17.93 23.1l34.92 321.59c1.26 11.53 11.37 20 22.49 18.84l40.4-4.25c11.12-1.17 19.18-11.57 17.93-23.1L445 115c-1.31-11.58-11.42-20.06-22.54-18.89z'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -633,7 +633,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -671,7 +671,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                stroke={color}
                strokeWidth={strokeWidth ? strokeWidth : "32"}
                strokeLinecap='round'
-               stroke-linejoin='round'>
+               strokeLinejoin='round'>
                <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path>
                <circle cx='12' cy='10' r='3'></circle>
             </svg>
@@ -686,7 +686,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <rect
@@ -699,7 +699,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -714,7 +714,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <rect
@@ -727,7 +727,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -742,7 +742,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -759,14 +759,14 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M448 160V64h-96M324 188L448 64'
                />
@@ -782,7 +782,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                stroke={color}
                strokeWidth={strokeWidth ? strokeWidth : "32"}
                strokeLinecap='round'
-               stroke-linejoin='round'>
+               strokeLinejoin='round'>
                <line x1='3' y1='12' x2='21' y2='12'></line>
                <line x1='3' y1='6' x2='21' y2='6'></line>
                <line x1='3' y1='18' x2='21' y2='18'></line>
@@ -797,7 +797,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M192 448h128M384 208v32c0 70.4-57.6 128-128 128h0c-70.4 0-128-57.6-128-128v-32M256 368v80'
                />
@@ -806,7 +806,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -821,7 +821,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -836,7 +836,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -872,7 +872,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M336 176L225.2 304 176 255.8'
                />
@@ -881,7 +881,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -896,7 +896,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -936,7 +936,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -950,7 +950,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M400 256H112'
                />
@@ -988,7 +988,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -1002,7 +1002,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   d='M448 256L272 88v96C103.57 184 64 304.77 64 424c48.61-62.24 91.6-96 208-96v96z'
                   fill='none'
                   stroke={color}
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -1017,7 +1017,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
             </svg>
@@ -1095,7 +1095,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -1117,7 +1117,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path
@@ -1147,7 +1147,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                stroke={color}
                strokeWidth={strokeWidth ? strokeWidth : "2"}
                strokeLinecap='round'
-               stroke-linejoin='round'>
+               strokeLinejoin='round'>
                <rect x='2' y='7' width='20' height='15' rx='2' ry='2'></rect>
                <polyline points='17 2 12 7 7 2'></polyline>
             </svg>
@@ -1169,7 +1169,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
-                  stroke-linejoin='round'
+                  strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path d='M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z' />

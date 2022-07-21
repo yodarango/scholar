@@ -1,11 +1,6 @@
-export type IdropdownOptions = {
-   name: string;
-   id: string;
-   abbreviation: string;
-   newClass?: string;
-};
+import { TVersion } from "./version_type";
 
-export const dropdownOptions: IdropdownOptions[] = [
+export const polish: TVersion[] = [
    {
       name: "Biblica® Open Polish Living New Testament",
       id: "fbb8b0e1943b417c-01",
