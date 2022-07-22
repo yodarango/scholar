@@ -15,36 +15,27 @@ type TBilbleBookPickerProps = {
    bookTitle: string;
    bookId: string;
    chapterCount: number;
-   cta: (bookId: string) => void;
+   showChapterSelectorMenu: boolean;
+   cta: {
+      handleCloseChapterMenu: React.MouseEventHandler<HTMLDivElement>;
+      handleOpenChaptermenu: React.MouseEventHandler<HTMLDivElement>;
+   };
 };
 
 export const BilbleBookPicker = ({
    imgSource,
    bookTitle,
    cta,
-   bookId,
-   chapterCount
+   chapterCount,
+   showChapterSelectorMenu
 }: TBilbleBookPickerProps) => {
-   // ------------------------ states ------------------------------
-   const [showChapterSelectorMenu, setshowChapterSelectorMenu] = useState(false);
-
-   // ------------------- open the chapter menu modal and set the state to close the chapter menu
-   const handleOpenChaptermenu = () => {
-      setshowChapterSelectorMenu(true);
-   };
-
-   // ------------------- handle the selection of the book chapter by closing the modal and calling the chapter verses modal
-   const handleChapterSelection = (chapterId: string) => {
-      setshowChapterSelectorMenu(false);
-   };
-
    return (
       <div className={stlyes.mainWrapper}>
          {/* ----------------- book sector ----------------- */}
 
          <div
             className={stlyes.cardPicker}
-            onClick={!showChapterSelectorMenu ? handleOpenChaptermenu : () => {}}>
+            onClick={!showChapterSelectorMenu ? cta.handleOpenChaptermenu : () => {}}>
             <div className={stlyes.imageWrapper}>
                <Image src={imgSource} layout='fill' alt={bookTitle} />
             </div>
@@ -56,21 +47,9 @@ export const BilbleBookPicker = ({
                {!showChapterSelectorMenu && (
                   <Parragraph text={chapterCount} size='main' align='center' />
                )}
-               {showChapterSelectorMenu && (
-                  <CloseContent cta={() => setshowChapterSelectorMenu(false)} />
-               )}
+               {showChapterSelectorMenu && <CloseContent cta={cta.handleCloseChapterMenu} />}
             </div>
          </div>
-
-         {/* ----------------- chapter sector ----------------- */}
-
-         {showChapterSelectorMenu && (
-            <BibleChapterpicker
-               bookId={bookId}
-               cta={handleChapterSelection}
-               chapterCount={chapterCount}
-            />
-         )}
       </div>
    );
 };
