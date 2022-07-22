@@ -44,6 +44,7 @@ export const MenuPrimaryOption = ({
 
    return (
       <div className={`${styles.mainWrapper}`} onClick={cta}>
+         {/* --------------------------------------- Left side icon ---------------- */}
          {/*  if the left side button is an icon retrun this */}
          {iconType === "icon" && (
             <div className={`${styles.icon}`} style={{ boxShadow: shadowClr }}>
@@ -71,6 +72,7 @@ export const MenuPrimaryOption = ({
                style={{ boxShadow: shadowClr, backgroundColor: optionProperties.iconShadow }}></div>
          )}
 
+         {/* --------------------------------------- right side text ---------------- */}
          {textType === "text" && (
             <div className={styles.text}>
                <div className={styles.textText}>

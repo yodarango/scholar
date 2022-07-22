@@ -167,6 +167,7 @@
    --spacing-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
    --spacing-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
    --spacing-m: 2rem; /*-- ex: marign between components */
+   --spacing-ml: 2.5rem; /*-- ex: padding on some components like the bible_chapter_picker */
    --spacing-l: 3rem; /*-- ex: spacing between sections */
 
    /* --------------- main wrappers ---------- */

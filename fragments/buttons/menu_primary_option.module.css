@@ -46,10 +46,6 @@
    white-space: nowrap;
 }
 
-.textText div p{
-   text-overflow: ellipsis;
-}
-
 .textJsx {
    height: 2rem;
    width: 100%;
