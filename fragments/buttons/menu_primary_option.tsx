@@ -51,7 +51,7 @@ export const MenuPrimaryOption = ({
             </div>
          )}
 
-         {/* eles if it is a text string return this  */}
+         {/* else if it is a text string return this  */}
          {iconType === "text" && (
             <div className={`${styles.icon}`} style={{ boxShadow: shadowClr }}>
                <Parragraph

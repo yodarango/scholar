@@ -7,6 +7,18 @@ export default {
    component: BibleVersionScripture
 } as ComponentMeta<typeof BibleVersionScripture>;
 
-export const Default: ComponentStory<typeof BibleVersionScripture> = () => (
-   <BibleVersionScripture version='ESV' scriptureRef='1 Thessalonians 5:15' />
+export const EnglishESV: ComponentStory<typeof BibleVersionScripture> = () => (
+   <BibleVersionScripture
+      version='ESV'
+      scriptureRef='1 Thessalonians 5:15'
+      bibleLanguage='english'
+   />
+);
+
+export const SpanishRV09: ComponentStory<typeof BibleVersionScripture> = () => (
+   <BibleVersionScripture
+      version='RV09'
+      scriptureRef='1 Thessalonians 5:15'
+      bibleLanguage='spanish'
+   />
 );

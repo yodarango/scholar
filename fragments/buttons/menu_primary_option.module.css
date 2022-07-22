@@ -24,13 +24,13 @@
    align-items: center;
    justify-content: center;
    border-radius: 0.9em;
+   flex-shrink: 0;
+   flex-grow: 0;
 }
 
 .iconWrapper {
    height: 2rem;
    width: 2rem;
-min-width: 2rem;
-min-height: 2rem;
 }
 
 .text {

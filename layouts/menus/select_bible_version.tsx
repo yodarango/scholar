@@ -13,7 +13,6 @@ import { english } from "../../data/supported_bible_versions/english";
 import { spanish } from "../../data/supported_bible_versions/spanish";
 import { italian } from "../../data/supported_bible_versions/italian";
 import { greek } from "../../data/supported_bible_versions/greek";
-import { Parragraph } from "../../fragments/Typography/parragraph";
 
 export type TSelectBibleVersionprops = {
    currLanguage: string;
@@ -57,9 +56,7 @@ export const SelectBibleVersion = ({ cta, currLanguage }: TSelectBibleVersionpro
                      textType='text'
                      cta={() => cta.handleSelection(item)}
                      optionProperties={{
-                        icon: (
-                           <Parragraph text={index + 1} bold={true} align='center' size='main' />
-                        ),
+                        icon: `${index + 1}`,
                         text: item.name,
                         iconShadow: "2"
                      }}
