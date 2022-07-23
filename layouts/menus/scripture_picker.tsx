@@ -24,6 +24,7 @@ type TBilbleBookPickerProps = {
    bookTitle: string;
    bookId: string;
    chapterCount: number;
+   verseCount: [number];
    stopAtChapter: boolean;
    cta: (verseId: string) => void;
 };
@@ -35,21 +36,23 @@ export const ScripturePicker = ({
    cta,
    bookId,
    chapterCount,
-   stopAtChapter
+   stopAtChapter,
+   verseCount
 }: TBilbleBookPickerProps) => {
    // ------------------------ states ------------------------------
    const [showChapterSelectorMenu, setshowChapterSelectorMenu] = useState(false);
    const [showVerseSelectionMenu, setshowVerseSelectionMenu] = useState(false);
    const [chapterId, setchapterId] = useState<string>("");
-   const [currVerseCount, setcurrVerseCount] = useState<number>(0);
+   const [currentSelectedChapter, setcurrentSelectedChapter] = useState<number>(0);
 
    // ------------ handle the selection of the book chapter by closing the modal and calling the chapter verses modal
    const openVerseSelectionModal = (chapterId: number) => {
       // update chapterId before rendering the BibleVersePicker
       setchapterId(`${bookId}.${chapterId}`);
 
-      // update the verse count for the selected chapter
-      setcurrVerseCount(30);
+      // update the current selected chatpter to pass it down to the BibleVersePicker
+      // -1 since it is going to be passed to call an arrray item
+      setcurrentSelectedChapter(chapterId - 1);
 
       setshowChapterSelectorMenu(false);
       setshowVerseSelectionMenu(true);
@@ -99,7 +102,7 @@ export const ScripturePicker = ({
          {showVerseSelectionMenu && (
             <BibleVersePicker
                chapterId={chapterId}
-               verseCount={currVerseCount}
+               verseCount={verseCount[currentSelectedChapter]}
                versionId={versionId}
                cta={{
                   handleCloseModal: closeShowVerseMenuModal,

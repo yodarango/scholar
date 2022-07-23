@@ -16,5 +16,6 @@ export const Default: ComponentStory<typeof ScripturePicker> = () => (
       bookId='GEN'
       chapterCount={50}
       stopAtChapter={false}
+      verseCount={[27]}
    />
 );
