@@ -17,8 +17,9 @@ type TBibleChapterpickerprops = {
    chapterCount: number;
    stopAtChapter: boolean;
    cta: {
-      openVerseSelectionModal: (chapterId: number) => void;
+      handleOpenVerseSelectionModal: (chapterId: number) => void;
       handleChapterSelection: (content: any) => void;
+      handleInitLoader: (init: boolean) => void;
    };
 };
 
@@ -31,6 +32,9 @@ export const BibleChapterpicker = ({
 }: TBibleChapterpickerprops) => {
    // ------------- make the call to the Bible APi
    async function handleSelection(chapterId: string, versionId: string | undefined) {
+      // initialize the loader
+      cta.handleInitLoader(true);
+
       try {
          const req = await fetch(
             `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}`,
@@ -43,6 +47,10 @@ export const BibleChapterpicker = ({
          );
          const res = await req.json();
          cta.handleChapterSelection(res);
+
+         // stop the loader
+         cta.handleInitLoader(false);
+
          //res.data ? (setGetNewVerse(res.data), setLoadingState("done")) : setLoadingState("error");
       } catch (error) {
          //  setLoadingState("error");
@@ -54,7 +62,7 @@ export const BibleChapterpicker = ({
    // ---------- determine whether to call the API or pass the prop to render the bible_verse_picker.tsx -----------
    const handleChpaterSelection = (verseId: number, versionId: string | undefined) => {
       if (!stopAtChapter) {
-         cta.openVerseSelectionModal(verseId);
+         cta.handleOpenVerseSelectionModal(verseId);
          return;
       }
 

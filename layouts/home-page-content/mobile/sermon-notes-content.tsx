@@ -18,7 +18,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import { TsermonPost } from "../../../posts/sermon-notes-post";
 import { Tuser } from "../../../pages/users/[userId]";
 import CardsLazyLoading from "../../cards-lazy-loading";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 
 type sermonNotesContentProps = {
    user: Tuser;

@@ -9,7 +9,7 @@ import { EDIT_ONE_QUOTE } from "../../graphql/posts/quotes";
 
 // components
 import NotificationPopup from "../../fragments/popups/notification";
-import SmallLoader from "../../fragments/chunks/small-loader";
+import SmallLoader from "../../fragments/chunks/small_loader";
 
 // styles
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";

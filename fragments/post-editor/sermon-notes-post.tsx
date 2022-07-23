@@ -10,7 +10,7 @@ import { CHECK_IF_USER_PATRON } from "../../graphql/users/users";
 // component
 import GeneralDropdown from "../buttons/general-dropdown";
 import NotificationPopup from "../popups/notification";
-import SmallLoader from "../chunks/small-loader";
+import SmallLoader from "../chunks/small_loader";
 
 // styles
 import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost.module.css";

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // style
 import confirmationPopupStyle from "../styles/fragments/ConfirmationPopup.module.css";
-import SmallLoader from "./chunks/small-loader";
+import SmallLoader from "./chunks/small_loader";
 
 export type confirmationPopupProps = {
    title: string;

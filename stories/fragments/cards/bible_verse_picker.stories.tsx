@@ -14,7 +14,8 @@ export const APlus: ComponentStory<typeof BibleVersePicker> = () => (
       verseCount={27}
       cta={{
          handleCloseModal: () => console.log("should close modal"),
-         handleVerseSelection: () => console.log("makes call to the API")
+         handleVerseSelection: () => console.log("makes call to the API"),
+         handleInitLoader: () => console.log("loader initialized")
       }}
    />
 );

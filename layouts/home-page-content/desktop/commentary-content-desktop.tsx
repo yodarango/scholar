@@ -9,7 +9,7 @@ import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 // comps
 import Comment from "../../../posts/comment";
 import CardsLazyLoading from "../../cards-lazy-loading";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import ResourceNotFoundError from "../../resource-not-found-error";
 
 // styles

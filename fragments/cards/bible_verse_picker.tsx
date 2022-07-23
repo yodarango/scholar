@@ -15,6 +15,7 @@ type TBibleVersePickerProps = {
    cta: {
       handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
       handleVerseSelection: (content: any) => void;
+      handleInitLoader: (init: boolean) => void;
    };
 };
 export const BibleVersePicker = ({
@@ -25,6 +26,9 @@ export const BibleVersePicker = ({
 }: TBibleVersePickerProps) => {
    // ------------- make the call to the Bible APi
    const handleSelection = async (verseId: string, versionId: string) => {
+      // initialize the loader
+      cta.handleInitLoader(true);
+
       try {
          const req = await fetch(
             `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseId}`,
@@ -37,6 +41,10 @@ export const BibleVersePicker = ({
          );
          const res = await req.json();
          cta.handleVerseSelection(res);
+
+         // stop the loader
+         cta.handleInitLoader(false);
+
          //res.data ? (setGetNewVerse(res.data), setLoadingState("done")) : setLoadingState("error");
       } catch (error) {
          //  setLoadingState("error");

@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 
 // styles
 import simpleEditorStyles from "../../styles/fragments/chunks/SimpletextEditor.module.css";
-import SmallLoader from "./small-loader";
+import SmallLoader from "./small_loader";
 
 type simpleLoaderProps = {
    smallLoader: boolean;

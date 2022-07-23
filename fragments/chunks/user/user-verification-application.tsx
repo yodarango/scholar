@@ -6,7 +6,7 @@ import client from "../../../apollo-client";
 import { NEW_TRUSTED_USER_REQUEST } from "../../../graphql/emails/content";
 
 // comps
-import SmallLoader from "../small-loader";
+import SmallLoader from "../small_loader";
 
 // styles
 import userSettingsStyles from "../../../styles/pages/users/settings/UserSettings.module.css";

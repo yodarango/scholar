@@ -12,7 +12,7 @@ import Dropdown from "./buttons/dropdown";
 import PopupWrapper from "../layouts/popup-wrapper";
 import NotificationPopup from "./popups/notification";
 import TextEditorPreview from "./chunks/text-editor-preview";
-import SmallLoader from "./chunks/small-loader";
+import SmallLoader from "./chunks/small_loader";
 
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";

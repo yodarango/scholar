@@ -8,7 +8,7 @@ import { GET_PROFILE_THOUGHTS } from "../../../graphql/users/profile";
 
 // comps
 import Thought from "../../../posts/thought";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import ResourceNotFoundError from "../../resource-not-found-error";
 

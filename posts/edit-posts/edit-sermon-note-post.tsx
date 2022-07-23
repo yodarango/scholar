@@ -9,7 +9,7 @@ import { EDIT_SERMON_NOTE } from "../../graphql/posts/sermon_notes";
 // components
 import GeneralDropdown from "../../fragments/buttons/general-dropdown";
 import NotificationPopup from "../../fragments/popups/notification";
-import SmallLoader from "../../fragments/chunks/small-loader";
+import SmallLoader from "../../fragments/chunks/small_loader";
 
 // styles
 import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost.module.css";

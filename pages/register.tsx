@@ -6,7 +6,7 @@ import Head from "next/head";
 import HeadContent from "../layouts/head-content";
 
 // components
-import SmallLoader from "../fragments/chunks/small-loader";
+import SmallLoader from "../fragments/chunks/small_loader";
 import NotificationPopup from "../fragments/popups/notification";
 
 // graphql

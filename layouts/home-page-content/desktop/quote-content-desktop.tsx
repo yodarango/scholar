@@ -12,7 +12,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // comps
 import QuotesProfile from "../../../posts/quotes-profile";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import ResourceNotFoundError from "../../resource-not-found-error";
 

@@ -8,7 +8,7 @@ import { RECOMMNED_NEW_LIB_CONTENT } from "../../graphql/emails/content";
 // components
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationPopup from "../popups/notification";
-import SmallLoader from "../../fragments/chunks/small-loader";
+import SmallLoader from "../chunks/small_loader";
 
 //styles
 import libraryRecommendContennt from "../../styles/buttons/LibraryRecommnedContent.module.css";

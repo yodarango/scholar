@@ -2,12 +2,16 @@
 import React from "react";
 
 // stlyes
-import smallLoaderStyles from "../../styles/fragments/chunks/smallLoader.module.css";
+import styles from "./small_loader.module.css";
 
-const SmallLoader = () => {
+type TSmallLoaderProps = {
+   inline?: boolean;
+};
+
+export const SmallLoader = ({ inline }: TSmallLoaderProps) => {
    return (
-      <div className={smallLoaderStyles.mainWrapper}>
-         <div className={smallLoaderStyles.loader}>
+      <div className={`${styles.mainWrapper} ${inline ? styles.inline : ""}`}>
+         <div className={styles.loader}>
             <svg
                version='1.1'
                id='Layer_1'
@@ -16,7 +20,7 @@ const SmallLoader = () => {
                width='24px'
                height='30px'
                viewBox='0 0 24 30'
-               className={smallLoaderStyles.svg}>
+               className={styles.svg}>
                <rect x='0' y='0' width='4' height='10' fill='#333'>
                   <animateTransform
                      attributeType='xml'
@@ -55,5 +59,3 @@ const SmallLoader = () => {
       </div>
    );
 };
-
-export default SmallLoader;

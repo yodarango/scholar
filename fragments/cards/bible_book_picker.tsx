@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { CloseContent } from "../buttons/close_content";
+import { SmallLoader } from "../chunks/small_loader";
 
 // comps
 import { Parragraph } from "../Typography/parragraph";
@@ -14,6 +15,7 @@ type TBilbleBookPickerProps = {
    bookTitle: string;
    chapterCount: number;
    showChapterSelectorMenu: boolean;
+   initLoader: boolean;
    cta: {
       handleCloseChapterMenu: React.MouseEventHandler<HTMLDivElement>;
       handleOpenChaptermenu: React.MouseEventHandler<HTMLDivElement>;
@@ -25,6 +27,7 @@ export const BilbleBookPicker = ({
    bookTitle,
    cta,
    chapterCount,
+   initLoader,
    showChapterSelectorMenu
 }: TBilbleBookPickerProps) => {
    return (
@@ -41,12 +44,15 @@ export const BilbleBookPicker = ({
                <Parragraph size='main' bold={true} text={bookTitle} />
             </div>
 
-            <div className={stlyes.chapterCount}>
-               {!showChapterSelectorMenu && (
-                  <Parragraph text={chapterCount} size='main' align='center' />
-               )}
-               {showChapterSelectorMenu && <CloseContent cta={cta.handleCloseChapterMenu} />}
-            </div>
+            {!initLoader && (
+               <div className={stlyes.chapterCount}>
+                  {!showChapterSelectorMenu && (
+                     <Parragraph text={chapterCount} size='main' align='center' />
+                  )}
+                  {showChapterSelectorMenu && <CloseContent cta={cta.handleCloseChapterMenu} />}
+               </div>
+            )}
+            {initLoader && <SmallLoader inline={true} />}
          </div>
       </div>
    );

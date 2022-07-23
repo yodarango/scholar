@@ -8,7 +8,7 @@ import { CREATE_NEW_QUOTE } from "../../graphql/posts/quotes";
 
 // components
 import NotificationPopup from "../popups/notification";
-import SmallLoader from "../chunks/small-loader";
+import SmallLoader from "../chunks/small_loader";
 
 // styles
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";

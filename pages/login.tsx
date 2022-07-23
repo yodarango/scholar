@@ -11,7 +11,7 @@ import { AUTHENTICATE_USER } from "../graphql/users/authenticate_user";
 import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 
 // child comps
-import SmallLoader from "../fragments/chunks/small-loader";
+import SmallLoader from "../fragments/chunks/small_loader";
 import NotificationPopup from "../fragments/popups/notification";
 
 // styles

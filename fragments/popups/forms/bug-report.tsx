@@ -6,7 +6,7 @@ import client from "../../../apollo-client";
 import { BUG_REPORT } from "../../../graphql/emails/content";
 
 // comps
-import SmallLoader from "../../chunks/small-loader";
+import SmallLoader from "../../chunks/small_loader";
 import NotificationPopup from "../notification";
 
 // styles

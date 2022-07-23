@@ -14,7 +14,7 @@ import client from "../../../apollo-client";
 // components
 import NotificationPopup from "../../../fragments/popups/notification";
 import NavigationMenu from "../../../layouts/navigation-menu";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import AvatarChooser from "../../../fragments/popups/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";
 import ResourceNotFoundError from "../../../layouts/resource-not-found-error";

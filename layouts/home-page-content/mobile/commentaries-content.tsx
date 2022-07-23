@@ -8,7 +8,7 @@ import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 
 // components
 import Comments from "../../../posts/comment";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import ResourceNotFoundError from "../../resource-not-found-error";
 import CommentariesProfileMenu from "../../../fragments/buttons/commentaries-profile-menu";
 

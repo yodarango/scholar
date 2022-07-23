@@ -12,7 +12,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // comps
 import SermonNotesPost from "../../../posts/sermon-notes-post";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import ResourceNotFoundError from "../../resource-not-found-error";
 

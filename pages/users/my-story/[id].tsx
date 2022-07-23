@@ -16,7 +16,7 @@ import { UPDATE_MY_STORY } from "../../../graphql/users/profile";
 
 // components
 import NavigationMenu from "../../../layouts/navigation-menu";
-import SmallLoader from "../../../fragments/chunks/small-loader";
+import SmallLoader from "../../../fragments/chunks/small_loader";
 import NotificationPopup from "../../../fragments/popups/notification";
 import SimpleTextEditor from "../../../fragments/chunks/simple-text-editor";
 import ResourceNotFoundError from "../../../layouts/resource-not-found-error";

@@ -44,9 +44,10 @@ export const ScripturePicker = ({
    const [showVerseSelectionMenu, setshowVerseSelectionMenu] = useState(false);
    const [chapterId, setchapterId] = useState<string>("");
    const [currentSelectedChapter, setcurrentSelectedChapter] = useState<number>(0);
+   const [initializeLoader, setinitializeLoader] = useState<boolean>(false);
 
    // ------------ handle the selection of the book chapter by closing the modal and calling the chapter verses modal
-   const openVerseSelectionModal = (chapterId: number) => {
+   const handleOpenVerseSelectionModal = (chapterId: number) => {
       // update chapterId before rendering the BibleVersePicker
       setchapterId(`${bookId}.${chapterId}`);
 
@@ -58,16 +59,22 @@ export const ScripturePicker = ({
       setshowVerseSelectionMenu(true);
    };
 
+   // --------- initilaize the loader once the API function is called but bufore the API data returrns
+   const handleSetInitLoader = (init: boolean) => {
+      // close all the modals and initialize the loader
+      setshowVerseSelectionMenu(false);
+      setshowChapterSelectorMenu(false);
+      setinitializeLoader(init);
+   };
+
    //  --------- if stopAtChapter === false close the bible verse modal and open the chapter modal -------
-   const closeShowVerseMenuModal = () => {
+   const handlecloseShowVerseMenuModal = () => {
       setshowVerseSelectionMenu(false);
       setshowChapterSelectorMenu(true);
    };
 
    // ---------- on Successful API call pass the content to the parent to be rendered once the final selection is made
    const handleRenderContent = (content: any) => {
-      setshowVerseSelectionMenu(false);
-      setshowChapterSelectorMenu(false);
       cta(content);
    };
 
@@ -80,6 +87,7 @@ export const ScripturePicker = ({
                chapterCount={chapterCount}
                bookTitle={bookTitle}
                imgSource={imgSource}
+               initLoader={initializeLoader}
                cta={{
                   handleCloseChapterMenu: () => setshowChapterSelectorMenu(false),
                   handleOpenChaptermenu: () => setshowChapterSelectorMenu(true)
@@ -93,7 +101,11 @@ export const ScripturePicker = ({
                versionId={versionId}
                stopAtChapter={stopAtChapter}
                bookId={bookId}
-               cta={{ openVerseSelectionModal, handleChapterSelection: handleRenderContent }}
+               cta={{
+                  handleOpenVerseSelectionModal,
+                  handleChapterSelection: handleRenderContent,
+                  handleInitLoader: (init: boolean) => handleSetInitLoader(init)
+               }}
                chapterCount={chapterCount}
             />
          )}
@@ -105,8 +117,11 @@ export const ScripturePicker = ({
                verseCount={verseCount[currentSelectedChapter]}
                versionId={versionId}
                cta={{
-                  handleCloseModal: closeShowVerseMenuModal,
-                  handleVerseSelection: handleRenderContent
+                  handleCloseModal: handlecloseShowVerseMenuModal,
+                  handleVerseSelection: handleRenderContent,
+                  handleInitLoader: (init: boolean) => (
+                     console.log(init), handleSetInitLoader(init)
+                  )
                }}
             />
          )}

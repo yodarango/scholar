@@ -6,7 +6,7 @@ import client from "../../apollo-client";
 import { UPDATE_MY_AVATAR } from "../../graphql/users/profile";
 // styles
 import avatarChooserPopUpStyles from "../../styles/fragments/squares/AvatarChooserPopUp.module.css";
-import SmallLoader from "../chunks/small-loader";
+import SmallLoader from "../chunks/small_loader";
 import NotificationPopup from "../popups/notification";
 
 type avatarChooserPopupProps = {
