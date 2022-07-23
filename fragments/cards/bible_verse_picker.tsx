@@ -16,6 +16,7 @@ type TBibleVersePickerProps = {
       handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
       handleVerseSelection: (content: any) => void;
       handleInitLoader: (init: boolean) => void;
+      handleError: () => void;
    };
 };
 export const BibleVersePicker = ({
@@ -40,16 +41,19 @@ export const BibleVersePicker = ({
             }
          );
          const res = await req.json();
-         cta.handleVerseSelection(res);
 
-         // stop the loader
-         cta.handleInitLoader(false);
+         if (res) {
+            cta.handleVerseSelection(res);
 
-         //res.data ? (setGetNewVerse(res.data), setLoadingState("done")) : setLoadingState("error");
+            // stop the loader
+            cta.handleInitLoader(false);
+         } else {
+            cta.handleError();
+         }
       } catch (error) {
-         //  setLoadingState("error");
-         //  setGetNewVerse(null);
          console.log(error);
+         cta.handleInitLoader(false);
+         cta.handleError();
       }
    };
 

@@ -48,7 +48,7 @@ export const Notification = ({ title, cta, type, body, customColor }: notificatr
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
                </div>
-               <Parragraph text={body} size='small' lineHieght='.9em' />
+               <Parragraph text={body} size='small' />
             </div>
          )}
 
@@ -64,7 +64,7 @@ export const Notification = ({ title, cta, type, body, customColor }: notificatr
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
                </div>
-               <Parragraph text={body} size='small' lineHieght='.9em' />
+               <Parragraph text={body} size='small' />
             </div>
          )}
       </>

@@ -9,7 +9,6 @@ import styles from "./bible_chapter_picker.module.css";
 
 // helpers
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
-import React from "react";
 
 type TBibleChapterpickerprops = {
    versionId?: string;
@@ -20,6 +19,7 @@ type TBibleChapterpickerprops = {
       handleOpenVerseSelectionModal: (chapterId: number) => void;
       handleChapterSelection: (content: any) => void;
       handleInitLoader: (init: boolean) => void;
+      handleError: () => void;
    };
 };
 
@@ -46,16 +46,19 @@ export const BibleChapterpicker = ({
             }
          );
          const res = await req.json();
-         cta.handleChapterSelection(res);
 
-         // stop the loader
-         cta.handleInitLoader(false);
+         if (res) {
+            cta.handleChapterSelection(res);
 
-         //res.data ? (setGetNewVerse(res.data), setLoadingState("done")) : setLoadingState("error");
+            // stop the loader
+            cta.handleInitLoader(false);
+         } else {
+            cta.handleError();
+         }
       } catch (error) {
-         //  setLoadingState("error");
-         //  setGetNewVerse(null);
          console.log(error);
+         cta.handleInitLoader(false);
+         cta.handleError();
       }
    }
 

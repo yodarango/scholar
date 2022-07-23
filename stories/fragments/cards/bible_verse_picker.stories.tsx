@@ -15,7 +15,8 @@ export const APlus: ComponentStory<typeof BibleVersePicker> = () => (
       cta={{
          handleCloseModal: () => console.log("should close modal"),
          handleVerseSelection: () => console.log("makes call to the API"),
-         handleInitLoader: () => console.log("loader initialized")
+         handleInitLoader: () => console.log("loader initialized"),
+         handleError: () => console.log("something went wrong")
       }}
    />
 );

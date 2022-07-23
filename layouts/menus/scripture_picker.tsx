@@ -14,9 +14,13 @@ import { useState } from "react";
 import { BilbleBookPicker } from "../../fragments/cards/bible_book_picker";
 import { BibleChapterpicker } from "../../fragments/cards/bible_chapter_picker";
 import { BibleVersePicker } from "../../fragments/cards/bible_verse_picker";
+import { Notification } from "../../fragments/popups/notification";
 
 // styles
 import styles from "./scripture_picker.module.css";
+
+// data
+import { notificationMessages } from "../../data/notification_messages";
 
 type TBilbleBookPickerProps = {
    versionId: string;
@@ -45,6 +49,7 @@ export const ScripturePicker = ({
    const [chapterId, setchapterId] = useState<string>("");
    const [currentSelectedChapter, setcurrentSelectedChapter] = useState<number>(0);
    const [initializeLoader, setinitializeLoader] = useState<boolean>(false);
+   const [showNotificationPopup, setshowNotificationPopup] = useState<boolean>(false);
 
    // ------------ handle the selection of the book chapter by closing the modal and calling the chapter verses modal
    const handleOpenVerseSelectionModal = (chapterId: number) => {
@@ -80,6 +85,14 @@ export const ScripturePicker = ({
 
    return (
       <div className={styles.mainWrapper}>
+         {showNotificationPopup && (
+            <Notification
+               type='4'
+               title={notificationMessages.selectNewScripture.title}
+               body={notificationMessages.selectNewScripture.body}
+               cta={() => setshowNotificationPopup(false)}
+            />
+         )}
          {/* ---------------- Book ------------------ */}
          {!showVerseSelectionMenu && (
             <BilbleBookPicker
@@ -104,7 +117,8 @@ export const ScripturePicker = ({
                cta={{
                   handleOpenVerseSelectionModal,
                   handleChapterSelection: handleRenderContent,
-                  handleInitLoader: (init: boolean) => handleSetInitLoader(init)
+                  handleInitLoader: (init: boolean) => handleSetInitLoader(init),
+                  handleError: () => setshowNotificationPopup(true)
                }}
                chapterCount={chapterCount}
             />
@@ -121,7 +135,8 @@ export const ScripturePicker = ({
                   handleVerseSelection: handleRenderContent,
                   handleInitLoader: (init: boolean) => (
                      console.log(init), handleSetInitLoader(init)
-                  )
+                  ),
+                  handleError: () => setshowNotificationPopup(true)
                }}
             />
          )}

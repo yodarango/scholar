@@ -15,7 +15,8 @@ export const APlus: ComponentStory<typeof BibleChapterpicker> = () => (
          handleOpenVerseSelectionModal: (chapterId: number) =>
             console.log("verse modal should be opened", chapterId),
          handleChapterSelection: (content) => console.log(content),
-         handleInitLoader: () => console.log("loader initialized")
+         handleInitLoader: () => console.log("loader initialized"),
+         handleError: () => console.log("something went wrong")
       }}
       chapterCount={50}
    />
