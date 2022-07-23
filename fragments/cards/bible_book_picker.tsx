@@ -8,12 +8,10 @@ import { Parragraph } from "../Typography/parragraph";
 
 // styles
 import stlyes from "./bible_book_picker.module.css";
-import { BibleChapterpicker } from "./bible_chapter_picker";
 
 type TBilbleBookPickerProps = {
    imgSource: string;
    bookTitle: string;
-   bookId: string;
    chapterCount: number;
    showChapterSelectorMenu: boolean;
    cta: {

@@ -10,8 +10,11 @@ export default {
 export const APlus: ComponentStory<typeof BilbleBookPicker> = () => (
    <BilbleBookPicker
       bookTitle='Genesis'
-      bookId='GEN'
-      cta={(bookId) => console.log("chapter", bookId)}
+      showChapterSelectorMenu={false}
+      cta={{
+         handleOpenChaptermenu: (bookId) => console.log("menu should be open"),
+         handleCloseChapterMenu: () => console.log("menu should be closed")
+      }}
       chapterCount={50}
       imgSource='/images/commentaries_by_book/1.png'
    />

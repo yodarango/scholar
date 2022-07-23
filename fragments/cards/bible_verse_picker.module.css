@@ -1,15 +1,30 @@
 .mainWrapper {
+   width: 100%;
    padding: 0 var(--spacing-ml) var(--spacing-xs);
-   display: flex;
-   align-items: flex-start;
-   justify-content: flex-start;
-   flex-wrap: wrap;
    background-color: var(--secondary-color);
    border-bottom-left-radius: 2em;
    border-bottom-right-radius: 2em;
 }
 
-.chapter {
+.close {
+   position: absolute;
+   top: var(--spacing-m);
+   right: var(--spacing-m);
+}
+
+.title {
+   margin: var(--spacing-m) 0 var(--spacing-l);
+}
+
+.verseWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+}
+
+.verse {
    width: 20%;
    display: flex;
    align-items: center;
@@ -18,7 +33,7 @@
    border-radius: 0.9em;
 }
 
-.chapter:hover {
+.verse:hover {
    background-color: var(--third-color);
    cursor: pointer;
 }

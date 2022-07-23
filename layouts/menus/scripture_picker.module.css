@@ -1,14 +1,14 @@
 .mainWrapper {
-    width: 100%; 
-    box-shadow: var(--shadow-s);
-    border-radius: 2em;
-    overflow: hidden;
-    background-color: var(--secondary-color);
+   width: 100%;
+   box-shadow: var(--shadow-s);
+   border-radius: 2em;
+   overflow: hidden;
+   background-color: var(--secondary-color);
+   overflow: hidden;
 }
 
-.mainWrapper:hover  {
-    transition: 300ms transform ease;
-    cursor: pointer;
-    transform: scale(.98);
-    box-shadow: none;
+.mainWrapper:hover {
+   transition: 300ms transform ease;
+   cursor: pointer;
+   box-shadow: none;
 }

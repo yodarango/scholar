@@ -9,8 +9,13 @@ export default {
 
 export const APlus: ComponentStory<typeof BibleChapterpicker> = () => (
    <BibleChapterpicker
+      stopAtChapter={false}
       bookId='GEN'
-      cta={(chapterId) => console.log("chapter", chapterId)}
+      cta={{
+         openVerseSelectionModal: (chapterId: number) =>
+            console.log("verse modal should be opened", chapterId),
+         handleChapterSelection: (content) => console.log(content)
+      }}
       chapterCount={50}
    />
 );
