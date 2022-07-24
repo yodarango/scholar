@@ -20,29 +20,34 @@ import { Notification } from "../../fragments/popups/notification";
 import styles from "./scripture_picker.module.css";
 
 // data
+import { TBible } from "../../data/bible";
 import { notificationMessages } from "../../data/notification_messages";
 
 type TBilbleBookPickerProps = {
+   bible: TBible;
    versionId: string;
-   imgSource: string;
-   bookTitle: string;
-   bookId: string;
-   chapterCount: number;
-   verseCount: [number];
+   // versionId: string;
+   // imgSource: string;
+   // bookTitle: string;
+   // bookId: string;
+   // chapterCount: number;
+   // verseCount: [number];
    stopAtChapter: boolean;
    cta: (verseId: string) => void;
 };
 
 export const ScripturePicker = ({
-   versionId,
-   imgSource,
-   bookTitle,
-   cta,
-   bookId,
-   chapterCount,
+   bible,
    stopAtChapter,
-   verseCount
-}: TBilbleBookPickerProps) => {
+   cta,
+   versionId
+}: //
+// imgSource,
+// bookTitle,
+// bookId,
+// chapterCount,
+// verseCount
+TBilbleBookPickerProps) => {
    // ------------------------ states ------------------------------
    const [showChapterSelectorMenu, setshowChapterSelectorMenu] = useState(false);
    const [showVerseSelectionMenu, setshowVerseSelectionMenu] = useState(false);
@@ -54,7 +59,7 @@ export const ScripturePicker = ({
    // ------------ handle the selection of the book chapter by closing the modal and calling the chapter verses modal
    const handleOpenVerseSelectionModal = (chapterId: number) => {
       // update chapterId before rendering the BibleVersePicker
-      setchapterId(`${bookId}.${chapterId}`);
+      setchapterId(`${bible.bookId}.${chapterId}`);
 
       // update the current selected chatpter to pass it down to the BibleVersePicker
       // -1 since it is going to be passed to call an arrray item
@@ -97,9 +102,9 @@ export const ScripturePicker = ({
          {!showVerseSelectionMenu && (
             <BilbleBookPicker
                showChapterSelectorMenu={showChapterSelectorMenu}
-               chapterCount={chapterCount}
-               bookTitle={bookTitle}
-               imgSource={imgSource}
+               chapterCount={bible.chapters}
+               bookTitle={bible.bookTitle}
+               imgSource={bible.image}
                initLoader={initializeLoader}
                cta={{
                   handleCloseChapterMenu: () => setshowChapterSelectorMenu(false),
@@ -113,14 +118,14 @@ export const ScripturePicker = ({
             <BibleChapterpicker
                versionId={versionId}
                stopAtChapter={stopAtChapter}
-               bookId={bookId}
+               bookId={bible.bookId}
                cta={{
                   handleOpenVerseSelectionModal,
                   handleChapterSelection: handleRenderContent,
                   handleInitLoader: (init: boolean) => handleSetInitLoader(init),
                   handleError: () => setshowNotificationPopup(true)
                }}
-               chapterCount={chapterCount}
+               chapterCount={bible.chapters}
             />
          )}
 
@@ -128,7 +133,7 @@ export const ScripturePicker = ({
          {showVerseSelectionMenu && (
             <BibleVersePicker
                chapterId={chapterId}
-               verseCount={verseCount[currentSelectedChapter]}
+               verseCount={bible.verses[currentSelectedChapter]}
                versionId={versionId}
                cta={{
                   handleCloseModal: handlecloseShowVerseMenuModal,

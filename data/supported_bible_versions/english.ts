@@ -1,4 +1,4 @@
-import {TVersion} from "./version_type";
+import { TVersion } from "./version_type";
 
 export const english: TVersion[] = [
    { name: "American Standard Version", id: "685d1470fe4d5c3b-01", abbreviation: "ASV" },

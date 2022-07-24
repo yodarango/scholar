@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { PostRating } from "../../../fragments/chunks/post_rating";
 
 export default {
-   title: "fragments/chunks/User Rating",
+   title: "fragments/chunks/Post Rating",
    component: PostRating
 } as ComponentMeta<typeof PostRating>;
 

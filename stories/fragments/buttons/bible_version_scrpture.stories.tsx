@@ -9,7 +9,8 @@ export default {
 
 export const EnglishESV: ComponentStory<typeof BibleVersionScripture> = () => (
    <BibleVersionScripture
-      version='ESV'
+      versionName='ESV'
+      versionId='de4e12af7f28f599-02'
       scriptureRef='1 Thessalonians 5:15'
       bibleLanguage='english'
    />
@@ -17,7 +18,8 @@ export const EnglishESV: ComponentStory<typeof BibleVersionScripture> = () => (
 
 export const SpanishRV09: ComponentStory<typeof BibleVersionScripture> = () => (
    <BibleVersionScripture
-      version='RV09'
+      versionName='RV09'
+      versionId='592420522e16049f-01'
       scriptureRef='1 Thessalonians 5:15'
       bibleLanguage='spanish'
    />

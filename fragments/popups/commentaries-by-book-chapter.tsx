@@ -8,7 +8,7 @@ import CommentaryByChapter from "../chunks/commentary-profile/commentaries-by-ch
 import commentaryByBookTempStyle from "../../styles/fragments/popup-content/CommentariesByBook.module.css";
 
 // data
-import { bible, Tbible } from "../../data/bible-books-w-chapters";
+import { bible, Tbible } from "../../data/bible";
 
 type commentariesByChapterTempProps = {
    bookId: string;

@@ -5,6 +5,6 @@
    justify-content: flex-start;
 }
 
-.mainWrapper div:nth-child(1) {
-   margin-right: var(--spacing-xs);
+.mainWrapper div:nth-child(2) {
+   margin-left: var(--spacing-xs);
 }

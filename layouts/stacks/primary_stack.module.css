@@ -1,0 +1,48 @@
+.mainWrapper {
+   width: 100%;
+   min-height: 100vh;
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 16;
+}
+
+.gradientBkg {
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 1;
+   height: 10rem;
+   width: 100%;
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.title {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-top: var(--spacing-l);
+   margin-left: var(--spacing-ml);
+}
+
+.icon {
+   margin-left: var(--spacing-xs);
+}
+
+.subWrapper {
+   width: 100%;
+   z-index: 2;
+   min-height: calc(100vh - 7.5rem);
+   position: fixed;
+   top: 7.5rem;
+   background-color: var(--primary-color);
+   border-top-left-radius: 2.5em;
+   border-top-right-radius: 2.5em;
+}
+
+.close {
+   z-index: 2;
+   position: fixed;
+   top: var(--spacing-ml);
+   right: var(--spacing-ml);
+}

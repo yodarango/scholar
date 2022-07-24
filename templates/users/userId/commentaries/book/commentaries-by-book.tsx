@@ -20,7 +20,7 @@ import commentariesByBookStyles from "../../../../../styles/templates/users/user
 import cardsLazyLoadingStyles from "../../../../../styles/layouts/CardsLazyLoading.module.css";
 
 // data
-import { bible, Tbible } from "../../../../../data/bible-books-w-chapters";
+import { bible, Tbible } from "../../../../../data/bible";
 
 // helpers
 import { Tuser } from "../../../../../pages/users/[userId]";
