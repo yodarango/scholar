@@ -2,6 +2,7 @@
    position: fixed;
    width: 90%;
    max-width: var(--max-width-main-wrapper-mobile);
+   max-height: 40rem;
    top: var(--spacing-m);
    bottom: auto;
    left: 0;
@@ -10,6 +11,7 @@
    z-index: 17;
    padding: var(--spacing-s) var(--spacing-s) var(--spacing-l);
    border-radius: 2em;
+   overflow-y: scroll;
 }
 
 .info {

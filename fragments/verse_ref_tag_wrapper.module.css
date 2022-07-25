@@ -1,0 +1,17 @@
+.mainWrapper{
+    width: 100%;
+}
+
+.tagsWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tag {
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-left: var(--spacing-xs);
+}

@@ -1,0 +1,33 @@
+.mainWrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs) var(--spacing-xxs);
+    background-color: var(--secondary-color);
+    border-radius: 2em;
+    min-width: 8rem;
+}
+
+.mainWrapper:hover {
+    transform: scale(1.1);
+    transition: transform 300ms ease;
+    cursor: pointer;
+}
+
+.loader{
+    width: 3rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.remove{
+    margin-left: var(--spacing-xs);
+}
+
+
+/* ------------ Bible API sets a class o p in the text which adds margin. This gets rid of it ---------- */
+.data p {
+    margin: 0 !important;
+}
