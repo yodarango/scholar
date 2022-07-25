@@ -20,3 +20,7 @@
     top: var(--spacing-m);
     right: var(--spacing-m);
 }
+
+.title{
+  margin-bottom: var(--spacing-m);
+}

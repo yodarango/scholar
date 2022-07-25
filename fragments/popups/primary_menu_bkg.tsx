@@ -1,5 +1,6 @@
 // components
 import { CloseContent } from "../buttons/close_content";
+import { Header } from "../Typography/header";
 
 // styles
 import styles from "./primary_menu_bkg.module.css";
@@ -7,6 +8,7 @@ import styles from "./primary_menu_bkg.module.css";
 type TPrimaryMenuBkgProps = {
    content: any;
    color: string;
+   title: string;
    cta: React.MouseEventHandler<HTMLDivElement>;
    customColors?: {
       light: string;
@@ -14,7 +16,13 @@ type TPrimaryMenuBkgProps = {
    };
 };
 
-export const PrimaryMenuBkg = ({ content, color, customColors, cta }: TPrimaryMenuBkgProps) => {
+export const PrimaryMenuBkg = ({
+   content,
+   color,
+   customColors,
+   cta,
+   title
+}: TPrimaryMenuBkgProps) => {
    // determine the background color
    let bkgColor: string = "";
 
@@ -41,6 +49,11 @@ export const PrimaryMenuBkg = ({ content, color, customColors, cta }: TPrimaryMe
          <div className={styles.close}>
             <CloseContent cta={cta} size='2.5rem' />
          </div>
+         {title && (
+            <div className={styles.title}>
+               <Header size='main' type={3} text={title} />{" "}
+            </div>
+         )}
          <div className={styles.contentWrapper}>{content}</div>
       </div>
    );

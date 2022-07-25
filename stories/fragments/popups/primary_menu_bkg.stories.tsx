@@ -10,6 +10,7 @@ export default {
 
 export const Primary: ComponentStory<typeof PrimaryMenuBkg> = () => (
    <PrimaryMenuBkg
+      title='This is my title'
       cta={() => console.log("...")}
       color='1'
       content={
@@ -25,6 +26,7 @@ export const Primary: ComponentStory<typeof PrimaryMenuBkg> = () => (
 
 export const Secondary: ComponentStory<typeof PrimaryMenuBkg> = () => (
    <PrimaryMenuBkg
+      title='This is my title'
       cta={() => console.log("...")}
       color='2'
       content={
@@ -40,6 +42,7 @@ export const Secondary: ComponentStory<typeof PrimaryMenuBkg> = () => (
 
 export const Quiet: ComponentStory<typeof PrimaryMenuBkg> = () => (
    <PrimaryMenuBkg
+      title='This is my title'
       cta={() => console.log("...")}
       color='3'
       content={

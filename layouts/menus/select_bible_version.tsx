@@ -49,6 +49,7 @@ export const SelectBibleVersion = ({ cta, currLanguage }: TSelectBibleVersionpro
          <PrimaryMenuBkg
             color='3'
             cta={cta.handleCloseModal}
+            title='Select version'
             content={versions.map((item: TVersion, index) => (
                <div className={styles.menuOption} key={item.id}>
                   <MenuPrimaryOption

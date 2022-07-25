@@ -29,6 +29,7 @@ export const SelectBibleLanguage = ({ cta }: TSelectBibleLanguageprops) => {
    return (
       <>
          <PrimaryMenuBkg
+            title='Select language'
             content={availableLanuages.map((item: TavailableLanuages) => (
                <div className={styles.menuOption} key={item.id}>
                   <MenuPrimaryOption
