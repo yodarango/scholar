@@ -1,0 +1,16 @@
+.mainWrapper{
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: flex-start;
+}
+
+.ellipsis {
+align-self: flex-end;
+}
+
+.ellipsis:hover {
+    transform: scale(1.1);
+    transition: transform 300ms ease;
+    cursor: pointer;
+}
