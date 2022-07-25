@@ -1,5 +1,7 @@
 .mainWrapper {
-   width: 100%;
+   /* width is 98% to avoid croping the shadow on the card when the component is wrapped by a parent */
+   width: 98%;
+   margin: 0 auto;
    box-shadow: var(--shadow-s);
    border-radius: 2em;
    overflow: hidden;

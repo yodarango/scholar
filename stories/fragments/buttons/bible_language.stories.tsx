@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof BibleLanguage>;
 
 export const Default: ComponentStory<typeof BibleLanguage> = () => (
-   <BibleLanguage cta={(item) => console.log("language selected", item)} />
+   <BibleLanguage cta={(item) => console.log("language selected", item)} language='🇺🇸' />
 );

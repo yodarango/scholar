@@ -16,8 +16,8 @@ type TBibleBooksWrapperProps = {
 export const BibleBooksWrapper = ({ versionId, cta }: TBibleBooksWrapperProps) => {
    return (
       <div className={styles.mainWrapper}>
-         {Bible.map((book: TBible) => (
-            <div className={styles.book}>
+         {Bible.map((book: TBible, index) => (
+            <div className={styles.book} key={index}>
                <ScripturePicker bible={book} stopAtChapter={true} versionId={versionId} cta={cta} />
             </div>
          ))}

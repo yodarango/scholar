@@ -26,7 +26,9 @@ export const PrimaryStack = ({ title, content, cta, icon }: TPrimaryStackprops) 
          <div className={styles.close}>
             <CloseContent cta={cta} />
          </div>
-         <div className={styles.subWrapper}>{content}</div>
+         <div className={styles.subWrapper}>
+            <div className={styles.contentHolder}>{content}</div>
+         </div>
       </div>
    );
 };

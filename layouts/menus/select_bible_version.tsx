@@ -5,7 +5,7 @@ import { MenuPrimaryOption } from "../../fragments/buttons/menu_primary_option";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
 // styles
-import styles from "./menu_global.module.css";
+import styles from "./select_menu_global.module.css";
 
 // data
 import { TVersion } from "../../data/supported_bible_versions/version_type";

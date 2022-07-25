@@ -4,6 +4,8 @@ import "../styles/globals_new.css";
 
 // use optimized prop for Next.js images in storybook
 import * as NextImage from "next/image";
+// router from nextJS
+import { RouterContext } from "next/dist/shared/lib/router-context";
 
 const OriginalNextImage = NextImage.default;
 
@@ -20,5 +22,8 @@ export const parameters = {
          color: /(background|color)$/i,
          date: /Date$/
       }
+   },
+   nextRouter: {
+      Provider: RouterContext.Provider
    }
 };

@@ -9,19 +9,20 @@ import { SelectBibleLanguage, TavailableLanuages } from "../../layouts/menus/sel
 import styles from "./bible_language.module.css";
 
 type TBibleVersionLanguageProps = {
-   cta: (item: TavailableLanuages) => void;
+   language: string;
+   cta: (item: string) => void;
 };
 
-export const BibleLanguage = ({ cta }: TBibleVersionLanguageProps) => {
+export const BibleLanguage = ({ cta, language }: TBibleVersionLanguageProps) => {
    // -------------------- states -----------
    const [showMenu, setshowMenu] = useState(false);
-   const [currentlangIcon, setcurrentLangIcon] = useState("🇺🇸");
+   const [currentlangIcon, setcurrentLangIcon] = useState(language);
 
    // chnage the icon on the button and send the informatin to the parent to handle selection
    const handleLangSeclection = (item: TavailableLanuages) => {
       setcurrentLangIcon(item.icon);
       setshowMenu(false);
-      cta(item);
+      cta(item.id);
    };
 
    return (

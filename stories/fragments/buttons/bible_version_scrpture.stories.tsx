@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BibleVersionScripture } from "../../../fragments/buttons/bible_version_scrpture";
+import { BibleVersionScripture } from "../../../fragments/buttons/bible_version_scripture";
 
 export default {
    title: "fragments/buttons/Choose Bible Version Or Scripture",
@@ -9,18 +9,24 @@ export default {
 
 export const EnglishESV: ComponentStory<typeof BibleVersionScripture> = () => (
    <BibleVersionScripture
-      versionName='ESV'
-      versionId='de4e12af7f28f599-02'
-      scriptureRef='1 Thessalonians 5:15'
-      bibleLanguage='english'
+      cta={(content) => console.log(content)}
+      BiblePreferences={{
+         versionName: "ESV",
+         versionId: "de4e12af7f28f599-02",
+         scriptureRef: "1 Thessalonians 5:15",
+         bibleLanguage: "english"
+      }}
    />
 );
 
 export const SpanishRV09: ComponentStory<typeof BibleVersionScripture> = () => (
    <BibleVersionScripture
-      versionName='RV09'
-      versionId='592420522e16049f-01'
-      scriptureRef='1 Thessalonians 5:15'
-      bibleLanguage='spanish'
+      cta={(content) => console.log(content)}
+      BiblePreferences={{
+         versionName: "RV09",
+         versionId: "592420522e16049f-01",
+         scriptureRef: "1 Thessalonians 5:15",
+         bibleLanguage: "spanish"
+      }}
    />
 );

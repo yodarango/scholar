@@ -4,11 +4,12 @@
    background-color: var(--secondary-color);
    border-bottom-left-radius: 2em;
    border-bottom-right-radius: 2em;
+   position: relative;
 }
 
 .close {
    position: absolute;
-   top: var(--spacing-m);
+   top:  0;
    right: var(--spacing-m);
 }
 
