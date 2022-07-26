@@ -48,8 +48,8 @@ export const SelectReadingACtions = ({ cta }: TSelectPostRatingMenuProps) => {
             content={menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   <MenuPrimaryOption
-                     textType='icon'
-                     iconType='text'
+                     textType='text'
+                     iconType='icon'
                      optionProperties={{
                         icon: <Icon name={option.icon} size='2rem' color={option.color} />,
                         iconShadow: option.color,
