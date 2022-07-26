@@ -13,8 +13,9 @@ type TMenuPrimaryOptionProps = {
    textType: string;
    optionProperties: {
       icon: string | JSX.Element;
-      iconShadow: string;
       text: string | JSX.Element;
+      iconShadow?: string;
+      descColor?: string;
    };
    cta: React.MouseEventHandler<HTMLDivElement>;
 };
@@ -61,6 +62,7 @@ export const MenuPrimaryOption = ({
                   text={optionProperties.icon}
                   lineHieght='.9em'
                   bold={true}
+                  color={optionProperties.iconShadow}
                />
             </div>
          )}
@@ -76,7 +78,16 @@ export const MenuPrimaryOption = ({
          {textType === "text" && (
             <div className={styles.text}>
                <div className={styles.textText}>
-                  <Parragraph size='main' text={optionProperties.text} />
+                  {optionProperties.descColor && (
+                     <Parragraph
+                        size='main'
+                        text={optionProperties.text}
+                        color={optionProperties.descColor}
+                     />
+                  )}
+                  {!optionProperties.descColor && (
+                     <Parragraph size='main' text={optionProperties.text} />
+                  )}
                </div>
             </div>
          )}

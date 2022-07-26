@@ -1,3 +1,5 @@
+// if the cta prop is not passed, then the component assumes an "informative only" 0role
+// which wil ony bring up the inofmation popup and not opass the value to the parent
 import { useState } from "react";
 
 // comps
@@ -12,7 +14,7 @@ import { categoryMeta, TcategoryMeta } from "../../data/category_meta";
 type TCategoryTagprops = {
    id: string;
    customSize?: boolean;
-   cta?: React.MouseEventHandler<HTMLDivElement>;
+   cta?: (id: string) => void;
 };
 
 export const CategoryTag = ({ id, customSize, cta }: TCategoryTagprops) => {
@@ -39,7 +41,7 @@ export const CategoryTag = ({ id, customSize, cta }: TCategoryTagprops) => {
    return (
       <>
          {isPopupOpen}
-         <div onClick={!cta ? () => handleOpenNotificationPopup() : cta}>
+         <div onClick={!cta ? () => handleOpenNotificationPopup() : () => cta(id)}>
             {id === "BLK" && (
                <div
                   className={`${styles.mainWrapper} ${

@@ -8,7 +8,7 @@ import styles from "./primary_menu_bkg.module.css";
 type TPrimaryMenuBkgProps = {
    content: any;
    color: string;
-   title: string;
+   title?: string;
    cta: React.MouseEventHandler<HTMLDivElement>;
    customColors?: {
       light: string;

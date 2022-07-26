@@ -1,5 +1,8 @@
+// comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_primary_option";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
+
+// styles
 import styles from "./select_menu_global.module.css";
 
 export type TSelectPostRatingMenuProps = {
@@ -14,74 +17,74 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
          rating: 100,
          letter: "A+",
          description: "97 - 100",
-         color: ""
+         color: "#75d975"
       },
       {
          rating: 97,
          letter: "A",
          description: "94 - 97",
-         color: ""
+         color: "#75d975"
       },
       {
          rating: 94,
          letter: "A-",
          description: "90 - 94",
-         color: ""
+         color: "#75d975"
       },
       {
          rating: 90,
          letter: "B+",
          description: "87 - 90",
-         color: ""
+         color: "#b3eeb3"
       },
       {
          rating: 87,
          letter: "B",
          description: "83 - 87",
-         color: ""
+         color: "#b3eeb3"
       },
       {
          rating: 83,
          letter: "B-",
          description: "80 - 83",
-         color: ""
+         color: "#b3eeb3"
       },
       {
          rating: 80,
          letter: "C+",
          description: "77 - 80",
-         color: ""
+         color: "#ebcf5e"
       },
       {
          rating: 77,
          letter: "C",
          description: "73 - 77",
-         color: ""
+         color: "#ebcf5e"
       },
       {
          rating: 73,
          letter: "C-",
          description: "70 - 73",
-         color: ""
+         color: "#ebcf5e"
       },
       {
          rating: 70,
          letter: "D+",
          description: "67 - 70",
-         color: ""
+         color: "#f4745e"
       },
       {
          rating: 67,
          letter: "D",
          description: "60 - 67",
-         color: ""
+         color: "#f4745e"
       },
 
       {
          rating: 55,
          letter: "F",
          description: "Less than 60",
-         color: ""
+         color: "#db4c42"
       }
    ];
    return (
@@ -91,16 +94,18 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
             color='1'
             cta={cta.handleCloseModal}
             content={menuOptions.map((option, index) => (
-               <MenuPrimaryOption
-                  textType='text'
-                  iconType='text'
-                  optionProperties={{
-                     icon: option.letter,
-                     iconShadow: option.color,
-                     text: option.description
-                  }}
-                  cta={() => console.log(option.rating)}
-               />
+               <div className={styles.menuOption} key={index}>
+                  <MenuPrimaryOption
+                     textType='text'
+                     iconType='text'
+                     optionProperties={{
+                        icon: option.letter,
+                        iconShadow: option.color,
+                        text: option.description
+                     }}
+                     cta={() => console.log(option.rating)}
+                  />
+               </div>
             ))}
          />
       </>

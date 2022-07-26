@@ -5,7 +5,7 @@ import { useState } from "react";
 import avatarChoserStyles from "../../styles/fragments/popup-content/AvatarChooser.module.css";
 
 // helpers
-import { sortedAvatar } from "../../helpers/content/sortedAvatars";
+import { sortedAvatar } from "../../data/available_avatars";
 import AvatarChooserPopup from "../squares/avatar-chooser-popup";
 
 type avatarChooserProps = {
@@ -181,9 +181,8 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
    };
 
    // -------------------------- bring up the avatar pop up --------------
-   const [avatarChooserPopUpState, setAvatarChooserPopUpState] = useState<boolean | JSX.Element>(
-      false
-   );
+   const [avatarChooserPopUpState, setAvatarChooserPopUpState] =
+      useState<boolean | JSX.Element>(false);
    const bringUpAvatarChooserPopUp = (avatarLink: string) => {
       setAvatarChooserPopUpState(
          <AvatarChooserPopup image={avatarLink} closePopUp={closeAvatarChooser} />

@@ -1,18 +1,12 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SelectBibleVersion } from "../../../layouts/menus/select_bible_version";
+import { SelectPostRatingMenu } from "../../../layouts/menus/select_post_rating";
 
 export default {
-   title: "layouts/menus/Select Bible Versions",
-   component: SelectBibleVersion
-} as ComponentMeta<typeof SelectBibleVersion>;
+   title: "layouts/menus/Select Post Rating",
+   component: SelectPostRatingMenu
+} as ComponentMeta<typeof SelectPostRatingMenu>;
 
-export const Default: ComponentStory<typeof SelectBibleVersion> = () => (
-   <SelectBibleVersion
-      currLanguage='english'
-      cta={{
-         handleSelection: (item) => console.log("console.log", item),
-         handleCloseModal: () => console.log("modal close")
-      }}
-   />
+export const Default: ComponentStory<typeof SelectPostRatingMenu> = () => (
+   <SelectPostRatingMenu cta={{ handleCloseModal: () => console.log("modal should close") }} />
 );

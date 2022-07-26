@@ -1172,7 +1172,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
-               <path d='M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z' />
+               <path d='M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z' fill={color} />
             </svg>
          );
          break;

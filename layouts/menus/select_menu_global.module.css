@@ -1,3 +1,8 @@
 .menuOption{
     margin-bottom: var(--spacing-m);
 }
+
+.menuOptionScroll{
+    width: 100%;
+    overflow-x: scroll;
+}
