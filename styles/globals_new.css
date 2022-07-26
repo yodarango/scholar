@@ -238,6 +238,131 @@ a:active {
 .shadow-s {
    box-shadow: 4px 4px 4px var(--shadow-color);
 }
+
+/*  -------------- margins --------------- */
+.m-xxs{
+   margin: var(--spacing-xxs);
+}
+
+.m-xs{
+   margin: var(--spacing-xs);
+}
+
+.m-s{
+   margin: var(--spacing-s);
+}
+
+.m-m{
+   margin: var(--spacing-m);
+}
+
+.m-ml{
+   margin: var(--spacing-ml);
+}
+
+.m-l{
+   margin: var(--spacing-l);
+}
+
+/*  -------------- margin top --------------- */
+.mt-xxs{
+   margin-top: var(--spacing-xxs);
+}
+
+.mt-xs{
+   margin-top: var(--spacing-xs);
+}
+
+.mt-s{
+   margin-top: var(--spacing-s);
+}
+
+.mt-m{
+   margin-top: var(--spacing-m);
+}
+
+.mt-ml{
+   margin-top: var(--spacing-ml);
+}
+
+.mt-l{
+   margin-top: var(--spacing-l);
+}
+
+/*  -------------- margin bottom --------------- */
+.mb-xxs{
+   margin-bottom: var(--spacing-xxs);
+}
+
+.mb-xs{
+   margin-bottom: var(--spacing-xs);
+}
+
+.mb-s{
+   margin-bottom: var(--spacing-s);
+}
+
+.mb-m{
+   margin-bottom: var(--spacing-m);
+}
+
+.mb-ml{
+   margin-bottom: var(--spacing-ml);
+}
+
+.mb-l{
+   margin-bottom: var(--spacing-ml);
+}
+
+/*  -------------- margin left --------------- */
+.ml-xxs{
+   margin-left: var(--spacing-xxs);
+}
+
+.ml-xs{
+   margin-left: var(--spacing-xs);
+}
+
+.ml-s{
+   margin-left: var(--spacing-s);
+}
+
+.ml-m{
+   margin-left: var(--spacing-m);
+}
+
+.ml-ml{
+   margin-left: var(--spacing-ml);
+}
+
+.ml-l{
+   margin-left: var(--spacing-l);
+}
+
+/*  -------------- margin right --------------- */
+.mr-xxs{
+   margin-right: var(--spacing-xxs);
+}
+
+.mr-xs{
+   margin-right: var(--spacing-xs);
+}
+
+.mr-s{
+   margin-right: var(--spacing-s);
+}
+
+.mr-m{
+   margin-right: var(--spacing-m);
+}
+
+.mr-ml{
+   margin-right: var(--spacing-ml);
+}
+
+.mr-l{
+   margin-right: var(--spacing-l);
+}
 /* --------------- ScripturesHTML Styles for popup references */
 
 .c /*chapter*/ {

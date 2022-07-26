@@ -243,6 +243,29 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
          );
          break;
 
+      case "chat":
+         icon = (
+            <svg viewBox='0 0 512 512'>
+               <path
+                  d='M431 320.6c-1-3.6 1.2-8.6 3.3-12.2a33.68 33.68 0 012.1-3.1A162 162 0 00464 215c.3-92.2-77.5-167-173.7-167-83.9 0-153.9 57.1-170.3 132.9a160.7 160.7 0 00-3.7 34.2c0 92.3 74.8 169.1 171 169.1 15.3 0 35.9-4.6 47.2-7.7s22.5-7.2 25.4-8.3a26.44 26.44 0 019.3-1.7 26 26 0 0110.1 2l56.7 20.1a13.52 13.52 0 003.9 1 8 8 0 008-8 12.85 12.85 0 00-.5-2.7z'
+                  fill='none'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeMiterlimit='10'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+               <path
+                  d='M66.46 232a146.23 146.23 0 006.39 152.67c2.31 3.49 3.61 6.19 3.21 8s-11.93 61.87-11.93 61.87a8 8 0 002.71 7.68A8.17 8.17 0 0072 464a7.26 7.26 0 002.91-.6l56.21-22a15.7 15.7 0 0112 .2c18.94 7.38 39.88 12 60.83 12A159.21 159.21 0 00284 432.11'
+                  fill='none'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeMiterlimit='10'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+            </svg>
+         );
+         break;
+
       case "checkmark":
          icon = (
             <svg viewBox='0 0 512 512'>
@@ -516,6 +539,17 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
          );
          break;
 
+      case "highlight":
+         icon = (
+            <svg fill={color}>
+               <path
+                  d='M4 48v-6.05h40V48Zm4.1-11.35V30l18.65-18.65L33.4 18 14.75 36.65Zm3-3h2.25L29.1 17.9l-2.25-2.25L11.1 31.4ZM35.6 15.8l-6.65-6.65 4.2-4.2q.55-.65 1.25-.675.7-.025 1.4.675l3.9 3.9q.65.65.65 1.375T39.8 11.6ZM11.1 33.65Z'
+                  fill={color}
+               />
+            </svg>
+         );
+         break;
+
       case "halfStar":
          icon = (
             <svg fill={color} viewBox='0 0 16 16'>
@@ -552,6 +586,42 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                />
                <path
                   d='M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69'
+                  fill='none'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+            </svg>
+         );
+         break;
+
+      case "image":
+         icon = (
+            <svg viewBox='0 0 512 512'>
+               <rect
+                  x='48'
+                  y='80'
+                  width='416'
+                  height='352'
+                  rx='48'
+                  ry='48'
+                  fill='none'
+                  stroke={color}
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+               <circle
+                  cx='336'
+                  cy='176'
+                  r='32'
+                  fill='none'
+                  stroke={color}
+                  strokeMiterlimit='10'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+               <path
+                  d='M304 335.79l-90.66-90.49a32 32 0 00-43.87-1.3L48 352M224 432l123.34-123.34a32 32 0 0143.11-2L464 368'
                   fill='none'
                   stroke={color}
                   strokeLinecap='round'
@@ -1059,6 +1129,18 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
          );
          break;
 
+      case "textBody":
+         icon = (
+            <svg fill={color} viewBox='0 0 16 16'>
+               <path
+                  fillRule='evenodd'
+                  fill={color}
+                  d='M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z'
+               />
+            </svg>
+         );
+         break;
+
       case "think":
          icon = (
             <svg stroke={color}>
@@ -1067,9 +1149,9 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
          );
          break;
 
-      case "though":
+      case "thought":
          icon = (
-            <svg>
+            <svg viewBox=' 0 0 16 16'>
                <path
                   d='M431 320.6c-1-3.6 1.2-8.6 3.3-12.2a33.68 33.68 0 012.1-3.1A162 162 0 00464 215c.3-92.2-77.5-167-173.7-167-83.9 0-153.9 57.1-170.3 132.9a160.7 160.7 0 00-3.7 34.2c0 92.3 74.8 169.1 171 169.1 15.3 0 35.9-4.6 47.2-7.7s22.5-7.2 25.4-8.3a26.44 26.44 0 019.3-1.7 26 26 0 0110.1 2l56.7 20.1a13.52 13.52 0 003.9 1 8 8 0 008-8 12.85 12.85 0 00-.5-2.7z'
                   fill='none'
