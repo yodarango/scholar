@@ -120,7 +120,10 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                   d='M240 128h64M240 192h64M112 256h192M112 320h192M112 384h192'
                />
-               <path d='M176 208h-64a16 16 0 01-16-16v-64a16 16 0 0116-16h64a16 16 0 0116 16v64a16 16 0 01-16 16z' />
+               <path
+                  d='M176 208h-64a16 16 0 01-16-16v-64a16 16 0 0116-16h64a16 16 0 0116 16v64a16 16 0 01-16 16z'
+                  fill={color}
+               />
             </svg>
          );
          break;
@@ -154,7 +157,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                viewBox='0 0 24 24'
                fill='none'
                stroke={color}
-               strokeWidth={strokeWidth ? strokeWidth : "32"}
+               strokeWidth={strokeWidth ? strokeWidth : "2"}
                strokeLinecap='round'
                strokeLinejoin='round'>
                <path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'></path>
@@ -669,7 +672,7 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
                viewBox='0 0 24 24'
                fill='none'
                stroke={color}
-               strokeWidth={strokeWidth ? strokeWidth : "32"}
+               strokeWidth={strokeWidth ? strokeWidth : "2"}
                strokeLinecap='round'
                strokeLinejoin='round'>
                <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path>
