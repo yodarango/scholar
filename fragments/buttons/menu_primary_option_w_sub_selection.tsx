@@ -9,6 +9,7 @@ import { Parragraph } from "../Typography/parragraph";
 
 // styles
 import styles from "./menu_primary_option_w_sub_selection.module.css";
+import { Icon } from "../chunks/icons";
 
 type TMenuPrimaryOptionWithSubSelectionProps = {
    iconType: string;
@@ -67,12 +68,36 @@ export const MenuPrimaryOptionWithSubSelection = ({
             </div>
          )}
 
-         {/* --------------- pass custom selections ---------------- */}
+         {/* --------------- pass custom selections: text type---------------- */}
          {showSubSelectionOptions && type === "2" && (
             <div className={styles.subOptionsWrapperCustom}>
                {customSubSelections?.map((selection, index) => (
                   <div onClick={() => cta(selection.value)} key={index}>
                      <Parragraph text={selection.title} size='main' bold={true} />
+                  </div>
+               ))}
+            </div>
+         )}
+
+         {/* --------------- pass custom selections: fill type ---------------- */}
+         {showSubSelectionOptions && type === "3" && (
+            <div className={styles.subOptionsWrapperCustom}>
+               {customSubSelections?.map((selection, index) => (
+                  <div onClick={() => cta(selection.value)} key={index}>
+                     <div
+                        className={styles.customOptionFilled}
+                        style={{ backgroundColor: selection.title }}></div>
+                  </div>
+               ))}
+            </div>
+         )}
+
+         {/* --------------- pass custom selections: icon type ---------------- */}
+         {showSubSelectionOptions && type === "4" && (
+            <div className={styles.subOptionsWrapperCustom}>
+               {customSubSelections?.map((selection, index) => (
+                  <div onClick={() => cta(selection.value)} key={index}>
+                     <Icon name={selection.title} size='2.5rem' color='#F1EAFF' />
                   </div>
                ))}
             </div>

@@ -35,3 +35,14 @@
     text-decoration: underline;
     transform: scale(1.1);
 }
+
+ .customOptionFilled{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: .7em;
+}
+
+.subOptionsWrapperCustom .customOptionFilled:hover {
+    box-shadow: .2rem .2rem .3rem currentColor;
+    transform: scale(.8);
+}

@@ -45,6 +45,7 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
    return (
       <>
          <PrimaryMenuBkg
+            title='Create content'
             color='2'
             cta={cta.handleCloseModal}
             content={menuOptions.map((option, index) => (
