@@ -9,7 +9,7 @@ import React, { useState } from "react";
 
 // components
 import TextEditor from "../text-editor";
-import FormattingRules from "../buttons/formatting-rules";
+import FormattingRules from "../text_editor_formating";
 
 // styles
 import popupNewThought from "../../styles/layouts/PopupNewThought.module.css";

@@ -1,0 +1,22 @@
+
+ .mainWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    width: 100%;
+    border-bottom: .3rem solid var(--third-color);
+    overflow-x: scroll;
+    padding-bottom: .5rem;
+ }
+
+ .mainWrapper div {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: var(--spacing-l);
+ }
+ 
+ .mainWrapper div:hover {
+    cursor: pointer;
+ }
+ 

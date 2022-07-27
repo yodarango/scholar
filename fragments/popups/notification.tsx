@@ -8,7 +8,8 @@ import styles from "./notification.module.css";
 
 type notificatrionPopupProps = {
    title: string;
-   body: string | JSX.Element;
+   jsxContent?: JSX.Element;
+   body?: string;
    type: string;
    cta: React.MouseEventHandler;
    customColor?: {
@@ -16,7 +17,14 @@ type notificatrionPopupProps = {
       dark: string;
    };
 };
-export const Notification = ({ title, cta, type, body, customColor }: notificatrionPopupProps) => {
+export const Notification = ({
+   title,
+   cta,
+   type,
+   body,
+   customColor,
+   jsxContent
+}: notificatrionPopupProps) => {
    // determine the card type
    let notificationType: string = "";
 
@@ -40,7 +48,7 @@ export const Notification = ({ title, cta, type, body, customColor }: notificatr
 
    return (
       <>
-         {!customColor && (
+         {!customColor && body && (
             <div className={`${styles.mainWrapper} ${notificationType}`}>
                <div className={styles.close}>
                   <CloseContent cta={cta} />
@@ -52,7 +60,7 @@ export const Notification = ({ title, cta, type, body, customColor }: notificatr
             </div>
          )}
 
-         {customColor && (
+         {customColor && body && (
             <div
                className={`${styles.mainWrapper}`}
                style={{
@@ -65,6 +73,35 @@ export const Notification = ({ title, cta, type, body, customColor }: notificatr
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
                </div>
                <Parragraph text={body} size='small' />
+            </div>
+         )}
+
+         {/* ----------------------- if the popup contians JSX Elemnts ------------- */}
+         {!customColor && jsxContent && (
+            <div className={`${styles.mainWrapper} ${notificationType}`}>
+               <div className={styles.close}>
+                  <CloseContent cta={cta} />
+               </div>
+               <div className={styles.title}>
+                  <Header type={2} text={title} size='main' lineHieght='.9em' />
+               </div>
+               <div>{jsxContent}</div>
+            </div>
+         )}
+
+         {customColor && jsxContent && (
+            <div
+               className={`${styles.mainWrapper}`}
+               style={{
+                  backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
+               }}>
+               <div className={styles.close}>
+                  <CloseContent cta={cta} />
+               </div>
+               <div className={styles.title}>
+                  <Header type={2} text={title} size='main' lineHieght='.9em' />
+               </div>
+               <div>{jsxContent}</div>
             </div>
          )}
       </>

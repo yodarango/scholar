@@ -53,6 +53,10 @@
     width: auto;
 }
 
+.block {
+    display: block;
+}
+
 .default {
     color: var(--font-color)
 }

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 // child Comps
 import TextEditor from "../../fragments/text-editor";
-import FormattingRules from "../../fragments/buttons/formatting-rules";
+import FormattingRules from "../../fragments/text_editor_formating";
 
 // styes
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";

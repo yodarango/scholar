@@ -9,7 +9,7 @@ import Image from "next/image";
 
 // child Comps
 import TextEditor from "../../fragments/text-editor";
-import FormattingRules from "../../fragments/buttons/formatting-rules";
+import FormattingRules from "../../fragments/text_editor_formating";
 import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 
 // styes

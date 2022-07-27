@@ -10,7 +10,7 @@ import Image from "next/image";
 
 // components
 import TextEditor from "../fragments/text-editor";
-import FormattingRules from "../fragments/buttons/formatting-rules";
+import FormattingRules from "../fragments/text_editor_formating";
 import ResourceNotFoundError from "./resource-not-found-error";
 
 // styles
