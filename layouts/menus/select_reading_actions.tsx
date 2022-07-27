@@ -15,25 +15,25 @@ export type TSelectPostRatingMenuProps = {
 export const SelectReadingACtions = ({ cta }: TSelectPostRatingMenuProps) => {
    const menuOptions = [
       {
-         value: "commentaries",
+         action: "commentaries",
          icon: "chat",
          description: "Commentaries",
          color: "#F1EAFF"
       },
       {
-         value: "comment",
+         action: "comment",
          icon: "comment",
          description: "Comment",
          color: "#F1EAFF"
       },
       {
-         value: "highlight",
+         action: "highlight",
          icon: "textBody",
          description: "Highlight",
          color: "#F1EAFF"
       },
       {
-         value: "image",
+         action: "image",
          icon: "image",
          description: "Make image",
          color: "#F1EAFF"
@@ -55,7 +55,7 @@ export const SelectReadingACtions = ({ cta }: TSelectPostRatingMenuProps) => {
                         iconShadow: option.color,
                         text: option.description
                      }}
-                     cta={() => console.log(option.value)}
+                     cta={() => console.log(option.action)}
                   />
                </div>
             ))}
