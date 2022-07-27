@@ -14,7 +14,7 @@ import { GET_COMMENTARIES } from "../graphql/home/commentaries";
 import CommentFilter from "../fragments/buttons/comment-filter";
 import Header from "../layouts/header";
 import PostsWrapper from "../layouts/posts-wrapper";
-import DailyVerse from "../fragments/squares/daily-verse";
+import DailyVerse from "../fragments/cards/daily_verse_card";
 import NavigationMenu from "../layouts/navigation-menu";
 import ResourceNotFoundError from "../layouts/resource-not-found-error";
 
@@ -23,7 +23,7 @@ import homeStyles from "../styles/pages/Home.module.css";
 import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
-import { getInitialData } from "../helpers/APIs/get-bible-verse";
+import { getInitialData } from "../helpers/APIs/get_bible_verse";
 
 // Types
 import { Tcommentary } from "../posts/comment";

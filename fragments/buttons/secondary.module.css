@@ -1,0 +1,34 @@
+.mainWrapper{
+    width: 100%;
+}
+
+.primary, .secondary {
+    padding: var(--spacing-xs) var(--spacing-xs);
+    background-color: transparent;
+    border-radius: 2em;
+    display: inline-flex;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.secondary {
+    background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+}
+
+.primary:hover, .secondary:hover {
+    cursor: pointer;
+    transform: scale(.95);
+    transition: transform 300ms ease;
+}
+
+.mainWrapper.withIcon, .primary.withIcon, .mainWrapper.withIcon{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.icon{
+    margin-right: var(--spacing-xxs);
+}

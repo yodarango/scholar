@@ -20,6 +20,7 @@ export const getInitialData = async (verse: string | string[] | undefined) => {
          return undefined;
       }
    }
+   
    return {
       id: "1PE.1.8",
       orgId: "1PE.1.8",
