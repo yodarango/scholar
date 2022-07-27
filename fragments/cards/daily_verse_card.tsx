@@ -1,13 +1,14 @@
 /********************************************************************************************* 
-   This component loads a specific verse either by calling 
-   it using the link query or by choosing a new verse manually 
-   calling the "ScripturePicker" componennt which in effect calls 
-   the proper additional components 
-   
+   //! not able to load in stories due to the useRouter hook by next
+-  This component loads a specific verse by calling the verse-id in the router. If no verse-id 
+   value is found in the router, however, a default verse will be returned by the helper
+   function making the call.
+-  The Component listens to the router change, therefore a new verse will load each  time the
+   router query changes
 *********************************************************************************************/
 
 // core
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -23,62 +24,81 @@ import ResourceNotFoundError from "../../layouts/resource-not-found-error";
 import styles from "./daily_verse_card.module.css";
 
 // helpers: types
+import { fetchBibleVerseWDefault } from "../../helpers/APIs/fetch_bible_verse_with_default";
 
 type dailyVerseProps = {
-   verseContent?: TverseContent | undefined;
    versionId: string;
 };
 
-export const DailyVerseCard = ({ verseContent, versionId }: dailyVerseProps) => {
+export const DailyVerseCard = ({ versionId }: dailyVerseProps) => {
    // -------------------------- hooks --------------------
+   const [verseContent, setverseContent] = useState<TverseContent | null>(null);
+   const [loading, setloading] = useState<string>("loading");
+
+   // ----------------- make the call to the API on useEffect and router.isReady
+   const getVerseDate = async () => {
+      const verseId = router.query["verse-id"];
+
+      const verseContent = await fetchBibleVerseWDefault(verseId);
+
+      if (!verseContent) {
+         setverseContent(null);
+         setloading("error");
+      } else {
+         setverseContent(verseContent);
+         setloading("done");
+      }
+   };
+
    const router = useRouter();
-   //? implement helper to fetch a bible verse. decide whether to use the already existing one "data/APIs/fetch_bible_verse.ts" or implement a new on
-   //? This compent should be responsible for its own data fetching
+   useEffect(() => {
+      if (router.isReady) {
+         getVerseDate();
+      }
+   }, [router.isReady, router.query]);
 
    return (
-      <>
-         <div className={styles.mainWrapper}>
-            {verseContent && (
-               <div className={styles.squaredCardWrapper}>
-                  {/* --------------------- title ---------------------- */}
-                  <div className={styles.title}>
-                     <Header
-                        text={verseContent.reference}
-                        type={3}
-                        size='main'
-                        align='center'
-                        lineHieght='.9'
-                     />
-                  </div>
-
-                  {/* --------------------- content ---------------------- */}
-                  <div className={styles.content}>
-                     <Parragraph text={verseContent.content} size='main' align='center' />
-                  </div>
-
-                  {/* --------------------- card actions ----------------- */}
-                  <div className={styles.actions}>
-                     <Link href={`/?verse=${verseContent.previous.id}`}>
-                        <a>
-                           <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
-                        </a>
-                     </Link>
-                     <div>
-                        <Icon name='comment' size='2rem' color='#F1EAFF' />
-                     </div>
-                     <Link href={`/?verse=${verseContent.next.id}`}>
-                        <a>
-                           <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
-                        </a>
-                     </Link>
-                  </div>
+      <div className={styles.mainWrapper}>
+         {loading === "loading" && <h1>Loading</h1>}
+         {verseContent && loading === "done" && (
+            <div className={styles.card}>
+               {/* --------------------- title ---------------------- */}
+               <div className={styles.title}>
+                  <Header
+                     text={verseContent.reference}
+                     type={3}
+                     size='main'
+                     align='center'
+                     lineHieght='.9'
+                  />
                </div>
-            )}
-            {/* {!verseContent && !err && (
-               <CardsLazyLoading amount={1} compClass={cardLazyLoadingStyles.dailyVerseCard} />
-            )}
-            {err && <ResourceNotFoundError />} */}
-         </div>
-      </>
+
+               {/* --------------------- content ---------------------- */}
+               <div className={styles.content}>
+                  <Parragraph text={verseContent.content} size='main' align='center' />
+               </div>
+
+               {/* --------------------- card actions ----------------- */}
+               <div className={styles.actions}>
+                  <Link href={`/?verse=${verseContent.previous.id}`}>
+                     <a>
+                        <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
+                  <div>
+                     <Icon name='comment' size='2rem' color='#F1EAFF' />
+                  </div>
+                  <Link href={`/?verse=${verseContent.next.id}`}>
+                     <a>
+                        <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
+               </div>
+            </div>
+         )}
+         {loading === "error" && <h1>There was ab error</h1>}
+         {/* {loading === "error" && <CardsLazyLoading amount={1} compClass={styles.dailyVerseCard} />} */}
+         {/* {err && <ResourceNotFoundError />}  */}
+      </div>
    );
 };

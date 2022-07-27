@@ -1,37 +1,35 @@
+.card {
+   width: 100%;
+   background-color: var(--secondary-color);
+   padding: var(--spacing-l);
+   border-radius: 2em;
+   box-shadow: 0.4rem 0.4rem 0.8rem var(--shadow-color);
+}
 
-.mainWrapper {
-    width: 100%;
-    background-color: var(--secondary-color);
-    padding: var(--spacing-l);
-    border-radius: 2em;
-    box-shadow: .4rem .4rem .8rem var(--shadow-color);
- }
+.content {
+   margin: var(--spacing-m) auto var(--spacing-l);
+}
 
- .content {
-    margin: var(--spacing-m) auto var(--spacing-l);
- }
- 
- .content p {
-    margin: 0.5rem auto;
-    max-height: 13rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
- }
- 
- .actions {
-    width: 90%;
-    margin: var(--spacing-l) auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
- }
- 
- .actions div:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-    transition: transform 300ms ease;
- }
- 
+.content p {
+   margin: 0.5rem auto;
+   max-height: 13rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 5;
+   -webkit-box-orient: vertical;
+}
+
+.actions {
+   width: 90%;
+   margin: var(--spacing-l) auto 0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.actions div:hover {
+   transform: scale(1.1);
+   cursor: pointer;
+   transition: transform 300ms ease;
+}
