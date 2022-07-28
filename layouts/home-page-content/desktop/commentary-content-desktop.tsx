@@ -10,7 +10,7 @@ import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 import Comment from "../../../posts/comment";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import SmallLoader from "../../../fragments/chunks/small_loader";
-import ResourceNotFoundError from "../../resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import homePageContentDesktopStyles from "../../../styles/layouts/home-page-content/HomePageContentDesktop.module.css";

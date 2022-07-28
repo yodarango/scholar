@@ -5,7 +5,7 @@ import Image from "next/image";
 // components
 import Book from "../../fragments/library-items/book";
 import CardsLazyLoading from "../cards-lazy-loading";
-import ResourceNotFoundError from "../resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryBooksCarrousel from "../../styles/layouts/library-home-page/LibraryBooksCarrousel.module.css";

@@ -20,7 +20,7 @@ import { GET_LIB_APPROVED_USERS } from "../../graphql/library/users";
 import Header from "../../layouts/header";
 import LibraryPreachers from "../../fragments/library-preachers";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 //styles
 import sermonsByAuthorStyles from "../../styles/pages/library/Authors.module.css";

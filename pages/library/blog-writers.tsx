@@ -20,7 +20,7 @@ import Header from "../../layouts/header";
 import LibraryBlogWriter from "../../fragments/library-blog-writer";
 import NavigationMenu from "../../layouts/navigation-menu";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 //styles
 import sermonsByAuthorStyles from "../../styles/pages/library/Authors.module.css";

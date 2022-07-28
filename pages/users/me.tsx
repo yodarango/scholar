@@ -24,7 +24,7 @@ import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popups/notifications-wrapper";
 import NavigationMenu from "../../layouts/navigation-menu";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import userStyles from "../../styles/pages/users/User.module.css";

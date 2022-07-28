@@ -34,7 +34,7 @@ import Wednesday from "../fragments/wigo-content/4.wednesday";
 import Thursday from "../fragments/wigo-content/5.thursday";
 import Friday from "../fragments/wigo-content/6.friday";
 import Saturday from "../fragments/wigo-content/7.saturday";
-import ResourceNotFoundError from "../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
 // styles
 import interactStyles from "../styles/pages/Interact.module.css";

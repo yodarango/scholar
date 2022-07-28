@@ -17,7 +17,7 @@ import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import AvatarChooser from "../../../fragments/popups/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 import UserVerificationApplication from "../../../fragments/chunks/user/user-verification-application";
 import BugReport from "../../../fragments/popups/forms/bug-report";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";

@@ -17,14 +17,14 @@ import { TverseContent } from "../../pages";
 import { Icon } from "../chunks/icons";
 import { Header } from "../Typography/header";
 import { Parragraph } from "../Typography/parragraph";
-import CardsLazyLoading from "../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
 
 // styles
 import styles from "./daily_verse_card.module.css";
 
 // helpers: types
 import { fetchBibleVerseWDefault } from "../../helpers/APIs/fetch_bible_verse_with_default";
+import { RoundLoader } from "../chunks/round_loader";
 
 type dailyVerseProps = {
    versionId: string;
@@ -58,8 +58,21 @@ export const DailyVerseCard = ({ versionId }: dailyVerseProps) => {
    }, [router.isReady, router.query]);
 
    return (
+      // ------------------------ loading state ------------------------
       <div className={styles.mainWrapper}>
-         {loading === "loading" && <h1>Loading</h1>}
+         {loading === "loading" && (
+            <div className={`${styles.card} ${styles.loadinCard}`}>
+               <div className={styles.title}>
+                  <Header text='Loading...' type={3} size='main' align='center' lineHieght='.9' />
+               </div>
+               <div className={styles.loader}>
+                  <RoundLoader />
+               </div>
+            </div>
+         )}
+
+         {/* ------------------------ load content -------------------------- */}
+
          {verseContent && loading === "done" && (
             <div className={styles.card}>
                {/* --------------------- title ---------------------- */}
@@ -80,15 +93,19 @@ export const DailyVerseCard = ({ versionId }: dailyVerseProps) => {
 
                {/* --------------------- card actions ----------------- */}
                <div className={styles.actions}>
-                  <Link href={`/?verse=${verseContent.previous.id}`}>
+                  <Link href={`/?verse-id=${verseContent.previous.id}`}>
                      <a>
                         <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
-                  <div>
-                     <Icon name='comment' size='2rem' color='#F1EAFF' />
-                  </div>
-                  <Link href={`/?verse=${verseContent.next.id}`}>
+
+                  <Link href={`/posts/commentary/new`}>
+                     <a>
+                        <Icon name='comment' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
+
+                  <Link href={`/?verse-id=${verseContent.next.id}`}>
                      <a>
                         <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
                      </a>
@@ -96,9 +113,22 @@ export const DailyVerseCard = ({ versionId }: dailyVerseProps) => {
                </div>
             </div>
          )}
-         {loading === "error" && <h1>There was ab error</h1>}
-         {/* {loading === "error" && <CardsLazyLoading amount={1} compClass={styles.dailyVerseCard} />} */}
-         {/* {err && <ResourceNotFoundError />}  */}
+         {loading === "error" && (
+            <div className={`${styles.card} ${styles.loadinCard}`}>
+               <div className={styles.title}>
+                  <Header
+                     text='There was an error'
+                     type={3}
+                     size='main'
+                     align='center'
+                     lineHieght='.9'
+                  />
+               </div>
+               <div className={styles.error}>
+                  <ResourceNotFoundError />
+               </div>
+            </div>
+         )}
       </div>
    );
 };

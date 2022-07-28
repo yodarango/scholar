@@ -24,7 +24,7 @@ import SermonCarrousel from "../../../layouts/library-individual-pages/sermons-c
 import LibraryFilter from "../../../fragments/buttons/library-filter";
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import librarySermonsPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";

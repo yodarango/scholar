@@ -1,0 +1,20 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.image {
+   position: relative;
+   height: 7rem;
+   width: 10rem;
+   margin: 0;
+}
+
+.image img {
+   object-fit: contain;
+   object-position: center;
+}
+

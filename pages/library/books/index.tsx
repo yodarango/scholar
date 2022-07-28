@@ -23,7 +23,7 @@ import Header from "../../../layouts/header";
 import BooksCarrousel from "../../../layouts/library-individual-pages/books-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryBooksStyles from "../../../styles/pages/library/books/LibraryBooks.module.css";

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 // components
 import NotificationPopup from "../fragments/popups/notification";
-import ResourceNotFoundError from "./resource-not-found-error";
+import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
 // styles
 import fetchNewChapterStyles from "../styles/layouts/FetchNewChapter.module.css";

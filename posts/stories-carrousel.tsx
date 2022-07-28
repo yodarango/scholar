@@ -8,7 +8,7 @@ import { QUOTE_STORIES_IN_LAST_24 } from "../graphql/posts/quotes";
 
 //components
 import QuoteStories from "./quotes-stroies";
-import ResourceNotFoundError from "../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
 //styles
 import storiesCarrouselStyles from "../styles/posts/StoriesCarrousel.module.css";
@@ -22,9 +22,8 @@ type storiesCarrouselProps = {
 
 const StoriesCarrousel = ({ quotes_in_the_last24 }: storiesCarrouselProps) => {
    // set the initial set of stories
-   const [storiesArrayState, setStoriesArrayState] = useState<last24SingleQuote[] | null>(
-      quotes_in_the_last24
-   );
+   const [storiesArrayState, setStoriesArrayState] =
+      useState<last24SingleQuote[] | null>(quotes_in_the_last24);
 
    const showMoreStories = async (last_id: string) => {
       try {

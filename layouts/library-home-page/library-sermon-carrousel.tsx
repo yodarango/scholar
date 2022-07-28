@@ -5,7 +5,7 @@ import Image from "next/image";
 // components
 import Sermon from "../../fragments/library-items/sermon";
 import CardsLazyLoading from "../cards-lazy-loading";
-import ResourceNotFoundError from "../resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import librarySermonCarrouselStyles from "../../styles/layouts/library-home-page/LibrarySermonsCarrousel.module.css";

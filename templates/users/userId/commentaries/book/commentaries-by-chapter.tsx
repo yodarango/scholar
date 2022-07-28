@@ -10,7 +10,7 @@ import { GET_COMMENTARIES_BY_BOOK } from "../../../../../graphql/posts/commentar
 // components
 import Comments from "../../../../../posts/comment";
 import SmallLoader from "../../../../../fragments/chunks/small_loader";
-import ResourceNotFoundError from "../../../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../../../fragments/chunks/error_resource_not_found";
 import CommentariesProfileMenu from "../../../../../fragments/buttons/commentaries-profile-menu";
 
 // styles

@@ -5,7 +5,7 @@ import Image from "next/image";
 // components
 import Watch from "../../fragments/library-items/watch";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryWatchCarrouselStyles from "../../styles/layouts/library-home-page/LibraryWatchCarrousel.module.css";

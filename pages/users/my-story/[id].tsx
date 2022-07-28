@@ -19,7 +19,7 @@ import NavigationMenu from "../../../layouts/navigation-menu";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import NotificationPopup from "../../../fragments/popups/notification";
 import SimpleTextEditor from "../../../fragments/chunks/simple-text-editor";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import myStoryStyles from "../../../styles/pages/users/my-story/MyStory.module.css";

@@ -9,7 +9,7 @@ import Image from "next/image";
 import EditPost from "../../../../posts/edit-posts/edit-commentary-post";
 import NavigationMenu from "../../../../layouts/navigation-menu";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.module.css";

@@ -25,7 +25,7 @@ import SkipContent from "../../../fragments/buttons/skipContent";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryBlogsStyles from "../../../styles/pages/library/blogs/LibraryBlogs.module.css";

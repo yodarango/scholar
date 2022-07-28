@@ -22,7 +22,7 @@ import UserAboutMe from "../../../fragments/chunks/user/user-about-me";
 import UserTotalPostsAndRatings from "../../../fragments/chunks/user/user-total-posts-ratings";
 import UserBioWrapper from "../../../fragments/chunks/user/user-bio-wrapper";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import userStyles from "../../../styles/pages/users/User.module.css";

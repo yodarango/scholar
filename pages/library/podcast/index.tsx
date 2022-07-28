@@ -25,7 +25,7 @@ import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-
 import SkipContent from "../../../fragments/buttons/skipContent";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryPodcastStyles from "../../../styles/pages/library/podcasts/LibraryPodcasts.module.css";

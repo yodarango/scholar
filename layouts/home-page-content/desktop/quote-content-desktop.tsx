@@ -14,7 +14,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import QuotesProfile from "../../../posts/quotes-profile";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
-import ResourceNotFoundError from "../../resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // helpers
 import { TsingleStory } from "../../../posts/quotes-profile";

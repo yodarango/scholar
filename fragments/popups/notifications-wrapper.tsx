@@ -10,7 +10,7 @@ import { GET_MY_NOTIFICATIONS } from "../../graphql/users/notifications";
 // components
 import SmallLoader from "../chunks/small_loader";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../chunks/error_resource_not_found";
 
 // styles
 import notificationsWrapperStyles from "../../styles/fragments/popup-content/NotificationWrapper.module.css";

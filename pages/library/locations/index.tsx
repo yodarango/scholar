@@ -24,7 +24,7 @@ import Header from "../../../layouts/header";
 import CongregationCarrousel from "../../../layouts/library-individual-pages/congregation-carrousel";
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryCongregationsStyles from "../../../styles/pages/library/locations/LibraryCongregations.module.css";

@@ -14,7 +14,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import SermonNotesPost from "../../../posts/sermon-notes-post";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
-import ResourceNotFoundError from "../../resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // helpers
 import { TsermonPost } from "../../../posts/sermon-notes-post";

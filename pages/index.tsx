@@ -16,7 +16,7 @@ import Header from "../layouts/header";
 import PostsWrapper from "../layouts/posts-wrapper";
 import DailyVerse from "../fragments/cards/daily_verse_card";
 import NavigationMenu from "../layouts/navigation-menu";
-import ResourceNotFoundError from "../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
 // styles
 import homeStyles from "../styles/pages/Home.module.css";

@@ -25,7 +25,7 @@ import ArticlesCarrousel from "../../../layouts/library-individual-pages/article
 import SkipContent from "../../../fragments/buttons/skipContent";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 import NavigationMenu from "../../../layouts/navigation-menu";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryArticlesPageStyles from "../../../styles/pages/library/sermon-notes/LibrarySermons.module.css";

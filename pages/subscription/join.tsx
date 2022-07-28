@@ -14,7 +14,7 @@ import NavigationMenu from "../../layouts/navigation-menu";
 import goProPageStyles from "../../styles/pages/GoPro.module.css";
 import Link from "next/link";
 import HeadContent from "../../layouts/head-content";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 const GoPro = () => {
    // =================== go back in histroy   ============== //

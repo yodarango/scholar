@@ -9,7 +9,7 @@ import { WIGO_REQUEST_MORE_SERMON_NOTES } from "../graphql/posts/sermon_notes";
 // components
 import SermonNotesPost from "./sermon-notes-post";
 //import ConfirmationPopup from "../fragments/confirmation-popup";
-import ResourceNotFoundError from "../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
 // styles
 import librarySermonPostCarrouselStyles from "../styles/posts/SermonPostCarrousel.module.css";

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Chapter from "../../layouts/fetch-bible-chapter";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import Commentary from "../../layouts/popup-new-comment";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../chunks/error_resource_not_found";
 
 // styles
 import randomDailyVerseStyles from "../../styles/fragments/squares/RandomDailyVerse.module.css";

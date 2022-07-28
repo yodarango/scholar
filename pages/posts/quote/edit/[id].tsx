@@ -16,7 +16,7 @@ import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.
 // child comps
 import EditQuotePost from "../../../../posts/edit-posts/edit-quote-post";
 import NavigationMenu from "../../../../layouts/navigation-menu";
-import ResourceNotFoundError from "../../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
 
 // helpers/ types
 import { Tstory } from "../../../../posts/quotes-stroies";

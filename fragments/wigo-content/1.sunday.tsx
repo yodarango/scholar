@@ -11,7 +11,7 @@ import Image from "next/image";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 import DummyPlaceholder from "./dummy-placeholder";
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../chunks/error_resource_not_found";
 
 // styles
 import sermonSundayStyles from "../../styles/fragments/wigo-content/1.Sunday.module.css";

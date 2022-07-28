@@ -22,7 +22,7 @@ import Header from "../../../layouts/header";
 import WatchCarrousel from "../../../layouts/library-individual-pages/watch-carrousel";
 import LibraryFilterPreachers from "../../../fragments/buttons/library-filter-preachers";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import libraryWatchStyles from "../../../styles/pages/library/watch/LibraryWatch.module.css";

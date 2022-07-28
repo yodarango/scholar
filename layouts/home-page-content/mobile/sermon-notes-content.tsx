@@ -8,7 +8,7 @@ import { GET_PROFILE_SERMON_NOTES } from "../../../graphql/users/profile";
 
 // comps
 import SermonNotesPost from "../../../posts/sermon-notes-post";
-import ResourceNotFoundError from "../../resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 //styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";

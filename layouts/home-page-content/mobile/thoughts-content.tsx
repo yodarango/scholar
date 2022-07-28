@@ -10,7 +10,7 @@ import { GET_PROFILE_THOUGHTS } from "../../../graphql/users/profile";
 import Thought from "../../../posts/thought";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
-import ResourceNotFoundError from "../../resource-not-found-error";
+import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
 import homePageContentStyles from "../../../styles/layouts/home-page-content/HomePageContent.module.css";

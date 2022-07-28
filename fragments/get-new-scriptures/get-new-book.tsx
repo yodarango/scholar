@@ -7,7 +7,7 @@ import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 import Image from "next/image";
 
 //components
-import ResourceNotFoundError from "../../layouts/resource-not-found-error";
+import ResourceNotFoundError from "../chunks/error_resource_not_found";
 
 // styles
 import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
