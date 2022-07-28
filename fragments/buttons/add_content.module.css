@@ -1,0 +1,21 @@
+.button {
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(-10deg, var(--gradient-2--light),  var(--gradient-2--dark));
+    border-radius: 50%;
+    box-shadow: var(--shadow-s);
+}
+
+.mainWrapperCustomSize .button {
+    height: 100%;
+    width: 100%;
+}
+
+.button:hover {
+    cursor: pointer;
+    transform: scale(.9);
+    transition: transform 300ms ease;
+}
