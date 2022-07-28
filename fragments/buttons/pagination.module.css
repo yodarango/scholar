@@ -1,0 +1,28 @@
+
+.left,
+.right{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 3rem;
+   height: 3rem;
+   border-radius: 50%;
+   position: fixed;
+   z-index: 15;
+   box-shadow: .2rem .2rem .6rem var(--font-color);
+}
+
+.primary {
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.secondary {
+   background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+}
+
+.left:hover,
+.right:hover {
+   cursor: pointer;
+   transform: scale(1.1);
+   transition: transform 300ms ease;
+}

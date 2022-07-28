@@ -1,24 +1,40 @@
+/**********************************************************************************
+-  Paginates through any content by passsing the string to go to back or forth, the 
+   strings passed can be handled as a helper to help parse the router string
+ **********************************************************************************/
 // core
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 //styles
-import skipContentStyles from "../../styles/buttons/skipContent.module.css";
+import styles from "./pagination.module.css";
+import { Icon } from "../chunks/icons";
 
-type skipContProps = {
-   wrapperMaxWidth: string;
-   content: number;
+type TpaginationProps = {
+   goBack: string;
+   goForth: string;
+   top?: string;
+   left?: string;
+   right?: string;
+   type: string;
 };
 
-const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
+export const Pagination = ({
+   goBack,
+   goForth,
+   type,
+   top = "70vh",
+   left = "1rem",
+   right = "1rem"
+}: TpaginationProps) => {
    const router = useRouter();
 
-   // ==================== FUNCTION: skip Content =================== //
-   const [showForwardButton, setShowForwardButton] = useState<boolean>(true);
+   // --------------------------------- initial pagination states ----------------------------
+   const [showBackwarButton, setShowBackwarButton] = useState<string | null>(goBack);
+   const [showForwardButton, setShowForwardButton] = useState<string | null>(goForth);
 
-   const [showBackwarButton, setShowBackwarButton] = useState<boolean>(true);
-
-   useEffect(() => {
+   /*  useEffect(() => {
       if (router.isReady) {
          console.log(content);
          if (router.query.skip === "0" || !router.query.skip) {
@@ -68,19 +84,28 @@ const SkipContent = ({ wrapperMaxWidth, content }: skipContProps) => {
          setShowForwardButton(false);
       }
    };
+   */
 
    return (
       <>
          {showBackwarButton && (
-            <div className={`${skipContentStyles.leftTrigger}`} onClick={handleSkipBackwards}></div>
+            <Link href={goBack}>
+               <a
+                  className={`${styles.left} ${type === "1" ? styles.primary : styles.secondary}`}
+                  style={{ top: top, left: left }}>
+                  <Icon name='arrowBack' color='#F1EAFF' size='2rem' />
+               </a>
+            </Link>
          )}
-         {!showBackwarButton && <div></div>}
          {showForwardButton && (
-            <div className={`${skipContentStyles.rightTrigger}`} onClick={handleSkipForward}></div>
+            <Link href={goForth}>
+               <a
+                  className={`${styles.right} ${type === "1" ? styles.primary : styles.secondary}`}
+                  style={{ top: top, right: right }}>
+                  <Icon name='arrowForth' color='#F1EAFF' size='2rem' />
+               </a>
+            </Link>
          )}
-         {!showForwardButton && <div></div>}
       </>
    );
 };
-
-export default SkipContent;

@@ -22,7 +22,7 @@ import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import LibraryFilter from "../../../fragments/buttons/library-filter";
 import ArticlesCarrousel from "../../../layouts/library-individual-pages/articles-carrousel";
-import SkipContent from "../../../fragments/buttons/skipContent";
+import SkipContent from "../../../fragments/buttons/pagination";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";

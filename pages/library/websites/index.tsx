@@ -21,7 +21,7 @@ import { GET_BLOGS } from "../../../graphql/library/blogs";
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import BlogCarrousel from "../../../layouts/library-individual-pages/blogs-carrousel";
-import SkipContent from "../../../fragments/buttons/skipContent";
+import SkipContent from "../../../fragments/buttons/pagination";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import LibraryFilterBlog from "../../../fragments/buttons/library-filter-blog-author";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";

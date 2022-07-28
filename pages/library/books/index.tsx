@@ -21,7 +21,7 @@ import { GET_BOOKS } from "../../../graphql/library/books";
 import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import BooksCarrousel from "../../../layouts/library-individual-pages/books-carrousel";
-import SkipContent from "../../../fragments/buttons/skipContent";
+import SkipContent from "../../../fragments/buttons/pagination";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 

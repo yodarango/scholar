@@ -22,7 +22,7 @@ import LibraryMenu from "../../../fragments/buttons/library-menu";
 import Header from "../../../layouts/header";
 import LibraryFilterPodcast from "../../../fragments/buttons/library-filter-podcast";
 import PodcastCarrousel from "../../../layouts/library-individual-pages/podcast-carrousel";
-import SkipContent from "../../../fragments/buttons/skipContent";
+import SkipContent from "../../../fragments/buttons/pagination";
 import NavigationMenu from "../../../layouts/navigation-menu";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
