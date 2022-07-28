@@ -11,9 +11,13 @@ import { useRouter } from "next/router";
 import styles from "./pagination.module.css";
 import { Icon } from "../chunks/icons";
 
+// helpers
+import { handleBibleChapterPagination } from "../../helpers/router/paginate_bible_passage";
+
 type TpaginationProps = {
-   goBack: string;
-   goForth: string;
+   forContent: string;
+   goBack: string | null | undefined;
+   goForth: string | null | undefined;
    top?: string;
    left?: string;
    right?: string;
@@ -21,6 +25,7 @@ type TpaginationProps = {
 };
 
 export const Pagination = ({
+   forContent,
    goBack,
    goForth,
    type,
@@ -31,65 +36,24 @@ export const Pagination = ({
    const router = useRouter();
 
    // --------------------------------- initial pagination states ----------------------------
-   const [showBackwarButton, setShowBackwarButton] = useState<string | null>(goBack);
-   const [showForwardButton, setShowForwardButton] = useState<string | null>(goForth);
+   const [showBackwarButton, setShowBackwarButton] = useState<string | null | undefined>(goBack);
+   const [showForwardButton, setShowForwardButton] = useState<string | null | undefined>(goForth);
 
-   /*  useEffect(() => {
+   useEffect(() => {
       if (router.isReady) {
-         console.log(content);
-         if (router.query.skip === "0" || !router.query.skip) {
-            setShowBackwarButton(false);
-         } else {
-            setShowBackwarButton(true);
+         // --------- validate what content it will be rendered for to make the appropaite function -----------
+         if (forContent === "read") {
+            const linkData = handleBibleChapterPagination(goBack, goForth);
+            setShowBackwarButton(linkData?.showBackbutton);
+            setShowForwardButton(linkData?.showForthbutton);
          }
-         content < 20 ? setShowForwardButton(false) : null;
       }
    }, [router.isReady, router.query]);
-   // ==========  skip to the previous 20 items
-   const handleSkipBackwards = () => {
-      setShowForwardButton(true);
-      if (router.query.skip) {
-         if (parseInt(`${router.query.skip}`) - 20 === 0) {
-            setShowBackwarButton(false);
-         }
-         if (Object.keys(router.query).length === 1 && Object.keys(router.query).includes("skip")) {
-            const currPath = router.asPath.replace(`?skip=${router.query.skip}`, "");
-            router.replace(`${currPath}?skip=${parseInt(`${router.query.skip}`) - 20}`);
-         } else if (parseInt(`${router.query.skip}`) >= 20) {
-            const currPath = router.asPath.replace(`&skip=${router.query.skip}`, "");
-            router.replace(`${currPath}&skip=${parseInt(`${router.query.skip}`) - 20}`);
-         } else {
-            setShowBackwarButton(false);
-         }
-      }
-   };
-
-   // ============ FUNCTION: skip to the next 20 items
-   const handleSkipForward = () => {
-      setShowBackwarButton(true);
-      if (Object.keys(router.query).length === 0) {
-         router.replace(`${router.asPath}?skip=20`);
-      } else if (Object.keys(router.query).length !== 0 && !router.query.skip) {
-         router.replace(`${router.asPath}&skip=20`);
-      } else if (
-         Object.keys(router.query).length === 1 &&
-         Object.keys(router.query).includes("skip")
-      ) {
-         const currPath = router.asPath.replace(`?skip=${router.query.skip}`, "");
-         router.replace(`${currPath}?skip=${parseInt(`${router.query.skip}`) + 20}`);
-      } else if (router.query.skip && content === 20) {
-         const currPath = router.asPath.replace(`&skip=${router.query.skip}`, "");
-         router.replace(`${currPath}&skip=${parseInt(`${router.query.skip}`) + 20}`);
-      } else {
-         setShowForwardButton(false);
-      }
-   };
-   */
 
    return (
       <>
          {showBackwarButton && (
-            <Link href={goBack}>
+            <Link href={showBackwarButton}>
                <a
                   className={`${styles.left} ${type === "1" ? styles.primary : styles.secondary}`}
                   style={{ top: top, left: left }}>
@@ -97,8 +61,9 @@ export const Pagination = ({
                </a>
             </Link>
          )}
+
          {showForwardButton && (
-            <Link href={goForth}>
+            <Link href={showForwardButton}>
                <a
                   className={`${styles.right} ${type === "1" ? styles.primary : styles.secondary}`}
                   style={{ top: top, right: right }}>
