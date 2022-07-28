@@ -8,7 +8,7 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./bible_chapter_picker.module.css";
 
 // helpers
-import { chosenKey } from "../../helpers/APIs/select-random-api-key";
+import { fetchBibleChapter } from "../../helpers/APIs/fetch_bible_chapter";
 
 type TBibleChapterpickerprops = {
    versionId?: string;
@@ -30,46 +30,27 @@ export const BibleChapterpicker = ({
    cta,
    stopAtChapter
 }: TBibleChapterpickerprops) => {
-   // ------------- make the call to the Bible APi
-   async function handleSelection(chapterId: string, versionId: string | undefined) {
-      // initialize the loader
-      cta.handleInitLoader(true);
+   // ---------- determine whether to call the API or pass the prop to render the bible_verse_picker.tsx -----------
+   const handleChpaterSelection = async (verseId: number, versionId?: string) => {
+      // ------------- make the call to the Bible APi
+      if (stopAtChapter) {
+         // initialize the loader
+         cta.handleInitLoader(true);
 
-      try {
-         const req = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapterId}`,
-            {
-               method: "GET",
-               headers: {
-                  "api-key": `${chosenKey}`
-               }
-            }
-         );
-         const res = await req.json();
+         const verseData = await fetchBibleChapter(`${bookId}.${verseId}`);
 
-         if (res) {
-            cta.handleChapterSelection(res);
+         if (verseData) {
+            cta.handleChapterSelection(verseData);
 
             // stop the loader
             cta.handleInitLoader(false);
          } else {
+            cta.handleInitLoader(false);
             cta.handleError();
          }
-      } catch (error) {
-         console.log(error);
-         cta.handleInitLoader(false);
-         cta.handleError();
-      }
-   }
-
-   // ---------- determine whether to call the API or pass the prop to render the bible_verse_picker.tsx -----------
-   const handleChpaterSelection = (verseId: number, versionId: string | undefined) => {
-      if (!stopAtChapter) {
+      } else {
          cta.handleOpenVerseSelectionModal(verseId);
-         return;
       }
-
-      handleSelection(`${bookId}.${verseId + 1}`, versionId);
    };
 
    return (
@@ -78,7 +59,7 @@ export const BibleChapterpicker = ({
             <div
                key={index}
                className={styles.chapter}
-               onClick={() => handleChpaterSelection(index + 1, versionId)}>
+               onClick={() => handleChpaterSelection(index + 1)}>
                <Parragraph text={`${index + 1}`} size='main' align='center' lineHieght='.9em' />
             </div>
          ))}

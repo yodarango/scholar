@@ -1,14 +1,15 @@
 // hepers
 import { chosenKey } from "./select-random-api-key";
 
-export const fetchBibleVerse = async (
-   verse: string | string[] | undefined,
+export const fetchBibleChapter = async (
+   chapter: string | string[] | undefined,
    versionId: string = "de4e12af7f28f599-02"
 ) => {
-   if (verse) {
+   if (chapter) {
+    // API params: ?content-type=text&include-verse-numbers=false
       try {
          const request = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verse}?content-type=text&include-verse-numbers=false`,
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapter}`,
             {
                method: "GET",
                headers: {

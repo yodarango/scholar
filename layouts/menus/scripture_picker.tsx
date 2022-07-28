@@ -28,12 +28,14 @@ type TBilbleBookPickerProps = {
    bible: TBible;
    versionId: string;
    stopAtChapter: boolean;
+   stopAtVerse: boolean;
    cta: (content: any) => void;
 };
 
 export const ScripturePicker = ({
    bible,
    stopAtChapter,
+   stopAtVerse,
    cta,
    versionId
 }: TBilbleBookPickerProps) => {
@@ -116,6 +118,7 @@ export const ScripturePicker = ({
          {/* ---------------- verse ------------------ */}
          {showVerseSelectionMenu && (
             <BibleVersePicker
+               stopAtVerse={stopAtVerse}
                chapterId={chapterId}
                verseCount={bible.verses[currentSelectedChapter]}
                versionId={versionId}

@@ -12,7 +12,7 @@ import { Header } from "../Typography/header";
 import { CloseContent } from "../buttons/close_content";
 
 // helpers
-import { chosenKey } from "../../helpers/APIs/select-random-api-key";
+import { fetchBibleVerse } from "../../helpers/APIs/fetch_bible_verse";
 
 type TBibleVersePickerProps = {
    chapterId: string;
@@ -34,45 +34,27 @@ export const BibleVersePicker = ({
    stopAtVerse
 }: TBibleVersePickerProps) => {
    // ------------- make the call to the Bible APi
-   const handleSelection = async (verseId: string, versionId: string) => {
-      // initialize the loader
-      cta.handleInitLoader(true);
+   const handleSelection = async (verseId: string, versionId?: string) => {
+      if (stopAtVerse) {
+         // initialize the loader
+         cta.handleInitLoader(true);
 
-      try {
-         const req = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseId}`,
-            {
-               method: "GET",
-               headers: {
-                  "api-key": `${chosenKey}`
-               }
-            }
-         );
-         const res = await req.json();
+         const verseData = await fetchBibleVerse(verseId);
 
-         if (res) {
-            cta.handleVerseSelection(res);
+         if (verseData) {
+            cta.handleVerseSelection(verseData);
 
             // stop the loader
             cta.handleInitLoader(false);
          } else {
+            cta.handleInitLoader(false);
             cta.handleError();
          }
-      } catch (error) {
-         console.log(error);
-         cta.handleInitLoader(false);
-         cta.handleError();
+      } else {
+         cta.handleVerseSelection(verseId);
       }
    };
 
-   // ? bring on the fetch verse helper to get rif of the fetch call and also make sure the the new added prop "stopAtVerse"
-   //? did not break anything. if the stopAtVerse == true the component will make the API call, otherwise it will only return
-   //? the verseid
-
-   const handleSelection = () => {
-      if (stopAtVerse) {
-      }
-   };
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.close}>
@@ -88,7 +70,7 @@ export const BibleVersePicker = ({
                <div
                   key={index}
                   className={styles.verse}
-                  onClick={() => handleSelection(`${chapterId}.${index + 1}`, versionId)}>
+                  onClick={() => handleSelection(`${chapterId}.${index + 1}`)}>
                   <Parragraph text={`${index + 1}`} size='main' align='center' lineHieght='.9em' />
                </div>
             ))}
