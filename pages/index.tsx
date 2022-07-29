@@ -26,7 +26,7 @@ import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.cs
 import { getInitialData } from "../helpers/APIs/get_bible_verse";
 
 // Types
-import { Tcommentary } from "../posts/comment";
+import { Tcommentary } from "../fragments/cards/posts/commentary";
 import CardsLazyLoading from "../layouts/cards-lazy-loading";
 
 // other (might pull form the DB using user preferences)

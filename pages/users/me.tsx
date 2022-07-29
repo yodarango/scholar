@@ -13,7 +13,7 @@ import { GET_MY_PROFILE } from "../../graphql/users/profile";
 import Header from "../../layouts/header";
 import AllContentMobile from "../../layouts/home-page-content/mobile/all-content-mobile";
 import AllContentDesktop from "../../layouts/home-page-content/desktop/all-content-desktop";
-import { Tcommentary } from "../../posts/comment";
+import { Tcommentary } from "../../fragments/cards/posts/commentary";
 import { Tthought } from "../../posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
 import { TsermonPost } from "../../posts/sermon-notes-post";

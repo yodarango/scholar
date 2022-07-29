@@ -1,21 +1,31 @@
 .mainWrapper {
    display: flex;
    align-items: center;
-   justify-content: center; 
+   justify-content: flex-start;
 }
 
+/* ---------- allow custom allignment by passing classes in the props -----*/
+.mainWrapper.center {
+   justify-content: center;
+}
+
+.mainWrapper.right {
+   justify-content: right;
+}
+/*------------------------------------------------------------------------*/
+
 .mainWrapper:hover {
-    cursor: pointer;
+   cursor: pointer;
 }
 
 .mainWrapper.vertical {
-    flex-direction: column;
+   flex-direction: column;
 }
 
 .avatarWrapper {
-    margin-right: var(--spacing-xs);
+   margin-right: var(--spacing-xs);
 }
 
-.mainWrapper.vertical .avatarWrapper{
-    margin: 0 0 var(--spacing-xs) 0;
+.mainWrapper.vertical .avatarWrapper {
+   margin: 0 0 var(--spacing-xs) 0;
 }

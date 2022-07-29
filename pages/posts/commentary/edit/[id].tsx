@@ -19,7 +19,7 @@ import client from "../../../../apollo-client";
 import { GET_EDIT_COMMENTARY } from "../../../../graphql/posts/commentaries";
 
 // helpers / types
-import { Tcommentary } from "../../../../posts/comment";
+import { Tcommentary } from "../../../../fragments/cards/posts/commentary";
 import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 // import { Tuser } from "../../../users/[userId]";
 

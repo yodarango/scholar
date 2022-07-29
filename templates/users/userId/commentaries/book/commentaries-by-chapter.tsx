@@ -8,7 +8,7 @@ import client from "../../../../../apollo-client";
 import { GET_COMMENTARIES_BY_BOOK } from "../../../../../graphql/posts/commentaries";
 
 // components
-import Comments from "../../../../../posts/comment";
+import Comments from "../../../../../fragments/cards/posts/commentary";
 import SmallLoader from "../../../../../fragments/chunks/small_loader";
 import ResourceNotFoundError from "../../../../../fragments/chunks/error_resource_not_found";
 import CommentariesProfileMenu from "../../../../../fragments/buttons/commentaries-profile-menu";
@@ -19,7 +19,7 @@ import homePageContentStyles from "../../../../../styles/layouts/home-page-conte
 import cardsLazyLoadingStyles from "../../../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers / types
-import { Tcommentary } from "../../../../../posts/comment";
+import { Tcommentary } from "../../../../../fragments/cards/posts/commentary";
 import { Tuser } from "../../../../../pages/users/[userId]";
 import CardsLazyLoading from "../../../../../layouts/cards-lazy-loading";
 

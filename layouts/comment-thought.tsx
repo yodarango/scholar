@@ -7,14 +7,14 @@ import { WIGO_REQUEST_MORE_COMMENTARIES } from "../graphql/posts/commentaries";
 import { WIGO_REQUEST_MORE_THOUGHTS } from "../graphql/posts/thoughts";
 
 //components
-import Comment from "../posts/comment";
+import Comment from "../fragments/cards/posts/commentary";
 import Thought from "../posts/thought";
 
 //styles
 import commentThoughtStyles from "../styles/layouts/CommentThought.module.css";
 
 // helpers
-import { Tcommentary } from "../posts/comment";
+import { Tcommentary } from "../fragments/cards/posts/commentary";
 import { Tthought } from "../posts/thought";
 
 type commentThoughtProps = {

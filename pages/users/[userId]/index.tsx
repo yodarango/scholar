@@ -32,7 +32,7 @@ import cardaLazyloadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import CheckMediaQuery from "../../../helpers/media-query";
 
 //types
-import { Tcommentary } from "../../../posts/comment";
+import { Tcommentary } from "../../../fragments/cards/posts/commentary";
 import { Tthought } from "../../../posts/thought";
 import { TsingleStory } from "../../../posts/quotes-profile";
 import { TsermonPost } from "../../../posts/sermon-notes-post";

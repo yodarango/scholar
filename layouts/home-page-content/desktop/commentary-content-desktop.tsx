@@ -7,7 +7,7 @@ import client from "../../../apollo-client";
 import { GET_PROFILE_COMMENTARIES } from "../../../graphql/users/profile";
 
 // comps
-import Comment from "../../../posts/comment";
+import Comment from "../../../fragments/cards/posts/commentary";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
@@ -17,7 +17,7 @@ import homePageContentDesktopStyles from "../../../styles/layouts/home-page-cont
 import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers
-import { Tcommentary } from "../../../posts/comment";
+import { Tcommentary } from "../../../fragments/cards/posts/commentary";
 import { Tuser } from "../../../pages/users/[userId]";
 
 type commentaryContentDesktopProps = {

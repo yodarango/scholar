@@ -17,7 +17,7 @@ import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.m
 import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
-import { Tcommentary } from "../comment";
+import { Tcommentary } from "../../fragments/cards/posts/commentary";
 import { TverseContent } from "../../pages";
 
 // helpers;

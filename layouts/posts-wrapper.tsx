@@ -1,13 +1,13 @@
 // core
 import { useState, useEffect } from "react";
 // components
-import Comment from "../posts/comment";
+import Comment from "../fragments/cards/posts/commentary";
 
 // styles
 import postsWrapperStyle from "../styles/layouts/PostsWrapper.module.css";
 
 // helper
-import { Tcommentary } from "../posts/comment";
+import { Tcommentary } from "../fragments/cards/posts/commentary";
 
 type postWrapperProps = {
    commentaries: Tcommentary[];

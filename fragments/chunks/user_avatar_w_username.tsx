@@ -9,6 +9,7 @@ type TAvatarWUsernameProps = {
    username: string;
    userId: string;
    flowV?: boolean;
+   align?: string;
    fontSize?: string;
    quiet: boolean;
    avatarSrc: string | undefined | null;
@@ -26,10 +27,14 @@ export const UserAvatarWUsername = ({
    avatarSize,
    userAuthority,
    avatarSrc,
-   cta
+   cta,
+   align
 }: TAvatarWUsernameProps) => {
    return (
-      <div className={`${styles.mainWrapper} ${flowV ? styles.vertical : ""}`}>
+      <div
+         className={`${styles.mainWrapper} ${flowV ? styles.vertical : ""} ${
+            align === "c" ? styles.center : align === "r" ? styles.right : styles.left
+         }`}>
          <div className={styles.avatarWrapper}>
             {/* if custom Size on the avatar is desired */}
             {avatarSize && (

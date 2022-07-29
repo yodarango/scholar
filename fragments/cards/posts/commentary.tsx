@@ -4,33 +4,32 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 //graphQL
-import client from "../apollo-client";
+import client from "../../../apollo-client";
 import {
    SHOW_COMMENTS_OF_COMMENTARY,
    DELETE_ONE_COMMENTARY,
    REPORT_COMMENTARY
-} from "../graphql/posts/commentaries";
-import { GET_COMMENTARY_APPROVALS } from "../graphql/posts/approvals";
+} from "../../../graphql/posts/commentaries";
+import { GET_COMMENTARY_APPROVALS } from "../../../graphql/posts/approvals";
 
 // components
-import CommentaryContent from "../fragments/popups/commentary-content";
-import PostReactions from "../fragments/buttons/post-reactions";
-import ConfirmationPopup from "../fragments/confirmation-popup";
-import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
-import NotificationPopup from "../fragments/popups/notification";
-import QuickUserInfoPopup from "../fragments/squares/quick-user-info-popup";
+import CommentaryContent from "../../popups/commentary-content";
+import PostReactions from "../../buttons/post-reactions";
+import ConfirmationPopup from "../../confirmation-popup";
+import ContentApprovalDropdown from "../../chunks/content-approval-dropdown";
+import NotificationPopup from "../../popups/notification";
+import QuickUserInfoPopup from "../../squares/quick-user-info-popup";
 
 // styles
-import cardStyles from "../styles/components/Cards.module.css";
-import popupStyles from "../styles/layouts/PopupWrapper.module.css";
+import styles from "./commentary.module.css";
 
 //helpres
-import handlePostComment from "../functions/posts/post-commentary-comment";
+import handlePostComment from "../../../functions/posts/post-commentary-comment";
 
 // types
-import { Tapprovals } from "../fragments/buttons/post-reactions";
-import { IvaluesCat, valuesCat } from "../data/category_meta";
-import { loggedInUser } from "../helpers/auth/get-loggedin-user";
+import { Tapprovals } from "../../buttons/post-reactions";
+import { IvaluesCat, valuesCat } from "../../../data/category_meta";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 export type Tcommentary = {
    ID: string;
@@ -389,61 +388,56 @@ export default function Comments({ commentary }: commentsProps) {
          {notificationPopUpState}
          {seeWholePost}
          {!deletedPostState && (
-            <div
-               className={`${cardStyles.commentCard}`}
-               key={commentary.ID}
-               id={`${commentary.ID}`}>
+            <div className={`${styles.mainWrapper}`} id={`${commentary.ID}`}>
                <div
-                  className={cardStyles.commentCardHeader}
+                  className={styles.commentCardHeader}
                   id={`category-${commentary.category_tags.split(" ")[0].replace("#", "")}`}>
                   {/* this is a circle that handles a click to display the category of the post, it has been removed and will be reconsidered for now */}
                   {/* <span
-                     className={cardStyles.categoryTagPointer}
+                     className={styles.categoryTagPointer}
                      onClick={() => openInfoAboutTagColor(commentary.category_tags.split(" ")[0])}
                      id={`category-${commentary.category_tags
                         .split(" ")[0]
                         .replace("#", "")}`}></span> */}
                   {commentary.creator && commentary.creator.authority_level && (
-                     <div className={cardStyles.creatorimMainWrapper}>
+                     <div className={styles.creatorimMainWrapper}>
                         <div
-                           className={`${cardStyles.commentCardHeaderAvatarImgBkg} ${
+                           className={`${styles.commentCardHeaderAvatarImgBkg} ${
                               commentary.creator.authority_level == 2
-                                 ? cardStyles.commentCardHeaderAvatarImgBkgTrusted
+                                 ? styles.commentCardHeaderAvatarImgBkgTrusted
                                  : ""
                            }`}
                            onClick={() => handleQuickInfoAccessPopup(commentary.creator)}>
                            <img
                               src={commentary.creator.avatar}
                               alt='Avatar'
-                              className={`${cardStyles.commentCardHeaderAvatarImg}`}
+                              className={`${styles.commentCardHeaderAvatarImg}`}
                            />
                         </div>
                         {commentary.creator.authority_level == 2 && (
-                           <span className={cardStyles.trustedPointer}></span>
+                           <span className={styles.trustedPointer}></span>
                         )}
                      </div>
                   )}
                   {commentary.creator && <h1>{commentary.creator.signature}</h1>}
                   {renderDeleteEditOptionsState && (
                      <span
-                        className={(cardStyles.cardIcon, cardStyles.delete)}
+                        className={(styles.cardIcon, styles.delete)}
                         onClick={() => handleDeleteConfirmation(commentary.ID)}></span>
                   )}
                   {renderDeleteEditOptionsState && (
                      <Link href={`/posts/commentary/edit/${commentary.ID}`}>
-                        <a className={(cardStyles.cardIcon, cardStyles.edit)}></a>
+                        <a className={(styles.cardIcon, styles.edit)}></a>
                      </Link>
                   )}
                   {renderReportOptionState && (
                      <span
-                        className={(cardStyles.cardIcon, cardStyles.report)}
+                        className={(styles.cardIcon, styles.report)}
                         onClick={() => handleReportConfirmation(commentary.ID)}></span>
                   )}
                </div>
                <i>{`comment on ${commentary.verse_citation}`}</i>
-               <p className={`std-text-block--widget ${cardStyles.postTime}`}>
-                  {commentary.posted_on}
-               </p>
+               <p className={`std-text-block--widget ${styles.postTime}`}>{commentary.posted_on}</p>
                <p>{commentary.body}</p>
                {
                   <PostReactions
@@ -457,13 +451,13 @@ export default function Comments({ commentary }: commentsProps) {
                {commentBoxState === commentary.ID && (
                   <div
                      id={`comment-${commentary.ID}`}
-                     className={`${cardStyles.stdInputCommentWrapper}`}>
+                     className={`${styles.stdInputCommentWrapper}`}>
                      <textarea
                         maxLength={150}
                         placeholder='Comment...'
-                        className={`std-input ${cardStyles.stdInputComment}`}
+                        className={`std-input ${styles.stdInputComment}`}
                         ref={commentBody}></textarea>
-                     <div className={`${cardStyles.postCancelWrapper}`}>
+                     <div className={`${styles.postCancelWrapper}`}>
                         {!postingState && (
                            <span
                               className={`std-button_gradient-text`}

@@ -1,0 +1,28 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.user {
+   width: calc(100% - var(--spacing-xs));
+   overflow: hidden;
+}
+
+.user div h3 {
+   max-height: 2rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+}
+
+.icon {
+   justify-self: flex-end;
+}
+
+.category {
+   margin-left: var(--spacing-xs);
+}

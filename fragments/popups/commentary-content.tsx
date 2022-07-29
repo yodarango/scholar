@@ -17,7 +17,7 @@ import textEditorStyles from "../../styles/layouts/textEditor.module.css";
 import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
-import { Tcommentary } from "../../posts/comment";
+import { Tcommentary } from "../cards/posts/commentary";
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
 
