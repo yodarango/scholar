@@ -1,0 +1,16 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.icon {
+   margin-right: var(--spacing-xs);
+}
+.mainWrapper:hover {
+   cursor: pointer;
+}
+
+.mainWrapper:hover .text div p {
+   text-decoration: underline;
+}
