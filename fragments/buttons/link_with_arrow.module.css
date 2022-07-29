@@ -1,0 +1,29 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.link {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.text {
+   margin-right: var(--spacing-xxs);
+}
+
+.mainWrapper:hover {
+   cursor: pointer;
+}
+
+.mainWrapper:hover .text div p u {
+   color: var(--font-color);
+}
+
+.mainWrapper:hover .icon div svg path {
+   stroke: var(--font-color);
+}
+
+.mainWrapper:hover .icon {
+   transform: translate(0.5rem);
+}
