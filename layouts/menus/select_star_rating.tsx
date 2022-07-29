@@ -8,11 +8,12 @@ import styles from "./select_menu_global.module.css";
 
 export type TSelectStarProps = {
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
 export const SelectStarRating = ({ cta }: TSelectStarProps) => {
+   // ---------- menu options
    const menuOptions = [
       {
          rating: 0.5,
@@ -75,6 +76,13 @@ export const SelectStarRating = ({ cta }: TSelectStarProps) => {
          color: "#F1EAFF"
       }
    ];
+
+   //  --------------- handle the selection ----------
+   const handleReviewSelection = (rating: number) => {
+      // send review to db
+      console.log(rating);
+   };
+
    return (
       <>
          <PrimaryMenuBkg
@@ -103,7 +111,7 @@ export const SelectStarRating = ({ cta }: TSelectStarProps) => {
                            </div>
                         )
                      }}
-                     cta={() => console.log(option.rating)}
+                     cta={() => handleReviewSelection(option.rating)}
                   />
                </div>
             ))}

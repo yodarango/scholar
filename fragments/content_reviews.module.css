@@ -1,17 +1,26 @@
 .mainWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   width: 100%;
 }
 
-.mainWrapper:hover{
-    cursor: pointer;
+.mainWrapper:hover {
+   cursor: pointer;
 }
 
-.starsWrapper{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: var(--spacing-xxs);
+.starsWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-left: var(--spacing-xxs);
+}
+
+.mainWrapper.button {
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+   padding: var(--spacing-xs) var(--spacing-m);
+   border-radius: 2em;
+   box-shadow: var(--shadow-s);
+   display: inline-flex;
+   width: auto;
 }
