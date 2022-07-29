@@ -1,0 +1,24 @@
+.button {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: var(--spacing-xs) var(--spacing-s);
+   background-color: var(--secondary-color);
+   border-radius: 1em;
+}
+
+.button:hover {
+   cursor: pointer;
+   transform: scale(0.95);
+   transition: 300ms;
+   background-color: var(--third-color);
+}
+.value {
+   display: inline-flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.value .icon {
+   margin-left: var(--spacing-xxs);
+}
