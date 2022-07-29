@@ -1,0 +1,58 @@
+.mainWrapper {
+   width: 10.5rem;
+   border-radius: 1.5em;
+   background-color: var(--secondary-color);
+   overflow: hidden;
+   box-shadow: var(--shadow-s);
+}
+
+.mainWrapper:hover {
+   transform: scale(0.98);
+   box-shadow: none;
+}
+
+.image {
+   display: block;
+   position: relative;
+   width: 100%;
+   height: 10.5rem;
+   background-color: var(--third-color);
+}
+
+.image:hover {
+   cursor: pointer;
+}
+
+.image img {
+   object-fit: cover;
+   object-position: center;
+}
+
+.footer {
+   padding: var(--spacing-xs) var(--spacing-xxs);
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-direction: column;
+}
+
+.title,
+.reviews {
+   width: 100%;
+}
+
+.reviews {
+   padding-left: var(--spacing-xxs);
+}
+.title {
+   margin-bottom: var(--spacing-xss);
+}
+
+.title h4 {
+   max-height: 2rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+}

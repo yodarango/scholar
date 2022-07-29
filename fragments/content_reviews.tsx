@@ -17,6 +17,9 @@ type TReviewContentProps = {
    contentId?: string;
    quiet?: boolean;
    withBackground?: boolean;
+   cta: {
+      handleShowStartRatingMenu: React.MouseEventHandler<HTMLDivElement>;
+   };
 };
 
 export const ContentReviews = ({
@@ -27,21 +30,16 @@ export const ContentReviews = ({
    startSize = "1.2rem",
    contentType,
    contentId,
+   cta,
    withBackground
 }: TReviewContentProps) => {
-   // -------- states --------------
-   const [showStarRating, setshowStarRating] = useState<boolean>(false);
-
    // -------------- handle the reivew given by the
    // round the stars integer
    const totalStars = Math.round(stars);
    return (
       <>
-         {showStarRating && (
-            <SelectStarRating cta={{ handleCloseModal: () => setshowStarRating(false) }} />
-         )}
          {!withBackground && (
-            <div className={styles.mainWrapper} onClick={() => setshowStarRating(true)}>
+            <div className={styles.mainWrapper} onClick={cta.handleShowStartRatingMenu}>
                <Parragraph
                   size={fontSize ? fontSize : "xsmall"}
                   quiet={quiet ? true : false}
@@ -58,7 +56,7 @@ export const ContentReviews = ({
          {withBackground && (
             <div
                className={`${styles.mainWrapper} ${styles.button}`}
-               onClick={() => setshowStarRating(true)}>
+               onClick={cta.handleShowStartRatingMenu}>
                <Parragraph size={fontSize ? fontSize : "xsmall"} text={reviews} inline={true} />
                <div className={styles.starsWrapper}>
                   {[...Array(totalStars)].map((star, index) => (
