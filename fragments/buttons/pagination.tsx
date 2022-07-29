@@ -55,9 +55,11 @@ export const Pagination = ({
          {showBackwarButton && (
             <Link href={showBackwarButton}>
                <a
-                  className={`${styles.left} ${type === "1" ? styles.primary : styles.secondary}`}
+                  className={`${styles.left} ${
+                     type === "1" ? styles.primary : type === "3" ? styles.secondary : styles.third
+                  }`}
                   style={{ top: top, left: left }}>
-                  <Icon name='arrowBack' color='#F1EAFF' size='2rem' />
+                  <Icon name='arrowBack' color='#F1EAFF' size='2rem' strokeWidth='64' />
                </a>
             </Link>
          )}
@@ -65,9 +67,11 @@ export const Pagination = ({
          {showForwardButton && (
             <Link href={showForwardButton}>
                <a
-                  className={`${styles.right} ${type === "1" ? styles.primary : styles.secondary}`}
+                  className={`${styles.right} ${
+                     type === "1" ? styles.primary : type === "3" ? styles.secondary : styles.third
+                  }`}
                   style={{ top: top, right: right }}>
-                  <Icon name='arrowForth' color='#F1EAFF' size='2rem' />
+                  <Icon name='arrowForth' color='#F1EAFF' size='2rem' strokeWidth='64' />
                </a>
             </Link>
          )}

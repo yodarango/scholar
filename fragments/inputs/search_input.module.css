@@ -1,0 +1,41 @@
+.mainWrapper {
+   position: relative;
+   width: 100%;
+   height: 3.5rem;
+   background-image: linear-gradient(-10deg, var(--third-color), var(--secondary-color));
+   border-radius: 3em;
+   overflow: hidden;
+}
+
+.input {
+   background: transparent;
+   border: none;
+   outline: none;
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   z-index: 1;
+   padding: 0 var(--spacing-s) 0 calc(var(--spacing-ml) + 2rem + var(--spacing-xs));
+   color: var(--font-color);
+   font-size: var(--fs-main);
+}
+
+.input:focus {
+   outline: none;
+}
+
+.input::placeholder {
+   color: var(--third-color);
+}
+
+.icon {
+   position: absolute;
+   top: 50%;
+   bottom: 0;
+   left: var(--spacing-ml);
+   right: auto;
+   z-index: 2;
+   transform: translateY(-50%);
+}
