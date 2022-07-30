@@ -11,13 +11,13 @@ import homePageContentDesktopStyles from "../../../styles/layouts/home-page-cont
 import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // comps
-import SermonNotesPost from "../../../posts/sermon-notes-post";
+import SermonNotesPost from "../../../fragments/cards/posts/sermon_note";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // helpers
-import { TsermonPost } from "../../../posts/sermon-notes-post";
+import { TsermonPost } from "../../../fragments/cards/posts/sermon_note";
 import { Tuser } from "../../../pages/users/[userId]";
 
 type commentaryContentDesktopProps = {

@@ -30,4 +30,7 @@
 
 .category {
    margin-left: var(--spacing-xs);
+   width: 2rem;
+   height: 2rem;
+   flex-shrink: 0;
 }

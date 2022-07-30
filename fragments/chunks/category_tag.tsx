@@ -1,10 +1,3 @@
-// if the cta prop is not passed, then the component assumes an "informative only" 0role
-// which wil ony bring up the inofmation popup and not opass the value to the parent
-import { useState } from "react";
-
-// comps
-import { Notification } from "../popups/notification";
-
 // styles
 import styles from "./category_tag.module.css";
 
@@ -14,12 +7,18 @@ import styles from "./category_tag.module.css";
 type TCategoryTagprops = {
    id: string;
    customSize?: boolean;
+   customBorderRadius?: string;
    cta: {
       handleShowCategoryMeta: (id: string) => void;
    };
 };
 
-export const CategoryTag = ({ id, customSize, cta }: TCategoryTagprops) => {
+export const CategoryTag = ({
+   id,
+   customSize,
+   cta,
+   customBorderRadius = ".9em"
+}: TCategoryTagprops) => {
    /*------------ copy this and paste it into the last major parent component rendering the child
       const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
 
@@ -42,86 +41,97 @@ export const CategoryTag = ({ id, customSize, cta }: TCategoryTagprops) => {
       );
    };
    */
-
    return (
-      <div onClick={() => cta.handleShowCategoryMeta(id)}>
+      <div
+         onClick={() => cta.handleShowCategoryMeta(id)}
+         className={customSize ? styles.mainWrapper : ""}>
          {id === "BLK" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.blk}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.blk
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "BL" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.bl}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.bl
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "BR" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.br}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.br
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "CYN" && (
             <div
-               className={`${styles.mainWrapper} ${customSize ? styles.mainWrapperCustomSize : ""}${
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                   styles.cyn
-               }`}>
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "GRN" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.grn}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.grn
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "OR" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.or}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.or
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "PNK" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.pnk}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.pnk
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "PPL" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.ppl}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.ppl
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "RD" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.rd}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.rd
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}
          {id === "YLW" && (
             <div
-               className={`${styles.mainWrapper} ${
-                  customSize ? styles.mainWrapperCustomSize : ""
-               } ${styles.ylw}`}>
+               className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                  styles.ylw
+               }`}
+               style={{ borderRadius: customBorderRadius }}>
                <span className={`${styles.tag}`}></span>
             </div>
          )}

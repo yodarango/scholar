@@ -14,7 +14,7 @@ import FormattingRules from "../../fragments/text_editor_formating";
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";
 
 // types / helpers
-import { Tthought } from "../thought";
+import { Tthought } from "../../fragments/cards/posts/thought";
 import { TverseContent } from "../../pages/index";
 
 type editCommentaryPostProps = {

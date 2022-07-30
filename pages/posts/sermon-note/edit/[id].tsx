@@ -13,7 +13,7 @@ import NavigationMenu from "../../../../layouts/navigation-menu";
 
 // helpers / types
 import { GetServerSideProps } from "next";
-import { TsermonPost } from "../../../../posts/sermon-notes-post";
+import { TsermonPost } from "../../../../fragments/cards/posts/sermon_note";
 
 type editCommentaryProps = {
    sermonPost: TsermonPost;

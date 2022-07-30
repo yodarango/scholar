@@ -7,7 +7,7 @@ import client from "../apollo-client";
 import { WIGO_REQUEST_MORE_SERMON_NOTES } from "../graphql/posts/sermon_notes";
 
 // components
-import SermonNotesPost from "./sermon-notes-post";
+import SermonNotesPost from "../fragments/cards/posts/sermon_note";
 //import ConfirmationPopup from "../fragments/confirmation-popup";
 import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
@@ -16,7 +16,7 @@ import librarySermonPostCarrouselStyles from "../styles/posts/SermonPostCarrouse
 import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
 // types
-import { TsermonPost } from "./sermon-notes-post";
+import { TsermonPost } from "../fragments/cards/posts/sermon_note";
 
 type librarySermonCarrouselProps = {
    sermonPost: TsermonPost[] | null;

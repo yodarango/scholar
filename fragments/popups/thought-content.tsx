@@ -9,7 +9,7 @@ import { GET_THOUGHT_COMMENTS } from "../../graphql/posts/comments";
 // components
 import NotificationPopup from "./notification";
 import CommentsOfThoughtContent from "./comments-of-thoughts";
-import handlePostComment from "../../helpers/functions/posts/post-thought-comment";
+import handlePostComment from "../../helpers/functions/posts/thought_post_comment";
 import ContentApprovalDropdown from "../chunks/content-approval-dropdown";
 
 // styles
@@ -18,7 +18,7 @@ import popupStyles from "../../styles/layouts/PopupWrapper.module.css";
 
 // helpers
 import PostReactions, { Tapprovals, Tcomment } from "../buttons/post-reactions";
-import { Tthought } from "../../posts/thought";
+import { Tthought } from "../cards/posts/thought";
 import { GET_THOUGHT_APPROVALS } from "../../graphql/posts/approvals";
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 

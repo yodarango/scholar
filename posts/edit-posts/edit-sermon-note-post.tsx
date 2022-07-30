@@ -16,7 +16,7 @@ import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost
 
 // helpers
 import { valuesCat } from "../../data/category_meta";
-import { TsermonPost } from "../sermon-notes-post";
+import { TsermonPost } from "../../fragments/cards/posts/sermon_note";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 
 type sermonNotesProps = {

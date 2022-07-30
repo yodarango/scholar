@@ -7,7 +7,7 @@ import client from "../../../apollo-client";
 import { GET_PROFILE_SERMON_NOTES } from "../../../graphql/users/profile";
 
 // comps
-import SermonNotesPost from "../../../posts/sermon-notes-post";
+import SermonNotesPost from "../../../fragments/cards/posts/sermon_note";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 //styles
@@ -15,7 +15,7 @@ import homePageContentStyles from "../../../styles/layouts/home-page-content/Hom
 import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers / state
-import { TsermonPost } from "../../../posts/sermon-notes-post";
+import { TsermonPost } from "../../../fragments/cards/posts/sermon_note";
 import { Tuser } from "../../../pages/users/[userId]";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import SmallLoader from "../../../fragments/chunks/small_loader";

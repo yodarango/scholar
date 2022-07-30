@@ -17,7 +17,7 @@ import NavigationMenu from "../../../../layouts/navigation-menu";
 import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
 
 // helpers / types
-import { Tthought } from "../../../../posts/thought";
+import { Tthought } from "../../../../fragments/cards/posts/thought";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
 import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 

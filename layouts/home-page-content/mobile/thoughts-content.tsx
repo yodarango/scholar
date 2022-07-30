@@ -7,7 +7,7 @@ import client from "../../../apollo-client";
 import { GET_PROFILE_THOUGHTS } from "../../../graphql/users/profile";
 
 // comps
-import Thought from "../../../posts/thought";
+import Thought from "../../../fragments/cards/posts/thought";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
@@ -18,7 +18,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // helpers types
 import { Tuser } from "../../../pages/users/[userId]";
-import { Tthought } from "../../../posts/thought";
+import { Tthought } from "../../../fragments/cards/posts/thought";
 
 type thoughtContentProps = {
    user: Tuser;

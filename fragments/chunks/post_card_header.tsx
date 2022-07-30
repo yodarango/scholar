@@ -48,6 +48,8 @@ export const PostCardHeader = ({
                <CategoryTag
                   id={withCategoryTag}
                   cta={{ handleShowCategoryMeta: cta.handleShowCategoryMeta }}
+                  customSize={true}
+                  customBorderRadius='.5em'
                />
             </div>
          )}

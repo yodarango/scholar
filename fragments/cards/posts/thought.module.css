@@ -1,7 +1,8 @@
 .mainWrapper {
-   width: 20rem;
+   width: 100%;
    padding: var(--spacing-xs) var(--spacing-xxs);
    border-radius: 2em;
+   background-color: var(--secondary-color);
    box-shadow: var(--shadow-s);
 }
 
@@ -19,13 +20,33 @@
    background-color: #ffffff60;
    overflow: hidden;
 }
+
 .image img {
    object-fit: cover;
    object-position: center;
 }
 
-.reference {
+.titleDesc {
    margin-bottom: var(--spacing-xs);
+}
+
+.titleDesc h3 {
+   margin-bottom: var(--spacing-xs);
+   max-height: 3rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+}
+
+.titleDesc p {
+   max-height: 3rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
 }
 
 .footer {

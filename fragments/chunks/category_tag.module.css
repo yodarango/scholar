@@ -1,24 +1,29 @@
-.mainWrapper,
-.mainWrapperCustomSize {
+.mainWrapper {
+   width: 100%;
+   height: 100%;
+}
+
+.tag,
+.tagWrapperCustomSize {
    width: 3.5rem;
    height: 3.5rem;
    border-radius: 0.9em;
    overflow: hidden;
 }
 
-.mainWrapper:hover {
+.tagWrapper:hover {
    cursor: pointer;
    transform: scale(1.1);
 }
 
-.mainWrapperCustomSize:hover {
-   cursor: pointer;
-   transform: scale(1.1);
-}
-
-.mainWrapperCustomSize {
+.tagWrapperCustomSize {
    width: 100%;
    height: 100%;
+}
+
+.tagWrapperCustomSize:hover {
+   cursor: pointer;
+   transform: scale(1.1);
 }
 
 .tag {
