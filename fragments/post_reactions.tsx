@@ -1,18 +1,36 @@
+// comps
 import { PostComment } from "./chunks/post_comment";
 import { PostRating } from "./chunks/post_rating";
+
+// styles
 import styles from "./post_reactions.module.css";
 
-export const PostReactions = () => {
+type TPostReactionsProps = {
+   postRating: {
+      totalCount: number;
+      averageCount: number;
+   };
+   totalComments: number;
+   cta: {
+      handleShowRatePost: React.MouseEventHandler<HTMLDivElement>;
+      handleShowPostComments: React.MouseEventHandler<HTMLDivElement>;
+   };
+};
+
+export const PostReactions = ({ cta, postRating, totalComments }: TPostReactionsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div>
             <PostRating
-               rating={{ total_count: 100, average_count: 10 }}
-               cta={() => console.log("...")}
+               rating={{
+                  totalCount: postRating.totalCount,
+                  averageCount: postRating.averageCount
+               }}
+               cta={cta.handleShowRatePost}
             />
          </div>
          <div>
-            <PostComment comments={23} cta={() => console.log("...")} />
+            <PostComment comments={totalComments} cta={cta.handleShowRatePost} />
          </div>
       </div>
    );

@@ -5,6 +5,17 @@ import styles from "./post_comment.module.css";
 import { Parragraph } from "../Typography/parragraph";
 import { Icon } from "./icons";
 
+export type Tcomment = {
+   ID: string;
+   body: string;
+   creator_avatar: string;
+   creator_signature: string;
+   creator_approval_rate: string;
+   creator_authority_level: number;
+   creator_id: string;
+   posted_on?: string;
+};
+
 type TPostCommentProps = {
    comments: number | null;
    cta: React.MouseEventHandler<HTMLDivElement>;

@@ -1,8 +1,8 @@
-import client from "../../apollo-client";
-import { CREATE_THOUGHT_COMMENT } from "../../graphql/posts/comments";
+import client from "../../../apollo-client";
+import { CREATE_THOUGHT_COMMENT } from "../../../graphql/posts/comments";
 
 // types
-import { Tcomment } from "../../fragments/buttons/post-reactions";
+import { Tcomment } from "../../../fragments/buttons/post-reactions";
 
 const handlePostComment = async (THOUGHT_ID: string, body: string, USER_ID: string) => {
    try {
@@ -15,7 +15,7 @@ const handlePostComment = async (THOUGHT_ID: string, body: string, USER_ID: stri
       data.Thought_Comment ? (result = data.Thought_Comment) : (result = false);
       return result;
    } catch (error) {
-      console.log(error)
+      console.log(error);
       return `Error`;
    }
 };

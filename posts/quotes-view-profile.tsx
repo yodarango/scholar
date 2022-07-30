@@ -19,7 +19,7 @@ import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalD
 // helpers
 import { TsingleStory } from "./quotes-profile";
 import { IvaluesCat, valuesCat } from "../data/category_meta";
-import handlePostComment from "../functions/posts/post-quote-comment";
+import handlePostComment from "../helpers/functions/posts/post-quote-comment";
 
 export type quoteViewProfileProps = {
    story: TsingleStory;

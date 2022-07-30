@@ -9,7 +9,7 @@ import { GET_THOUGHT_COMMENTS } from "../../graphql/posts/comments";
 // components
 import NotificationPopup from "./notification";
 import CommentsOfThoughtContent from "./comments-of-thoughts";
-import handlePostComment from "../../functions/posts/post-thought-comment";
+import handlePostComment from "../../helpers/functions/posts/post-thought-comment";
 import ContentApprovalDropdown from "../chunks/content-approval-dropdown";
 
 // styles

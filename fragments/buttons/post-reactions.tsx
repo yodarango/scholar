@@ -4,27 +4,15 @@ import React from "react";
 // styles
 import postReactionStyles from "../../styles/buttons/PostReactions.module.css";
 
-export type Tcomment = {
-   ID: string;
-   body: string;
-   creator_avatar: string;
-   creator_signature: string;
-   creator_approval_rate: string;
-   creator_authority_level: number;
-   creator_id: string;
-   posted_on?: string;
-};
-export type Tapprovals = {
-   average_count: number;
-   total_count: number;
-};
+// types
+import { TRating } from "../../types/posts_contnet";
 
 type TpostReactionsProps = {
    handleComment?: any;
    handleRateContent?: any;
    handleMore?: any;
    comments: number | null;
-   approvals: Tapprovals | null;
+   approvals: TRating | null;
 };
 
 const PostReactions = ({

@@ -20,7 +20,7 @@ import cardStyles from "../styles/components/Cards.module.css";
 import contentApprovalDDStyles from "../styles/fragments/chunks/ContentApprovalDorpdown.module.css";
 
 // helpers
-import handlePostComment from "../functions/posts/post-quote-comment";
+import handlePostComment from "../helpers/functions/posts/post-quote-comment";
 
 //types
 import { Tapprovals, Tcomment } from "../fragments/buttons/post-reactions";

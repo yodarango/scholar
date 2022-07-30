@@ -3,6 +3,7 @@
    display: flex;
    align-items: center;
    justify-content: flex-start;
+   padding-right: var(--spacing-xs);
 }
 
 .user {
@@ -21,6 +22,10 @@
 
 .icon {
    justify-self: flex-end;
+}
+
+.icon:hover {
+   cursor: pointer;
 }
 
 .category {

@@ -12,8 +12,9 @@ type TCommentaryCardHeaderProps = {
    userId: string;
    userAuthority: number;
    withCategoryTag?: string;
-   cta?: {
+   cta: {
       handleShowCategoryMeta?: (id: string) => void;
+      handleShowPostOptions: React.MouseEventHandler<HTMLDivElement>;
    };
 };
 export const PostCardHeader = ({
@@ -33,15 +34,16 @@ export const PostCardHeader = ({
                avatarSrc={avatar}
                quiet={false}
                userAuthority={userAuthority}
+               avatarSize='2rem'
             />
          </div>
 
-         <div className={styles.icon}>
+         <div className={styles.icon} onClick={cta.handleShowPostOptions}>
             <Icon name='ellipsisH' size='2rem' color='#F1EAFF' />
          </div>
 
          {/* ------------------ include / exlude category tag ------------  */}
-         {withCategoryTag && cta?.handleShowCategoryMeta && (
+         {withCategoryTag && cta.handleShowCategoryMeta && (
             <div className={styles.category}>
                <CategoryTag
                   id={withCategoryTag}

@@ -26,7 +26,7 @@ import ConfirmationPopup from "../fragments/confirmation-popup";
 
 // helpers / types
 import { Tapprovals } from "../fragments/buttons/post-reactions";
-import handlePostComment from "../functions/posts/post-thought-comment";
+import handlePostComment from "../helpers/functions/posts/post-thought-comment";
 import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type Tthought = {

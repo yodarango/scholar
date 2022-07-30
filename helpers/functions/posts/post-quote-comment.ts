@@ -1,5 +1,5 @@
-import client from "../../apollo-client";
-import { CREATE_QUOTE_COMMENT } from "../../graphql/posts/comments";
+import client from "../../../apollo-client";
+import { CREATE_QUOTE_COMMENT } from "../../../graphql/posts/comments";
 
 const handlePostComment = async (QUOTE_ID: string, body: string, USER_ID: string) => {
    try {
