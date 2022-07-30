@@ -10,6 +10,10 @@
    transition: 300ms transform ease-in;
 }
 
+.hasColorId {
+   box-shadow: 0.2rem 0.2rem 0.4rem #00000060;
+}
+
 .closed:hover {
    cursor: pointer;
    transform: scale(1.1);

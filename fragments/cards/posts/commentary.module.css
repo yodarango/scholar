@@ -10,7 +10,7 @@
 }
 
 .image {
-   display: relative;
+   position: relative;
    width: 100%;
    border-radius: 1em;
    height: 10.1rem;

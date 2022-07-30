@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 // comps
 import { PostCardHeader } from "../../chunks/post_card_header";
@@ -22,8 +23,10 @@ type TCommentaryProps = {
 };
 
 export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
+   const categoryId = `category-${commentary.category_tags.split(" ")[0].replace("#", "")}`;
+
    return (
-      <div className={`${styles.mainWrapper}`} id={`category-${commentary.category_tags}`}>
+      <div className={`${styles.mainWrapper}`} id={categoryId}>
          {/* ---------------- header -------------- */}
          <div className={styles.header}>
             <PostCardHeader
@@ -36,20 +39,22 @@ export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
          </div>
 
          {/* ----------------- post thumbnail ----------- */}
+         <Link href={`/posts/commentary/${commentary.ID}`}>
+            <a>
+               <div className={styles.image}>
+                  <Image
+                     src={commentary.postImage}
+                     layout='fill'
+                     alt='background cover for a book of the bible'
+                  />
+               </div>
 
-         <div className={styles.image}>
-            <Image
-               src={commentary.postImage}
-               layout='fill'
-               alt='background cover for a book of the bible'
-            />
-         </div>
-
-         {/* ----------------- verse reference ---------------- */}
-         <div className={styles.reference}>
-            <Parragraph text={commentary.verse_citation} size='small' lineHieght='.9em' />
-         </div>
-
+               {/* ----------------- verse reference ---------------- */}
+               <div className={styles.reference}>
+                  <Parragraph text={commentary.verse_citation} size='small' lineHieght='.9em' />
+               </div>
+            </a>
+         </Link>
          {/* -------------------- post footer ------------ */}
          <div className={styles.footer}>
             <div className={styles.reactions}>
@@ -67,7 +72,7 @@ export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
             </div>
             <div className={styles.timeStamp}>
                <TimeStamp
-                  customColor={"transparent"}
+                  colorId={categoryId}
                   quiet={false}
                   time={commentary.date}
                   niceTime={commentary.posted_on}

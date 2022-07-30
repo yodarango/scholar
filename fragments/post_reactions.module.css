@@ -5,6 +5,10 @@
    justify-content: flex-start;
 }
 
+.mainWrapper:hover {
+   cursor: pointer;
+}
+
 .mainWrapper div:nth-child(2) {
    margin-left: var(--spacing-xs);
 }
