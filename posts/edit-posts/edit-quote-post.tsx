@@ -17,7 +17,7 @@ import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.m
 // helpers
 import { valuesCat } from "../../data/category_meta";
 import { IvaluesCat } from "../../data/category_meta";
-import { Tstory } from "../quotes-stroies";
+import { Tstory } from "../../fragments/cards/posts/quote";
 
 type quoteEditorProps = {
    //handleCloseStories: any;

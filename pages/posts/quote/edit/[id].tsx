@@ -19,7 +19,7 @@ import NavigationMenu from "../../../../layouts/navigation-menu";
 import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
 
 // helpers/ types
-import { Tstory } from "../../../../posts/quotes-stroies";
+import { Tstory } from "../../../../fragments/cards/posts/quote";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
 import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 

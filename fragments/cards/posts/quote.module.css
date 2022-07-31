@@ -1,0 +1,27 @@
+.mainWrapper {
+   width: 13rem;
+   padding: var(--spacing-s) var(--spacing-xs);
+   border-radius: 2em;
+}
+
+.header {
+   margin-bottom: var(--spacing-m);
+}
+
+.body {
+   margin-bottom: var(--spacing-ml);
+}
+.body h3 {
+   height: 7rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   margin-bottom: var(--spacing-m);
+}
+
+.body .author {
+   width: 100%;
+   overflow: hidden;
+}

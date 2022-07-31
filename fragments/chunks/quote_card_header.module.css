@@ -1,0 +1,15 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.avatar {
+   height: 3rem;
+   width: 3rem;
+}
+
+.more:hover {
+   cursor: pointer;
+   transform: scale(1.1);
+}

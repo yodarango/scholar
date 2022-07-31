@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof PostRating>;
 
 export const APlus: ComponentStory<typeof PostRating> = () => (
-   <PostRating rating={{ average_count: 100, total_count: 100 }} cta={() => console.log("...")} />
+   <PostRating rating={{ averageCount: 100, totalCount: 100 }} cta={() => console.log("...")} />
 );

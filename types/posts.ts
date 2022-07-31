@@ -68,9 +68,31 @@ export type TSermonNote = {
       signature: string;
       avatar: string;
       authority_level: number;
-      approval_rating: string | number;
+      approval_rating: number;
       first_name?: string;
       last_name?: string;
       my_church: string;
    };
+};
+
+export type TQuote = {
+   ID: string;
+   body: string;
+   category_tags: string;
+   author: string;
+   background: string;
+   posted_on: string;
+   date: string;
+   total_count: number;
+   creator: {
+      ID: string;
+      signature: string;
+      authority_level: number;
+      approval_rating: number;
+      avatar: string;
+   };
+   comments: {
+      total_count: number;
+   }[];
+   approvals: TRating[];
 };
