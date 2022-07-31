@@ -1,73 +1,81 @@
 .header {
-    font-family: "Open Sans", sans-serif;
-    font-weight: 700;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    color: var(--font-color);
+   font-family: "Open Sans", sans-serif;
+   font-weight: 700;
+   width: 100%;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+   color: var(--font-color);
 }
 
 .xxsmall {
-    font-size: var(--fs-xxsmall);
+   font-size: var(--fs-xxsmall);
 }
 
 .xsmall {
-    font-size: var(--fs-xsmall);
+   font-size: var(--fs-xsmall);
 }
 
 .small {
-    font-size: var(--fs-small);
+   font-size: var(--fs-small);
 }
 
 .main {
-    font-size: var(--fs-main);
+   font-size: var(--fs-main);
 }
 
 .large {
-    font-size: var(--fs-large);
+   font-size: var(--fs-large);
 }
 
 .xlarge {
-    font-size: var(--fs-xlarge);
+   font-size: var(--fs-xlarge);
+}
+
+.xxlarge {
+   font-size: var(--fs-xxlarge);
+}
+
+.xxxlarge {
+   font-size: var(--fs-xxxlarge);
 }
 
 .right {
-    text-align: right;
+   text-align: right;
 }
 
 .center {
-    text-align: center;
+   text-align: center;
 }
 
 .justify {
-    text-align: justify;
+   text-align: justify;
 }
 
-.b4{
-    font-weight: 400;
+.b4 {
+   font-weight: 400;
 }
 
-.b5{
-    font-weight: 500;
+.b5 {
+   font-weight: 500;
 }
 
-.b7{
-    font-weight: 700;
+.b7 {
+   font-weight: 700;
 }
 
 .b8 {
-    font-weight: 800;
+   font-weight: 800;
 }
 
 .default {
-    color: var(--font-color)
+   color: var(--font-color);
 }
 
 .quiet {
-    color: var(--third-color)
+   color: var(--third-color);
 }
 
 .inherit {
-    color: inherit;
+   color: inherit;
 }

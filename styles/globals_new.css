@@ -94,6 +94,8 @@
    --fs-main: 1.6rem;
    --fs-large: 1.8rem;
    --fs-xlarge: 2rem;
+   --fs-xxlarge: 2.5rem;
+   --fs-xxxlarge: 3rem;
 
    /* --------------- dark mode colors ---------- */
    --primary-color: #2a2438;
