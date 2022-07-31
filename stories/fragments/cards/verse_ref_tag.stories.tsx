@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { VerseRefTag } from "../../../fragments/chunks/verse_ref_tag";
 
 export default {
-   title: "fragments/Verse Reference Tag",
+   title: "fragments/cards/Verse Reference Tag",
    component: VerseRefTag
 } as ComponentMeta<typeof VerseRefTag>;
 

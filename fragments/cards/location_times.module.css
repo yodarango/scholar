@@ -1,0 +1,28 @@
+.mainWrapper {
+   padding: var(--spacing-xs);
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   background-color: var(--secondary-color);
+   border-radius: 2em;
+   box-shadow: var(--shadow-s);
+}
+
+.day {
+   margin-right: var(--spacing-xs);
+}
+
+.time {
+   justify-self: flex-end;
+}
+.icon {
+   width: 3.5rem;
+   height: 3.5rem;
+   border-radius: 1em;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: var(--third-color);
+   justify-self: flex-end;
+   margin-left: auto;
+}
