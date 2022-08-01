@@ -1,10 +1,12 @@
-.parragraph {
-   font-family: "Open Sans", sans-serif;
-   font-weight: 400;
-   width: 100%;
-   padding: 0;
-   margin: 0;
-   text-align: left;
+.link {
+   text-decoration: underline;
+}
+
+.two {
+   color: var(--third-color);
+}
+
+.two:hover {
    color: var(--font-color);
 }
 
@@ -50,29 +52,4 @@
 
 .justify {
    text-align: justify;
-}
-
-.bold {
-   font-weight: 700;
-}
-
-.inline {
-   display: inline;
-   width: auto;
-}
-
-.block {
-   display: block;
-}
-
-.default {
-   color: var(--font-color);
-}
-
-.quiet {
-   color: var(--third-color);
-}
-
-.inherit {
-   color: inherit;
 }

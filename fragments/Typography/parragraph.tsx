@@ -53,6 +53,12 @@ export const Parragraph = ({
       case "xlarge":
          fontSize = styles.xlarge;
          break;
+      case "xxlarge":
+         fontSize = styles.xxlarge;
+         break;
+      case "xxxlarge":
+         fontSize = styles.xxxlarge;
+         break;
    }
 
    // determine the alignment
