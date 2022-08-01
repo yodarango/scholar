@@ -32,7 +32,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // types
 import { Tsermon } from "../../../fragments/library-items/sermon";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 
 // type sermonsPageProps = {
 //    sermons: Tsermon[];

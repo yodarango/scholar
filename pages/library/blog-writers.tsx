@@ -18,7 +18,7 @@ import { GET_LIB_APPROVED_USERS } from "../../graphql/library/users";
 // components
 import Header from "../../layouts/header";
 import LibraryBlogWriter from "../../fragments/library-blog-writer";
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 

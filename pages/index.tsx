@@ -15,7 +15,7 @@ import CommentFilter from "../fragments/buttons/comment-filter";
 import Header from "../layouts/header";
 import PostsWrapper from "../layouts/posts-wrapper";
 import DailyVerse from "../fragments/cards/daily_verse_card";
-import NavigationMenu from "../layouts/navigation-menu";
+import NavigationMenu from "../layouts/navigation_main";
 import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
 // styles

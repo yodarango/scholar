@@ -13,7 +13,7 @@ import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.
 
 // child comps
 import EditThoughtPost from "../../../../posts/edit-posts/edit-thought-post";
-import NavigationMenu from "../../../../layouts/navigation-menu";
+import NavigationMenu from "../../../../layouts/navigation_main";
 import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
 
 // helpers / types

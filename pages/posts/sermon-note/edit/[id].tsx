@@ -9,7 +9,7 @@ import { GET_ONE_SERMON_NOTE } from "../../../../graphql/posts/sermon_notes";
 
 // child comps
 import EditSermonNotesPost from "../../../../posts/edit-posts/edit-sermon-note-post";
-import NavigationMenu from "../../../../layouts/navigation-menu";
+import NavigationMenu from "../../../../layouts/navigation_main";
 
 // helpers / types
 import { GetServerSideProps } from "next";

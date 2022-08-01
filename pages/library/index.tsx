@@ -36,7 +36,7 @@ import { Tsermon } from "../../fragments/library-items/sermon";
 import { articleProps } from "../../fragments/library-items/article";
 import { bookProps } from "../../fragments/library-items/book";
 import { watchProps } from "../../fragments/library-items/watch";
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 
 const Library = () => {
    // data

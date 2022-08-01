@@ -15,7 +15,7 @@ import { NEW_NOTIFICATION } from "../../../graphql/users/notifications";
 import { UPDATE_MY_STORY } from "../../../graphql/users/profile";
 
 // components
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import NotificationPopup from "../../../fragments/popups/notification";
 import SimpleTextEditor from "../../../fragments/chunks/simple-text-editor";

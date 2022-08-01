@@ -32,7 +32,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // types
 import { congregationProps } from "../../../fragments/library-items/congregation";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 
 // type congregationPageProps = {
 //    congregations: congregationProps[];

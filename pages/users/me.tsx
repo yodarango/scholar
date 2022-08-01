@@ -23,7 +23,7 @@ import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 
 import PopupWrapper from "../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../fragments/popups/notifications-wrapper";
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 // styles

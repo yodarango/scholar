@@ -24,7 +24,7 @@ import LibraryFilter from "../../../fragments/buttons/library-filter";
 import ArticlesCarrousel from "../../../layouts/library-individual-pages/articles-carrousel";
 import SkipContent from "../../../fragments/buttons/pagination";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_found";
 
 // styles

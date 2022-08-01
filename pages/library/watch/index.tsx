@@ -30,7 +30,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // types
 import { watchProps } from "../../../fragments/library-items/watch";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 import SkipContent from "../../../fragments/buttons/pagination";
 import HeadContent from "../../../layouts/head-content";
 

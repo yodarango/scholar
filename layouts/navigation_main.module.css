@@ -1,0 +1,37 @@
+.mainWrapper {
+   width: 100%;
+   background-color: var(--secondary-color);
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   z-index: 15;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   border-top-left-radius: 3em;
+   border-top-right-radius: 3em;
+   box-shadow: 0.4rem -0.4rem 0.6rem var(--shadow-color);
+}
+
+.subWrapper {
+   padding: 0;
+   width: 90%;
+   max-width: 25rem;
+   margin: 0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.menuOption {
+   padding: var(--spacing-xxs) var(--spacing-xs) var(--spacing-xxs);
+   position: relative;
+   cursor: pointer;
+}
+
+.menuOption.active {
+   background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+   border-bottom-left-radius: 0.25em;
+   border-bottom-right-radius: 0.25em;
+   border-radius: 0.5em;
+}

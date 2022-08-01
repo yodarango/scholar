@@ -14,7 +14,7 @@ import { CHECK_IF_PATRON_ACCOUNT, GET_USER_PORTAL_SESSION } from "../../graphql/
 import billingStlyes from "../../styles/pages/subscription/Billing.module.css";
 
 // comps
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 
 const Billing = () => {
    // set the router

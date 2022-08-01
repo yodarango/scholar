@@ -13,7 +13,7 @@ import client from "../../../apollo-client";
 
 // components
 import NotificationPopup from "../../../fragments/popups/notification";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 import AvatarChooser from "../../../fragments/popups/avatarChooser";
 import PopupWrapper from "../../../layouts/popup-wrapper";

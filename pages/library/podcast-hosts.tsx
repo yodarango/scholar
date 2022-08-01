@@ -27,7 +27,7 @@ import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module
 
 // types
 import { ThostData } from "../../fragments/library-podcast-hosts";
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 
 // type sermonsByAuthorProps = {
 //    users: ThostData[];

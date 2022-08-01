@@ -13,7 +13,7 @@ import HeadContent from "../layouts/head-content";
 
 //components
 import ReadingCollage from "../layouts/reading-collage";
-import NavigationMenu from "../layouts/navigation-menu";
+import NavigationMenu from "../layouts/navigation_main";
 
 // styles
 import readStyles from "../styles/pages/Read.module.css";

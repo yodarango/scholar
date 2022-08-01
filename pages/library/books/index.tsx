@@ -31,7 +31,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // types
 import { bookProps } from "../../../fragments/library-items/book";
-import NavigationMenu from "../../../layouts/navigation-menu";
+import NavigationMenu from "../../../layouts/navigation_main";
 
 // type booksPageProps = {
 //    books: bookProps[];

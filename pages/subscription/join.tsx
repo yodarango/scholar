@@ -8,7 +8,7 @@ import client from "../../apollo-client";
 import { CHECK_IF_PATRON_ACCOUNT, CREATE_CHECKOUT_SESSION } from "../../graphql/billing/billing";
 
 // components
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 
 // style
 import goProPageStyles from "../../styles/pages/GoPro.module.css";

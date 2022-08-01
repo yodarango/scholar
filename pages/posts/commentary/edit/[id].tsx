@@ -7,7 +7,7 @@ import Image from "next/image";
 
 // child comps
 import EditPost from "../../../../posts/edit-posts/edit-commentary-post";
-import NavigationMenu from "../../../../layouts/navigation-menu";
+import NavigationMenu from "../../../../layouts/navigation_main";
 import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
 import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
 

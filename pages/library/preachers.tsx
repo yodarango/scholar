@@ -28,7 +28,7 @@ import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module
 
 // types
 import { TpreacherData } from "../../fragments/library-preachers";
-import NavigationMenu from "../../layouts/navigation-menu";
+import NavigationMenu from "../../layouts/navigation_main";
 
 // type sermonsByAuthorProps = {
 //    users: TpreacherData[];

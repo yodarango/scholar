@@ -24,7 +24,7 @@ import CommentThought from "../layouts/comment-thought";
 import RandomDailyVerse from "../fragments/squares/random-daily-verse";
 import StoriesCarrousel from "../posts/stories-carrousel";
 import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
-import NavigationMenu from "../layouts/navigation-menu";
+import NavigationMenu from "../layouts/navigation_main";
 import CardsLazyLoading from "../layouts/cards-lazy-loading";
 // ----- content of the day
 import Sunday from "../fragments/wigo-content/1.sunday";
