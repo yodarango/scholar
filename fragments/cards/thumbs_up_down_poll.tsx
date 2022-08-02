@@ -12,7 +12,7 @@ import client from "../../apollo-client";
 import { HANDLE_VOTE } from "../../graphql/wigo/thursday";
 
 // comps
-import DummyPlaceholder from "./dummy-placeholder";
+import DummyPlaceholder from "../wigo-content/dummy-placeholder";
 
 //styles
 import thursdayStyles from "../../styles/fragments/wigo-content/5.Thursday.module.css";

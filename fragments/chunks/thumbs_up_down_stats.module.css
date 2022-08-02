@@ -1,0 +1,54 @@
+.mainWrapper {
+   display: grid;
+   grid-template-columns: 1fr 6rem 1fr;
+   grid-template-rows: auto;
+   width: 100%;
+   column-gap: var(--spacing-xs);
+}
+
+.thumbsUpWrapper {
+   width: 100%;
+   grid-column: 1/2;
+   grid-row: 1/2;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+
+/* image commented out for stories purposes */
+.middleIcon {
+   grid-column: 2/3;
+   grid-row: 1/2;
+   width: 6rem;
+   height: 6rem;
+   background-color: var(--third-color);
+   border-radius: 50%;
+   background-position: center;
+   background-size: 80%;
+   /* background-image: url("/images/utils/thumbs_up_down.png"); */
+}
+
+.thumbsDownWrapper {
+   width: 100%;
+   grid-column: 3/4;
+   grid-row: 1/2;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.bar {
+   height: 1rem;
+   border-radius: 1.5em;
+   min-width: 2rem;
+}
+
+.barDown {
+   margin-left: var(--spacing-xxs);
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.barUp {
+   margin-right: var(--spacing-xxs);
+   background-image: linear-gradient(-10deg, var(--gradient-2--dark), var(--gradient-2--light));
+}
