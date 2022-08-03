@@ -1,0 +1,45 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.optionsWrapper {
+   width: 100%;
+   height: 15rem;
+   border-bottom: 0.1rem solid var(--third-color);
+   display: flex;
+   align-items: flex-end;
+   justify-content: space-around;
+   margin-bottom: var(--spacing-s);
+}
+
+.option {
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   flex-direction: column;
+   margin-bottom: -1.8rem;
+}
+
+.bar {
+   background-color: var(--font-color);
+   min-height: 1rem;
+   width: 2rem;
+   border-top-left-radius: 2em;
+   border-top-right-radius: 2em;
+}
+
+.max {
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.min {
+   background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+}
+
+.totalVotes {
+   margin-top: calc(var(--spacing-xxs) + 2rem);
+}

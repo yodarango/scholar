@@ -7,4 +7,13 @@ export default {
    component: CategoryTag
 } as ComponentMeta<typeof CategoryTag>;
 
-export const Default: ComponentStory<typeof CategoryTag> = () => <CategoryTag id={"CYN"} />;
+export const Default: ComponentStory<typeof CategoryTag> = () => (
+   <CategoryTag
+      id={"CYN"}
+      cta={{
+         handleShowCategoryMeta(id) {
+            console.log(id);
+         }
+      }}
+   />
+);

@@ -7,30 +7,17 @@ import { HANDLE_VOTE } from "../../graphql/wigo/friday";
 import client from "../../apollo-client";
 
 // comp
-import DummyPlaceholder from "./dummy-placeholder";
+import DummyPlaceholder from "../wigo-content/dummy-placeholder";
 import NotificationPopup from "../popups/notification";
 
 // styles
-import fridayStyles from "../../styles/fragments/wigo-content/6.friday.module.css";
+// import fridayStyles from "../../styles/fragments/wigo-content/6.friday.module.css";
 
 // helpers
 import getCookie from "../../helpers/get-cookie";
 
 type fridayPropsT = {
-   fridayContent: {
-      id: string;
-      question: string;
-      firstOption: string;
-      secondOption: string;
-      thirdOption: string;
-      fourthOption: string;
-      votes: {
-         id: string;
-         firstOption: number;
-         secondOption: number;
-         thirdOption: number;
-         fourthOption: number;
-      };
+
    };
 };
 

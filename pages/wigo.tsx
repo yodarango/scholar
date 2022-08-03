@@ -32,7 +32,7 @@ import Monday from "../fragments/wigo-content/2.monday";
 import Tuesday from "../fragments/wigo-content/3.tuesday";
 import Wednesday from "../fragments/wigo-content/4.wednesday";
 import Thursday from "../fragments/chunks/thumbs_up_down_poll";
-import Friday from "../fragments/wigo-content/6.friday";
+import Friday from "../fragments/cards/6.friday";
 import Saturday from "../fragments/wigo-content/7.saturday";
 import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
