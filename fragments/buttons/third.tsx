@@ -6,7 +6,7 @@ type TPrimaryProps = {
    type: string;
    title: string;
    cta: {
-      handleClick: React.MouseEventHandler<HTMLDivElement>;
+      handleClick: React.MouseEventHandler<HTMLDivElement> | ((args: any) => void);
    };
 };
 

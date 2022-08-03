@@ -5,15 +5,13 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./thumbs_up_down_stats.module.css";
 
 type TThumbsUpDownStatsProps = {
-   votesUp: string;
-   votesDown: string;
+   votesUp: number;
+   votesDown: number;
 };
 export const ThumbsUpDownStats = ({ votesUp, votesDown }: TThumbsUpDownStatsProps) => {
-   const votesUpInt = parseInt(votesUp);
-   const votesDownInt = parseInt(votesDown);
-   const totalVotes = votesDownInt + votesUpInt;
-   const upPercentage = Math.round((votesUpInt / totalVotes) * 100);
-   const downPercentage = Math.round((votesDownInt / totalVotes) * 100);
+   const totalVotes = votesDown + votesUp;
+   const upPercentage = Math.round((votesUp / totalVotes) * 100);
+   const downPercentage = Math.round((votesDown / totalVotes) * 100);
 
    return (
       <div className={styles.mainWrapper}>

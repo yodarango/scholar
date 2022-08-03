@@ -24,7 +24,7 @@ export const CardTimer = ({ time }: TCardProps) => {
    function setTimer() {
       const currDate = new Date().getTime();
       let timeLeft = new Date(originalDate).getTime() - currDate;
-      let h = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let h = Math.floor((timeLeft % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
       let m = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
       let s = Math.floor((timeLeft % (1000 * 60)) / 1000);
 

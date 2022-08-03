@@ -1,30 +1,31 @@
-.mainWrapper{
-    width: 100%;
+.mainWrapper {
+   width: auto;
 }
 
 .mainWrapper button {
-    padding: var(--spacing-xs) calc(var(--spacing-l) + var(--spacing-l)) var(--spacing-xs) var(--spacing-s) ;
-    border-radius: 2em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: transparent;
+   padding: var(--spacing-xs) calc(var(--spacing-l) + var(--spacing-l)) var(--spacing-xs)
+      var(--spacing-s);
+   border-radius: 2em;
+   display: inline-flex;
+   align-items: center;
+   justify-content: flex-start;
+   background-color: transparent;
 }
 
 .icon {
-    margin-right: var(--spacing-l);
+   margin-right: var(--spacing-l);
 }
 
 .primary {
-    background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
 }
 
 .secondary {
-    background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+   background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
 }
 
 .mainWrapper button:hover {
-    cursor: pointer;
-    transform: scale(.95);
-    transition: transform 300ms ease;
+   cursor: pointer;
+   transform: scale(0.95);
+   transition: transform 300ms ease;
 }

@@ -1,0 +1,25 @@
+.mainWrapper {
+   padding: var(--spacing-m) var(--spacing-xs);
+   background-color: var(--secondary-color);
+   border-radius: 3em;
+}
+
+.mainWrapper > div {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.mainWrapper > .buttonWrapper {
+   justify-content: space-between;
+}
+
+.countdown,
+.stats {
+   margin-bottom: var(--spacing-m);
+}
+
+.poll {
+   margin-bottom: calc(var(--spacing-l) + var(--spacing-xs));
+}
