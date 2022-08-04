@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { MultipleChoicePoll } from "../../../fragments/cards/multiple_choice_poll";
+import { MultipleChoicePoll } from "../../../fragments/chunks/multiple_choice_poll";
 
 export default {
    title: "fragments/chunks/Multiple Choice Poll",

@@ -1,0 +1,17 @@
+.mainWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.option {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.button {
+    margin: var(--spacing-xs) var(--spacing-xs) 0 0;
+}
