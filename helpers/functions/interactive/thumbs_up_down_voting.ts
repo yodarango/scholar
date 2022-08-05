@@ -20,9 +20,9 @@ export const handleThumbsUpDownVote = async (
       const now = Date.now() + 86400000;
       const cookieExpiration = new Date(now);
 
+      // if the data saves successfully save thecookie
       if (data.thursdayVotes) {
-         //set cookie
-         document.cookie = `votedThursday=${myVote}; expires=${cookieExpiration};
+         document.cookie = `thumbsAction=${myVote}; expires=${cookieExpiration};
                path: /wigo;`;
          return data.thursdayVotes;
       }

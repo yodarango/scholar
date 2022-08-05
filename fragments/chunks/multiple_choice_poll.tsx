@@ -2,10 +2,10 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./multiple_choice_poll.module.css";
 
 type TMultipleChoicePollProps = {
-   options: number[];
+   votes: number[];
 };
 
-export const MultipleChoicePoll = ({ options }: TMultipleChoicePollProps) => {
+export const MultipleChoicePoll = ({ votes }: TMultipleChoicePollProps) => {
    // ------------------ alphabet to assign uniwue letter to each option -----------
    const alphabet = [
       "A",
@@ -64,19 +64,19 @@ export const MultipleChoicePoll = ({ options }: TMultipleChoicePollProps) => {
 
    // ------------------- extrapolate percentages -------------
 
-   const totalVotes = options.reduce((a, b) => a + b, 0);
-   const max = Math.max(...options);
-   const min = Math.min(...options);
+   const totalVotes = votes.reduce((a, b) => a + b, 0);
+   const max = Math.max(...votes);
+   const min = Math.min(...votes);
    return (
       <div className={styles.mainWrapper}>
          <section className={styles.optionsWrapper}>
-            {options.map((option: number, index: number) => (
-               <div className={styles.option}>
+            {votes.map((vote: number, index: number) => (
+               <div className={styles.option} key={index}>
                   <div
-                     className={`${styles.bar} ${max === option && styles.max} ${
-                        min === option && styles.min
+                     className={`${styles.bar} ${max === vote && styles.max} ${
+                        min === vote && styles.min
                      }`}
-                     style={{ height: `${(option / totalVotes) * 15}rem` }}></div>
+                     style={{ height: `${(vote / totalVotes) * 15}rem` }}></div>
                   <div className={styles.letter}>
                      <Parragraph
                         size='xsmall'

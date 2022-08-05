@@ -109,25 +109,16 @@ export const GET_FRIDAY_CONTENT = gql`
 
 export const HANDLE_VOTE = gql`
    mutation (
-      $firstOption: Int
-      $secondOption: Int
-      $thirdOption: Int
-      $fourthOption: Int
+      $votes: Int[]
       $contentId: ID
    ) {
       fridayVotes(
          content: {
-            firstOption: $firstOption
-            secondOption: $secondOption
-            thirdOption: $thirdOption
-            fourthOption: $fourthOption
+            votes: $votes
             contentId: $contentId
          }
       ) {
-         firstOption
-         secondOption
-         thirdOption
-         fourthOption
+          votes 
       }
    }
 `;

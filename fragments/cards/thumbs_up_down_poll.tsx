@@ -9,6 +9,7 @@ import DummyPlaceholder from "../wigo-content/dummy-placeholder";
 import CardTimer from "../chunks/card_timer";
 import { Parragraph } from "../Typography/parragraph";
 import { Third } from "../buttons/third";
+import { NotificationSticker } from "./notification_sticker";
 
 //styles
 import styles from "./thumbs_up_down_poll.module.css";
@@ -16,6 +17,9 @@ import styles from "./thumbs_up_down_poll.module.css";
 // types
 import { TThumbsUpDownPoll } from "../../types/wigo_content";
 import { ThumbsUpDownStats } from "../chunks/thumbs_up_down_stats";
+
+// helpers
+import { getCookie } from "../../helpers/get-cookie";
 
 type TThumbsUpDownPollProps = {
    content: TThumbsUpDownPoll;
@@ -25,6 +29,9 @@ type TThumbsUpDownPollProps = {
 };
 
 export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
+   // check if user has already voted by checking cookie
+   const hasVoted = getCookie("multChoice");
+
    return (
       <>
          {content && (
@@ -42,20 +49,23 @@ export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
                <section className={styles.poll}>
                   <Parragraph text={content.poll} size='main' />
                </section>
-               <div className={styles.buttonWrapper}>
-                  <Third
-                     icon='👍'
-                     title='Agree'
-                     type='1'
-                     cta={{ handleClick: () => cta.handleVote(1, 0, content.id, "agree") }}
-                  />
-                  <Third
-                     icon='👎'
-                     title='Disagree'
-                     type='2'
-                     cta={{ handleClick: () => cta.handleVote(0, 1, content.id, "disagree") }}
-                  />
-               </div>
+               {hasVoted && (
+                  <div className={styles.buttonWrapper}>
+                     <Third
+                        icon='👍'
+                        title='Agree'
+                        type='1'
+                        cta={{ handleClick: () => cta.handleVote(1, 0, content.id, "agree") }}
+                     />
+                     <Third
+                        icon='👎'
+                        title='Disagree'
+                        type='2'
+                        cta={{ handleClick: () => cta.handleVote(0, 1, content.id, "disagree") }}
+                     />
+                  </div>
+               )}
+               {!hasVoted && <NotificationSticker type='1' text={`you voted for ${hasVoted}`} />}
             </div>
          )}
 

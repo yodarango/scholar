@@ -1,4 +1,4 @@
-const getCookie = (cookie_name: string) => {
+export const getCookie = (cookie_name: string) => {
    let name = cookie_name + "=";
    let decodedCookie = decodeURIComponent(document.cookie);
    let cookie_attributes = decodedCookie.split(";");
@@ -14,4 +14,3 @@ const getCookie = (cookie_name: string) => {
    return "";
 };
 
-export default getCookie;

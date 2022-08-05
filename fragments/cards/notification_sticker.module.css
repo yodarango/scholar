@@ -1,0 +1,24 @@
+.mainWrapper {
+    padding: var(--spacing-s);
+    border-radius: 1em;
+}
+
+.informative{
+    background-color: var(--third-color);
+}
+
+.informativeQuiet {
+    background-color: var(--secondary-color);
+}
+
+.success {
+    background-color: var(--safe-color);
+}
+
+.warning {
+    background-color: var(--warning-color);
+}
+
+.danger {
+    background-color: var(--danger-color);
+}

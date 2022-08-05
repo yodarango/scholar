@@ -1,0 +1,21 @@
+.mainWrapper {
+   padding: var(--spacing-m) var(--spacing-xs);
+   background-color: var(--secondary-color);
+   border-radius: 3em;
+}
+
+.timer {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: var(--spacing-m);
+}
+
+.question {
+   margin-bottom: var(--spacing-m);
+}
+
+.options {
+   margin-bottom: var(--spacing-m);
+}
