@@ -20,6 +20,7 @@ import { ThumbsUpDownStats } from "../chunks/thumbs_up_down_stats";
 
 // helpers
 import { getCookie } from "../../helpers/get-cookie";
+import { WinningPoll } from "./winning_poll";
 
 type TThumbsUpDownPollProps = {
    content: TThumbsUpDownPoll;
@@ -39,6 +40,7 @@ export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
                <div className={styles.countdown}>
                   <CardTimer time={content.countdownLimit} />
                </div>
+
                <div className={styles.stats}>
                   <ThumbsUpDownStats
                      votesDown={content.votes.votesDown}
@@ -49,7 +51,7 @@ export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
                <section className={styles.poll}>
                   <Parragraph text={content.poll} size='main' />
                </section>
-               {hasVoted && (
+               {!hasVoted && (
                   <div className={styles.buttonWrapper}>
                      <Third
                         icon='👍'
@@ -65,7 +67,7 @@ export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
                      />
                   </div>
                )}
-               {!hasVoted && <NotificationSticker type='1' text={`you voted for ${hasVoted}`} />}
+               {hasVoted && <NotificationSticker type='1' text={`you voted for ${hasVoted}`} />}
             </div>
          )}
 
