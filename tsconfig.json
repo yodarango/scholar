@@ -20,7 +20,7 @@
       "**/*.tsx",
       "graphql/GetSermonNotes.js",
       "graphql/home/commentaries.js"
-      //"stories/fragments/chunks/card_timer.stories.mdx"
+, "hoc/potal.js"      //"stories/fragments/chunks/card_timer.stories.mdx"
    ],
    "exclude": ["node_modules"]
 }

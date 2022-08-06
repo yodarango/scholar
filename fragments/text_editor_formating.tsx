@@ -8,6 +8,9 @@ import { Parragraph } from "./Typography/parragraph";
 // styles
 import styles from "./text_editor_formating.module.css";
 
+// helpers
+import Portal from "../hoc/potal";
+
 export const TextEditorFormating = () => {
    // ------------------- states --------------
    const [showNotification, setshowNotification] = useState<number>(0);
@@ -15,156 +18,171 @@ export const TextEditorFormating = () => {
    return (
       <>
          {showNotification === 1 && (
-            <Notification
-               type='1'
-               title='Insert bold text'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>Type '**text**'</span> and get <b>text</b>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert bold text'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>Type '**text**'</span> and get <b>text</b>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          {showNotification === 2 && (
-            <Notification
-               type='1'
-               title='Insert a title'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>Type: '# Title' and get </span> and get <b>Title</b>
-                           <span>
-                              Continue to add '#' to make a smaller title, for example '######
-                              Title'
-                           </span>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert a title'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>Type: '# Title' and get </span> and get <b>Title</b>
+                              <span>
+                                 Continue to add '#' to make a smaller title, for example '######
+                                 Title'
+                              </span>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          {showNotification === 3 && (
-            <Notification
-               type='1'
-               title='Insert italic text'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>Type: '*Text*' and get </span> and get <i>Title</i>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert italic text'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>Type: '*Text*' and get </span> and get <i>Title</i>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          {showNotification === 4 && (
-            <Notification
-               type='1'
-               title='Insert a link'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>type: '[Link title](http://www.example.com)' and get </span>{" "}
-                           <a style={{ color: "#ff9214", textDecoration: "underline" }} href='#'>
-                              Link title
-                           </a>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert a link'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>type: '[Link title](http://www.example.com)' and get </span>{" "}
+                              <a style={{ color: "#ff9214", textDecoration: "underline" }} href='#'>
+                                 Link title
+                              </a>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          {showNotification === 5 && (
-            <Notification
-               type='1'
-               title='Insert numbered list'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>
-                              Type: <br /> '1. One' <br /> '2. Two' <br /> '3. Three' <br /> and get
-                           </span>
-                           <span>
-                              <br />
-                              1. One
-                              <br />
-                              2. Two
-                              <br />
-                              3. Three
-                              <br />
-                           </span>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert numbered list'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>
+                                 Type: <br /> '1. One' <br /> '2. Two' <br /> '3. Three' <br /> and
+                                 get
+                              </span>
+                              <span>
+                                 <br />
+                                 1. One
+                                 <br />
+                                 2. Two
+                                 <br />
+                                 3. Three
+                                 <br />
+                              </span>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          {showNotification === 6 && (
-            <Notification
-               type='1'
-               title='Insert bulleted list'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>
-                              Type: <br /> '* One' <br /> '* Two' <br /> '* Three' <br /> and get
-                           </span>
-                           <span>
-                              <br /> &#8226; One <br /> &#8226; Two <br /> &#8226; Three <br />{" "}
-                           </span>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert bulleted list'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>
+                                 Type: <br /> '* One' <br /> '* Two' <br /> '* Three' <br /> and get
+                              </span>
+                              <span>
+                                 <br /> &#8226; One <br /> &#8226; Two <br /> &#8226; Three <br />{" "}
+                              </span>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          {showNotification === 7 && (
-            <Notification
-               type='1'
-               title='Insert a break'
-               jsxContent={
-                  <Parragraph
-                     size='small'
-                     text={
-                        <>
-                           <span>{`type: "&nbsp;" and get: `}</span>
-                           <br />
-                           <span>top text</span>
-                           <br />
-                           <span>bottom text</span>
-                        </>
-                     }
-                  />
-               }
-               cta={() => setshowNotification(0)}
-            />
+            <Portal>
+               <Notification
+                  type='1'
+                  title='Insert a break'
+                  jsxContent={
+                     <Parragraph
+                        size='small'
+                        text={
+                           <>
+                              <span>{`type: "&nbsp;" and get: `}</span>
+                              <br />
+                              <span>top text</span>
+                              <br />
+                              <span>bottom text</span>
+                           </>
+                        }
+                     />
+                  }
+                  cta={() => setshowNotification(0)}
+               />
+            </Portal>
          )}
 
          <div className={styles.mainWrapper}>

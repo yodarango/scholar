@@ -1,12 +1,21 @@
 .mainWrapper {
+   width: 3.5rem;
+   height: 3.5rem;
+}
+
+.mainWrapperCustomSize {
    width: 100%;
    height: 100%;
 }
 
-.tag,
-.tagWrapperCustomSize {
-   width: 3.5rem;
-   height: 3.5rem;
+.tagWrapper {
+   width: 100%;
+   height: 100%;
+}
+
+.tag {
+   width: 100%;
+   height: 100%;
    border-radius: 0.9em;
    overflow: hidden;
 }

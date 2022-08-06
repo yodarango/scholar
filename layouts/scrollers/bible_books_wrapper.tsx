@@ -9,16 +9,29 @@ import { Bible, TBible } from "../../data/bible";
 import { ScripturePicker } from "../menus/scripture_picker";
 
 type TBibleBooksWrapperProps = {
-   versionId: string;
-   cta: (content: any) => void;
+   versionId?: string;
+   stopAtVerse: boolean;
+   stopAtChapter: boolean;
+   cta: { handleChoice: (content: any) => void };
 };
 
-export const BibleBooksWrapper = ({ versionId, cta }: TBibleBooksWrapperProps) => {
+export const BibleBooksWrapper = ({
+   versionId = "de4e12af7f28f599-02",
+   cta,
+   stopAtVerse,
+   stopAtChapter
+}: TBibleBooksWrapperProps) => {
    return (
       <div className={styles.mainWrapper}>
          {Bible.map((book: TBible, index) => (
             <div className={styles.book} key={index}>
-               <ScripturePicker bible={book} stopAtChapter={true} versionId={versionId} cta={cta} />
+               <ScripturePicker
+                  bible={book}
+                  stopAtChapter={stopAtChapter}
+                  versionId={versionId}
+                  cta={cta.handleChoice}
+                  stopAtVerse={stopAtVerse}
+               />
             </div>
          ))}
       </div>

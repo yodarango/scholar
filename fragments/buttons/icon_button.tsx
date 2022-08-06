@@ -17,7 +17,9 @@ export type TIconButtonProps = {
    buttonSize?: string;
    link?: string;
    shadowColor?: string;
-   cta?: React.MouseEventHandler<HTMLButtonElement>;
+   cta?: {
+      handleClick: React.MouseEventHandler<HTMLButtonElement>;
+   };
 };
 
 export const IconButton = ({
@@ -38,7 +40,7 @@ export const IconButton = ({
                   className={`${styles.mainWrapper} ${buttonSize && styles.mainWrapperCustomSize} ${
                      styles.primary
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                  onClick={cta}>
+                  onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
             ) : (
@@ -60,7 +62,7 @@ export const IconButton = ({
                   className={`${styles.mainWrapper} ${buttonSize && styles.mainWrapperCustomSize} ${
                      styles.secondary
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                  onClick={cta}>
+                  onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
             ) : (
@@ -84,7 +86,7 @@ export const IconButton = ({
                      shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                   }`}
                   style={{ backgroundColor }}
-                  onClick={cta}>
+                  onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
             ) : (
