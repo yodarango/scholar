@@ -4,7 +4,7 @@
    justify-content: flex-start;
 }
 
-/* ---------- allow custom allignment by passing classes in the props -----*/
+/*  allow custom allignment by passing classes in the props */
 .mainWrapper.center {
    justify-content: center;
 }
@@ -12,7 +12,6 @@
 .mainWrapper.right {
    justify-content: right;
 }
-/*------------------------------------------------------------------------*/
 
 .mainWrapper:hover {
    cursor: pointer;

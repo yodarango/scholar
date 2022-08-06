@@ -1,3 +1,10 @@
+/*********************************************************************************************************************** 
+ - simple small button that onClick can either show the metadata of the category clicked or it can
+   bring the categories menu to select a new category. This is dependable on which "informativeOnly" value is passed on
+   to it. 
+-  InforamtiveOnly = displays the popup witht the tag metadata
+***********************************************************************************************************************/
+
 import { useState } from "react";
 
 // comps
@@ -11,26 +18,31 @@ import { categoryMeta, TcategoryMeta } from "../../data/category_meta";
 
 // helpers
 import Portal from "../../hoc/potal";
+import { SelectCategoryTag } from "../../layouts/menus/select_category_tag";
 
 type TCategoryTagprops = {
    id: string;
    customSize?: boolean;
    customBorderRadius?: string;
+   informativeOnly: boolean;
    cta?: {
-      handleShowCategoryMeta: (id: string) => void;
+      handleSelection: (id: string) => void;
    };
 };
 
 export const CategoryTag = ({
    id,
    customSize,
-   cta,
-   customBorderRadius = ".9em"
+   informativeOnly,
+   customBorderRadius = ".9em",
+   cta
 }: TCategoryTagprops) => {
+   // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
+   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
 
-   // ---------------- open the category popup -----------------
-   const handleOpenNotificationPopup = () => {
+   //  open the category popup
+   const handleShowCategoryMeta = () => {
       const category = categoryMeta.filter((item: TcategoryMeta) => item.tag === `#${id}`);
 
       const cardTitle = category[0].title;
@@ -50,11 +62,21 @@ export const CategoryTag = ({
 
    return (
       <>
-         <Portal>{isPopupOpen}</Portal>
+         <Portal>
+            {isPopupOpen}
+            {isCategoryMenuOpen && (
+               <SelectCategoryTag
+                  cta={{
+                     handleCloseModal: () => setIsCategoryMenuOpen(false),
+                     handleSelection: (id) => cta?.handleSelection(id)
+                  }}
+               />
+            )}
+         </Portal>
 
          <div
             onClick={
-               cta ? () => cta.handleShowCategoryMeta(id) : () => handleOpenNotificationPopup()
+               informativeOnly ? () => handleShowCategoryMeta() : () => setIsCategoryMenuOpen(true)
             }
             className={customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}>
             {id === "BLK" && (

@@ -1,0 +1,14 @@
+.mainWrapper {
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-flow: column;
+}
+
+.avatar {
+   margin-bottom: var(--spacing-xs);
+}
+
+.timeStamp {
+   margin-bottom: var(--spacing-xs);
+}

@@ -8,7 +8,7 @@ export type TBible = {
 
 export const Bible = [
    {
-      image: "/images/commentaries_by_book/1.png",
+      image: "/images/bible_books/1.png",
       bookId: "GEN",
       bookTitle: "Genesis",
       chapters: 50,
@@ -19,7 +19,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/2.png",
+      image: "/images/bible_books/2.png",
       bookId: "EXO",
       bookTitle: "Exodus",
       chapters: 40,
@@ -29,7 +29,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/3.png",
+      image: "/images/bible_books/3.png",
       bookId: "LEV",
       bookTitle: "Leviticus",
       chapters: 27,
@@ -39,7 +39,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/4.png",
+      image: "/images/bible_books/4.png",
       bookId: "NUM",
       bookTitle: "Numbers",
       chapters: 36,
@@ -49,7 +49,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/5.png",
+      image: "/images/bible_books/5.png",
       bookId: "DEU",
       bookTitle: "Deuteronomy",
       chapters: 34,
@@ -59,7 +59,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/6.png",
+      image: "/images/bible_books/6.png",
       bookId: "JOS",
       bookTitle: "Joshua",
       chapters: 24,
@@ -69,21 +69,21 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/7.png",
+      image: "/images/bible_books/7.png",
       bookId: "JDG",
       bookTitle: "Judges",
       chapters: 21,
       verses: [36, 23, 31, 24, 31, 40, 25, 35, 57, 18, 40, 15, 25, 20, 20, 31, 13, 31, 30, 48, 25]
    },
    {
-      image: "/images/commentaries_by_book/8.png",
+      image: "/images/bible_books/8.png",
       bookId: "RUT",
       bookTitle: "Ruth",
       chapters: 4,
       verses: [22, 23, 18, 22]
    },
    {
-      image: "/images/commentaries_by_book/9.png",
+      image: "/images/bible_books/9.png",
       bookId: "1SA",
       bookTitle: "1 Samuel",
       chapters: 31,
@@ -93,7 +93,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/10.png",
+      image: "/images/bible_books/10.png",
       bookId: "2SA",
       bookTitle: "2 Samuel",
       chapters: 24,
@@ -103,7 +103,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/11.png",
+      image: "/images/bible_books/11.png",
       bookId: "1KI",
       bookTitle: "1 Kings",
       chapters: 22,
@@ -112,7 +112,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/12.png",
+      image: "/images/bible_books/12.png",
       bookId: "2KI",
       bookTitle: "2 Kings",
       chapters: 25,
@@ -122,7 +122,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/13.png",
+      image: "/images/bible_books/13.png",
       bookId: "1CH",
       bookTitle: "1 Chronicles",
       chapters: 29,
@@ -132,7 +132,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/14.png",
+      image: "/images/bible_books/14.png",
       bookId: "2CH",
       bookTitle: "2 Chronicles",
       chapters: 36,
@@ -142,28 +142,28 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/15.png",
+      image: "/images/bible_books/15.png",
       bookId: "EZR",
       bookTitle: "Ezra",
       chapters: 10,
       verses: [11, 70, 13, 24, 17, 22, 28, 36, 15, 44]
    },
    {
-      image: "/images/commentaries_by_book/16.png",
+      image: "/images/bible_books/16.png",
       bookId: "NEH",
       bookTitle: "Nehemiah",
       chapters: 13,
       verses: [11, 20, 32, 23, 19, 19, 73, 18, 38, 39, 36, 47, 31]
    },
    {
-      image: "/images/commentaries_by_book/17.png",
+      image: "/images/bible_books/17.png",
       bookId: "EST",
       bookTitle: "Esther",
       chapters: 10,
       verses: [22, 23, 15, 17, 14, 14, 10, 17, 32, 3]
    },
    {
-      image: "/images/commentaries_by_book/18.png",
+      image: "/images/bible_books/18.png",
       bookId: "JOB",
       bookTitle: "Job",
       chapters: 42,
@@ -173,7 +173,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/19.png",
+      image: "/images/bible_books/19.png",
       bookId: "PSA",
       bookTitle: "Psalms",
       chapters: 150,
@@ -188,7 +188,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/20.png",
+      image: "/images/bible_books/20.png",
       bookId: "PRO",
       bookTitle: "Proverbs",
       chapters: 31,
@@ -198,21 +198,21 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/21.png",
+      image: "/images/bible_books/21.png",
       bookId: "ECC",
       bookTitle: "Ecclesiastes",
       chapters: 12,
       verses: [18, 26, 22, 16, 20, 12, 29, 17, 18, 20, 10, 14]
    },
    {
-      image: "/images/commentaries_by_book/22.png",
+      image: "/images/bible_books/22.png",
       bookId: "SNG",
       bookTitle: "Song of Solomon",
       chapters: 8,
       verses: [17, 17, 11, 16, 16, 13, 13, 14]
    },
    {
-      image: "/images/commentaries_by_book/23.png",
+      image: "/images/bible_books/23.png",
       bookId: "ISA",
       bookTitle: "Isaiah",
       chapters: 66,
@@ -223,7 +223,7 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/24.png",
+      image: "/images/bible_books/24.png",
       bookId: "JER",
       bookTitle: "Jeremiah",
       chapters: 52,
@@ -234,14 +234,14 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/25.png",
+      image: "/images/bible_books/25.png",
       bookId: "LAM",
       bookTitle: "Lamentations",
       chapters: 5,
       verses: [22, 22, 66, 22, 22]
    },
    {
-      image: "/images/commentaries_by_book/26.png",
+      image: "/images/bible_books/26.png",
       bookId: "EZK",
       bookTitle: "Ezekiel",
       chapters: 48,
@@ -252,98 +252,98 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/27.png",
+      image: "/images/bible_books/27.png",
       bookId: "DAN",
       bookTitle: "Daniel",
       chapters: 12,
       verses: [21, 49, 30, 37, 31, 28, 28, 27, 27, 21, 45, 13]
    },
    {
-      image: "/images/commentaries_by_book/28.png",
+      image: "/images/bible_books/28.png",
       bookId: "HOS",
       bookTitle: "Hosea",
       chapters: 14,
       verses: [11, 23, 5, 19, 15, 11, 16, 14, 17, 15, 12, 14, 16, 9]
    },
    {
-      image: "/images/commentaries_by_book/29.png",
+      image: "/images/bible_books/29.png",
       bookId: "JOL",
       bookTitle: "Joel",
       chapters: 3,
       verses: [20, 32, 21]
    },
    {
-      image: "/images/commentaries_by_book/30.png",
+      image: "/images/bible_books/30.png",
       bookId: "AMO",
       bookTitle: "Amos",
       chapters: 9,
       verses: [15, 16, 15, 13, 27, 14, 17, 14, 15]
    },
    {
-      image: "/images/commentaries_by_book/31.png",
+      image: "/images/bible_books/31.png",
       bookId: "OBA",
       bookTitle: "Obadiah",
       chapters: 1,
       verses: [21]
    },
    {
-      image: "/images/commentaries_by_book/32.png",
+      image: "/images/bible_books/32.png",
       bookId: "JON",
       bookTitle: "Jonah",
       chapters: 4,
       verses: [17, 10, 10, 11]
    },
    {
-      image: "/images/commentaries_by_book/33.png",
+      image: "/images/bible_books/33.png",
       bookId: "MIC",
       bookTitle: "Micah",
       chapters: 7,
       verses: [16, 13, 12, 13, 15, 16, 20]
    },
    {
-      image: "/images/commentaries_by_book/34.png",
+      image: "/images/bible_books/34.png",
       bookId: "NAM",
       bookTitle: "Nahum",
       chapters: 3,
       verses: [15, 13, 19]
    },
    {
-      image: "/images/commentaries_by_book/35.png",
+      image: "/images/bible_books/35.png",
       bookId: "HAB",
       bookTitle: "Habakkuk",
       chapters: 3,
       verses: [17, 20, 19]
    },
    {
-      image: "/images/commentaries_by_book/36.png",
+      image: "/images/bible_books/36.png",
       bookId: "ZEP",
       bookTitle: "Zephaniah",
       chapters: 3,
       verses: [18, 15, 20]
    },
    {
-      image: "/images/commentaries_by_book/37.png",
+      image: "/images/bible_books/37.png",
       bookId: "HAG",
       bookTitle: "Haggai",
       chapters: 2,
       verses: [15, 23]
    },
    {
-      image: "/images/commentaries_by_book/38.png",
+      image: "/images/bible_books/38.png",
       bookId: "ZEC",
       bookTitle: "Zechariah",
       chapters: 14,
       verses: [21, 13, 10, 14, 11, 15, 14, 23, 17, 12, 17, 14, 9, 21]
    },
    {
-      image: "/images/commentaries_by_book/39.png",
+      image: "/images/bible_books/39.png",
       bookId: "MAL",
       bookTitle: "Malachi",
       chapters: 4,
       verses: [14, 17, 18, 4]
    },
    {
-      image: "/images/commentaries_by_book/40.png",
+      image: "/images/bible_books/40.png",
       bookId: "MAT",
       bookTitle: "Matthew",
       chapters: 28,
@@ -353,14 +353,14 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/41.png",
+      image: "/images/bible_books/41.png",
       bookId: "MRK",
       bookTitle: "Mark",
       chapters: 16,
       verses: [45, 28, 35, 41, 43, 56, 37, 38, 50, 52, 33, 44, 37, 72, 47, 20]
    },
    {
-      image: "/images/commentaries_by_book/42.png",
+      image: "/images/bible_books/42.png",
       bookId: "LUK",
       bookTitle: "Luke",
       chapters: 24,
@@ -370,14 +370,14 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/43.png",
+      image: "/images/bible_books/43.png",
       bookId: "JHN",
       bookTitle: "John",
       chapters: 28,
       verses: [51, 25, 36, 54, 47, 71, 53, 59, 41, 42, 57, 50, 38, 31, 27, 33, 26, 40, 42, 31, 25]
    },
    {
-      image: "/images/commentaries_by_book/44.png",
+      image: "/images/bible_books/44.png",
       bookId: "ACT",
       bookTitle: "Acts",
       chapters: 21,
@@ -387,154 +387,154 @@ export const Bible = [
       ]
    },
    {
-      image: "/images/commentaries_by_book/45.png",
+      image: "/images/bible_books/45.png",
       bookId: "ROM",
       bookTitle: "Romans",
       chapters: 16,
       verses: [32, 29, 31, 25, 21, 23, 25, 39, 33, 21, 36, 21, 14, 23, 33, 27]
    },
    {
-      image: "/images/commentaries_by_book/46.png",
+      image: "/images/bible_books/46.png",
       bookId: "1CO",
       bookTitle: "1 Corinthians",
       chapters: 16,
       verses: [31, 16, 23, 21, 13, 20, 40, 13, 27, 33, 34, 31, 13, 40, 58, 24]
    },
    {
-      image: "/images/commentaries_by_book/47.png",
+      image: "/images/bible_books/47.png",
       bookId: "2CO",
       bookTitle: "2 Corinthians",
       chapters: 13,
       verses: [24, 17, 18, 18, 21, 18, 16, 24, 15, 18, 33, 21, 14]
    },
    {
-      image: "/images/commentaries_by_book/48.png",
+      image: "/images/bible_books/48.png",
       bookId: "GAL",
       bookTitle: "Galatians",
       chapters: 6,
       verses: [24, 21, 29, 31, 26, 18]
    },
    {
-      image: "/images/commentaries_by_book/49.png",
+      image: "/images/bible_books/49.png",
       bookId: "EPH",
       bookTitle: "Ephesians",
       chapters: 6,
       verses: [23, 22, 21, 32, 33, 24]
    },
    {
-      image: "/images/commentaries_by_book/50.png",
+      image: "/images/bible_books/50.png",
       bookId: "PHP",
       bookTitle: "Philippians",
       chapters: 4,
       verses: [30, 30, 21, 23]
    },
    {
-      image: "/images/commentaries_by_book/51.png",
+      image: "/images/bible_books/51.png",
       bookId: "COL",
       bookTitle: "Colossians",
       chapters: 4,
       verses: [29, 23, 25, 18]
    },
    {
-      image: "/images/commentaries_by_book/52.png",
+      image: "/images/bible_books/52.png",
       bookId: "1TH",
       bookTitle: "1 Thessalonians",
       chapters: 5,
       verses: [10, 20, 13, 18, 28]
    },
    {
-      image: "/images/commentaries_by_book/53.png",
+      image: "/images/bible_books/53.png",
       bookId: "2TH",
       bookTitle: "2 Thessalonians",
       chapters: 3,
       verses: [12, 17, 18]
    },
    {
-      image: "/images/commentaries_by_book/54.png",
+      image: "/images/bible_books/54.png",
       bookId: "1TI",
       bookTitle: "1 Timothy",
       chapters: 6,
       verses: [20, 15, 16, 16, 25, 21]
    },
    {
-      image: "/images/commentaries_by_book/55.png",
+      image: "/images/bible_books/55.png",
       bookId: "2TI",
       bookTitle: "2 Timothy",
       chapters: 4,
       verses: [18, 26, 17, 22]
    },
    {
-      image: "/images/commentaries_by_book/56.png",
+      image: "/images/bible_books/56.png",
       bookId: "TIT",
       bookTitle: "Titus",
       chapters: 3,
       verses: [16, 15, 15]
    },
    {
-      image: "/images/commentaries_by_book/57.png",
+      image: "/images/bible_books/57.png",
       bookId: "PHM",
       bookTitle: "Philemon",
       chapters: 1,
       verses: [25]
    },
    {
-      image: "/images/commentaries_by_book/58.png",
+      image: "/images/bible_books/58.png",
       bookId: "HEB",
       bookTitle: "Hebrews",
       chapters: 13,
       verses: [14, 18, 19, 16, 14, 20, 28, 13, 28, 39, 40, 29, 25]
    },
    {
-      image: "/images/commentaries_by_book/59.png",
+      image: "/images/bible_books/59.png",
       bookId: "JAS",
       bookTitle: "James",
       chapters: 5,
       verses: [27, 26, 18, 17, 20]
    },
    {
-      image: "/images/commentaries_by_book/60.png",
+      image: "/images/bible_books/60.png",
       bookId: "1PE",
       bookTitle: "1 Peter",
       chapters: 5,
       verses: [25, 25, 22, 19, 14]
    },
    {
-      image: "/images/commentaries_by_book/61.png",
+      image: "/images/bible_books/61.png",
       bookId: "2PE",
       bookTitle: "2 Peter",
       chapters: 3,
       verses: [21, 22, 18]
    },
    {
-      image: "/images/commentaries_by_book/62.png",
+      image: "/images/bible_books/62.png",
       bookId: "1JN",
       bookTitle: "1 John",
       chapters: 5,
       verses: [10, 29, 24, 21, 21]
    },
    {
-      image: "/images/commentaries_by_book/63.png",
+      image: "/images/bible_books/63.png",
       bookId: "2JN",
       bookTitle: "2 John",
       chapters: 1,
       verses: [13]
    },
    {
-      image: "/images/commentaries_by_book/64.png",
+      image: "/images/bible_books/64.png",
       bookId: "3JN",
       bookTitle: "3 John",
       chapters: 1,
       verses: [14]
    },
    {
-      image: "/images/commentaries_by_book/65.png",
+      image: "/images/bible_books/65.png",
       bookId: "JUD",
       bookTitle: "Jude",
       chapters: 1,
       verses: [25]
    },
    {
-      image: "/images/commentaries_by_book/66.png",
+      image: "/images/bible_books/66.png",
       bookId: "REV",
       bookTitle: "Revelation",
       chapters: 22,
@@ -543,7 +543,7 @@ export const Bible = [
       ]
    }
 ];
-export type commentaries_by_book_query = {
+export type bible_books_query = {
    genesis: number;
    exodus: number;
    leviticus: number;

@@ -20,6 +20,7 @@ type menuOptions = {
 type TSelectCategoryTagProps = {
    cta: {
       handleCloseModal: () => void;
+      handleSelection: (id: string) => void;
    };
 };
 
@@ -56,7 +57,7 @@ export const SelectCategoryTag = ({ cta }: TSelectCategoryTagProps) => {
                         iconShadow: option.color,
                         text: option.description
                      }}
-                     cta={() => console.log(option.id)}
+                     cta={() => cta.handleSelection(option.id)}
                   />
                </div>
             ))}

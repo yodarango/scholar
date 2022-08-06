@@ -7,4 +7,12 @@ export default {
    component: TextEditorActions
 } as ComponentMeta<typeof TextEditorActions>;
 
-export const Primary: ComponentStory<typeof TextEditorActions> = () => <TextEditorActions />;
+export const Primary: ComponentStory<typeof TextEditorActions> = () => (
+   <TextEditorActions
+      cta={{
+         handleRefVerseSelection(id) {
+            console.log(id);
+         }
+      }}
+   />
+);

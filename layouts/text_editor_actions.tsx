@@ -7,7 +7,7 @@ import { Secondary } from "../fragments/buttons/secondary";
 import { CategoryTag } from "../fragments/chunks/category_tag";
 import { TextEditorFormating } from "../fragments/text_editor_formating";
 import { Parragraph } from "../fragments/Typography/parragraph";
-import { PrimaryStack } from "./stacks/primary_stack";
+import { PrimaryStack } from "./stacks/templates/primary_stack";
 import { BibleBooksWrapper } from "./scrollers/bible_books_wrapper";
 import { NotificationFade } from "../fragments/popups/notification_fade";
 
@@ -40,6 +40,8 @@ export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => 
 
    return (
       <>
+         {/* portals */}
+
          <Portal>
             {showChooseScriptureModal && (
                <div className={styles.bibleBooksStack}>
@@ -67,9 +69,9 @@ export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => 
                </div>
             )}
          </Portal>
-         {/* <Portal>
-            
-         </Portal> */}
+
+         {/* content  rendered on load*/}
+
          <div className={styles.mainWrapper}>
             <div className={styles.textEditorFormatter}>
                <TextEditorFormating />
@@ -119,7 +121,11 @@ export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => 
                <div className={styles.sideText}>
                   <Parragraph text={"Category"} quiet={true} size='xsmall' bold={true} />
                </div>
-               <CategoryTag id='CYN' cta={{ handleShowCategoryMeta: () => {} }} />
+               <CategoryTag
+                  id='CYN'
+                  informativeOnly={false}
+                  cta={{ handleSelection: (id) => console.log(id) }}
+               />
             </div>
 
             <div className={styles.post}>
