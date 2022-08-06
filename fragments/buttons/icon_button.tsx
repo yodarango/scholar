@@ -14,11 +14,11 @@ export type TIconButtonProps = {
    iconColor?: string;
    icon: string;
    backgroundColor: string;
-   buttonSize?: string;
+   custombuttonSize?: boolean;
    link?: string;
    shadowColor?: string;
    cta?: {
-      handleClick: React.MouseEventHandler<HTMLButtonElement>;
+      handleClick: () => void;
    };
 };
 
@@ -26,7 +26,7 @@ export const IconButton = ({
    iconSize = "2rem",
    icon,
    iconColor = "#F1EAFF",
-   buttonSize,
+   custombuttonSize,
    backgroundColor,
    link,
    cta,
@@ -37,9 +37,11 @@ export const IconButton = ({
          {backgroundColor === "1" &&
             (!link ? (
                <button
-                  className={`${styles.mainWrapper} ${buttonSize && styles.mainWrapperCustomSize} ${
-                     styles.primary
-                  } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
+                  className={`${styles.mainWrapper} ${
+                     custombuttonSize && styles.mainWrapperCustomSize
+                  } ${styles.primary} ${
+                     shadowColor === "1" ? styles.shadowDark : styles.shadowLight
+                  }`}
                   onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
@@ -47,7 +49,7 @@ export const IconButton = ({
                <Link href={link ? link : "#"}>
                   <a
                      className={`${styles.mainWrapper} ${
-                        buttonSize && styles.mainWrapperCustomSize
+                        custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.primary} ${
                         shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                      }`}>
@@ -59,9 +61,11 @@ export const IconButton = ({
          {backgroundColor === "2" &&
             (!link ? (
                <button
-                  className={`${styles.mainWrapper} ${buttonSize && styles.mainWrapperCustomSize} ${
-                     styles.secondary
-                  } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
+                  className={`${styles.mainWrapper} ${
+                     custombuttonSize && styles.mainWrapperCustomSize
+                  } ${styles.secondary} ${
+                     shadowColor === "1" ? styles.shadowDark : styles.shadowLight
+                  }`}
                   onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
@@ -69,7 +73,7 @@ export const IconButton = ({
                <Link href={link ? link : "#"}>
                   <a
                      className={`${styles.mainWrapper} ${
-                        buttonSize && styles.mainWrapperCustomSize
+                        custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.secondary} ${
                         shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                      }`}>
@@ -82,9 +86,9 @@ export const IconButton = ({
             backgroundColor !== "2" &&
             (!link ? (
                <button
-                  className={`${styles.mainWrapper} ${buttonSize && styles.mainWrapperCustomSize} ${
-                     shadowColor === "1" ? styles.shadowDark : styles.shadowLight
-                  }`}
+                  className={`${styles.mainWrapper} ${
+                     custombuttonSize && styles.mainWrapperCustomSize
+                  } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
                   style={{ backgroundColor }}
                   onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
@@ -93,7 +97,7 @@ export const IconButton = ({
                <Link href={link ? link : "#"}>
                   <a
                      className={`${styles.mainWrapper} ${
-                        buttonSize && styles.mainWrapperCustomSize
+                        custombuttonSize && styles.mainWrapperCustomSize
                      } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
                      style={{ backgroundColor }}>
                      <Icon name={icon} color={iconColor} size={iconSize} />
