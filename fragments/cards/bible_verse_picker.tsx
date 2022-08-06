@@ -72,8 +72,8 @@ export const BibleVersePicker = ({
             {showNotificationPopup && (
                <Notification
                   type='4'
-                  title={notificationMessages.selectNewScripture.title}
-                  body={notificationMessages.selectNewScripture.body}
+                  title={notificationMessages.selectNewScriptureError.title}
+                  body={notificationMessages.selectNewScriptureError.body}
                   cta={() => setshowNotificationPopup(false)}
                />
             )}

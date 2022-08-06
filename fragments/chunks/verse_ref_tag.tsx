@@ -79,8 +79,8 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
 
          {showNotificationCard === "error" && verseFetched && (
             <Notification
-               title={notificationMessages.selectNewScripture.title}
-               body={notificationMessages.selectNewScripture.body}
+               title={notificationMessages.selectNewScriptureError.title}
+               body={notificationMessages.selectNewScriptureError.body}
                cta={() => setshowNotificationCard("none")}
                type='4'
             />

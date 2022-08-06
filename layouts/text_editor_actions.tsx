@@ -8,6 +8,8 @@ import { CategoryTag } from "../fragments/chunks/category_tag";
 import { TextEditorFormating } from "../fragments/text_editor_formating";
 import { Parragraph } from "../fragments/Typography/parragraph";
 import { PrimaryStack } from "./stacks/primary_stack";
+import { BibleBooksWrapper } from "./scrollers/bible_books_wrapper";
+import { NotificationFade } from "../fragments/popups/notification_fade";
 
 // styles
 import styles from "./text_editor_actions.module.css";
@@ -16,7 +18,7 @@ import styles from "./text_editor_actions.module.css";
 import Portal from "../hoc/potal";
 
 // data
-import { BibleBooksWrapper } from "./scrollers/bible_books_wrapper";
+import { notificationMessages } from "../data/notification_messages";
 
 type TTextEditorFormatterActionsProps = {
    cta: {
@@ -27,19 +29,20 @@ type TTextEditorFormatterActionsProps = {
 export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => {
    // state
    const [postIsPrivate, setpostIsPrivate] = useState<boolean>(false);
+   const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
 
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
    const handlerefVerseSelection = (id: string) => {
+      setshowNotificationFadePopUp(showNotificationFadePopUp + 1);
       //cta.handleRefVerseSelection(id);
-      setshowChooseScriptureModal(false);
    };
 
    return (
       <>
          <Portal>
-            <div className={styles.scriptureWrapper}>
-               {showChooseScriptureModal && (
+            {showChooseScriptureModal && (
+               <div className={styles.bibleBooksStack}>
                   <PrimaryStack
                      title='Select scripture'
                      cta={() => setshowChooseScriptureModal(false)}
@@ -52,9 +55,21 @@ export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => 
                         />
                      }
                   />
-               )}
-            </div>
+               </div>
+            )}
+            {showNotificationFadePopUp > 0 && (
+               <div className={styles.notificationFade}>
+                  <NotificationFade
+                     render={showNotificationFadePopUp}
+                     body={notificationMessages.selectNewScriptureSuccess.body}
+                     type='2'
+                  />
+               </div>
+            )}
          </Portal>
+         {/* <Portal>
+            
+         </Portal> */}
          <div className={styles.mainWrapper}>
             <div className={styles.textEditorFormatter}>
                <TextEditorFormating />

@@ -14,7 +14,7 @@ import Commentary from "../../layouts/popup-new-comment";
 // styles
 import homeStyles from "../../styles/pages/Home.module.css";
 import commentEditorStyles from "../../styles/fragments/post-editors/CommentEditor.module.css";
-import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+import selectNewScriptureStyles from "../../styles/layouts/selectNewScriptureError.module.css";
 
 // helpers: types
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
@@ -95,9 +95,8 @@ const CommentEditor = ({ versionId }: commentEditorProps) => {
    };
 
    /// 4. Open the new verse and close the Book and Chapter popups and show the selected verse
-   const [openCommentaryEditorState, setopenCommentaryEditorState] = useState<
-      boolean | JSX.Element
-   >(false);
+   const [openCommentaryEditorState, setopenCommentaryEditorState] =
+      useState<boolean | JSX.Element>(false);
    const [verseError, setVerseError] = useState<boolean>(false);
    const [verseContentState, setVerseContentState] = useState<TverseActualContent>({
       bibleId: "",

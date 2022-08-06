@@ -14,7 +14,7 @@ import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 import ResourceNotFoundError from "../chunks/error_resource_not_found";
 
 // styles
-import selectNewScriptureStyles from "../../styles/layouts/SelectNewScripture.module.css";
+import selectNewScriptureStyles from "../../styles/layouts/selectNewScriptureError.module.css";
 import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers

@@ -59,11 +59,11 @@
    grid-column: 1/7;
    grid-row: 3/4;
 }
-
-.scriptureWrapper {
-   position: fixed;
-   top: 0;
-   left: 0;
+/* stacks  */
+.bibleBooksStack {
    z-index: 15;
-   height: 100vh;
+}
+
+.notificationFade {
+   z-index: 16;
 }

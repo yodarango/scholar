@@ -1,5 +1,8 @@
 /*********************************************************************************************
- self closing popup. It triggers a timeout that removes it from the dom after 1600ms
+ self closing popup. It triggers a timeout that removes it from the dom after 2600ms. The 
+ component depends in a prop called render which the parent updates to signify every time the 
+ the component should "render". Because the useEffect depends on the "render" proop it needs
+ to be a different value every time is passed. A helpful solution is passing an updated number
 /*********************************************************************************************/
 
 import { useEffect, useState } from "react";
@@ -11,6 +14,7 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./notification_fade.module.css";
 
 type notificatrionPopupProps = {
+   render: number;
    jsxContent?: JSX.Element;
    body?: string;
    type: string;
@@ -23,7 +27,8 @@ export const NotificationFade = ({
    type,
    body,
    customColor,
-   jsxContent
+   jsxContent,
+   render
 }: notificatrionPopupProps) => {
    // state
    const [displayComponent, setdisplayComponent] = useState(true);
@@ -49,12 +54,23 @@ export const NotificationFade = ({
          break;
    }
 
-   // set the timer to stop displaing the component
+   // control the notification appareance
    useEffect(() => {
-      setTimeout(() => {
+      // if the notification is OFF turne it on and automate it to turn off in 2600ms
+      if (displayComponent === false) {
+         setdisplayComponent(true);
+         setTimeout(() => {
+            setdisplayComponent(false);
+         }, 2600);
+      } else {
+         // if it is already ON set to false and imediately turn it on again
          setdisplayComponent(false);
-      }, 2600);
-   });
+         setTimeout(() => {
+            setdisplayComponent(true);
+         }, 100);
+      }
+   }, [render]);
+
    return (
       <>
          {displayComponent && (
