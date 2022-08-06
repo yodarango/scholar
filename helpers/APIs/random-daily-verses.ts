@@ -415,7 +415,7 @@ export const randomVerses: IreferencedScriptures[] = [
    }
 ];
 
-export const getNewVerseId = () => {
+export const getRandomVerseId = () => {
    // get the Book index and Id
    let bookIndex = Math.floor(Math.random() * 66) + 1;
    const bookId = randomVerses[bookIndex].id;

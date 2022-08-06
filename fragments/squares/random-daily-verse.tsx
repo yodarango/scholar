@@ -17,7 +17,7 @@ import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // types
-import { getNewVerseId } from "../../helpers/random-daily-verses";
+import { getNewVerseId } from "../../helpers/APIs/random-daily-verses";
 import CardsLazyLoading from "../../layouts/cards-lazy-loading";
 
 type randomDailyVerseProps = {

@@ -1,5 +1,6 @@
 import { Pagination } from "../fragments/buttons/pagination";
 import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
+import { DailyVerseImage } from "../fragments/cards/daily_verse_image";
 import { NavigationMain } from "../layouts/navigation_main";
 
 const Test = () => {
@@ -7,7 +8,8 @@ const Test = () => {
       <div>
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}
-         <NavigationMain />
+         {/* <NavigationMain /> */}
+         <DailyVerseImage versionId='' />
       </div>
    );
 };
