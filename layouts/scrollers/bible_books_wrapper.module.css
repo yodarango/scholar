@@ -6,8 +6,8 @@
    justify-content: center;
    flex-wrap: wrap;
    background-color: var(--primary-color);
-   overflow-y: scroll;
-   padding: calc(var(--spacing-s) + var(--spacing-m)) 0 var(--spacing-m);
+   /* overflow-y: scroll;
+   padding: calc(var(--spacing-s) + var(--spacing-m)) 0 var(--spacing-m); */
 }
 
 .book {

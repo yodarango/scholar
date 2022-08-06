@@ -1,0 +1,49 @@
+.mainWrapper {
+   opacity: 0;
+   position: fixed;
+   width: 90%;
+   max-width: var(--max-width-main-wrapper-mobile);
+   max-height: 20rem;
+   top: var(--spacing-m);
+   bottom: auto;
+   left: 0;
+   right: 0;
+   margin: auto;
+   z-index: 17;
+   padding: var(--spacing-s);
+   border-radius: 1.2em;
+   overflow-y: scroll;
+   animation: fadeUp 2500ms ease-in-out;
+}
+
+@keyframes fadeUp {
+   0% {
+      top: calc(var(--spacing-m) + var(--spacing-m));
+      opacity: 0;
+   }
+
+   20% {
+      opacity: 1;
+   }
+
+   100% {
+      top: var(--spacing-m);
+      opacity: 0;
+   }
+}
+
+.info {
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.safe {
+   background-image: linear-gradient(-10deg, #b2dfb1, var(--safe-color));
+}
+
+.warning {
+   background-image: linear-gradient(-10deg, #e4daaa, var(--warning-color));
+}
+
+.danger {
+   background-image: linear-gradient(-10deg, #e18e98, var(--danger-color));
+}

@@ -7,7 +7,7 @@ import { Secondary } from "../fragments/buttons/secondary";
 import { CategoryTag } from "../fragments/chunks/category_tag";
 import { TextEditorFormating } from "../fragments/text_editor_formating";
 import { Parragraph } from "../fragments/Typography/parragraph";
-import { ScripturePicker } from "./menus/scripture_picker";
+import { PrimaryStack } from "./stacks/primary_stack";
 
 // styles
 import styles from "./text_editor_actions.module.css";
@@ -16,24 +16,41 @@ import styles from "./text_editor_actions.module.css";
 import Portal from "../hoc/potal";
 
 // data
-import { Bible } from "../data/bible";
 import { BibleBooksWrapper } from "./scrollers/bible_books_wrapper";
 
-export const TextEditorActions = () => {
+type TTextEditorFormatterActionsProps = {
+   cta: {
+      handleRefVerseSelection: (id: string) => void;
+   };
+};
+
+export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => {
    // state
    const [postIsPrivate, setpostIsPrivate] = useState<boolean>(false);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
+
+   // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
+   const handlerefVerseSelection = (id: string) => {
+      //cta.handleRefVerseSelection(id);
+      setshowChooseScriptureModal(false);
+   };
 
    return (
       <>
          <Portal>
             <div className={styles.scriptureWrapper}>
                {showChooseScriptureModal && (
-                  <BibleBooksWrapper
-                     versionId='de4e12af7f28f599-02'
-                     stopAtVerse={false}
-                     stopAtChapter={false}
-                     cta={{ handleChoice: (choice) => console.log(choice) }}
+                  <PrimaryStack
+                     title='Select scripture'
+                     cta={() => setshowChooseScriptureModal(false)}
+                     content={
+                        <BibleBooksWrapper
+                           versionId='de4e12af7f28f599-02'
+                           stopAtVerse={false}
+                           stopAtChapter={false}
+                           cta={{ handleChoice: (id) => handlerefVerseSelection(id) }}
+                        />
+                     }
                   />
                )}
             </div>

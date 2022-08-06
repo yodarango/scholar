@@ -29,6 +29,7 @@
    width: 7rem;
    border-radius: 1.8em;
    background-color: var(--third-color);
+   overflow: hidden;
 }
 
 .imageWrapper img {
