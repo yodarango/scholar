@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 // comps
 import { TBiblePreferences } from "./buttons/bible_version_scripture";
 import { VerseRefTag } from "./chunks/verse_ref_tag";
+import { Header } from "./Typography/header";
 
 // styles
 import styles from "./verse_ref_tag_wrapper.module.css";
@@ -13,7 +14,7 @@ import styles from "./verse_ref_tag_wrapper.module.css";
 type TVerseRefTagWrapperProps = {
    refs: string[];
    showRemoveoption?: boolean;
-   cta: {
+   cta?: {
       updateTagArray: (tags: string[]) => void;
    };
 };
@@ -23,6 +24,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
    const [versionId, setVersionId] = useState<null | string>(null);
    const [allTags, setallTags] = useState<string[]>(refs);
 
+   //! check if the user has reading preferences to use that versionId. Might be able to refactor this. #COMEBACK
    const getLS = () => {
       const versionId = localStorage.getItem("reading-preferences");
 
@@ -44,11 +46,14 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
       setallTags(removedtag);
 
       // update the tag array and pass it to the parent
-      cta.updateTagArray(removedtag);
+      cta?.updateTagArray(removedtag);
    };
 
    return (
       <div className={styles.mainWrapper}>
+         <div className={styles.title}>
+            <Header type={5} size='main' quiet={true} text='References' />
+         </div>
          {!showRemoveoption && (
             <div className={styles.tagsWrapper}>
                {versionId &&

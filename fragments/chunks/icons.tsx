@@ -94,6 +94,35 @@ export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
          );
          break;
 
+      case "arrowTop":
+         icon = (
+            <svg viewBox='0 0 512 512'>
+               <path
+                  fill='none'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "48"}
+                  d='M112 328l144-144 144 144'
+               />
+            </svg>
+         );
+         break;
+
+      case "arrowTopLong":
+         icon = (
+            <svg viewBox='0 0 24 8' fill='none'>
+               <path
+                  d='M2 5.7037L12 2L22 5.7037'
+                  stroke={color}
+                  strokeWidth={strokeWidth ? strokeWidth : "3"}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+               />
+            </svg>
+         );
+         break;
+
       case "article":
          icon = (
             <svg viewBox='0 0 512 512'>

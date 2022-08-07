@@ -1,0 +1,29 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.topArrow {
+   position: relative;
+   z-index: 1;
+   width: 4rem;
+   background-color: var(--third-color);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 2em;
+   margin-bottom: -1rem;
+}
+
+.bottomBorder {
+   position: relative;
+   z-index: 0;
+   height: 1rem;
+   background-color: var(--third-color);
+   width: 100%;
+   border-top-left-radius: 1em;
+   border-top-right-radius: 1em;
+}

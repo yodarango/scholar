@@ -1,18 +1,16 @@
 /**********************************************************************************************************
--  Just a simple background layer that acts as a layover "page" on top of whatever contnent is calling it.
-   It is usefull in cases where the majority of the data to be rendered has already been loaded and thus is
-   cheaper to render this data in the current page without having to navigate away. 
--  It is also useful in instances where the data has not been saved to the DB and the data must not be lost
-   as in post createion
+-  Background layer that acts as a layover "page" on top of whatever contnent is calling it.
+   It allows users to preview their content without having to naviate to another page and thus they do not
+   have to lose their data in the post editor.
 -  This component is used more specifically for the thought and comentary posts although it might get reused 
    in other components in the future
 **********************************************************************************************************/
 
 // comps
-import { CloseContent } from "../../../fragments/buttons/close_content";
-import { IconButton } from "../../../fragments/buttons/icon_button";
-import { Icon } from "../../../fragments/chunks/icons";
-import { SeePostInfo } from "../../../fragments/chunks/see_post_info";
+import { CloseContent } from "../../fragments/buttons/close_content";
+import { IconButton } from "../../fragments/buttons/icon_button";
+import { SeePostInfo } from "../../fragments/chunks/see_post_info";
+import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 
 // styles
 import styles from "./preview_thought_commentary_stack.module.css";
@@ -28,6 +26,7 @@ type TPrimaryStackprops = {
    postCreatedDate: string;
    postCategory: string;
    withEditOption: boolean;
+   postReferences: string[];
    cta: {
       handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
    };
@@ -44,8 +43,11 @@ export const PreviewThoughtCommentaryStack = ({
    postPostedOnDate,
    postCreatedDate,
    postCategory,
-   withEditOption
+   withEditOption,
+   postReferences
 }: TPrimaryStackprops) => {
+   // state
+   const [showVerseReferences, setshowVerseReferences] = useState(false)
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.imgBkg} style={{ backgroundImage: `url(${postImage})` }}>
@@ -77,6 +79,10 @@ export const PreviewThoughtCommentaryStack = ({
          </div>
          <div className={styles.subWrapper}>
             <div className={styles.contentHolder}>{content}</div>
+            <div className={styles.references}>
+               {showVerseReferences && <VerseRefTagWrapper refs={postReferences} />}
+               {!showVerseReferences &&}
+            </div>
          </div>
       </div>
    );
