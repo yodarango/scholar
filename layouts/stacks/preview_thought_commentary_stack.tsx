@@ -5,8 +5,10 @@
 -  This component is used more specifically for the thought and comentary posts although it might get reused 
    in other components in the future
 **********************************************************************************************************/
+import { useState } from "react";
 
 // comps
+import { BringUpHiddenBottom } from "../../fragments/buttons/bring_up_hidden_bottom";
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { IconButton } from "../../fragments/buttons/icon_button";
 import { SeePostInfo } from "../../fragments/chunks/see_post_info";
@@ -25,10 +27,9 @@ type TPrimaryStackprops = {
    postPostedOnDate: string;
    postCreatedDate: string;
    postCategory: string;
-   withEditOption: boolean;
    postReferences: string[];
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
@@ -43,11 +44,21 @@ export const PreviewThoughtCommentaryStack = ({
    postPostedOnDate,
    postCreatedDate,
    postCategory,
-   withEditOption,
    postReferences
 }: TPrimaryStackprops) => {
    // state
-   const [showVerseReferences, setshowVerseReferences] = useState(false)
+   const [showVerseReferences, setshowVerseReferences] = useState(false);
+   const [contentWrapperClass, setcontentWrapperClass] =
+      useState(""); /* adds a new class to content holder*/
+
+   // toggle the classes and state of the referenced verses
+   const handleShowVerseRefs = () => {
+      !showVerseReferences ? setshowVerseReferences(true) : setshowVerseReferences(false);
+      !showVerseReferences
+         ? setcontentWrapperClass(styles.contentHolderShrink)
+         : setcontentWrapperClass("");
+   };
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.imgBkg} style={{ backgroundImage: `url(${postImage})` }}>
@@ -55,18 +66,11 @@ export const PreviewThoughtCommentaryStack = ({
             <div className={styles.close}>
                <CloseContent cta={cta.handleCloseModal} />
             </div>
-            {withEditOption && (
-               <div className={styles.editOption}>
-                  <IconButton
-                     backgroundColor='1'
-                     custombuttonSize={true}
-                     icon='edit'
-                     cta={{ handleClick: () => {} }}
-                  />
-               </div>
-            )}
+
+            {/*  post info */}
             <div className={styles.postInfo}>
                <SeePostInfo
+                  cta={{ handleClickOnAvatar() {} }}
                   userAuthority={userAuthority}
                   userId={userId}
                   username={username}
@@ -77,11 +81,25 @@ export const PreviewThoughtCommentaryStack = ({
                />
             </div>
          </div>
+
+         {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
-            <div className={styles.contentHolder}>{content}</div>
-            <div className={styles.references}>
-               {showVerseReferences && <VerseRefTagWrapper refs={postReferences} />}
-               {!showVerseReferences &&}
+            <div className={`${contentWrapperClass} ${styles.contentHolder}`}>{content}</div>
+
+            {/* references  */}
+            <div className={styles.referencesWrapper}>
+               <div>
+                  <BringUpHiddenBottom
+                     cta={{
+                        handleClick: () => handleShowVerseRefs()
+                     }}
+                  />
+               </div>
+               {showVerseReferences && (
+                  <div className={styles.references}>
+                     <VerseRefTagWrapper refs={postReferences} />
+                  </div>
+               )}
             </div>
          </div>
       </div>

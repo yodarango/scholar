@@ -19,18 +19,42 @@ import Portal from "../hoc/potal";
 
 // data
 import { notificationMessages } from "../data/notification_messages";
+import { PreviewThoughtCommentaryStack } from "./stacks/preview_thought_commentary_stack";
 
 type TTextEditorFormatterActionsProps = {
+   content: JSX.Element;
+   postImage: string;
+   userAuthority: number;
+   userId: string;
+   username: string;
+   avatar: string;
+   postPostedOnDate: string;
+   postCreatedDate: string;
+   postCategory: string;
+   postReferences: string[];
    cta: {
       handleRefVerseSelection: (id: string) => void;
    };
 };
 
-export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => {
+export const TextEditorActions = ({
+   content,
+   cta,
+   postImage,
+   userAuthority,
+   userId,
+   username,
+   avatar,
+   postPostedOnDate,
+   postCreatedDate,
+   postCategory,
+   postReferences
+}: TTextEditorFormatterActionsProps) => {
    // state
    const [postIsPrivate, setpostIsPrivate] = useState<boolean>(false);
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
+   const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
 
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
    const handlerefVerseSelection = (id: string) => {
@@ -38,6 +62,10 @@ export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => 
       //cta.handleRefVerseSelection(id);
    };
 
+   // handle preview of the post
+   const handlePreview = () => {
+      setshowPostPreview(true);
+   };
    return (
       <>
          {/* portals */}
@@ -68,17 +96,32 @@ export const TextEditorActions = ({ cta }: TTextEditorFormatterActionsProps) => 
                   />
                </div>
             )}
+
+            {showPostPreview && (
+               <PreviewThoughtCommentaryStack
+                  postReferences={postReferences}
+                  content={content}
+                  cta={{ handleCloseModal: () => setshowPostPreview(false) }}
+                  postImage={postImage}
+                  userAuthority={userAuthority}
+                  userId={userId}
+                  username={username}
+                  avatar={avatar}
+                  postPostedOnDate={postPostedOnDate}
+                  postCreatedDate={postCreatedDate}
+                  postCategory={postCategory}
+               />
+            )}
          </Portal>
 
          {/* content  rendered on load*/}
-
          <div className={styles.mainWrapper}>
             <div className={styles.textEditorFormatter}>
                <TextEditorFormating />
             </div>
 
             <div className={styles.preview}>
-               <IconButton icon='eye' backgroundColor='1' cta={{ handleClick: () => {} }} />
+               <IconButton icon='eye' backgroundColor='1' cta={{ handleClick: handlePreview }} />
             </div>
 
             <div className={styles.reference}>

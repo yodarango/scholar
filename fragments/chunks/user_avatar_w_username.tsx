@@ -31,7 +31,9 @@ type TAvatarWUsernameProps = {
    quiet: boolean;
    avatarSize?: string;
    userAuthority: number;
-   cta?: React.MouseEventHandler<HTMLDivElement>;
+   cta?: {
+      handleClick: (id: string) => void;
+   };
 };
 
 export const UserAvatarWUsername = ({
@@ -59,7 +61,7 @@ export const UserAvatarWUsername = ({
                      <UserAvatar
                         src={avatarSrc}
                         userAuthority={userAuthority}
-                        cta={cta}
+                        cta={() => cta.handleClick(userId)}
                         customSize={true}
                      />
                   )}
@@ -80,7 +82,13 @@ export const UserAvatarWUsername = ({
             {/* otherwise serve the default size */}
             {!avatarSize && (
                <>
-                  {cta && <UserAvatar src={avatarSrc} userAuthority={userAuthority} cta={cta} />}
+                  {cta && (
+                     <UserAvatar
+                        src={avatarSrc}
+                        userAuthority={userAuthority}
+                        cta={() => cta.handleClick(userId)}
+                     />
+                  )}
                   {!cta && (
                      <Link href={`/users/${userId}`}>
                         <a>

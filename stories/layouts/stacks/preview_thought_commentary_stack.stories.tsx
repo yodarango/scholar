@@ -20,7 +20,6 @@ export const WithEditOption: ComponentStory<typeof PreviewThoughtCommentaryStack
       postPostedOnDate='07/08/2022 11:00'
       postCreatedDate='07/08/2022 11:00'
       postCategory='PNK'
-      withEditOption={true}
    />
 );
 
@@ -37,6 +36,5 @@ export const WithOutEditOption: ComponentStory<typeof PreviewThoughtCommentarySt
       postPostedOnDate='07/08/2022 11:00'
       postCreatedDate='07/08/2022 11:00'
       postCategory='PNK'
-      withEditOption={false}
    />
 );

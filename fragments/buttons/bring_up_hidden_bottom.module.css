@@ -16,6 +16,7 @@
    justify-content: center;
    border-radius: 2em;
    margin-bottom: -1rem;
+   cursor: pointer;
 }
 
 .bottomBorder {
@@ -26,4 +27,14 @@
    width: 100%;
    border-top-left-radius: 1em;
    border-top-right-radius: 1em;
+}
+
+.arrowUp {
+   transition: transform 300ms ease;
+   transform: rotate(0turn);
+}
+
+.arrowDown {
+   transition: transform 300ms ease;
+   transform: rotate(0.5turn);
 }

@@ -1,7 +1,7 @@
 .mainWrapper {
    display: grid;
-   grid-template-columns: 6;
-   grid-template-rows: 3;
+   grid-template-columns: repeat(6, 1fr);
+   grid-template-rows: repeat(3, 1fr);
    row-gap: var(--spacing-m);
    padding: var(--spacing-m);
    width: 100%;
