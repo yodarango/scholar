@@ -15,7 +15,6 @@ import styles from "./notification_fade.module.css";
 
 type notificatrionPopupProps = {
    render: number;
-   jsxContent?: JSX.Element;
    body?: string;
    type: string;
    customColor?: {
@@ -23,15 +22,10 @@ type notificatrionPopupProps = {
       dark: string;
    };
 };
-export const NotificationFade = ({
-   type,
-   body,
-   customColor,
-   jsxContent,
-   render
-}: notificatrionPopupProps) => {
+export const NotificationFade = ({ type, body, customColor, render }: notificatrionPopupProps) => {
    // state
    const [displayComponent, setdisplayComponent] = useState(true);
+   const [displayClass, setdisplayClass] = useState("");
 
    // determine the card type
    let notificationType: string = "";
@@ -83,28 +77,11 @@ export const NotificationFade = ({
 
                {customColor && body && (
                   <div
-                     className={`${styles.mainWrapper}`}
+                     className={`${styles.mainWrapper}  ${notificationType}`}
                      style={{
                         backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
                      }}>
                      <Parragraph text={body} size='small' />
-                  </div>
-               )}
-
-               {/* ----------------------- if the popup contians JSX Elemnts ------------- */}
-               {!customColor && jsxContent && (
-                  <div className={`${styles.mainWrapper} ${notificationType}`}>
-                     <div>{jsxContent}</div>
-                  </div>
-               )}
-
-               {customColor && jsxContent && (
-                  <div
-                     className={`${styles.mainWrapper}`}
-                     style={{
-                        backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
-                     }}>
-                     <div>{jsxContent}</div>
                   </div>
                )}
             </>

@@ -10,7 +10,7 @@ import { useState, useReducer } from "react";
 // comps
 import { SelectBibleVersion } from "../../layouts/menus/select_bible_version";
 import { Parragraph } from "../Typography/parragraph";
-import { PrimaryStack } from "../../layouts/stacks/primary_stack";
+import { PrimaryStack } from "../../layouts/stacks/templates/primary_stack";
 import { BibleBooksWrapper } from "../../layouts/scrollers/bible_books_wrapper";
 
 // styles
@@ -101,7 +101,14 @@ export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionSc
             <PrimaryStack
                title='Select a passage'
                cta={() => setshowScriptureSelector(false)}
-               content={<BibleBooksWrapper versionId={state.versionId} cta={cta} />}
+               content={
+                  <BibleBooksWrapper
+                     versionId={state.versionId}
+                     stopAtVerse={true}
+                     stopAtChapter={true}
+                     cta={{ handleChoice: (content) => cta(content) }}
+                  />
+               }
             />
          )}
          <div className={styles.optionsWrapper}>

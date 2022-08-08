@@ -59,7 +59,15 @@ const Test = () => {
                   versions from the 1914 translation by H. Rackham.
                </div>
             }
-            cta={{ handleRefVerseSelection: (id) => console.log("close modal", id) }}
+            cta={{
+               handleRefVerseSelection: (id) => console.log("close modal", id),
+               handleCategorySelection(id) {
+                  console.log(id);
+               },
+               handlePrivacySelection(privacy) {
+                  console.log(privacy);
+               }
+            }}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
             userId='1'

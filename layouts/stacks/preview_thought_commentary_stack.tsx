@@ -10,7 +10,6 @@ import { useState } from "react";
 // comps
 import { BringUpHiddenBottom } from "../../fragments/buttons/bring_up_hidden_bottom";
 import { CloseContent } from "../../fragments/buttons/close_content";
-import { IconButton } from "../../fragments/buttons/icon_button";
 import { SeePostInfo } from "../../fragments/chunks/see_post_info";
 import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 

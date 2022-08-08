@@ -1,3 +1,14 @@
+/******************************************************************************************** 
+-  This components loads all the available options for the text editor. 
+-  Since "referenced verses" are only allowed in commentaries type only for now the button is 
+   optionally rendered through a "showReferences" prop
+-  This component returns 4 callbacks:
+   -  verse chosen
+   -  category chosen
+   -  privacy chosen
+   -  post to db
+*********************************************************************************************/
+
 import { useState } from "react";
 
 //comps
@@ -34,6 +45,8 @@ type TTextEditorFormatterActionsProps = {
    postReferences: string[];
    cta: {
       handleRefVerseSelection: (id: string) => void;
+      handlePrivacySelection: (privacy: boolean) => void;
+      handleCategorySelection: (id: string) => void;
    };
 };
 
@@ -59,7 +72,7 @@ export const TextEditorActions = ({
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
    const handlerefVerseSelection = (id: string) => {
       setshowNotificationFadePopUp(showNotificationFadePopUp + 1);
-      //cta.handleRefVerseSelection(id);
+      cta.handleRefVerseSelection(id);
    };
 
    // handle preview of the post
@@ -128,7 +141,9 @@ export const TextEditorActions = ({
                <Secondary
                   title='Reference'
                   icon='📖'
-                  cta={{ handleClick: () => setshowChooseScriptureModal(true) }}
+                  cta={{
+                     handleClick: () => setshowChooseScriptureModal(true)
+                  }}
                   type='1'
                />
             </div>
@@ -142,7 +157,11 @@ export const TextEditorActions = ({
                      <IconButton
                         icon='lockClosed'
                         backgroundColor='2'
-                        cta={{ handleClick: () => setpostIsPrivate(false) }}
+                        cta={{
+                           handleClick: () => (
+                              setpostIsPrivate(false), cta.handlePrivacySelection(true)
+                           )
+                        }}
                      />
                   </>
                )}
@@ -154,7 +173,11 @@ export const TextEditorActions = ({
                      <IconButton
                         icon='lockOpen'
                         backgroundColor='1'
-                        cta={{ handleClick: () => setpostIsPrivate(true) }}
+                        cta={{
+                           handleClick: () => (
+                              setpostIsPrivate(true), cta.handlePrivacySelection(false)
+                           )
+                        }}
                      />
                   </>
                )}
@@ -167,7 +190,7 @@ export const TextEditorActions = ({
                <CategoryTag
                   id='CYN'
                   informativeOnly={false}
-                  cta={{ handleSelection: (id) => console.log(id) }}
+                  cta={{ handleSelection: (id) => cta.handleCategorySelection(id) }}
                />
             </div>
 
