@@ -14,9 +14,9 @@ const Test = () => {
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}
          {/* <NavigationMain /> */}
-         {/* <DailyVerseImage versionId='' /> */}
+         <DailyVerseImage versionId='' />
          {/* <CategoryTag id='CYN' /> */}
-         <TextEditorActions
+         {/* <TextEditorActions
             postReferences={[
                "JHN.1.1",
                "ROM.3.4",
@@ -76,7 +76,7 @@ const Test = () => {
             postPostedOnDate='07/08/2022 11:00'
             postCreatedDate='07/08/2022 11:00'
             postCategory='PNK'
-         />
+         /> */}
          {/* <SeePostInfo
             userAuthority={1}
             userId='1'

@@ -1,4 +1,5 @@
 /* @import url("https://use.typekit.net/hir1zga.css"); */
+@import url("https://use.typekit.net/naw5ypw.css");
 
 /* --------------- lset up fonts ---------- */
 /* Open Sans regular */
@@ -85,6 +86,10 @@
 :root {
    /* --------------- font ---------- */
    --primary-font: "Open Sans", sans-serif;
+   --quote-font--1: rumba-extra, sans-serif; /*400*/
+   --quote-font--2: coniferous, sans-serif; /*600*/
+   --quote-font--3: rough-love, sans-serif; /*400*/
+   --quote-font--4: emily-austin, sans-serif; /*400*/
 
    --line-heihgt: 1.6em;
 

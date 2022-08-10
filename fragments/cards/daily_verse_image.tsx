@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 //styles
-import styles from "./daily_verse_card.module.css";
+import styles from "./daily_verse_image.module.css";
 
 // helpers
 import { setDailyVerseCache } from "../../helpers/APIs/set_daily_verse_cache";
@@ -33,12 +33,26 @@ export const DailyVerseImage = ({ versionId = "de4e12af7f28f599-02" }: TDailyVer
 
    //    Random image number
    const randomImg = Math.floor(Math.random() * 31);
+   // Random font class
+   const fontClass = Math.floor(Math.random() * 3);
+
    return (
-      <div className={styles.mainWrapper}>
-         <h1 className={styles.text}>{verse}</h1>
+      <div className={`${styles.mainWrapper}`}>
+         <h1
+            className={`${styles.text} ${
+               fontClass === 0
+                  ? styles.fontOne
+                  : fontClass === 1
+                  ? styles.fontTwo
+                  : styles.fontThree
+            }`}>
+            {verse}this is my verse this is my verse this is my verse this is my verse this is my
+            verse this is my verse this is my verse
+         </h1>
+         <p className={styles.reference}>1 John 3:5{verse}</p>
          <div className={styles.img}>
             <img
-               src={`/images/daily_verse_backgrounds/${randomImg}.png`}
+               src={`/images/daily_verse_backgrounds/${randomImg}.jpeg`}
                alt='bible verse with background'
             />
          </div>
