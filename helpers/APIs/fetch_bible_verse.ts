@@ -17,10 +17,13 @@ export const fetchBibleVerse = async (
             }
          );
          const response = await request.json();
-         return response.data;
+         if (response.data) {
+            return response.data;
+         }
+         return null;
       } catch (error) {
          console.log(error);
-         return undefined;
+         return null;
       }
    }
 };

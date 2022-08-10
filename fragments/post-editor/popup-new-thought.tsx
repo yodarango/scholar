@@ -8,7 +8,7 @@
 import React, { useState } from "react";
 
 // components
-import TextEditor from "../text-editor";
+import TextEditor from "../../layouts/text_editor";
 import FormattingRules from "../text_editor_formating";
 
 // styles

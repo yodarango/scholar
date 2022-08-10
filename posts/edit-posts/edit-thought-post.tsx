@@ -7,7 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 // child Comps
-import TextEditor from "../../fragments/text-editor";
+import TextEditor from "../../layouts/text_editor";
 import FormattingRules from "../../fragments/text_editor_formating";
 
 // styes

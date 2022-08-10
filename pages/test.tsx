@@ -3,6 +3,7 @@ import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
 import { DailyVerseImage } from "../fragments/cards/daily_verse_image";
 import { CategoryTag } from "../fragments/chunks/category_tag";
 import { SeePostInfo } from "../fragments/chunks/see_post_info";
+import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 import { NavigationMain } from "../layouts/navigation_main";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
@@ -14,7 +15,7 @@ const Test = () => {
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}
          {/* <NavigationMain /> */}
-         <DailyVerseImage versionId='' />
+         {/* <DailyVerseImage versionId='' /> */}
          {/* <CategoryTag id='CYN' /> */}
          {/* <TextEditorActions
             postReferences={[
@@ -140,6 +141,7 @@ const Test = () => {
             postCategory='PNK'
          /> */}
          {/* <VerseRefTagWrapper refs={["dsfds", "dfasd", "ssads"]} /> */}
+         <TextEditorVerseSelection />
       </div>
    );
 };

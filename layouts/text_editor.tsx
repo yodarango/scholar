@@ -8,11 +8,11 @@ import { CREATE_NEW_COMMENTARY, EDIT_COMMENTARY } from "../graphql/posts/comment
 import { CREATE_NEW_THOUGHT, EDIT_THOUGHT } from "../graphql/posts/thoughts";
 
 // components
-import Dropdown from "./buttons/dropdown";
-import PopupWrapper from "../layouts/popup-wrapper";
-import NotificationPopup from "./popups/notification";
-import TextEditorPreview from "./chunks/text-editor-preview";
-import SmallLoader from "./chunks/small_loader";
+import Dropdown from "../fragments/buttons/dropdown";
+import PopupWrapper from "./popup-wrapper";
+import NotificationPopup from "../fragments/popups/notification";
+import TextEditorPreview from "../fragments/chunks/text-editor-preview";
+import SmallLoader from "../fragments/chunks/small_loader";
 
 //styles
 import textEditorStyles from "../styles/layouts/textEditor.module.css";

@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 // components
-import TextEditor from "../fragments/text-editor";
+import TextEditor from "./text_editor";
 import FormattingRules from "../fragments/text_editor_formating";
 import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
 
