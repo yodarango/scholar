@@ -1,4 +1,7 @@
-// TODO: implement verse selection
+/***********************************************************************************************************  
+-   A new Bible verse based on router.query
+-   If the query is null than only the button will be rendered
+************************************************************************************************************/
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -13,15 +16,22 @@ import styles from "./text_editor_verse_selection.module.css";
 
 // helpers
 import { fetchBibleVerse } from "../helpers/APIs/fetch_bible_verse";
+
 // types
 import { TBibleVerse } from "../types/bible_api";
 import { RoundLoader } from "./chunks/round_loader";
 import { ResourceNotFoundError } from "./chunks/error_resource_not_found";
+import { PrimaryStack } from "../layouts/stacks/templates/primary_stack";
+import { BibleBooksWrapper } from "../layouts/scrollers/bible_books_wrapper";
+
+// helpers
+import Portal from "../hoc/potal";
 
 export const TextEditorVerseSelection = () => {
    const [buttonTitle, setbuttonTitle] = useState<string>("");
    const [verseData, setverseData] = useState<null | TBibleVerse>(null);
    const [loading, setLoading] = useState<string>("loading");
+   const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
 
    // router
    const router = useRouter();
@@ -41,6 +51,7 @@ export const TextEditorVerseSelection = () => {
 
    // fetch data on render
    useEffect(() => {
+      setLoading("loading");
       const verseId: string | undefined | string[] = router.query["verse-id"];
 
       if (router.isReady && router.query["verse-id"]) {
@@ -51,38 +62,68 @@ export const TextEditorVerseSelection = () => {
          setbuttonTitle("Select scripture");
          setLoading("done");
       }
-   }, [router.isReady]);
+   }, [router.isReady, router.query]);
+
+   //    handle verse selection from the BibleBook Wrapper
+   const handlerefVerseSelection = (id: string) => {
+      setshowChooseScriptureModal(false);
+      router.push(`${router.pathname}?verse-id=${id}`);
+   };
 
    return (
-      <div className={styles.mainWrapper}>
-         {/* content */}
-         {verseData && loading === "done" && (
-            <>
-               <div className={styles.title}>
-                  <Header type={2} text={verseData.reference} size='main' quiet={true} />
+      <>
+         <Portal>
+            {showChooseScriptureModal && (
+               <div className={styles.bibleBooksStack}>
+                  <PrimaryStack
+                     title='Select scripture'
+                     cta={() => setshowChooseScriptureModal(false)}
+                     content={
+                        <BibleBooksWrapper
+                           versionId='de4e12af7f28f599-02'
+                           stopAtVerse={false}
+                           stopAtChapter={false}
+                           cta={{ handleChoice: (id) => handlerefVerseSelection(id) }}
+                        />
+                     }
+                  />
                </div>
+            )}
+         </Portal>
+         <div className={styles.mainWrapper}>
+            {/* content */}
+            {verseData && loading === "done" && (
+               <>
+                  <div className={styles.title}>
+                     <Header type={2} text={verseData.reference} size='main' quiet={true} />
+                  </div>
 
-               <div className={styles.verse}>
-                  <Parragraph size='main' text={verseData.content} />
+                  <div className={styles.verse}>
+                     <Parragraph size='main' text={verseData.content} />
+                  </div>
+               </>
+            )}
+
+            {/* loader */}
+            {loading === "loading" && (
+               <div className={styles.loader}>
+                  <RoundLoader />
                </div>
-            </>
-         )}
-
-         {/* loader */}
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
+            )}
+            {/* error */}
+            {loading === "error" && (
+               <div className={styles.error}>
+                  <ResourceNotFoundError />
+               </div>
+            )}
+            <div>
+               <Primary
+                  type='2'
+                  title={buttonTitle}
+                  cta={{ handleClick: () => setshowChooseScriptureModal(true) }}
+               />
             </div>
-         )}
-         {/* error */}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
-         <div>
-            <Primary type='2' title={buttonTitle} cta={{ handleClick: () => {} }} />
          </div>
-      </div>
+      </>
    );
 };

@@ -1,0 +1,23 @@
+.mainWrapper {
+   width: 100%;
+   height: 100%;
+   border-top: 0.3rem solid var(--third-color);
+}
+
+.textArea {
+   display: block;
+   height: 100%;
+   resize: none;
+   background-color: var(--primary-color);
+   color: var(--font-color);
+   font-family: var(--primary-font);
+   font-size: var(--fs-main);
+   line-height: var(--line-height);
+   border: none;
+   outline: none;
+   padding: var(--spacing-s);
+}
+
+.textArea::placeholder {
+   color: var(--third-color);
+}
