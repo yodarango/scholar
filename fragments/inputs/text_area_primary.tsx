@@ -20,6 +20,8 @@ export const TextAreaPrimary = ({
 }: TTextEditorTextAreaProps) => {
    // state
    const [currTextAreaHeight, setcurrTextAreaHeight] = useState<string>("10rem");
+   const [scrollableHeight, setscrollableHeight] = useState<number>(0);
+
    // ref
    const textArea = useRef<HTMLTextAreaElement>(null);
 
@@ -27,16 +29,18 @@ export const TextAreaPrimary = ({
    const resizeTextArea = () => {
       if (textArea?.current) {
          cta.handleCurrentValue(textArea.current.value);
-         const currSscrollHeight = textArea.current.scrollHeight;
+         setscrollableHeight(textArea.current.scrollHeight / 10);
          const textAreaHeight = currTextAreaHeight.replace("rem", "");
-         const heightInt = parseInt(textAreaHeight);
+         let heightInt = parseInt(textAreaHeight);
 
-         if (heightInt < currSscrollHeight && heightInt < 25) {
-            setcurrTextAreaHeight(`${currSscrollHeight / 10}rem`);
-         } else if (heightInt > currSscrollHeight && heightInt > 10) {
-            setcurrTextAreaHeight(`${currSscrollHeight / 10}rem`);
+         if (heightInt < scrollableHeight && heightInt < 25) {
+            setcurrTextAreaHeight(`${scrollableHeight}rem`);
+         } else if (heightInt >= scrollableHeight && heightInt > 10) {
+            setscrollableHeight(0);
+            heightInt = heightInt - 2.6;
+            setcurrTextAreaHeight(`${heightInt}rem`);
          }
-         console.log(textAreaHeight, currSscrollHeight);
+         console.log(heightInt, scrollableHeight);
       }
    };
 
