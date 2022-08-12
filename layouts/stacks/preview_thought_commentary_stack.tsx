@@ -6,6 +6,7 @@
    in other components in the future
 **********************************************************************************************************/
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 // comps
 import { BringUpHiddenBottom } from "../../fragments/buttons/bring_up_hidden_bottom";
@@ -17,7 +18,7 @@ import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 import styles from "./preview_thought_commentary_stack.module.css";
 
 type TPrimaryStackprops = {
-   content: JSX.Element;
+   content: string;
    postImage: string;
    userAuthority: number;
    userId: string;
@@ -83,7 +84,9 @@ export const PreviewThoughtCommentaryStack = ({
 
          {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
-            <div className={`${contentWrapperClass} ${styles.contentHolder}`}>{content}</div>
+            <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
+               <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
 
             {/* references  */}
             <div className={styles.referencesWrapper}>

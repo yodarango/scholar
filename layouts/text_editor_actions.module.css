@@ -6,10 +6,6 @@
    padding: var(--spacing-m);
    width: 100%;
    background-color: var(--secondary-color);
-   position: fixed;
-   bottom: 0;
-   left: 0;
-   z-index: 15;
    border-top-left-radius: 3em;
    border-top-right-radius: 3em;
    box-shadow: 0.4rem -0.4rem 0.6rem var(--shadow-color);

@@ -1,31 +1,27 @@
 import client from "../../../apollo-client";
-import { CREATE_NEW_COMMENTARY } from "../../../graphql/posts/commentaries";
+import { CREATE_NEW_THOUGHT } from "../../../graphql/posts/thoughts";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
 
-export const handlePostCommentary = async (
-   verseId: string,
+export const handlePostThought = async (
+   title: string,
    body: string,
-   isPrivate: boolean,
    categoryTags: string[],
-   referencedVerses: string[],
-   verseCitation: string
+   referencedVerses: string[]
 ) => {
    try {
       const { data } = await client.mutate({
-         mutation: CREATE_NEW_COMMENTARY,
+         mutation: CREATE_NEW_THOUGHT,
          variables: {
-            VERSE_ID: verseId,
             body,
-            is_private: isPrivate,
-            category_tags: categoryTags.toString().replaceAll(", ", ""),
-            referenced_verses: referencedVerses.toString().replaceAll(", ", ""),
-            verse_citation: verseCitation
+            title,
+            category_tags: categoryTags,
+            referenced_verses: referencedVerses
          }
       });
 
-      if (data.commentary.__typename === "Commentary") {
+      if (data.commentary.__typename === "Thought") {
          return data.commentary;
       } else if (data.commentary.__typename === "ExceedsPostCount") {
          return errorMessages.posts.maxPostCount;
