@@ -33,7 +33,7 @@ import { notificationMessages } from "../data/notification_messages";
 import { PreviewThoughtCommentaryStack } from "./stacks/preview_thought_commentary_stack";
 
 type TTextEditorFormatterActionsProps = {
-   content: string;
+   body: string;
    postImage: string;
    userAuthority: number;
    userId: string;
@@ -43,15 +43,18 @@ type TTextEditorFormatterActionsProps = {
    postCreatedDate: string;
    postCategory: string;
    postReferences: string[];
+   postPrivacy: boolean;
+   postuttonTitle?: string;
    cta: {
       handleRefVerseSelection: (id: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
       handleCategorySelection: (id: string) => void;
+      handlePost: (post?: any) => void;
    };
 };
 
 export const TextEditorActions = ({
-   content,
+   body,
    cta,
    postImage,
    userAuthority,
@@ -61,10 +64,12 @@ export const TextEditorActions = ({
    postPostedOnDate,
    postCreatedDate,
    postCategory,
-   postReferences
+   postReferences,
+   postPrivacy,
+   postuttonTitle = "Post"
 }: TTextEditorFormatterActionsProps) => {
    // state
-   const [postIsPrivate, setpostIsPrivate] = useState<boolean>(false);
+   const [postIsPrivate, setpostIsPrivate] = useState<boolean>(postPrivacy);
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
    const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
@@ -94,7 +99,7 @@ export const TextEditorActions = ({
                            versionId='de4e12af7f28f599-02'
                            stopAtVerse={false}
                            stopAtChapter={false}
-                           cta={{ handleChoice: (id) => handlerefVerseSelection(id) }}
+                           cta={{ handleChoice: handlerefVerseSelection }}
                         />
                      }
                   />
@@ -113,7 +118,7 @@ export const TextEditorActions = ({
             {showPostPreview && (
                <PreviewThoughtCommentaryStack
                   postReferences={postReferences}
-                  content={content}
+                  body={body}
                   cta={{ handleCloseModal: () => setshowPostPreview(false) }}
                   postImage={postImage}
                   userAuthority={userAuthority}
@@ -188,14 +193,14 @@ export const TextEditorActions = ({
                   <Parragraph text={"Category"} quiet={true} size='xsmall' bold={true} />
                </div>
                <CategoryTag
-                  id='CYN'
+                  id={postCategory}
                   informativeOnly={false}
                   cta={{ handleSelection: (id) => cta.handleCategorySelection(id) }}
                />
             </div>
 
             <div className={styles.post}>
-               <Primary type='1' title='POST' cta={{ handleClick: () => {} }} />
+               <Primary type='1' title={postuttonTitle} cta={{ handleClick: cta.handlePost }} />
             </div>
          </div>
       </>

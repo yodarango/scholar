@@ -51,7 +51,7 @@ export const Notification = ({
          {!customColor && body && (
             <div className={`${styles.mainWrapper} ${notificationType}`}>
                <div className={styles.close}>
-                  <CloseContent cta={cta} />
+                  <CloseContent cta={{ handleClick: cta }} />
                </div>
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
@@ -67,7 +67,7 @@ export const Notification = ({
                   backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
                }}>
                <div className={styles.close}>
-                  <CloseContent cta={cta} />
+                  <CloseContent cta={{ handleClick: cta }} />
                </div>
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
@@ -80,7 +80,7 @@ export const Notification = ({
          {!customColor && jsxContent && (
             <div className={`${styles.mainWrapper} ${notificationType}`}>
                <div className={styles.close}>
-                  <CloseContent cta={cta} />
+                  <CloseContent cta={{ handleClick: cta }} />
                </div>
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
@@ -96,7 +96,7 @@ export const Notification = ({
                   backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
                }}>
                <div className={styles.close}>
-                  <CloseContent cta={cta} />
+                  <CloseContent cta={{ handleClick: cta }} />
                </div>
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />

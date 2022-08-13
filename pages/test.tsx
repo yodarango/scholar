@@ -9,6 +9,7 @@ import { NavigationMain } from "../layouts/navigation_main";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
 import { TextEditor } from "../layouts/text_editor";
 import { TextEditorActions } from "../layouts/text_editor_actions";
+import { FullTextEditor } from "../templates/content/full_text_editor";
 
 const Test = () => {
    return (
@@ -143,7 +144,7 @@ const Test = () => {
          /> */}
          {/* <VerseRefTagWrapper refs={["dsfds", "dfasd", "ssads"]} /> */}
          {/* <TextEditorVerseSelection /> */}
-         <TextEditor
+         {/* <TextEditor
             content={`# Title (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
@@ -154,6 +155,19 @@ const Test = () => {
             postCreatedDate='08/11/22 09:00'
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
+         /> */}
+         <FullTextEditor
+            body={`# Title &nbsp; (link)[www.example.com]`}
+            postImage='/images/bible_books/1.png'
+            userAuthority={1}
+            userId='123'
+            username='Username'
+            avatar='/images/user_avatar'
+            postPostedOnDate='08/11/22 09:00'
+            postCreatedDate='08/11/22 09:00'
+            postCategory='YLW'
+            postReferences={["1CO.1.1", "MAT.3.2"]}
+            postPrivacy={true}
          />
       </div>
    );

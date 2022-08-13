@@ -47,7 +47,7 @@ export const PrimaryMenuBkg = ({
    return (
       <div className={styles.mainWrapper} style={{ backgroundImage: bkgColor }}>
          <div className={styles.close}>
-            <CloseContent cta={cta} size='2.5rem' />
+            <CloseContent cta={{ handleClick: cta }} size='2.5rem' />
          </div>
          {title && (
             <div className={styles.title}>

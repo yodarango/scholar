@@ -40,6 +40,7 @@ export const CategoryTag = ({
    // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
+   const [currentCategory, setcurrentCategory] = useState<string>(id);
 
    //  open the category popup
    const handleShowCategoryMeta = () => {
@@ -60,6 +61,12 @@ export const CategoryTag = ({
       );
    };
 
+   // update category state and initiate callback to send selection date to the parent
+   const handleSelection = (id: string) => {
+      setIsCategoryMenuOpen(false);
+      setcurrentCategory(id);
+      cta?.handleSelection(id);
+   };
    return (
       <>
          <Portal>
@@ -68,7 +75,7 @@ export const CategoryTag = ({
                <SelectCategoryTag
                   cta={{
                      handleCloseModal: () => setIsCategoryMenuOpen(false),
-                     handleSelection: (id) => cta?.handleSelection(id)
+                     handleSelection
                   }}
                />
             )}
@@ -79,7 +86,7 @@ export const CategoryTag = ({
                informativeOnly ? () => handleShowCategoryMeta() : () => setIsCategoryMenuOpen(true)
             }
             className={customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}>
-            {id === "BLK" && (
+            {currentCategory === "BLK" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.blk
@@ -88,7 +95,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "BL" && (
+            {currentCategory === "BL" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.bl
@@ -97,7 +104,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "BR" && (
+            {currentCategory === "BR" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.br
@@ -106,7 +113,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "CYN" && (
+            {currentCategory === "CYN" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.cyn
@@ -115,7 +122,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "GRN" && (
+            {currentCategory === "GRN" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.grn
@@ -124,7 +131,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "OR" && (
+            {currentCategory === "OR" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.or
@@ -133,7 +140,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "PNK" && (
+            {currentCategory === "PNK" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.pnk
@@ -142,7 +149,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "PPL" && (
+            {currentCategory === "PPL" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.ppl
@@ -151,7 +158,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "RD" && (
+            {currentCategory === "RD" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.rd
@@ -160,7 +167,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
-            {id === "YLW" && (
+            {currentCategory === "YLW" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
                      styles.ylw

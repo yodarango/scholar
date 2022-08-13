@@ -34,7 +34,7 @@ export const PrimaryStack = ({ title, content, cta, icon }: TPrimaryStackprops) 
             </div>
          </div>
          <div className={styles.close}>
-            <CloseContent cta={cta} />
+            <CloseContent cta={{ handleClick: cta }} />
          </div>
          <div className={styles.subWrapper}>
             <div className={styles.contentHolder}>{content}</div>
