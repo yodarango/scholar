@@ -80,7 +80,7 @@ export const BibleVersePicker = ({
          </Portal>
          <div className={styles.mainWrapper}>
             <div className={styles.close}>
-               <CloseContent cta={cta.handleCloseModal} />
+               <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
             </div>
 
             <div className={styles.title}>

@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import handlePostComment from "../../helpers/functions/posts/thought_post_comment";
 
 import { TextEditor } from "../../layouts/text_editor";
 
@@ -9,7 +10,7 @@ export default {
 
 export const ThoughtPost: ComponentStory<typeof TextEditor> = () => (
    <TextEditor
-      content={`# Title (link)[www.example.com]`}
+      body={`# Title (link)[www.example.com]`}
       postImage='/images/bible_books/1.png'
       userAuthority={1}
       userId='123'
@@ -19,5 +20,13 @@ export const ThoughtPost: ComponentStory<typeof TextEditor> = () => (
       postCreatedDate='08/11/22 09:00'
       postCategory='YLW'
       postReferences={["1CO.1.1", "MAT.3.2"]}
+      postPrivacy={true}
+      cta={{
+         handleCategorySelection() {},
+         handlePrivacySelection() {},
+         handleRefVerseSelection() {},
+         handlePost() {},
+         handleBody() {}
+      }}
    />
 );

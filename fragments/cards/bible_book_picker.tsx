@@ -48,7 +48,9 @@ export const BilbleBookPicker = ({
                   {!showChapterSelectorMenu && (
                      <Parragraph text={chapterCount} size='main' align='center' />
                   )}
-                  {showChapterSelectorMenu && <CloseContent cta={cta.handleCloseChapterMenu} />}
+                  {showChapterSelectorMenu && (
+                     <CloseContent cta={{ handleClick: cta.handleCloseChapterMenu }} />
+                  )}
                </div>
             )}
             {initLoader && <SmallLoader inline={true} />}

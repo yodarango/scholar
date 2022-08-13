@@ -18,7 +18,7 @@ import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 import styles from "./preview_thought_commentary_stack.module.css";
 
 type TPrimaryStackprops = {
-   content: string;
+   body: string;
    postImage: string;
    userAuthority: number;
    userId: string;
@@ -34,7 +34,7 @@ type TPrimaryStackprops = {
 };
 
 export const PreviewThoughtCommentaryStack = ({
-   content,
+   body,
    cta,
    postImage,
    userAuthority,
@@ -64,7 +64,7 @@ export const PreviewThoughtCommentaryStack = ({
          <div className={styles.imgBkg} style={{ backgroundImage: `url(${postImage})` }}>
             <div className={styles.topLayerColorBkg}></div>
             <div className={styles.close}>
-               <CloseContent cta={cta.handleCloseModal} />
+               <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
             </div>
 
             {/*  post info */}
@@ -85,7 +85,7 @@ export const PreviewThoughtCommentaryStack = ({
          {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
             <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
-               <ReactMarkdown>{content}</ReactMarkdown>
+               <ReactMarkdown>{body}</ReactMarkdown>
             </div>
 
             {/* references  */}
