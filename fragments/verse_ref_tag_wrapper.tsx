@@ -1,6 +1,8 @@
-//! #COMEBACK cant test in story right now sice router is not working in stories
-// -    gets an array of verse Id's trhough the parent an maps over them.
-// -    retruns an array with the total count of tags to send them to the server with the post
+/*********************************************************************************************
+-  gets an array of verse Id's trhough the parent an maps over them.
+-  returns an array with the total count of tags the parent
+*********************************************************************************************/
+
 import { useEffect, useState } from "react";
 
 // comps
@@ -15,7 +17,7 @@ type TVerseRefTagWrapperProps = {
    refs: string[];
    showRemoveoption?: boolean;
    cta?: {
-      updateTagArray: (tags: string[]) => void;
+      handleUpdateTagArray: (tags: string[]) => void;
    };
 };
 
@@ -46,7 +48,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
       setallTags(removedtag);
 
       // update the tag array and pass it to the parent
-      cta?.updateTagArray(removedtag);
+      cta?.handleUpdateTagArray(removedtag);
    };
 
    return (

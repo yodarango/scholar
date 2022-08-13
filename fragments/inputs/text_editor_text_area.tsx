@@ -4,7 +4,7 @@ import { useRef } from "react";
 import styles from "./text_editor_text_area.module.css";
 
 type TTextEditorTextAreaProps = {
-   defaultValue: string;
+   defaultValue: string | null;
    placeHolder: string;
    maxLength: number;
    cta: {
@@ -33,7 +33,7 @@ export const TextEditorTextArea = ({
             maxLength={maxLength}
             className={styles.textArea}
             ref={textArea}
-            defaultValue={defaultValue}
+            defaultValue={defaultValue ? defaultValue : ""}
             placeholder={placeHolder}
             onChange={currentValue}></textarea>
       </div>

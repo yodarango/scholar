@@ -1,0 +1,17 @@
+.mainWrapper {
+   width: 100%;
+   height: 100%;
+}
+
+.verseSelection {
+   grid-column: 1/2;
+   grid-row: 1/2;
+   width: 100%;
+   margin-top: calc(var(--spacing-l)); /*close from top + close icon height + margin-top*/
+   margin-bottom: var(--spacing-l);
+}
+
+.textEditor {
+   width: 100%;
+   height: 100%;
+}

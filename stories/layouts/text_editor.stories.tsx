@@ -26,7 +26,8 @@ export const ThoughtPost: ComponentStory<typeof TextEditor> = () => (
          handlePrivacySelection() {},
          handleRefVerseSelection() {},
          handlePost() {},
-         handleBody() {}
+         handleBody() {},
+         handleReferencedVerses() {}
       }}
    />
 );

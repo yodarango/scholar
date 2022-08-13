@@ -18,7 +18,7 @@ import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 import styles from "./preview_thought_commentary_stack.module.css";
 
 type TPrimaryStackprops = {
-   body: string;
+   body: string | null;
    postImage: string;
    userAuthority: number;
    userId: string;
@@ -85,7 +85,7 @@ export const PreviewThoughtCommentaryStack = ({
          {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
             <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
-               <ReactMarkdown>{body}</ReactMarkdown>
+               <ReactMarkdown>{body ? body : ""}</ReactMarkdown>
             </div>
 
             {/* references  */}

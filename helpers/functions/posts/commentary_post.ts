@@ -4,14 +4,17 @@ import { CREATE_NEW_COMMENTARY } from "../../../graphql/posts/commentaries";
 // data
 import { errorMessages } from "../../../data/error_messages";
 
-export const handlePostCommentary = async (
-   verseId: string,
-   body: string,
-   isPrivate: boolean,
-   categoryTags: string[],
-   referencedVerses: string[],
-   verseCitation: string
-) => {
+export type ThandlePostCommentary = {
+   verseId: string;
+   body: string;
+   isPrivate: boolean;
+   categoryTag: string;
+   referencedVerses: string[];
+   verseCitation: string;
+};
+
+export const handlePostCommentary = async (post: ThandlePostCommentary) => {
+   const { verseId, body, isPrivate, categoryTag, referencedVerses, verseCitation } = post;
    try {
       const { data } = await client.mutate({
          mutation: CREATE_NEW_COMMENTARY,
@@ -19,7 +22,7 @@ export const handlePostCommentary = async (
             VERSE_ID: verseId,
             body,
             is_private: isPrivate,
-            category_tags: categoryTags.toString().replaceAll(", ", ""),
+            category_tags: categoryTag,
             referenced_verses: referencedVerses.toString().replaceAll(", ", ""),
             verse_citation: verseCitation
          }

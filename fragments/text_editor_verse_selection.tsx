@@ -27,7 +27,13 @@ import { BibleBooksWrapper } from "../layouts/scrollers/bible_books_wrapper";
 // helpers
 import Portal from "../hoc/potal";
 
-export const TextEditorVerseSelection = () => {
+type TTextEditorVerseSelectionProps = {
+   cta: {
+      handleVerseData: (verse: TBibleVerse) => void;
+   };
+};
+
+export const TextEditorVerseSelection = ({ cta }: TTextEditorVerseSelectionProps) => {
    const [buttonTitle, setbuttonTitle] = useState<string>("");
    const [verseData, setverseData] = useState<null | TBibleVerse>(null);
    const [loading, setLoading] = useState<string>("loading");
@@ -42,6 +48,7 @@ export const TextEditorVerseSelection = () => {
 
       if (verse !== null) {
          setLoading("done");
+         cta.handleVerseData(verse);
       } else {
          setLoading("error");
       }

@@ -14,6 +14,7 @@ import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
 // data
 import { notificationMessages } from "../../data/notification_messages";
+import Portal from "../../hoc/potal";
 
 type TVerseRefTag = {
    reference: string;
@@ -64,27 +65,29 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
 
    return (
       <>
-         {showNotificationCard === "success" && verseFetched && (
-            <Notification
-               title={verseFetched.reference}
-               body={
-                  <span
-                     className={styles.data}
-                     dangerouslySetInnerHTML={{ __html: verseFetched.content }}></span>
-               }
-               cta={() => setshowNotificationCard("none")}
-               type='1'
-            />
-         )}
+         <Portal>
+            {showNotificationCard === "success" && verseFetched && (
+               <Notification
+                  title={verseFetched.reference}
+                  jsxContent={
+                     <span
+                        className={styles.data}
+                        dangerouslySetInnerHTML={{ __html: verseFetched.content }}></span>
+                  }
+                  cta={() => setshowNotificationCard("none")}
+                  type='1'
+               />
+            )}
 
-         {showNotificationCard === "error" && verseFetched && (
-            <Notification
-               title={notificationMessages.selectNewScriptureError.title}
-               body={notificationMessages.selectNewScriptureError.body}
-               cta={() => setshowNotificationCard("none")}
-               type='4'
-            />
-         )}
+            {showNotificationCard === "error" && verseFetched && (
+               <Notification
+                  title={notificationMessages.selectNewScriptureError.title}
+                  body={notificationMessages.selectNewScriptureError.body}
+                  cta={() => setshowNotificationCard("none")}
+                  type='4'
+               />
+            )}
+         </Portal>
 
          <div className={styles.mainWrapper}>
             {!loading && (
@@ -101,7 +104,11 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
 
             {showRemoveoption && (
                <div className={styles.remove}>
-                  <CloseContent color='#5C5470' size='1.5rem' cta={() => cta && cta(reference)} />
+                  <CloseContent
+                     color='#5C5470'
+                     size='1.5rem'
+                     cta={{ handleClick: () => cta && cta(reference) }}
+                  />
                </div>
             )}
          </div>

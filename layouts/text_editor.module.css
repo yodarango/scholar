@@ -12,15 +12,14 @@
    right: var(--spacing-s);
 }
 
-.verseSelection {
+.textArea {
    grid-column: 1/2;
    grid-row: 1/2;
    width: 100%;
-   margin-top: calc(var(--spacing-l)); /*close from top + close icon height + margin-top*/
-   margin-bottom: var(--spacing-l);
+   height: 100%;
 }
 
-.textArea {
+.tagsWraper {
    grid-column: 1/2;
    grid-row: 2/3;
    width: 100%;
@@ -28,10 +27,11 @@
 }
 
 .bottomGridHolder {
-   grid-column: 1/2;
-   grid-row: 1/2;
+   grid-column: 3/4;
+   grid-row: 2/3;
    height: calc(22rem + var(--spacing-m)); /*editorActions + margin*/
 } /*since editorActions is fixed set a placeholder at the bottom of the gird. the purpose of this grid is to adjust the hright of the text area appropaitedly according to the height of the verseSelection component which will vary */
+
 .editorActions {
    width: 100%;
    position: fixed;

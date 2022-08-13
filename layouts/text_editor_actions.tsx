@@ -33,7 +33,7 @@ import { notificationMessages } from "../data/notification_messages";
 import { PreviewThoughtCommentaryStack } from "./stacks/preview_thought_commentary_stack";
 
 type TTextEditorFormatterActionsProps = {
-   body: string;
+   body: string | null;
    postImage: string;
    userAuthority: number;
    userId: string;

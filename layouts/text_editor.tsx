@@ -2,18 +2,18 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 // components
-import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { TextEditorTextArea } from "../fragments/inputs/text_editor_text_area";
 import { TextEditorActions } from "./text_editor_actions";
 import { CloseContent } from "../fragments/buttons/close_content";
 
 //styles
 import styles from "./text_editor.module.css";
+import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 
 // helpers / types
 
 type TTextEditorProps = {
-   body: string;
+   body: string | null;
    postImage: string;
    userAuthority: number;
    userId: string;
@@ -30,6 +30,7 @@ type TTextEditorProps = {
       handleRefVerseSelection: (verse: string) => void;
       handlePost: (body?: any) => void;
       handleBody: (body: string) => void;
+      handleReferencedVerses: (verses: string[]) => void;
    };
 };
 
@@ -54,16 +55,13 @@ export const TextEditor = ({
    const router = useRouter();
 
    return (
-      <div className={styles.wrapper}>
+      <div className={styles.mainWrapper}>
          <div className={styles.close}>
             <CloseContent cta={{ handleClick: () => router.push("/commentary") }} />
          </div>
-         <div className={styles.verseSelection}>
-            <TextEditorVerseSelection />
-         </div>
          <div className={styles.textArea}>
             <TextEditorTextArea
-               defaultValue=''
+               defaultValue={body}
                placeHolder='Commentary...'
                maxLength={2500}
                cta={{ handleCurrentValue: cta.handleBody }}
@@ -89,6 +87,13 @@ export const TextEditor = ({
                   handleRefVerseSelection: cta.handleRefVerseSelection,
                   handlePost: cta.handlePost
                }}
+            />
+         </div>
+         <div className={styles.tagsWraper}>
+            <VerseRefTagWrapper
+               showRemoveoption={true}
+               refs={postReferences}
+               cta={{ handleUpdateTagArray: cta.handleReferencedVerses }}
             />
          </div>
       </div>
