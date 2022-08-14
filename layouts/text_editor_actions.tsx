@@ -164,7 +164,7 @@ export const TextEditorActions = ({
                         backgroundColor='2'
                         cta={{
                            handleClick: () => (
-                              setpostIsPrivate(false), cta.handlePrivacySelection(true)
+                              setpostIsPrivate(false), cta.handlePrivacySelection(false)
                            )
                         }}
                      />
@@ -180,7 +180,7 @@ export const TextEditorActions = ({
                         backgroundColor='1'
                         cta={{
                            handleClick: () => (
-                              setpostIsPrivate(true), cta.handlePrivacySelection(false)
+                              setpostIsPrivate(true), cta.handlePrivacySelection(true)
                            )
                         }}
                      />

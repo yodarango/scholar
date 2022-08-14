@@ -73,7 +73,7 @@ export const CommentaryTextEditor = ({
             return { ...state, referencedVerses: [...state.referencedVerses, action.payload] };
 
          case "isPrivate":
-            return { ...state, categoryTag: action.payload };
+            return { ...state, isPrivate: action.payload };
 
          case "referencedVersesRemove":
             return { ...state, referencedVerses: action.payload };
@@ -130,7 +130,7 @@ export const CommentaryTextEditor = ({
                postPostedOnDate={postPostedOnDate}
                postCreatedDate={postCreatedDate}
                postCategory={postCategory}
-               postReferences={postReferences}
+               postReferences={state.referencedVerses}
                postPrivacy={postPrivacy}
                cta={{
                   handleCategorySelection: (category) =>
