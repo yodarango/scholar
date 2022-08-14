@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import { FullTextEditor } from "../../../../templates/content/full_text_editor";
+
+// comps
+import { CommentaryTextEditor } from "../../../../templates/content/commentary_text_editor";
 
 const NewCommentary = () => {
    useEffect(() => {
@@ -7,7 +9,7 @@ const NewCommentary = () => {
    }, []);
    return (
       <div>
-         <FullTextEditor
+         <CommentaryTextEditor
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}

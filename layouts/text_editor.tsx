@@ -48,9 +48,6 @@ export const TextEditor = ({
    postPrivacy,
    cta
 }: TTextEditorProps) => {
-   // states
-   const [goBackUrl, setgoBackUrl] = useState<string>("");
-
    // router
    const router = useRouter();
 

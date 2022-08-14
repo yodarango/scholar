@@ -9,7 +9,7 @@ import { NavigationMain } from "../layouts/navigation_main";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
 import { TextEditor } from "../layouts/text_editor";
 import { TextEditorActions } from "../layouts/text_editor_actions";
-import { FullTextEditor } from "../templates/content/full_text_editor";
+import { CommentaryTextEditor } from "../templates/content/commentary_text_editor";
 
 const Test = () => {
    return (
@@ -156,7 +156,7 @@ const Test = () => {
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
          /> */}
-         <FullTextEditor
+         <CommentaryTextEditor
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}

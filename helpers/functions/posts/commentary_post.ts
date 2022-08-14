@@ -11,10 +11,12 @@ export type ThandlePostCommentary = {
    categoryTag: string;
    referencedVerses: string[];
    verseCitation: string;
+   postImage: string;
 };
 
 export const handlePostCommentary = async (post: ThandlePostCommentary) => {
-   const { verseId, body, isPrivate, categoryTag, referencedVerses, verseCitation } = post;
+   const { verseId, body, isPrivate, categoryTag, referencedVerses, verseCitation, postImage } =
+      post;
    try {
       const { data } = await client.mutate({
          mutation: CREATE_NEW_COMMENTARY,
@@ -24,7 +26,8 @@ export const handlePostCommentary = async (post: ThandlePostCommentary) => {
             is_private: isPrivate,
             category_tags: categoryTag,
             referenced_verses: referencedVerses.toString().replaceAll(", ", ""),
-            verse_citation: verseCitation
+            verse_citation: verseCitation,
+            postImage
          }
       });
 
