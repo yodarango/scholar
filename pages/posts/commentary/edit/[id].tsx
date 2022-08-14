@@ -1,104 +1,31 @@
-import { useEffect, useState } from "react";
-//import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import HeadContent from "../../../../layouts/head-content";
-import Image from "next/image";
+import { useEffect } from "react";
 
-// child comps
-import EditPost from "../../../../posts/edit-posts/edit-commentary-post";
-import NavigationMenu from "../../../../layouts/navigation_main";
-import CardsLazyLoading from "../../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../../fragments/chunks/error_resource_not_found";
+// comps
+import { CommentaryTextEditor } from "../../../../templates/content/commentary_text_editor";
 
-// styles
-import cardsLazyLoadingStyles from "../../../../styles/layouts/CardsLazyLoading.module.css";
+import styles from "./index.module.css";
 
-// graphQL
-import client from "../../../../apollo-client";
-import { GET_EDIT_COMMENTARY } from "../../../../graphql/posts/commentaries";
-
-// helpers / types
-import { Tcommentary } from "../../../../fragments/cards/posts/commentary";
-import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
-// import { Tuser } from "../../../users/[userId]";
-
-// type editComentaryProps = {
-//    commentary: Tcommentary;
-// };
-
-const EditCommentary = () => {
-   const [loadingState, setLoadingState] = useState<string>("loading");
-   const [commentary, setCommentary] = useState<Tcommentary | null>(null);
-
-   const router = useRouter();
-
-   const getInitialData = async () => {
-      // =================== Check if there is a Logged in user and fetch its data ========== /
-      const authJWT = loggedInUser();
-
-      // get the post ID
-      const postId = router.query.id ? router.query.id : 0;
-
-      // get the data
-      try {
-         const { data } = await client.query({
-            query: GET_EDIT_COMMENTARY,
-            variables: { ID: postId }
-         });
-         setCommentary(data.commentary[0]);
-
-         if (data.commentary) {
-            if (parseInt(data.commentary[0].creator.ID) !== authJWT.ID) {
-               router.replace(`/posts/commentary/${data.commentary[0].ID}`);
-            } else {
-               setLoadingState("done");
-            }
-         }
-      } catch (error) {
-         console.log(error);
-         setLoadingState("error");
-      }
-   };
-
+const NewCommentary = () => {
    useEffect(() => {
-      if (router.isReady) {
-         getInitialData();
-      }
-   }, [router.query, router.isReady]);
-
+      // get the user and post data
+   }, []);
    return (
-      <>
-         <Head>
-            <HeadContent />
-         </Head>
-         {commentary && loadingState === "done" && (
-            <div className='main-wrapper'>
-               <EditPost commentary={commentary} />
-            </div>
-         )}
-
-         {loadingState === "loading" && (
-            <CardsLazyLoading amount={3} compClass={cardsLazyLoadingStyles.commentaryEdit} />
-         )}
-
-         {loadingState == "error" && <ResourceNotFoundError />}
-
-         <div className='large-spacer'></div>
-         <NavigationMenu />
-      </>
+      <div className={styles.mainWrapper}>
+         <CommentaryTextEditor
+            body={`# Title &nbsp; (link)[www.example.com]`}
+            postImage='/images/bible_books/1.png'
+            userAuthority={1}
+            userId='123'
+            username='Username'
+            avatar='/images/user_avatar'
+            postPostedOnDate='08/11/22 09:00'
+            postCreatedDate='08/11/22 09:00'
+            postCategory='YLW'
+            postReferences={["1CO.1.1", "MAT.3.2"]}
+            postPrivacy={true}
+         />
+      </div>
    );
 };
 
-export default EditCommentary;
-
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//    const postId = query.id ? query.id[0] : 0;
-//    const { data } = await client.query({
-//       query: GET_ONE_COMMENTARY,
-//       variables: { ID: postId, showComments: true }
-//    });
-//    return {
-//       props: { commentary: data.commentary[0] || null }
-//    };
-// };
+export default NewCommentary;

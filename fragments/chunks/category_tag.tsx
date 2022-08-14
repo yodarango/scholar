@@ -86,6 +86,15 @@ export const CategoryTag = ({
                informativeOnly ? () => handleShowCategoryMeta() : () => setIsCategoryMenuOpen(true)
             }
             className={customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}>
+            {!currentCategory && (
+               <div
+                  className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
+                     styles.none
+                  }`}
+                  style={{ borderRadius: customBorderRadius }}>
+                  <span className={`${styles.tag}`}></span>
+               </div>
+            )}
             {currentCategory === "BLK" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${

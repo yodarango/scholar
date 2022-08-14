@@ -1,0 +1,5 @@
+.mainWrapper {
+   border-top-left-radius: 3em;
+   border-top-right-radius: 3em;
+   overflow: hidden;
+}

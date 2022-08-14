@@ -10,6 +10,7 @@ import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought
 import { TextEditor } from "../layouts/text_editor";
 import { TextEditorActions } from "../layouts/text_editor_actions";
 import { CommentaryTextEditor } from "../templates/content/commentary_text_editor";
+import { ThoughtTextEditor } from "../templates/content/thought_text_editor";
 
 const Test = () => {
    return (
@@ -80,7 +81,7 @@ const Test = () => {
             postCreatedDate='07/08/2022 11:00'
             postCategory='PNK'
          /> */}
-         {/* <SeePostInfo
+         <SeePostInfo
             userAuthority={1}
             userId='1'
             username='username'
@@ -88,7 +89,7 @@ const Test = () => {
             postPostedOnDate='07/08/2022 11:00'
             postCreatedDate='07/08/2022 11:00'
             postCategory='PNK'
-         /> */}
+         />
          {/* <PreviewThoughtCommentaryStack
             postReferences={[
                "JHN.1.1",
@@ -101,8 +102,7 @@ const Test = () => {
                "ROM.3.4",
                "EST.3.3"
             ]}
-            content={
-               <div>
+            body={`
                   Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in
                   a piece of classical Latin literature from 45 BC, making it over 2000 years old.
                   Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
@@ -129,9 +129,7 @@ const Test = () => {
                   chunk of Lorem Ipsum used since the 1500s is reproduced below for those
                   interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by
                   Cicero are also reproduced in their exact original form, accompanied by English
-                  versions from the 1914 translation by H. Rackham.
-               </div>
-            }
+                  versions from the 1914 translation by H. Rackham.`}
             cta={{ handleCloseModal: () => console.log("close modal") }}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
@@ -156,7 +154,7 @@ const Test = () => {
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
          /> */}
-         <CommentaryTextEditor
+         <ThoughtTextEditor
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}

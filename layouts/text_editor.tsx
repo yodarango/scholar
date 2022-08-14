@@ -64,7 +64,17 @@ export const TextEditor = ({
                cta={{ handleCurrentValue: cta.handleBody }}
             />
          </div>
+
+         <div className={styles.tagsWraper}>
+            <VerseRefTagWrapper
+               showRemoveoption={true}
+               refs={postReferences}
+               cta={{ handleUpdateTagArray: cta.handleReferencedVerses }}
+            />
+         </div>
+
          <div className={styles.bottomGridHolder}></div>
+
          <div className={styles.editorActions}>
             <TextEditorActions
                body={body}
@@ -84,13 +94,6 @@ export const TextEditor = ({
                   handleRefVerseSelection: cta.handleRefVerseSelection,
                   handlePost: cta.handlePost
                }}
-            />
-         </div>
-         <div className={styles.tagsWraper}>
-            <VerseRefTagWrapper
-               showRemoveoption={true}
-               refs={postReferences}
-               cta={{ handleUpdateTagArray: cta.handleReferencedVerses }}
             />
          </div>
       </div>
