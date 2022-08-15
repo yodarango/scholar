@@ -3,6 +3,7 @@ import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
 import { DailyVerseImage } from "../fragments/cards/daily_verse_image";
 import { CategoryTag } from "../fragments/chunks/category_tag";
 import { SeePostInfo } from "../fragments/chunks/see_post_info";
+import { TextEditorTopInfo } from "../fragments/text_editor_top_info";
 import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 import { NavigationMain } from "../layouts/navigation_main";
@@ -81,7 +82,7 @@ const Test = () => {
             postCreatedDate='07/08/2022 11:00'
             postCategory='PNK'
          /> */}
-         <SeePostInfo
+         {/* <SeePostInfo
             userAuthority={1}
             userId='1'
             username='username'
@@ -89,7 +90,7 @@ const Test = () => {
             postPostedOnDate='07/08/2022 11:00'
             postCreatedDate='07/08/2022 11:00'
             postCategory='PNK'
-         />
+         /> */}
          {/* <PreviewThoughtCommentaryStack
             postReferences={[
                "JHN.1.1",
@@ -154,7 +155,7 @@ const Test = () => {
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
          /> */}
-         <ThoughtTextEditor
+         {/* <ThoughtTextEditor
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
@@ -166,6 +167,17 @@ const Test = () => {
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
             postPrivacy={true}
+         /> */}
+         <TextEditorTopInfo
+            userAuthority={1}
+            userId='1'
+            username='username'
+            bkgImg='/images/bible_books/1.png'
+            avatar='/images/user_avatars/default.png'
+            postPostedOnDate='07/08/2022 11:00'
+            postCreatedDate='07/08/2022 11:00'
+            postCategory='PNK'
+            cta={{ handleCloseModal: () => console.log("hey") }}
          />
       </div>
    );

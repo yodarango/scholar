@@ -1,0 +1,43 @@
+.mainWrapper {
+   width: 16.5rem;
+}
+
+.image {
+   position: relative;
+   width: 100%;
+   height: 9.2rem;
+   border-radius: 2em;
+   overflow: hidden;
+   margin-bottom: var(--spacing-xxs);
+}
+
+.image:hover {
+   cursor: pointer;
+   opacity: 0.8;
+   transform: scale(0.95);
+   transition: transform 300ms ease;
+}
+
+.image img {
+   height: 100%;
+   width: 100%;
+   object-fit: cover;
+   object-position: center;
+}
+
+.author,
+.author:active,
+.author:visited {
+   color: var(--third-color);
+   text-decoration: underline;
+   font-size: var(--fs-xsmall);
+   font-family: var(--primary-font);
+   text-align: left;
+}
+
+.author {
+   display: block;
+   width: 100%;
+   overflow: hidden;
+   margin-left: var(--spacing-xxs);
+}

@@ -13,6 +13,7 @@ import {
 } from "../../helpers/functions/posts/commentary_post";
 import { Bible, TBible } from "../../data/bible";
 import { TBibleVerse } from "../../types/bible_api";
+import { SeePostInfo } from "../../fragments/chunks/see_post_info";
 
 type TThoughtTextEditorProps = {
    userId: string;
@@ -111,6 +112,7 @@ export const ThoughtTextEditor = ({
 
    return (
       <div className={styles.mainWrapper}>
+         <div className={styles.topInfo}></div>
          <div className={styles.textEditor}>
             <TextEditor
                body={body}
