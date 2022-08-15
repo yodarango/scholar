@@ -1,0 +1,34 @@
+.mainWrapper {
+   width: 100%;
+   height: 80vh;
+   max-height: 70rem;
+   padding: var(--spacing-s) var(--spacing-ml) var(--spacing-l);
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-direction: column;
+   border-radius: 3em;
+   box-shadow: 0 -4px 4px var(--shadow-color);
+   overflow: hidden;
+   position: relative;
+}
+
+.close {
+   position: fixed;
+   top: 0;
+   right: 0;
+}
+
+.search {
+   width: 100%;
+   margin-bottom: var(--spacing-ml);
+}
+
+.imageWrapper {
+   height: 100%;
+   overflow-y: scroll;
+}
+
+.loadMore {
+   width: 100%;
+}

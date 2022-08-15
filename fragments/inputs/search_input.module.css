@@ -7,7 +7,8 @@
    overflow: hidden;
 }
 
-.input {
+.input,
+.inputWBtn {
    background: transparent;
    border: none;
    outline: none;
@@ -22,11 +23,13 @@
    font-size: var(--fs-main);
 }
 
-.input:focus {
+.input:focus,
+.inputWBtn:focus {
    outline: none;
 }
 
-.input::placeholder {
+.input::placeholder,
+.inputWBtn::placeholder {
    color: var(--third-color);
 }
 
@@ -38,4 +41,26 @@
    right: auto;
    z-index: 2;
    transform: translateY(-50%);
+}
+
+/* search with button */
+.mainWrapperWBtn {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.inputWBtn {
+   height: 3rem;
+   background-image: linear-gradient(-10deg, var(--third-color), var(--secondary-color));
+   border-radius: 3em;
+   overflow: hidden;
+   width: 100%;
+   padding-left: var(--spacing-s);
+   position: relative;
+}
+
+.searchButton {
+   margin-left: var(--spacing-xs);
 }
