@@ -11,6 +11,14 @@
    margin-bottom: var(--spacing-xxs);
 }
 
+.mainWrapperCustomSize {
+   width: 100%;
+   height: calc(100% - 2rem);
+}
+.mainWrapperCustomSize .image {
+   height: 100%;
+}
+
 .image:hover {
    cursor: pointer;
    opacity: 0.8;

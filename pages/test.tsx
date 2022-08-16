@@ -7,6 +7,7 @@ import { TextEditorTopInfo } from "../fragments/text_editor_top_info";
 import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 import { NavigationMain } from "../layouts/navigation_main";
+import { UnsplasImgPicker } from "../layouts/scrollers/unsplash_img_picker";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
 import { TextEditor } from "../layouts/text_editor";
 import { TextEditorActions } from "../layouts/text_editor_actions";
@@ -168,7 +169,7 @@ const Test = () => {
             postReferences={["1CO.1.1", "MAT.3.2"]}
             postPrivacy={true}
          /> */}
-         <TextEditorTopInfo
+         {/* <TextEditorTopInfo
             userAuthority={1}
             userId='1'
             username='username'
@@ -178,6 +179,19 @@ const Test = () => {
             postCreatedDate='07/08/2022 11:00'
             postCategory='PNK'
             cta={{ handleCloseModal: () => console.log("hey") }}
+         /> */}
+         <UnsplasImgPicker
+            images={[
+               { link: "", author: "", src: "", alt: "" },
+               { link: "", author: "", src: "", alt: "" },
+               { link: "", author: "", src: "", alt: "" },
+               { link: "", author: "", src: "", alt: "" },
+               { link: "", author: "", src: "", alt: "" }
+            ]}
+            cta={{
+               handleImgSelection: (url) => console.log(url),
+               closeModal: () => console.log("close")
+            }}
          />
       </div>
    );

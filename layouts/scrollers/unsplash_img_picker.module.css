@@ -14,21 +14,50 @@
 }
 
 .close {
-   position: fixed;
-   top: 0;
-   right: 0;
+   position: absolute;
+   top: var(--spacing-s);
+   right: var(--spacing-s);
 }
 
 .search {
+   max-width: 45rem;
    width: 100%;
-   margin-bottom: var(--spacing-ml);
+   margin: calc(var(--spacing-s) + var(--spacing-l)) auto var(--spacing-ml);
 }
 
 .imageWrapper {
-   height: 100%;
+   max-width: 45rem;
+   width: 100%;
    overflow-y: scroll;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   align-self: flex-end;
+   margin: 0 auto var(--spacing-ml);
+}
+
+.loader,
+.errorFetching {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.thumbnail {
+   width: calc(50% - var(--spacing-xs));
+   height: 11.3rem;
+   margin: 0 var(--spacing-xxs) var(--spacing-s);
+}
+
+.thumbnail:last-of-type {
+   justify-self: start;
 }
 
 .loadMore {
+   max-width: 45rem;
+   margin: auto auto 0;
    width: 100%;
 }
