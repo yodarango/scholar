@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
+import { ThoughtTextEditor } from "../../templates/content/thought_text_editor";
 
 export default {
-   title: "layouts/Coomentary Text Editor ",
-   component: CommentaryTextEditor
-} as ComponentMeta<typeof CommentaryTextEditor>;
+   title: "layouts/Thought Text Editor ",
+   component: ThoughtTextEditor
+} as ComponentMeta<typeof ThoughtTextEditor>;
 
-export const ThoughtPost: ComponentStory<typeof CommentaryTextEditor> = () => (
-   <CommentaryTextEditor
+export const ThoughtPost: ComponentStory<typeof ThoughtTextEditor> = () => (
+   <ThoughtTextEditor
       body={`# Title &nbsp; (link)[www.example.com]`}
       postImage='/images/bible_books/1.png'
       userAuthority={1}

@@ -5,7 +5,7 @@ import { CommentaryTextEditor } from "../../../../templates/content/commentary_t
 
 import styles from "./index.module.css";
 
-const NewCommentary = () => {
+const EditCommentary = () => {
    useEffect(() => {
       // get the user and post data
    }, []);
@@ -28,4 +28,4 @@ const NewCommentary = () => {
    );
 };
 
-export default NewCommentary;
+export default EditCommentary;

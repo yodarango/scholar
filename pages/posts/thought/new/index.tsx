@@ -6,7 +6,7 @@ import { ThoughtTextEditor } from "../../../../templates/content/thought_text_ed
 // styles
 import styles from "./index.module.css";
 
-const EditThought = () => {
+const NewThought = () => {
    useEffect(() => {
       // get the user data
    }, []);
@@ -29,4 +29,4 @@ const EditThought = () => {
    );
 };
 
-export default EditThought;
+export default NewThought;

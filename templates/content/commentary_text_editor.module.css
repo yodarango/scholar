@@ -1,12 +1,14 @@
 .mainWrapper {
    width: 100%;
    overflow: hidden;
-   height: 100vh;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
 }
 
 .verseSelection {
-   grid-column: 1/2;
-   grid-row: 1/2;
    width: 100%;
    margin-top: calc(var(--spacing-l) + 3rem); /*close from top + close icon height */
    margin-bottom: var(--spacing-l);
