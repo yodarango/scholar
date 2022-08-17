@@ -14,6 +14,7 @@ import {
 import { Bible, TBible } from "../../data/bible";
 import { TBibleVerse } from "../../types/bible_api";
 import { SeePostInfo } from "../../fragments/chunks/see_post_info";
+import { TextEditorTopInfo } from "../../fragments/text_editor_top_info";
 
 type TThoughtTextEditorProps = {
    userId: string;
@@ -112,9 +113,24 @@ export const ThoughtTextEditor = ({
 
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.topInfo}></div>
+         <div className={styles.topInfo}>
+            <TextEditorTopInfo
+               userAuthority={1}
+               userId='123'
+               username='username'
+               avatar='img/avatars/default.png'
+               postPostedOnDate='12/12/12 12:00'
+               postCreatedDate='12/12/12 12:00'
+               postCategory='PPL'
+               cta={{
+                  handleCloseModal: () => {},
+                  handleImageBkgSelection: (url: string) => {}
+               }}
+            />
+         </div>
          <div className={styles.textEditor}>
             <TextEditor
+               renderClose={false}
                body={body}
                postImage={postImage}
                userAuthority={userAuthority}

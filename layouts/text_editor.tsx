@@ -24,6 +24,7 @@ type TTextEditorProps = {
    postCategory: string;
    postReferences: string[];
    postPrivacy: boolean;
+   renderClose?: boolean;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -46,6 +47,7 @@ export const TextEditor = ({
    postCategory,
    postReferences,
    postPrivacy,
+   renderClose = true,
    cta
 }: TTextEditorProps) => {
    // router
@@ -53,9 +55,11 @@ export const TextEditor = ({
 
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.close}>
-            <CloseContent cta={{ handleClick: () => router.push("/commentary") }} />
-         </div>
+         {renderClose && (
+            <div className={styles.close}>
+               <CloseContent cta={{ handleClick: () => router.push("/commentary") }} />
+            </div>
+         )}
          <div className={styles.textArea}>
             <TextEditorTextArea
                defaultValue={body}

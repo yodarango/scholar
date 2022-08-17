@@ -3,3 +3,8 @@
    border-top-right-radius: 3em;
    overflow: hidden;
 }
+
+.textEditor {
+   width: 100%;
+   height: 100%;
+}

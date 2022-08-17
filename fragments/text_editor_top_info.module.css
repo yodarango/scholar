@@ -28,3 +28,12 @@
 .close {
    margin: 0 auto var(--spacing-s);
 }
+
+.unsplashPicker {
+   position: fixed;
+   z-index: 16;
+   bottom: 0;
+   left: 0;
+   width: 100vw;
+   background-color: var(--primary-color);
+}

@@ -3,7 +3,7 @@
    height: 100%;
    display: grid;
    grid-template-columns: 100%;
-   grid-template-rows: calc(100% - 47rem) 10rem calc(22rem + var(--spacing-m));
+   grid-template-rows: auto 10rem calc(35rem + var(--spacing-m)); /* textarea tags bottom spacer*/
 }
 
 .close {

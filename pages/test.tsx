@@ -145,7 +145,7 @@ const Test = () => {
          {/* <VerseRefTagWrapper refs={["dsfds", "dfasd", "ssads"]} /> */}
          {/* <TextEditorVerseSelection /> */}
          {/* <TextEditor
-            content={`# Title (link)[www.example.com]`}
+            body={`# Title (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
             userId='123'
@@ -155,8 +155,17 @@ const Test = () => {
             postCreatedDate='08/11/22 09:00'
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
+            postPrivacy={false}
+            cta={{
+               handleBody() {},
+               handleCategorySelection() {},
+               handlePrivacySelection() {},
+               handlePost() {},
+               handleReferencedVerses() {},
+               handleRefVerseSelection() {}
+            }}
          /> */}
-         {/* <ThoughtTextEditor
+         {/* <CommentaryTextEditor
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
@@ -169,6 +178,19 @@ const Test = () => {
             postReferences={["1CO.1.1", "MAT.3.2"]}
             postPrivacy={true}
          /> */}
+         <ThoughtTextEditor
+            body={`# Title &nbsp; (link)[www.example.com]`}
+            postImage='/images/bible_books/1.png'
+            userAuthority={1}
+            userId='123'
+            username='Username'
+            avatar='/images/user_avatar'
+            postPostedOnDate='08/11/22 09:00'
+            postCreatedDate='08/11/22 09:00'
+            postCategory='YLW'
+            postReferences={["1CO.1.1", "MAT.3.2"]}
+            postPrivacy={true}
+         />
          {/* <TextEditorTopInfo
             userAuthority={1}
             userId='1'
@@ -180,7 +202,7 @@ const Test = () => {
             postCategory='PNK'
             cta={{ handleCloseModal: () => console.log("hey") }}
          /> */}
-         <UnsplasImgPicker
+         {/* <UnsplasImgPicker
             images={[
                { link: "", author: "", src: "", alt: "" },
                { link: "", author: "", src: "", alt: "" },
@@ -192,7 +214,22 @@ const Test = () => {
                handleImgSelection: (url) => console.log(url),
                closeModal: () => console.log("close")
             }}
-         />
+         /> */}
+         {/* {
+            <TextEditorTopInfo
+               userAuthority={1}
+               userId='123'
+               username='username'
+               avatar='img/avatars/default.png'
+               postPostedOnDate='12/12/12 12:00'
+               postCreatedDate='12/12/12 12:00'
+               postCategory='PPL'
+               cta={{
+                  handleCloseModal: () => {},
+                  handleImageBkgSelection: (url: string) => {}
+               }}
+            />
+         } */}
       </div>
    );
 };

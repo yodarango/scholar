@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Portal from "../hoc/potal";
+import { UnsplasImgPicker } from "../layouts/scrollers/unsplash_img_picker";
 
 // components
 import { CloseContent } from "./buttons/close_content";
@@ -17,19 +18,37 @@ export type TTextEditorTopInfoProps = {
    postPostedOnDate: string;
    postCreatedDate: string;
    postCategory: string;
-   bkgImg?: string;
+   postImgBkg?: string;
    cta: {
       handleCloseModal: () => void;
+      handleImageBkgSelection: (url: string) => void;
    };
 };
-export const TextEditorTopInfo = ({ cta, bkgImg = "" }: TTextEditorTopInfoProps) => {
+export const TextEditorTopInfo = ({ cta, postImgBkg = "" }: TTextEditorTopInfoProps) => {
    const [showUnsplahPicker, setshowUnsplahPicker] = useState<boolean>(false);
+   const [imgBkg, setImgBkg] = useState(postImgBkg);
 
+   // update state and send callback to parent with the chosen url
+   const handleImgSelection = (url: string) => {
+      cta.handleImageBkgSelection(url);
+      setImgBkg(url);
+   };
    return (
       <>
-         <Portal></Portal>
+         <Portal>
+            {showUnsplahPicker && (
+               <div className={styles.unsplashPicker}>
+                  <UnsplasImgPicker
+                     cta={{
+                        handleImgSelection,
+                        handleCloseModal: () => setshowUnsplahPicker(false)
+                     }}
+                  />
+               </div>
+            )}
+         </Portal>
          <div className={styles.mainWrapper}>
-            <div className={styles.imgBkg} style={{ backgroundImage: `url(${bkgImg})` }}>
+            <div className={styles.imgBkg} style={{ backgroundImage: `url(${imgBkg})` }}>
                <div className={styles.seePostInfo}>
                   <SeePostInfo
                      userAuthority={1}
