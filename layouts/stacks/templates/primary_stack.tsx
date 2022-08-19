@@ -16,7 +16,9 @@ import styles from "./primary_stack.module.css";
 type TPrimaryStackprops = {
    title: string;
    content: JSX.Element;
-   cta: React.MouseEventHandler<HTMLDivElement>;
+   cta: {
+      handleClose: () => void;
+   };
    icon?: string;
 };
 
@@ -34,7 +36,7 @@ export const PrimaryStack = ({ title, content, cta, icon }: TPrimaryStackprops) 
             </div>
          </div>
          <div className={styles.close}>
-            <CloseContent cta={{ handleClick: cta }} />
+            <CloseContent cta={{ handleClick: cta.handleClose }} />
          </div>
          <div className={styles.subWrapper}>
             <div className={styles.contentHolder}>{content}</div>

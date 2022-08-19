@@ -1,0 +1,28 @@
+.iframe {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.iframe iframe {
+   width: 90vw;
+   height: 48vw;
+   border-radius: 2em;
+}
+
+.description {
+   margin: 0 auto var(--spacing-m);
+}
+
+.loader,
+.error {
+   position: absolute;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+}

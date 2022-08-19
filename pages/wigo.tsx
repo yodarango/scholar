@@ -27,7 +27,7 @@ import SermonsPostCarrousel from "../posts/sermons-post-carrousel";
 import NavigationMenu from "../layouts/navigation_main";
 import CardsLazyLoading from "../layouts/cards-lazy-loading";
 // ----- content of the day
-import Sunday from "../fragments/wigo-content/1.sunday";
+import Sunday from "../fragments/cards/video_thumbnail_primary";
 import Monday from "../fragments/wigo-content/2.monday";
 import Tuesday from "../fragments/wigo-content/3.tuesday";
 import Wednesday from "../fragments/wigo-content/4.wednesday";
