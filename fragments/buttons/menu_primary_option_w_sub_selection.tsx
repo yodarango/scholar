@@ -25,7 +25,7 @@ type TMenuPrimaryOptionWithSubSelectionProps = {
       iconShadow?: string;
       descColor?: string;
    };
-   cta: (selection: string) => void;
+   cta: { handleSelection: (selection: string) => void };
 };
 
 export const MenuPrimaryOptionWithSubSelection = ({
@@ -62,7 +62,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
                   <Parragraph text={"NO"} size='main' bold={true} />
                </div>
 
-               <div onClick={() => cta("yes")}>
+               <div onClick={() => cta.handleSelection("delete")}>
                   <Parragraph text={"YES"} size='main' bold={true} color='#ff4d62' />
                </div>
             </div>
@@ -72,7 +72,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
          {showSubSelectionOptions && type === "2" && (
             <div className={styles.subOptionsWrapperCustom}>
                {customSubSelections?.map((selection, index) => (
-                  <div onClick={() => cta(selection.value)} key={index}>
+                  <div onClick={() => cta.handleSelection(selection.value)} key={index}>
                      <Parragraph text={selection.title} size='main' bold={true} />
                   </div>
                ))}
@@ -83,7 +83,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
          {showSubSelectionOptions && type === "3" && (
             <div className={styles.subOptionsWrapperCustom}>
                {customSubSelections?.map((selection, index) => (
-                  <div onClick={() => cta(selection.value)} key={index}>
+                  <div onClick={() => cta.handleSelection(selection.value)} key={index}>
                      <div
                         className={styles.customOptionFilled}
                         style={{ backgroundColor: selection.title }}></div>
@@ -96,7 +96,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
          {showSubSelectionOptions && type === "4" && (
             <div className={styles.subOptionsWrapperCustom}>
                {customSubSelections?.map((selection, index) => (
-                  <div onClick={() => cta(selection.value)} key={index}>
+                  <div onClick={() => cta.handleSelection(selection.value)} key={index}>
                      <Icon name={selection.title} size='2.5rem' color='#F1EAFF' />
                   </div>
                ))}

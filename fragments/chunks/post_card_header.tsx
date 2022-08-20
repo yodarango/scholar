@@ -24,8 +24,10 @@ type TCommentaryCardHeaderProps = {
    userAuthority: number;
    withCategoryTag?: string;
    postType: string;
-   categoryId: string;
-   fontColor: string;
+   fontColor?: string;
+   cta: {
+      handleDelete: (id: string) => void;
+   };
 };
 export const PostCardHeader = ({
    username,
@@ -35,11 +37,17 @@ export const PostCardHeader = ({
    userAuthority,
    withCategoryTag,
    postType,
-   categoryId,
-   fontColor
+   fontColor,
+   cta
 }: TCommentaryCardHeaderProps) => {
    // state
    const [showPostOptions, setshowPostOptions] = useState<boolean>(false);
+
+   // handle delete: pass ID to parent and hidem menu
+   const handleDelete = (id: string) => {
+      setshowPostOptions(false);
+      cta.handleDelete(id);
+   };
 
    return (
       <div className={styles.mainWrapper}>
@@ -48,11 +56,13 @@ export const PostCardHeader = ({
                <SelectpostOptions
                   postid={postId}
                   postType={postType}
-                  cta={{ handleCloseModal: () => setshowPostOptions(false) }}
+                  cta={{
+                     handleCloseModal: () => setshowPostOptions(false),
+                     handleDelete
+                  }}
                />
             )}
          </Portal>
-         {console.log(fontColor)}
          <div className={styles.user}>
             {fontColor && (
                <UserAvatarWUsername
@@ -78,11 +88,7 @@ export const PostCardHeader = ({
          </div>
 
          <div className={styles.icon} onClick={() => setshowPostOptions(true)}>
-            <Icon
-               name='ellipsisH'
-               size='2rem'
-               color={categoryId === "GRN" || categoryId === "YLW" ? "#2A2438" : "#F1EAFF"}
-            />
+            <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : "#F1EAFF"} />
          </div>
 
          {/* ------------------ include / exlude category tag ------------  */}

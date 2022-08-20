@@ -428,10 +428,10 @@ const Test = () => {
             //    ]}
             // />
          }
-         {/* <ThoughtsDisplay
+         <ThoughtsDisplay
             thoughts={[
                {
-                  ID: "32",
+                  ID: "342",
                   title: "This is a title",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#YLW",
@@ -463,7 +463,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "3",
                   title: "This is a title",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#YLW",
@@ -495,7 +495,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "112",
                   title: "This is a title",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#YLW",
@@ -527,7 +527,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "1",
                   title: "This is a title",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#YLW",
@@ -559,7 +559,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "5",
                   title: "This is a title",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#YLW",
@@ -591,11 +591,11 @@ const Test = () => {
                   ]
                }
             ]}
-         /> */}
+         />
          <CommentariesDisplay
             commentaries={[
                {
-                  ID: "32",
+                  ID: "88",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#GRN",
                   referenced_verses: "1CO.1.1 MATT.2.2",
@@ -628,7 +628,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "5",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
                   category_tags: "#YLW",
                   referenced_verses: "1CO.1.1 MATT.2.2",
@@ -661,7 +661,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "2",
                   VERSE_ID: "MAT.1.1",
                   verse_citation: "Matthew 12:1",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
@@ -694,7 +694,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "312",
                   VERSE_ID: "MAT.1.1",
                   verse_citation: "Matthew 12:1",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
@@ -727,7 +727,7 @@ const Test = () => {
                   ]
                },
                {
-                  ID: "32",
+                  ID: "332",
                   VERSE_ID: "MAT.1.1",
                   verse_citation: "Matthew 12:1",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",

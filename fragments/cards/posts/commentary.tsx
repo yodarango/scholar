@@ -15,9 +15,12 @@ import { TCommentary } from "../../../types/posts";
 
 type TCommentaryProps = {
    commentary: TCommentary;
+   cta: {
+      handleDelete: (id: string) => void;
+   };
 };
 
-export const Commentary = ({ commentary }: TCommentaryProps) => {
+export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
    // parse the raw category coming from the DB
    const categoryIdNormalized = commentary.category_tags.split(" ")[0].replace("#", "");
    const categoryId = `category-${categoryIdNormalized}`;
@@ -27,13 +30,13 @@ export const Commentary = ({ commentary }: TCommentaryProps) => {
          {/* ---------------- header -------------- */}
          <div className={styles.header}>
             <PostCardHeader
+               cta={{ handleDelete: cta.handleDelete }}
                userAuthority={commentary.creator.authority_level}
                username={commentary.creator.signature}
                avatar={commentary.creator.avatar}
                userId={commentary.creator.ID}
                postId={commentary.ID}
                postType='commentary'
-               categoryId={categoryIdNormalized}
                fontColor={
                   categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW" ? "#2A2438" : ""
                }

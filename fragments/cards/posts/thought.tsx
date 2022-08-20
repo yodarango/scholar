@@ -21,12 +21,12 @@ import { TThought } from "../../../types/posts";
 
 type TThoughtProps = {
    thought: TThought;
+   cta: {
+      handleDelete: (id: string) => void;
+   };
 };
 
-export const Thought = ({ thought }: TThoughtProps) => {
-   // state
-   const [modalToShow, setModalToShow] = useState<number>(0);
-
+export const Thought = ({ thought, cta }: TThoughtProps) => {
    // parse the Category ID
    const categoryId = thought.category_tags.split(" ")[0].replace("#", "");
 
@@ -35,6 +35,7 @@ export const Thought = ({ thought }: TThoughtProps) => {
          {/* -------------------- post header ------------ */}
          <div className={styles.header}>
             <PostCardHeader
+               cta={{ handleDelete: cta.handleDelete }}
                postType='thought'
                username={thought.creator.signature}
                userAuthority={thought.creator.authority_level}

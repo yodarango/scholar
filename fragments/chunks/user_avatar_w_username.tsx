@@ -101,7 +101,6 @@ export const UserAvatarWUsername = ({
                </>
             )}
          </div>
-         {console.log(fontColor)}
          {/* username */}
          {!fontColor && (
             <Link href={`/users/${userId}`}>

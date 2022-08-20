@@ -1,3 +1,12 @@
+/*****************************************************************************************
+ - options for a post include:
+   -  Report: handles posting to DB from this component
+   -  Share: copies link to the client's clipboard
+   -  Edit: redirects to the edit/ID page
+   -  Delte: handles deleting the post from this comp and if succeeds it sends the ID to 
+      parent so it can remove post from array
+ /****************************************************************************************/
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -21,16 +30,27 @@ export type TSelectpostOptionsProps = {
    postid: string;
    postType: string;
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
+      handleDelete: (id: string) => void;
    };
 };
 
 export const SelectpostOptions = ({ cta, postid, postType }: TSelectpostOptionsProps) => {
    const [showNotification, setshowNotification] = useState<string>("copy");
 
+   // handle reporting the post
+   const handleReport = () => {};
+
    // handle the copy to the clipboard
    const handleSharePost = () => {
       copyToClipboard(`/posts/${postType}/edit/${postid}`, () => setshowNotification("share"));
+   };
+
+   // handle delete the post and send ID to the parent
+   const handleSelection = (selection: string) => {
+      // handle deletion
+      console.log(selection, postid);
+      cta.handleDelete(postid);
    };
 
    return (
@@ -54,7 +74,7 @@ export const SelectpostOptions = ({ cta, postid, postType }: TSelectpostOptionsP
                         type='1'
                         textType='text'
                         iconType='icon'
-                        cta={(value) => console.log("report the post? ", value)}
+                        cta={{ handleSelection: handleReport }}
                         optionProperties={{
                            icon: <Icon name='warning' color='#F1EAFF' size='2rem' />,
                            iconShadow: "#F1EAFF",
@@ -99,7 +119,7 @@ export const SelectpostOptions = ({ cta, postid, postType }: TSelectpostOptionsP
                         type='1'
                         textType='text'
                         iconType='icon'
-                        cta={(value) => console.log("delete the post? ", value)}
+                        cta={{ handleSelection }}
                         optionProperties={{
                            icon: <Icon name='delete' color='#ff4d62' size='2rem' />,
                            iconShadow: "#ff4d62",

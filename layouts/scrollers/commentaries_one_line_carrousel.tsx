@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // comps
 import { Commentary } from "../../fragments/cards/posts/commentary";
 
@@ -12,12 +14,22 @@ type TCommentaryOneLineCarrouselProps = {
 };
 
 export const CommentaryOneLineCarrousel = ({ commentaries }: TCommentaryOneLineCarrouselProps) => {
+   // state
+   const [commentariesArr, setcommentariessArr] = useState(commentaries);
+   // will only run if the post was deleted successfully
+
+   const handleDelete = (id: string) => {
+      const updatedArr = commentariesArr.filter((thought) => thought.ID !== id);
+      setcommentariessArr(updatedArr);
+      console.log(id, updatedArr);
+   };
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.carrousel}>
-            {commentaries.map((commentary: TCommentary, index: number) => (
+            {commentariesArr.map((commentary: TCommentary, index: number) => (
                <div className={styles.commentary} key={index}>
-                  <Commentary commentary={commentary} />
+                  <Commentary commentary={commentary} cta={{ handleDelete }} />
                </div>
             ))}
          </div>
