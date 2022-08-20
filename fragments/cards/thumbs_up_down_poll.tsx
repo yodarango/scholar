@@ -70,19 +70,6 @@ export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
                {hasVoted && <NotificationSticker type='1' text={`you voted for ${hasVoted}`} />}
             </div>
          )}
-
-         {!content && (
-            <DummyPlaceholder
-               button='none'
-               context={
-                  <p>
-                     Help Scholar stay a Godly, safe, and reliable place for everyone by honestly
-                     rating content, giving feedback and reporting inappropiate content
-                  </p>
-               }
-               imgLink={`/images/wigo-placeholders/no_content_graphic_five.png`}
-            />
-         )}
       </>
    );
 };

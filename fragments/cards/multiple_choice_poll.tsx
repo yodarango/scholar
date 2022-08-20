@@ -55,19 +55,6 @@ export const MultipleChoicePollCard = ({ content, countTo, cta }: fridayPropsT) 
                </div>
             </div>
          )}
-
-         {!content && (
-            <DummyPlaceholder
-               button='none'
-               context={
-                  <p>
-                     You make scholar. Please send an email to hey@biblescholar.app and tell us how
-                     can it improve or what other features would you like to see 😃
-                  </p>
-               }
-               imgLink={`/images/wigo-placeholders/no_content_graphic_six.png`}
-            />
-         )}
       </>
    );
 };

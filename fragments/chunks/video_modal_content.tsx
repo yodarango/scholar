@@ -1,30 +1,31 @@
 // components
 import { Parragraph } from "../Typography/parragraph";
-import { ResourceNotFoundError } from "./error_resource_not_found";
-import { RoundLoader } from "./round_loader";
+// import { ResourceNotFoundError } from "./error_resource_not_found";
+// import { RoundLoader } from "./round_loader";
 
 //styles
 import styles from "./video_modal_content.module.css";
 
 type TVideoModalContentProps = {
-   loading: string;
+   // loading: string;
    description: string;
    videoHtml: string;
 };
-export const VideoModalContent = ({ loading, description, videoHtml }: TVideoModalContentProps) => {
+export const VideoModalContent = ({ description, videoHtml }: TVideoModalContentProps) => {
    return (
-      <>
-         {loading === "done" && (
-            <div className={styles.mainWrapper}>
-               <div className={styles.description}>
-                  <Parragraph text={description} size='main' />
-               </div>
-               <div
-                  dangerouslySetInnerHTML={{ __html: `${videoHtml}` }}
-                  className={styles.iframe}></div>
-            </div>
-         )}
-         {loading === "loading" && (
+      <div className={styles.mainWrapper}>
+         <div className={styles.description}>
+            <Parragraph text={description} size='main' />
+         </div>
+         <div dangerouslySetInnerHTML={{ __html: `${videoHtml}` }} className={styles.iframe}></div>
+      </div>
+   );
+
+   {
+      /* since fetchng the data in the parent this is not needed */
+   }
+   {
+      /* {loading === "loading" && (
             <div className={styles.loader}>
                <RoundLoader />
             </div>
@@ -33,7 +34,6 @@ export const VideoModalContent = ({ loading, description, videoHtml }: TVideoMod
             <div className={styles.error}>
                <ResourceNotFoundError />
             </div>
-         )}
-      </>
-   );
+         )} */
+   }
 };

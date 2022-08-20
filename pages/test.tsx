@@ -1,6 +1,8 @@
 import { Pagination } from "../fragments/buttons/pagination";
+import { ContentGraphicsPost } from "../fragments/cards/content_graphics_post";
 import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
 import { DailyVerseImage } from "../fragments/cards/daily_verse_image";
+import { VideoThumbnailPrimary } from "../fragments/cards/video_thumbnail_primary";
 import { CategoryTag } from "../fragments/chunks/category_tag";
 import { SeePostInfo } from "../fragments/chunks/see_post_info";
 import { TextEditorTopInfo } from "../fragments/text_editor_top_info";
@@ -178,7 +180,7 @@ const Test = () => {
             postReferences={["1CO.1.1", "MAT.3.2"]}
             postPrivacy={true}
          /> */}
-         <ThoughtTextEditor
+         {/* <ThoughtTextEditor
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}
@@ -190,7 +192,7 @@ const Test = () => {
             postCategory='YLW'
             postReferences={["1CO.1.1", "MAT.3.2"]}
             postPrivacy={true}
-         />
+         /> */}
          {/* <TextEditorTopInfo
             userAuthority={1}
             userId='1'
@@ -230,6 +232,22 @@ const Test = () => {
                }}
             />
          } */}
+         {/* <VideoThumbnailPrimary
+            content={{
+               url: "https://www.youtube.com/watch?v=tnVK_LJvHXs",
+               title: "MY Awesome Video",
+               description: "This is a small description"
+            }}
+         /> */}
+         <ContentGraphicsPost
+            images={[
+               "/images/bible_books/1.png",
+               "/images/bible_books/2.png",
+               "/images/bible_books/3.png",
+               "/images/bible_books/4.png",
+               "/images/bible_books/5.png"
+            ]}
+         />
       </div>
    );
 };
