@@ -142,8 +142,8 @@ const QuotesProfile = ({ story, user_authority_level }: quoteProfileProps) => {
                <NotificationPopup
                   closeModal={() => setNotificatonPopUpState(false)}
                   title='Report Has Been Submitted'
-                  contentString='We are reviewing your report and will follow the proper procedures 👮‍♂️'
-                  newClass='notification-wrapper--Sucess'
+                  contentString='Wrong credentials 🕵️‍♂️'
+                  newClass='notification-wrapper--Success'
                />
             );
          } else {
