@@ -7,12 +7,13 @@ import { ThoughtsOneLineCarrousel } from "../scrollers/thoughts_one_line_carrous
 import styles from "./fast_facts.module.css";
 
 // types
-import { TThought } from "../../types/posts";
+import { TCommentary } from "../../types/posts";
+import { CommentaryOneLineCarrousel } from "../scrollers/commentaries_one_line_carrousel";
 
-type TThoughtsDisplayProps = {
-   thoughts: TThought[];
+type TCommentariesDisplayProps = {
+   commentaries: TCommentary[];
 };
-export const ThoughtsDisplay = ({ thoughts }: TThoughtsDisplayProps) => {
+export const CommentariesDisplay = ({ commentaries }: TCommentariesDisplayProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
@@ -20,12 +21,12 @@ export const ThoughtsDisplay = ({ thoughts }: TThoughtsDisplayProps) => {
                <Header type={3} text='Thoughts' size='large' quiet={true} />
             </div>
             <div>
-               <LinkWithArrow title='See all' link={"/posts/thought"} />
+               <LinkWithArrow title='See all' link={"/posts/Commentary"} />
             </div>
          </div>
 
-         <div className={styles.thoughts}>
-            <ThoughtsOneLineCarrousel thoughts={thoughts} />
+         <div className={styles.commentaryies}>
+            <CommentaryOneLineCarrousel commentaries={commentaries} />
          </div>
       </div>
    );

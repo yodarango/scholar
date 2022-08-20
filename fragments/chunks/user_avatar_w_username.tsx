@@ -31,6 +31,7 @@ type TAvatarWUsernameProps = {
    quiet: boolean;
    avatarSize?: string;
    userAuthority: number;
+   fontColor?: string;
    cta?: {
       handleClick: (id: string) => void;
    };
@@ -46,7 +47,8 @@ export const UserAvatarWUsername = ({
    userAuthority,
    avatarSrc,
    cta,
-   align
+   align,
+   fontColor
 }: TAvatarWUsernameProps) => {
    return (
       <div
@@ -99,19 +101,34 @@ export const UserAvatarWUsername = ({
                </>
             )}
          </div>
-
+         {console.log(fontColor)}
          {/* username */}
-         <Link href={`/users/${userId}`}>
-            <a>
-               <Header
-                  size={fontSize ? fontSize : "xsmall"}
-                  quiet={quiet}
-                  type={3}
-                  weight={700}
-                  text={username}
-               />
-            </a>
-         </Link>
+         {!fontColor && (
+            <Link href={`/users/${userId}`}>
+               <a>
+                  <Header
+                     size={fontSize ? fontSize : "xsmall"}
+                     quiet={quiet}
+                     type={3}
+                     weight={700}
+                     text={username}
+                  />
+               </a>
+            </Link>
+         )}
+         {fontColor && (
+            <Link href={`/users/${userId}`}>
+               <a>
+                  <Header
+                     size={fontSize ? fontSize : "xsmall"}
+                     type={3}
+                     weight={700}
+                     text={username}
+                     color={fontColor}
+                  />
+               </a>
+            </Link>
+         )}
       </div>
    );
 };

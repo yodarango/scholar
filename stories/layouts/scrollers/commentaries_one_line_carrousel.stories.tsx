@@ -1,23 +1,24 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { ThoughtsDisplay } from "../../../layouts/content/thoughts_display";
+import { CommentaryOneLineCarrousel } from "../../../layouts/scrollers/commentaries_one_line_carrousel";
 
 export default {
-   title: "layouts/content/Thoughts Display",
-   component: ThoughtsDisplay
-} as ComponentMeta<typeof ThoughtsDisplay>;
+   title: "layouts/scrollers/Commentary One Line Carrousel",
+   component: CommentaryOneLineCarrousel
+} as ComponentMeta<typeof CommentaryOneLineCarrousel>;
 
-export const Default: ComponentStory<typeof ThoughtsDisplay> = () => (
-   <ThoughtsDisplay
-      thoughts={[
+export const Default: ComponentStory<typeof CommentaryOneLineCarrousel> = () => (
+   <CommentaryOneLineCarrousel
+      commentaries={[
          {
             ID: "32",
-            title: "This is a title",
             body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
             category_tags: "#YLW",
             referenced_verses: "1CO.1.1 MATT.2.2",
-            posted_on: "07/29/22 22:00",
-            date: "07/29/22 22:00",
+            posted_on: "11/29/22 22:00",
+            date: "11/29/22 22:00",
+            VERSE_ID: "MAT.1.1",
+            verse_citation: "Matthew 12:1",
             total_count: 10,
             postImage: "/images/bible_books/1.png",
             creator: {
@@ -44,12 +45,13 @@ export const Default: ComponentStory<typeof ThoughtsDisplay> = () => (
          },
          {
             ID: "32",
-            title: "This is a title",
             body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
             category_tags: "#YLW",
             referenced_verses: "1CO.1.1 MATT.2.2",
-            posted_on: "07/29/22 22:00",
-            date: "07/29/22 22:00",
+            posted_on: "11/29/22 22:00",
+            VERSE_ID: "MAT.1.1",
+            verse_citation: "Matthew 12:1",
+            date: "11/29/22 22:00",
             total_count: 10,
             postImage: "/images/bible_books/1.png",
             creator: {
@@ -76,12 +78,13 @@ export const Default: ComponentStory<typeof ThoughtsDisplay> = () => (
          },
          {
             ID: "32",
-            title: "This is a title",
+            VERSE_ID: "MAT.1.1",
+            verse_citation: "Matthew 12:1",
             body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
             category_tags: "#YLW",
             referenced_verses: "1CO.1.1 MATT.2.2",
-            posted_on: "07/29/22 22:00",
-            date: "07/29/22 22:00",
+            posted_on: "11/29/22 22:00",
+            date: "11/29/22 22:00",
             total_count: 10,
             postImage: "/images/bible_books/1.png",
             creator: {
@@ -108,12 +111,13 @@ export const Default: ComponentStory<typeof ThoughtsDisplay> = () => (
          },
          {
             ID: "32",
-            title: "This is a title",
+            VERSE_ID: "MAT.1.1",
+            verse_citation: "Matthew 12:1",
             body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
             category_tags: "#YLW",
             referenced_verses: "1CO.1.1 MATT.2.2",
-            posted_on: "07/29/22 22:00",
-            date: "07/29/22 22:00",
+            posted_on: "11/29/22 22:00",
+            date: "11/29/22 22:00",
             total_count: 10,
             postImage: "/images/bible_books/1.png",
             creator: {
@@ -140,12 +144,13 @@ export const Default: ComponentStory<typeof ThoughtsDisplay> = () => (
          },
          {
             ID: "32",
-            title: "This is a title",
+            VERSE_ID: "MAT.1.1",
+            verse_citation: "Matthew 12:1",
             body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
             category_tags: "#YLW",
             referenced_verses: "1CO.1.1 MATT.2.2",
-            posted_on: "07/29/22 22:00",
-            date: "07/29/22 22:00",
+            posted_on: "11/29/22 22:00",
+            date: "11/29/22 22:00",
             total_count: 10,
             postImage: "/images/bible_books/1.png",
             creator: {

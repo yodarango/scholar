@@ -11,13 +11,15 @@ type TPostReactionsProps = {
       averageCount: number;
    };
    totalComments: number;
+   iconColor?: string;
 };
 
-export const PostReactions = ({ postRating, totalComments }: TPostReactionsProps) => {
+export const PostReactions = ({ postRating, totalComments, iconColor }: TPostReactionsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div>
             <PostRating
+               iconColor={iconColor}
                rating={{
                   totalCount: postRating.totalCount,
                   averageCount: postRating.averageCount
@@ -25,7 +27,7 @@ export const PostReactions = ({ postRating, totalComments }: TPostReactionsProps
             />
          </div>
          <div>
-            <PostComment comments={totalComments} />
+            <PostComment comments={totalComments} iconColor={iconColor} />
          </div>
       </div>
    );

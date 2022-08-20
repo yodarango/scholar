@@ -15,15 +15,12 @@ import { TCommentary } from "../../../types/posts";
 
 type TCommentaryProps = {
    commentary: TCommentary;
-   cta: {
-      handleShowRatePost: React.MouseEventHandler<HTMLDivElement>;
-      handleShowPostOptions: React.MouseEventHandler<HTMLDivElement>;
-      handleShowPostComments: React.MouseEventHandler<HTMLDivElement>;
-   };
 };
 
-export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
-   const categoryId = `category-${commentary.category_tags.split(" ")[0].replace("#", "")}`;
+export const Commentary = ({ commentary }: TCommentaryProps) => {
+   // parse the raw category coming from the DB
+   const categoryIdNormalized = commentary.category_tags.split(" ")[0].replace("#", "");
+   const categoryId = `category-${categoryIdNormalized}`;
 
    return (
       <div className={`${styles.mainWrapper}`} id={categoryId}>
@@ -34,7 +31,12 @@ export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
                username={commentary.creator.signature}
                avatar={commentary.creator.avatar}
                userId={commentary.creator.ID}
-               cta={{ handleShowPostOptions: cta.handleShowPostOptions }}
+               postId={commentary.ID}
+               postType='commentary'
+               categoryId={categoryIdNormalized}
+               fontColor={
+                  categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW" ? "#2A2438" : ""
+               }
             />
          </div>
 
@@ -51,7 +53,16 @@ export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
 
                {/* ----------------- verse reference ---------------- */}
                <div className={styles.reference}>
-                  <Parragraph text={commentary.verse_citation} size='small' lineHieght='.9em' />
+                  <Parragraph
+                     text={commentary.verse_citation}
+                     size='small'
+                     lineHieght='.9em'
+                     color={
+                        categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
+                           ? "#2A2438"
+                           : "F1EAFF"
+                     }
+                  />
                </div>
             </a>
          </Link>
@@ -59,10 +70,11 @@ export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
          <div className={styles.footer}>
             <div className={styles.reactions}>
                <PostReactions
-                  cta={{
-                     handleShowPostComments: cta.handleShowPostComments,
-                     handleShowRatePost: cta.handleShowRatePost
-                  }}
+                  iconColor={
+                     categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
+                        ? "#2A2438"
+                        : ""
+                  }
                   totalComments={commentary.comments[0].total_count}
                   postRating={{
                      totalCount: commentary.approvals.length,

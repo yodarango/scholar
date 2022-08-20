@@ -152,7 +152,7 @@ export const categoryMeta: TcategoryMeta[] = [
       key: "Yellow",
       categoryID: 10,
       tag: "#YLW",
-      color: "#ffe45e",
+      color: "#ffed91",
       subjects: ["Faith", "Obedience", "Growth", "Fruit", "Fellowship", "Common Life", "Birth"]
    }
 ];

@@ -12,7 +12,7 @@
    padding: var(--spacing-xxs) 0;
 }
 
-.thought {
+.commentary {
    max-width: 30rem;
    flex-grow: 0;
    flex-shrink: 0;

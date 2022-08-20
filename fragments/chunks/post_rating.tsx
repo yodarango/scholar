@@ -16,9 +16,10 @@ export type Trating = {
 type TPostRatingProps = {
    rating: Trating | null;
    customSize?: boolean;
+   iconColor?: string;
 };
 
-export const PostRating = ({ rating, customSize }: TPostRatingProps) => {
+export const PostRating = ({ rating, customSize, iconColor }: TPostRatingProps) => {
    // state
    const [showPostRating, setshowPostRating] = useState<boolean>(false);
    return (
@@ -30,7 +31,16 @@ export const PostRating = ({ rating, customSize }: TPostRatingProps) => {
          </Portal>
          <div className={`${styles.mainWrapper}`} onClick={() => setshowPostRating(true)}>
             {/* ----------- ratings count ---------- */}
-            <Parragraph text={rating?.totalCount ? rating?.totalCount : ""} size='small' />
+            {!iconColor && (
+               <Parragraph text={rating?.totalCount ? rating?.totalCount : ""} size='small' />
+            )}
+            {iconColor && (
+               <Parragraph
+                  text={rating?.totalCount ? rating?.totalCount : ""}
+                  size='small'
+                  color={iconColor}
+               />
+            )}
 
             {/* ----------- ratings average in grade ---------- */}
             <div className={`${customSize ? styles.ratingIconCustomSize : styles.ratingIcon}`}>

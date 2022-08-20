@@ -61,7 +61,8 @@ export const TimeStamp = ({
                   color={
                      colorId === "category-YLW" ||
                      colorId === "category-CYN" ||
-                     colorId === "category-PNK"
+                     colorId === "category-PNK" ||
+                     colorId === "category-GRN"
                         ? "#2a2438"
                         : "#f1eaff"
                   }

@@ -35,6 +35,7 @@ export const Thought = ({ thought }: TThoughtProps) => {
          {/* -------------------- post header ------------ */}
          <div className={styles.header}>
             <PostCardHeader
+               postType='thought'
                username={thought.creator.signature}
                userAuthority={thought.creator.authority_level}
                avatar={thought.creator.avatar}

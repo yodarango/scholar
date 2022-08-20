@@ -21,9 +21,10 @@ export type Tcomment = {
 
 type TPostCommentProps = {
    comments: number | null;
+   iconColor?: string;
 };
 
-export const PostComment = ({ comments }: TPostCommentProps) => {
+export const PostComment = ({ comments, iconColor }: TPostCommentProps) => {
    // state
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
 
@@ -32,11 +33,21 @@ export const PostComment = ({ comments }: TPostCommentProps) => {
          <Portal>{showCommentariesOfPost /*display the comments of post here */}</Portal>
          <div className={`${styles.mainWrapper}`}>
             {/* -------------- comment count ------------ */}
-            <Parragraph text={comments ? comments : ""} size='small' inline={true} />
+            {!iconColor && (
+               <Parragraph text={comments ? comments : ""} size='small' inline={true} />
+            )}
+            {iconColor && (
+               <Parragraph
+                  text={comments ? comments : ""}
+                  size='small'
+                  inline={true}
+                  color={iconColor}
+               />
+            )}
             <div
                className={styles.commentIconWrapper}
                onClick={() => setshowCommentariesOfPost(true)}>
-               <Icon name='comment' color={"#F1EAFF"} size={"2rem"} />
+               <Icon name='comment' color={iconColor ? iconColor : "#F1EAFF"} size={"2rem"} />
             </div>
          </div>
       </>

@@ -23,6 +23,9 @@ type TCommentaryCardHeaderProps = {
    postId: string;
    userAuthority: number;
    withCategoryTag?: string;
+   postType: string;
+   categoryId: string;
+   fontColor: string;
 };
 export const PostCardHeader = ({
    username,
@@ -30,7 +33,10 @@ export const PostCardHeader = ({
    userId,
    postId,
    userAuthority,
-   withCategoryTag
+   withCategoryTag,
+   postType,
+   categoryId,
+   fontColor
 }: TCommentaryCardHeaderProps) => {
    // state
    const [showPostOptions, setshowPostOptions] = useState<boolean>(false);
@@ -41,24 +47,42 @@ export const PostCardHeader = ({
             {showPostOptions && (
                <SelectpostOptions
                   postid={postId}
-                  postType='thoght'
+                  postType={postType}
                   cta={{ handleCloseModal: () => setshowPostOptions(false) }}
                />
             )}
          </Portal>
+         {console.log(fontColor)}
          <div className={styles.user}>
-            <UserAvatarWUsername
-               username={username}
-               userId={userId}
-               avatarSrc={avatar}
-               quiet={false}
-               userAuthority={userAuthority}
-               avatarSize='2rem'
-            />
+            {fontColor && (
+               <UserAvatarWUsername
+                  username={username}
+                  userId={userId}
+                  avatarSrc={avatar}
+                  quiet={false}
+                  userAuthority={userAuthority}
+                  avatarSize='2rem'
+                  fontColor={fontColor}
+               />
+            )}
+            {!fontColor && (
+               <UserAvatarWUsername
+                  username={username}
+                  userId={userId}
+                  avatarSrc={avatar}
+                  quiet={false}
+                  userAuthority={userAuthority}
+                  avatarSize='2rem'
+               />
+            )}
          </div>
 
          <div className={styles.icon} onClick={() => setshowPostOptions(true)}>
-            <Icon name='ellipsisH' size='2rem' color='#F1EAFF' />
+            <Icon
+               name='ellipsisH'
+               size='2rem'
+               color={categoryId === "GRN" || categoryId === "YLW" ? "#2A2438" : "#F1EAFF"}
+            />
          </div>
 
          {/* ------------------ include / exlude category tag ------------  */}
