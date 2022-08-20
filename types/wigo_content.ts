@@ -13,5 +13,11 @@ export type TMultipleChicePoll = {
    question: string;
    options: string[];
    votes: number[];
+   countTo: string;
+};
 
+export type TVideoThumbnail = {
+   url: string;
+   title: string;
+   description: string;
 };

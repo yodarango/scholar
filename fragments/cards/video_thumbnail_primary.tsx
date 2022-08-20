@@ -17,8 +17,11 @@ import { RoundLoader } from "../chunks/round_loader";
 // styles
 import styles from "./video_thumbnail_primary.module.css";
 
+// types
+import { TVideoThumbnail } from "../../types/wigo_content";
+
 export type TVideoThumbnailPrimaryProps = {
-   content: { url: string; title: string; description: string };
+   content: TVideoThumbnail;
 };
 
 export const VideoThumbnailPrimary = ({ content }: TVideoThumbnailPrimaryProps) => {

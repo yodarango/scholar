@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { FastFacts } from "../../../../layouts/content/fast_facts";
+import { FastFacts } from "../../../layouts/content/fast_facts";
 
 export default {
    title: "layouts/content/Fast Facts",

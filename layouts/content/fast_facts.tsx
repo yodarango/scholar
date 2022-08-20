@@ -14,7 +14,7 @@ export const FastFacts = ({ images }: TFastFactsProps) => {
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
             <div>
-               <Header type={3} text='Fast Facts' size='large' />
+               <Header type={3} text='Fast Facts' size='large' quiet={true} />
             </div>
             <div>
                <LinkWithArrow title='See all' link={"/wigo/fast-facts"} />

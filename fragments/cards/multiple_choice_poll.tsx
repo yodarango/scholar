@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 // comps
 import CardTimer from "../chunks/card_timer";
-import DummyPlaceholder from "../wigo-content/dummy-placeholder";
 import { MultipleChoicePollOptions } from "../chunks/multiple_choice_poll_options";
 import { MultipleChoicePoll } from "../chunks/multiple_choice_poll";
 import { Parragraph } from "../Typography/parragraph";
@@ -21,22 +20,23 @@ import { TMultipleChicePoll } from "../../types/wigo_content";
 
 type fridayPropsT = {
    content: TMultipleChicePoll;
-   countTo: string;
-   cta: {
-      handleVote: (selection: string) => void;
-   };
 };
 
-export const MultipleChoicePollCard = ({ content, countTo, cta }: fridayPropsT) => {
+export const MultipleChoicePollCard = ({ content }: fridayPropsT) => {
    // check if user has already voted by checking cookie
    const hasVoted = getCookie("multChoice");
+
+   const handleVote = (selection: string) => {
+      // implement helper like the one for the thumbs up poll oto handle the posting
+      console.log(selection);
+   };
 
    return (
       <>
          {content && (
             <div className={styles.mainWrapper}>
                <div className={styles.timer}>
-                  <CardTimer time={countTo} />
+                  <CardTimer time={content.countTo} />
                </div>
                <div className={styles.question}>
                   <Parragraph text={content.question} size='main' />
@@ -44,7 +44,7 @@ export const MultipleChoicePollCard = ({ content, countTo, cta }: fridayPropsT) 
                {!hasVoted && (
                   <div className={styles.options}>
                      <MultipleChoicePollOptions
-                        cta={{ handleVote: (selection) => cta.handleVote(selection) }}
+                        cta={{ handleVote: (selection) => handleVote(selection) }}
                         options={content.options}
                      />
                   </div>

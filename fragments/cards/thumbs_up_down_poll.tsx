@@ -1,8 +1,7 @@
 /**********************************************************************************
  - allows users to vote on a specific topic from and the percentages are calculated 
  for each side based on the total votes received.
- - passes the voting attirbutes in the cta prop function to the parent which in turn
-  calls the thumbs_up_down_voting.ts helper
+ - hanndle the vote by calling the thumbs_up_down_voting.ts helper
  /*********************************************************************************/
 // comps
 import DummyPlaceholder from "../wigo-content/dummy-placeholder";
@@ -24,15 +23,15 @@ import { WinningPoll } from "./winning_poll";
 
 type TThumbsUpDownPollProps = {
    content: TThumbsUpDownPoll;
-   cta: {
-      handleVote: (votesUp: number, votesDown: number, contentId: string, myVote: string) => void;
-   };
 };
 
-export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
+export const ThumbsUpDownPoll = ({ content }: TThumbsUpDownPollProps) => {
    // check if user has already voted by checking cookie
-   const hasVoted = getCookie("multChoice");
+   const hasVoted = getCookie("thumbsUpDown");
 
+   const handleVote = (up: number, down: number, id: string, cookieVal: string) => {
+      console.log(up, down, id, cookieVal);
+   };
    return (
       <>
          {content && (
@@ -57,13 +56,13 @@ export const ThumbsUpDownPoll = ({ content, cta }: TThumbsUpDownPollProps) => {
                         icon='👍'
                         title='Agree'
                         type='1'
-                        cta={{ handleClick: () => cta.handleVote(1, 0, content.id, "agree") }}
+                        cta={{ handleClick: () => handleVote(1, 0, content.id, "agree") }}
                      />
                      <Third
                         icon='👎'
                         title='Disagree'
                         type='2'
-                        cta={{ handleClick: () => cta.handleVote(0, 1, content.id, "disagree") }}
+                        cta={{ handleClick: () => handleVote(0, 1, content.id, "disagree") }}
                      />
                   </div>
                )}

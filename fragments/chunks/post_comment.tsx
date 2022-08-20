@@ -1,9 +1,12 @@
-// styles
-import styles from "./post_comment.module.css";
+import { useState } from "react";
 
 //comps
 import { Parragraph } from "../Typography/parragraph";
 import { Icon } from "./icons";
+import Portal from "../../hoc/potal";
+
+// styles
+import styles from "./post_comment.module.css";
 
 export type Tcomment = {
    ID: string;
@@ -18,17 +21,24 @@ export type Tcomment = {
 
 type TPostCommentProps = {
    comments: number | null;
-   cta: React.MouseEventHandler<HTMLDivElement>;
 };
 
-export const PostComment = ({ comments, cta }: TPostCommentProps) => {
+export const PostComment = ({ comments }: TPostCommentProps) => {
+   // state
+   const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
+
    return (
-      <div className={`${styles.mainWrapper}`}>
-         {/* -------------- comment count ------------ */}
-         <Parragraph text={comments ? comments : ""} size='small' inline={true} />
-         <div className={styles.commentIconWrapper} onClick={cta}>
-            <Icon name='comment' color={"#F1EAFF"} size={"2rem"} />
+      <>
+         <Portal>{showCommentariesOfPost /*display the comments of post here */}</Portal>
+         <div className={`${styles.mainWrapper}`}>
+            {/* -------------- comment count ------------ */}
+            <Parragraph text={comments ? comments : ""} size='small' inline={true} />
+            <div
+               className={styles.commentIconWrapper}
+               onClick={() => setshowCommentariesOfPost(true)}>
+               <Icon name='comment' color={"#F1EAFF"} size={"2rem"} />
+            </div>
          </div>
-      </div>
+      </>
    );
 };
