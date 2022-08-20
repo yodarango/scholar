@@ -39,3 +39,6 @@ env.js
 .env.local
 .env
 .vscode
+
+# incompatable files on windows
+/public/images/*
