@@ -28,6 +28,10 @@
    height: 100%;
 }
 
+.image:hover {
+   cursor: pointer;
+}
+
 .image image {
    object-fit: cover;
    object-position: center;
@@ -35,6 +39,9 @@
 
 .imagePosition {
    top: var(--spacing-s);
+   display: flex;
+   align-items: center;
+   justify-content: center;
    left: 0;
    right: 0;
    bottom: auto;

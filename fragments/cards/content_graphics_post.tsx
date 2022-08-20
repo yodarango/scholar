@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useState, useRef } from "react";
+import { SlideCounter } from "../chunks/slide_counter";
 import { Parragraph } from "../Typography/parragraph";
 
 // styles
@@ -65,9 +66,6 @@ export const ContentGraphicsPost = ({ images }: TContentGraphicsPostProps) => {
          gallery.current.scrollLeft = scrollLeft - walk;
 
          setswipeDir(walk);
-
-         console.log(x);
-         console.log(walk);
       }
    };
 
@@ -76,11 +74,7 @@ export const ContentGraphicsPost = ({ images }: TContentGraphicsPostProps) => {
          {images.length > 0 && (
             <div className={styles.mainWrapper}>
                <div className={styles.imagePosition}>
-                  <Parragraph
-                     size='small'
-                     text={`${currIndex} of ${images.length}`}
-                     align='center'
-                  />
+                  <SlideCounter currIndex={currIndex} length={images.length} />
                </div>
                <div
                   className={`${styles.gallery} ${currClass}`}

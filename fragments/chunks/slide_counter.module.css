@@ -1,0 +1,10 @@
+.mainWrapper {
+   margin: 0;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   padding: var(--spacing-xxs);
+   box-shadow: var(--shadow-s);
+   border-radius: 5rem;
+   background-color: var(--primary-color);
+}

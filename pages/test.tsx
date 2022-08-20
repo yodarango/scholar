@@ -8,6 +8,7 @@ import { SeePostInfo } from "../fragments/chunks/see_post_info";
 import { TextEditorTopInfo } from "../fragments/text_editor_top_info";
 import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
+import { FastFacts } from "../layouts/content/fast_facts";
 import { NavigationMain } from "../layouts/navigation_main";
 import { UnsplasImgPicker } from "../layouts/scrollers/unsplash_img_picker";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
@@ -239,7 +240,16 @@ const Test = () => {
                description: "This is a small description"
             }}
          /> */}
-         <ContentGraphicsPost
+         {/* <ContentGraphicsPost
+            images={[
+               "/images/bible_books/1.png",
+               "/images/bible_books/2.png",
+               "/images/bible_books/3.png",
+               "/images/bible_books/4.png",
+               "/images/bible_books/5.png"
+            ]}
+         /> */}
+         <FastFacts
             images={[
                "/images/bible_books/1.png",
                "/images/bible_books/2.png",
