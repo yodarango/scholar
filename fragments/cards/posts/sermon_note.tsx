@@ -14,10 +14,7 @@ import { TSermonNote } from "../../../types/posts";
 type sermonNotesPostProps = {
    sermonNote: TSermonNote;
    cta: {
-      handleShowRatePost: React.MouseEventHandler<HTMLDivElement>;
-      handleShowPostOptions: React.MouseEventHandler<HTMLDivElement>;
-      handleShowPostComments: React.MouseEventHandler<HTMLDivElement>;
-      handleShowCategoryMeta: (categoryId: string) => void;
+      handleDelete: (id: string) => void;
    };
 };
 
@@ -27,10 +24,9 @@ export const SermonNote = ({ sermonNote, cta }: sermonNotesPostProps) => {
       <div className={styles.mainWrapper}>
          <div className={styles.header}>
             <PostCardHeader
-               cta={{
-                  handleShowPostOptions: cta.handleShowPostOptions,
-                  handleShowCategoryMeta: cta.handleShowCategoryMeta
-               }}
+               cta={{ handleDelete: cta.handleDelete }}
+               postType='sermon-note'
+               postId={sermonNote.ID}
                withCategoryTag={categoryId}
                userAuthority={sermonNote.creator.authority_level}
                username={sermonNote.creator.signature}

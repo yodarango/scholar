@@ -22,6 +22,9 @@ import { CommentaryOneLineCarrousel } from "../layouts/scrollers/commentaries_on
 import { CommentariesDisplay } from "../layouts/content/commentary_display";
 import { Quote } from "../fragments/cards/posts/quote";
 import { QuoteOneLineCarrousel } from "../layouts/scrollers/quote_one_line_carrousel";
+import { QuoteDisplay } from "../layouts/content/quotes_display";
+import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/sermon_note_one_line_carrousel";
+import { SermonNoteDisplay } from "../layouts/content/sermon_note_display";
 
 const Test = () => {
    return (
@@ -763,7 +766,7 @@ const Test = () => {
                }
             ]}
          /> */}
-         <Quote
+         {/* <Quote
             cta={{ handleDelete: (id) => console.log(id) }}
             quote={{
                ID: "23",
@@ -905,6 +908,345 @@ const Test = () => {
                      }
                   ],
                   approvals: [{ average_count: 23, total_count: 23 }]
+               }
+            ]}
+         /> */}
+         {/* <QuoteDisplay
+            quotes={[
+               {
+                  ID: "0",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "11",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "76",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "2",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "233",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               }
+            ]}
+         /> */}
+
+         {/* <SermonNoteOneLineCarrousel
+            sermonNotes={[
+               {
+                  ID: "2",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "112",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "34",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "5",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "55",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               }
+            ]}
+         /> */}
+
+         <SermonNoteDisplay
+            sermonNotes={[
+               {
+                  ID: "2",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "112",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "34",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "5",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
+               },
+               {
+                  ID: "55",
+                  content: "This is a title",
+                  DROPBOX_ID:
+                     "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
+                  category_tags: "#YLW",
+                  posted_on: "07/29/22 22:00",
+                  date: "07/29/22 22:00",
+                  title: "title",
+                  file_url: "#",
+                  creator: {
+                     ID: "1",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 90,
+                     avatar: "/imges/user_avatars/default.png",
+                     first_name: "John",
+                     last_name: "Doe",
+                     my_church: "The Chruch of my Lord Jesus Christ"
+                  }
                }
             ]}
          />
