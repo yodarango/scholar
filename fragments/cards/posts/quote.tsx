@@ -13,9 +13,7 @@ import { TQuote } from "../../../types/posts";
 export type TQuoteProps = {
    quote: TQuote;
    cta: {
-      handleShowPostComments: () => void;
-      handleShowRatePost: () => void;
-      handleShowPostOptions: React.MouseEventHandler<HTMLDivElement>;
+      handleDelete: (id: string) => void;
    };
 };
 
@@ -25,8 +23,9 @@ export const Quote = ({ quote, cta }: TQuoteProps) => {
          {/* ------------------------------ header ----------------------- */}
          <div className={styles.header}>
             <QuoteCardHeader
+               cta={{ handleDelete: cta.handleDelete }}
+               postId={quote.ID}
                userId={quote.creator.ID}
-               cta={{ handleShowPostOptions: cta.handleShowPostOptions }}
                userAuthority={quote.creator.authority_level}
                avatar={quote.creator.avatar}
             />
@@ -42,10 +41,6 @@ export const Quote = ({ quote, cta }: TQuoteProps) => {
 
          <div className={styles.footer}>
             <PostReactions
-               cta={{
-                  handleShowPostComments: cta.handleShowPostComments,
-                  handleShowRatePost: cta.handleShowRatePost
-               }}
                postRating={{
                   totalCount: quote.approvals[0].total_count,
                   averageCount: quote.approvals[0].average_count

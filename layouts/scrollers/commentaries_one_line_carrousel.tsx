@@ -21,7 +21,6 @@ export const CommentaryOneLineCarrousel = ({ commentaries }: TCommentaryOneLineC
    const handleDelete = (id: string) => {
       const updatedArr = commentariesArr.filter((thought) => thought.ID !== id);
       setcommentariessArr(updatedArr);
-      console.log(id, updatedArr);
    };
 
    return (
