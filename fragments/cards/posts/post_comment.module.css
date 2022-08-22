@@ -1,0 +1,13 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.postHeader {
+   width: 100%;
+   margin-bottom: var(--spacing-xs);
+}
+
+.comment {
+   padding-bottom: var(--spacing-xs);
+   border-bottom: 2px solid var(--third-color);
+}

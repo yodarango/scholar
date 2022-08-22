@@ -25,6 +25,8 @@ import { QuoteOneLineCarrousel } from "../layouts/scrollers/quote_one_line_carro
 import { QuoteDisplay } from "../layouts/content/quotes_display";
 import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/sermon_note_one_line_carrousel";
 import { SermonNoteDisplay } from "../layouts/content/sermon_note_display";
+import { PostComment } from "../fragments/cards/posts/post_comment";
+import { PostCommentsWrapper } from "../layouts/scrollers/post_comments_wrapper";
 
 const Test = () => {
    return (
@@ -1141,7 +1143,7 @@ const Test = () => {
             ]}
          /> */}
 
-         <SermonNoteDisplay
+         {/* <SermonNoteDisplay
             sermonNotes={[
                {
                   ID: "2",
@@ -1247,6 +1249,88 @@ const Test = () => {
                      last_name: "Doe",
                      my_church: "The Chruch of my Lord Jesus Christ"
                   }
+               }
+            ]} 
+         /> */}
+         {/* <PostComment
+            postHeader={{
+               username: "Username",
+               avatar: "Username",
+               userId: "1",
+               postId: "2",
+               userAuthority: 1,
+               postType: "",
+               widthTimeStamp: {
+                  time: "08/29/22 19:00",
+                  niceTime: "08/29/22 19:00",
+                  quiet: true
+               }
+            }}
+            postSettingsOptions={{
+               showShareopton: false,
+               showEditOption: false,
+               showDeleteOption: true,
+               showReportOption: false
+            }}
+            comment='Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.'
+            cta={{ handleDelete: () => console.log("log") }}
+         /> */}
+         <PostCommentsWrapper
+            postComments={[
+               {
+                  ID: "1",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "10",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "11",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "13",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "14",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
                }
             ]}
          />

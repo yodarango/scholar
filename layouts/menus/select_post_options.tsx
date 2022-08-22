@@ -27,6 +27,10 @@ import { notificationMessages } from "../../data/notification_messages";
 import { copyToClipboard } from "../../helpers/copy_text_to_clipboard";
 
 export type TSelectpostOptionsProps = {
+   showShareopton?: boolean;
+   showEditOption?: boolean;
+   showDeleteOption?: boolean;
+   showReportOption?: boolean;
    postid: string;
    postType: string;
    cta: {
@@ -35,7 +39,15 @@ export type TSelectpostOptionsProps = {
    };
 };
 
-export const SelectpostOptions = ({ cta, postid, postType }: TSelectpostOptionsProps) => {
+export const SelectpostOptions = ({
+   cta,
+   postid,
+   postType,
+   showShareopton = true,
+   showEditOption = true,
+   showDeleteOption = true,
+   showReportOption = true
+}: TSelectpostOptionsProps) => {
    const [showNotification, setshowNotification] = useState<string>("copy");
 
    // handle reporting the post
@@ -69,65 +81,73 @@ export const SelectpostOptions = ({ cta, postid, postType }: TSelectpostOptionsP
             content={
                <>
                   {/* ------------- Report the post ------------ */}
-                  <div className={styles.menuOption} key={1}>
-                     <MenuPrimaryOptionWithSubSelection
-                        type='1'
-                        textType='text'
-                        iconType='icon'
-                        cta={{ handleSelection: handleReport }}
-                        optionProperties={{
-                           icon: <Icon name='warning' color='#F1EAFF' size='2rem' />,
-                           iconShadow: "#F1EAFF",
-                           text: "Report"
-                        }}
-                     />
-                  </div>
+                  {showReportOption && (
+                     <div className={styles.menuOption} key={1}>
+                        <MenuPrimaryOptionWithSubSelection
+                           type='1'
+                           textType='text'
+                           iconType='icon'
+                           cta={{ handleSelection: handleReport }}
+                           optionProperties={{
+                              icon: <Icon name='warning' color='#F1EAFF' size='2rem' />,
+                              iconShadow: "#F1EAFF",
+                              text: "Report"
+                           }}
+                        />
+                     </div>
+                  )}
 
                   {/* ------------- Copy post link to clipboard to share ------------ */}
-                  <div className={styles.menuOption} key={2}>
-                     <MenuPrimaryOption
-                        textType='text'
-                        iconType='icon'
-                        optionProperties={{
-                           icon: <Icon name='share' color='#F1EAFF' size='2rem' />,
-                           iconShadow: "#F1EAFF",
-                           text: "Share"
-                        }}
-                        cta={handleSharePost}
-                     />
-                  </div>
+                  {showShareopton && (
+                     <div className={styles.menuOption} key={2}>
+                        <MenuPrimaryOption
+                           textType='text'
+                           iconType='icon'
+                           optionProperties={{
+                              icon: <Icon name='share' color='#F1EAFF' size='2rem' />,
+                              iconShadow: "#F1EAFF",
+                              text: "Share"
+                           }}
+                           cta={handleSharePost}
+                        />
+                     </div>
+                  )}
                   {/* ------------- Redirect to the edit page ------------ */}
-                  <div className={styles.menuOption} key={3}>
-                     <Link href={`/posts/${postType}/edit/${postid}`}>
-                        <a>
-                           <MenuPrimaryOption
-                              textType='text'
-                              iconType='icon'
-                              optionProperties={{
-                                 icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
-                                 iconShadow: "#F1EAFF",
-                                 text: "Edit"
-                              }}
-                              cta={() => {}}
-                           />
-                        </a>
-                     </Link>
-                  </div>
+                  {showEditOption && (
+                     <div className={styles.menuOption} key={3}>
+                        <Link href={`/posts/${postType}/edit/${postid}`}>
+                           <a>
+                              <MenuPrimaryOption
+                                 textType='text'
+                                 iconType='icon'
+                                 optionProperties={{
+                                    icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
+                                    iconShadow: "#F1EAFF",
+                                    text: "Edit"
+                                 }}
+                                 cta={() => {}}
+                              />
+                           </a>
+                        </Link>
+                     </div>
+                  )}
                   {/* ------------- delete the post ------------ */}
-                  <div className={styles.menuOption} key={4}>
-                     <MenuPrimaryOptionWithSubSelection
-                        type='1'
-                        textType='text'
-                        iconType='icon'
-                        cta={{ handleSelection }}
-                        optionProperties={{
-                           icon: <Icon name='delete' color='#ff4d62' size='2rem' />,
-                           iconShadow: "#ff4d62",
-                           text: "Delete",
-                           descColor: "#ff4d62"
-                        }}
-                     />
-                  </div>
+                  {showDeleteOption && (
+                     <div className={styles.menuOption} key={4}>
+                        <MenuPrimaryOptionWithSubSelection
+                           type='1'
+                           textType='text'
+                           iconType='icon'
+                           cta={{ handleSelection }}
+                           optionProperties={{
+                              icon: <Icon name='delete' color='#ff4d62' size='2rem' />,
+                              iconShadow: "#ff4d62",
+                              text: "Delete",
+                              descColor: "#ff4d62"
+                           }}
+                        />
+                     </div>
+                  )}
                </>
             }
          />

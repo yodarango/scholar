@@ -34,3 +34,8 @@
    height: 2rem;
    flex-shrink: 0;
 }
+
+.timeStamp {
+   margin-left: var(--spacing-xs);
+   flex-shrink: 0;
+}

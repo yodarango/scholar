@@ -20,7 +20,7 @@ import styles from "./time_stamp.module.css";
 // helpers
 import { calcElapsedTime } from "../../helpers/Time/calc_time_elapsed";
 
-type TimeStampProps = {
+export type TimeStampProps = {
    time: string;
    niceTime: string;
    quiet: boolean;

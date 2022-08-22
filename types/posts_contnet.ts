@@ -6,7 +6,8 @@ export type TComment = {
    creator_approval_rate: string;
    creator_authority_level: number;
    creator_id: string;
-   posted_on?: string;
+   posted_on: string;
+   date: string;
 };
 
 export type TRating = {
