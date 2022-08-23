@@ -1,0 +1,11 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.textArea {
+   width: 100%;
+   margin-right: var(--spacing-xxs);
+}

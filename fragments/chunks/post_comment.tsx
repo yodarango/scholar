@@ -7,6 +7,7 @@ import Portal from "../../hoc/potal";
 
 // styles
 import styles from "./post_comment.module.css";
+import { PostComments } from "../../layouts/stacks/post_coments";
 
 export type Tcomment = {
    ID: string;
@@ -27,10 +28,13 @@ type TPostCommentProps = {
 export const PostComment = ({ comments, iconColor }: TPostCommentProps) => {
    // state
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
+   const [postComments, setPostComments] = useState(null);
+   const [loading, setloading] = useState("loading");
 
+   // TODO: implememnt grphQl to Db to pull comments
    return (
       <>
-         <Portal>{showCommentariesOfPost /*display the comments of post here */}</Portal>
+         <Portal>{showCommentariesOfPost && <PostComments postComments={} />}</Portal>
          <div className={`${styles.mainWrapper}`}>
             {/* -------------- comment count ------------ */}
             {!iconColor && (

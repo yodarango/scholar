@@ -27,6 +27,8 @@ import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/sermon_note_one
 import { SermonNoteDisplay } from "../layouts/content/sermon_note_display";
 import { PostComment } from "../fragments/cards/posts/post_comment";
 import { PostCommentsWrapper } from "../layouts/scrollers/post_comments_wrapper";
+import { TextAreaPrimary } from "../fragments/inputs/text_area_primary";
+import { PostComments } from "../layouts/stacks/post_coments";
 
 const Test = () => {
    return (
@@ -1275,7 +1277,7 @@ const Test = () => {
             comment='Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.'
             cta={{ handleDelete: () => console.log("log") }}
          /> */}
-         <PostCommentsWrapper
+         {/* <PostCommentsWrapper
             postComments={[
                {
                   ID: "1",
@@ -1333,6 +1335,77 @@ const Test = () => {
                   date: "08/10/22 09:00"
                }
             ]}
+         /> */}
+         {/* <TextAreaPrimary
+            defaultValue=''
+            placeHolder=''
+            maxLength={50}
+            cta={{ handleCurrentValue() {} }}
+         /> */}
+         <PostComments
+            postComments={[
+               {
+                  ID: "1",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "10",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "11",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "13",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               },
+               {
+                  ID: "14",
+                  body: "Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.",
+                  creator_avatar: "",
+                  creator_signature: "username",
+                  creator_approval_rate: "80",
+                  creator_authority_level: 1,
+                  creator_id: "1",
+                  posted_on: "08/10/22 09:00",
+                  date: "08/10/22 09:00"
+               }
+            ]}
+            cta={{
+               handleClose() {},
+               handleValue(value: string) {
+                  console.log(value);
+               }
+            }}
          />
       </div>
    );

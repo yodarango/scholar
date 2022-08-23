@@ -1,0 +1,15 @@
+.mainWrapper {
+   height: 100%;
+}
+
+.postComments {
+   height: calc(100% - 5rem); /* parent height - textArea*/
+   overflow-y: scroll;
+}
+
+.textArea {
+   position: absolute;
+   bottom: var(--spacing-m);
+   left: 0;
+   width: 100%;
+}
