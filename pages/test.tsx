@@ -26,6 +26,7 @@ import { QuoteDisplay } from "../layouts/content/quotes_display";
 import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/sermon_note_one_line_carrousel";
 import { SermonNoteDisplay } from "../layouts/content/sermon_note_display";
 import { PostComment } from "../fragments/cards/posts/post_comment";
+import { PostComment as PostComenticon } from "../fragments/chunks/post_comment";
 import { PostCommentsWrapper } from "../layouts/scrollers/post_comments_wrapper";
 import { TextAreaPrimary } from "../fragments/inputs/text_area_primary";
 import { PostComments } from "../layouts/stacks/post_coments";
@@ -1342,7 +1343,7 @@ const Test = () => {
             maxLength={50}
             cta={{ handleCurrentValue() {} }}
          /> */}
-         <PostComments
+         {/* <PostComments
             postComments={[
                {
                   ID: "1",
@@ -1406,7 +1407,8 @@ const Test = () => {
                   console.log(value);
                }
             }}
-         />
+         /> */}
+         <PostComenticon comments={23} iconColor='#F1EAFF' />
       </div>
    );
 };

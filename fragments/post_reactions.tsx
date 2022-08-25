@@ -5,7 +5,12 @@ import { PostRating } from "./chunks/post_rating";
 // styles
 import styles from "./post_reactions.module.css";
 
+// types
+import { EnumContentType } from "../types/enums";
+
 type TPostReactionsProps = {
+   postId: string;
+   contentType: EnumContentType;
    postRating: {
       totalCount: number;
       averageCount: number;
@@ -14,7 +19,13 @@ type TPostReactionsProps = {
    iconColor?: string;
 };
 
-export const PostReactions = ({ postRating, totalComments, iconColor }: TPostReactionsProps) => {
+export const PostReactions = ({
+   postRating,
+   totalComments,
+   iconColor,
+   contentType,
+   postId
+}: TPostReactionsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div>
@@ -27,7 +38,12 @@ export const PostReactions = ({ postRating, totalComments, iconColor }: TPostRea
             />
          </div>
          <div>
-            <PostComment comments={totalComments} iconColor={iconColor} />
+            <PostComment
+               comments={totalComments}
+               iconColor={iconColor}
+               contentType={contentType}
+               postId={postId}
+            />
          </div>
       </div>
    );

@@ -73,6 +73,8 @@ export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
          <div className={styles.footer}>
             <div className={styles.reactions}>
                <PostReactions
+                  contentType={1}
+                  postId={commentary.ID}
                   iconColor={
                      categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
                         ? "#2A2438"

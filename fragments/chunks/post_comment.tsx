@@ -1,40 +1,46 @@
+/*************************************************************************************************
+-  displays total coments for each post 
+-  makes call to DB for post comments by passign the content type and and the post Id in props
+ *************************************************************************************************/
 import { useState } from "react";
 
 //comps
 import { Parragraph } from "../Typography/parragraph";
 import { Icon } from "./icons";
 import Portal from "../../hoc/potal";
+import { PostComments } from "../../layouts/stacks/post_coments";
 
 // styles
 import styles from "./post_comment.module.css";
-import { PostComments } from "../../layouts/stacks/post_coments";
 
-export type Tcomment = {
-   ID: string;
-   body: string;
-   creator_avatar: string;
-   creator_signature: string;
-   creator_approval_rate: string;
-   creator_authority_level: number;
-   creator_id: string;
-   posted_on?: string;
-};
+//types
+import { EnumContentType } from "../../types/enums";
 
 type TPostCommentProps = {
+   postId: string;
+   contentType: EnumContentType;
    comments: number | null;
    iconColor?: string;
 };
 
-export const PostComment = ({ comments, iconColor }: TPostCommentProps) => {
+export const PostComment = ({ comments, iconColor, postId, contentType }: TPostCommentProps) => {
    // state
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
-   const [postComments, setPostComments] = useState(null);
-   const [loading, setloading] = useState("loading");
 
-   // TODO: implememnt grphQl to Db to pull comments
    return (
       <>
-         <Portal>{showCommentariesOfPost && <PostComments postComments={} />}</Portal>
+         <Portal>
+            {showCommentariesOfPost && (
+               <PostComments
+                  contentType={contentType}
+                  postId={postId}
+                  cta={{
+                     handleClose: () => setshowCommentariesOfPost(false),
+                     handleValue: (value: string) => console.log(value)
+                  }}
+               />
+            )}
+         </Portal>
          <div className={`${styles.mainWrapper}`}>
             {/* -------------- comment count ------------ */}
             {!iconColor && (
