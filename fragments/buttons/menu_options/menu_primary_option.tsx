@@ -3,7 +3,7 @@
 // there are two types of right hand description; plain text or jsx
 
 // components
-import { Parragraph } from "../Typography/parragraph";
+import { Parragraph } from "../../Typography/parragraph";
 
 // styles
 import styles from "./menu_primary_option.module.css";

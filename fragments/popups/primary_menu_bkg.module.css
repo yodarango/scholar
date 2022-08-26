@@ -1,28 +1,29 @@
-.mainWrapper{
-    width: 100%;
-    padding: 4.5rem var(--spacing-m) 0;
-    position: fixed;
-    overflow-y: hidden;
-    bottom: 0;
-    left: 0;
-    z-index: 17;
-    border-top-left-radius: 2em;
-    border-top-right-radius: 2em;
+.mainWrapper {
+   width: 100%;
+   padding: 4.5rem var(--spacing-m) 0;
+   position: fixed;
+   overflow-y: hidden;
+   bottom: 0;
+   left: 0;
+   z-index: 17;
+   border-top-left-radius: 2em;
+   border-top-right-radius: 2em;
 }
 
 .contentWrapper {
-  width: 100%;
-  max-height: 45rem;
-  overflow-y: scroll;
-  overflow-x: hidden;
+   width: 100%;
+   max-height: 45rem;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   padding: var(--spacing-xxs);
 }
 
 .close {
-    position: absolute;
-    top: var(--spacing-m);
-    right: var(--spacing-m);
+   position: absolute;
+   top: var(--spacing-m);
+   right: var(--spacing-m);
 }
 
-.title{
-  margin-bottom: var(--spacing-m);
+.title {
+   margin-bottom: var(--spacing-m);
 }

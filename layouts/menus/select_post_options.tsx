@@ -11,8 +11,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 // comps
-import { MenuPrimaryOption } from "../../fragments/buttons/menu_primary_option";
-import { MenuPrimaryOptionWithSubSelection } from "../../fragments/buttons/menu_primary_option_w_sub_selection";
+import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
+import { MenuPrimaryOptionWithSubSelection } from "../../fragments/buttons/menu_options/menu_primary_option_w_sub_selection";
 import { Icon } from "../../fragments/chunks/icons";
 import { Notification } from "../../fragments/popups/notification";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";

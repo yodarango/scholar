@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 // comps
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
-import { MenuPrimaryOption } from "../../fragments/buttons/menu_primary_option";
+import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { CategoryTag } from "../../fragments/chunks/category_tag";
 
 // styles

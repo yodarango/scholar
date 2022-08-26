@@ -1,6 +1,6 @@
 // comps
 import React from "react";
-import { MenuPrimaryOptionWithSubSelection } from "../../fragments/buttons/menu_primary_option_w_sub_selection";
+import { MenuPrimaryOptionWithSubSelection } from "../../fragments/buttons/menu_options/menu_primary_option_w_sub_selection";
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
@@ -31,7 +31,7 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                         { value: "big", title: "Big" },
                         { value: "big", title: "Bigger" }
                      ]}
-                     cta={(value) => console.log("report the post? ", value)}
+                     cta={{ handleSelection: (value) => console.log("report the post? ", value) }}
                      optionProperties={{
                         icon: "A",
                         iconShadow: "#F1EAFF",
@@ -46,7 +46,7 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                      type='3'
                      textType='text'
                      iconType='icon'
-                     cta={(value) => console.log("report the post? ", value)}
+                     cta={{ handleSelection: (value) => console.log("report the post? ", value) }}
                      customSubSelections={[
                         { value: "1", title: "#2B2B2A" },
                         { value: "2", title: "#050825" },

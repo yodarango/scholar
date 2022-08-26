@@ -183,6 +183,7 @@
 
    /* --------------- nested variables ------- */
    --shadow-s: 4px 4px 4px var(--shadow-color);
+   --shadow-s--light: 4px 4px 4px var(--font-color);
 
    /* --------------- size breaks ---------- */
    --ipad-break: 600px;

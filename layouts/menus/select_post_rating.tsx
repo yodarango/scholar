@@ -1,5 +1,5 @@
 // comps
-import { MenuPrimaryOption } from "../../fragments/buttons/menu_primary_option";
+import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
 // styles

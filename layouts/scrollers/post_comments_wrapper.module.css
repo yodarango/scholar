@@ -10,6 +10,7 @@
    flex-wrap: wrap;
    overflow-x: scroll;
    padding: 0 var(--spacing-xs);
+   margin-bottom: var(--spacing-l);
 }
 
 .comment {
@@ -17,4 +18,9 @@
    flex-grow: 0;
    flex-shrink: 0;
    margin-bottom: var(--spacing-xs);
+}
+
+.loadMoreButton {
+   width: 100%;
+   margin: 0 auto;
 }

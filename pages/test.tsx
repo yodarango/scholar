@@ -26,10 +26,12 @@ import { QuoteDisplay } from "../layouts/content/quotes_display";
 import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/sermon_note_one_line_carrousel";
 import { SermonNoteDisplay } from "../layouts/content/sermon_note_display";
 import { PostComment } from "../fragments/cards/posts/post_comment";
-import { PostComment as PostComenticon } from "../fragments/chunks/post_comment";
+import { PostComment as PostComentIcon } from "../fragments/chunks/post_comment";
 import { PostCommentsWrapper } from "../layouts/scrollers/post_comments_wrapper";
 import { TextAreaPrimary } from "../fragments/inputs/text_area_primary";
 import { PostComments } from "../layouts/stacks/post_coments";
+import { GradientBackgroundOption } from "../fragments/buttons/menu_options/gradient_background_option";
+import { SelectPostBackground } from "../layouts/menus/select_post_background";
 
 const Test = () => {
    return (
@@ -1408,7 +1410,20 @@ const Test = () => {
                }
             }}
          /> */}
-         <PostComenticon comments={23} iconColor='#F1EAFF' />
+         <PostComentIcon contentType={1} postId='123' comments={23} iconColor='#F1EAFF' />
+         <GradientBackgroundOption
+            text='Option one'
+            background='quote-bkg--2'
+            cta={{ handleClick: (value) => console.log(value) }}
+         />
+         <SelectPostBackground
+            cta={{
+               handleCloseModal() {},
+               handleValue(value) {
+                  console.log(value);
+               }
+            }}
+         />
       </div>
    );
 };

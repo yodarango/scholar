@@ -9,6 +9,7 @@ import styles from "./post_comments_wrapper.module.css";
 //types
 import { TComment } from "../../types/posts_contnet";
 import { TimeStampProps } from "../../fragments/chunks/time_stamp";
+import { Primary } from "../../fragments/buttons/primary";
 
 type TPostCommentsWrapperProps = {
    postComments: TComment[];
@@ -22,6 +23,10 @@ export const PostCommentsWrapper = ({ postComments }: TPostCommentsWrapperProps)
    const handleDelete = (id: string) => {
       const updatedArr = postCommentsArr.filter((sermonNotes) => sermonNotes.ID !== id);
       setpostCommentsArr(updatedArr);
+   };
+
+   const gloadMore = async () => {
+      // get more comments
    };
 
    return (
@@ -54,6 +59,9 @@ export const PostCommentsWrapper = ({ postComments }: TPostCommentsWrapperProps)
                   />
                </div>
             ))}
+         </div>
+         <div className={styles.loadMoreButton}>
+            <Primary type='1' title='Load more' cta={{ handleClick: gloadMore }} />
          </div>
       </div>
    );

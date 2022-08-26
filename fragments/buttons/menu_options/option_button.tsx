@@ -1,18 +1,21 @@
-// renders a button or a <a></a> based on the "link" prop which represents the link to be redirected to and at the same time
-// acts as the determining property that decides whether to render the button or th eanchor tag
+/***********************************************************************************************************************************
+-  renders a button or a <a></a> based on the "link" prop which represents the link to be redirected to and at the same time
+   acts as the determining property that decides whether to render the button or te eanchor tag
+-  props.backgroundColor === 1 returns purple
+-  props.backgroundColor === 2 returns orange
+-  props.backgroundColor === "#FFF" returns white
+***********************************************************************************************************************************/
 
 import Link from "next/link";
 
 // comps
-import { Icon } from "../chunks/icons";
-import { Parragraph } from "../Typography/parragraph";
+import { Icon } from "../../chunks/icons";
+import { Parragraph } from "../../Typography/parragraph";
 
 // styles
 import styles from "./icon_button.module.css";
 
 export type TOptionButtonProps = {
-   iconSize?: string;
-   iconColor?: string;
    option: string;
    backgroundColor: string;
    buttonSize?: string;
@@ -22,9 +25,7 @@ export type TOptionButtonProps = {
 };
 
 export const OptionButton = ({
-   iconSize = "2rem",
    option,
-   iconColor = "#F1EAFF",
    buttonSize,
    backgroundColor,
    link,
@@ -40,7 +41,7 @@ export const OptionButton = ({
                      styles.primary
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
                   onClick={cta}>
-                  <Parragraph text={option} size="xlarge"  align="center" bold={true}/>
+                  <Parragraph text={option} size='xlarge' align='center' bold={true} />
                </button>
             ) : (
                <Link href={link ? link : "#"}>
@@ -50,7 +51,7 @@ export const OptionButton = ({
                      } ${styles.primary} ${
                         shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                      }`}>
-                     <Parragraph text={option} size="xlarge" align="center" bold={true}/>
+                     <Parragraph text={option} size='xlarge' align='center' bold={true} />
                   </a>
                </Link>
             ))}
@@ -62,7 +63,7 @@ export const OptionButton = ({
                      styles.secondary
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
                   onClick={cta}>
-                   <Parragraph text={option} size="xlarge" align="center" bold={true}/>
+                  <Parragraph text={option} size='xlarge' align='center' bold={true} />
                </button>
             ) : (
                <Link href={link ? link : "#"}>
@@ -72,7 +73,7 @@ export const OptionButton = ({
                      } ${styles.secondary} ${
                         shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                      }`}>
-                      <Parragraph text={option} size="xlarge" align="center" bold={true}/>
+                     <Parragraph text={option} size='xlarge' align='center' bold={true} />
                   </a>
                </Link>
             ))}
@@ -86,7 +87,7 @@ export const OptionButton = ({
                   }`}
                   style={{ backgroundColor }}
                   onClick={cta}>
-                   <Parragraph text={option} size="xlarge" align="center" bold={true}/>
+                  <Parragraph text={option} size='xlarge' align='center' bold={true} />
                </button>
             ) : (
                <Link href={link ? link : "#"}>
@@ -95,7 +96,7 @@ export const OptionButton = ({
                         buttonSize && styles.mainWrapperCustomSize
                      } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
                      style={{ backgroundColor }}>
-                      <Parragraph text={option} size="xlarge" align="center" bold={true}/>
+                     <Parragraph text={option} size='xlarge' align='center' bold={true} />
                   </a>
                </Link>
             ))}

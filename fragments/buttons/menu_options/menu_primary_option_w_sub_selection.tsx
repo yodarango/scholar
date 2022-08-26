@@ -5,11 +5,11 @@ import { useState } from "react";
 
 //comps
 import { MenuPrimaryOption } from "./menu_primary_option";
-import { Parragraph } from "../Typography/parragraph";
+import { Parragraph } from "../../Typography/parragraph";
 
 // styles
 import styles from "./menu_primary_option_w_sub_selection.module.css";
-import { Icon } from "../chunks/icons";
+import { Icon } from "../../chunks/icons";
 
 type TMenuPrimaryOptionWithSubSelectionProps = {
    iconType: string;
