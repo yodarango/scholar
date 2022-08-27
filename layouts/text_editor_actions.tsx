@@ -93,7 +93,7 @@ export const TextEditorActions = ({
                <div className={styles.bibleBooksStack}>
                   <PrimaryStack
                      title='Select scripture'
-                     cta={() => setshowChooseScriptureModal(false)}
+                     cta={{ handleClose: () => setshowChooseScriptureModal(false) }}
                      content={
                         <BibleBooksWrapper
                            versionId='de4e12af7f28f599-02'

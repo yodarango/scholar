@@ -33,7 +33,8 @@ import { PostComments } from "../layouts/stacks/post_coments";
 import { GradientBackgroundOption } from "../fragments/buttons/menu_options/gradient_background_option";
 import { SelectPostBackground } from "../layouts/menus/select_post_background";
 import { BackgroundSelection } from "../fragments/chunks/background_selection";
-import { CategorySelectionSelection } from "../fragments/chunks/category_selection";
+import { CategorySelection } from "../fragments/chunks/category_selection";
+import { QuoteEditorActions } from "../layouts/quote_editor_actions";
 
 const Test = () => {
    return (
@@ -1434,13 +1435,18 @@ const Test = () => {
                }
             }}
          />
-         <CategorySelectionSelection
+         <CategorySelection
             categoryId='YLW'
             cta={{
                handleSelection(value) {
                   console.log(value);
                }
             }}
+         />
+         <QuoteEditorActions
+            categoryId='GRN'
+            background='quote-bkg--17'
+            cta={{ handleCategory() {}, handleBkg() {}, handlePost() {} }}
          />
       </div>
    );

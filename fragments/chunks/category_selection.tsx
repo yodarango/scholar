@@ -8,11 +8,11 @@ import styles from "./background_selection.module.css";
 type TBackgroundSelectionProps = {
    categoryId: string;
    cta: {
-      handleSelection: (background: string | { light: string; dark: string }) => void;
+      handleSelection: (category: string) => void;
    };
 };
 
-export const CategorySelectionSelection = ({ categoryId, cta }: TBackgroundSelectionProps) => {
+export const CategorySelection = ({ categoryId, cta }: TBackgroundSelectionProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.text}>
