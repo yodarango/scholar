@@ -4,7 +4,11 @@ import { useRef, useState } from "react";
 import styles from "./text_area_primary.module.css";
 
 type TTextEditorTextAreaProps = {
-   defaultValue: string;
+   fontSize?: string;
+   bold?: boolean;
+   alignment?: string;
+   transparent?: boolean;
+   defaultValue?: string;
    placeHolder: string;
    maxLength: number;
    height?: string;
@@ -14,6 +18,10 @@ type TTextEditorTextAreaProps = {
    };
 };
 export const TextAreaPrimary = ({
+   fontSize,
+   bold,
+   alignment,
+   transparent = false,
    defaultValue,
    placeHolder,
    maxLength,
@@ -28,6 +36,49 @@ export const TextAreaPrimary = ({
    // ref
    const textArea = useRef<HTMLTextAreaElement>(null);
 
+   let fontSz: string = "";
+   let fontAlign: string = "";
+
+   // determine the size
+   switch (fontSize) {
+      case "xxsmall":
+         fontSz = styles.xxsmall;
+         break;
+      case "xsmall":
+         fontSz = styles.xsmall;
+         break;
+      case "small":
+         fontSz = styles.small;
+         break;
+      case "main":
+         fontSz = styles.main;
+         break;
+      case "large":
+         fontSz = styles.large;
+         break;
+      case "xlarge":
+         fontSz = styles.xlarge;
+         break;
+      case "xxlarge":
+         fontSz = styles.xxlarge;
+         break;
+      case "xxxlarge":
+         fontSz = styles.xxxlarge;
+         break;
+   }
+
+   // determine the alignment
+   switch (alignment) {
+      case "right":
+         fontAlign = styles.right;
+         break;
+      case "center":
+         fontAlign = styles.center;
+         break;
+      case "justify":
+         fontAlign = styles.justify;
+         break;
+   }
    // resize text area & callback to send onChange event so parent has access totext area body
    const resizeTextArea = () => {
       if (textArea?.current) {
@@ -48,14 +99,28 @@ export const TextAreaPrimary = ({
 
    return (
       <div className={styles.mainWrapper}>
-         <textarea
-            style={{ height: currTextAreaHeight }}
-            maxLength={maxLength}
-            className={styles.textArea}
-            ref={textArea}
-            defaultValue={defaultValue}
-            placeholder={placeHolder}
-            onChange={resizeTextArea}></textarea>
+         {!transparent && (
+            <textarea
+               style={{ height: currTextAreaHeight }}
+               maxLength={maxLength}
+               className={`${styles.textArea} ${fontAlign} ${fontSz} ${bold && styles.bold}`}
+               ref={textArea}
+               defaultValue={defaultValue}
+               placeholder={placeHolder}
+               onChange={resizeTextArea}></textarea>
+         )}
+         {transparent && (
+            <textarea
+               style={{ height: currTextAreaHeight }}
+               maxLength={maxLength}
+               className={`${styles.textArea}  ${fontAlign} ${styles.transparent} ${fontSz} ${
+                  bold && styles.bold
+               }`}
+               ref={textArea}
+               defaultValue={defaultValue}
+               placeholder={placeHolder}
+               onChange={resizeTextArea}></textarea>
+         )}
       </div>
    );
 };
