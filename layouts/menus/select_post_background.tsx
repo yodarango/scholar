@@ -10,82 +10,81 @@ import styles from "./select_menu_global.module.css";
 export type TSelectProfileOptionsProps = {
    cta: {
       handleCloseModal: () => void;
-      handleValue: (value: string) => void;
+      handleValue: (background: string | { light: string; dark: string }) => void;
    };
 };
 
 export const SelectPostBackground = ({ cta }: TSelectProfileOptionsProps) => {
-   // set cool names for this bkgs for example "wild bear 🐻", "snow wolf 🐺", "cherry lime etc🍒"
    const menuOptions = [
       {
-         text: "Background one",
+         text: "October sunset",
          background: "quote-bkg--1"
       },
-      { text: "Background two", background: "quote-bkg--2" },
-      { text: "Background one", background: "quote-bkg--3" },
+      { text: "Summer evening", background: "quote-bkg--2" },
+      { text: "January", background: "quote-bkg--3" },
       {
-         text: "Background one",
+         text: "Icy heat",
          background: "quote-bkg--4"
       },
       {
-         text: "Background one",
+         text: "Cotton candy",
          background: "quote-bkg--5"
       },
       {
-         text: "Background one",
+         text: "Green apple",
          background: "quote-bkg--6"
       },
       {
-         text: "Background one",
+         text: "Charcoal",
          background: "quote-bkg--7"
       },
       {
-         text: "Background one",
+         text: "Walnut wood",
          background: "quote-bkg--8"
       },
       {
-         text: "Background one",
+         text: "Cherry berry",
          background: "quote-bkg--9"
       },
       {
-         text: "Background one",
+         text: "Monterry",
          background: "quote-bkg--10"
       },
       {
-         text: "Background one",
-         background: "quote-bkg-11"
+         text: "Polar bear",
+         background: "quote-bkg--11"
       },
       {
-         text: "Background one",
+         text: "Green tea",
          background: "quote-bkg--12"
       },
       {
-         text: "Background one",
+         text: "Rose lemonade",
          background: "quote-bkg--13"
       },
-      { text: "Background one", background: "quote-bkg--14" },
+      { text: "Snow Wolf", background: "quote-bkg--14" },
       {
-         text: "Background one",
+         text: "Tangerinee",
          background: "quote-bkg--15"
       },
       {
-         text: "Background one",
+         text: "Techy",
          background: "quote-bkg--16"
       },
       {
-         text: "Background one",
+         text: "Atlantic",
          background: "quote-bkg--17"
       },
       {
-         text: "Background one",
+         text: "Lime rickey",
          background: "quote-bkg--18"
       },
       {
-         text: "Background one",
+         text: "Pink pony",
          background: "quote-bkg--19"
       },
       {
-         text: "Background one",
+         text: "Pastel canvas",
          background: "quote-bkg--20"
       }
    ];

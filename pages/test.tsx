@@ -32,6 +32,8 @@ import { TextAreaPrimary } from "../fragments/inputs/text_area_primary";
 import { PostComments } from "../layouts/stacks/post_coments";
 import { GradientBackgroundOption } from "../fragments/buttons/menu_options/gradient_background_option";
 import { SelectPostBackground } from "../layouts/menus/select_post_background";
+import { BackgroundSelection } from "../fragments/chunks/background_selection";
+import { CategorySelectionSelection } from "../fragments/chunks/category_selection";
 
 const Test = () => {
    return (
@@ -1410,7 +1412,7 @@ const Test = () => {
                }
             }}
          /> */}
-         <PostComentIcon contentType={1} postId='123' comments={23} iconColor='#F1EAFF' />
+         {/* <PostComentIcon contentType={1} postId='123' comments={23} iconColor='#F1EAFF' />
          <GradientBackgroundOption
             text='Option one'
             background='quote-bkg--2'
@@ -1420,6 +1422,22 @@ const Test = () => {
             cta={{
                handleCloseModal() {},
                handleValue(value) {
+                  console.log(value);
+               }
+            }}
+         /> */}
+         <BackgroundSelection
+            background='quote-bkg--6'
+            cta={{
+               handleSelection(value) {
+                  console.log(value);
+               }
+            }}
+         />
+         <CategorySelectionSelection
+            categoryId='YLW'
+            cta={{
+               handleSelection(value) {
                   console.log(value);
                }
             }}

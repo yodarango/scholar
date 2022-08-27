@@ -1,36 +1,28 @@
-// comps
-import { GradientBackground } from "../buttons/gradient_background";
+// components
 import { Parragraph } from "../Typography/parragraph";
+import { CategoryTag } from "./category_tag";
 
-//styles
+// styles
 import styles from "./background_selection.module.css";
 
 type TBackgroundSelectionProps = {
-   backgroundCustom?: {
-      light: string;
-      dark: string;
-   };
-   background?: string;
+   categoryId: string;
    cta: {
       handleSelection: (background: string | { light: string; dark: string }) => void;
    };
 };
 
-export const BackgroundSelection = ({
-   background,
-   backgroundCustom,
-   cta
-}: TBackgroundSelectionProps) => {
+export const CategorySelectionSelection = ({ categoryId, cta }: TBackgroundSelectionProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.text}>
-            <Parragraph text='Background' quiet={true} size='xsmall' bold={true} />
+            <Parragraph text='Category' quiet={true} size='xsmall' bold={true} />
          </div>
          <div className={styles.button}>
-            <GradientBackground
-               background={background}
-               backgroundCustom={backgroundCustom}
+            <CategoryTag
+               informativeOnly={false}
                cta={{ handleSelection: cta.handleSelection }}
+               id={categoryId}
             />
          </div>
       </div>
