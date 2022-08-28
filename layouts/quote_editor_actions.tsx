@@ -7,8 +7,8 @@ import { CategorySelection } from "../fragments/chunks/category_selection";
 import styles from "./quote_editor_actions.module.css";
 
 type TQuoteEditorActionsProps = {
-   categoryId: string;
-   background: string;
+   categoryId?: string;
+   background?: string;
    cta: {
       handleCategory: (cat: string) => void;
       handleBkg: (background: string | { light: string; dark: string }) => void;

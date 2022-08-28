@@ -8,6 +8,7 @@
    align-items: center;
    justify-content: center;
    position: relative;
+   background-color: var(--third-color);
 }
 
 .mainWrapperCustomSize {
@@ -34,4 +35,8 @@
    filter: blur(10px);
    opacity: var(0.7);
    border-radius: inherit;
+}
+
+.none {
+   box-shadow: var(--shadow-s);
 }

@@ -6,7 +6,7 @@ import { CategoryTag } from "./category_tag";
 import styles from "./background_selection.module.css";
 
 type TBackgroundSelectionProps = {
-   categoryId: string;
+   categoryId?: string;
    cta: {
       handleSelection: (category: string) => void;
    };

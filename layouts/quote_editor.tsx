@@ -4,11 +4,15 @@ import { TextAreaPrimary } from "../fragments/inputs/text_area_primary";
 import styles from "./quote_editor.module.css";
 
 type TQuoteEditorProps = {
-   quote: string;
-   author: string;
+   quote?: string;
+   author?: string;
+   cta: {
+      handleQuote: (value: string) => void;
+      handleAuthor: (value: string) => void;
+   };
 };
 
-export const QuoteEditor = ({ quote, author }: TQuoteEditorProps) => {
+export const QuoteEditor = ({ quote, author, cta }: TQuoteEditorProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.quote}>
@@ -20,7 +24,7 @@ export const QuoteEditor = ({ quote, author }: TQuoteEditorProps) => {
                fontSize='large'
                maxLength={150}
                placeHolder='Type your awesome quote...'
-               cta={{ handleCurrentValue: (value) => console.log(value) }}
+               cta={{ handleCurrentValue: (value) => cta.handleQuote(value) }}
             />
          </div>
          <div className={styles.author}>
@@ -34,7 +38,7 @@ export const QuoteEditor = ({ quote, author }: TQuoteEditorProps) => {
                transparent={true}
                maxL={150}
                cta={{
-                  handleValue: (value) => console.log(value)
+                  handleValue: (value) => cta.handleAuthor(value)
                }}
             />
          </div>

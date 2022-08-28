@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
 
 export default {
-   title: "layouts/Coomentary Text Editor ",
+   title: "Templates/Coomentary Text Editor ",
    component: CommentaryTextEditor
 } as ComponentMeta<typeof CommentaryTextEditor>;
 

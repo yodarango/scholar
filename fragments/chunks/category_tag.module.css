@@ -42,7 +42,7 @@
 }
 .none {
    background-color: var(--third-color);
-   box-shadow: 2px 2px 10px var(--category-BLK);
+   box-shadow: var(--shadow-s);
 }
 
 .blk {

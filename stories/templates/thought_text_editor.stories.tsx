@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ThoughtTextEditor } from "../../templates/content/thought_text_editor";
 
 export default {
-   title: "layouts/Thought Text Editor ",
+   title: "templates/Thought Text Editor ",
    component: ThoughtTextEditor
 } as ComponentMeta<typeof ThoughtTextEditor>;
 

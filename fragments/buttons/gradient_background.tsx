@@ -80,6 +80,17 @@ export const GradientBackground = ({
                   }}></span>
             </button>
          )}
+
+         {!background && !backgroundCustom && (
+            <button
+               className={`${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper} ${
+                  styles.none
+               }`}
+               id={backgroundColor}
+               onClick={() => setshowSelectBackground(true)}>
+               <span className={styles.shadow} id={backgroundColor}></span>
+            </button>
+         )}
       </>
    );
 };

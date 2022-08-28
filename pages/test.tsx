@@ -35,7 +35,8 @@ import { SelectPostBackground } from "../layouts/menus/select_post_background";
 import { BackgroundSelection } from "../fragments/chunks/background_selection";
 import { CategorySelection } from "../fragments/chunks/category_selection";
 import { QuoteEditorActions } from "../layouts/quote_editor_actions";
-import { QuoteEditor } from "../layouts/quote_editor";
+import { QuoteEditor as QuoteTextEditor } from "../layouts/quote_editor";
+import { QuoteEditor } from "../templates/content/quote_editor";
 
 const Test = () => {
    return (
@@ -1428,7 +1429,7 @@ const Test = () => {
                }
             }}
          /> */}
-         <BackgroundSelection
+         {/* <BackgroundSelection
             background='quote-bkg--6'
             cta={{
                handleSelection(value) {
@@ -1451,7 +1452,8 @@ const Test = () => {
          />
          <div style={{ width: "100vw", height: "100vh" }}>
             <QuoteEditor quote='My wonderful quote' author='I am the author' />
-         </div>
+         </div> */}
+         {/* <QuoteEditor /> */}
       </div>
    );
 };

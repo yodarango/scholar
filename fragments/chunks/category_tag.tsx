@@ -21,7 +21,7 @@ import Portal from "../../hoc/potal";
 import { SelectCategoryTag } from "../../layouts/menus/select_category_tag";
 
 type TCategoryTagprops = {
-   id: string;
+   id?: string;
    customSize?: boolean;
    customBorderRadius?: string;
    informativeOnly: boolean;
@@ -40,7 +40,7 @@ export const CategoryTag = ({
    // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
-   const [currentCategory, setcurrentCategory] = useState<string>(id);
+   const [currentCategory, setcurrentCategory] = useState<string | undefined>(id);
 
    //  open the category popup
    const handleShowCategoryMeta = () => {
