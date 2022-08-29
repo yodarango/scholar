@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // components
 import { QuoteEditor } from "../../../../templates/content/quote_editor";
 

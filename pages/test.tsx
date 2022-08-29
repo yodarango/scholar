@@ -35,8 +35,9 @@ import { SelectPostBackground } from "../layouts/menus/select_post_background";
 import { BackgroundSelection } from "../fragments/chunks/background_selection";
 import { CategorySelection } from "../fragments/chunks/category_selection";
 import { QuoteEditorActions } from "../layouts/quote_editor_actions";
-import { QuoteEditor as QuoteTextEditor } from "../layouts/quote_editor";
+import { QuoteEditorTextEditor } from "../layouts/quote_editor";
 import { QuoteEditor } from "../templates/content/quote_editor";
+import { RadioPrimary } from "../fragments/inputs/radio_primary";
 
 const Test = () => {
    return (
@@ -1454,6 +1455,16 @@ const Test = () => {
             <QuoteEditor quote='My wonderful quote' author='I am the author' />
          </div> */}
          {/* <QuoteEditor /> */}
+         <RadioPrimary
+            displayV={false}
+            icon={{ primary: "male", secondary: "female" }}
+            text={{ primary: "male", secondary: "female" }}
+            cta={{
+               handleOptionSelection(selection: number) {
+                  console.log(selection);
+               }
+            }}
+         />
       </div>
    );
 };

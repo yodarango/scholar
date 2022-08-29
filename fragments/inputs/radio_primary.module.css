@@ -1,0 +1,29 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.option {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.displayV {
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+.first {
+   margin-right: var(--spacing-m);
+}
+
+.optionText {
+   width: 100%;
+   margin: 0 0 0 var(--spacing-xxs);
+}
+
+.displayV .optionText {
+   margin: var(--spacing-xxs) 0 0 0;
+}
