@@ -2,6 +2,8 @@ import styles from "./input_primary.module.css";
 
 type TInputPrimaryProps = {
    fontSize?: string;
+   textColor?: string;
+   darkText?: boolean;
    bold?: boolean;
    alignment?: string;
    transparent?: boolean;
@@ -18,6 +20,8 @@ type TInputPrimaryProps = {
 
 export const InputPrimary = ({
    fontSize,
+   textColor,
+   darkText = false,
    bold,
    alignment,
    maxL,
@@ -79,6 +83,7 @@ export const InputPrimary = ({
          style={{ maxWidth }}>
          {!transparent && (
             <input
+               style={{ color: textColor }}
                onChange={(e) => cta.handleValue(e.target.value)}
                maxLength={maxL}
                type={type}
@@ -91,6 +96,7 @@ export const InputPrimary = ({
          )}
          {transparent && (
             <input
+               style={{ color: textColor }}
                onChange={(e) => cta.handleValue(e.target.value)}
                maxLength={maxL}
                type={type}
@@ -98,7 +104,7 @@ export const InputPrimary = ({
                placeholder={placeholder}
                className={`${styles.input} ${styles.transparent} ${fontAlign} ${
                   bold && styles.bold
-               } ${fontSz} ${customHeight && styles.customHeight}`}
+               } ${fontSz} ${customHeight && styles.customHeight} ${darkText && styles.darkText}`}
             />
          )}
       </div>

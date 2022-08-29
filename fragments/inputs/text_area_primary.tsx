@@ -5,6 +5,8 @@ import styles from "./text_area_primary.module.css";
 
 type TTextEditorTextAreaProps = {
    fontSize?: string;
+   darkText?: boolean;
+   textColor?: string;
    bold?: boolean;
    alignment?: string;
    transparent?: boolean;
@@ -19,6 +21,8 @@ type TTextEditorTextAreaProps = {
 };
 export const TextAreaPrimary = ({
    fontSize,
+   darkText = false,
+   textColor,
    bold,
    alignment,
    transparent = false,
@@ -101,7 +105,7 @@ export const TextAreaPrimary = ({
       <div className={styles.mainWrapper}>
          {!transparent && (
             <textarea
-               style={{ height: currTextAreaHeight }}
+               style={{ height: currTextAreaHeight, color: textColor }}
                maxLength={maxLength}
                className={`${styles.textArea} ${fontAlign} ${fontSz} ${bold && styles.bold}`}
                ref={textArea}
@@ -111,11 +115,11 @@ export const TextAreaPrimary = ({
          )}
          {transparent && (
             <textarea
-               style={{ height: currTextAreaHeight }}
+               style={{ height: currTextAreaHeight, color: textColor }}
                maxLength={maxLength}
-               className={`${styles.textArea}  ${fontAlign} ${styles.transparent} ${fontSz} ${
-                  bold && styles.bold
-               }`}
+               className={`${styles.textArea}  ${fontAlign} ${styles.transparent} ${
+                  darkText && styles.darkText
+               } ${fontSz} ${bold && styles.bold}`}
                ref={textArea}
                defaultValue={defaultValue}
                placeholder={placeHolder}

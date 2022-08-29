@@ -41,6 +41,14 @@
    opacity: 0.5;
 }
 
+.transparent.darkText {
+   color: var(--secondary-color);
+}
+
+.transparent.darkText::placeholder {
+   color: var(--secondary-color);
+}
+
 .xxsmall {
    font-size: var(--fs-xxsmall);
 }

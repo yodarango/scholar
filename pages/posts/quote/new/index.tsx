@@ -1,13 +1,15 @@
 import { useState } from "react";
+
+// components
 import { QuoteEditor } from "../../../../templates/content/quote_editor";
+
+// styles
 import styles from "./index.module.css";
 
 const Index = () => {
-   const [quoteBackground, setquoteBackground] = useState<string>("");
-
    return (
-      <div className={styles.mainWrapper} id={quoteBackground}>
-         <QuoteEditor cta={{ handleBkgChange: (bkg: string) => setquoteBackground(bkg) }} />
+      <div className={styles.mainWrapper}>
+         <QuoteEditor renderClose={true} />
       </div>
    );
 };

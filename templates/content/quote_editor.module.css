@@ -1,6 +1,17 @@
 .mainWrapper {
-   width: 90%;
+   width: 100%;
    height: 100%;
+   margin: 0;
+}
+
+.close {
+   position: fixed;
+   top: var(--spacing-s);
+   right: var(--spacing-s);
+}
+
+.contentWrapper {
+   width: 90%;
    margin: 0 auto;
 }
 
