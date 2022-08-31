@@ -7,15 +7,20 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./select_true_color_personality.module.css";
 
 type TSelectTrueColorPersonalityProps = {
+   currColor?: number;
    label: string;
    cta: {
       handleSelection: (color: string) => void;
    };
 };
 
-export const SelectTrueColorPersonality = ({ label, cta }: TSelectTrueColorPersonalityProps) => {
+export const SelectTrueColorPersonality = ({
+   label,
+   cta,
+   currColor = 0
+}: TSelectTrueColorPersonalityProps) => {
    // state
-   const [colorIsActive, setcolorIsActive] = useState<number>(0);
+   const [colorIsActive, setcolorIsActive] = useState<number>(currColor);
 
    const colors = [
       { color: "#A1DF9F", label: "green" },

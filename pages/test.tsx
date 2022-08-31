@@ -1478,6 +1478,7 @@ const Test = () => {
             />
          } */}
          <SelectTrueColorPersonality
+            currColor={2}
             label='My color personality'
             cta={{
                handleSelection(color: string) {
