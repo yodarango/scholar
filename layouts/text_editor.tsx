@@ -25,6 +25,10 @@ type TTextEditorProps = {
    postReferences: string[];
    postPrivacy: boolean;
    renderClose?: boolean;
+   withTitle?: boolean;
+   titleMaxL?: number;
+   titleDefaultValue?: string;
+   titlePlaceHolder?: string;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -32,6 +36,7 @@ type TTextEditorProps = {
       handlePost: (body?: any) => void;
       handleBody: (body: string) => void;
       handleReferencedVerses: (verses: string[]) => void;
+      handleTitleValue?: (title: string) => void;
    };
 };
 
@@ -47,6 +52,10 @@ export const TextEditor = ({
    postCategory,
    postReferences,
    postPrivacy,
+   titleMaxL,
+   withTitle,
+   titleDefaultValue,
+   titlePlaceHolder,
    renderClose = true,
    cta
 }: TTextEditorProps) => {
@@ -62,10 +71,14 @@ export const TextEditor = ({
          )}
          <div className={styles.textArea}>
             <TextEditorTextArea
+               withTitle={withTitle}
+               titleMaxL={titleMaxL}
+               titleDefaultValue={titleDefaultValue}
+               titlePlaceHolder={titlePlaceHolder}
                defaultValue={body}
                placeHolder='Commentary...'
                maxLength={2500}
-               cta={{ handleCurrentValue: cta.handleBody }}
+               cta={{ handleBodyValue: cta.handleBody, handleTitleValue: cta.handleTitleValue }}
             />
          </div>
 

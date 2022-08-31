@@ -38,6 +38,7 @@ import { QuoteEditorActions } from "../layouts/quote_editor_actions";
 import { QuoteEditorTextEditor } from "../layouts/quote_editor";
 import { QuoteEditor } from "../templates/content/quote_editor";
 import { RadioPrimary } from "../fragments/inputs/radio_primary";
+import { InputSecondary } from "../fragments/inputs/input_secondary";
 
 const Test = () => {
    return (
@@ -1455,7 +1456,7 @@ const Test = () => {
             <QuoteEditor quote='My wonderful quote' author='I am the author' />
          </div> */}
          {/* <QuoteEditor /> */}
-         <RadioPrimary
+         {/* <RadioPrimary
             displayV={false}
             icon={{ primary: "male", secondary: "female" }}
             text={{ primary: "male", secondary: "female" }}
@@ -1464,7 +1465,17 @@ const Test = () => {
                   console.log(selection);
                }
             }}
-         />
+         /> */}
+         {
+            <InputSecondary
+               label='My church'
+               cta={{
+                  handleValue(value: string) {
+                     console.log(value);
+                  }
+               }}
+            />
+         }
       </div>
    );
 };

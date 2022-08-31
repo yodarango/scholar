@@ -1,0 +1,68 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-end;
+   justify-content: flex-start;
+}
+
+.label {
+   white-space: nowrap;
+}
+
+.input {
+   flex-basis: 100%;
+   border-bottom: 0.2rem solid var(--third-color);
+   margin-left: var(--spacing-xxs);
+}
+
+.input input,
+.input input::placeholder,
+.input input:active,
+.input input:focus {
+   font-family: "Open Sans", sans-serif;
+   font-weight: 400;
+   background: transparent;
+   outline: none;
+   border: none;
+   width: 100%;
+   padding: var(--spacing-xxs);
+   color: var(--font-color);
+}
+
+input.quiet,
+input.quiet::placeholder,
+input.quiet:active,
+input.quiet:focus {
+   color: var(--third-color);
+}
+.xxsmall {
+   font-size: var(--fs-xxsmall);
+}
+
+.xsmall {
+   font-size: var(--fs-xsmall);
+}
+
+.small {
+   font-size: var(--fs-small);
+}
+
+.main {
+   font-size: var(--fs-main);
+}
+
+.large {
+   font-size: var(--fs-large);
+}
+
+.xlarge {
+   font-size: var(--fs-xlarge);
+}
+
+.xxlarge {
+   font-size: var(--fs-xxlarge);
+}
+
+.xxxlarge {
+   font-size: var(--fs-xxxlarge);
+}

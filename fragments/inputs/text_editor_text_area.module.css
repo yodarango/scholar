@@ -4,9 +4,33 @@
    border-top: 0.3rem solid var(--third-color);
 }
 
+.title {
+   width: 100%;
+   margin: var(--spacing-m) 0;
+}
+
+.title input,
+.title input:focus,
+.title input::placeholder {
+   border: none;
+   outline: none;
+   background: transparent;
+   width: 100%;
+   padding: 0 var(--spacing-s);
+   font-size: var(--fs-large);
+   font-weight: 600;
+   font-family: var(--primary-font);
+   color: var(--font-color);
+}
+
+.title input::placeholder {
+   color: var(--third-color);
+}
+
 .textArea {
    display: block;
    height: 100%;
+   width: 100%;
    resize: none;
    background-color: var(--primary-color);
    color: var(--font-color);

@@ -4,19 +4,24 @@ import { CREATE_NEW_THOUGHT } from "../../../graphql/posts/thoughts";
 // data
 import { errorMessages } from "../../../data/error_messages";
 
-export const handlePostThought = async (
-   title: string,
-   body: string,
-   categoryTags: string[],
-   referencedVerses: string[]
-) => {
+export type THandlePostThought = {
+   title: string;
+   body: string;
+   categoryTag: string;
+   referencedVerses: string[];
+   postImage: string; // not in DB implement this field
+};
+
+export const handlePostThought = async (post: THandlePostThought) => {
+   const { body, title, categoryTag, referencedVerses } = post;
+
    try {
       const { data } = await client.mutate({
          mutation: CREATE_NEW_THOUGHT,
          variables: {
             body,
             title,
-            category_tags: categoryTags,
+            category_tags: categoryTag,
             referenced_verses: referencedVerses
          }
       });

@@ -2,28 +2,24 @@ import { useState, useReducer, Reducer } from "react";
 
 // components
 import { TextEditor } from "../../layouts/text_editor";
+import { TextEditorTopInfo } from "../../fragments/text_editor_top_info";
 
 // styles
 import styles from "./thought_text_editor.module.css";
 
 // helpers
-import {
-   handlePostCommentary,
-   ThandlePostCommentary
-} from "../../helpers/functions/posts/commentary_post";
+import { THandlePostThought } from "../../helpers/functions/posts/thought_post";
 import { Bible, TBible } from "../../data/bible";
 import { TBibleVerse } from "../../types/bible_api";
-import { SeePostInfo } from "../../fragments/chunks/see_post_info";
-import { TextEditorTopInfo } from "../../fragments/text_editor_top_info";
 
 type TThoughtTextEditorProps = {
    userId: string;
    username: string;
    avatar: string;
    userAuthority: number;
-   verseId?: string;
-   verseCitation?: string;
    body?: string;
+   title?: string;
+   titleDefaultValue: string;
    postImage?: string;
    postPostedOnDate?: string;
    postCreatedDate?: string;
@@ -37,9 +33,9 @@ export const ThoughtTextEditor = ({
    username,
    avatar,
    userAuthority,
-   verseId = "",
-   verseCitation = "",
    body = "",
+   title = "",
+   titleDefaultValue = "",
    postImage = "",
    postPostedOnDate = "",
    postCreatedDate = "",
@@ -51,13 +47,11 @@ export const ThoughtTextEditor = ({
    // postReferencedVerses do not update on reducer changing
    const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
 
-   const post: ThandlePostCommentary = {
+   const post: THandlePostThought = {
       categoryTag: postCategory,
       body,
+      title,
       referencedVerses: postReferences,
-      isPrivate: postPrivacy,
-      verseId: verseId,
-      verseCitation: verseCitation,
       postImage: postImage
    };
 
@@ -69,6 +63,9 @@ export const ThoughtTextEditor = ({
 
          case "body":
             return { ...state, body: action.payload };
+
+         case "title":
+            return { ...state, title: action.payload };
 
          case "referencedVerses":
             return { ...state, referencedVerses: [...state.referencedVerses, action.payload] };
@@ -130,6 +127,10 @@ export const ThoughtTextEditor = ({
          </div>
          <div className={styles.textEditor}>
             <TextEditor
+               withTitle={true}
+               titleMaxL={150}
+               titleDefaultValue={titleDefaultValue}
+               titlePlaceHolder='Post Title'
                renderClose={false}
                body={body}
                postImage={postImage}
@@ -152,6 +153,7 @@ export const ThoughtTextEditor = ({
                      dispatch({ type: "referencedVersesRemove", payload: verses }),
                   handleRefVerseSelection: (verse) =>
                      dispatch({ type: "referencedVerses", payload: verse }),
+                  handleTitleValue: (title) => dispatch({ type: "title", payload: title }),
                   handlePost
                }}
             />

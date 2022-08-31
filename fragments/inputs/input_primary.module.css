@@ -6,7 +6,9 @@
 }
 
 .input,
-.input::placeholder {
+.input::placeholder,
+.input:focus,
+.input:active {
    outline: none;
    border: none;
    font-family: "Open Sans", sans-serif;
