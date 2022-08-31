@@ -18,7 +18,6 @@ type TThoughtTextEditorProps = {
    avatar: string;
    userAuthority: number;
    body?: string;
-   title?: string;
    titleDefaultValue: string;
    postImage?: string;
    postPostedOnDate?: string;
@@ -34,7 +33,6 @@ export const ThoughtTextEditor = ({
    avatar,
    userAuthority,
    body = "",
-   title = "",
    titleDefaultValue = "",
    postImage = "",
    postPostedOnDate = "",
@@ -50,7 +48,7 @@ export const ThoughtTextEditor = ({
    const post: THandlePostThought = {
       categoryTag: postCategory,
       body,
-      title,
+      title: titleDefaultValue,
       referencedVerses: postReferences,
       postImage: postImage
    };

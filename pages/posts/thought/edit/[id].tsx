@@ -13,6 +13,7 @@ const EditThought = () => {
    return (
       <div className={styles.mainWrapper}>
          <ThoughtTextEditor
+            titleDefaultValue='My title'
             body={`# Title &nbsp; (link)[www.example.com]`}
             postImage='/images/bible_books/1.png'
             userAuthority={1}

@@ -54,7 +54,7 @@ export const TextEditor = ({
    postPrivacy,
    titleMaxL,
    withTitle,
-   titleDefaultValue,
+   titleDefaultValue = "",
    titlePlaceHolder,
    renderClose = true,
    cta
@@ -94,6 +94,7 @@ export const TextEditor = ({
 
          <div className={styles.editorActions}>
             <TextEditorActions
+               title={titleDefaultValue}
                body={body}
                postImage={postImage}
                userAuthority={userAuthority}

@@ -33,6 +33,7 @@ import { notificationMessages } from "../data/notification_messages";
 import { PreviewThoughtCommentaryStack } from "./stacks/preview_thought_commentary_stack";
 
 type TTextEditorFormatterActionsProps = {
+   title: string;
    body: string | null;
    postImage: string;
    userAuthority: number;
@@ -44,7 +45,7 @@ type TTextEditorFormatterActionsProps = {
    postCategory: string;
    postReferences: string[];
    postPrivacy: boolean;
-   postuttonTitle?: string;
+   postButtonTitle?: string;
    cta: {
       handleRefVerseSelection: (id: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -54,6 +55,7 @@ type TTextEditorFormatterActionsProps = {
 };
 
 export const TextEditorActions = ({
+   title,
    body,
    cta,
    postImage,
@@ -66,7 +68,7 @@ export const TextEditorActions = ({
    postCategory,
    postReferences,
    postPrivacy,
-   postuttonTitle = "Post"
+   postButtonTitle = "Post"
 }: TTextEditorFormatterActionsProps) => {
    // state
    const [postIsPrivate, setpostIsPrivate] = useState<boolean>(postPrivacy);
@@ -117,6 +119,7 @@ export const TextEditorActions = ({
 
             {showPostPreview && (
                <PreviewThoughtCommentaryStack
+                  title={title}
                   postReferences={postReferences}
                   body={body}
                   cta={{ handleCloseModal: () => setshowPostPreview(false) }}
@@ -200,7 +203,7 @@ export const TextEditorActions = ({
             </div>
 
             <div className={styles.post}>
-               <Primary type='1' title={postuttonTitle} cta={{ handleClick: cta.handlePost }} />
+               <Primary type='1' title={postButtonTitle} cta={{ handleClick: cta.handlePost }} />
             </div>
          </div>
       </>

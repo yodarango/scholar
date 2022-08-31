@@ -1,0 +1,38 @@
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.label {
+   margin-right: var(--spacing-ml);
+}
+
+.colors {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.color {
+   height: 2rem;
+   width: 2rem;
+   border: none;
+   border-radius: 0.5em;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   background-color: var(--third-color);
+   margin-right: var(--spacing-s);
+}
+
+.color:last-of-type {
+   margin: 0;
+}
+
+.color.active,
+.color:hover {
+   cursor: pointer;
+   box-shadow: 0.2rem -0.2rem 1rem currentColor, -0.2rem 0.2rem 1rem currentColor;
+}

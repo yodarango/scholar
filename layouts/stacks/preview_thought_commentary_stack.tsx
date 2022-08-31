@@ -12,12 +12,14 @@ import ReactMarkdown from "react-markdown";
 import { BringUpHiddenBottom } from "../../fragments/buttons/bring_up_hidden_bottom";
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { SeePostInfo } from "../../fragments/chunks/see_post_info";
+import { Header } from "../../fragments/Typography/header";
 import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 
 // styles
 import styles from "./preview_thought_commentary_stack.module.css";
 
 type TPrimaryStackprops = {
+   title: string;
    body: string | null;
    postImage: string;
    userAuthority: number;
@@ -34,6 +36,7 @@ type TPrimaryStackprops = {
 };
 
 export const PreviewThoughtCommentaryStack = ({
+   title,
    body,
    cta,
    postImage,
@@ -84,6 +87,7 @@ export const PreviewThoughtCommentaryStack = ({
 
          {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
+            <Header text={title} size='l' type={2} />
             <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
                <ReactMarkdown>{body ? body : ""}</ReactMarkdown>
             </div>

@@ -39,6 +39,7 @@ import { QuoteEditorTextEditor } from "../layouts/quote_editor";
 import { QuoteEditor } from "../templates/content/quote_editor";
 import { RadioPrimary } from "../fragments/inputs/radio_primary";
 import { InputSecondary } from "../fragments/inputs/input_secondary";
+import { SelectTrueColorPersonality } from "../fragments/inputs/select_true_color_personality";
 
 const Test = () => {
    return (
@@ -1466,7 +1467,7 @@ const Test = () => {
                }
             }}
          /> */}
-         {
+         {/* {
             <InputSecondary
                label='My church'
                cta={{
@@ -1475,7 +1476,15 @@ const Test = () => {
                   }
                }}
             />
-         }
+         } */}
+         <SelectTrueColorPersonality
+            label='My color personality'
+            cta={{
+               handleSelection(color: string) {
+                  console.log(color);
+               }
+            }}
+         />
       </div>
    );
 };
