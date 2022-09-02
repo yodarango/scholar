@@ -40,6 +40,7 @@ import { QuoteEditor } from "../templates/content/quote_editor";
 import { RadioPrimary } from "../fragments/inputs/radio_primary";
 import { InputSecondary } from "../fragments/inputs/input_secondary";
 import { SelectTrueColorPersonality } from "../fragments/inputs/select_true_color_personality";
+import { SermonNoteEditorActions } from "../layouts/sermon_note_editor_actions";
 
 const Test = () => {
    return (
@@ -1477,12 +1478,27 @@ const Test = () => {
                }}
             />
          } */}
-         <SelectTrueColorPersonality
+         {/* <SelectTrueColorPersonality
             currColor={2}
             label='My color personality'
             cta={{
                handleSelection(color: string) {
                   console.log(color);
+               }
+            }}
+         /> */}
+         <SermonNoteEditorActions
+            sermonTitle='My title'
+            categoryId='GRN'
+            cta={{
+               handleCategory(cat) {
+                  console.log(cat);
+               },
+               handleTitle(tit) {
+                  console.log(tit);
+               },
+               handleUploadedFile(file) {
+                  console.log(file);
                }
             }}
          />

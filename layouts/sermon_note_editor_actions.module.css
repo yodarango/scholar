@@ -1,0 +1,31 @@
+.mainWrapper {
+   flex-wrap: wrap;
+   row-gap: var(--spacing-m);
+   padding: var(--spacing-m);
+   width: 100%;
+   background-color: var(--secondary-color);
+   border-top-left-radius: 3em;
+   border-top-right-radius: 3em;
+   box-shadow: 0.4rem -0.4rem 0.6rem var(--shadow-color);
+}
+
+.search {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+}
+
+.actions {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-bottom: var(--spacing-m);
+}
+
+.category {
+   margin-right: var(--spacing-m);
+}
+
+.fileInput {
+   display: none;
+}

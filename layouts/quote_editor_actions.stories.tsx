@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { QuoteEditorActions } from "../../layouts/quote_editor_actions";
+import { QuoteEditorActions } from "./quote_editor_actions";
 
 export default {
    title: "layouts/Quote Editor Actions",

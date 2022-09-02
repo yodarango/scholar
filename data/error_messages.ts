@@ -14,6 +14,14 @@ export const errorMessages = {
             "A post failed to post for unknown reasons to the client. Message will be retruned from the 'catch' block of a function ",
          title: "Something went south ⬇️",
          body: "We are on it and shall have this issue out of the way soon. Please try again later"
+      },
+      fileTooBig: {
+         type: "error",
+         description: "Lets the user know that the file they tried to upload is too big",
+         title: "File too big 🐘",
+         body(size: string) {
+            return `Your file is too big. Max size is ${size}, please try again!`;
+         }
       }
    }
 };
