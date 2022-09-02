@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { AboutMeItem } from "../../../fragments/cards/about_me_item";
+import { AboutMeItem } from "./about_me_item";
 
 export default {
    title: "fragments/cards/About Me item",

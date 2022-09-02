@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Commentary } from "../../../../fragments/cards/posts/commentary";
+import { Commentary } from "./commentary";
 
 export default {
    title: "fragments/cards/posts/commentary",

@@ -33,10 +33,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-# mine
+# local
 env.js
 .prettierignore
 .env.local
 .env
-.vscode
 /public/images

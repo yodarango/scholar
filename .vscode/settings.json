@@ -1,0 +1,28 @@
+{
+   "editor.fontSize": 14,
+   "material-icon-theme.folders.associations": {},
+   "peacock.color": "#b607eb",
+   "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#c92cf9",
+      "activityBar.background": "#c92cf9",
+      "activityBar.foreground": "#e7e7e7",
+      "activityBar.inactiveForeground": "#e7e7e799",
+      "activityBarBadge.background": "#5d4803",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "commandCenter.border": "#e7e7e799",
+      "sash.hoverBorder": "#c92cf9",
+      "statusBar.background": "#b607eb",
+      "statusBar.foreground": "#e7e7e7",
+      "statusBarItem.hoverBackground": "#c92cf9",
+      "statusBarItem.remoteBackground": "#b607eb",
+      "statusBarItem.remoteForeground": "#e7e7e7",
+      "titleBar.activeBackground": "#b607eb",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveBackground": "#b607eb99",
+      "titleBar.inactiveForeground": "#e7e7e799"
+   },
+   "workbench.colorTheme": "Tinacious Design",
+   "workbench.iconTheme": "material-icon-theme",
+   "workbench.preferredDarkColorTheme": "Tinacious Design",
+   "workbench.preferredHighContrastColorTheme": "Tinacious Design"
+}

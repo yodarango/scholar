@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { NotificationSticker } from "../../../fragments/cards/notification_sticker";
+import { NotificationSticker } from "./notification_sticker";
 
 export default {
    title: "fragments/cards/Notification Sticker",

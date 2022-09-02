@@ -1,0 +1,19 @@
+.mainWrapper {
+   width: 100%;
+   padding: var(--spacing-s);
+   border-bottom: 0.2rem solid var(--third-color);
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   border-radius: 1em;
+}
+
+.mainWrapper:hover {
+   background-color: var(--secondary-color);
+}
+
+.icon {
+   height: 2rem;
+   width: 2rem;
+   margin-right: var(--spacing-xs);
+}
