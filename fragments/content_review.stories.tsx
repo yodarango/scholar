@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { ContentReviews } from "../../fragments/content_reviews";
+import { ContentReviews } from "./content_reviews";
 
 export default {
    title: "fragments/Content Reviews",

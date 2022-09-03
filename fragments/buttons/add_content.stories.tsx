@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { AddContent } from "../../../fragments/buttons/add_content";
+import { AddContent } from "./add_content";
 
 export default {
    title: "fragments/buttons/Add Content",

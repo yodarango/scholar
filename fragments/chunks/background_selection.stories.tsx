@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BackgroundSelection } from "../../../fragments/chunks/background_selection";
+import { BackgroundSelection } from "./background_selection";
 
 export default {
    title: "fragments/chunks/Background Selection",

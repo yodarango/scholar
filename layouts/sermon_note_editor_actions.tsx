@@ -21,9 +21,7 @@ type TSermonNoteEditorActionsProps = {
    sermonTitle: string;
    categoryId: string;
    cta: {
-      handleTitle: (value: string) => void;
-      handleCategory: (value: string) => void;
-      handleUploadedFile: (value: string | null) => void;
+      handleUploadedFile: (value: object) => void;
    };
 };
 
@@ -33,7 +31,9 @@ export const SermonNoteEditorActions = ({
    cta
 }: TSermonNoteEditorActionsProps) => {
    // states
-   const [fileUpload, setfileUpload] = useState<boolean>(false);
+   const [notification, setnotification] = useState<boolean>(false);
+   const [title, setTitle] = useState<string>(sermonTitle);
+   const [category, setcategory] = useState<string>(categoryId);
 
    const fileUploadInput = useRef<HTMLInputElement>(null);
 
@@ -46,8 +46,8 @@ export const SermonNoteEditorActions = ({
 
       //fail
       const failUpload = () => {
-         setfileUpload(true);
-         cta.handleUploadedFile(null);
+         setnotification(true);
+         cta.handleUploadedFile({ name: "" });
       };
 
       // call the file uploader function
@@ -60,12 +60,12 @@ export const SermonNoteEditorActions = ({
    return (
       <div className={styles.mainWrapper}>
          <Portal>
-            {fileUpload && (
+            {notification && (
                <Notification
                   title={errorMessages.posts.fileTooBig.title}
                   type='4'
                   body={errorMessages.posts.fileTooBig.body("4MB")}
-                  cta={{ handleClose: () => setfileUpload(false) }}
+                  cta={{ handleClose: () => setnotification(false) }}
                />
             )}
          </Portal>
@@ -75,14 +75,14 @@ export const SermonNoteEditorActions = ({
                value={sermonTitle}
                maxL={150}
                placeholder='Enter title'
-               cta={{ handleValue: cta.handleTitle }}
+               cta={{ handleValue: (title: string) => setTitle(title) }}
             />
          </div>
          <div className={styles.actions}>
             <div className={styles.category}>
                <CategorySelection
                   categoryId={categoryId}
-                  cta={{ handleSelection: cta.handleCategory }}
+                  cta={{ handleSelection: (cat: string) => setcategory(cat) }}
                />
             </div>
             <div className={styles.chooseFile}>

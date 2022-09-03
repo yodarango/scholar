@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { InputPrimary } from "../../../fragments/inputs/input_primary";
+import { InputPrimary } from "./input_primary";
 
 export default {
    title: "fragments/inputs/Primary Input",

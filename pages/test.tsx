@@ -46,6 +46,7 @@ import { UserNotificationsWrapper } from "../layouts/scrollers/user_notification
 import { SecondaryStack } from "../layouts/stacks/templates/secondary_stack";
 import { ToggleMenu } from "../fragments/chunks/toggle_menu";
 import { TeritaryStack } from "../layouts/stacks/templates/teritary_stack";
+import { SermonNoteEditor } from "../templates/content/sermon_note_editor";
 
 const Test = () => {
    return (
@@ -1517,11 +1518,11 @@ const Test = () => {
             cta={{ handleClose: () => console.log("modal close") }}
          /> */}
          {/* <ToggleMenu /> */}
-         {
+         {/*          
             <TeritaryStack title='dsdsf' hasNotifications={true}>
                <div></div>
-            </TeritaryStack>
-         }
+            </TeritaryStack> */}
+         <SermonNoteEditor renderClose={true} />
       </div>
    );
 };

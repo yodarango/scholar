@@ -10,6 +10,7 @@ const NewThought = () => {
    useEffect(() => {
       // get the user data
    }, []);
+
    return (
       <div className={styles.mainWrapper}>
          <ThoughtTextEditor

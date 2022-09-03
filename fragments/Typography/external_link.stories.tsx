@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { ExternalLink } from "../../../fragments/Typography/external_link";
+import { ExternalLink } from "./external_link";
 
 export default {
    title: "fragments/typography/External Link",

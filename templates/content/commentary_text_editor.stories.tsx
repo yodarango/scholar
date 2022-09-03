@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
+import { CommentaryTextEditor } from "./commentary_text_editor";
 
 export default {
    title: "Templates/Coomentary Text Editor ",

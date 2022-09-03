@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { NotificationFade } from "../../../fragments/popups/notification_fade";
+import { NotificationFade } from "./notification_fade";
 
 export default {
    title: "fragments/popups/Notification Fade",
