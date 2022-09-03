@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { PostComments } from "../../../layouts/stacks/post_coments";
+import { PostComments } from "./post_coments";
 
 export default {
    title: "layouts/stacks/Post Comments Stack",

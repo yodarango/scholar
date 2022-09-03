@@ -1,0 +1,58 @@
+.mainWrapper {
+   width: 100%;
+   height: 100vh;
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 16;
+   overflow-y: hidden;
+}
+
+.gradientBkg {
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 1;
+   height: 14rem;
+   width: 100%;
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.title {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-top: var(--spacing-l);
+   margin-left: var(--spacing-ml);
+}
+
+.icon {
+   margin-left: var(--spacing-xs);
+}
+
+.subWrapper {
+   width: 100%;
+   z-index: 2;
+   height: calc(100vh - 7.5rem);
+   position: fixed;
+   top: 7.5rem;
+   border-top-right-radius: 5em;
+   background-color: var(--primary-color);
+}
+
+.contentHolder {
+   height: 100%;
+   width: 90%;
+   margin: auto;
+   padding: var(--spacing-l) 0;
+   overflow-y: scroll;
+   overflow-x: visible;
+}
+
+.toggleIcon {
+   background-color: transparent;
+   z-index: 2;
+   position: fixed;
+   top: var(--spacing-ml);
+   right: var(--spacing-ml);
+}

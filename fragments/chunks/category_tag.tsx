@@ -54,7 +54,7 @@ export const CategoryTag = ({
          <Notification
             title={cardTitle}
             body={cardBody}
-            cta={() => setisPopupOpen(false)}
+            cta={{ handleClose: () => setisPopupOpen(false) }}
             type='custom'
             customColor={{ light: cardColor, dark: cardColor }}
          />

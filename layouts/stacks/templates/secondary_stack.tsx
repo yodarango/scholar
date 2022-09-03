@@ -1,0 +1,45 @@
+/**********************************************************************************************************
+-  Content holder that is rendered directly from a page or from a high level component.
+**********************************************************************************************************/
+// comps
+import { CategoryTag } from "../../../fragments/chunks/category_tag";
+import { Icon } from "../../../fragments/chunks/icons";
+import { ToggleMenu } from "../../../fragments/chunks/toggle_menu";
+import { Header } from "../../../fragments/Typography/header";
+
+// styles
+import styles from "./secondary_stack.module.css";
+
+type TPrimaryStackprops = {
+   title: string;
+   content: JSX.Element;
+   cta: {
+      handleClose: () => void;
+   };
+   icon?: string;
+   menuType: number;
+};
+
+export const SecondaryStack = ({ title, content, cta, menuType, icon }: TPrimaryStackprops) => {
+   return (
+      <div className={styles.mainWrapper}>
+         <div className={styles.gradientBkg}>
+            <div className={styles.title}>
+               <Header size='large' type={1} text={title} lineHieght='.9em' />
+               {icon && (
+                  <div className={styles.icon}>
+                     <Icon size='2rem' name={icon} color='#F1EAFF' />
+                  </div>
+               )}
+            </div>
+         </div>
+         <div className={styles.toggleIcon}>
+            {menuType === 1 && <ToggleMenu type={1} />}
+            {menuType === 2 && <CategoryTag informativeOnly={false} />}
+         </div>
+         <div className={styles.subWrapper}>
+            <div className={styles.contentHolder}>{content}</div>
+         </div>
+      </div>
+   );
+};

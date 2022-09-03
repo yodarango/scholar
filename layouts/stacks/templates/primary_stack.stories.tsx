@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { PrimaryStack } from "../../../../layouts/stacks/templates/primary_stack";
+import { PrimaryStack } from "./primary_stack";
 
 export default {
    title: "layouts/stacks/Primary Stacks",
