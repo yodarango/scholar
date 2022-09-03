@@ -1,4 +1,17 @@
 .mainWrapper {
    margin: 0;
    cursor: pointer;
+   height: 3.5rem;
+   width: 3.5rem;
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 0.6em;
+}
+
+.mainWrapper:hover {
+   opacity: 0.75;
+   transform: scale(1.05);
+   transition: transform 300ms ease;
 }

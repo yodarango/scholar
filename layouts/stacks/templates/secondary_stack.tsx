@@ -12,15 +12,12 @@ import styles from "./secondary_stack.module.css";
 
 type TPrimaryStackprops = {
    title: string;
-   content: JSX.Element;
-   cta: {
-      handleClose: () => void;
-   };
+   children: (string | JSX.Element) | (string | JSX.Element)[];
    icon?: string;
    menuType: number;
 };
 
-export const SecondaryStack = ({ title, content, cta, menuType, icon }: TPrimaryStackprops) => {
+export const SecondaryStack = ({ title, children, menuType, icon }: TPrimaryStackprops) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>
@@ -38,7 +35,7 @@ export const SecondaryStack = ({ title, content, cta, menuType, icon }: TPrimary
             {menuType === 2 && <CategoryTag informativeOnly={false} />}
          </div>
          <div className={styles.subWrapper}>
-            <div className={styles.contentHolder}>{content}</div>
+            <div className={styles.contentHolder}>{children}</div>
          </div>
       </div>
    );
