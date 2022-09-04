@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { NavigationMain } from "../../layouts/navigation_main";
+import { NavigationMain } from "./navigation_main";
 
 export default {
    title: "layouts/Navigation Main",

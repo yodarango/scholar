@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { VideoModalContent } from "../../fragments/chunks/video_modal_content";
+import { VideoModalContent } from "./video_modal_content";
 
 export default {
    title: "fragments/Video Modal Content",

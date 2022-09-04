@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BiblePreferences } from "../../../layouts/menus/Bible_preferences";
+import { BiblePreferences } from "./Bible_preferences";
 
 export default {
    title: "layouts/menus/Bible Preferences",

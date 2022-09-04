@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { ThumbsUpPoll } from "../../../layouts/content/thumb_up_polls";
+import { ThumbsUpPoll } from "./thumb_up_polls";
 
 export default {
    title: "layouts/content/Thumbs Up Poll",

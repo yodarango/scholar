@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CardTimer } from "../../../fragments/chunks/card_timer";
+import { CardTimer } from "./card_timer";
 
 export default {
    title: "fragments/chunks/Card Timer",

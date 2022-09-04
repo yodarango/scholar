@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BibleBooksWrapper } from "../../../layouts/scrollers/bible_books_wrapper";
+import { BibleBooksWrapper } from "./bible_books_wrapper";
 
 export default {
    title: "layouts/scrollers/Bible Book Wrapper",

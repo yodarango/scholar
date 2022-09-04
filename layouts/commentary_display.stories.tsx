@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CommentariesDisplay } from "../../../layouts/content/commentary_display";
+import { CommentariesDisplay } from "./content/commentary_display";
 
 export default {
    title: "layouts/content/Commentaries Display",
