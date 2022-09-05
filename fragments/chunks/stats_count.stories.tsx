@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { StatsCount } from "../../../fragments/chunks/stats_count";
+import { StatsCount } from "./stats_count";
 
 export default {
    title: "fragments/chunks/Stats Count",

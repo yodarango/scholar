@@ -1,10 +1,15 @@
-.mainWrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+.mainWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
 }
 
-.title{
-    margin-bottom: .5rem;
+.count {
+   width: 100%;
+   margin-bottom: 0.5rem;
+}
+
+.title {
+   width: 100%;
 }

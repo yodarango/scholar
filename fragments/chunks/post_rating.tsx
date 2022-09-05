@@ -1,3 +1,5 @@
+// TODO: Replace the current calculation in JSX to determine ating by the helpers/math/caculate_approval_level helper
+
 import { useState } from "react";
 
 // comps
