@@ -1,6 +1,7 @@
 {
    "editor.fontSize": 14,
    "material-icon-theme.folders.associations": {},
+   "material-icon-theme.folders.color": "#987ef1",
    "peacock.color": "#7350ec",
    "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#987ef1",

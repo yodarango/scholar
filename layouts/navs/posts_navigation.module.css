@@ -1,0 +1,12 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding-bottom: var(--spacing-xs);
+   border-bottom: 0.2rem solid var(--third-color);
+}
+
+.tab:hover {
+   cursor: pointer;
+}
