@@ -1,0 +1,23 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   column-gap: var(--spacing-m);
+}
+
+.child {
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   flex-basis: 31.4%;
+}
+
+.child:nth-child(3n - 1) {
+   padding-top: var(--spacing-m);
+}
+
+.child:nth-child(3n) {
+   padding-top: calc(var(--spacing-m) * 2);
+}

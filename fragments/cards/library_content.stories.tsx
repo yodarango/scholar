@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { LibraryContent } from "../../../fragments/cards/library_content";
+import { LibraryContent } from "./library_content";
 
 export default {
    title: "fragments/cards/Library Content",
