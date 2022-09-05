@@ -14,6 +14,7 @@ type TParragraphProps = {
    color?: string;
    lineHieght?: string;
    quiet?: boolean;
+   href?: string;
 };
 
 export const Parragraph = ({
@@ -25,7 +26,8 @@ export const Parragraph = ({
    inline,
    italics,
    bold,
-   lineHieght
+   lineHieght,
+   href
 }: TParragraphProps) => {
    // states
    let fontSize: string = "";
@@ -76,39 +78,81 @@ export const Parragraph = ({
 
    return (
       <div style={{ color: color }} className={inline ? styles.inline : ""}>
-         {!inline && !italics && !bold && (
-            <p
-               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
-               style={{ lineHeight: fontLineHeight }}>
-               {text}
-            </p>
-         )}
+         {!inline &&
+            !italics &&
+            !bold &&
+            (!href ? (
+               <p
+                  className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
+                  style={{ lineHeight: fontLineHeight }}>
+                  {text}
+               </p>
+            ) : (
+               <a href={href}>
+                  <p
+                     className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
+                     style={{ lineHeight: fontLineHeight }}>
+                     {text}
+                  </p>
+               </a>
+            ))}
 
-         {inline && !italics && !bold && (
-            <span
-               className={`${styles.parragraph} ${styles.inline} ${fontSize} ${fontAlign} ${fontColor}`}
-               style={{ lineHeight: fontLineHeight }}>
-               {text}
-            </span>
-         )}
+         {inline &&
+            !italics &&
+            !bold &&
+            (!href ? (
+               <span
+                  className={`${styles.parragraph} ${styles.inline} ${fontSize} ${fontAlign} ${fontColor}`}
+                  style={{ lineHeight: fontLineHeight }}>
+                  {text}
+               </span>
+            ) : (
+               <a href={href}>
+                  <span
+                     className={`${styles.parragraph} ${styles.inline} ${fontSize} ${fontAlign} ${fontColor}`}
+                     style={{ lineHeight: fontLineHeight }}>
+                     {text}
+                  </span>
+               </a>
+            ))}
 
-         {italics && (
-            <i
-               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
-               style={{ lineHeight: fontLineHeight }}>
-               {text}
-            </i>
-         )}
+         {italics &&
+            (!href ? (
+               <i
+                  className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
+                  style={{ lineHeight: fontLineHeight }}>
+                  {text}
+               </i>
+            ) : (
+               <a href={href}>
+                  <i
+                     className={`${styles.parragraph} ${fontSize} ${fontAlign} ${fontColor}`}
+                     style={{ lineHeight: fontLineHeight }}>
+                     {text}
+                  </i>
+               </a>
+            ))}
 
-         {bold && (
-            <b
-               className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
-                  bold ? styles.bold : ""
-               } ${fontColor}`}
-               style={{ lineHeight: fontLineHeight }}>
-               {text}
-            </b>
-         )}
+         {bold &&
+            (!href ? (
+               <b
+                  className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
+                     bold ? styles.bold : ""
+                  } ${fontColor}`}
+                  style={{ lineHeight: fontLineHeight }}>
+                  {text}
+               </b>
+            ) : (
+               <a href={href}>
+                  <b
+                     className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
+                        bold ? styles.bold : ""
+                     } ${fontColor}`}
+                     style={{ lineHeight: fontLineHeight }}>
+                     {text}
+                  </b>
+               </a>
+            ))}
       </div>
    );
 };

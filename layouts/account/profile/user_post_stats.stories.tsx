@@ -7,6 +7,6 @@ export default {
    component: UserPostStats
 } as ComponentMeta<typeof UserPostStats>;
 
-export const WithoutRemoveOption: ComponentStory<typeof UserPostStats> = () => (
+export const Default: ComponentStory<typeof UserPostStats> = () => (
    <UserPostStats commentaries={45} thoughts={11} quotes={67} sermonNotes={27} />
 );

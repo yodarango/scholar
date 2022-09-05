@@ -1,0 +1,16 @@
+.mainWrapper {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+}
+
+.title {
+   margin-bottom: var(--spacing-m);
+}
+
+.aboutMeWrapper > div {
+   margin-bottom: var(--spacing-s);
+}
+
+.moreButton {
+   width: 100%;
+}

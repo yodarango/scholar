@@ -18,7 +18,7 @@ import AllContentDesktop from "../../../layouts/home-page-content/desktop/all-co
 import PopupWrapper from "../../../layouts/popup-wrapper";
 import NotificationsWrapper from "../../../fragments/popups/notifications-wrapper";
 import NavigationMenu from "../../../layouts/navigation_main";
-import UserAboutMe from "../../../fragments/chunks/user/user-about-me";
+import UserAboutMe from "../../../layouts/account/user-about-me";
 import UserTotalPostsAndRatings from "../../../fragments/chunks/user/user-total-posts-ratings";
 import UserBioWrapper from "../../../fragments/chunks/user/user-bio-wrapper";
 import CardsLazyLoading from "../../../layouts/cards-lazy-loading";

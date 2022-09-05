@@ -17,7 +17,7 @@ import { Tcommentary } from "../../fragments/cards/posts/commentary";
 import { Tthought } from "../../fragments/cards/posts/thought";
 import { TsingleStory } from "../../posts/quotes-profile";
 import { TsermonPost } from "../../fragments/cards/posts/sermon_note";
-import UserAboutMe from "../../fragments/chunks/user/user-about-me";
+import UserAboutMe from "../../layouts/account/user-about-me";
 import UserTotalPostsAndRatings from "../../fragments/chunks/user/user-total-posts-ratings";
 import UserBioWrapper from "../../fragments/chunks/user/user-bio-wrapper";
 

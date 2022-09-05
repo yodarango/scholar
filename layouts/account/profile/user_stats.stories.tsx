@@ -7,7 +7,7 @@ export default {
    component: UserStats
 } as ComponentMeta<typeof UserStats>;
 
-export const WithoutRemoveOption: ComponentStory<typeof UserStats> = () => (
+export const Default: ComponentStory<typeof UserStats> = () => (
    <UserStats
       username='username'
       avatar='/images/user_avatars/default.png'

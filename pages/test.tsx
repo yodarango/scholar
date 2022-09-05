@@ -10,7 +10,7 @@ import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selecti
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 import { FastFacts } from "../layouts/content/fast_facts";
 import { ThoughtsOneLineCarrousel } from "../layouts/scrollers/thoughts_one_line_carrousel";
-import { NavigationMain } from "../layouts/navigation_main";
+import { NavigationMain } from "../layouts/navs/navigation_main";
 import { UnsplasImgPicker } from "../layouts/scrollers/unsplash_img_picker";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
 import { TextEditor } from "../layouts/text_editor";
@@ -47,6 +47,7 @@ import { SecondaryStack } from "../layouts/stacks/templates/secondary_stack";
 import { ToggleMenu } from "../fragments/chunks/toggle_menu";
 import { TeritaryStack } from "../layouts/stacks/templates/teritary_stack";
 import { SermonNoteEditor } from "../templates/content/sermon_note_editor";
+import { AboutMe } from "../layouts/account/profile/about_me";
 
 const Test = () => {
    return (
@@ -1522,7 +1523,16 @@ const Test = () => {
             <TeritaryStack title='dsdsf' hasNotifications={true}>
                <div></div>
             </TeritaryStack> */}
-         <SermonNoteEditor renderClose={true} />
+         {/* <SermonNoteEditor renderClose={true} /> */}
+         <AboutMe
+            userId='432'
+            myChurch='My good Lord knows'
+            ministry='worthless slave'
+            favBibleVerse='1 Peter 1:8'
+            fullTimeJob='Software Engneer'
+            colorPersonality='green'
+            favColor='Gray'
+         />
       </div>
    );
 };
