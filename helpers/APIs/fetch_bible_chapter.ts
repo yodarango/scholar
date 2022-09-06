@@ -6,10 +6,10 @@ export const fetchBibleChapter = async (
    versionId: string = "de4e12af7f28f599-02"
 ) => {
    if (chapter) {
-    // API params: ?content-type=text&include-verse-numbers=false
+      // content-types: text, html, json
       try {
          const request = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapter}`,
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapter}?content-type=text&include-notes=true&include-chapter-numbers=true&include-verse-spans=true&include-titles=true`,
             {
                method: "GET",
                headers: {

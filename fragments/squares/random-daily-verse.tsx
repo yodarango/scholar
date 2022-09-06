@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // components
-import Chapter from "../../layouts/fetch-bible-chapter";
+import Chapter from "../../layouts/bible_chapter";
 import PopupWrapper from "../../layouts/popup-wrapper";
 import Commentary from "../../layouts/popup-new-comment";
 import ResourceNotFoundError from "../chunks/error_resource_not_found";

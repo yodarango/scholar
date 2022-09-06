@@ -6,6 +6,7 @@ export const fetchBibleVerse = async (
    versionId: string = "de4e12af7f28f599-02"
 ) => {
    if (verse) {
+      // API params: ?content-type=html&include-verse-numbers=true&include-titles=true
       try {
          const request = await fetch(
             `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verse}?content-type=text&include-verse-numbers=false`,

@@ -48,6 +48,7 @@ import { ToggleMenu } from "../fragments/chunks/toggle_menu";
 import { TeritaryStack } from "../layouts/stacks/templates/teritary_stack";
 import { SermonNoteEditor } from "../templates/content/sermon_note_editor";
 import { AboutMe } from "../layouts/account/profile/about_me";
+import { BibleChapter } from "../layouts/bible_chapter";
 
 const Test = () => {
    return (
@@ -1524,7 +1525,7 @@ const Test = () => {
                <div></div>
             </TeritaryStack> */}
          {/* <SermonNoteEditor renderClose={true} /> */}
-         <AboutMe
+         {/* <AboutMe
             userId='432'
             myChurch='My good Lord knows'
             ministry='worthless slave'
@@ -1532,7 +1533,9 @@ const Test = () => {
             fullTimeJob='Software Engneer'
             colorPersonality='green'
             favColor='Gray'
-         />
+         /> */}
+
+         <BibleChapter chapterId='GEN.1' versionId='de4e12af7f28f599-02' />
       </div>
    );
 };
