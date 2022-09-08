@@ -15,7 +15,10 @@ import styles from "./search_input.module.css";
 type TSearchInputProps = {
    placeholder: string;
    maxL: number;
-   cta: { handleOnChange?: (value: string) => void; handleSearchGo?: (value: string) => void };
+   cta: {
+      handleOnChange?: (value: string) => void;
+      handleSearchGo?: (value: string) => void;
+   };
 };
 export const SearchInput = ({ placeholder, maxL, cta }: TSearchInputProps) => {
    // references

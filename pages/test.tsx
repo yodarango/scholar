@@ -9,7 +9,7 @@ import { TextEditorTopInfo } from "../fragments/text_editor_top_info";
 import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 import { FastFacts } from "../layouts/content/fast_facts";
-import { ThoughtsOneLineCarrousel } from "../layouts/scrollers/thoughts_one_line_carrousel";
+import { ThoughtsOneLineCarrousel } from "../layouts/scrollers/user_content/thoughts_one_line_carrousel";
 import { NavigationMain } from "../layouts/navs/navigation_main";
 import { UnsplasImgPicker } from "../layouts/scrollers/unsplash_img_picker";
 import { PreviewThoughtCommentaryStack } from "../layouts/stacks/preview_thought_commentary_stack";
@@ -18,16 +18,16 @@ import { TextEditorActions } from "../layouts/text_editor_actions";
 import { CommentaryTextEditor } from "../templates/content/commentary_text_editor";
 import { ThoughtTextEditor } from "../templates/content/thought_text_editor";
 import { ThoughtsDisplay } from "../layouts/content/thoughts_display";
-import { CommentaryOneLineCarrousel } from "../layouts/scrollers/commentaries_one_line_carrousel";
+import { CommentaryOneLineCarrousel } from "../layouts/scrollers/user_content/commentaries_one_line_carrousel";
 import { CommentariesDisplay } from "../layouts/content/commentary_display";
 import { Quote } from "../fragments/cards/posts/quote";
-import { QuoteOneLineCarrousel } from "../layouts/scrollers/quote_one_line_carrousel";
+import { QuoteOneLineCarrousel } from "../layouts/scrollers/user_content/quote_one_line_carrousel";
 import { QuoteDisplay } from "../layouts/content/quotes_display";
-import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/sermon_note_one_line_carrousel";
+import { SermonNoteOneLineCarrousel } from "../layouts/scrollers/user_content/sermon_note_one_line_carrousel";
 import { SermonNoteDisplay } from "../layouts/content/sermon_note_display";
 import { PostComment } from "../fragments/cards/posts/post_comment";
 import { PostComment as PostComentIcon } from "../fragments/chunks/post_comment";
-import { PostCommentsWrapper } from "../layouts/scrollers/post_comments_wrapper";
+import { PostCommentsWrapper } from "../layouts/scrollers/user_content/post_comments_wrapper";
 import { TextAreaPrimary } from "../fragments/inputs/text_area_primary";
 import { PostComments } from "../layouts/stacks/post_coments";
 import { GradientBackgroundOption } from "../fragments/buttons/menu_options/gradient_background_option";
@@ -42,13 +42,14 @@ import { InputSecondary } from "../fragments/inputs/input_secondary";
 import { SelectTrueColorPersonality } from "../fragments/inputs/select_true_color_personality";
 import { SermonNoteEditorActions } from "../layouts/sermon_note_editor_actions";
 import { UserNotifications } from "../fragments/cards/user_notification";
-import { UserNotificationsWrapper } from "../layouts/scrollers/user_notifications_wrapper";
+import { UserNotificationsWrapper } from "../layouts/scrollers/user_content/user_notifications_wrapper";
 import { SecondaryStack } from "../layouts/stacks/templates/secondary_stack";
 import { ToggleMenu } from "../fragments/chunks/toggle_menu";
 import { TeritaryStack } from "../layouts/stacks/templates/teritary_stack";
 import { SermonNoteEditor } from "../templates/content/sermon_note_editor";
 import { AboutMe } from "../layouts/account/profile/about_me";
 import { BibleChapter } from "../layouts/bible_chapter";
+import { CommentariesGrid } from "../layouts/scrollers/user_content/commentaries_grid";
 
 const Test = () => {
    return (
@@ -1536,6 +1537,7 @@ const Test = () => {
          /> */}
 
          <BibleChapter chapterId='GEN.1' versionId='de4e12af7f28f599-02' />
+         {/* <ComentariesGrid /> */}
       </div>
    );
 };

@@ -17,7 +17,7 @@ type TMenuPrimaryOptionProps = {
       iconShadow?: string;
       descColor?: string;
    };
-   cta: React.MouseEventHandler<HTMLDivElement>;
+   cta: { handleOptionClick: () => void };
 };
 
 export const MenuPrimaryOption = ({
@@ -44,7 +44,7 @@ export const MenuPrimaryOption = ({
    }
 
    return (
-      <div className={`${styles.mainWrapper}`} onClick={cta}>
+      <div className={`${styles.mainWrapper}`} onClick={cta.handleOptionClick}>
          {/* --------------------------------------- Left side icon ---------------- */}
          {/*  if the left side button is an icon retrun this */}
          {iconType === "icon" && (

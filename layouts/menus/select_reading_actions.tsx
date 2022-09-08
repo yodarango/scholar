@@ -1,7 +1,13 @@
+import { useState } from "react";
+
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
+import PortalSecondary from "../../hoc/portal_secondary";
+import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
+import { PrimaryStack } from "../stacks/templates/primary_stack";
+import { SecondaryStack } from "../stacks/templates/secondary_stack";
 
 // styles
 import styles from "./select_menu_global.module.css";
@@ -12,7 +18,9 @@ export type TSelectPostRatingMenuProps = {
    };
 };
 
-export const SelectReadingACtions = ({ cta }: TSelectPostRatingMenuProps) => {
+export const SelectReadingActions = ({ cta }: TSelectPostRatingMenuProps) => {
+   // states
+   const [showCommentaries, setshowCommentaries] = useState<boolean>(false);
    const menuOptions = [
       {
          action: "commentaries",
@@ -40,8 +48,23 @@ export const SelectReadingACtions = ({ cta }: TSelectPostRatingMenuProps) => {
       }
    ];
 
+   // handle pull comentaries
+   const handleAction = (action: string) => {
+      if (action === "commentaries") setshowCommentaries(true);
+   };
+
    return (
       <>
+         <PortalSecondary>
+            {showCommentaries && (
+               <PrimaryStack
+                  title='Commentaries'
+                  icon='comment'
+                  cta={{ handleClose: () => setshowCommentaries(false) }}>
+                  <CommentariesGrid />
+               </PrimaryStack>
+            )}
+         </PortalSecondary>
          <PrimaryMenuBkg
             color='1'
             cta={cta.handleCloseModal}
@@ -55,7 +78,7 @@ export const SelectReadingACtions = ({ cta }: TSelectPostRatingMenuProps) => {
                         iconShadow: option.color,
                         text: option.description
                      }}
-                     cta={() => console.log(option.action)}
+                     cta={{ handleOptionClick: () => handleAction(option.action) }}
                   />
                </div>
             ))}

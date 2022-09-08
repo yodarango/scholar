@@ -4,14 +4,14 @@
    align-items: flex-start;
    justify-content: flex-start;
    flex-wrap: wrap;
-   column-gap: var(--spacing-m);
+   column-gap: var(--spacing-s);
 }
 
 .child {
    display: flex;
    align-items: flex-start;
    justify-content: center;
-   flex-basis: 31.4%;
+   flex-basis: 29%; /* WARNING: this is set to this size because the commentaries grid requires it theis size*/
 }
 
 .child:nth-child(3n - 1) {

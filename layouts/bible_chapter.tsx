@@ -11,6 +11,8 @@ import { RoundLoader } from "../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
 import { Header } from "../fragments/Typography/header";
 import { Parragraph } from "../fragments/Typography/parragraph";
+import Portal from "../hoc/potal";
+import { SelectReadingActions } from "./menus/select_reading_actions";
 
 type chapterProps = {
    chapterId: string;
@@ -19,6 +21,8 @@ type chapterProps = {
 };
 export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapterProps) => {
    // states
+   const [showReadingMenu, setshowReadingMenu] = useState<boolean>(false);
+
    const [data, setdata] = useState<any>(`1
      [1] In the beginning God created the heaven and the earth.  [2] And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
      [32] And God said, Let there be light: and there was light.  [4] And God saw the light, that it was good: and God divided the light from the darkness.  [5] And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.
@@ -123,16 +127,26 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
    //       );
    //    }
    // };
-   console.log(data);
+   //console.log(data);
 
+   // TODO: Parse references since they are being ignored rn see https://github.com/yodarango-saas/scholar/issues/107#issue-1367003020
    const chapterTitle = data.split("\n")[0];
    const versesArray = data.split(/\[[0-9]*\]/g);
-   console.log(versesArray);
+   const references = versesArray[versesArray.length - 1].split(/([0-9].[0-9])/g);
+   console.log(references);
+   console.log(versesArray[versesArray.length - 1]);
 
    return (
       <>
          {loading === "done" && data && (
             <div className={styles.mainWrapper}>
+               <Portal>
+                  {showReadingMenu && (
+                     <SelectReadingActions
+                        cta={{ handleCloseModal: () => setshowReadingMenu(false) }}
+                     />
+                  )}
+               </Portal>
                <div className={styles.chapter}>
                   <Header text={`Chapter ${chapterTitle} `} size='main' color='#B293FE' type={3} />
                </div>
@@ -144,6 +158,7 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                         index + 1 !== versesArray.length && (
                            <div className={styles.verseLine}>
                               <span
+                                 onClick={() => setshowReadingMenu(true)}
                                  className={`${styles.verseNumber} ${
                                     index > 99 && styles.bigVerseNumber
                                  }`}>

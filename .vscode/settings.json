@@ -8,7 +8,8 @@
       "supported_bible_versions": "api",
       "menus": "flow",
       "navs": "fastlane",
-      "scrollers": "gradle"
+      "scrollers": "gradle",
+      "user_content": "content"
    },
    "material-icon-theme.folders.color": "#987ef1",
    "peacock.color": "#7350ec",

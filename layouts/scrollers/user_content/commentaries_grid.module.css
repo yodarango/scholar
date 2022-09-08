@@ -1,0 +1,12 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.search {
+   width: 100%;
+   margin-bottom: var(--spacing-ml);
+}
+
+.unevenGrid {
+   margin-bottom: var(--spacing-ml);
+}
