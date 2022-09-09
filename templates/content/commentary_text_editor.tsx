@@ -8,10 +8,7 @@ import { TextEditorVerseSelection } from "../../fragments/text_editor_verse_sele
 import styles from "./commentary_text_editor.module.css";
 
 // helpers
-import {
-   handlePostCommentary,
-   ThandlePostCommentary
-} from "../../helpers/functions/posts/commentary_post";
+import { ThandlePostCommentary } from "../../helpers/functions/posts/commentary_post";
 import { Bible, TBible } from "../../data/bible";
 import { TBibleVerse } from "../../types/bible_api";
 
@@ -29,6 +26,10 @@ type TCommentaryTextEditorProps = {
    postCategory?: string;
    postReferences?: string[];
    postPrivacy?: boolean;
+   closeodalHref?: string | undefined;
+   cta?: {
+      handleCloseModal: () => void;
+   };
 };
 
 export const CommentaryTextEditor = ({
@@ -44,7 +45,9 @@ export const CommentaryTextEditor = ({
    postCreatedDate = "",
    postCategory = "",
    postReferences = [],
-   postPrivacy = false
+   postPrivacy = false,
+   closeodalHref,
+   cta
 }: TCommentaryTextEditorProps) => {
    // state
    // postReferencedVerses do not update on reducer changing
@@ -132,6 +135,7 @@ export const CommentaryTextEditor = ({
                postCategory={postCategory}
                postReferences={state.referencedVerses}
                postPrivacy={postPrivacy}
+               closeodalHref={closeodalHref}
                cta={{
                   handleCategorySelection: (category) =>
                      dispatch({ type: "category", payload: category }),
@@ -142,6 +146,7 @@ export const CommentaryTextEditor = ({
                      dispatch({ type: "referencedVersesRemove", payload: verses }),
                   handleRefVerseSelection: (verse) =>
                      dispatch({ type: "referencedVerses", payload: verse }),
+                  handleCloseModal: cta?.handleCloseModal,
                   handlePost
                }}
             />

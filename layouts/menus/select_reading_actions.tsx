@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 // comps
@@ -5,22 +6,24 @@ import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_pri
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 import PortalSecondary from "../../hoc/portal_secondary";
+import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
 import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
 import { PrimaryStack } from "../stacks/templates/primary_stack";
-import { SecondaryStack } from "../stacks/templates/secondary_stack";
 
 // styles
 import styles from "./select_menu_global.module.css";
+import stylesLocal from "./select_reading_actions.module.css";
 
 export type TSelectPostRatingMenuProps = {
+   verseId: string;
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
-export const SelectReadingActions = ({ cta }: TSelectPostRatingMenuProps) => {
+export const SelectReadingActions = ({ cta, verseId }: TSelectPostRatingMenuProps) => {
    // states
-   const [showCommentaries, setshowCommentaries] = useState<boolean>(false);
+   const [showStackModal, setshowStackModal] = useState<number>(0);
    const menuOptions = [
       {
          action: "commentaries",
@@ -48,21 +51,41 @@ export const SelectReadingActions = ({ cta }: TSelectPostRatingMenuProps) => {
       }
    ];
 
-   // handle pull comentaries
+   // reouter
+   const router = useRouter();
+   // handle actions
    const handleAction = (action: string) => {
-      if (action === "commentaries") setshowCommentaries(true);
+      console.log(action);
+      if (action === "commentaries") setshowStackModal(1);
+      if (action === "comment") {
+         router.query["verse-id"] = verseId;
+         setshowStackModal(2);
+      }
    };
 
    return (
       <>
          <PortalSecondary>
-            {showCommentaries && (
+            {showStackModal === 1 && (
                <PrimaryStack
                   title='Commentaries'
-                  icon='comment'
-                  cta={{ handleClose: () => setshowCommentaries(false) }}>
-                  <CommentariesGrid />
+                  icon='chat'
+                  cta={{ handleClose: () => cta.handleCloseModal() }}>
+                  <CommentariesGrid verseId={verseId} />
                </PrimaryStack>
+            )}
+            {showStackModal === 2 && (
+               <div className={stylesLocal.newCommentStack}>
+                  <div className={stylesLocal.commenaryEditor}>
+                     <CommentaryTextEditor
+                        userAuthority={1}
+                        userId='123'
+                        username='Username'
+                        avatar='/images/user_avatar'
+                        cta={{ handleCloseModal: () => cta.handleCloseModal() }}
+                     />
+                  </div>
+               </div>
             )}
          </PortalSecondary>
          <PrimaryMenuBkg

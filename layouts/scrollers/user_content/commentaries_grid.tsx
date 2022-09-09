@@ -16,9 +16,46 @@ type Commentary = {
    userAuthority: number;
 };
 
-export const CommentariesGrid = () => {
+type TCommentariesGridProps = {
+   verseId: string;
+};
+
+export const CommentariesGrid = ({ verseId }: TCommentariesGridProps) => {
+   const [commentariesImmutable, setcommentariesImmmutable] = useState<Commentary[]>([]);
    const [commentaries, setcommentaries] = useState<Commentary[]>([]);
    useEffect(() => {
+      setcommentariesImmmutable([
+         {
+            userId: "123",
+            userAvatar: "images/user_avatars/default.png",
+            username: "JohnDoe",
+            userAuthority: 1
+         },
+         {
+            userId: "123",
+            userAvatar: "images/user_avatars/default.png",
+            username: "JohnDoe",
+            userAuthority: 1
+         },
+         {
+            userId: "123",
+            userAvatar: "images/user_avatars/default.png",
+            username: "JohnDoe",
+            userAuthority: 1
+         },
+         {
+            userId: "123",
+            userAvatar: "images/user_avatars/default.png",
+            username: "JohnDoe",
+            userAuthority: 1
+         },
+         {
+            userId: "123",
+            userAvatar: "images/user_avatars/default.png",
+            username: "JohnDoe",
+            userAuthority: 1
+         }
+      ]);
       setcommentaries([
          {
             userId: "123",
@@ -55,12 +92,18 @@ export const CommentariesGrid = () => {
    }, []);
 
    // handle search for the user
-   const handleUserSearch = (user: string) => {
-      console.log(user);
+   const handleUserSearch = (value: string) => {
+      const findUser = commentariesImmutable.filter((user) => {
+         const u = user.username.toLocaleLowerCase();
+         return u.includes(value.toLocaleLowerCase());
+      });
+
+      setcommentaries(findUser);
    };
 
    // handle get more commentaries
    const getMoreCommentaies = () => {
+      verseId;
       // fetch commentaries
    };
 
@@ -75,8 +118,9 @@ export const CommentariesGrid = () => {
          </div>
          <div className={styles.unevenGrid}>
             <UnevenGrid>
-               {commentaries.map((commentary) => (
+               {commentaries.map((commentary, index: number) => (
                   <UserAvatarWUsername
+                     key={index}
                      userId={commentary.userId}
                      userAuthority={commentary.userAuthority}
                      flowV={true}

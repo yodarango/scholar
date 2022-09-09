@@ -29,6 +29,7 @@ type TTextEditorProps = {
    titleMaxL?: number;
    titleDefaultValue?: string;
    titlePlaceHolder?: string;
+   closeodalHref?: string | undefined;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -37,6 +38,7 @@ type TTextEditorProps = {
       handleBody: (body: string) => void;
       handleReferencedVerses: (verses: string[]) => void;
       handleTitleValue?: (title: string) => void;
+      handleCloseModal?: () => void;
    };
 };
 
@@ -57,6 +59,7 @@ export const TextEditor = ({
    titleDefaultValue = "",
    titlePlaceHolder,
    renderClose = true,
+   closeodalHref,
    cta
 }: TTextEditorProps) => {
    // router
@@ -66,7 +69,10 @@ export const TextEditor = ({
       <div className={styles.mainWrapper}>
          {renderClose && (
             <div className={styles.close}>
-               <CloseContent cta={{ handleClick: () => router.push("/commentary") }} />
+               {closeodalHref && <CloseContent href={closeodalHref} />}
+               {cta.handleCloseModal && (
+                  <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
+               )}
             </div>
          )}
          <div className={styles.textArea}>

@@ -10,9 +10,8 @@ import { fetchBibleChapter } from "../helpers/APIs/fetch_bible_chapter";
 import { RoundLoader } from "../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
 import { Header } from "../fragments/Typography/header";
-import { Parragraph } from "../fragments/Typography/parragraph";
-import Portal from "../hoc/potal";
 import { SelectReadingActions } from "./menus/select_reading_actions";
+import Portal from "../hoc/potal";
 
 type chapterProps = {
    chapterId: string;
@@ -21,7 +20,7 @@ type chapterProps = {
 };
 export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapterProps) => {
    // states
-   const [showReadingMenu, setshowReadingMenu] = useState<boolean>(false);
+   const [showReadingMenu, setshowReadingMenu] = useState<undefined | string>(undefined);
 
    const [data, setdata] = useState<any>(`1
      [1] In the beginning God created the heaven and the earth.  [2] And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
@@ -132,9 +131,6 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
    // TODO: Parse references since they are being ignored rn see https://github.com/yodarango-saas/scholar/issues/107#issue-1367003020
    const chapterTitle = data.split("\n")[0];
    const versesArray = data.split(/\[[0-9]*\]/g);
-   const references = versesArray[versesArray.length - 1].split(/([0-9].[0-9])/g);
-   console.log(references);
-   console.log(versesArray[versesArray.length - 1]);
 
    return (
       <>
@@ -143,7 +139,8 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                <Portal>
                   {showReadingMenu && (
                      <SelectReadingActions
-                        cta={{ handleCloseModal: () => setshowReadingMenu(false) }}
+                        verseId={showReadingMenu}
+                        cta={{ handleCloseModal: () => setshowReadingMenu(undefined) }}
                      />
                   )}
                </Portal>
@@ -156,9 +153,9 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                         // exclude the chapter and the references
                         index !== 0 &&
                         index + 1 !== versesArray.length && (
-                           <div className={styles.verseLine}>
+                           <div className={styles.verseLine} key={index}>
                               <span
-                                 onClick={() => setshowReadingMenu(true)}
+                                 onClick={() => setshowReadingMenu(`${chapterId}.${index}`)}
                                  className={`${styles.verseNumber} ${
                                     index > 99 && styles.bigVerseNumber
                                  }`}>

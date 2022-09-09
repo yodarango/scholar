@@ -84,16 +84,14 @@ export const TextEditorVerseSelection = ({ cta }: TTextEditorVerseSelectionProps
                <div className={styles.bibleBooksStack}>
                   <PrimaryStack
                      title='Select scripture'
-                     cta={() => setshowChooseScriptureModal(false)}
-                     content={
-                        <BibleBooksWrapper
-                           versionId='de4e12af7f28f599-02'
-                           stopAtVerse={false}
-                           stopAtChapter={false}
-                           cta={{ handleChoice: (id) => handlerefVerseSelection(id) }}
-                        />
-                     }
-                  />
+                     cta={{ handleClose: () => setshowChooseScriptureModal(false) }}>
+                     <BibleBooksWrapper
+                        versionId='de4e12af7f28f599-02'
+                        stopAtVerse={false}
+                        stopAtChapter={false}
+                        cta={{ handleChoice: (id) => handlerefVerseSelection(id) }}
+                     />
+                  </PrimaryStack>
                </div>
             )}
          </Portal>
