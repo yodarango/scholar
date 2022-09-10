@@ -10,8 +10,12 @@ import { fetchBibleChapter } from "../helpers/APIs/fetch_bible_chapter";
 import { RoundLoader } from "../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
 import { Header } from "../fragments/Typography/header";
-import { SelectReadingActions } from "./menus/select_reading_actions";
+import { SelectReadingActions, TChapterData } from "./menus/select_reading_actions";
 import Portal from "../hoc/potal";
+
+// helpers
+import { Bible } from "../data/bible";
+import { higlighterColorPicker } from "../data/color_picker";
 
 type chapterProps = {
    chapterId: string;
@@ -20,8 +24,8 @@ type chapterProps = {
 };
 export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapterProps) => {
    // states
-   const [showReadingMenu, setshowReadingMenu] = useState<undefined | string>(undefined);
-   const [highlightedVerses, sethighlightedVerses] = useState<string[]>([""]);
+   const [showReadingMenu, setshowReadingMenu] = useState<undefined | TChapterData>(undefined);
+   const [highlightedVerses, sethighlightedVerses] = useState<string[]>([]);
 
    const [data, setdata] = useState<any>(`1
      [1] In the beginning God created the heaven and the earth.  [2] And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
@@ -77,8 +81,23 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
       //fetchData();
    }, []);
 
-   const handleHighlightVerse = (verseId: string) => {
-      console.log(verseId);
+   const handleHighlightVerse = (
+      color: string | { light: string; dark: string },
+      verseId: string,
+      ID: string
+   ) => {
+      const highlightedVerse: string = `${verseId}:${ID}`;
+
+      //console.log("current", highlightedVerse);
+      // exclude the verse being highlighted from the saved verses in case it already exists
+      const findVerse = highlightedVerses.filter(
+         (highlight) => highlight && highlight.split(":")[0] !== verseId
+      );
+      console.log("found?", findVerse);
+      sethighlightedVerses([...findVerse, `${highlightedVerse}`]);
+
+      // close modal
+      setshowReadingMenu(undefined);
    };
 
    // TODO: Parse references since they are being ignored rn see https://github.com/yodarango-saas/scholar/issues/107#issue-1367003020
@@ -92,9 +111,7 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                <Portal>
                   {showReadingMenu && (
                      <SelectReadingActions
-                        verse=''
-                        verseCitation=''
-                        verseId={showReadingMenu}
+                        data={showReadingMenu}
                         cta={{
                            handleCloseModal: () => setshowReadingMenu(undefined),
                            handleHighlightVerse
@@ -106,26 +123,52 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                   <Header text={`Chapter ${chapterTitle} `} size='main' color='#B293FE' type={3} />
                </div>
                <div className={styles.versesWrapper}>
-                  {versesArray.map(
-                     (verse: string, index: number) =>
-                        // exclude the chapter and the references
+                  {versesArray.map((verse: string, index: number) => {
+                     // check if the verse is Highlighted
+                     const isHighlighted = highlightedVerses.find(
+                        (verse) => verse && verse.split(":")[0] === `${chapterId}.${index}`
+                     );
+
+                     const highlight = isHighlighted ? isHighlighted.split(":")[1] : "";
+
+                     // get the metadata for the highlighted color if found
+                     const getHighlighMeta = higlighterColorPicker.find(
+                        (meta) => meta.ID === highlight
+                     );
+
+                     return (
                         index !== 0 &&
+                        // exclude the chapter and the references
                         index + 1 !== versesArray.length && (
-                           <div className={styles.verseLine} key={index}>
+                           <div
+                              className={styles.verseLine}
+                              key={index}
+                              style={{ backgroundColor: getHighlighMeta?.bkgColor }}>
                               <span
-                                 onClick={() => setshowReadingMenu(`${chapterId}.${index}`)}
+                                 onClick={() =>
+                                    setshowReadingMenu({
+                                       verseId: `${chapterId}.${index}`,
+                                       verseNumber: `${index}`,
+                                       verse,
+                                       chapter: `${chapterId.split(".")[1]}`,
+                                       book: `${Bible.filter(
+                                          (b) => b.bookId === chapterId.split(".")[0]
+                                       ).map((b) => b.bookTitle)}`
+                                    })
+                                 }
                                  className={`${styles.verseNumber} ${
                                     index > 99 && styles.bigVerseNumber
                                  }`}>
                                  {index}
                               </span>
-                              <p className={styles.verse}>
+                              <p className={styles.verse} style={{ color: getHighlighMeta?.color }}>
                                  <span className={styles.tab}></span>
                                  {verse}
                               </p>
                            </div>
                         )
-                  )}
+                     );
+                  })}
                </div>
             </div>
          )}

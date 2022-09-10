@@ -5,7 +5,6 @@ type TGridPrimaryProps = {
 };
 
 export const GridPrimary = ({ children }: TGridPrimaryProps) => {
-   console.log(children);
    return (
       <div className={styles.mainWrapper}>
          {children.map((child: JSX.Element, index: number) => (

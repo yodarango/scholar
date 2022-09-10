@@ -1,0 +1,14 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: var(--spacing-ml);
+   padding-bottom: calc(var(--spacing-l) + var(--spacing-l));
+}
+
+.color:last-child {
+   margin: 0 auto 0 0;
+   justify-self: flex-start;
+}

@@ -14,19 +14,22 @@ import styles from "./commentary.module.css";
 import { TCommentary } from "../../../types/posts";
 
 type TCommentaryProps = {
+   customWidth?: boolean;
    commentary: TCommentary;
    cta: {
       handleDelete: (id: string) => void;
    };
 };
 
-export const Commentary = ({ commentary, cta }: TCommentaryProps) => {
+export const Commentary = ({ commentary, cta, customWidth = false }: TCommentaryProps) => {
    // parse the raw category coming from the DB
    const categoryIdNormalized = commentary.category_tags.split(" ")[0].replace("#", "");
    const categoryId = `category-${categoryIdNormalized}`;
 
    return (
-      <div className={`${styles.mainWrapper}`} id={categoryId}>
+      <div
+         className={`${styles.mainWrapper} ${customWidth && styles.mainWrapperCustomWidth}`}
+         id={categoryId}>
          {/* ---------------- header -------------- */}
          <div className={styles.header}>
             <PostCardHeader

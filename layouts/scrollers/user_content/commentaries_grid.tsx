@@ -65,49 +65,49 @@ export const CommentariesGrid = ({ verseCitation, verseId, verse }: TCommentarie
             <div className={styles.verse}>
                <Parragraph text={verse} size='main' />
             </div>
-
-            <div className={styles.gridWrapper}>
-               <GridPrimary>
-                  {commentaries.map((commentary: TCommentary, index: number) => (
-                     <div key={index}>
-                        <Commentary
-                           cta={{
-                              handleDelete: () => console.log("handle show post")
-                           }}
-                           commentary={{
-                              ID: commentary.ID,
-                              VERSE_ID: commentary.VERSE_ID,
-                              body: commentary.body,
-                              category_tags: commentary.category_tags,
-                              referenced_verses: commentary.referenced_verses,
-                              posted_on: commentary.posted_on,
-                              date: commentary.date,
-                              verse_citation: commentary.verse_citation,
-                              total_count: 5,
-                              postImage: commentary.postImage,
-                              creator: {
-                                 ID: commentary.creator.ID,
-                                 signature: commentary.creator.signature,
-                                 authority_level: commentary.creator.authority_level,
-                                 approval_rating: commentary.creator.approval_rating,
-                                 first_name: commentary.creator.first_name,
-                                 last_name: commentary.creator.last_name,
-                                 my_church: commentary.creator.my_church,
-                                 avatar: commentary.creator.avatar
-                              },
-                              comments: [{ total_count: 20 }],
-                              approvals: [
-                                 {
-                                    total_count: 5,
-                                    average_count: 5
-                                 }
-                              ]
-                           }}
-                        />
-                     </div>
-                  ))}
-               </GridPrimary>
-            </div>
+         </div>
+         <div className={styles.gridWrapper}>
+            <GridPrimary>
+               {commentaries.map((commentary: TCommentary, index: number) => (
+                  <div key={index} className={styles.child}>
+                     <Commentary
+                        customWidth={true}
+                        cta={{
+                           handleDelete: () => console.log("handle show post")
+                        }}
+                        commentary={{
+                           ID: commentary.ID,
+                           VERSE_ID: commentary.VERSE_ID,
+                           body: commentary.body,
+                           category_tags: commentary.category_tags,
+                           referenced_verses: commentary.referenced_verses,
+                           posted_on: commentary.posted_on,
+                           date: commentary.date,
+                           verse_citation: commentary.verse_citation,
+                           total_count: 5,
+                           postImage: commentary.postImage,
+                           creator: {
+                              ID: commentary.creator.ID,
+                              signature: commentary.creator.signature,
+                              authority_level: commentary.creator.authority_level,
+                              approval_rating: commentary.creator.approval_rating,
+                              first_name: commentary.creator.first_name,
+                              last_name: commentary.creator.last_name,
+                              my_church: commentary.creator.my_church,
+                              avatar: commentary.creator.avatar
+                           },
+                           comments: [{ total_count: 20 }],
+                           approvals: [
+                              {
+                                 total_count: 5,
+                                 average_count: 5
+                              }
+                           ]
+                        }}
+                     />
+                  </div>
+               ))}
+            </GridPrimary>
          </div>
       </div>
    );

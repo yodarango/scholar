@@ -1,8 +1,13 @@
-.mainWrapper {
+.mainWrapper,
+.mainWrapperCustomWidth {
    width: 20rem;
    padding: var(--spacing-xs) var(--spacing-xxs);
    border-radius: 2em;
    box-shadow: var(--shadow-s);
+}
+
+.mainWrapperCustomWidth {
+   width: 100%;
 }
 
 .header {

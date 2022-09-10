@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { GradientBackground } from "../../../fragments/buttons/gradient_background";
+import { GradientBackground } from "./gradient_background";
 
 export default {
    title: "fragments/buttons/Gradient Background",

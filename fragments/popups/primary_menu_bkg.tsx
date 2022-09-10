@@ -6,18 +6,20 @@ import { Header } from "../Typography/header";
 import styles from "./primary_menu_bkg.module.css";
 
 type TPrimaryMenuBkgProps = {
-   content: any;
+   children: any;
    color: string;
    title?: string;
-   cta: React.MouseEventHandler<HTMLDivElement>;
    customColors?: {
       light: string;
       dark: string;
    };
+   cta: {
+      handleClose: () => void;
+   };
 };
 
 export const PrimaryMenuBkg = ({
-   content,
+   children,
    color,
    customColors,
    cta,
@@ -47,14 +49,14 @@ export const PrimaryMenuBkg = ({
    return (
       <div className={styles.mainWrapper} style={{ backgroundImage: bkgColor }}>
          <div className={styles.close}>
-            <CloseContent cta={{ handleClick: cta }} size='2.5rem' />
+            <CloseContent cta={{ handleClick: cta.handleClose }} size='2.5rem' />
          </div>
          {title && (
             <div className={styles.title}>
                <Header size='main' type={3} text={title} />{" "}
             </div>
          )}
-         <div className={styles.contentWrapper}>{content}</div>
+         <div className={styles.contentWrapper}>{children}</div>
       </div>
    );
 };

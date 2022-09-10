@@ -16,6 +16,7 @@ import styles from "./gradient_background.module.css";
 
 type TGradientBackgroundProps = {
    background?: string;
+   bkgSolid?: string;
    backgroundCustom?: {
       light: string;
       dark: string;
@@ -28,6 +29,7 @@ type TGradientBackgroundProps = {
 export const GradientBackground = ({
    backgroundCustom,
    background,
+   bkgSolid,
    cta,
    customSize
 }: TGradientBackgroundProps) => {
@@ -81,7 +83,16 @@ export const GradientBackground = ({
             </button>
          )}
 
-         {!background && !backgroundCustom && (
+         {bkgSolid && (
+            <button
+               className={`${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}`}
+               style={{ backgroundColor: bkgSolid, boxShadow: `.2rem .2rem .5rem ${bkgSolid}` }}
+               onClick={() => cta.handleSelection(bkgSolid)}>
+               <span className={styles.shadow} id={backgroundColor}></span>
+            </button>
+         )}
+
+         {!background && !backgroundCustom && !bkgSolid && (
             <button
                className={`${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper} ${
                   styles.none
