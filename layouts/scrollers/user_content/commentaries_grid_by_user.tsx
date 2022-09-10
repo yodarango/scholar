@@ -7,7 +7,7 @@ import { SearchInput } from "../../../fragments/inputs/search_input";
 import { Primary } from "../../../fragments/buttons/primary";
 
 // styles
-import styles from "./commentaries_grid.module.css";
+import styles from "./commentaries_grid_by_user.module.css";
 
 type Commentary = {
    userId: string;
@@ -20,7 +20,7 @@ type TCommentariesGridProps = {
    verseId: string;
 };
 
-export const CommentariesGrid = ({ verseId }: TCommentariesGridProps) => {
+export const CommentariesGridByUser = ({ verseId }: TCommentariesGridProps) => {
    const [commentariesImmutable, setcommentariesImmmutable] = useState<Commentary[]>([]);
    const [commentaries, setcommentaries] = useState<Commentary[]>([]);
    useEffect(() => {

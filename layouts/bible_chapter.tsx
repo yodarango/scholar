@@ -21,6 +21,7 @@ type chapterProps = {
 export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapterProps) => {
    // states
    const [showReadingMenu, setshowReadingMenu] = useState<undefined | string>(undefined);
+   const [highlightedVerses, sethighlightedVerses] = useState<string[]>([""]);
 
    const [data, setdata] = useState<any>(`1
      [1] In the beginning God created the heaven and the earth.  [2] And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
@@ -58,14 +59,16 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
 
    const fetchData = async () => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
+      //const HLVerses = await getHighlightedVerses()
       if (chapter === undefined) {
          setloading("error");
          setdata([]);
+         sethighlightedVerses([]);
          setcopyright("");
       } else {
          setloading("done");
          setdata(chapter.content);
-         console.log(chapter.content);
+         sethighlightedVerses([]);
          setcopyright(chapter.copyright);
       }
    };
@@ -74,59 +77,9 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
       //fetchData();
    }, []);
 
-   // ==============FUNCTION:  Get a referenced scripture =================
-   // const [openRefState, setOpenRefState] = useState<JSX.Element | boolean>(false);
-   // const openNote = (e: any) => {
-   //    setOpenRefState(
-   //       <NotificationPopup
-   //          title='Note'
-   //          closeModal={() => setOpenRefState(false)}
-   //          contentString={e.target.textContent}
-   //          newClass={fetchNewChapterStyles.verseRefPopup}
-   //       />
-   //    );
-   // };
-
-   // const openReference = async (verseRef: string) => {
-   //    try {
-   //       const req = await fetch(
-   //          `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${verseRef}?content-type=html&include-verse-numbers=true&include-titles=true`,
-   //          {
-   //             method: "GET",
-   //             headers: {
-   //                "api-key": `${chosenKey}`
-   //             }
-   //          }
-   //       );
-
-   //       const verseData = await req.json();
-
-   //       setOpenRefState(
-   //          <NotificationPopup
-   //             title={verseData.data.reference}
-   //             closeModal={() => setOpenRefState(false)}
-   //             contentString={
-   //                <>
-   //                   <div dangerouslySetInnerHTML={{ __html: verseData.data.content }}></div>{" "}
-   //                   <span className='scriptures-copyright'>{verseData.data.copyright}</span>
-   //                </>
-   //             }
-   //             newClass={fetchNewChapterStyles.verseRefPopup}
-   //          />
-   //       );
-   //    } catch (error) {
-   //       console.log(error);
-   //       setOpenRefState(
-   //          <NotificationPopup
-   //             title='Sorry 🙁'
-   //             closeModal={() => setOpenRefState(false)}
-   //             contentString='Something went wrong while fetching the source'
-   //             newClass='notification-wrapper--Error'
-   //          />
-   //       );
-   //    }
-   // };
-   //console.log(data);
+   const handleHighlightVerse = (verseId: string) => {
+      console.log(verseId);
+   };
 
    // TODO: Parse references since they are being ignored rn see https://github.com/yodarango-saas/scholar/issues/107#issue-1367003020
    const chapterTitle = data.split("\n")[0];
@@ -140,7 +93,10 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                   {showReadingMenu && (
                      <SelectReadingActions
                         verseId={showReadingMenu}
-                        cta={{ handleCloseModal: () => setshowReadingMenu(undefined) }}
+                        cta={{
+                           handleCloseModal: () => setshowReadingMenu(undefined),
+                           handleHighlightVerse
+                        }}
                      />
                   )}
                </Portal>

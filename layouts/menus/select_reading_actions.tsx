@@ -7,8 +7,8 @@ import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 import PortalSecondary from "../../hoc/portal_secondary";
 import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
-import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
 import { PrimaryStack } from "../stacks/templates/primary_stack";
+import { SelectCategoryTag } from "./select_category_tag";
 
 // styles
 import styles from "./select_menu_global.module.css";
@@ -18,6 +18,7 @@ export type TSelectPostRatingMenuProps = {
    verseId: string;
    cta: {
       handleCloseModal: () => void;
+      handleHighlightVerse: (verseId: string) => void;
    };
 };
 
@@ -61,6 +62,7 @@ export const SelectReadingActions = ({ cta, verseId }: TSelectPostRatingMenuProp
          router.query["verse-id"] = verseId;
          setshowStackModal(2);
       }
+      if (action === "highlight") setshowStackModal(3);
    };
 
    return (
@@ -71,7 +73,7 @@ export const SelectReadingActions = ({ cta, verseId }: TSelectPostRatingMenuProp
                   title='Commentaries'
                   icon='chat'
                   cta={{ handleClose: () => cta.handleCloseModal() }}>
-                  <CommentariesGrid verseId={verseId} />
+                  {/* Missing comp create it : Figma */}
                </PrimaryStack>
             )}
             {showStackModal === 2 && (
@@ -87,6 +89,10 @@ export const SelectReadingActions = ({ cta, verseId }: TSelectPostRatingMenuProp
                   </div>
                </div>
             )}
+            {
+               showStackModal === 3 && verseId // delete this
+               // missing component create custom color: Figma
+            }
          </PortalSecondary>
          <PrimaryMenuBkg
             color='1'
