@@ -7,8 +7,8 @@ import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 import PortalSecondary from "../../hoc/portal_secondary";
 import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
+import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
 import { PrimaryStack } from "../stacks/templates/primary_stack";
-import { SelectCategoryTag } from "./select_category_tag";
 
 // styles
 import styles from "./select_menu_global.module.css";
@@ -16,13 +16,20 @@ import stylesLocal from "./select_reading_actions.module.css";
 
 export type TSelectPostRatingMenuProps = {
    verseId: string;
+   verse: string;
+   verseCitation: string;
    cta: {
       handleCloseModal: () => void;
       handleHighlightVerse: (verseId: string) => void;
    };
 };
 
-export const SelectReadingActions = ({ cta, verseId }: TSelectPostRatingMenuProps) => {
+export const SelectReadingActions = ({
+   cta,
+   verseId,
+   verse,
+   verseCitation
+}: TSelectPostRatingMenuProps) => {
    // states
    const [showStackModal, setshowStackModal] = useState<number>(0);
    const menuOptions = [
@@ -73,7 +80,7 @@ export const SelectReadingActions = ({ cta, verseId }: TSelectPostRatingMenuProp
                   title='Commentaries'
                   icon='chat'
                   cta={{ handleClose: () => cta.handleCloseModal() }}>
-                  {/* Missing comp create it : Figma */}
+                  <CommentariesGrid verse={verse} verseCitation={verseCitation} verseId={verseId} />
                </PrimaryStack>
             )}
             {showStackModal === 2 && (

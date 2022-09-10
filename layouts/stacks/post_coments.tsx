@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // comps
-import { PostCommentsWrapper } from "../scrollers/post_comments_wrapper";
+import { PostCommentsWrapper } from "../scrollers/user_content/post_comments_wrapper";
 import { PrimaryStack } from "./templates/primary_stack";
 import { PostCommentTextArea } from "../../fragments/inputs/post_comment_text_area";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
@@ -40,33 +40,29 @@ export const PostComments = ({ cta }: TPostCommentsProps) => {
       getPostComments();
    }, []);
    return (
-      <PrimaryStack
-         content={
-            <>
-               {loading === "done" && (
-                  <div className={styles.mainWrapper}>
-                     <div className={styles.postComments}>
-                        <PostCommentsWrapper postComments={postComments} />
-                     </div>
-                     <div className={styles.textArea}>
-                        <PostCommentTextArea cta={{ handleValue: cta.handleValue }} />
-                     </div>
+      <PrimaryStack title={"Comments"} cta={{ handleClose: cta.handleClose }}>
+         <>
+            {loading === "done" && (
+               <div className={styles.mainWrapper}>
+                  <div className={styles.postComments}>
+                     <PostCommentsWrapper postComments={postComments} />
                   </div>
-               )}
-               {loading === "loading" && (
-                  <div className={styles.loader}>
-                     <RoundLoader />
+                  <div className={styles.textArea}>
+                     <PostCommentTextArea cta={{ handleValue: cta.handleValue }} />
                   </div>
-               )}
-               {loading === "error" && (
-                  <div className={styles.loader}>
-                     <ResourceNotFoundError text={ServerErrors.postComments.text} />
-                  </div>
-               )}
-            </>
-         }
-         title={"Comments"}
-         cta={{ handleClose: cta.handleClose }}
-      />
+               </div>
+            )}
+            {loading === "loading" && (
+               <div className={styles.loader}>
+                  <RoundLoader />
+               </div>
+            )}
+            {loading === "error" && (
+               <div className={styles.loader}>
+                  <ResourceNotFoundError text={ServerErrors.postComments.text} />
+               </div>
+            )}
+         </>
+      </PrimaryStack>
    );
 };

@@ -1,0 +1,34 @@
+export type TAllPosts = {
+   thought_approval_total_count: number;
+   quote_approval_total_count: number;
+   commentaries_approval_total_count: number;
+   //    commentaries: Tcommentary[];
+   //    thoughts: Tthought[];
+   //    quotes: TsingleStory[];
+   //    sermon_notes: TsermonPost[];
+};
+
+export type TUser = {
+   ID: string;
+   MONGO_DB_ID: string;
+   signature: string;
+   first_name: string;
+   last_name: string;
+   birth_date: string;
+   gender: number;
+   email: string;
+   date_registered: string;
+   authority_level: number;
+   approval_rating: number;
+   avatar: string;
+   is_patron?: boolean;
+   my_church: string;
+   my_favorite_color: string;
+   my_job: string;
+   my_true_color_personality_test: string;
+   my_story: string;
+   my_ministry: string;
+   my_favorite_verse: string;
+   all_posts?: TAllPosts;
+   all_posts_profile?: TAllPosts;
+};

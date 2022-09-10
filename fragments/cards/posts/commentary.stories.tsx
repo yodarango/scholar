@@ -10,9 +10,7 @@ export default {
 export const ChapterCount: ComponentStory<typeof Commentary> = () => (
    <Commentary
       cta={{
-         handleShowRatePost: () => console.log("handle show post"),
-         handleShowPostComments: () => console.log("handle show post comments"),
-         handleShowPostOptions: () => console.log("handle show post options")
+         handleDelete: () => {}
       }}
       commentary={{
          ID: "1",

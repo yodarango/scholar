@@ -49,7 +49,7 @@ import { TeritaryStack } from "../layouts/stacks/templates/teritary_stack";
 import { SermonNoteEditor } from "../templates/content/sermon_note_editor";
 import { AboutMe } from "../layouts/account/profile/about_me";
 import { BibleChapter } from "../layouts/bible_chapter";
-import { CommentariesGrid } from "../layouts/scrollers/user_content/commentaries_grid";
+import { CommentariesGridByUser } from "../layouts/scrollers/user_content/commentaries_grid_by_user";
 
 const Test = () => {
    return (

@@ -11,6 +11,7 @@
    display: flex;
    align-items: flex-start;
    justify-content: center;
+   /* width: 29%; maybe try this instead/ 
    flex-basis: 29%; /* WARNING: this is set to this size because the commentaries grid requires it theis size*/
 }
 

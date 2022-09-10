@@ -92,6 +92,8 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                <Portal>
                   {showReadingMenu && (
                      <SelectReadingActions
+                        verse=''
+                        verseCitation=''
                         verseId={showReadingMenu}
                         cta={{
                            handleCloseModal: () => setshowReadingMenu(undefined),

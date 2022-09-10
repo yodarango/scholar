@@ -1,0 +1,21 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.verseWrapper {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+   border-bottom: 2px solid var(--third-color);
+}
+
+.citation {
+   margin-bottom: var(--spacing-xs);
+}
+
+.verse {
+   margin-bottom: var(--spacing-s);
+}
+
+.gridWrapper {
+   width: 100%;
+}
