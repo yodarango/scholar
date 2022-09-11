@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+-  This component renders a reading full Bible chapter of the Bible APi. 
+-  The rendering is control by a parent's state wich is dependant on the useRouter hook, 
+   so everytime a new Scripture is selected, the router is updated and this component 
+   re-rendered.
+-  this component passes down data to all his children as the prop {data} so that its
+   children do not have to refetch
+****************************************************************************************/
 // core
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -10,11 +18,10 @@ import { fetchBibleChapter } from "../helpers/APIs/fetch_bible_chapter";
 import { RoundLoader } from "../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
 import { Header } from "../fragments/Typography/header";
-import { SelectReadingActions, TChapterData } from "./menus/select_reading_actions";
+import { SelectReadingActions } from "./menus/select_reading_actions";
 import Portal from "../hoc/potal";
 
 // helpers
-import { Bible } from "../data/bible";
 import { higlighterColorPicker } from "../data/color_picker";
 
 type chapterProps = {
@@ -22,96 +29,76 @@ type chapterProps = {
    versionId: string;
    fontSize?: string;
 };
+
 export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapterProps) => {
    // states
-   const [showReadingMenu, setshowReadingMenu] = useState<undefined | TChapterData>(undefined);
+   const [showReadingMenu, setshowReadingMenu] =
+      useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
    const [highlightedVerses, sethighlightedVerses] = useState<string[]>([]);
-
-   const [data, setdata] = useState<any>(`1
-     [1] In the beginning God created the heaven and the earth.  [2] And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
-     [32] And God said, Let there be light: and there was light.  [4] And God saw the light, that it was good: and God divided the light from the darkness.  [5] And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.
-     [62] ¶ And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters.  [7] And God made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament: and it was so.  [8] And God called the firmament Heaven. And the evening and the morning were the second day.
-     [92] ¶ And God said, Let the waters under the heaven be gathered together unto one place, and let the dry land appear: and it was so.  [10] And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good.  [11] And God said, Let the earth bring forth grass, the herb yielding seed, and the fruit tree yielding fruit after his kind, whose seed is in itself, upon the earth: and it was so.  [12] And the earth brought forth grass, and herb yielding seed after his kind, and the tree yielding fruit, whose seed was in itself, after his kind: and God saw that it was good.  [13] And the evening and the morning were the third day.
-     [142] ¶ And God said, Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days, and years:  [15] And let them be for lights in the firmament of the heaven to give light upon the earth: and it was so.  [16] And God made two great lights; the greater light to rule the day, and the lesser light to rule the night: he made the stars also.  [17] And God set them in the firmament of the heaven to give light upon the earth,  [18] And to rule over the day and over the night, and to divide the light from the darkness: and God saw that it was good.  [19] And the evening and the morning were the fourth day.
-     [202] And God said, Let the waters bring forth abundantly the moving creature that hath life, and fowl that may fly above the earth in the open firmament of heaven.  [21] And God created great whales, and every living creature that moveth, which the waters brought forth abundantly, after their kind, and every winged fowl after his kind: and God saw that it was good.  [22] And God blessed them, saying, Be fruitful, and multiply, and fill the waters in the seas, and let fowl multiply in the earth.  [23] And the evening and the morning were the fifth day.
-     [24] ¶ And God said, Let the earth bring forth the living creature after his kind, cattle, and creeping thing, and beast of the earth after his kind: and it was so.  [25] And God made the beast of the earth after his kind, and cattle after their kind, and every thing that creepeth upon the earth after his kind: and God saw that it was good.
-     [26] ¶ And God said, Let us make man in our image, after our likeness: and let them have dominion over the fish of the sea, and over the fowl of the air, and over the cattle, and over all the earth, and over every creeping thing that creepeth upon the earth.  [27] So God created man in his own image, in the image of God created he him; male and female created he them.  [28] And God blessed them, and God said unto them, Be fruitful, and multiply, and replenish the earth, and subdue it: and have dominion over the fish of the sea, and over the fowl of the air, and over every living thing that moveth upon the earth.
-     [29] ¶ And God said, Behold, I have given you every herb bearing seed, which is upon the face of all the earth, and every tree, in the which is the fruit of a tree yielding seed; to you it shall be for meat.  [30] And to every beast of the earth, and to every fowl of the air, and to every thing that creepeth upon the earth, wherein there is life, I have given every green herb for meat: and it was so.  [31] And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day.
-
-
-1.4 the light from…: Heb. between the light and between the darkness
-1.5 And the evening…: Heb. And the evening was, and the morning was etc.
-1.6 firmament: Heb. expansion
-1.8 And the evening…: Heb. And the evening was, and the morning was etc.
-1.11 grass: Heb. tender grass
-1.13 And the evening…: Heb. And the evening was, and the morning was etc.
-1.14 the day…: Heb. between the day and between the night
-1.16 to rule the day…: Heb. for the rule of the day, etc.
-1.19 And the evening…: Heb. And the evening was, and the morning was etc.
-1.20 moving: or, creeping
-1.20 life: Heb. soul
-1.20 fowl…: Heb. let fowl fly
-1.20 open…: Heb. face of the firmament of heaven
-1.23 And the evening…: Heb. And the evening was, and the morning was etc.
-1.28 moveth: Heb. creepeth
-1.29 bearing…: Heb. seeding seed
-1.29 yielding…: Heb. seeding seed
-1.30 life: Heb. a living soul
-1.31 And the evening…: Heb. And the evening was, and the morning was etc.`);
-   const [copyright, setcopyright] = useState<string>("");
+   const [data, setdata] = useState<any>(null);
    const [loading, setloading] = useState("done");
 
+   // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async () => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
       //const HLVerses = await getHighlightedVerses()
       if (chapter === undefined) {
          setloading("error");
-         setdata([]);
+         setdata(null);
          sethighlightedVerses([]);
-         setcopyright("");
       } else {
          setloading("done");
-         setdata(chapter.content);
+         setdata(chapter);
          sethighlightedVerses([]);
-         setcopyright(chapter.copyright);
       }
    };
 
    useEffect(() => {
-      //fetchData();
+      fetchData();
    }, []);
 
+   // highlight the verse
    const handleHighlightVerse = (
       color: string | { light: string; dark: string },
       verseId: string,
       ID: string
    ) => {
-      const highlightedVerse: string = `${verseId}:${ID}`;
+      // check if the color is transparent with ID of -1 which means the user is removeing the highlight
+      if (color === "transparent") {
+         // remove the verse from the array
+         const findVerse = highlightedVerses.filter(
+            (highlight) => highlight && highlight.split(":")[0] !== verseId
+         );
 
-      //console.log("current", highlightedVerse);
-      // exclude the verse being highlighted from the saved verses in case it already exists
-      const findVerse = highlightedVerses.filter(
-         (highlight) => highlight && highlight.split(":")[0] !== verseId
-      );
-      console.log("found?", findVerse);
-      sethighlightedVerses([...findVerse, `${highlightedVerse}`]);
+         sethighlightedVerses(findVerse);
+      } else {
+         const highlightedVerse: string = `${verseId}:${ID}`;
+
+         // exclude the verse being highlighted from the saved verses in case it already exists
+         const findVerse = highlightedVerses.filter(
+            (highlight) => highlight && highlight.split(":")[0] !== verseId
+         );
+
+         sethighlightedVerses([...findVerse, `${highlightedVerse}`]);
+      }
 
       // close modal
       setshowReadingMenu(undefined);
    };
 
    // TODO: Parse references since they are being ignored rn see https://github.com/yodarango-saas/scholar/issues/107#issue-1367003020
-   const chapterTitle = data.split("\n")[0];
-   const versesArray = data.split(/\[[0-9]*\]/g);
+   const chapterTitle = data && data.content.split("\n")[0];
+   const versesArray = data && data.content.split(/\[[0-9]*\]/g);
 
    return (
       <>
          {loading === "done" && data && (
             <div className={styles.mainWrapper}>
+               {/* Portals */}
                <Portal>
                   {showReadingMenu && (
                      <SelectReadingActions
-                        data={showReadingMenu}
+                        data={{ ...data, ...showReadingMenu }}
                         cta={{
                            handleCloseModal: () => setshowReadingMenu(undefined),
                            handleHighlightVerse
@@ -122,6 +109,8 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                <div className={styles.chapter}>
                   <Header text={`Chapter ${chapterTitle} `} size='main' color='#B293FE' type={3} />
                </div>
+
+               {/* loop through the data array to render the Chapter  */}
                <div className={styles.versesWrapper}>
                   {versesArray.map((verse: string, index: number) => {
                      // check if the verse is Highlighted
@@ -147,13 +136,8 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                               <span
                                  onClick={() =>
                                     setshowReadingMenu({
-                                       verseId: `${chapterId}.${index}`,
                                        verseNumber: `${index}`,
-                                       verse,
-                                       chapter: `${chapterId.split(".")[1]}`,
-                                       book: `${Bible.filter(
-                                          (b) => b.bookId === chapterId.split(".")[0]
-                                       ).map((b) => b.bookTitle)}`
+                                       verseContent: verse
                                     })
                                  }
                                  className={`${styles.verseNumber} ${
@@ -172,8 +156,11 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
                </div>
             </div>
          )}
+
          {loading === "loading" && <RoundLoader />}
-         {loading === "done" && copyright && <p className='scriptures-copyright'>{copyright}</p>}
+         {loading === "done" && data && data.copyright && (
+            <p className='scriptures-copyright'>{data.copyright}</p>
+         )}
          {loading == "error" && <ResourceNotFoundError />}
       </>
    );

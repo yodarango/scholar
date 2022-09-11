@@ -12,6 +12,15 @@ type TColorPickerOptionsProps = {
 export const ColorPickerOptions = ({ cta }: TColorPickerOptionsProps) => {
    return (
       <div className={styles.mainWrapper}>
+         <div className={styles.noBkg}>
+            <GradientBackground
+               bkgSolid='transparent'
+               cta={{
+                  handleSelection: (color: string | { light: string; dark: string }) =>
+                     cta.handleColorSelection("transparent", "-1")
+               }}
+            />
+         </div>
          {higlighterColorPicker.map((cSchema, index: number) => (
             <div className={styles.color} key={index}>
                <GradientBackground

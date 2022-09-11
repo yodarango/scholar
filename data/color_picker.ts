@@ -8,7 +8,7 @@ export const higlighterColorPicker: TbkgColorPicker[] = [
    {
       ID: "0",
       bkgColor: "#d3ab9e",
-      color: "#F1EAFF"
+      color: "#2A2438"
    },
    {
       ID: "2",
@@ -28,17 +28,17 @@ export const higlighterColorPicker: TbkgColorPicker[] = [
    {
       ID: "5",
       bkgColor: "#a1df9f",
-      color: "#F1EAFF"
+      color: "#2A2438"
    },
    {
       ID: "6",
       bkgColor: "#fcab64",
-      color: "#F1EAFF"
+      color: "#2A2438"
    },
    {
       ID: "7",
       bkgColor: "#ffa6c1",
-      color: "#F1EAFF"
+      color: "#2A2438"
    },
    {
       ID: "8",
@@ -53,7 +53,7 @@ export const higlighterColorPicker: TbkgColorPicker[] = [
    {
       ID: "10",
       bkgColor: "#ffed91",
-      color: "#F1EAFF"
+      color: "#2A2438"
    },
    {
       ID: "11",

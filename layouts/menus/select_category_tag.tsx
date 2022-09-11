@@ -46,11 +46,8 @@ export const SelectCategoryTag = ({
 
    return (
       <>
-         <PrimaryMenuBkg
-            title={title}
-            color='1'
-            cta={cta.handleCloseModal}
-            content={menuOptions?.map((option, index) => (
+         <PrimaryMenuBkg title={title} color='1' cta={{ handleClose: cta.handleCloseModal }}>
+            {menuOptions?.map((option, index) => (
                <div className={`${styles.menuOption} ${styles.menuOptionScroll}`} key={index}>
                   <MenuPrimaryOption
                      textType='text'
@@ -64,7 +61,7 @@ export const SelectCategoryTag = ({
                   />
                </div>
             ))}
-         />
+         </PrimaryMenuBkg>
       </>
    );
 };

@@ -5,7 +5,6 @@ import { useState } from "react";
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
-import PortalSecondary from "../../hoc/portal_secondary";
 import { CommentaryTextEditor } from "../../templates/content/commentary_text_editor";
 import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
 import { PrimaryStack } from "../stacks/templates/primary_stack";
@@ -15,16 +14,8 @@ import { SelectHighlightColor } from "./select_highlight_color";
 import styles from "./select_menu_global.module.css";
 import stylesLocal from "./select_reading_actions.module.css";
 
-export type TChapterData = {
-   verseId: string;
-   verse: string;
-   verseNumber: string;
-   chapter: string;
-   book: string;
-};
-
 export type TSelectPostRatingMenuProps = {
-   data: TChapterData;
+   data: any;
    cta: {
       handleCloseModal: () => void;
       handleHighlightVerse: (
@@ -81,18 +72,20 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
    return (
       <>
          {showStackModal === 1 && (
+            // render the commentaries modal
             <PrimaryStack
                title='Commentaries'
                icon='chat'
                cta={{ handleClose: cta.handleCloseModal }}>
                <CommentariesGrid
-                  verse={data.verse}
-                  verseCitation={`${data.book} ${data.chapter}:${data.verseNumber}`}
-                  verseId={data.verseId}
+                  verse={data.verseContent}
+                  verseCitation={`${data.reference}:${data.verseNumber}`}
+                  verseId={`${data.id}.${data.verseNumber}`}
                />
             </PrimaryStack>
          )}
          {showStackModal === 2 && (
+            // render the commentary Text Editor
             <div className={stylesLocal.newCommentStack}>
                <div className={stylesLocal.commenaryEditor}>
                   <CommentaryTextEditor
@@ -100,12 +93,16 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                      userId='123'
                      username='Username'
                      avatar='/images/user_avatar'
+                     verseCitation={`${data.reference}:${data.verseNumber}`}
+                     verseContent={data.verseContent}
+                     verseId={`${data.id}.${data.verseNumber}`}
                      cta={{ handleCloseModal: cta.handleCloseModal }}
                   />
                </div>
             </div>
          )}
          {showStackModal === 3 && (
+            // render the color picker to highlight a verse
             <SelectHighlightColor
                cta={{
                   handleColorSelection: (
@@ -116,6 +113,8 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                }}
             />
          )}
+
+         {/* render the primary menu */}
          {showStackModal === 0 && (
             <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
                {menuOptions.map((option, index) => (

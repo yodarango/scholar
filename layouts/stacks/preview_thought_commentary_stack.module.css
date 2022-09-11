@@ -6,6 +6,7 @@
    right: 0;
    z-index: 16;
    overflow-y: hidden;
+   background-color: var(--primary-color);
 }
 
 .imgBkg {

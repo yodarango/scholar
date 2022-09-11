@@ -19,6 +19,7 @@ type TCommentaryTextEditorProps = {
    userAuthority: number;
    verseId?: string;
    verseCitation?: string;
+   verseContent?: string;
    body?: string;
    postImage?: string;
    postPostedOnDate?: string;
@@ -39,6 +40,7 @@ export const CommentaryTextEditor = ({
    userAuthority,
    verseId = "",
    verseCitation = "",
+   verseContent = "",
    body = "",
    postImage = "",
    postPostedOnDate = "",
@@ -117,6 +119,11 @@ export const CommentaryTextEditor = ({
       <div className={styles.mainWrapper}>
          <div className={styles.verseSelection}>
             <TextEditorVerseSelection
+               readyData={{
+                  ID: verseId,
+                  reference: verseCitation,
+                  content: verseContent
+               }}
                cta={{
                   handleVerseData
                }}

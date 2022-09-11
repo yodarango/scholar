@@ -28,12 +28,13 @@ import { BibleBooksWrapper } from "../layouts/scrollers/bible_books_wrapper";
 import Portal from "../hoc/potal";
 
 type TTextEditorVerseSelectionProps = {
+   readyData?: any;
    cta: {
       handleVerseData: (verse: TBibleVerse) => void;
    };
 };
 
-export const TextEditorVerseSelection = ({ cta }: TTextEditorVerseSelectionProps) => {
+export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSelectionProps) => {
    const [buttonTitle, setbuttonTitle] = useState<string>("");
    const [verseData, setverseData] = useState<null | TBibleVerse>(null);
    const [loading, setLoading] = useState<string>("loading");
@@ -58,16 +59,23 @@ export const TextEditorVerseSelection = ({ cta }: TTextEditorVerseSelectionProps
 
    // fetch data on render
    useEffect(() => {
-      setLoading("loading");
-      const verseId: string | undefined | string[] = router.query["verse-id"];
-
-      if (router.isReady && router.query["verse-id"]) {
-         fetchVerse(verseId);
+      // check if the parent is passing the data so the API call does not happen
+      if (readyData) {
+         setLoading("done");
+         setverseData(readyData);
          setbuttonTitle("Change scripture");
       } else {
-         setverseData(null);
-         setbuttonTitle("Select scripture");
-         setLoading("done");
+         setLoading("loading");
+         const verseId: string | undefined | string[] = router.query["verse-id"];
+
+         if (router.isReady && router.query["verse-id"]) {
+            fetchVerse(verseId);
+            setbuttonTitle("Change scripture");
+         } else {
+            setverseData(null);
+            setbuttonTitle("Select scripture");
+            setLoading("done");
+         }
       }
    }, [router.isReady, router.query]);
 

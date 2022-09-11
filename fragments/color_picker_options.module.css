@@ -8,6 +8,29 @@
    padding-bottom: calc(var(--spacing-l) + var(--spacing-l));
 }
 
+.noBkg {
+   position: relative;
+   border-radius: 1em;
+   box-shadow: 0.2rem 0.2rem 0.5rem var(--font-color);
+}
+
+.noBkg:hover {
+   transition: transform 300ms ease;
+   cursor: pointer;
+   transform: scale(1.1);
+}
+
+.noBkg::after {
+   content: "";
+   top: -0.2rem;
+   left: 45%;
+   position: absolute;
+   height: 4rem;
+   width: 0.3rem;
+   background-color: var(--danger-color);
+   transform: rotate(0.12turn);
+}
+
 .color:last-child {
    margin: 0 auto 0 0;
    justify-self: flex-start;
