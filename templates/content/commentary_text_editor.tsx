@@ -72,6 +72,7 @@ export const CommentaryTextEditor = ({
             return { ...state, category: action.payload };
 
          case "body":
+            console.log(action.payload);
             return { ...state, body: action.payload };
 
          case "referencedVerses":

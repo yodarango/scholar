@@ -62,8 +62,13 @@ export const TextEditor = ({
    closeodalHref,
    cta
 }: TTextEditorProps) => {
-   // router
-   const router = useRouter();
+   //state
+   const [postbody, setpostBody] = useState(body);
+   // pas the body down to the preview component and to the parent component for posting
+   const handleUpdateBody = (value: string) => {
+      setpostBody(value);
+      cta.handleBody(value);
+   };
 
    return (
       <div className={styles.mainWrapper}>
@@ -81,10 +86,10 @@ export const TextEditor = ({
                titleMaxL={titleMaxL}
                titleDefaultValue={titleDefaultValue}
                titlePlaceHolder={titlePlaceHolder}
-               defaultValue={body}
+               defaultValue={postbody}
                placeHolder='Commentary...'
                maxLength={2500}
-               cta={{ handleBodyValue: cta.handleBody, handleTitleValue: cta.handleTitleValue }}
+               cta={{ handleBodyValue: handleUpdateBody, handleTitleValue: cta.handleTitleValue }}
             />
          </div>
 
@@ -101,7 +106,7 @@ export const TextEditor = ({
          <div className={styles.editorActions}>
             <TextEditorActions
                title={titleDefaultValue}
-               body={body}
+               body={postbody}
                postImage={postImage}
                userAuthority={userAuthority}
                userId={userId}

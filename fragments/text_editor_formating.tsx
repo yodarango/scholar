@@ -32,7 +32,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}
@@ -56,7 +56,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}
@@ -76,7 +76,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}
@@ -99,7 +99,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}
@@ -131,7 +131,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}
@@ -156,7 +156,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}
@@ -180,7 +180,7 @@ export const TextEditorFormating = () => {
                         }
                      />
                   }
-                  cta={() => setshowNotification(0)}
+                  cta={{ handleClose: () => setshowNotification(0) }}
                />
             </Portal>
          )}

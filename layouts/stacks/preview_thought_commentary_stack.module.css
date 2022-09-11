@@ -54,6 +54,7 @@
    margin: auto;
    padding: var(--spacing-l) 0;
    overflow-y: scroll;
+   font-size: var(--fs-main);
 }
 
 .contentHolderShrink {
@@ -88,4 +89,56 @@
    height: 100%;
    background-color: var(--primary-color);
    padding-bottom: var(--spacing-ml);
+}
+
+/* this are the styles for the elements inside a content holder which need special styling */
+.contentHolder h1,
+.contentHolder h2,
+.contentHolder h3,
+.contentHolder h4,
+.contentHolder h5,
+.contentHolder h6 {
+   font-family: var(--primary-font);
+   font-weight: 800;
+   font-size: var(--fs-xxlarge);
+   margin: 0 auto var(--spacing-xs);
+}
+
+.contentHolder h2 {
+   font-size: var(--fs-xlarge);
+}
+
+.contentHolder h3 {
+   font-size: var(--fs-large);
+}
+
+.contentHolder h4 {
+   font-size: var(--fs-main);
+}
+
+.contentHolder h5 {
+   font-size: var(--fs-small);
+}
+
+.contentHolder h6 {
+   font-size: var(--fs-xsmall);
+}
+
+.contentHolder ol {
+   margin: var(--spacing-s) auto;
+}
+
+.contentHolder ol li {
+   font-size: var(--fs-small);
+   margin: var(--spacing-xxs) auto;
+}
+
+.contentHolder p {
+   font-size: var(--fs-main);
+}
+
+.contentHolder a {
+   font-size: var(--fs-main);
+   text-decoration: underline;
+   color: var(--gradient-2--light);
 }

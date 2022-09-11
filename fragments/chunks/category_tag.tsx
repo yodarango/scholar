@@ -9,6 +9,7 @@ import { useState } from "react";
 
 // comps
 import { Notification } from "../popups/notification";
+import { SelectCategoryTag } from "../../layouts/menus/select_category_tag";
 
 // styles
 import styles from "./category_tag.module.css";
@@ -18,7 +19,6 @@ import { categoryMeta, TcategoryMeta } from "../../data/category_meta";
 
 // helpers
 import Portal from "../../hoc/potal";
-import { SelectCategoryTag } from "../../layouts/menus/select_category_tag";
 
 type TCategoryTagprops = {
    id?: string;
@@ -46,9 +46,9 @@ export const CategoryTag = ({
    const handleShowCategoryMeta = () => {
       const category = categoryMeta.filter((item: TcategoryMeta) => item.tag === `#${id}`);
 
-      const cardTitle = category[0].title;
-      const cardBody = category[0].subjects.toString().split(",").join(", ");
-      const cardColor = category[0].color;
+      const cardTitle = category[0]?.title;
+      const cardBody = category[0]?.subjects.toString().split(",").join(", ");
+      const cardColor = category[0]?.color;
 
       setisPopupOpen(
          <Notification
@@ -67,6 +67,7 @@ export const CategoryTag = ({
       setcurrentCategory(id);
       cta?.handleSelection(id);
    };
+
    return (
       <>
          <Portal>
@@ -83,7 +84,11 @@ export const CategoryTag = ({
 
          <div
             onClick={
-               informativeOnly ? () => handleShowCategoryMeta() : () => setIsCategoryMenuOpen(true)
+               informativeOnly
+                  ? () => handleShowCategoryMeta()
+                  : id
+                  ? () => handleShowCategoryMeta()
+                  : () => setIsCategoryMenuOpen(true)
             }
             className={customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}>
             {!currentCategory && (
@@ -95,6 +100,7 @@ export const CategoryTag = ({
                   <span className={`${styles.tag}`}></span>
                </div>
             )}
+
             {currentCategory === "BLK" && (
                <div
                   className={`${styles.tagWrapper} ${customSize && styles.tagWrapperCustomSize} ${
