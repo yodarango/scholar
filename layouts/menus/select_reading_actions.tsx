@@ -29,6 +29,8 @@ export type TSelectPostRatingMenuProps = {
 export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) => {
    // states
    const [showStackModal, setshowStackModal] = useState<number>(0);
+
+   console.log(data);
    const menuOptions = [
       {
          action: "commentaries",
@@ -47,13 +49,14 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
          icon: "textBody",
          description: "Highlight",
          color: "#F1EAFF"
-      },
-      {
-         action: "image",
-         icon: "image",
-         description: "Make image",
-         color: "#F1EAFF"
       }
+      // TODO: Add make image abilitty
+      // {
+      //    action: "image",
+      //    icon: "image",
+      //    description: "Make image",
+      //    color: "#F1EAFF"
+      // }
    ];
 
    // reouter
@@ -108,7 +111,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                   handleColorSelection: (
                      color: string | { light: string; dark: string },
                      ID: string
-                  ) => cta.handleHighlightVerse(color, data.verseId, ID),
+                  ) => cta.handleHighlightVerse(color, `${data.id}.${data.verseNumber}`, ID),
                   handleClose: cta.handleCloseModal
                }}
             />

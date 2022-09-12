@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { DailyVerseImage } from "../../../fragments/cards/daily_verse_image";
+import { DailyVerseImage } from "./daily_verse_image";
 
 export default {
    title: "fragments/cards/Daily Verse Image",

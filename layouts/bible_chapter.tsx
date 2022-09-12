@@ -8,7 +8,6 @@
 ****************************************************************************************/
 // core
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
 // styles
 import styles from "./bible_chapter.module.css";
@@ -64,7 +63,7 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
       ID: string
    ) => {
       // check if the color is transparent with ID of -1 which means the user is removeing the highlight
-      if (color === "transparent") {
+      if (ID === "-1") {
          // remove the verse from the array
          const findVerse = highlightedVerses.filter(
             (highlight) => highlight && highlight.split(":")[0] !== verseId
@@ -86,7 +85,6 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
       setshowReadingMenu(undefined);
    };
 
-   // TODO: Parse references since they are being ignored rn see https://github.com/yodarango-saas/scholar/issues/107#issue-1367003020
    const chapterTitle = data && data.content.split("\n")[0];
    const versesArray = data && data.content.split(/\[[0-9]*\]/g);
 

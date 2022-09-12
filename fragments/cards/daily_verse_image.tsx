@@ -22,6 +22,7 @@ export const DailyVerseImage = ({ versionId = "de4e12af7f28f599-02" }: TDailyVer
    // get a new verse
    const getVerse = async () => {
       const dailyVerse = await setDailyVerseCache(versionId);
+      console.log(dailyVerse);
       setVerse(dailyVerse.data);
    };
 
@@ -46,10 +47,9 @@ export const DailyVerseImage = ({ versionId = "de4e12af7f28f599-02" }: TDailyVer
                   ? styles.fontTwo
                   : styles.fontThree
             }`}>
-            {verse}this is my verse this is my verse this is my verse this is my verse this is my
-            verse this is my verse this is my verse
+            {verse && verse.content}
          </h1>
-         <p className={styles.reference}>1 John 3:5{verse}</p>
+         <p className={styles.reference}>{verse && verse.reference}</p>
          <div className={styles.img}>
             <img
                src={`/images/daily_verse_backgrounds/${randomImg}.jpeg`}

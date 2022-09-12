@@ -57,7 +57,7 @@ const Test = () => {
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}
          {/* <NavigationMain /> */}
-         {/* <DailyVerseImage versionId='' /> */}
+         <DailyVerseImage versionId='de4e12af7f28f599-02' />
          {/* <CategoryTag id='CYN' /> */}
          {/* <TextEditorActions
             postReferences={[
@@ -1536,7 +1536,7 @@ const Test = () => {
             favColor='Gray'
          /> */}
 
-         <BibleChapter chapterId='GEN.1' versionId='de4e12af7f28f599-02' />
+         {/* <BibleChapter chapterId='GEN.1' versionId='de4e12af7f28f599-02' /> */}
          {/* <ComentariesGrid /> */}
       </div>
    );
