@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { QuoteCardHeader } from "../../../fragments/chunks/quote_card_header";
+import { QuoteCardHeader } from "./quote_card_header";
 
 export default {
    title: "fragments/chunks/Quote Card Header",

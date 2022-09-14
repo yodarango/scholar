@@ -57,7 +57,12 @@ import { ReadBookmark } from "../fragments/chunks/read_bookmark";
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <ReadBookmark isBookMarked={true} />
+         <ReadBookmark
+            chapterId='GEN.1'
+            bookMarks={["1CO.2", "JHN.3", "MAT.1"]}
+            isBookMarked={true}
+         />
+         {/* <ReadBookmark isBookMarked={true} /> */}
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}
          {/* <NavigationMain /> */}
