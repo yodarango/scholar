@@ -59,7 +59,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
       <>
          <PrimaryMenuBkg
             color='1'
-            cta={cta.handleCloseModal}
+            cta={{ handleClose: () => cta.handleCloseModal }}
             content={menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   {option.action && (

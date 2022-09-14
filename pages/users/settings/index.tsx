@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import HeadContent from "../../../layouts/head-content";
+import HeadContent from "../../../SEO/head-content";
 import Head from "next/head";
 
 // graphQL

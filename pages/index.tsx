@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import HeadContent from "../layouts/head-content";
+import HeadContent from "../SEO/head-content";
 import Image from "next/image";
 import { Icon } from "../fragments/chunks/icons";
 

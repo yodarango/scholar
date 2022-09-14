@@ -13,7 +13,7 @@ import NavigationMenu from "../../layouts/navigation_main";
 // style
 import goProPageStyles from "../../styles/pages/GoPro.module.css";
 import Link from "next/link";
-import HeadContent from "../../layouts/head-content";
+import HeadContent from "../../SEO/head-content";
 import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
 
 const GoPro = () => {

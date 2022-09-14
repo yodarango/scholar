@@ -28,7 +28,9 @@ export type TBiblePreferences = {
 
 type TBibleVersionScriptureProps = {
    BiblePreferences: TBiblePreferences;
-   cta: (content: any) => void;
+   cta: {
+      handleSelection: (content: any) => void;
+   };
 };
 
 export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionScriptureProps) => {
@@ -100,16 +102,14 @@ export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionSc
          {showScriptureSelector && (
             <PrimaryStack
                title='Select a passage'
-               cta={() => setshowScriptureSelector(false)}
-               content={
-                  <BibleBooksWrapper
-                     versionId={state.versionId}
-                     stopAtVerse={true}
-                     stopAtChapter={true}
-                     cta={{ handleChoice: (content) => cta(content) }}
-                  />
-               }
-            />
+               cta={{ handleClose: () => setshowScriptureSelector(false) }}>
+               <BibleBooksWrapper
+                  versionId={state.versionId}
+                  stopAtVerse={true}
+                  stopAtChapter={true}
+                  cta={{ handleChoice: (content) => cta.handleSelection(content) }}
+               />
+            </PrimaryStack>
          )}
          <div className={styles.optionsWrapper}>
             <div

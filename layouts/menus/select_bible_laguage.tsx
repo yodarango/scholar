@@ -1,5 +1,5 @@
 // comps
-import { MenuPrimaryOption } from "../../fragments/buttons/menu_primary_option";
+import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
 // styles
@@ -14,7 +14,7 @@ export type TavailableLanuages = {
 export type TSelectBibleLanguageprops = {
    cta: {
       handleSelection: ({ id, icon, text }: TavailableLanuages) => void;
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
@@ -30,19 +30,19 @@ export const SelectBibleLanguage = ({ cta }: TSelectBibleLanguageprops) => {
       <>
          <PrimaryMenuBkg
             title='Select language'
-            content={availableLanuages.map((item: TavailableLanuages) => (
+            color='3'
+            cta={{ handleClose: cta.handleCloseModal }}>
+            {availableLanuages.map((item: TavailableLanuages) => (
                <div className={styles.menuOption} key={item.id}>
                   <MenuPrimaryOption
                      iconType='text'
                      textType='text'
-                     cta={() => cta.handleSelection(item)}
+                     cta={{ handleOptionClick: () => cta.handleSelection(item) }}
                      optionProperties={{ icon: item.icon, text: item.text, iconShadow: "2" }}
                   />
                </div>
             ))}
-            color='3'
-            cta={cta.handleCloseModal}
-         />
+         </PrimaryMenuBkg>
       </>
    );
 };

@@ -19,12 +19,14 @@ export const BiblePreferences = () => {
    const [BiblePreferences, setBiblePreferences] = useState<TBiblePreferences | null>(null);
 
    const getLocalStorage = () => {
-      if (localStorage.getItem("reading-preferences")) {
-         const prefs = localStorage.getitem("reading-preferences");
-         let parsedPrefs: TBiblePreferences = JSON.parse(prefs);
+      if (localStorage && localStorage.getItem("reading-preferences")) {
+         // const prefs = localStorage.getitem("reading-preferences");
+         // let parsedPrefs: TBiblePreferences = JSON.parse(prefs);
+
+         console.log(localStorage);
 
          // set the new values
-         setBiblePreferences(parsedPrefs);
+         //setBiblePreferences(parsedPrefs);
       } else {
          const newBibleprefs: TBiblePreferences = {
             versionId: "english",
@@ -55,7 +57,7 @@ export const BiblePreferences = () => {
                </div>
                <div>
                   <BibleVersionScripture
-                     cta={(content) => console.log(content)}
+                     cta={{ handleSelection: (content) => console.log(content) }}
                      BiblePreferences={BiblePreferences}
                   />
                </div>

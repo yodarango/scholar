@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { BibleVersionScripture } from "../../../fragments/buttons/bible_version_scripture";
+import { BibleVersionScripture } from "./bible_version_scripture";
 
 export default {
    title: "fragments/buttons/Choose Bible Version Or Scripture",
@@ -9,7 +9,7 @@ export default {
 
 export const EnglishESV: ComponentStory<typeof BibleVersionScripture> = () => (
    <BibleVersionScripture
-      cta={(content) => console.log(content)}
+      cta={{ handleSelection: (content) => console.log(content) }}
       BiblePreferences={{
          versionName: "ESV",
          versionId: "de4e12af7f28f599-02",
@@ -21,7 +21,7 @@ export const EnglishESV: ComponentStory<typeof BibleVersionScripture> = () => (
 
 export const SpanishRV09: ComponentStory<typeof BibleVersionScripture> = () => (
    <BibleVersionScripture
-      cta={(content) => console.log(content)}
+      cta={{ handleSelection: (content) => console.log(content) }}
       BiblePreferences={{
          versionName: "RV09",
          versionId: "592420522e16049f-01",

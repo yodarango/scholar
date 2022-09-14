@@ -2,6 +2,8 @@
 // There are three kinds of left button types: icon, text and filled color.
 // there are two types of right hand description; plain text or jsx
 
+import { useRouter } from "next/router";
+
 // components
 import { Parragraph } from "../../Typography/parragraph";
 
@@ -11,21 +13,25 @@ import styles from "./menu_primary_option.module.css";
 type TMenuPrimaryOptionProps = {
    iconType: string;
    textType: string;
+   href?: string;
    optionProperties: {
       icon: string | JSX.Element;
       text: string | JSX.Element;
       iconShadow?: string;
       descColor?: string;
    };
-   cta: { handleOptionClick: () => void };
+   cta?: { handleOptionClick: () => void };
 };
 
 export const MenuPrimaryOption = ({
    iconType,
    textType,
+   href,
    optionProperties,
    cta
 }: TMenuPrimaryOptionProps) => {
+   // router
+   const router = useRouter();
    // determine the color of the shadow
    let shadowClr: string = "";
 
@@ -44,7 +50,9 @@ export const MenuPrimaryOption = ({
    }
 
    return (
-      <div className={`${styles.mainWrapper}`} onClick={cta.handleOptionClick}>
+      <div
+         className={`${styles.mainWrapper}`}
+         onClick={cta ? cta.handleOptionClick : href ? () => router.push(href) : () => {}}>
          {/* --------------------------------------- Left side icon ---------------- */}
          {/*  if the left side button is an icon retrun this */}
          {iconType === "icon" && (
@@ -71,7 +79,10 @@ export const MenuPrimaryOption = ({
          {iconType === "filled" && (
             <div
                className={`${styles.icon}`}
-               style={{ boxShadow: shadowClr, backgroundColor: optionProperties.iconShadow }}></div>
+               style={{
+                  boxShadow: shadowClr,
+                  backgroundColor: optionProperties.iconShadow
+               }}></div>
          )}
 
          {/* --------------------------------------- right side text ---------------- */}

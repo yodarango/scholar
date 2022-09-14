@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { ScripturePicker } from "../../../layouts/menus/scripture_picker";
+import { ScripturePicker } from "./scripture_picker";
 
 export default {
    title: "layouts/menus/Scripture Picker",

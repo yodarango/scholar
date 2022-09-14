@@ -7,7 +7,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import HeadContent from "../../layouts/head-content";
+import HeadContent from "../../SEO/head-content";
 import Link from "next/link";
 import Image from "next/image";
 //import { GetServerSideProps } from "next";

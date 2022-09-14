@@ -50,14 +50,28 @@ import { SermonNoteEditor } from "../templates/content/sermon_note_editor";
 import { AboutMe } from "../layouts/account/profile/about_me";
 import { BibleChapter } from "../layouts/bible_chapter";
 import { CommentariesGridByUser } from "../layouts/scrollers/user_content/commentaries_grid_by_user";
+import { BibleVersionScripture } from "../fragments/buttons/bible_version_scripture";
+import { BiblePreferences } from "../layouts/menus/Bible_preferences";
+import { ReadBookmark } from "../fragments/chunks/read_bookmark";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
+         <ReadBookmark isBookMarked={true} />
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}
          {/* <NavigationMain /> */}
-         <DailyVerseImage versionId='de4e12af7f28f599-02' />
+         {/* <BibleVersionScripture
+            cta={{ handleSelection: (content) => console.log(content) }}
+            BiblePreferences={{
+               versionName: "ESV",
+               versionId: "de4e12af7f28f599-02",
+               scriptureRef: "1 Thessalonians 5:15",
+               bibleLanguage: "english"
+            }}
+         /> */}
+         {/* <BiblePreferences /> */}
+         {/* <DailyVerseImage versionId='de4e12af7f28f599-02' /> */}
          {/* <CategoryTag id='CYN' /> */}
          {/* <TextEditorActions
             postReferences={[

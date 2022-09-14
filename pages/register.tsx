@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import HeadContent from "../layouts/head-content";
+import HeadContent from "../SEO/head-content";
 
 // components
 import SmallLoader from "../fragments/chunks/small_loader";

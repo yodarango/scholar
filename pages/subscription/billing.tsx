@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import HeadContent from "../../layouts/head-content";
+import HeadContent from "../../SEO/head-content";
 
 // graphQL
 import client from "../../apollo-client";

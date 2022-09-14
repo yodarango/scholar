@@ -9,7 +9,7 @@
 // core
 import React from "react";
 import Head from "next/head";
-import HeadContent from "../layouts/head-content";
+import HeadContent from "../SEO/head-content";
 
 //components
 import ReadingCollage from "../layouts/reading-collage";
