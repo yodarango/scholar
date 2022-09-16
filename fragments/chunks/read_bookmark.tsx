@@ -41,7 +41,7 @@ export const ReadBookmark = ({
                   isChapterBookmarked={bookMarked}
                   bookMarks={bookMarks}
                   cta={{
-                     handleCloseModal: () => console.log("modal should close"),
+                     handleCloseModal: () => setshowBookmarks(false),
                      handleBookMark: (value: boolean) => handleSetBookMark(value)
                   }}
                />

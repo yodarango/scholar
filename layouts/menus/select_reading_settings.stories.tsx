@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SelectReadingSettings } from "../../../layouts/menus/select_reading_settings";
+import { SelectReadingSettings } from "./select_reading_settings";
 
 export default {
    title: "layouts/menus/Select Reading Settings",

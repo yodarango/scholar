@@ -38,9 +38,9 @@ export const SelectReadingBookmarks = ({
 
    // check if the current chapter is bookmarked
    const status = {
-      icon: isChapterBookmarked ? "add" : "remove",
-      color: isChapterBookmarked ? "#7fdc7d" : "#ff4d62",
-      text: isChapterBookmarked ? "Bookmark this chapter" : "Remove this bookmark"
+      icon: !isChapterBookmarked ? "add" : "remove",
+      color: !isChapterBookmarked ? "#7fdc7d" : "#ff4d62",
+      text: !isChapterBookmarked ? "Bookmark this chapter" : "Remove this bookmark"
    };
    return (
       <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>

@@ -8,7 +8,11 @@ import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 import styles from "./select_menu_global.module.css";
 
 export type TSelectReadingSettingsProps = {
-   cta: { handleCloseModal: () => void };
+   cta: {
+      handleCloseModal: () => void;
+      handleFontSelection: (value: string) => void;
+      handleThemeSelection: (value: string) => void;
+   };
 };
 
 export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
@@ -27,7 +31,7 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                      { value: "big", title: "Big" },
                      { value: "big", title: "Bigger" }
                   ]}
-                  cta={{ handleSelection: (value) => console.log("report the post? ", value) }}
+                  cta={{ handleSelection: (value) => cta.handleFontSelection(value) }}
                   optionProperties={{
                      icon: "A",
                      iconShadow: "#F1EAFF",
@@ -42,7 +46,7 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                   type='3'
                   textType='text'
                   iconType='icon'
-                  cta={{ handleSelection: (value) => console.log("report the post? ", value) }}
+                  cta={{ handleSelection: (value) => cta.handleThemeSelection(value) }}
                   customSubSelections={[
                      { value: "1", title: "#2B2B2A" },
                      { value: "2", title: "#050825" },

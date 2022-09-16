@@ -53,15 +53,17 @@ import { CommentariesGridByUser } from "../layouts/scrollers/user_content/commen
 import { BibleVersionScripture } from "../fragments/buttons/bible_version_scripture";
 import { BiblePreferences } from "../layouts/menus/Bible_preferences";
 import { ReadBookmark } from "../fragments/chunks/read_bookmark";
+import { ReadSettings } from "../fragments/chunks/read_settings";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <ReadBookmark
+         {/* <ReadBookmark
             chapterId='GEN.1'
             bookMarks={["1CO.2", "JHN.3", "MAT.1"]}
             isBookMarked={true}
-         />
+         /> */}
+         <ReadSettings />
          {/* <ReadBookmark isBookMarked={true} /> */}
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}

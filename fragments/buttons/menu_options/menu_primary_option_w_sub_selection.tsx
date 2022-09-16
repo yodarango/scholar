@@ -44,11 +44,11 @@ export const MenuPrimaryOptionWithSubSelection = ({
             iconType={iconType}
             textType={textType}
             optionProperties={optionProperties}
-            cta={
-               showSubSelectionOptions
+            cta={{
+               handleOptionClick: showSubSelectionOptions
                   ? () => setshowSubSelectionOptions(false)
                   : () => setshowSubSelectionOptions(true)
-            }
+            }}
          />
 
          {/* --------------- Renders the basic "YES" or "NO" ---------------- */}
