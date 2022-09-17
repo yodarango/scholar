@@ -4,13 +4,14 @@ import { useState } from "react";
 import { IconGhost } from "./icon_ghost";
 import { Parragraph } from "../Typography/parragraph";
 import { SelectBibleLanguage, TavailableLanuages } from "../../layouts/menus/select_bible_laguage";
+import Portal from "../../hoc/potal";
 
 // styles
 import styles from "./bible_language.module.css";
 
 type TBibleVersionLanguageProps = {
    language: string;
-   cta: (item: string) => void;
+   cta: { handleSelection: (item: string) => void };
 };
 
 export const BibleLanguage = ({ cta, language }: TBibleVersionLanguageProps) => {
@@ -22,19 +23,22 @@ export const BibleLanguage = ({ cta, language }: TBibleVersionLanguageProps) => 
    const handleLangSeclection = (item: TavailableLanuages) => {
       setcurrentLangIcon(item.icon);
       setshowMenu(false);
-      cta(item.id);
+      cta.handleSelection(item.id);
    };
 
    return (
       <div className={styles.mainWrapper}>
-         {showMenu && (
-            <SelectBibleLanguage
-               cta={{
-                  handleCloseModal: () => setshowMenu(false),
-                  handleSelection: handleLangSeclection
-               }}
-            />
-         )}
+         <Portal>
+            {showMenu && (
+               <SelectBibleLanguage
+                  cta={{
+                     handleCloseModal: () => setshowMenu(false),
+                     handleSelection: handleLangSeclection
+                  }}
+               />
+            )}
+         </Portal>
+
          <IconGhost
             cta={showMenu ? () => setshowMenu(false) : () => setshowMenu(true)}
             icon={

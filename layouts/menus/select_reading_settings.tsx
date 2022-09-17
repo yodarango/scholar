@@ -31,7 +31,7 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                      { value: "big", title: "Big" },
                      { value: "big", title: "Bigger" }
                   ]}
-                  cta={{ handleSelection: (value) => cta.handleFontSelection(value) }}
+                  cta={{ handleSelection: cta.handleFontSelection }}
                   optionProperties={{
                      icon: "A",
                      iconShadow: "#F1EAFF",
@@ -46,7 +46,7 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                   type='3'
                   textType='text'
                   iconType='icon'
-                  cta={{ handleSelection: (value) => cta.handleThemeSelection(value) }}
+                  cta={{ handleSelection: cta.handleThemeSelection }}
                   customSubSelections={[
                      { value: "1", title: "#2B2B2A" },
                      { value: "2", title: "#050825" },

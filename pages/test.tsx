@@ -54,16 +54,23 @@ import { BibleVersionScripture } from "../fragments/buttons/bible_version_script
 import { BiblePreferences } from "../layouts/menus/Bible_preferences";
 import { ReadBookmark } from "../fragments/chunks/read_bookmark";
 import { ReadSettings } from "../fragments/chunks/read_settings";
+import { ReadBibleHeader } from "../layouts/read_bible_header";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
+         <ReadBibleHeader language='🇺🇸' isChapeterBookmarked={false} />
          {/* <ReadBookmark
             chapterId='GEN.1'
             bookMarks={["1CO.2", "JHN.3", "MAT.1"]}
             isBookMarked={true}
          /> */}
-         <ReadSettings />
+         {/* <ReadSettings
+            cta={{
+               handleFontSelection: (value: string) => console.log(value),
+               handleThemeSelection: (value: string) => console.log(value)
+            }}
+         /> */}
          {/* <ReadBookmark isBookMarked={true} /> */}
          {/* <Pagination goBack='/' goForth='/' type='2' forContent='read' /> */}
          {/* <DailyVerseCard versionId='' /> */}

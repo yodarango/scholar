@@ -39,7 +39,6 @@ export const ReadBookmark = ({
                <SelectReadingBookmarks
                   chapterId={chapterId}
                   isChapterBookmarked={bookMarked}
-                  bookMarks={bookMarks}
                   cta={{
                      handleCloseModal: () => setshowBookmarks(false),
                      handleBookMark: (value: boolean) => handleSetBookMark(value)

@@ -7,4 +7,11 @@ export default {
    component: ReadSettings
 } as ComponentMeta<typeof ReadSettings>;
 
-export const Default: ComponentStory<typeof ReadSettings> = () => <ReadSettings />;
+export const Default: ComponentStory<typeof ReadSettings> = () => (
+   <ReadSettings
+      cta={{
+         handleFontSelection: (value: string) => console.log(value),
+         handleThemeSelection: (value: string) => console.log(value)
+      }}
+   />
+);

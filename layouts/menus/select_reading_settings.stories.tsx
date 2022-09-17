@@ -8,5 +8,11 @@ export default {
 } as ComponentMeta<typeof SelectReadingSettings>;
 
 export const Default: ComponentStory<typeof SelectReadingSettings> = () => (
-   <SelectReadingSettings cta={{ handleCloseModal: () => console.log("modal should close") }} />
+   <SelectReadingSettings
+      cta={{
+         handleCloseModal: () => console.log("modal should close"),
+         handleFontSelection: (value: string) => console.log(value),
+         handleThemeSelection: (value: string) => console.log(value)
+      }}
+   />
 );

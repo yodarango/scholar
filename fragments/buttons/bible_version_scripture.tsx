@@ -5,7 +5,7 @@
 -  the default values in BiblePreferences are passed from the parent which it pull from local storage
 ********************************************************************************************************************************/
 
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 
 // comps
 import { SelectBibleVersion } from "../../layouts/menus/select_bible_version";
@@ -18,33 +18,29 @@ import styles from "./bible_version_scripture.module.css";
 
 // data
 import { TVersion } from "../../data/supported_bible_versions/version_type";
+import { english } from "../../data/supported_bible_versions/english";
+import { useRouter } from "next/router";
 
-export type TBiblePreferences = {
+type TBiblePreferences = {
    versionName: string;
    versionId: string;
    scriptureRef: string;
    bibleLanguage: string;
 };
 
-type TBibleVersionScriptureProps = {
-   BiblePreferences: TBiblePreferences;
-   cta: {
-      handleSelection: (content: any) => void;
-   };
-};
+export const BibleVersionScripture = () => {
+   // router
+   const router = useRouter();
 
-export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionScriptureProps) => {
-   // -------------------- states --------------------------
-   // ------ opens the menu to select bible versions
+   // states
    const [showVersionSelectionMenu, setshowVersionSelectionMenu] = useState<boolean>(false);
-   //------- opens the ScripturePicker Compoenent to select new passage
    const [showScriptureSelector, setshowScriptureSelector] = useState<boolean>(false);
 
-   const readingPrefs = {
-      versionName: BiblePreferences.versionName,
-      versionId: BiblePreferences.versionId,
-      scriptureRef: BiblePreferences.scriptureRef,
-      bibleLanguage: BiblePreferences.bibleLanguage
+   const readingPrefs: TBiblePreferences = {
+      versionName: english[0].abbreviation,
+      versionId: english[0].id,
+      scriptureRef: "Gen 1",
+      bibleLanguage: "english"
    };
 
    function reducer(state: any, action: any) {
@@ -64,15 +60,11 @@ export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionSc
          case "scriptureRef":
             localStorage.setItem(
                "reading-preferences",
-               JSON.stringify({ ...state, bibleLanguage: action.payload })
+               JSON.stringify({ ...state, scriptureRef: action.payload })
             );
-            return { ...state, bibleLanguage: action.payload };
-         case "bibleLanguage":
-            localStorage.setItem(
-               "reading-preferences",
-               JSON.stringify({ ...state, bibleLanguage: action.payload })
-            );
-            return { ...state, bibleLanguage: action.payload };
+            return { ...state, scriptureRef: action.payload };
+         case "localStorage":
+            return { ...action.payload };
          default:
             return state;
       }
@@ -80,7 +72,34 @@ export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionSc
 
    const [state, dispatch] = useReducer(reducer, readingPrefs);
 
-   // ----------------- handle the bible version selection by updating the state and closign the modal
+   // update the state from local storage
+   useEffect(() => {
+      const localSExists = localStorage.getItem("reading-preferences");
+      if (localSExists) {
+         const prefs = JSON.parse(localSExists);
+         dispatch({
+            type: "localStorage",
+            payload: {
+               versionName: prefs.versionName,
+               versionId: prefs.versionId,
+               scriptureRef: prefs.scriptureRef,
+               bibleLanguage: prefs.bibleLanguage
+            }
+         });
+      } else {
+         localStorage.setItem(
+            "reading-preferences",
+            JSON.stringify({
+               versionName: english[0].abbreviation,
+               versionId: english[0].id,
+               scriptureRef: "Gen 1",
+               bibleLanguage: "english"
+            })
+         );
+      }
+   }, []);
+
+   //  handle the bible version selection by updating the state and closign the modal
    const handleVersionSelection = (item: TVersion) => {
       dispatch({ type: "versionName", payload: item.abbreviation });
       setshowVersionSelectionMenu(false);
@@ -107,7 +126,7 @@ export const BibleVersionScripture = ({ BiblePreferences, cta }: TBibleVersionSc
                   versionId={state.versionId}
                   stopAtVerse={true}
                   stopAtChapter={true}
-                  cta={{ handleChoice: (content) => cta.handleSelection(content) }}
+                  cta={{ handleChoice: (content) => router.push(`/test?${content}`) }}
                />
             </PrimaryStack>
          )}

@@ -6,6 +6,9 @@
 ****************************************************************************************/
 
 // components
+import { useEffect, useState } from "react";
+
+// cmops
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
@@ -15,7 +18,6 @@ import { parseChapterId } from "../../helpers/data/parse_bible_id";
 import styles from "./select_menu_global.module.css";
 
 type TSelectReadingBookmarksProps = {
-   bookMarks: string[];
    chapterId: string;
    isChapterBookmarked: boolean;
    cta: {
@@ -26,10 +28,14 @@ type TSelectReadingBookmarksProps = {
 
 export const SelectReadingBookmarks = ({
    cta,
-   bookMarks,
    isChapterBookmarked,
    chapterId
 }: TSelectReadingBookmarksProps) => {
+   const [bookMarks, setbookMarks] = useState<string[]>([]);
+   const getBookMarks = () => {
+      // fetch bookmarks from DB
+      setbookMarks(["1CO.2", "JHN.3", "MAT.1"]);
+   };
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
       console.log(chapterId);
@@ -42,6 +48,12 @@ export const SelectReadingBookmarks = ({
       color: !isChapterBookmarked ? "#7fdc7d" : "#ff4d62",
       text: !isChapterBookmarked ? "Bookmark this chapter" : "Remove this bookmark"
    };
+
+   // get the data
+   useEffect(() => {
+      getBookMarks();
+   }, []);
+
    return (
       <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
          <div className={styles.menuOption}>

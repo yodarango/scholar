@@ -1,0 +1,15 @@
+.mainWrpper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+}
+
+.language {
+   margin: 0 var(--spacing-xs) 0 0;
+}
+
+.bookmarks {
+   justify-self: flex-end;
+   margin: 0 var(--spacing-m) 0 auto;
+}
