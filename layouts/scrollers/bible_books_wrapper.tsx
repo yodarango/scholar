@@ -12,6 +12,7 @@ type TBibleBooksWrapperProps = {
    versionId?: string;
    stopAtVerse: boolean;
    stopAtChapter: boolean;
+   stopAtChapterId: boolean;
    cta: { handleChoice: (content: any) => void };
 };
 
@@ -19,7 +20,8 @@ export const BibleBooksWrapper = ({
    versionId = "de4e12af7f28f599-02",
    cta,
    stopAtVerse,
-   stopAtChapter
+   stopAtChapter,
+   stopAtChapterId
 }: TBibleBooksWrapperProps) => {
    return (
       <div className={styles.mainWrapper}>
@@ -28,6 +30,7 @@ export const BibleBooksWrapper = ({
                <ScripturePicker
                   bible={book}
                   stopAtChapter={stopAtChapter}
+                  stopAtChapterId={stopAtChapterId}
                   versionId={versionId}
                   cta={cta.handleChoice}
                   stopAtVerse={stopAtVerse}

@@ -3,11 +3,15 @@
    he bible_chapter_picker and the bible_verse_picker components without
    making an API call except for the bible_verse_picker component which is the
    final step and therefore the only one that makes a call to the Bible API.
-   However, if the prop "stopAtChapter" is passed, the call to the API will be called 
-   at the chapter level.
+-  However, if the prop "stopAtChapter" is passed, the call to the API will be called 
+   at the chapter level. -- calls API
+-  If stopAtChapterId is passed only the chapterId will be passed -- doesn't call API
+-  If the stopATVerse prop is false then the modal will only return the bookId -- doesn't call API
 -  The Data for the Books, Chapters and Verses is pulled from the data/bible.ts file
 -  The data received from the API is passed to the parent in the cta 
-- if the stopATVerse prop is false then the modal will onl return the bookId
+-  //? I am not sure why I am making the cal in this component to the API rahter than just 
+   //? updating the router and have the API run on useEffect(func, [router.query]). Something 
+   //? to #COMEBACK to maybe in the future
 *************************************************************************************/
 
 import { useState } from "react";
@@ -27,6 +31,7 @@ type TBilbleBookPickerProps = {
    bible: TBible;
    versionId: string;
    stopAtChapter: boolean;
+   stopAtChapterId: boolean;
    stopAtVerse: boolean;
    cta: (content: any) => void;
 };
@@ -34,6 +39,7 @@ type TBilbleBookPickerProps = {
 export const ScripturePicker = ({
    bible,
    stopAtChapter,
+   stopAtChapterId,
    stopAtVerse,
    cta,
    versionId
@@ -45,7 +51,7 @@ export const ScripturePicker = ({
    const [currentSelectedChapter, setcurrentSelectedChapter] = useState<number>(0);
    const [initializeLoader, setinitializeLoader] = useState<boolean>(false);
 
-   // ------------ handle the selection of the book chapter by closing the modal and calling the chapter verses modal
+   // handle the selection of the book chapter by closing the modal and calling the chapter verses modal
    const handleOpenVerseSelectionModal = (chapterId: number) => {
       // update chapterId before rendering the BibleVersePicker
       setchapterId(`${bible.bookId}.${chapterId}`);
@@ -58,7 +64,7 @@ export const ScripturePicker = ({
       setshowVerseSelectionMenu(true);
    };
 
-   // --------- initilaize the loader once the API function is called but bufore the API data returrns
+   // initilaize the loader once the API function is called but bufore the API data returrns
    const handleSetInitLoader = (init: boolean) => {
       // close all the modals and initialize the loader
       setshowVerseSelectionMenu(false);
@@ -66,7 +72,7 @@ export const ScripturePicker = ({
       setinitializeLoader(init);
    };
 
-   //  --------- if stopAtChapter === false close the bible verse modal and open the chapter modal -------
+   // if stopAtChapter === false close the bible verse modal and open the chapter modal -------
    const handlecloseShowVerseMenuModal = () => {
       setshowVerseSelectionMenu(false);
       setshowChapterSelectorMenu(true);
@@ -93,7 +99,8 @@ export const ScripturePicker = ({
          {showChapterSelectorMenu && !showVerseSelectionMenu && (
             <BibleChapterpicker
                versionId={versionId}
-               stopAtChapter={stopAtChapter}
+               stopAtChapter={false}
+               stopAtChapterId={stopAtChapterId}
                bookId={bible.bookId}
                cta={{
                   handleOpenVerseSelectionModal,

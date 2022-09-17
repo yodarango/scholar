@@ -24,12 +24,11 @@ import Portal from "../hoc/potal";
 import { higlighterColorPicker } from "../data/color_picker";
 
 type chapterProps = {
-   chapterId: string;
-   versionId: string;
+   chapterId: string | string[]; // string[] is only to satisfy rnext router type
    fontSize?: string;
 };
 
-export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapterProps) => {
+export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => {
    // states
    const [showReadingMenu, setshowReadingMenu] =
       useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
@@ -38,8 +37,9 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
    const [loading, setloading] = useState("done");
 
    // fetch the Bible API Data along with the highlighted verses by the user
-   const fetchData = async () => {
+   const fetchData = async (versionId: string) => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
+
       //const HLVerses = await getHighlightedVerses()
       if (chapter === undefined) {
          setloading("error");
@@ -53,7 +53,11 @@ export const BibleChapter = ({ chapterId, versionId, fontSize = "main" }: chapte
    };
 
    useEffect(() => {
-      fetchData();
+      const LSExists = localStorage.getItem("reading-preferences");
+      if (LSExists) {
+         const LSParsed = JSON.parse(LSExists);
+         fetchData(LSParsed.versionId);
+      }
    }, []);
 
    // highlight the verse

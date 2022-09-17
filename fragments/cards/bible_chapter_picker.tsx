@@ -1,6 +1,11 @@
-// maps through a number passed in the props as chapterCount and makes a
-// chapter selector out of each that when clicked calls the bible_verse_picker
-// compnent. Id does not make any calls to the API
+/**************************************************************************************** 
+-  maps through a number passed in the props as chapterCount and makes a chapter selector 
+   out of each.
+-  if stopAtChapter = true calls the API and returns data in the cta.handleChapterSelection
+-  if stopAtChapterId = true retruns chapterId only (no API call) and returns it in the 
+   cta.handleChapterSelection
+-  if !stopAtChapterId and !stopAtChapter it calls handleOpenVerseSelectionModal 
+****************************************************************************************/
 
 import { useState } from "react";
 
@@ -23,6 +28,7 @@ type TBibleChapterpickerprops = {
    bookId: string;
    chapterCount: number;
    stopAtChapter: boolean;
+   stopAtChapterId: boolean;
    cta: {
       handleOpenVerseSelectionModal: (chapterId: number) => void;
       handleChapterSelection: (content: any) => void;
@@ -35,7 +41,8 @@ export const BibleChapterpicker = ({
    bookId,
    chapterCount,
    cta,
-   stopAtChapter
+   stopAtChapter,
+   stopAtChapterId
 }: TBibleChapterpickerprops) => {
    // states
    const [showNotificationPopup, setshowNotificationPopup] =
@@ -43,12 +50,12 @@ export const BibleChapterpicker = ({
 
    //  determine whether to call the API or pass the prop to render the bible_verse_picker.tsx -----------
    const handleChpaterSelection = async (verseId: number, versionId?: string) => {
-      // ------------- make the call to the Bible APi
+      //  make the call to the Bible APi
       if (stopAtChapter) {
          // initialize the loader
          cta.handleInitLoader(true);
 
-         const verseData = await fetchBibleChapter(`${bookId}.${verseId}`);
+         const verseData = await fetchBibleChapter(`${bookId}.${verseId}`, versionId);
 
          if (verseData) {
             cta.handleChapterSelection(verseData);
@@ -59,6 +66,9 @@ export const BibleChapterpicker = ({
             cta.handleInitLoader(false);
             setshowNotificationPopup(true);
          }
+      } else if (stopAtChapterId) {
+         // send chapterId only
+         cta.handleChapterSelection(`${bookId}.${verseId}`);
       } else {
          cta.handleOpenVerseSelectionModal(verseId);
       }
@@ -72,7 +82,7 @@ export const BibleChapterpicker = ({
                   type='4'
                   title={notificationMessages.selectNewScriptureError.title}
                   body={notificationMessages.selectNewScriptureError.body}
-                  cta={() => setshowNotificationPopup(false)}
+                  cta={{ handleClose: () => setshowNotificationPopup(false) }}
                />
             )}
          </Portal>

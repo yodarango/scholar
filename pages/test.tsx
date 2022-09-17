@@ -55,11 +55,13 @@ import { BiblePreferences } from "../layouts/menus/Bible_preferences";
 import { ReadBookmark } from "../fragments/chunks/read_bookmark";
 import { ReadSettings } from "../fragments/chunks/read_settings";
 import { ReadBibleHeader } from "../layouts/read_bible_header";
+import { ReadBibleTemplate } from "../templates/read_bible_modal";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <ReadBibleHeader language='🇺🇸' isChapeterBookmarked={false} />
+         <ReadBibleTemplate />
+         {/* <ReadBibleHeader isChapeterBookmarked={false} /> */}
          {/* <ReadBookmark
             chapterId='GEN.1'
             bookMarks={["1CO.2", "JHN.3", "MAT.1"]}

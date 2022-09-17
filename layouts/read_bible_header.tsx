@@ -8,19 +8,15 @@ import styles from "./read_bible_header.module.css";
 
 type TReadBibleHeaderProps = {
    isChapeterBookmarked: boolean;
-   language: string;
 };
-export const ReadBibleHeader = ({ language, isChapeterBookmarked }: TReadBibleHeaderProps) => {
+export const ReadBibleHeader = ({ isChapeterBookmarked }: TReadBibleHeaderProps) => {
    return (
       <div className={styles.mainWrpper}>
          <div className={styles.language}>
-            <BibleLanguage
-               language={language}
-               cta={{ handleSelection: (value: string) => console.log(value) }}
-            />
+            <BibleLanguage />
          </div>
          <div className={styles.versionScripture}>
-            <BibleVersionScripture cta={{ handleSelection: (x) => console.log(x) }} />
+            <BibleVersionScripture />
          </div>
          <div className={styles.bookmarks}>
             <ReadBookmark

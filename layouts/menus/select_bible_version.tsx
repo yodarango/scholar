@@ -24,7 +24,7 @@ export type TSelectBibleVersionprops = {
 
 export const SelectBibleVersion = ({ cta, currLanguage }: TSelectBibleVersionprops) => {
    const [versions, setVersions] = useState<TVersion[]>([]);
-
+   console.log(currLanguage);
    useEffect(() => {
       switch (currLanguage) {
          case "english":
