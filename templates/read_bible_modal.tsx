@@ -14,6 +14,8 @@ export const ReadBibleTemplate = () => {
 
    const [chapterData, setchapterData] = useState<any>(null);
    const [currChapter, setcurrChapter] = useState<string | string[]>("");
+   const [fontSize, setfontSize] = useState<string | undefined>(undefined);
+   const [theme, settheme] = useState<string | undefined>(undefined);
 
    const getChapterData = () => {
       // get the chapter data
@@ -26,7 +28,6 @@ export const ReadBibleTemplate = () => {
          if (router.query["chapter-id"]) {
             const chaptId = router.query["chapter-id"];
             setcurrChapter(chaptId);
-            console.log(currChapter);
          }
       }
       getChapterData();
@@ -36,11 +37,17 @@ export const ReadBibleTemplate = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.header}>
             {chapterData && (
-               <ReadBibleHeader isChapeterBookmarked={chapterData.isChapterBookmarked} />
+               <ReadBibleHeader
+                  cta={{
+                     handleFontSelection: (value: string) => setfontSize(value),
+                     handleThemeSelection: (value: string) => settheme(value)
+                  }}
+                  isChapeterBookmarked={chapterData.isChapterBookmarked}
+               />
             )}
          </div>
          <div className={styles.chapter}>
-            {currChapter && <BibleChapter chapterId={currChapter} />}
+            {currChapter && <BibleChapter chapterId={currChapter} fontSize={fontSize} />}
          </div>
       </div>
    );

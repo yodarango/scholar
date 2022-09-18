@@ -8,6 +8,10 @@ import styles from "./read_bible_header.module.css";
 
 type TReadBibleHeaderProps = {
    isChapeterBookmarked: boolean;
+   cta: {
+      handleFontSelection: (value: string) => void;
+      handleThemeSelection: (value: string) => void;
+   };
 };
 export const ReadBibleHeader = ({ isChapeterBookmarked }: TReadBibleHeaderProps) => {
    return (

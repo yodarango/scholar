@@ -99,7 +99,7 @@ export const ScripturePicker = ({
          {showChapterSelectorMenu && !showVerseSelectionMenu && (
             <BibleChapterpicker
                versionId={versionId}
-               stopAtChapter={false}
+               stopAtChapter={stopAtChapter}
                stopAtChapterId={stopAtChapterId}
                bookId={bible.bookId}
                cta={{

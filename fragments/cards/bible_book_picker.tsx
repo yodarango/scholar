@@ -16,8 +16,8 @@ type TBilbleBookPickerProps = {
    showChapterSelectorMenu: boolean;
    initLoader: boolean;
    cta: {
-      handleCloseChapterMenu: React.MouseEventHandler<HTMLDivElement>;
-      handleOpenChaptermenu: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseChapterMenu: () => void;
+      handleOpenChaptermenu: () => void;
    };
 };
 
