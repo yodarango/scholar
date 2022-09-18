@@ -79,3 +79,19 @@
 .fontXlarge {
    font-size: var(--fs-xlarge);
 }
+
+.firstTheme {
+   color: var(--reading-modal-1--light);
+}
+
+.secondTheme {
+   color: var(--reading-modal-2--light);
+}
+
+.thirdTheme {
+   color: var(--reading-modal-3--light);
+}
+
+.fourthTheme {
+   color: var(--reading-modal-4--dark);
+}

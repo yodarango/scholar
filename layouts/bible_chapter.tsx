@@ -26,9 +26,10 @@ import { higlighterColorPicker } from "../data/color_picker";
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy rnext router type
    fontSize?: string;
+   theme?: string;
 };
 
-export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => {
+export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chapterProps) => {
    // states
    const [showReadingMenu, setshowReadingMenu] =
       useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
@@ -36,8 +37,8 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
    const [data, setdata] = useState<any>(null);
    const [loading, setloading] = useState("done");
    const [fntSize, setfntSize] = useState<string | undefined>(fontSize);
+   const [thme, setthme] = useState<string | undefined>(fontSize);
 
-   console.log(fntSize);
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (versionId: string) => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
@@ -62,12 +63,12 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
       }
    }, []);
 
+   // update font
    useEffect(() => {
       const LSExists = localStorage.getItem("reading-preferences");
       if (LSExists) {
          const LSParsed = JSON.parse(LSExists);
          const font = LSParsed.font;
-         console.log(font);
          setfntSize(
             font === "small"
                ? styles.fontSmall
@@ -79,6 +80,24 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
          );
       }
    }, [fontSize]);
+
+   // update theme
+   useEffect(() => {
+      const LSExists = localStorage.getItem("reading-preferences");
+      if (LSExists) {
+         const LSParsed = JSON.parse(LSExists);
+         const theme = LSParsed.theme;
+         setthme(
+            theme === "1"
+               ? styles.firstTheme
+               : theme === "2"
+               ? styles.secondTheme
+               : theme === "3"
+               ? styles.thirdTheme
+               : styles.fourthTheme
+         );
+      }
+   }, [theme]);
 
    // highlight the verse
    const handleHighlightVerse = (
@@ -168,7 +187,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
                                  {index}
                               </span>
                               <p
-                                 className={`${styles.verse} ${fntSize}`}
+                                 className={`${styles.verse} ${fntSize} ${thme}`}
                                  style={{ color: getHighlighMeta?.color }}>
                                  <span className={styles.tab}></span>
                                  {verse}

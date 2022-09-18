@@ -8,7 +8,10 @@ import { ReadBibleHeader } from "../layouts/read_bible_header";
 // styles
 import styles from "./read_bible_modal.module.css";
 
-export const ReadBibleTemplate = () => {
+type TReadBibleTemplateProps = {
+   handleTheme: (theme: string) => void;
+};
+export const ReadBibleTemplate = ({ handleTheme }: TReadBibleTemplateProps) => {
    // router
    const router = useRouter();
 
@@ -33,6 +36,11 @@ export const ReadBibleTemplate = () => {
       getChapterData();
    }, [router.query, router.isReady]);
 
+   const handleThemeSelection = (value: string) => {
+      settheme(value);
+      handleTheme;
+   };
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.header}>
@@ -40,14 +48,16 @@ export const ReadBibleTemplate = () => {
                <ReadBibleHeader
                   cta={{
                      handleFontSelection: (value: string) => setfontSize(value),
-                     handleThemeSelection: (value: string) => settheme(value)
+                     handleThemeSelection
                   }}
                   isChapeterBookmarked={chapterData.isChapterBookmarked}
                />
             )}
          </div>
          <div className={styles.chapter}>
-            {currChapter && <BibleChapter chapterId={currChapter} fontSize={fontSize} />}
+            {currChapter && (
+               <BibleChapter chapterId={currChapter} fontSize={fontSize} theme={theme} />
+            )}
          </div>
       </div>
    );

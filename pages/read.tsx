@@ -1,40 +1,28 @@
-// ******************** PURPOSE *********************** //
-// *** this page will allow users to read different *** //
-// *** versions of the bible in a multiview type ****** //
-// *** This page initially makes 4 calls to the ******* //
-// *** bible api so that no additinal calls are ******* //
-// *** needed once the page is loaded or user flips *** //
-// *** views ****************************************** //
-
-// core
-import React from "react";
 import Head from "next/head";
 import HeadContent from "../SEO/head-content";
+import { useState } from "react";
 
-//components
-import ReadingCollage from "../layouts/reading-collage";
-import NavigationMenu from "../layouts/navigation_main";
+// comps
+import { ReadBibleTemplate } from "../templates/read_bible_modal";
 
 // styles
-import readStyles from "../styles/pages/Read.module.css";
-
-// helpers
-
-// others
-const versionId = "de4e12af7f28f599-02";
+import styles from "./read.module.css";
 
 const Read = () => {
+   const [theme, settheme] = useState<string | undefined>(undefined);
    return (
-      <>
-         <Head>
-            <HeadContent />
-         </Head>
-         <div className={`main-wrapper ${readStyles.mainWrapper}`}>
-            <ReadingCollage versionId={versionId} />
-         </div>
-         <div className={`large-spacer`}> </div>
-         <NavigationMenu />
-      </>
+      <main
+         className={`${styles.mainWrapper} ${
+            theme === "1"
+               ? styles.firstTheme
+               : theme === "2"
+               ? styles.secondTheme
+               : theme === "3"
+               ? styles.thirdTheme
+               : styles.fourthTheme
+         }`}>
+         <ReadBibleTemplate handleTheme={(theme: string) => settheme(theme)} />
+      </main>
    );
 };
 export default Read;

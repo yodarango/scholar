@@ -33,7 +33,7 @@ export const ReadBibleHeader = ({ isChapeterBookmarked, cta }: TReadBibleHeaderP
             <ReadSettings
                cta={{
                   handleFontSelection: cta.handleFontSelection,
-                  handleThemeSelection: cta.handleFontSelection
+                  handleThemeSelection: cta.handleThemeSelection
                }}
             />
          </div>

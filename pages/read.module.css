@@ -1,0 +1,15 @@
+.firstTheme {
+   background-color: var(--reading-modal-1--dark);
+}
+
+.secondTheme {
+   background-color: var(--reading-modal-2--dark);
+}
+
+.thirdTheme {
+   background-color: var(--reading-modal-3--dark);
+}
+
+.fourthTheme {
+   background-color: var(--reading-modal-4--light);
+}

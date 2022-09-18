@@ -122,9 +122,11 @@
    --reading-modal-1--dark: #2b2b2a;
    --reading-modal-1--light: #fefffe;
    --reading-modal-2--dark: #050825;
-   --reading-modal-2--light: #2c3674;
-   --reading-modal-3--dark: #1e1f1e;
-   --reading-modal-3--light: #414041;
+   --reading-modal-2--light: #7c87cf;
+   --reading-modal-3--dark: #2a2438;
+   --reading-modal-3--light: #b293fe;
+   --reading-modal-4--light: #f3def0;
+   --reading-modal-4--dark: #1f021b;
 
    /* --------------- approval level ---------- */
    --rating-level-a: #75d975;
