@@ -9,9 +9,11 @@ import { ReadBibleHeader } from "../layouts/read_bible_header";
 import styles from "./read_bible_modal.module.css";
 
 type TReadBibleTemplateProps = {
-   handleTheme: (theme: string) => void;
+   cta: {
+      handleTheme: (theme: string) => void;
+   };
 };
-export const ReadBibleTemplate = ({ handleTheme }: TReadBibleTemplateProps) => {
+export const ReadBibleTemplate = ({ cta }: TReadBibleTemplateProps) => {
    // router
    const router = useRouter();
 
@@ -38,7 +40,7 @@ export const ReadBibleTemplate = ({ handleTheme }: TReadBibleTemplateProps) => {
 
    const handleThemeSelection = (value: string) => {
       settheme(value);
-      handleTheme;
+      cta.handleTheme(value);
    };
 
    return (

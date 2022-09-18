@@ -1,6 +1,6 @@
 import Head from "next/head";
 import HeadContent from "../SEO/head-content";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // comps
 import { ReadBibleTemplate } from "../templates/read_bible_modal";
@@ -10,6 +10,16 @@ import styles from "./read.module.css";
 
 const Read = () => {
    const [theme, settheme] = useState<string | undefined>(undefined);
+
+   // get the theme settings
+   useEffect(() => {
+      const LSExists = localStorage.getItem("reading-preferences");
+      if (LSExists) {
+         const LSParsed = JSON.parse(LSExists);
+         settheme(LSParsed.theme);
+      }
+   }, []);
+
    return (
       <main
          className={`${styles.mainWrapper} ${
@@ -17,11 +27,13 @@ const Read = () => {
                ? styles.firstTheme
                : theme === "2"
                ? styles.secondTheme
-               : theme === "3"
-               ? styles.thirdTheme
-               : styles.fourthTheme
+               : theme === "4"
+               ? styles.fourthTheme
+               : styles.thirdTheme // default one
          }`}>
-         <ReadBibleTemplate handleTheme={(theme: string) => settheme(theme)} />
+         <div className={styles.readBibleTemplate}>
+            <ReadBibleTemplate cta={{ handleTheme: (theme: string) => settheme(theme) }} />
+         </div>
       </main>
    );
 };

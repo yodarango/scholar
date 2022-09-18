@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+
+// styles
 import styles from "./icon_ghost.module.css";
 
 type TIconGhostProps = {

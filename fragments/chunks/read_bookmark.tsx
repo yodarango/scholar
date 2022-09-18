@@ -48,12 +48,12 @@ export const ReadBookmark = ({
          </Portal>
          {!bookMarked && (
             <div className={styles.icon} onClick={() => setshowBookmarks(true)}>
-               <Icon name='bookmarkOutline' size={size} color='#F1EAFF' />
+               <Icon name='bookmarkOutline' size={size} color='#ff3269' />
             </div>
          )}
          {bookMarked && (
             <div className={styles.icon} onClick={() => setshowBookmarks(true)}>
-               <Icon name='bookmarkFilled' size={size} color='#F1EAFF' />
+               <Icon name='bookmarkFilled' size={size} color='#ff3269' />
             </div>
          )}
       </div>

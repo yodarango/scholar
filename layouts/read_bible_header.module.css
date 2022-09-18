@@ -13,3 +13,8 @@
    justify-self: flex-end;
    margin: 0 var(--spacing-m) 0 auto;
 }
+
+.settings {
+   width: 3.5rem;
+   margin-right: var(--spacing-xs);
+}

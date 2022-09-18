@@ -38,14 +38,17 @@ export const BibleLanguage = () => {
          const LSExists = localStorage.getItem("reading-preferences");
 
          if (LSExists) {
+            // check fo the LS settings needed
             const parseLS = JSON.parse(LSExists);
             const isLangIconSet = Object.hasOwn(parseLS, "langIcon");
             const ifLanguageSet = Object.hasOwn(parseLS, "language");
+            const isThemeSet = Object.hasOwn(parseLS, "language");
 
             // if language is already set in LS
             if (isLangIconSet) {
                setcurrentLangIcon(parseLS.langIcon);
             }
+
             if (!ifLanguageSet && !isLangIconSet) {
                setcurrentLangIcon("🇺🇸");
                localStorage.setItem(

@@ -56,11 +56,16 @@ import { ReadBookmark } from "../fragments/chunks/read_bookmark";
 import { ReadSettings } from "../fragments/chunks/read_settings";
 import { ReadBibleHeader } from "../layouts/read_bible_header";
 import { ReadBibleTemplate } from "../templates/read_bible_modal";
+import commentaries_one_line_carrouselStories from "../layouts/scrollers/user_content/commentaries_one_line_carrousel.stories";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <ReadBibleTemplate />
+         <ReadBibleTemplate
+            cta={{
+               handleTheme: (theme: string) => console.log(theme)
+            }}
+         />
          {/* <ReadBibleHeader isChapeterBookmarked={false} /> */}
          {/* <ReadBookmark
             chapterId='GEN.1'

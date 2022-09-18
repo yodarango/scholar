@@ -13,17 +13,16 @@ import { SelectReadingSettings } from "../../layouts/menus/select_reading_settin
 import { IconButton } from "../buttons/icon_button";
 
 // styles
-import styles from "./read_bookmark.module.css";
+import styles from "./read_settings.module.css";
 
 type TReadSettingsProps = {
-   size?: string;
    cta: {
       handleFontSelection: (value: string) => void;
       handleThemeSelection: (value: string) => void;
    };
 };
 
-export const ReadSettings = ({ size = "2rem", cta }: TReadSettingsProps) => {
+export const ReadSettings = ({ cta }: TReadSettingsProps) => {
    // state
    const [showtMenuModal, setshowtMenuModal] = useState<boolean>(false);
 
@@ -61,7 +60,7 @@ export const ReadSettings = ({ size = "2rem", cta }: TReadSettingsProps) => {
    };
 
    return (
-      <div className={styles.mainWrapper} style={{ width: size, height: size }}>
+      <div className={styles.mainWrapper}>
          <Portal>
             {showtMenuModal && (
                <SelectReadingSettings
@@ -76,6 +75,7 @@ export const ReadSettings = ({ size = "2rem", cta }: TReadSettingsProps) => {
 
          <div className={styles.icon}>
             <IconButton
+               custombuttonSize={true}
                cta={{ handleClick: () => setshowtMenuModal(true) }}
                icon='settings'
                backgroundColor='2'

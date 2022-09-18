@@ -127,7 +127,7 @@ export const BibleVersionScripture = () => {
 
    // handle the chapter selection: close the modal, update the state, and push to the router
    const handleChapterSelection = (content: any) => {
-      location.href = `/test?chapter-id=${content}`;
+      location.href = `/read?chapter-id=${content}`;
       setshowModal(0);
 
       // parse the scriptures
