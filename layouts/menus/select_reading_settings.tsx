@@ -26,10 +26,10 @@ export const SelectReadingSettings = ({ cta }: TSelectReadingSettingsProps) => {
                   textType='text'
                   iconType='text'
                   customSubSelections={[
-                     { value: "default", title: "Default" },
+                     { value: "main", title: "Default" },
                      { value: "small", title: "Small" },
-                     { value: "big", title: "Big" },
-                     { value: "big", title: "Bigger" }
+                     { value: "large", title: "Big" },
+                     { value: "xlarge", title: "Bigger" }
                   ]}
                   cta={{ handleSelection: cta.handleFontSelection }}
                   optionProperties={{

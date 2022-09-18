@@ -63,3 +63,19 @@
    cursor: pointer;
    transform: scale(1.1);
 }
+
+.fontSmall {
+   font-size: var(--fs-small);
+}
+
+.fontMain {
+   font-size: var(--fs-main);
+}
+
+.fontLarge {
+   font-size: var(--fs-large);
+}
+
+.fontXlarge {
+   font-size: var(--fs-xlarge);
+}

@@ -35,7 +35,9 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
    const [highlightedVerses, sethighlightedVerses] = useState<string[]>([]);
    const [data, setdata] = useState<any>(null);
    const [loading, setloading] = useState("done");
+   const [fntSize, setfntSize] = useState<string | undefined>(fontSize);
 
+   console.log(fntSize);
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (versionId: string) => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
@@ -59,6 +61,24 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
          fetchData(LSParsed.versionId);
       }
    }, []);
+
+   useEffect(() => {
+      const LSExists = localStorage.getItem("reading-preferences");
+      if (LSExists) {
+         const LSParsed = JSON.parse(LSExists);
+         const font = LSParsed.font;
+         console.log(font);
+         setfntSize(
+            font === "small"
+               ? styles.fontSmall
+               : font === "main"
+               ? styles.fontMain
+               : font === "large"
+               ? styles.fontLarge
+               : styles.fontXlarge
+         );
+      }
+   }, [fontSize]);
 
    // highlight the verse
    const handleHighlightVerse = (
@@ -147,7 +167,9 @@ export const BibleChapter = ({ chapterId, fontSize = "main" }: chapterProps) => 
                                  }`}>
                                  {index}
                               </span>
-                              <p className={styles.verse} style={{ color: getHighlighMeta?.color }}>
+                              <p
+                                 className={`${styles.verse} ${fntSize}`}
+                                 style={{ color: getHighlighMeta?.color }}>
                                  <span className={styles.tab}></span>
                                  {verse}
                               </p>

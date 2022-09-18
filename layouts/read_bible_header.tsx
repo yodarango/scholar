@@ -13,7 +13,7 @@ type TReadBibleHeaderProps = {
       handleThemeSelection: (value: string) => void;
    };
 };
-export const ReadBibleHeader = ({ isChapeterBookmarked }: TReadBibleHeaderProps) => {
+export const ReadBibleHeader = ({ isChapeterBookmarked, cta }: TReadBibleHeaderProps) => {
    return (
       <div className={styles.mainWrpper}>
          <div className={styles.language}>
@@ -32,8 +32,8 @@ export const ReadBibleHeader = ({ isChapeterBookmarked }: TReadBibleHeaderProps)
          <div className={styles.settings}>
             <ReadSettings
                cta={{
-                  handleFontSelection: (value: string) => console.log(value),
-                  handleThemeSelection: (value: string) => console.log(value)
+                  handleFontSelection: cta.handleFontSelection,
+                  handleThemeSelection: cta.handleFontSelection
                }}
             />
          </div>
