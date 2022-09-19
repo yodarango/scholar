@@ -2,8 +2,64 @@
    height: 100%;
    width: 100%;
    overflow-y: scroll;
+   background-color: inherit;
 }
 
 .header {
+   background-color: inherit;
+   padding: var(--spacing-s) 3% var(--spacing-s);
+   position: fixed;
+   width: 100%;
+   top: 0;
+   left: 0;
+   z-index: 5;
    margin-bottom: var(--spacing-m);
+}
+
+.chapter {
+   margin-top: calc(var(--spacing-l) + var(--spacing-ml));
+}
+
+.scrollingUp {
+   top: -5rem;
+   animation: scrollUp 200ms linear;
+}
+
+@keyframes scrollUp {
+   0% {
+      top: 0;
+   }
+   100% {
+      top: -5rem;
+   }
+}
+
+.scrollingDown {
+   top: 0;
+   animation: scrollDown 200ms linear;
+}
+
+@keyframes scrollDown {
+   0% {
+      top: -5rem;
+   }
+   100% {
+      top: 0;
+   }
+}
+
+.firstTheme {
+   background-color: var(--reading-modal-1--dark);
+}
+
+.secondTheme {
+   background-color: var(--reading-modal-2--dark);
+}
+
+.thirdTheme {
+   background-color: var(--reading-modal-3--dark);
+}
+
+.fourthTheme {
+   background-color: var(--reading-modal-4--light);
 }

@@ -1,3 +1,4 @@
+// components
 import { BibleLanguage } from "../fragments/buttons/bible_language";
 import { BibleVersionScripture } from "../fragments/buttons/bible_version_scripture";
 import { ReadBookmark } from "../fragments/chunks/read_bookmark";
