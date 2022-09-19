@@ -42,7 +42,6 @@ export const BibleLanguage = () => {
             const parseLS = JSON.parse(LSExists);
             const isLangIconSet = Object.hasOwn(parseLS, "langIcon");
             const ifLanguageSet = Object.hasOwn(parseLS, "language");
-            const isThemeSet = Object.hasOwn(parseLS, "language");
 
             // if language is already set in LS
             if (isLangIconSet) {

@@ -20,7 +20,7 @@ export type TSelectBibleLanguageprops = {
 
 export const SelectBibleLanguage = ({ cta }: TSelectBibleLanguageprops) => {
    const availableLanuages: TavailableLanuages[] = [
-      { id: "engish", icon: "🇺🇸", text: "English" },
+      { id: "english", icon: "🇺🇸", text: "English" },
       { id: "greek", icon: "🇬🇷", text: "Greek" },
       { id: "spanish", icon: "🇲🇽", text: "Spanish" },
       { id: "italian", icon: "🇮🇹", text: "Italian" }

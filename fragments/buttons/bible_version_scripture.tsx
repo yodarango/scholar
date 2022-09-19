@@ -134,13 +134,13 @@ export const BibleVersionScripture = () => {
       const scripture = parseChapterId(content);
       dispatch({ type: "scriptureRef", payload: scripture });
    };
+
    return (
       <div className={styles.mainWrapper}>
          <Portal>
             {/* -------- opent the Bible versions mennu ------- */}
             {showModal === 1 && (
                <SelectBibleVersion
-                  currLanguage={state.language}
                   cta={{
                      handleSelection: handleVersionSelection,
                      handleCloseModal: () => setshowModal(0)

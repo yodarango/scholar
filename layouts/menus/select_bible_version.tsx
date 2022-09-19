@@ -15,35 +15,44 @@ import { italian } from "../../data/supported_bible_versions/italian";
 import { greek } from "../../data/supported_bible_versions/greek";
 
 export type TSelectBibleVersionprops = {
-   currLanguage: string;
    cta: {
       handleSelection: ({ id, name, abbreviation }: TVersion) => void;
       handleCloseModal: () => void;
    };
 };
 
-export const SelectBibleVersion = ({ cta, currLanguage }: TSelectBibleVersionprops) => {
-   const [versions, setVersions] = useState<TVersion[]>([]);
-   console.log(currLanguage);
+export const SelectBibleVersion = ({ cta }: TSelectBibleVersionprops) => {
+   const [versions, setVersions] = useState<TVersion[] | null>(null);
+
    useEffect(() => {
-      switch (currLanguage) {
-         case "english":
+      const LSExists = localStorage.getItem("reading-preferences");
+      if (LSExists) {
+         const LSParsed = JSON.parse(LSExists);
+         if (LSParsed.language) {
+            switch (LSParsed.language) {
+               case "english":
+                  setVersions(english);
+                  break;
+
+               case "spanish":
+                  setVersions(spanish);
+                  break;
+
+               case "italian":
+                  setVersions(italian);
+                  break;
+
+               case "greek":
+                  setVersions(greek);
+                  break;
+            }
+         } else {
             setVersions(english);
-            break;
-
-         case "spanish":
-            setVersions(spanish);
-            break;
-
-         case "italian":
-            setVersions(italian);
-            break;
-
-         case "greek":
-            setVersions(greek);
-            break;
+         }
       }
    }, []);
+
+   console.log(versions);
 
    return (
       <>
@@ -51,20 +60,21 @@ export const SelectBibleVersion = ({ cta, currLanguage }: TSelectBibleVersionpro
             color='3'
             cta={{ handleClose: cta.handleCloseModal }}
             title='Select version'>
-            {versions.map((item: TVersion, index) => (
-               <div className={styles.menuOption} key={item.id}>
-                  <MenuPrimaryOption
-                     iconType='text'
-                     textType='text'
-                     cta={{ handleOptionClick: () => cta.handleSelection(item) }}
-                     optionProperties={{
-                        icon: `${index + 1}`,
-                        text: item.name,
-                        iconShadow: "2"
-                     }}
-                  />
-               </div>
-            ))}
+            {versions &&
+               versions.map((item: TVersion, index) => (
+                  <div className={styles.menuOption} key={item.id}>
+                     <MenuPrimaryOption
+                        iconType='text'
+                        textType='text'
+                        cta={{ handleOptionClick: () => cta.handleSelection(item) }}
+                        optionProperties={{
+                           icon: `${index + 1}`,
+                           text: item.name,
+                           iconShadow: "2"
+                        }}
+                     />
+                  </div>
+               ))}
          </PrimaryMenuBkg>
       </>
    );
