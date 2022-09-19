@@ -61,11 +61,12 @@ import commentaries_one_line_carrouselStories from "../layouts/scrollers/user_co
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <ReadBibleTemplate
+         <DailyVerseCard />
+         {/* <ReadBibleTemplate
             cta={{
                handleTheme: (theme: string) => console.log(theme)
             }}
-         />
+         /> */}
          {/* <ReadBibleHeader isChapeterBookmarked={false} /> */}
          {/* <ReadBookmark
             chapterId='GEN.1'
