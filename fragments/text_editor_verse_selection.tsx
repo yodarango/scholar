@@ -97,6 +97,7 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
                         versionId='de4e12af7f28f599-02'
                         stopAtVerse={false}
                         stopAtChapter={false}
+                        stopAtChapterId={false}
                         cta={{ handleChoice: (id) => handlerefVerseSelection(id) }}
                      />
                   </PrimaryStack>

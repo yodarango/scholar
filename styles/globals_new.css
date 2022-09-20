@@ -374,6 +374,36 @@ a:active {
 .mr-l {
    margin-right: var(--spacing-l);
 }
+
+.spacer--xxs {
+   width: 100%;
+   height: var(--spacing-xxs);
+}
+
+.spacer--xs {
+   width: 100%;
+   height: var(--spacing-xs);
+}
+
+.spacer--s {
+   width: 100%;
+   height: var(--spacing-s);
+}
+
+.spacer--m {
+   width: 100%;
+   height: var(--spacing-m);
+}
+
+.spacer--ml {
+   width: 100%;
+   height: var(--spacing-ml);
+}
+
+.spacer--l {
+   width: 100%;
+   height: var(--spacing-l);
+}
 /* --------------- ScripturesHTML Styles for popup references */
 
 .c /*chapter*/ {

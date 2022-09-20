@@ -42,10 +42,10 @@
 }
 
 .contentHolder {
-   height: 100%;
+   height: 96%;
    width: 90%;
    margin: auto;
-   padding: var(--spacing-l) 0;
+   padding: var(--spacing-l) 0 0; /*was var(--spacing-l) 0; added spacer div instead*/
    overflow-y: scroll;
    overflow-x: visible;
 }

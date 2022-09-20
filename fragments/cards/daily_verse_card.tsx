@@ -26,20 +26,16 @@ import styles from "./daily_verse_card.module.css";
 import { fetchBibleVerseWDefault } from "../../helpers/APIs/fetch_bible_verse_with_default";
 import { RoundLoader } from "../chunks/round_loader";
 
-type dailyVerseProps = {
-   versionId: string;
-};
-
-export const DailyVerseCard = ({ versionId }: dailyVerseProps) => {
+export const DailyVerseCard = () => {
    // -------------------------- hooks --------------------
    const [verseContent, setverseContent] = useState<TverseContent | null>(null);
    const [loading, setloading] = useState<string>("loading");
 
    // ----------------- make the call to the API on useEffect and router.isReady
-   const getVerseDate = async () => {
+   const getVerseDate = async (version?: string) => {
       const verseId = router.query["verse-id"];
 
-      const verseContent = await fetchBibleVerseWDefault(verseId);
+      const verseContent = await fetchBibleVerseWDefault(verseId, version);
 
       if (!verseContent) {
          setverseContent(null);
@@ -50,10 +46,16 @@ export const DailyVerseCard = ({ versionId }: dailyVerseProps) => {
       }
    };
 
+   // get the data
    const router = useRouter();
    useEffect(() => {
-      if (router.isReady) {
-         getVerseDate();
+      const LSExists = localStorage.getItem("reading-preferences");
+      if (LSExists) {
+         const LSParsed = JSON.parse(LSExists);
+
+         if (router.isReady) {
+            getVerseDate(LSParsed.vesionId);
+         }
       }
    }, [router.isReady, router.query]);
 

@@ -57,11 +57,13 @@ import { ReadSettings } from "../fragments/chunks/read_settings";
 import { ReadBibleHeader } from "../layouts/read_bible_header";
 import { ReadBibleTemplate } from "../templates/read_bible_modal";
 import commentaries_one_line_carrouselStories from "../layouts/scrollers/user_content/commentaries_one_line_carrousel.stories";
+import { DailyVerseModal } from "../layouts/daily_verse_modal";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <DailyVerseCard />
+         <DailyVerseModal />
+         {/* <DailyVerseCard /> */}
          {/* <ReadBibleTemplate
             cta={{
                handleTheme: (theme: string) => console.log(theme)

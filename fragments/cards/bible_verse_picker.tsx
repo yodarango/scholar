@@ -27,7 +27,7 @@ type TBibleVersePickerProps = {
    verseCount: number;
    versionId: string;
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
       handleVerseSelection: (content: any) => void;
       handleInitLoader: (init: boolean) => void;
    };
@@ -74,7 +74,7 @@ export const BibleVersePicker = ({
                   type='4'
                   title={notificationMessages.selectNewScriptureError.title}
                   body={notificationMessages.selectNewScriptureError.body}
-                  cta={() => setshowNotificationPopup(false)}
+                  cta={{ handleClose: () => setshowNotificationPopup(false) }}
                />
             )}
          </Portal>
