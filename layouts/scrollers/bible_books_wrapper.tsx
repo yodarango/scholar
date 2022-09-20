@@ -37,6 +37,7 @@ export const BibleBooksWrapper = ({
                />
             </div>
          ))}
+         <div className='spacer--l'></div>
       </div>
    );
 };

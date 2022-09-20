@@ -39,10 +39,7 @@ export const PrimaryStack = ({ title, children, cta, icon }: TPrimaryStackprops)
             <CloseContent cta={{ handleClick: cta.handleClose }} />
          </div>
          <div className={styles.subWrapper}>
-            <div className={styles.contentHolder}>
-               {children}
-               <div className='spacer--l'></div>
-            </div>
+            <div className={styles.contentHolder}>{children}</div>
          </div>
       </div>
    );

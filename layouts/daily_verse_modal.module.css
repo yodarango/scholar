@@ -1,1 +1,8 @@
+.dailyVerseCard {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+}
 
+.button {
+   width: 100%;
+}

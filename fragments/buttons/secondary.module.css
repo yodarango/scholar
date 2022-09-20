@@ -1,34 +1,59 @@
-.mainWrapper{
-    width: 100%;
+.mainWrapper {
+   width: 100%;
 }
 
-.primary, .secondary {
-    padding: var(--spacing-xs) var(--spacing-xs);
-    background-color: transparent;
-    border-radius: 2em;
-    display: inline-flex;
-    width: auto;
-    align-items: center;
-    justify-content: center;
-    background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+.primary,
+.secondary {
+   padding: var(--spacing-xs) var(--spacing-xs);
+   background-color: transparent;
+   border-radius: 2em;
+   display: inline-flex;
+   width: auto;
+   align-items: center;
+   justify-content: center;
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
 }
 
 .secondary {
-    background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+   background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
 }
 
-.primary:hover, .secondary:hover {
-    cursor: pointer;
-    transform: scale(.95);
-    transition: transform 300ms ease;
+.primary:hover,
+.secondary:hover {
+   cursor: pointer;
+   transform: scale(0.95);
+   transition: transform 300ms ease;
 }
 
-.mainWrapper.withIcon, .primary.withIcon, .mainWrapper.withIcon{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+.mainWrapper.withIcon,
+.primary.withIcon,
+.secondary.withIcon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: flex-start;
 }
 
-.icon{
-    margin-right: var(--spacing-xxs);
+.icon {
+   margin-right: var(--spacing-xxs);
+}
+
+.mainWrapper.fullWidth,
+.primary.fullWidth,
+.secondary.fullWidth {
+   width: 100%;
+   display: flex;
+}
+
+.primary.fullWidth,
+.secondary.fullWidth {
+   width: 100%;
+   column-gap: var(--spacing-s);
+   justify-content: center;
+}
+
+.primary.fullWidth .icon,
+.primary.fullWidth div,
+.secondary.fullWidth .icon,
+.secondary.fullWidth div {
+   width: auto;
 }

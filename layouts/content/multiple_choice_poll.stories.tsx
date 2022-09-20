@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { MultipleChicePoll } from "../../../layouts/content/multiple_choice_poll";
+import { MultipleChicePoll } from "./multiple_choice_poll";
 
 export default {
    title: "layouts/content/Multiple Choice Poll",

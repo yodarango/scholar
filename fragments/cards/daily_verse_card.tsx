@@ -95,7 +95,7 @@ export const DailyVerseCard = () => {
 
                {/* --------------------- card actions ----------------- */}
                <div className={styles.actions}>
-                  <Link href={`/?verse-id=${verseContent.previous.id}`}>
+                  <Link href={`/verse-by-verese?verse-id=${verseContent.previous.id}`}>
                      <a>
                         <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
                      </a>
@@ -107,7 +107,7 @@ export const DailyVerseCard = () => {
                      </a>
                   </Link>
 
-                  <Link href={`/?verse-id=${verseContent.next.id}`}>
+                  <Link href={`/verse-by-verese?verse-id=${verseContent.next.id}`}>
                      <a>
                         <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
                      </a>

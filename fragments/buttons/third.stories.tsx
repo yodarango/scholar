@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Third } from "../../../fragments/buttons/third";
+import { Third } from "./third";
 
 export default {
    title: "fragments/buttons/Third",

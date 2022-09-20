@@ -11,7 +11,7 @@ export const MenuOptionWithBackgroundId: ComponentStory<typeof GradientBackgroun
    <GradientBackground
       background='quote-bkg--2'
       cta={{
-         handleClick(value: string | { light: string; dark: string }) {
+         handleSelection(value: string | { light: string; dark: string }) {
             console.log(value);
          }
       }}
@@ -22,7 +22,7 @@ export const MenuOptionWithBackgroundCustom: ComponentStory<typeof GradientBackg
    <GradientBackground
       backgroundCustom={{ light: "#000000", dark: "#ffffff" }}
       cta={{
-         handleClick(value: string | { light: string; dark: string }) {
+         handleSelection(value: string | { light: string; dark: string }) {
             console.log(value);
          }
       }}
