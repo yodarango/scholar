@@ -63,7 +63,7 @@ import { CommentaryFilter } from "../fragments/commentary_filter";
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <CommentaryFilter />
+         {/* <CommentaryFilter /> */}
          {/* <DailyVerseModal /> */}
          {/* <DailyVerseCard /> */}
          {/* <ReadBibleTemplate
