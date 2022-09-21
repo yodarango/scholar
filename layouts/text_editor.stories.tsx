@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { TextEditor } from "../../layouts/text_editor";
+import { TextEditor } from "./text_editor";
 
 export default {
    title: "layouts/Text Editor ",

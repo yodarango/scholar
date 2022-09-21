@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { QuoteOneLineCarrousel } from "../../../layouts/scrollers/quote_one_line_carrousel";
+import { QuoteOneLineCarrousel } from "./quote_one_line_carrousel";
 
 export default {
    title: "layouts/scrollers/Quote One Line Carrousel",

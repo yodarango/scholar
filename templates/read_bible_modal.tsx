@@ -13,7 +13,7 @@ type TReadBibleTemplateProps = {
       handleTheme: (theme: string) => void;
    };
 };
-export const ReadBibleTemplate = ({ cta }: TReadBibleTemplateProps) => {
+export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
    // router
    const router = useRouter();
 

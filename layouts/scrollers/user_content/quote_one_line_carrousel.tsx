@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 // comps
-import { Quote } from "../../fragments/cards/posts/quote";
+import { Quote } from "../../../fragments/cards/posts/quote";
 
 // styles
 import styles from "./commentaries_one_line_carrousel.module.css";
 
 //helpers
-import { TCommentary, TQuote } from "../../types/posts";
+import { TCommentary, TQuote } from "../../../types/posts";
 
 type TCommentaryOneLineCarrouselProps = {
    quotes: TQuote[];

@@ -1,0 +1,25 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.verse {
+   width: 100%;
+   margin-bottom: var(--spacing-l);
+}
+
+.filter {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+}
+
+.commentaries {
+   position: relative;
+}
+
+.shadow {
+   position: absolute;
+   width: 10rem;
+   height: 100%;
+   left: calc(100% - 10rem);
+   background-image: linear-gradient(-90deg, var(--primary-color), transparent);
+}

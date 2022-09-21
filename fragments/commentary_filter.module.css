@@ -1,4 +1,6 @@
 .mainWrapper {
+   width: 100%;
+   overflow-x: scroll;
    display: flex;
    align-items: center;
    justify-content: space-between;

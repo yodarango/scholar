@@ -3,7 +3,7 @@ import HeadContent from "../SEO/head-content";
 import { useState, useEffect } from "react";
 
 // comps
-import { ReadBibleTemplate } from "../templates/read_bible_modal";
+import { ReadBibleModal } from "../templates/read_bible_modal";
 
 // styles
 import styles from "./read.module.css";
@@ -32,7 +32,7 @@ const Read = () => {
                : styles.thirdTheme // default one
          }`}>
          <div className={styles.readBibleTemplate}>
-            <ReadBibleTemplate cta={{ handleTheme: (theme: string) => settheme(theme) }} />
+            <ReadBibleModal cta={{ handleTheme: (theme: string) => settheme(theme) }} />
          </div>
       </main>
    );

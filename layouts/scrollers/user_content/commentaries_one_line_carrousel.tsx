@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 // comps
-import { Commentary } from "../../fragments/cards/posts/commentary";
+import { Commentary } from "../../../fragments/cards/posts/commentary";
 
 // styles
 import styles from "./commentaries_one_line_carrousel.module.css";
 
 //helpers
-import { TCommentary } from "../../types/posts";
+import { TCommentary } from "../../../types/posts";
 
 type TCommentaryOneLineCarrouselProps = {
    commentaries: TCommentary[];

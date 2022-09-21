@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CommentaryOneLineCarrousel } from "./commentaries_one_line_carrousel";
+import { VerseByVerse } from "./verse_by_verse";
 
 export default {
-   title: "layouts/scrollers/Commentary One Line Carrousel",
-   component: CommentaryOneLineCarrousel
-} as ComponentMeta<typeof CommentaryOneLineCarrousel>;
+   title: "templates/Verse By Verse",
+   component: VerseByVerse
+} as ComponentMeta<typeof VerseByVerse>;
 
-export const Default: ComponentStory<typeof CommentaryOneLineCarrousel> = () => (
-   <CommentaryOneLineCarrousel
+export const ThoughtPost: ComponentStory<typeof VerseByVerse> = () => (
+   <VerseByVerse
       commentaries={[
          {
             ID: "32",
