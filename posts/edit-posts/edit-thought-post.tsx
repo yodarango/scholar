@@ -15,7 +15,7 @@ import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.m
 
 // types / helpers
 import { Tthought } from "../../fragments/cards/posts/thought";
-import { TverseContent } from "../../pages/index";
+import { TverseContent } from "../../pages/verse-by-verse";
 
 type editCommentaryPostProps = {
    thought: Tthought;

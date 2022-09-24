@@ -2,9 +2,15 @@
    width: 100%;
 }
 
+.addBtn{
+position: fixed;
+top:var(--spacing-m) ;
+right: var(--spacing-m);
+}
+
 .verse {
    width: 100%;
-   margin-bottom: var(--spacing-l);
+   margin: 10rem auto var(--spacing-l);
 }
 
 .filter {

@@ -1,3 +1,4 @@
+import { IconButton } from "../fragments/buttons/icon_button";
 import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
 import { CommentaryFilter } from "../fragments/commentary_filter";
 import { CommentaryOneLineCarrousel } from "../layouts/scrollers/user_content/commentaries_one_line_carrousel";
@@ -10,6 +11,9 @@ type TVerseByVerseProps = {
 export const VerseByVerse = ({ commentaries }: TVerseByVerseProps) => {
    return (
       <div className={styles.mainWrapper}>
+         <div className={styles.addBtn}>
+         <IconButton backgroundColor="2" icon="add" link="/posts/commentary/new?close=verse-by-verse"/>
+         </div>
          <div className={styles.verse}>
             <DailyVerseCard />
          </div>

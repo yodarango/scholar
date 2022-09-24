@@ -18,7 +18,7 @@ import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module
 
 // types
 import { Tcommentary } from "../../fragments/cards/posts/commentary";
-import { TverseContent } from "../../pages";
+import { TverseContent } from "../../pages/verse-by-verse";
 
 // helpers;
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";

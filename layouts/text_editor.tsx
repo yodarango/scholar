@@ -1,3 +1,11 @@
+
+/**************************************************************************************** 
+- renders the a text editor for either the thought or commentary type.
+- if cta.closeModal is passed than the "x" button will be rendered and called on Click()
+- if closeModalHref is passed then the modal will redirect to the route specified in the 
+   router.query.close prop
+****************************************************************************************/
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -24,12 +32,11 @@ type TTextEditorProps = {
    postCategory: string;
    postReferences: string[];
    postPrivacy: boolean;
-   renderClose?: boolean;
    withTitle?: boolean;
    titleMaxL?: number;
    titleDefaultValue?: string;
    titlePlaceHolder?: string;
-   closeodalHref?: string | undefined;
+   closeModalHref?: string | undefined;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -58,28 +65,44 @@ export const TextEditor = ({
    withTitle,
    titleDefaultValue = "",
    titlePlaceHolder,
-   renderClose = true,
-   closeodalHref,
+   closeModalHref,
    cta
 }: TTextEditorProps) => {
+   // router
+   const router = useRouter();
+
    //state
    const [postbody, setpostBody] = useState(body);
+   // close prop from the router
+   const [closeHref, setcloseHref] = useState<string>("#")
    // pas the body down to the preview component and to the parent component for posting
    const handleUpdateBody = (value: string) => {
       setpostBody(value);
       cta.handleBody(value);
    };
 
+   useEffect(()=>{
+      if(router.isReady){
+         const closeExists = router.query["close"] !== undefined;
+         if (closeExists || closeModalHref){
+            const closeLink = router.query["close"];
+            if(typeof closeLink === 'string'){
+               setcloseHref(closeLink.replaceAll("_", "/"))
+            }
+         }
+         
+      }
+   }, [router.isReady])
+
    return (
       <div className={styles.mainWrapper}>
-         {renderClose && (
+   
             <div className={styles.close}>
-               {closeodalHref && <CloseContent href={closeodalHref} />}
+               {closeHref && <CloseContent href={`/${closeHref}`} />}
                {cta.handleCloseModal && (
                   <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
                )}
             </div>
-         )}
          <div className={styles.textArea}>
             <TextEditorTextArea
                withTitle={withTitle}

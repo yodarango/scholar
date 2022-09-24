@@ -18,7 +18,7 @@ import selectNewScriptureStyles from "../../styles/layouts/selectNewScriptureErr
 
 // helpers: types
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
-import { TverseContent } from "../../pages";
+import { TverseContent } from "../../pages/verse-by-verse";
 import { TnewVerse } from "../get-new-scriptures/get-new-verse-text-editor";
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 

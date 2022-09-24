@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 // components
-import { TverseContent } from "../../pages";
 import { Icon } from "../chunks/icons";
 import { Header } from "../Typography/header";
 import { Parragraph } from "../Typography/parragraph";
@@ -28,7 +27,7 @@ import { RoundLoader } from "../chunks/round_loader";
 
 export const DailyVerseCard = () => {
    // -------------------------- hooks --------------------
-   const [verseContent, setverseContent] = useState<TverseContent | null>(null);
+   const [verseContent, setverseContent] = useState<any>(null);
    const [loading, setloading] = useState<string>("loading");
 
    // ----------------- make the call to the API on useEffect and router.isReady
@@ -95,19 +94,19 @@ export const DailyVerseCard = () => {
 
                {/* --------------------- card actions ----------------- */}
                <div className={styles.actions}>
-                  <Link href={`/verse-by-verese?verse-id=${verseContent.previous.id}`}>
+                  <Link href={`/verse-by-verse?verse-id=${verseContent.previous.id}`}>
                      <a>
                         <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
 
-                  <Link href={`/posts/commentary/new`}>
+                  <Link href={`/posts/commentary/new?verse-id=${verseContent.id}`}>
                      <a>
                         <Icon name='comment' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
 
-                  <Link href={`/verse-by-verese?verse-id=${verseContent.next.id}`}>
+                  <Link href={`/verse-by-verse?verse-id=${verseContent.next.id}`}>
                      <a>
                         <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
                      </a>

@@ -18,7 +18,7 @@ import popNewCommentStyles from "../styles/layouts/PopupNewComment.module.css";
 import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers: types
-import { TverseContent } from "../pages";
+import { TverseContent } from "../pages/verse-by-verse";
 
 type commentaryProps = {
    verseData: TverseContent | undefined;

@@ -1,4 +1,5 @@
-import { useState, useReducer, Reducer } from "react";
+import { useState, useReducer, Reducer, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // components
 import { TextEditor } from "../../layouts/text_editor";
@@ -27,7 +28,12 @@ type TCommentaryTextEditorProps = {
    postCategory?: string;
    postReferences?: string[];
    postPrivacy?: boolean;
-   closeodalHref?: string | undefined;
+   closeModalHref?: string | undefined;
+   readyData?: {
+      verseId: string;
+      reference: string;
+      content: string;
+   };
    cta?: {
       handleCloseModal: () => void;
    };
@@ -48,9 +54,13 @@ export const CommentaryTextEditor = ({
    postCategory = "",
    postReferences = [],
    postPrivacy = false,
-   closeodalHref,
+   closeModalHref,
+   readyData,
    cta
 }: TCommentaryTextEditorProps) => {
+   // router 
+   const router = useRouter();
+
    // state
    // postReferencedVerses do not update on reducer changing
    const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
@@ -116,15 +126,12 @@ export const CommentaryTextEditor = ({
       dispatch({ type: "postImage", payload: book[0].image });
    };
 
+   
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.verseSelection}>
             <TextEditorVerseSelection
-               readyData={{
-                  ID: verseId,
-                  reference: verseCitation,
-                  content: verseContent
-               }}
+               readyData={readyData}
                cta={{
                   handleVerseData
                }}
@@ -143,7 +150,7 @@ export const CommentaryTextEditor = ({
                postCategory={postCategory}
                postReferences={state.referencedVerses}
                postPrivacy={postPrivacy}
-               closeodalHref={closeodalHref}
+               closeModalHref={closeModalHref}
                cta={{
                   handleCategorySelection: (category) =>
                      dispatch({ type: "category", payload: category }),
