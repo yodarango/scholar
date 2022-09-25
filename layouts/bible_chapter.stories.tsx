@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof BibleChapter>;
 
 export const ThoughtPost: ComponentStory<typeof BibleChapter> = () => (
-   <BibleChapter chapterId='GEN.1' versionId='de4e12af7f28f599-02' />
+   <BibleChapter chapterId='GEN.1' />
 );

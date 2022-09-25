@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { TextEditorVerseSelection } from "../../fragments/text_editor_verse_selection";
+import { TextEditorVerseSelection } from "./text_editor_verse_selection";
 
 export default {
    title: "layouts/text Editor Verse Selection",
@@ -8,5 +8,11 @@ export default {
 } as ComponentMeta<typeof TextEditorVerseSelection>;
 
 export const Primary: ComponentStory<typeof TextEditorVerseSelection> = () => (
-   <TextEditorVerseSelection />
+   <TextEditorVerseSelection
+      cta={{
+         handleVerseData(data) {
+            console.log(data);
+         }
+      }}
+   />
 );

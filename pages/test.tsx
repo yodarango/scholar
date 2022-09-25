@@ -60,11 +60,12 @@ import commentaries_one_line_carrouselStories from "../layouts/scrollers/user_co
 import { DailyVerseModal } from "../layouts/daily_verse_modal";
 import { CommentaryFilter } from "../fragments/commentary_filter";
 import { VerseByVerse } from "../templates/verse_by_verse";
+import { WigoQuotes } from "../layouts/wigo/wigo_quotes";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <VerseByVerse
+         {/* <VerseByVerse
             commentaries={[
                {
                   ID: "32",
@@ -232,7 +233,7 @@ const Test = () => {
                   ]
                }
             ]}
-         />
+         /> */}
          {/* <CommentaryOneLineCarrousel
             commentaries={[
                {
@@ -1195,8 +1196,8 @@ const Test = () => {
                ],
                approvals: [{ average_count: 23, total_count: 23 }]
             }}
-         />
-         <QuoteOneLineCarrousel
+         />*/}
+         {/* <QuoteOneLineCarrousel
             quotes={[
                {
                   ID: "0",
@@ -1315,6 +1316,125 @@ const Test = () => {
                }
             ]}
          /> */}
+         <WigoQuotes
+            quotes={[
+               {
+                  ID: "0",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "11",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "76",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "2",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               },
+               {
+                  ID: "233",
+                  body: "This is  a body",
+                  category_tags: "#BR",
+                  author: "Matt",
+                  background: "quote-bkg--14",
+                  posted_on: "07/05/22 21:00",
+                  date: "07/05/22 21:00",
+                  total_count: 23,
+                  creator: {
+                     ID: "23",
+                     signature: "Username",
+                     authority_level: 1,
+                     approval_rating: 87,
+                     avatar: ""
+                  },
+                  comments: [
+                     {
+                        total_count: 34
+                     }
+                  ],
+                  approvals: [{ average_count: 23, total_count: 23 }]
+               }
+            ]}
+         />
          {/* <QuoteDisplay
             quotes={[
                {

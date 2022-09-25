@@ -1,0 +1,16 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-end;
+   flex-wrap: wrap;
+}
+
+.link {
+   display: inline-block;
+   margin: 0 0 var(--spacing-m) auto;
+}
+
+.carrousel {
+   width: 100%;
+}
