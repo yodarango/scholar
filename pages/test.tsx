@@ -8,7 +8,7 @@ import { SeePostInfo } from "../fragments/chunks/see_post_info";
 import { TextEditorTopInfo } from "../fragments/text_editor_top_info";
 import { TextEditorVerseSelection } from "../fragments/text_editor_verse_selection";
 import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
-import { FastFacts } from "../layouts/content/fast_facts";
+import { FastFacts } from "../layouts/wigo/fast_facts";
 import { ThoughtsOneLineCarrousel } from "../layouts/scrollers/user_content/thoughts_one_line_carrousel";
 import { NavigationMain } from "../layouts/navs/navigation_main";
 import { UnsplasImgPicker } from "../layouts/scrollers/unsplash_img_picker";
@@ -55,7 +55,7 @@ import { BiblePreferences } from "../layouts/menus/Bible_preferences";
 import { ReadBookmark } from "../fragments/chunks/read_bookmark";
 import { ReadSettings } from "../fragments/chunks/read_settings";
 import { ReadBibleHeader } from "../layouts/read_bible_header";
-import { ReadBibleTemplate } from "../templates/read_bible_modal";
+import { ReadBibleModal } from "../templates/read_bible_modal";
 import commentaries_one_line_carrouselStories from "../layouts/scrollers/user_content/commentaries_one_line_carrousel.stories";
 import { DailyVerseModal } from "../layouts/daily_verse_modal";
 import { CommentaryFilter } from "../fragments/commentary_filter";
@@ -663,7 +663,7 @@ const Test = () => {
                "/images/bible_books/5.png"
             ]}
          /> */}
-         {/* <FastFacts
+         <FastFacts
             images={[
                "/images/bible_books/1.png",
                "/images/bible_books/2.png",
@@ -671,7 +671,7 @@ const Test = () => {
                "/images/bible_books/4.png",
                "/images/bible_books/5.png"
             ]}
-         /> */}
+         />
          {
             // <ThoughtsOneLineCarrousel
             //    thoughts={[
@@ -1316,7 +1316,7 @@ const Test = () => {
                }
             ]}
          /> */}
-         <WigoQuotes
+         {/* <WigoQuotes
             quotes={[
                {
                   ID: "0",
@@ -1434,7 +1434,7 @@ const Test = () => {
                   approvals: [{ average_count: 23, total_count: 23 }]
                }
             ]}
-         />
+         /> */}
          {/* <QuoteDisplay
             quotes={[
                {
