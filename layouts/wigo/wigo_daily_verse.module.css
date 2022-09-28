@@ -1,0 +1,14 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+}
+
+.image {
+   width: calc(100% - 3.5rem - var(--spacing-xs));
+   margin-right: var(--spacing-xs);
+}
+
+.options {
+   margin: 0;
+   width: 3.5rem;
+}

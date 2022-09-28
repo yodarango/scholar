@@ -4,26 +4,37 @@ import { IconButton } from "./buttons/icon_button";
 // styles
 import styles from "./wigo_daily_verse_options.module.css";
 
-type TWigoDailyVerseOptionsProps = {};
+//helpers
+import { downloadImage } from "../helpers/content/download_image";
 
-export const WigoDailyVerseOptions = ({}: TWigoDailyVerseOptionsProps) => {
+type TWigoDailyVerseOptionsProps = {
+   imgSrc: string;
+   verseId: string;
+};
+
+export const WigoDailyVerseOptions = ({
+   imgSrc = `sm_logo.png`,
+   verseId
+}: TWigoDailyVerseOptionsProps) => {
    return (
       <div className={styles.mainWrapper}>
+         {imgSrc && (
+            <div>
+               <IconButton
+                  cta={{ handleClick: () => downloadImage(imgSrc) }}
+                  icon='cloudDownload'
+                  backgroundColor='1'
+               />
+            </div>
+         )}
+
          <div>
-            <IconButton
-               cta={() => console.log("download image")}
-               icon='cloudDownload'
-               backgroundColor='1'
-            />
+            <IconButton icon='read' backgroundColor='1' link={`/read?verse-id=${verseId}`} />
          </div>
 
          <div>
-            <IconButton icon='read' backgroundColor='1' link='/read' />
-         </div>
-
-         <div>
             <IconButton
-               cta={() => console.log("comment one verse")}
+               link={`/posts/commentary/new?verse-id?${verseId}`}
                icon='comment'
                backgroundColor='1'
             />

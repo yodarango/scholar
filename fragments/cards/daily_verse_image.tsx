@@ -10,9 +10,16 @@ import { TBibleVerse } from "../../types/bible_api";
 
 type TDailyVerseImageProps = {
    versionId?: string;
+   cta: {
+      handleSendImgSrc: (src: string) => void;
+      handleSendVerseId: (verseId: string) => void;
+   };
 };
 
-export const DailyVerseImage = ({ versionId = "de4e12af7f28f599-02" }: TDailyVerseImageProps) => {
+export const DailyVerseImage = ({
+   versionId = "de4e12af7f28f599-02",
+   cta
+}: TDailyVerseImageProps) => {
    //  router
    const router = useRouter();
 
@@ -22,13 +29,19 @@ export const DailyVerseImage = ({ versionId = "de4e12af7f28f599-02" }: TDailyVer
    // get a new verse
    const getVerse = async () => {
       const dailyVerse = await setDailyVerseCache(versionId);
-      console.log(dailyVerse);
       setVerse(dailyVerse.data);
+
+      // send the verseId to the parent
+      cta.handleSendVerseId(dailyVerse.data.id);
    };
 
    useEffect(() => {
       if (router.isReady) {
          getVerse();
+         // send the image to the parent
+         cta.handleSendImgSrc(
+            `sm_logo.png` /*`/images/daily_verse_backgrounds/${randomImg}.jpeg`*/
+         );
       }
    }, [router.isReady]);
 
@@ -52,7 +65,7 @@ export const DailyVerseImage = ({ versionId = "de4e12af7f28f599-02" }: TDailyVer
          <p className={styles.reference}>{verse && verse.reference}</p>
          <div className={styles.img}>
             <img
-               src={`/images/daily_verse_backgrounds/${randomImg}.jpeg`}
+               src={`sm_logo.png` /*`/images/daily_verse_backgrounds/${randomImg}.jpeg`*/}
                alt='bible verse with background'
             />
          </div>

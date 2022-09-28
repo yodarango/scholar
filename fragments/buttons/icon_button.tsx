@@ -16,6 +16,7 @@ export type TIconButtonProps = {
    backgroundColor: string;
    custombuttonSize?: boolean;
    link?: string;
+   isDownload?: boolean;
    shadowColor?: string;
    cta?: {
       handleClick: () => void;
@@ -29,6 +30,7 @@ export const IconButton = ({
    custombuttonSize,
    backgroundColor,
    link,
+   isDownload = false,
    cta,
    shadowColor = "1"
 }: TIconButtonProps) => {

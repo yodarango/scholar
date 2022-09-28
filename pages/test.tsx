@@ -61,10 +61,13 @@ import { DailyVerseModal } from "../layouts/daily_verse_modal";
 import { CommentaryFilter } from "../fragments/commentary_filter";
 import { VerseByVerse } from "../templates/verse_by_verse";
 import { WigoQuotes } from "../layouts/wigo/wigo_quotes";
+import { WigoDailVerse } from "../layouts/wigo/wigo_daily_verse";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
+         <WigoDailVerse />
+         {/* <DailyVerseImage /> */}
          {/* <VerseByVerse
             commentaries={[
                {
@@ -663,7 +666,7 @@ const Test = () => {
                "/images/bible_books/5.png"
             ]}
          /> */}
-         <FastFacts
+         {/* <FastFacts
             images={[
                "/images/bible_books/1.png",
                "/images/bible_books/2.png",
@@ -671,7 +674,7 @@ const Test = () => {
                "/images/bible_books/4.png",
                "/images/bible_books/5.png"
             ]}
-         />
+         /> */}
          {
             // <ThoughtsOneLineCarrousel
             //    thoughts={[

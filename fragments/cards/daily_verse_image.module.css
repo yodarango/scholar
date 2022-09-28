@@ -2,6 +2,8 @@
    position: relative;
    min-height: 18rem;
    width: 100%;
+   background-color: var(--third-color);
+   border-radius: 2em;
 }
 
 .img {
