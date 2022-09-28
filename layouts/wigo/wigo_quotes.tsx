@@ -14,7 +14,7 @@ export const WigoQuotes = ({ quotes }: TWigoQuotesProsp) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.link}>
-            <LinkWithArrow title='See all quotes' link='wigo' quiet={true} />
+            <LinkWithArrow title='See all' link='wigo' quiet={true} />
          </div>
          <div className={styles.carrousel}>
             <QuoteOneLineCarrousel quotes={quotes} />
