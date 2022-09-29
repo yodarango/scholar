@@ -76,7 +76,7 @@ const Test = () => {
                votes: { votesDown: 1, votesUp: 3 }
             }}
             cta={{
-               handleVote(up, down, id, myvote) {
+               handleVote(up: number, down: number, id: string, myvote: string) {
                   console.log(up, down, id, myvote);
                }
             }}

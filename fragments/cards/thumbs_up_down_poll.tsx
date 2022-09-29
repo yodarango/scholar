@@ -31,15 +31,22 @@ export const ThumbsUpDownPoll = ({ content }: TThumbsUpDownPollProps) => {
    const [hasVoted, sethasVoted] = useState<boolean>(false);
    const [votedFor, setvotedFor] = useState<any>();
 
-   const handleVote = (up: number, down: number, id: string, cookieVal: string) => {};
+   const handleVote = (up: number, down: number, id: string, cookieVal: string) => {
+      const now = Date.now() + 86400000;
+      const cookieExpiration = new Date(now);
+      document.cookie = `thumbsUpDown=${cookieVal}; expires=${cookieExpiration}; path=/test`;
+
+      setvotedFor(cookieVal);
+      sethasVoted(true);
+   };
 
    // get the cookies
    useEffect(() => {
       // check if user has already voted by checking cookie
-      const hasvoted = getCookie("thumbsUpDown") !== undefined;
       const cookie = getCookie("thumbsUpDown");
-      console.log(hasvoted, cookie);
+      const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
       sethasVoted(hasvoted);
+      setvotedFor(cookie);
    }, []);
 
    return (
@@ -76,7 +83,7 @@ export const ThumbsUpDownPoll = ({ content }: TThumbsUpDownPollProps) => {
                      />
                   </div>
                )}
-               {hasVoted && <NotificationSticker type='1' text={`you voted for ${hasVoted}`} />}
+               {hasVoted && <NotificationSticker type='1' text={`you voted for ${votedFor}`} />}
             </div>
          )}
       </>
