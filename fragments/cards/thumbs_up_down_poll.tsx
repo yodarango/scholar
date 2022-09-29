@@ -3,8 +3,10 @@
  for each side based on the total votes received.
  - hanndle the vote by calling the thumbs_up_down_voting.ts helper
  /*********************************************************************************/
+
+import { useEffect, useState } from "react";
+
 // comps
-import DummyPlaceholder from "../wigo-content/dummy-placeholder";
 import CardTimer from "../chunks/card_timer";
 import { Parragraph } from "../Typography/parragraph";
 import { Third } from "../buttons/third";
@@ -26,12 +28,20 @@ type TThumbsUpDownPollProps = {
 };
 
 export const ThumbsUpDownPoll = ({ content }: TThumbsUpDownPollProps) => {
-   // check if user has already voted by checking cookie
-   const hasVoted = getCookie("thumbsUpDown");
+   const [hasVoted, sethasVoted] = useState<boolean>(false);
+   const [votedFor, setvotedFor] = useState<any>();
 
-   const handleVote = (up: number, down: number, id: string, cookieVal: string) => {
-      console.log(up, down, id, cookieVal);
-   };
+   const handleVote = (up: number, down: number, id: string, cookieVal: string) => {};
+
+   // get the cookies
+   useEffect(() => {
+      // check if user has already voted by checking cookie
+      const hasvoted = getCookie("thumbsUpDown") !== undefined;
+      const cookie = getCookie("thumbsUpDown");
+      console.log(hasvoted, cookie);
+      sethasVoted(hasvoted);
+   }, []);
+
    return (
       <>
          {content && (
