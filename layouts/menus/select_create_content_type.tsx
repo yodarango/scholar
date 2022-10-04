@@ -10,7 +10,7 @@ import styles from "./select_menu_global.module.css";
 
 export type TSelectCreateContentTypeProps = {
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
@@ -35,7 +35,7 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
          color: "#F1EAFF"
       },
       {
-         url: "sermon-notes",
+         url: "sermon-note",
          icon: "folder",
          description: "Sermon notes",
          color: "#F1EAFF"
@@ -47,8 +47,8 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
          <PrimaryMenuBkg
             title='Create content'
             color='2'
-            cta={cta.handleCloseModal}
-            content={menuOptions.map((option, index) => (
+            cta={{ handleClose: cta.handleCloseModal }}>
+            {menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   <Link href={`/posts/${option.url}/new`}>
                      <a>
@@ -60,13 +60,12 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
                               iconShadow: option.color,
                               text: option.description
                            }}
-                           cta={() => {}}
                         />
                      </a>
                   </Link>
                </div>
             ))}
-         />
+         </PrimaryMenuBkg>
       </>
    );
 };

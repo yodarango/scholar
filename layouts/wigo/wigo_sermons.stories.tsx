@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SermonNoteOneLineCarrousel } from "./sermon_note_one_line_carrousel";
+import { WigoSermons } from "./wigo_sermons";
 
 export default {
-   title: "layouts/content/Sermon One Line Carrousel",
-   component: SermonNoteOneLineCarrousel
-} as ComponentMeta<typeof SermonNoteOneLineCarrousel>;
+   title: "Layouts/Wigo/Wigo Sermons",
+   component: WigoSermons
+} as ComponentMeta<typeof WigoSermons>;
 
-export const Default: ComponentStory<typeof SermonNoteOneLineCarrousel> = () => (
-   <SermonNoteOneLineCarrousel
+export const ThoughtPost: ComponentStory<typeof WigoSermons> = () => (
+   <WigoSermons
       sermonNotes={[
          {
             ID: "32",

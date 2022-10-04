@@ -21,7 +21,7 @@ export const WigoThoughts = ({ thoughts }: TWigoThoughtsProps) => {
                <Header type={3} text='Commentaries' size='large' quiet={true} />
             </div>
             <div>
-               <LinkWithArrow title='See all' link={"/wigo/commentaries"} />
+               <LinkWithArrow title='See all' link={"/posts/thought"} />
             </div>
          </div>
          <div className={styles.carrousel}>

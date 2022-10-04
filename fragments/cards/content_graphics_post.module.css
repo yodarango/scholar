@@ -12,6 +12,7 @@
    scroll-padding: 1rem;
    width: 90vw;
    height: 90vw;
+   margin: auto;
 }
 
 .active {

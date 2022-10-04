@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 // comps
-import { SermonNote } from "../../fragments/cards/posts/sermon_note";
+import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
 
 // styles
 import styles from "./sermon_note_one_line_carrousel.module.css";
 
 //types
-import { TSermonNote } from "../../types/posts";
+import { TSermonNote } from "../../../types/posts";
 
 type TSermonOneLineCarrouselProps = {
    sermonNotes: TSermonNote[];
