@@ -12,7 +12,9 @@
 }
 
 .mainWrapper > .buttonWrapper {
-   justify-content: space-between;
+   gap: var(--spacing-s);
+   justify-content: center;
+   flex-wrap: wrap;
 }
 
 .countdown,

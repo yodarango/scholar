@@ -34,7 +34,7 @@ export const ThumbsUpDownPoll = ({ content }: TThumbsUpDownPollProps) => {
    const handleVote = (up: number, down: number, id: string, cookieVal: string) => {
       const now = Date.now() + 86400000;
       const cookieExpiration = new Date(now);
-      document.cookie = `thumbsUpDown=${cookieVal}; expires=${cookieExpiration}; path=/test`;
+      document.cookie = `thumbsUpDown${content.id}=${cookieVal}; expires=${cookieExpiration}; path=/test`;
 
       setvotedFor(cookieVal);
       sethasVoted(true);
@@ -43,7 +43,7 @@ export const ThumbsUpDownPoll = ({ content }: TThumbsUpDownPollProps) => {
    // get the cookies
    useEffect(() => {
       // check if user has already voted by checking cookie
-      const cookie = getCookie("thumbsUpDown");
+      const cookie = getCookie("thumbsUpDown${content.id}");
       const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
       sethasVoted(hasvoted);
       setvotedFor(cookie);

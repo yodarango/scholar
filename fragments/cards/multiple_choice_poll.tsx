@@ -31,7 +31,7 @@ export const MultipleChoicePollCard = ({ content }: fridayPropsT) => {
       // implement helper like the one for the thumbs up poll oto handle the posting
       const now = Date.now() + 86400000;
       const cookieExpiration = new Date(now);
-      document.cookie = `multChoice=${selection}; expires=${cookieExpiration}; path=/test`;
+      document.cookie = `multChoice${content.id}=${selection}; expires=${cookieExpiration}; path=/test`;
 
       setvotedFor(selection);
       sethasVoted(true);
@@ -40,7 +40,7 @@ export const MultipleChoicePollCard = ({ content }: fridayPropsT) => {
    // get the cookies
    useEffect(() => {
       // check if user has already voted by checking cookie
-      const cookie = getCookie("multChoice");
+      const cookie = getCookie("multChoice${content.id}");
       const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
       sethasVoted(hasvoted);
       setvotedFor(cookie);

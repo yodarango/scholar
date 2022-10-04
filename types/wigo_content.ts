@@ -1,5 +1,6 @@
 export type TThumbsUpDownPoll = {
    id: string;
+   type: number;
    poll: string;
    countdownLimit: string;
    votes: {
@@ -10,6 +11,7 @@ export type TThumbsUpDownPoll = {
 
 export type TMultipleChicePoll = {
    id: string;
+   type: number;
    question: string;
    options: string[];
    votes: number[];
