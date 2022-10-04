@@ -13,7 +13,7 @@ import { Icon } from "../../chunks/icons";
 import { Parragraph } from "../../Typography/parragraph";
 
 // styles
-import styles from "./icon_button.module.css";
+import styles from "./option_button.module.css";
 
 export type TOptionButtonProps = {
    option: string;

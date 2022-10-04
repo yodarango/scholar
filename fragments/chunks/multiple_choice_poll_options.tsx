@@ -1,5 +1,5 @@
 // comps
-import { OptionButton } from "../buttons/option_button";
+import { OptionButton } from "../buttons/menu_options/option_button";
 import { Parragraph } from "../Typography/parragraph";
 
 import styles from "./multiple_choice_poll_options.module.css";

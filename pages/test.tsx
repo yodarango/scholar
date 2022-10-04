@@ -64,10 +64,13 @@ import { WigoQuotes } from "../layouts/wigo/wigo_quotes";
 import { WigoDailVerse } from "../layouts/wigo/wigo_daily_verse";
 import { WigoCommentaries } from "../layouts/wigo/wigo_commentaries";
 import { ThumbsUpDownPoll } from "../fragments/cards/thumbs_up_down_poll";
+import { CastYourVote } from "../layouts/wigo/cast_your_vote";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
+         <CastYourVote />
+         {/*
          <ThumbsUpDownPoll
             content={{
                countdownLimit: "08/03/2022 21:00:00",
@@ -80,7 +83,7 @@ const Test = () => {
                   console.log(up, down, id, myvote);
                }
             }}
-         />
+         /> */}
          {/* <WigoCommentaries
             commentaries={[
                {

@@ -1,6 +1,5 @@
 // core
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 // comps
 import CardTimer from "../chunks/card_timer";
@@ -24,12 +23,28 @@ type fridayPropsT = {
 
 export const MultipleChoicePollCard = ({ content }: fridayPropsT) => {
    // check if user has already voted by checking cookie
-   const hasVoted = getCookie("multChoice");
+   const [hasVoted, sethasVoted] = useState<boolean>(false);
+   const [votedFor, setvotedFor] = useState<any>();
 
    const handleVote = (selection: string) => {
-      // implement helper like the one for the thumbs up poll oto handle the posting
       console.log(selection);
+      // implement helper like the one for the thumbs up poll oto handle the posting
+      const now = Date.now() + 86400000;
+      const cookieExpiration = new Date(now);
+      document.cookie = `multChoice=${selection}; expires=${cookieExpiration}; path=/test`;
+
+      setvotedFor(selection);
+      sethasVoted(true);
    };
+
+   // get the cookies
+   useEffect(() => {
+      // check if user has already voted by checking cookie
+      const cookie = getCookie("multChoice");
+      const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
+      sethasVoted(hasvoted);
+      setvotedFor(cookie);
+   }, []);
 
    return (
       <>
@@ -49,7 +64,7 @@ export const MultipleChoicePollCard = ({ content }: fridayPropsT) => {
                      />
                   </div>
                )}
-               {hasVoted && <NotificationSticker type='1' text={`you voted for ${hasVoted}`} />}
+               {hasVoted && <NotificationSticker type='1' text={`you voted for ${votedFor}`} />}
                <div className={styles.graph}>
                   <MultipleChoicePoll votes={content.votes} />
                </div>
