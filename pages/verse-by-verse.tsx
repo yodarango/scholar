@@ -1,10 +1,11 @@
-import { VerseByVerse } from '../templates/verse_by_verse';
-import styles from './verse_by_verse.module.css';
+import { VerseByVerse } from "../templates/verse_by_verse";
+import styles from "./verse_by_verse.module.css";
 
 const Index = () => {
-  return (
-    <div className={styles.mainWrapper}>
-      <VerseByVerse commentaries={[
+   return (
+      <main className={styles.mainWrapper}>
+         <VerseByVerse
+            commentaries={[
                {
                   ID: "32",
                   body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
@@ -171,9 +172,9 @@ const Index = () => {
                   ]
                }
             ]}
-            />
-    </div>
-  )
-}
+         />
+      </main>
+   );
+};
 
 export default Index;

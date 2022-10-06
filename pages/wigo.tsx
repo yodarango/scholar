@@ -6,9 +6,9 @@ import styles from "./wigo.module.css";
 
 const Wigo = () => {
    return (
-      <div className={styles.mainWrapper}>
+      <main className={styles.mainWrapper}>
          <WigoTemplate />
-      </div>
+      </main>
    );
 };
 

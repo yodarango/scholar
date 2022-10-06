@@ -1,0 +1,4 @@
+.mainWrapper {
+   width: var(--global-wrapper-width);
+   margin: auto;
+}

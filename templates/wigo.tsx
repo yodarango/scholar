@@ -1,8 +1,8 @@
 import { AddContent } from "../fragments/buttons/add_content";
-import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
 import { CastYourVote } from "../layouts/wigo/cast_your_vote";
 import { FastFacts } from "../layouts/wigo/fast_facts";
 import { WigoCommentaries } from "../layouts/wigo/wigo_commentaries";
+import { WigoDailVerse } from "../layouts/wigo/wigo_daily_verse";
 import { WigoQuotes } from "../layouts/wigo/wigo_quotes";
 import { WigoSermons } from "../layouts/wigo/wigo_sermons";
 import { WigoThoughts } from "../layouts/wigo/wigo_thoughts";
@@ -147,7 +147,7 @@ export const Wigo = () => {
             />
          </div>
          <div className={styles.dailyVerse}>
-            <DailyVerseCard />
+            <WigoDailVerse />
          </div>
          <div className={styles.thoughts}>
             <WigoThoughts

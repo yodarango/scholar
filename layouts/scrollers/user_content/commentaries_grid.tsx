@@ -13,9 +13,9 @@ import styles from "./commentaries_grid.module.css";
 import { TCommentary } from "../../../types/posts";
 
 type TCommentariesGridProps = {
-   verseCitation: string;
-   verseId: string;
-   verse: string;
+   verseCitation?: string;
+   verseId?: string;
+   verse?: string;
 };
 
 export const CommentariesGrid = ({ verseCitation, verseId, verse }: TCommentariesGridProps) => {
@@ -58,14 +58,16 @@ export const CommentariesGrid = ({ verseCitation, verseId, verse }: TCommentarie
 
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.verseWrapper}>
-            <div className={styles.citation}>
-               <Header text={verseCitation} quiet={true} type={4} size='main' />
+         {verseCitation && verse && (
+            <div className={styles.verseWrapper}>
+               <div className={styles.citation}>
+                  <Header text={verseCitation} quiet={true} type={4} size='main' />
+               </div>
+               <div className={styles.verse}>
+                  <Parragraph text={verse} size='main' />
+               </div>
             </div>
-            <div className={styles.verse}>
-               <Parragraph text={verse} size='main' />
-            </div>
-         </div>
+         )}
          <div className={styles.gridWrapper}>
             <GridPrimary>
                {commentaries.map((commentary: TCommentary, index: number) => (

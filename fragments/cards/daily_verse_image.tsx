@@ -1,3 +1,9 @@
+/**************************************************************************************** 
+- Makes a bible verse image out of a randomly chosen bible verse and image.
+   - The image src and the verse ID get passed to the parent via the cta's so that the 
+     image can be downloaded, commented on, etc
+****************************************************************************************/
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
