@@ -54,7 +54,7 @@ export const MenuPrimaryOption = ({
          className={`${styles.mainWrapper}`}
          onClick={cta ? cta.handleOptionClick : href ? () => router.push(href) : () => {}}>
          {/* --------------------------------------- Left side icon ---------------- */}
-         {/*  if the left side button is an icon retrun this */}
+         {/*  if the left side button is an icon return this */}
          {iconType === "icon" && (
             <div className={`${styles.icon}`} style={{ boxShadow: shadowClr }}>
                <div className={styles.iconWrapper}>{optionProperties.icon}</div>

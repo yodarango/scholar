@@ -1,4 +1,10 @@
+.mainWrapper {
+   position: relative;
+   width: 100%;
+}
 .searchFilter {
+   position: fixed;
+   left: 0;
    width: 100%;
    display: flex;
    align-items: center;
@@ -6,6 +12,9 @@
    flex-wrap: wrap;
    gap: var(--spacing-s);
    margin-bottom: var(--spacing-l);
+   z-index: 4;
+   background-color: var(--primary-color);
+   padding: 0 4% var(--spacing-s);
 }
 
 .search {
@@ -14,4 +23,8 @@
 
 .filter {
    width: 100%;
+}
+
+.postsWrapper {
+   padding-top: calc(10rem + var(--spacing-xxs)); /*height of the filter + space*/
 }

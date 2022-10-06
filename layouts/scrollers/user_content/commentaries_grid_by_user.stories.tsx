@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof CommentariesGridByUser>;
 
 export const Default: ComponentStory<typeof CommentariesGridByUser> = () => (
-   <CommentariesGridByUser />
+   <CommentariesGridByUser verseId='' />
 );

@@ -12,14 +12,17 @@ import { TQuote } from "../../../types/posts";
 
 export type TQuoteProps = {
    quote: TQuote;
+   type?: number;
    cta: {
       handleDelete: (id: string) => void;
    };
 };
 
-export const Quote = ({ quote, cta }: TQuoteProps) => {
+export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
    return (
-      <div className={styles.mainWrapper} id={quote.background}>
+      <div
+         className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
+         id={quote.background}>
          {/* ------------------------------ header ----------------------- */}
          <div className={styles.header}>
             <QuoteCardHeader
@@ -32,15 +35,21 @@ export const Quote = ({ quote, cta }: TQuoteProps) => {
          </div>
 
          {/* ------------------------------ body ----------------------- */}
-         <div className={styles.body}>
-            <Header type={3} size='xxsmall' text={quote.body} />
+         <div className={`${styles.body} ${type === 1 && styles.bodyWide}`}>
+            <Header type={3} size={type === 1 ? "main" : "xxsmall"} text={quote.body} />
             <div className={styles.author}>
-               <Parragraph size='xxsmall' text={`—	${quote.creator.signature}`} align='right' />
+               <Parragraph
+                  size={type === 1 ? "small" : "xxsmall"}
+                  text={`—	${quote.creator.signature}`}
+                  align='right'
+               />
             </div>
          </div>
 
          <div className={styles.footer}>
             <PostReactions
+               postId=''
+               contentType={1}
                postRating={{
                   totalCount: quote.approvals[0].total_count,
                   averageCount: quote.approvals[0].average_count

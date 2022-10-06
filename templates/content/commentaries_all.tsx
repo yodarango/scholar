@@ -1,5 +1,3 @@
-// TODO: repeat this components for all posts types
-
 // components
 import { GridPrimary } from "../../layouts/scrollers/grid_primary";
 import { CommentariesGrid } from "../../layouts/scrollers/user_content/commentaries_grid";

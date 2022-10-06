@@ -1,6 +1,6 @@
 .mainWrapper {
    width: 13rem;
-   padding: var(--spacing-s) var(--spacing-xs);
+   padding: var(--spacing-s);
    border-radius: 2em;
 }
 
@@ -24,4 +24,20 @@
 .body .author {
    width: 100%;
    overflow: hidden;
+}
+
+/* Wide type*/
+
+.mainWrapperWide {
+   width: 100%;
+   max-width: 40rem;
+}
+
+.bodyWide {
+   width: 80%;
+   margin: 0 auto;
+}
+
+.bodyWide h3 {
+   height: 9rem;
 }

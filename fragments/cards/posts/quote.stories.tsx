@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Quote } from "../../../../fragments/cards/posts/quote";
+import { Quote } from "./quote";
 
 export default {
    title: "fragments/cards/posts/quote",
@@ -10,9 +10,9 @@ export default {
 export const ChapterCount: ComponentStory<typeof Quote> = () => (
    <Quote
       cta={{
-         handleShowRatePost: () => console.log("handle show post"),
-         handleShowPostComments: () => console.log("handle show post comments"),
-         handleShowPostOptions: () => console.log("handle show post options")
+         handleDelete(id: string) {
+            console.log(id);
+         }
       }}
       quote={{
          ID: "1",

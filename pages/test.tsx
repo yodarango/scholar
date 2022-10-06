@@ -67,11 +67,52 @@ import { ThumbsUpDownPoll } from "../fragments/cards/thumbs_up_down_poll";
 import { CastYourVote } from "../layouts/wigo/cast_your_vote";
 import { WigoThoughts } from "../layouts/wigo/wigo_thoughts";
 import { WigoSermons } from "../layouts/wigo/wigo_sermons";
+import { PrimaryStackHeader } from "../layouts/stacks/headers/primary_stack_header";
+import { QuotesGrid } from "../layouts/scrollers/user_content/quotes_grid";
+import { QuotesAll } from "../templates/content/quotes_all";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <WigoSermons
+         <QuotesAll />
+         {/* <QuotesGrid /> */}
+         {/* <Quote
+            type={1}
+            cta={{
+               handleDelete(id: string) {
+                  console.log(id);
+               }
+            }}
+            quote={{
+               ID: "1",
+               body: "This is my post",
+               category_tags: "#CYN #BLK",
+               author: "myusername",
+               background: "quote-bkg--5",
+               posted_on: "12/24/2022",
+               date: "07/07/2022 02:00",
+               total_count: 5,
+               creator: {
+                  ID: "1",
+                  signature: "Myusername",
+                  authority_level: 1,
+                  approval_rating: 100,
+                  avatar: "/images/logo.png"
+               },
+               comments: [{ total_count: 20 }],
+               approvals: [
+                  {
+                     total_count: 5,
+                     average_count: 5
+                  }
+               ]
+            }}
+         /> */}
+         {/* <PrimaryStackHeader
+               title='Primary background'
+               cta={{ handleClose: () => console.log("modal close") }}
+            /> */}
+         {/* <WigoSermons
             sermonNotes={[
                {
                   ID: "32",
@@ -179,7 +220,7 @@ const Test = () => {
                   }
                }
             ]}
-         />
+         /> */}
          {/* <CastYourVote /> */}
          {/* <WigoThoughts
             thoughts={[

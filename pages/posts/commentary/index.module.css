@@ -2,3 +2,7 @@
    width: var(--global-wrapper-width);
    margin: auto;
 }
+
+.posts {
+   margin-top: calc(7.5rem + var(--spacing-l));
+}

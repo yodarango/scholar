@@ -7,7 +7,7 @@ import styles from "./select_menu_global.module.css";
 
 export type TSelectPostRatingMenuProps = {
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
@@ -89,11 +89,8 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
    ];
    return (
       <>
-         <PrimaryMenuBkg
-            title='Rate content'
-            color='1'
-            cta={cta.handleCloseModal}
-            content={menuOptions.map((option, index) => (
+         <PrimaryMenuBkg title='Rate content' color='1' cta={{ handleClose: cta.handleCloseModal }}>
+            {menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   <MenuPrimaryOption
                      textType='text'
@@ -103,11 +100,11 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
                         iconShadow: option.color,
                         text: option.description
                      }}
-                     cta={() => console.log(option.rating)}
+                     cta={{ handleOptionClick: () => console.log(option.rating) }}
                   />
                </div>
             ))}
-         />
+         </PrimaryMenuBkg>
       </>
    );
 };
