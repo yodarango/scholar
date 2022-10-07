@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { QuoteEditor } from "../../templates/content/quote_editor";
+import { QuoteEditor } from "./quote_editor";
 
 export default {
    title: "templates/Quote Editor ",
@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof QuoteEditor>;
 
 export const ThoughtPost: ComponentStory<typeof QuoteEditor> = () => (
-   <QuoteEditor categoryId='YLW' background='quote-bkg--20' quote='yes' author='yes' />
+   <QuoteEditor renderClose categoryId='YLW' background='quote-bkg--20' quote='yes' author='yes' />
 );
