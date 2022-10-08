@@ -1,15 +1,22 @@
 import { useState } from "react";
 
 // components
-import { UserNotifications } from "../../fragments/cards/user_notification";
+import { UserNotifications } from "../../../fragments/cards/user_notification";
 
 // styles
 import styles from "./user_notifications_wrapper.module.css";
 
 // types
-import { TUserNotification } from "../../types/account";
+import { TUserNotification } from "../../../types/account";
+import { PrimaryStack } from "../../stacks/templates/primary_stack";
 
-export const UserNotificationsWrapper = () => {
+type TUserNotificationsWrapperProps = {
+   title: string;
+   cta: {
+      handleClose: () => void;
+   };
+};
+export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapperProps) => {
    // state
    const [notifications, setnotifications] = useState<TUserNotification[]>([
       { ID: "2343", body: "abc", postId: "2343", postType: 0 },
@@ -22,17 +29,19 @@ export const UserNotificationsWrapper = () => {
    };
 
    return (
-      <div className={styles.mainWrapper}>
-         {notifications.map((notification: TUserNotification, index: number) => (
-            <div key={index} className={styles.notification}>
-               <UserNotifications
-                  ID={notification.ID}
-                  body={notification.body}
-                  postId={notification.postId}
-                  postType={notification.postType}
-               />
-            </div>
-         ))}
-      </div>
+      <PrimaryStack title={title} cta={{ handleClose: cta.handleClose }}>
+         <div className={styles.mainWrapper}>
+            {notifications.map((notification: TUserNotification, index: number) => (
+               <div key={index} className={styles.notification}>
+                  <UserNotifications
+                     ID={notification.ID}
+                     body={notification.body}
+                     postId={notification.postId}
+                     postType={notification.postType}
+                  />
+               </div>
+            ))}
+         </div>
+      </PrimaryStack>
    );
 };

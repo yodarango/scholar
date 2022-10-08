@@ -5,7 +5,7 @@
 .stats {
    position: relative;
    z-index: 6;
-   margin: 16rem auto var(--spacing-l);
+   margin: 18rem auto var(--spacing-l);
 }
 
 .aboutMe {

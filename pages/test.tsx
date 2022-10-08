@@ -77,7 +77,8 @@ import { Profile } from "../templates/account/profile";
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <Profile username='username' />
+         <UserNotificationsWrapper title='Notifications' cta={{ handleClose() {} }} />
+         {/* <Profile username='username' /> */}
          {/* <NavigateThruPosts /> */}
          {/* <ProfileArt title='title' /> */}
          {/* <QuotesAll /> */}

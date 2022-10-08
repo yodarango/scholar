@@ -4,6 +4,7 @@ import { useState } from "react";
 import Portal from "../../hoc/potal";
 import { SelectLibraryContent } from "../../layouts/menus/select_libarary_content";
 import { SelectProfileOptions } from "../../layouts/menus/select_profile_options";
+import { UserNotificationsWrapper } from "../../layouts/scrollers/user_content/user_notifications_wrapper";
 import { Icon } from "./icons";
 
 // styles
@@ -25,6 +26,7 @@ type TToggleMenuProps = {
 export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TToggleMenuProps) => {
    // state
    const [showMenu, setshowMenu] = useState(false);
+   const [showModal, setshowModal] = useState<string | null>(null);
 
    return (
       <>
@@ -32,12 +34,24 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
             {showMenu && type === 1 && (
                <SelectLibraryContent cta={{ handleCloseModal: () => setshowMenu(false) }} />
             )}
-            {showMenu && type === 2 && (
+            {showMenu && type === 2 && !showModal && (
                <SelectProfileOptions
                   userHasNotifications={
                      profileMenuOptions ? profileMenuOptions.userHasNotifications : false
                   }
-                  cta={{ handleCloseModal: () => setshowMenu(false) }}
+                  cta={{
+                     handleCloseModal: () => setshowMenu(false),
+                     handleShowModal: (option: string) => (
+                        setshowModal(option), console.log(option)
+                     )
+                  }}
+               />
+            )}
+
+            {showModal === "notifications" && (
+               <UserNotificationsWrapper
+                  title='Notifications'
+                  cta={{ handleClose: () => (setshowModal(null), setshowMenu(false)) }}
                />
             )}
          </Portal>

@@ -47,8 +47,8 @@ export const UserPostStats = ({
             <ProfileStatsGraph content={{ commentaries, thoughts, quotes, sermonNotes }} />
          </div>
          <div className={styles.stats}>
-            {contentStats.map((item) => (
-               <div className={styles.stat}>
+            {contentStats.map((item, index) => (
+               <div className={styles.stat} key={index}>
                   <ProfilePostStats
                      contentType={item.contentType}
                      icon={item.icon}
