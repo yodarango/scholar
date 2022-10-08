@@ -70,11 +70,17 @@ import { WigoSermons } from "../layouts/wigo/wigo_sermons";
 import { PrimaryStackHeader } from "../layouts/stacks/headers/primary_stack_header";
 import { QuotesGrid } from "../layouts/scrollers/user_content/quotes_grid";
 import { QuotesAll } from "../templates/content/quotes_all";
+import { ProfileArt } from "../layouts/stacks/headers/profile_art";
+import { NavigateThruPosts } from "../layouts/account/profile/navigate_thru_posts";
+import { Profile } from "../templates/account/profile";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <QuotesAll />
+         <Profile username='username' />
+         {/* <NavigateThruPosts /> */}
+         {/* <ProfileArt title='title' /> */}
+         {/* <QuotesAll /> */}
          {/* <QuotesGrid /> */}
          {/* <Quote
             type={1}

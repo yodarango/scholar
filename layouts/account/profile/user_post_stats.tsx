@@ -1,5 +1,5 @@
-import { ProfileStatsGraph } from "../../fragments/chunks/profile_stats_graph";
-import { ProfilePostStats } from "../../fragments/profile_post_stats";
+import { ProfileStatsGraph } from "../../../fragments/chunks/profile_stats_graph";
+import { ProfilePostStats } from "../../../fragments/profile_post_stats";
 import styles from "./user_post_stats.module.css";
 
 type TUserPostStatsProps = {

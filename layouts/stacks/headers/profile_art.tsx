@@ -1,5 +1,4 @@
 /**********************************************************************************************************
--  //!substituted by the ./headers/profile_art.tsx, might be able to delete
 -  Content holder that is rendered directly from a page or from a high level component.
 -  Allows fro customizable background. 
 -  Used mainly for the user profile page.
@@ -9,42 +8,37 @@
 import { Icon } from "../../../fragments/chunks/icons";
 import { ToggleMenu } from "../../../fragments/chunks/toggle_menu";
 import { Header } from "../../../fragments/Typography/header";
+import { UserStats } from "../../account/profile/user_stats";
 
 // styles
-import styles from "./teritary_stack.module.css";
+import styles from "./profile_art.module.css";
 
 type TTeritaryStackprops = {
-   children: (string | JSX.Element) | (string | JSX.Element)[];
    title: string;
    icon?: string;
    hasNotifications?: boolean;
 };
 
-export const TeritaryStack = ({
-   title,
-   icon,
-   children,
-   hasNotifications = false
-}: TTeritaryStackprops) => {
+export const ProfileArt = ({ title, icon, hasNotifications = false }: TTeritaryStackprops) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>
-            <div className={styles.title}>
-               <Header size='large' type={1} text={title} lineHieght='.9em' />
-               {icon && (
-                  <div className={styles.icon}>
-                     <Icon size='2rem' name={icon} color='#F1EAFF' />
-                  </div>
-               )}
+            <div className={styles.stats}>
+               <UserStats
+                  username='username'
+                  avatar='/images/user_avatars/default.png'
+                  userAuthority={1}
+                  ratingCount={0}
+                  rating={96}
+                  postCount={38}
+               />
             </div>
          </div>
          <div className={styles.toggleIcon}>
-            <span className={styles.notificationBadge}></span>
+            {hasNotifications && <span className={styles.notificationBadge}></span>}
             <ToggleMenu type={2} profileMenuOptions={{ userHasNotifications: hasNotifications }} />
          </div>
-         <div className={styles.subWrapper}>
-            <div className={styles.contentHolder}>{children}</div>
-         </div>
+         <div className={styles.subWrapper}></div>
       </div>
    );
 };

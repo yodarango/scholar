@@ -1,0 +1,19 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.stats {
+   position: relative;
+   z-index: 6;
+   margin: 16rem auto var(--spacing-l);
+}
+
+.aboutMe {
+   margin-bottom: var(--spacing-l);
+}
+
+.addContent {
+   position: fixed;
+   bottom: 6.5rem;
+   right: var(--spacing-ml);
+}

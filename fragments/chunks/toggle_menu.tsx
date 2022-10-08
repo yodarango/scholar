@@ -24,31 +24,26 @@ type TToggleMenuProps = {
 
 export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TToggleMenuProps) => {
    // state
-   const [showSelectLibraryMenu, setshowSelectLibraryMenu] = useState(false);
+   const [showMenu, setshowMenu] = useState(false);
+
    return (
       <>
          <Portal>
-            {showSelectLibraryMenu && type === 1 && (
-               <SelectLibraryContent
-                  cta={{ handleCloseModal: () => setshowSelectLibraryMenu(false) }}
-               />
+            {showMenu && type === 1 && (
+               <SelectLibraryContent cta={{ handleCloseModal: () => setshowMenu(false) }} />
             )}
-            {showSelectLibraryMenu && type === 2 && (
+            {showMenu && type === 2 && (
                <SelectProfileOptions
                   userHasNotifications={
                      profileMenuOptions ? profileMenuOptions.userHasNotifications : false
                   }
-                  cta={{ handleCloseModal: () => setshowSelectLibraryMenu(false) }}
+                  cta={{ handleCloseModal: () => setshowMenu(false) }}
                />
             )}
          </Portal>
          <div
             className={styles.mainWrapper}
-            onClick={
-               showSelectLibraryMenu
-                  ? () => setshowSelectLibraryMenu(false)
-                  : () => setshowSelectLibraryMenu(true)
-            }>
+            onClick={showMenu ? () => setshowMenu(false) : () => setshowMenu(true)}>
             <Icon name='menu' size={iconSize} color='#F1EAFF' />
          </div>
       </>

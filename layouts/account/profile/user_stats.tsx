@@ -1,13 +1,13 @@
 // components
-import { StatsCount } from "../../fragments/chunks/stats_count";
-import { UserAvatar } from "../../fragments/chunks/user_avatar";
-import { Parragraph } from "../../fragments/Typography/parragraph";
+import { StatsCount } from "../../../fragments/chunks/stats_count";
+import { UserAvatar } from "../../../fragments/chunks/user_avatar";
+import { Parragraph } from "../../../fragments/Typography/parragraph";
 
 //styles
 import styles from "./user_stats.module.css";
 
 // helpers
-import { calulateApprovalLevel } from "../../helpers/math/calculateArppovalLevel";
+import { calulateApprovalLevel } from "../../../helpers/math/calculateArppovalLevel";
 
 type TUserStatsProps = {
    username: string;
@@ -46,7 +46,7 @@ export const UserStats = ({
             <StatsCount title='posts' count={postCount} alignment='left' />
          </div>
          <div className={styles.username}>
-            <Parragraph text={username} size='large' bold={true} />
+            <Parragraph text={username} size='large' bold={true} lineHieght='.9em' />
          </div>
       </div>
    );

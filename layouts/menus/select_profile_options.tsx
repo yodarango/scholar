@@ -11,7 +11,7 @@ import styles from "./select_menu_global.module.css";
 export type TSelectProfileOptionsProps = {
    userHasNotifications: boolean;
    cta: {
-      handleCloseModal: React.MouseEventHandler<HTMLDivElement>;
+      handleCloseModal: () => void;
    };
 };
 
@@ -25,8 +25,8 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
       },
       {
          url: "settings",
-         icon: "image",
-         description: "Make image",
+         icon: "settings",
+         description: "Settings",
          color: "#F1EAFF"
       },
       {
@@ -44,7 +44,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
       {
          url: "bug-report",
          icon: "bug",
-         description: "Highlight",
+         description: "Report a bug",
          color: "#F1EAFF"
       },
       {
@@ -57,10 +57,8 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
 
    return (
       <>
-         <PrimaryMenuBkg
-            color='1'
-            cta={{ handleClose: () => cta.handleCloseModal }}
-            content={menuOptions.map((option, index) => (
+         <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
+            {menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   {option.action && (
                      <MenuPrimaryOption
@@ -71,7 +69,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
                            iconShadow: option.color,
                            text: option.description
                         }}
-                        cta={() => console.log(option.action)}
+                        cta={{ handleOptionClick: () => console.log(option.action) }}
                      />
                   )}
                   {option.url && (
@@ -85,14 +83,14 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
                                  iconShadow: option.color,
                                  text: option.description
                               }}
-                              cta={() => {}}
+                              cta={{ handleOptionClick: () => {} }}
                            />
                         </a>
                      </Link>
                   )}
                </div>
             ))}
-         />
+         </PrimaryMenuBkg>
       </>
    );
 };

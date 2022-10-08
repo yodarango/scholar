@@ -1,0 +1,45 @@
+.mainWrapper {
+   width: 100vw;
+   height: 21rem;
+   position: absolute;
+   top: 0;
+   right: 0;
+   z-index: 5;
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+}
+
+.stats {
+   position: absolute;
+   top: var(--spacing-l);
+   left: var(--spacing-l);
+   width: 20rem;
+}
+
+.subWrapper {
+   width: 100%;
+   z-index: 2;
+   height: 6.5rem;
+   position: absolute;
+   top: 15rem;
+   border-top-right-radius: 5em;
+   background-color: var(--primary-color);
+}
+
+.toggleIcon {
+   background-color: transparent;
+   z-index: 2;
+   position: absolute;
+   top: var(--spacing-ml);
+   right: var(--spacing-ml);
+}
+
+.notificationBadge {
+   position: relative;
+   left: calc(100% - 1rem);
+   top: 1rem;
+   height: 1rem;
+   width: 1rem;
+   display: block;
+   border-radius: 50%;
+   background-color: var(--danger-color);
+}

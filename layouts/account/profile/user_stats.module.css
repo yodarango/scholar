@@ -3,7 +3,7 @@
    grid-template-columns: repeat(4, auto);
    grid-template-rows: auto auto;
    column-gap: var(--spacing-m);
-   row-gap: var(--spacing-xs);
+   row-gap: var(--spacing-xxs);
 }
 
 .avatar {
