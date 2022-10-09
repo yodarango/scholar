@@ -13,11 +13,13 @@ import { RoundLoader } from "../../../fragments/chunks/round_loader";
 
 // styles
 import styles from "./general.module.css";
+import { ChangeSignature } from "./change_signature";
 
 export const General = () => {
    // state
    const [loading, setloaading] = useState<string>("loading");
    const [generalSettings, setgeneralSettings] = useState({
+      signature: "",
       my_church: "",
       my_ministry: "",
       my_favorite_verse: "",
@@ -29,6 +31,7 @@ export const General = () => {
    useEffect(() => {
       setTimeout(() => {
          setgeneralSettings({
+            signature: "",
             my_church: "Fac Maryville",
             my_ministry: "Anything",
             my_favorite_verse: "1 Peter 1:8",
@@ -50,6 +53,9 @@ export const General = () => {
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <>
+               <div className={styles.signature}>
+                  <ChangeSignature signature={generalSettings.signature} />
+               </div>
                <div className={styles.field}>
                   <InputPrimary
                      cta={{

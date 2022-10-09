@@ -1,13 +1,17 @@
 .mainWrapper {
    width: 100%;
 }
+.signature {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+}
 
 .field {
    width: 100%;
    margin-bottom: var(--spacing-xs);
 }
 
-.field:nth-child(5) {
+.field:nth-child(6) {
    margin-bottom: var(--spacing-m);
 }
 

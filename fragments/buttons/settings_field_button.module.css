@@ -5,13 +5,14 @@
    padding: var(--spacing-xs) var(--spacing-s);
    background-color: var(--secondary-color);
    border-radius: 1em;
+   box-shadow: var(--shadow-s);
 }
 
 .button:hover {
    cursor: pointer;
-   transform: scale(0.95);
+   transform: scale(0.98);
    transition: 300ms;
-   background-color: var(--third-color);
+   box-shadow: none;
 }
 .value {
    display: inline-flex;

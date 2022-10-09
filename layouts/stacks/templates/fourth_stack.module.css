@@ -1,0 +1,23 @@
+.mainWrapper {
+   top: 0;
+   left: 0;
+   width: 100vw;
+   position: fixed;
+   height: 100vh;
+   overflow-y: scroll;
+   background-color: var(--primary-color);
+}
+
+.header {
+   width: 100%;
+   top: var(--spacing-l);
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   padding: var(--spacing-l) var(--spacing-ml) 0;
+}
+
+.content {
+   width: 100%;
+   margin-top: var(--spacing-ml);
+}
