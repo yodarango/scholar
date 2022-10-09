@@ -22,7 +22,7 @@ export const InputPrimary = ({
    fontSize,
    textColor,
    darkText = false,
-   bold,
+   bold = false,
    alignment,
    maxL,
    maxWidth = "100%",

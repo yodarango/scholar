@@ -73,11 +73,13 @@ import { QuotesAll } from "../templates/content/quotes_all";
 import { ProfileArt } from "../layouts/stacks/headers/profile_art";
 import { NavigateThruPosts } from "../layouts/account/profile/navigate_thru_posts";
 import { Profile } from "../templates/account/profile";
+import { General } from "../layouts/account/settings/general";
 
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         <UserNotificationsWrapper title='Notifications' cta={{ handleClose() {} }} />
+         {<General />}
+         {/* <UserNotificationsWrapper title='Notifications' cta={{ handleClose() {} }} /> */}
          {/* <Profile username='username' /> */}
          {/* <NavigateThruPosts /> */}
          {/* <ProfileArt title='title' /> */}

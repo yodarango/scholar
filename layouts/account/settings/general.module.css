@@ -1,0 +1,25 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.field {
+   width: 100%;
+   margin-bottom: var(--spacing-xs);
+}
+
+.field:nth-child(5) {
+   margin-bottom: var(--spacing-m);
+}
+
+.colorPersonality {
+   margin-bottom: var(--spacing-l);
+}
+
+.loader {
+   width: 5rem;
+   margin: auto;
+}
+
+.error {
+   margin: auto;
+}
