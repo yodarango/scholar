@@ -6,13 +6,15 @@ type TuserAvatarProps = {
    src: string | undefined | null;
    userAuthority: number;
    customSize?: boolean;
-   cta?: React.MouseEventHandler<HTMLDivElement> | undefined;
+   cta?: {
+      handleClick: () => void;
+   };
 };
 export const UserAvatar = ({ src, userAuthority, customSize, cta }: TuserAvatarProps) => {
    return (
       <div
          className={`${customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}`}
-         onClick={cta}>
+         onClick={cta?.handleClick}>
          {userAuthority === 1 && (
             <div className={`flex-row ${styles.ratingOutlineGeneral}`}>
                <div className={`${styles.background}`}>

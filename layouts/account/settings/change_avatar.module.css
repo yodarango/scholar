@@ -1,0 +1,17 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.avatar {
+   width: 5rem;
+   height: 5rem;
+   margin-bottom: var(--spacing-xxs);
+}
+
+.text {
+   width: 100%;
+}

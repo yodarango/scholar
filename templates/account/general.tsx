@@ -5,21 +5,24 @@
 import { useEffect, useState } from "react";
 
 // components
-import { InputPrimary } from "../../../fragments/inputs/input_primary";
-import { SelectTrueColorPersonality } from "../../../fragments/inputs/select_true_color_personality";
-import { Primary } from "../../../fragments/buttons/primary";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
-import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { InputPrimary } from "../../fragments/inputs/input_primary";
+import { SelectTrueColorPersonality } from "../../fragments/inputs/select_true_color_personality";
+import { Primary } from "../../fragments/buttons/primary";
+import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { RoundLoader } from "../../fragments/chunks/round_loader";
+import { ChangeAvatar } from "../../layouts/account/settings/change_avatar";
+import { ChangeSignature } from "../../layouts/account/settings/change_signature";
 
 // styles
 import styles from "./general.module.css";
-import { ChangeSignature } from "./change_signature";
 
 export const General = () => {
    // state
    const [loading, setloaading] = useState<string>("loading");
    const [generalSettings, setgeneralSettings] = useState({
       signature: "",
+      user_authority: 0,
+      avatar: "",
       my_church: "",
       my_ministry: "",
       my_favorite_verse: "",
@@ -29,18 +32,18 @@ export const General = () => {
    });
 
    useEffect(() => {
-      setTimeout(() => {
-         setgeneralSettings({
-            signature: "",
-            my_church: "Fac Maryville",
-            my_ministry: "Anything",
-            my_favorite_verse: "1 Peter 1:8",
-            my_job: "Slave",
-            my_favorite_color: "Gray",
-            my_color_personality: "green"
-         });
-         setloaading("done");
-      }, 3000);
+      setgeneralSettings({
+         signature: "",
+         avatar: "",
+         user_authority: 1,
+         my_church: "Fac Maryville",
+         my_ministry: "Anything",
+         my_favorite_verse: "1 Peter 1:8",
+         my_job: "Slave",
+         my_favorite_color: "Gray",
+         my_color_personality: "green"
+      });
+      setloaading("done");
    }, []);
 
    // handle the saving
@@ -53,6 +56,12 @@ export const General = () => {
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <>
+               <div className={styles.avatar}>
+                  <ChangeAvatar
+                     avatar={generalSettings.avatar}
+                     userAuthority={generalSettings.user_authority}
+                  />
+               </div>
                <div className={styles.signature}>
                   <ChangeSignature signature={generalSettings.signature} />
                </div>
