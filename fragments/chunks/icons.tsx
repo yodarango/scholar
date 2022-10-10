@@ -3,10 +3,10 @@ type TiconsProps = {
    name: string;
    strokeWidth?: string;
    color: string;
-   size: string;
+   size?: string;
 };
 
-export const Icon = ({ name, strokeWidth, color, size }: TiconsProps) => {
+export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) => {
    let icon: any;
 
    switch (name) {

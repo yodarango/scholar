@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { UserAvatar } from "../../../fragments/chunks/user_avatar";
-import AvatarChooser from "../../../fragments/popups/avatarChooser";
+import AvatarChooser from "../../../fragments/popups/avatar_chooser";
 import { Parragraph } from "../../../fragments/Typography/parragraph";
 import Portal from "../../../hoc/potal";
 import { FourthStack } from "../../stacks/templates/fourth_stack";
@@ -14,7 +14,7 @@ type TChangeAvatarProps = {
 };
 
 export const ChangeAvatar = ({ avatar, userAuthority }: TChangeAvatarProps) => {
-   const [showModal, setshowModal] = useState<boolean>(true);
+   const [showModal, setshowModal] = useState<boolean>(false);
    return (
       <div className={styles.mainWrapper}>
          {showModal && (

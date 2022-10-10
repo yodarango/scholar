@@ -1,7 +1,3 @@
-.mainWrapper {
-   width: 100%;
-}
-
 .primary,
 .secondary {
    padding: var(--spacing-xs) var(--spacing-xs);

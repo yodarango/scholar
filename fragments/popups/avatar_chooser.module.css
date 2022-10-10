@@ -7,32 +7,19 @@
    width: 100%;
    display: flex;
    align-items: center;
-   justify-content: space-around;
+   justify-content: center;
+   column-gap: var(--spacing-xs);
    max-width: 400px;
    overflow-x: scroll;
-   margin: var(--xsmall-spacing-mobile) auto;
+   margin: 0 auto var(--spacing-l);
+}
+
+.title {
+   margin-bottom: var(--spacing-s);
 }
 
 .textBlock {
    margin-bottom: 0;
-}
-
-.filterWrapper div {
-   width: 3rem;
-   height: 3rem;
-   font-size: 1.5rem;
-   border-radius: 50%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition: 300ms;
-   flex-shrink: 0;
-}
-
-.filterWrapper div:hover,
-.choiceSelected {
-   background-color: var(--gradient-1--dark);
-   cursor: pointer;
 }
 
 .filterItemWrapper {
@@ -42,26 +29,20 @@
    flex-direction: column;
 }
 
-.filterLabel {
-   margin: 0;
-   font: var(--small-primary-font-mobile);
-   color: var(--fourth-color);
-}
-
 .extraOptionsWrapper {
    position: absolute;
-   top: 0;
+   top: -3rem;
    left: 0;
    right: 0;
    bottom: auto;
    margin: auto;
-   max-width: 10rem;
+   max-width: 15rem;
    display: flex;
    align-items: center;
-   justify-content: center;
-   padding: calc(var(--xsmall-spacing-mobile) - 0.3rem);
-   background-color: var(--fourth-color);
-   border-radius: var(--input-radius-mobile);
+   justify-content: space-between;
+   padding: var(--spacing-s);
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+   border-radius: 1em;
 }
 
 .extraOptionsWrapper span {
@@ -70,8 +51,8 @@
    justify-content: center;
    width: 2rem;
    height: 2rem;
-   font-size: 1rem;
-   margin: 0 var(--xsmall-spacing-mobile);
+   font-size: 2rem;
+   margin: 0 var(--spacing--ml);
    transition: 300ms;
 }
 
@@ -86,11 +67,15 @@
    align-items: center;
    justify-content: center;
    flex-wrap: wrap;
+   gap: var(--spacing-s);
 }
 
 .avatarWrapper div {
-   padding: var(--xsmall-spacing-mobile);
-   border-radius: var(--input-radius-mobile);
+   width: 7.5rem;
+   height: 7.5rem;
+   border-radius: 2em;
+   border-radius: 2;
+   background-color: var(--font-color);
 }
 
 .avatarWrapper div:hover {
@@ -108,10 +93,6 @@
    transition: 300ms;
 }
 
-@media (min-width: 1000px) {
-   .avatarWrapper div {
-      padding: var(--xsmall-spacing-mobile);
-      border-radius: var(--input-radius-mobile);
-      margin: var(--xsmall-spacing-mobile);
-   }
+.menuOption {
+   margin-bottom: var(--spacing-s);
 }
