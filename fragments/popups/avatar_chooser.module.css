@@ -9,7 +9,6 @@
    align-items: center;
    justify-content: center;
    column-gap: var(--spacing-xs);
-   max-width: 400px;
    overflow-x: scroll;
    margin: 0 auto var(--spacing-l);
 }
@@ -89,7 +88,6 @@
    height: 5rem;
    object-fit: contain;
    object-position: center;
-   margin: var(--xsmall-spacing-mobile);
    transition: 300ms;
 }
 

@@ -6,13 +6,13 @@ import styles from "./avatar_chooser.module.css";
 
 // helpers
 import { sortedAvatar } from "../../data/available_avatars";
-import AvatarChooserPopup from "../squares/avatar-chooser-popup";
 import { Secondary } from "../buttons/secondary";
 import Portal from "../../hoc/potal";
 import { PrimaryMenuBkg } from "./primary_menu_bkg";
 import { Parragraph } from "../Typography/parragraph";
 import { MenuPrimaryOption } from "../buttons/menu_options/menu_primary_option";
 import { Icon } from "../chunks/icons";
+import { SmallLoader } from "../chunks/small_loader";
 
 type avatarChooserProps = {
    closeAvatarChooser: any;
@@ -129,7 +129,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
          }),
          setExtraChoicePopUpState({ type: "", content: [] });
 
-      // // ------------ fileter array
+      // ----------- fileter array
       setGenderArray(sortedAvatar.filter((item) => item.gender == val));
       setoriginalAvatarArray(sortedAvatar.filter((item) => item.gender == val));
    };
@@ -187,40 +187,77 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
    };
 
    //  bring up the avatar pop up --------------
-   const [avatarChooserPopUpState, setAvatarChooserPopUpState] = useState<boolean>(false);
+   const [avatarChooserPopUpState, setAvatarChooserPopUpState] = useState<boolean | string>(false);
+
+   // handle avatar update
+   const [smallLoader, setSmallLoader] = useState<boolean | JSX.Element>(false);
+   const [notificationPopUpState, setNotificationPopUpState] =
+      useState<boolean | JSX.Element>(false);
+
+   const handleAvatarSelection = async (image: string) => {
+      console.log(image);
+      setSmallLoader(true);
+      //   try {
+      //      setSmallLoaderState(<SmallLoader />);
+      //      client.mutate({
+      //         mutation: UPDATE_MY_AVATAR,
+      //         variables: { avatar: image }
+      //      });
+      //      closePopUp(image);
+      //      setSmallLoaderState(false);
+      //   } catch (error: any) {
+      //      setSmallLoaderState(false);
+      //      setNotificationPopUpState(
+      //         <NotificationPopup
+      //            closeModal={() => setNotificationPopUpState(false)}
+      //            title={`You're not authorized! 👮‍♂️`}
+      //            contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
+      //            newClass='notification-wrapper--Error'
+      //         />
+      //      );
+      //   }
+   };
 
    return (
       <>
-         {avatarChooserPopUpState && (
-            <PrimaryMenuBkg
-               color='1'
-               cta={{ handleClose: () => setAvatarChooserPopUpState(false) }}>
-               <div className={styles.menuOption}>
-                  <MenuPrimaryOption
-                     iconType='icon'
-                     textType='text'
-                     cta={{ handleOptionClick: () => {} }}
-                     optionProperties={{
-                        icon: <Icon name='checkmark' color='#f1eaff' />,
-                        text: "Set as avatar",
-                        iconShadow: "#f1eaff"
-                     }}
-                  />
-               </div>
-               <div className={styles.menuOption}>
-                  <MenuPrimaryOption
-                     iconType='icon'
-                     textType='text'
-                     cta={{ handleOptionClick: () => {} }}
-                     optionProperties={{
-                        icon: <Icon name='checkmark' color='#ff4d62' />,
-                        text: "Cancel",
-                        descColor: "#ff4d62",
-                        iconShadow: "#ff4d62"
-                     }}
-                  />
-               </div>
-            </PrimaryMenuBkg>
+         {avatarChooserPopUpState && typeof avatarChooserPopUpState === "string" && (
+            <Portal>
+               <PrimaryMenuBkg
+                  color='1'
+                  cta={{ handleClose: () => setAvatarChooserPopUpState(false) }}>
+                  <div className={styles.menuOption}>
+                     {!smallLoader && (
+                        <MenuPrimaryOption
+                           iconType='icon'
+                           textType='text'
+                           cta={{
+                              handleOptionClick: () =>
+                                 handleAvatarSelection(avatarChooserPopUpState)
+                           }}
+                           optionProperties={{
+                              icon: <Icon name='checkmark' color='#f1eaff' />,
+                              text: "Set as avatar",
+                              iconShadow: "#f1eaff"
+                           }}
+                        />
+                     )}
+                     {smallLoader && <SmallLoader />}
+                  </div>
+                  <div className={styles.menuOption}>
+                     <MenuPrimaryOption
+                        iconType='icon'
+                        textType='text'
+                        cta={{ handleOptionClick: () => setAvatarChooserPopUpState(false) }}
+                        optionProperties={{
+                           icon: <Icon name='close' color='#ff4d62' />,
+                           text: "Cancel",
+                           descColor: "#ff4d62",
+                           iconShadow: "#ff4d62"
+                        }}
+                     />
+                  </div>
+               </PrimaryMenuBkg>
+            </Portal>
          )}
          <div className={styles.mainWrapper}>
             <div className={styles.title}>
@@ -355,7 +392,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                         <img
                            className={styles.avatar}
                            src={avatarLink.url}
-                           onClick={() => setAvatarChooserPopUpState(true)}
+                           onClick={() => setAvatarChooserPopUpState(avatarLink.url)}
                         />
                      </div>
                   ))}
