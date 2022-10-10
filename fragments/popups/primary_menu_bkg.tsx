@@ -7,7 +7,7 @@ import styles from "./primary_menu_bkg.module.css";
 
 type TPrimaryMenuBkgProps = {
    children: any;
-   color: string;
+   color?: string;
    title?: string;
    customColors?: {
       light: string;

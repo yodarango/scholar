@@ -223,7 +223,10 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
          {avatarChooserPopUpState && typeof avatarChooserPopUpState === "string" && (
             <Portal>
                <PrimaryMenuBkg
-                  color='1'
+                  customColors={{
+                     light: "#F1EAFF",
+                     dark: "#ff89a9"
+                  }}
                   cta={{ handleClose: () => setAvatarChooserPopUpState(false) }}>
                   <div className={styles.menuOption}>
                      {!smallLoader && (
@@ -241,7 +244,9 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                            }}
                         />
                      )}
-                     {smallLoader && <SmallLoader />}
+                     {smallLoader && (
+                        <SmallLoader inline customColors={["#F1EAFF", "#F1EAFF", "#F1EAFF"]} />
+                     )}
                   </div>
                   <div className={styles.menuOption}>
                      <MenuPrimaryOption
@@ -388,12 +393,8 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
             {originalAvatarArray.length > 0 && (
                <section className={styles.avatarWrapper}>
                   {originalAvatarArray.map((avatarLink: avatarObj) => (
-                     <div>
-                        <img
-                           className={styles.avatar}
-                           src={avatarLink.url}
-                           onClick={() => setAvatarChooserPopUpState(avatarLink.url)}
-                        />
+                     <div onClick={() => setAvatarChooserPopUpState(avatarLink.url)}>
+                        <img className={styles.avatar} src={avatarLink.url} />
                      </div>
                   ))}
                </section>

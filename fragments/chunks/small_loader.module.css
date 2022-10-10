@@ -22,7 +22,7 @@
 /*
   Set the color of the icon
 */
-.svg path,
+/* .svg path,
 .svg rect:nth-child(1),
 .svg rect:nth-child(3) {
    fill: var(--gradient-1--dark);
@@ -30,4 +30,4 @@
 
 .svg rect:nth-child(2) {
    fill: var(--gradient-1--light);
-}
+} */

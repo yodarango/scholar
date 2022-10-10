@@ -6,9 +6,10 @@ import styles from "./small_loader.module.css";
 
 type TSmallLoaderProps = {
    inline?: boolean;
+   customColors?: string[];
 };
 
-export const SmallLoader = ({ inline }: TSmallLoaderProps) => {
+export const SmallLoader = ({ inline, customColors }: TSmallLoaderProps) => {
    return (
       <div className={`${styles.mainWrapper} ${inline ? styles.inline : ""}`}>
          <div className={styles.loader}>
@@ -21,7 +22,12 @@ export const SmallLoader = ({ inline }: TSmallLoaderProps) => {
                height='30px'
                viewBox='0 0 24 30'
                className={styles.svg}>
-               <rect x='0' y='0' width='4' height='10' fill='#333'>
+               <rect
+                  x='0'
+                  y='0'
+                  width='4'
+                  height='10'
+                  fill={!customColors ? "#7350ec" : customColors[0]}>
                   <animateTransform
                      attributeType='xml'
                      attributeName='transform'
@@ -32,7 +38,12 @@ export const SmallLoader = ({ inline }: TSmallLoaderProps) => {
                      repeatCount='indefinite'
                   />
                </rect>
-               <rect x='10' y='0' width='4' height='10' fill='#333'>
+               <rect
+                  x='10'
+                  y='0'
+                  width='4'
+                  height='10'
+                  fill={!customColors ? "#b293fe" : customColors[1]}>
                   <animateTransform
                      attributeType='xml'
                      attributeName='transform'
@@ -43,7 +54,12 @@ export const SmallLoader = ({ inline }: TSmallLoaderProps) => {
                      repeatCount='indefinite'
                   />
                </rect>
-               <rect x='20' y='0' width='4' height='10' fill='#333'>
+               <rect
+                  x='20'
+                  y='0'
+                  width='4'
+                  height='10'
+                  fill={!customColors ? "#7350ec" : customColors[2]}>
                   <animateTransform
                      attributeType='xml'
                      attributeName='transform'
