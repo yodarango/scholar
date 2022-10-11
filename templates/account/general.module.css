@@ -1,5 +1,6 @@
 .mainWrapper {
    width: 100%;
+   margin-top: calc(6rem + var(--spacing-l));
 }
 
 .avatar {

@@ -15,6 +15,7 @@ import { ChangeSignature } from "../../layouts/account/settings/change_signature
 
 // styles
 import styles from "./general.module.css";
+import { FourthStackHeader } from "../../layouts/stacks/headers/fourth_stack_header";
 
 export const General = () => {
    // state
@@ -54,6 +55,7 @@ export const General = () => {
 
    return (
       <div className={styles.mainWrapper}>
+         <FourthStackHeader title='Settings' actionName='Back' link='/users/@me' />
          {loading === "done" && (
             <>
                <div className={styles.avatar}>

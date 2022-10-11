@@ -16,13 +16,14 @@ import styles from "./primary_stack.module.css";
 type TPrimaryStackprops = {
    title: string;
    children: (string | JSX.Element) | (string | JSX.Element)[];
-   cta: {
+   link?: string;
+   cta?: {
       handleClose: () => void;
    };
    icon?: string;
 };
 
-export const PrimaryStack = ({ title, children, cta, icon }: TPrimaryStackprops) => {
+export const PrimaryStack = ({ title, children, cta, icon, link }: TPrimaryStackprops) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>
@@ -35,9 +36,16 @@ export const PrimaryStack = ({ title, children, cta, icon }: TPrimaryStackprops)
                )}
             </div>
          </div>
-         <div className={styles.close}>
-            <CloseContent cta={{ handleClick: cta.handleClose }} />
-         </div>
+         {cta && !link && (
+            <div className={styles.close}>
+               <CloseContent cta={{ handleClick: cta.handleClose }} />
+            </div>
+         )}
+         {!cta && link && (
+            <div className={styles.close}>
+               <CloseContent href={link} />
+            </div>
+         )}
          <div className={styles.subWrapper}>
             <div className={styles.contentHolder}>{children}</div>
          </div>

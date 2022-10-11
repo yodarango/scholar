@@ -28,25 +28,25 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
          color: "#F1EAFF"
       },
       {
-         url: "settings",
+         url: "/users/settings",
          icon: "settings",
          description: "Settings",
          color: "#F1EAFF"
       },
       {
-         url: "privacy-settings",
+         url: "/privacy",
          icon: "privacy",
          description: "Privacy",
          color: "#F1EAFF"
       },
       {
-         url: "user-verification",
+         url: "/user-verification",
          icon: "star",
          description: "Apply for user verification",
          color: "#F1EAFF"
       },
       {
-         url: "bug-report",
+         url: "/bug-report",
          icon: "bug",
          description: "Report a bug",
          color: "#F1EAFF"
@@ -79,7 +79,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
                      />
                   )}
                   {option.url && (
-                     <Link href={`/users/${option.url}`}>
+                     <Link href={`${option.url}`}>
                         <a>
                            <MenuPrimaryOption
                               textType='text'
