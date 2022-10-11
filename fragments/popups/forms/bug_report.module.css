@@ -1,0 +1,23 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.title {
+   margin-bottom: var(--spacing-s);
+}
+
+.description {
+   margin-bottom: var(--spacing-s);
+}
+
+.bottomNote {
+   margin-bottom: var(--spacing-l);
+}
+
+.input {
+   margin-bottom: var(--spacing-xs);
+}
+
+.button {
+   margin-top: var(--spacing-l);
+}
