@@ -33,8 +33,19 @@
 .title {
    margin-bottom: var(--spacing-xs);
 }
+
 .close {
    position: absolute;
    top: var(--spacing-xs);
    right: var(--spacing-s);
+}
+
+.safe p,
+.safe h2,
+.warning p,
+.warning h2,
+.warning svg path,
+.safe svg path {
+   color: var(--primary-color);
+   fill: var(--primary-color);
 }

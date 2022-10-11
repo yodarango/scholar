@@ -1,9 +1,11 @@
 // core
-import { useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 // graphQL
 import client from "../../../apollo-client";
 import { BUG_REPORT } from "../../../graphql/emails/content";
+import { PrimaryStack } from "../../../layouts/stacks/templates/primary_stack";
 import { Primary } from "../../buttons/primary";
 
 // comps
@@ -17,146 +19,141 @@ import { Notification } from "../notification";
 // styles
 import styles from "./bug_report.module.css";
 
+// data
+import { errorMessages } from "../../../data/error_messages";
+import { notificationMessages } from "../../../data/notification_messages";
+const formError = errorMessages.posts.failToBugReportSubmitForm;
+const missingFieldsError = errorMessages.posts.missingFormFields;
+const submittedForm = notificationMessages.bugReportSubmitted;
+
+// types
+type TformData = {
+   where: string;
+   when: string;
+   who: string;
+   how: string;
+};
+
 export const BugReport = () => {
-   // small loader
+   // state
    const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
-   const [isFormSubmittedState, setIsFormSubmittedState] = useState<boolean>(false);
-   const [notificationPoupState, setNotificationPoupState] = useState<boolean | JSX.Element>(false);
+   const [notification, setnotification] = useState<boolean | JSX.Element>(false);
+   const [formData, setformData] = useState<TformData>({ where: "", when: "", who: "", how: "" });
 
-   // inpiuts
-   const where = useRef<HTMLInputElement>(null);
-   const when = useRef<HTMLInputElement>(null);
-   const who = useRef<HTMLInputElement>(null);
-   const how = useRef<HTMLTextAreaElement>(null);
+   // router
+   const router = useRouter();
 
-   // ================= Submit Request ===========
-   const submitRequest = async () => {
-      const whereValue = where.current;
-      const whenValue = when.current;
-      const whoValue = who.current;
-      const howValue = how.current;
+   // inputs
+   const updateNotification = (body: string, type: string, title: string) =>
+      setnotification(
+         <Notification
+            type={type}
+            body={body}
+            title={title}
+            cta={{ handleClose: () => setnotification(false) }}
+         />
+      );
 
-      if (whereValue?.value && whenValue?.value && whoValue?.value && howValue?.value) {
+   //  Submit Request
+   const handleFormSubmission: any = async (e: any) => {
+      e.preventDefault();
+      const { where, when, who, how } = formData;
+
+      if (where && when && who && how) {
          setSmallLoaderState(true);
          try {
             const { data } = await client.mutate({
                mutation: BUG_REPORT,
                variables: {
-                  where: whereValue.value,
-                  when: whenValue.value,
-                  who: whoValue.value,
-                  how: howValue.value
+                  where,
+                  when,
+                  who,
+                  how
                }
             });
-
             if (data.new_bug_report === true) {
                setSmallLoaderState(false);
-               setIsFormSubmittedState(true);
-               setNotificationPoupState(
-                  <Notification
-                     type='4'
-                     cta={{ handleClose: () => setNotificationPoupState(false) }}
-                     title='Form submitted successfully ✅'
-                     body={
-                        "Thank you for making scholar what it is. We are working every day to make it a better place for you! 👷‍♂️"
-                     }
-                  />
-               );
+               updateNotification(submittedForm.body, "2", submittedForm.title);
             } else {
                setSmallLoaderState(false);
-               setNotificationPoupState(
-                  <Notification
-                     type='4'
-                     cta={{ handleClose: () => setNotificationPoupState(false) }}
-                     title={`Something went wrong!`}
-                     body='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-                  />
-               );
+               updateNotification(formError.body, "4", formError.title);
             }
          } catch (error) {
             setSmallLoaderState(false);
-            setNotificationPoupState(
-               <Notification
-                  type='4'
-                  cta={{ handleClose: () => setNotificationPoupState(false) }}
-                  title={`Something went wrong!`}
-                  body='Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-               />
-            );
+            updateNotification(formError.body, "4", formError.title);
          }
       } else {
-         setNotificationPoupState(
-            <Notification
-               type='4'
-               cta={{ handleClose: () => setNotificationPoupState(false) }}
-               title='Empty fields detected ✋'
-               body={"Please make sure all fields are filled out ✔️"}
-            />
-         );
+         updateNotification(missingFieldsError.body, "4", missingFieldsError.title);
       }
    };
+
    return (
-      <div className={styles.mainWrapper}>
-         {notificationPoupState}
-         <div className={styles.title}>
-            <Header text='Help scholar stay great' size='main' quiet type={3} />
-         </div>
-         <div className={styles.description}>
-            <Parragraph
-               size='small'
-               text=' Every time you submit a bug report you help scholar to stay alive, efficient, and keep
+      <PrimaryStack title='Bug Report' cta={{ handleClose: () => router.back() }} icon='bug'>
+         <div className={styles.mainWrapper}>
+            {notification}
+            <div className={styles.title}>
+               <Header text='Help scholar stay great' size='main' quiet type={3} />
+            </div>
+            <div className={styles.description}>
+               <Parragraph
+                  size='small'
+                  text=' Every time you submit a bug report you help scholar to stay alive, efficient, and keep
             improving. Please give us as much details as you can on how we can reproduce this issue
             and where did you find it.'
-            />
-         </div>
-         <div className={styles.bottomNote}>
-            <Parragraph size='main' text='Thank you for making Scholar what is it' quiet />
-         </div>
-         {/* form fields */}
-         <div>
-            <div className={styles.input}>
-               <InputPrimary
-                  type='text'
-                  value=''
-                  placeholder='What page is the bug on'
-                  maxL={80}
-                  cta={{ handleValue: () => {} }}
                />
             </div>
-            <div className={styles.input}>
-               <InputPrimary
-                  type='date'
-                  value=''
-                  placeholder='mm/dd/yyyy'
-                  maxL={80}
-                  cta={{ handleValue: () => {} }}
-               />
-            </div>
-            <div className={styles.input}>
-               <InputPrimary
-                  type='text'
-                  value=''
-                  placeholder='Your name'
-                  maxL={80}
-                  cta={{ handleValue: () => {} }}
-               />
-            </div>
-            <div className={styles.input}>
-               <TextAreaPrimary
-                  maxLength={500}
-                  defaultValue=''
-                  placeHolder='Please tell us how to reproduce it...'
-                  cta={{ handleCurrentValue: () => {} }}
-               />
+            <div className={styles.bottomNote}>
+               <Parragraph size='main' text='Thank you for making Scholar what is it' quiet />
             </div>
 
-            {!smallLoaderState && !isFormSubmittedState && (
-               <div className={styles.button}>
-                  <Primary title='Submit' type='1' />
+            {/* form fields */}
+            <form>
+               <div className={styles.input}>
+                  <InputPrimary
+                     type='text'
+                     value=''
+                     placeholder='What page is the bug on'
+                     maxL={80}
+                     cta={{ handleValue: (where: string) => setformData({ ...formData, where }) }}
+                  />
                </div>
-            )}
-            {smallLoaderState && <SmallLoader />}
+               <div className={styles.input}>
+                  <InputPrimary
+                     type='date'
+                     value=''
+                     placeholder='mm/dd/yyyy'
+                     maxL={80}
+                     cta={{ handleValue: (when: string) => setformData({ ...formData, when }) }}
+                  />
+               </div>
+               <div className={styles.input}>
+                  <InputPrimary
+                     type='text'
+                     value=''
+                     placeholder='Your name'
+                     maxL={80}
+                     cta={{ handleValue: (who: string) => setformData({ ...formData, who }) }}
+                  />
+               </div>
+               <div className={styles.input}>
+                  <TextAreaPrimary
+                     maxLength={500}
+                     defaultValue=''
+                     placeHolder='Please tell us how to reproduce it...'
+                     cta={{
+                        handleCurrentValue: (how: string) => setformData({ ...formData, how })
+                     }}
+                  />
+               </div>
+
+               {!smallLoaderState && (
+                  <div className={styles.button}>
+                     <Primary title='Submit' type='1' cta={{ handleClick: handleFormSubmission }} />
+                  </div>
+               )}
+               {smallLoaderState && <SmallLoader />}
+            </form>
          </div>
-      </div>
+      </PrimaryStack>
    );
 };
