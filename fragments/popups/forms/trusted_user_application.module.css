@@ -1,0 +1,19 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.input {
+   margin-bottom: var(--spacing-xs);
+}
+
+.radioInput {
+   margin-bottom: var(--spacing-s);
+}
+
+.radioParragraph {
+   margin-bottom: var(--spacing-s);
+}
+
+.radio {
+   display: inline-block;
+}

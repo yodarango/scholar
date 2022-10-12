@@ -13,11 +13,12 @@ type TRadioPrimaryProps = {
       secondary: string;
    };
    displayV?: boolean;
+   type?: string;
    cta: {
       handleOptionSelection: (option: number) => void;
    };
 };
-export const RadioPrimary = ({ icon, text, cta, displayV }: TRadioPrimaryProps) => {
+export const RadioPrimary = ({ icon, text, cta, displayV, type }: TRadioPrimaryProps) => {
    const [currSelection, setcurrSelection] = useState<{ prim: string; sec: string }>({
       prim: "1",
       sec: "1"
@@ -28,11 +29,12 @@ export const RadioPrimary = ({ icon, text, cta, displayV }: TRadioPrimaryProps) 
          <div className={`${styles.first} ${styles.option} ${displayV && styles.displayV}`}>
             <div>
                <IconButton
+                  type={type}
                   backgroundColor={currSelection.prim}
                   icon={icon.primary}
                   cta={{
                      handleClick: () => (
-                        cta.handleOptionSelection(1), setcurrSelection({ prim: "2", sec: "1" })
+                        cta.handleOptionSelection(0), setcurrSelection({ prim: "2", sec: "1" })
                      )
                   }}
                />
@@ -46,6 +48,7 @@ export const RadioPrimary = ({ icon, text, cta, displayV }: TRadioPrimaryProps) 
          <div className={`${styles.second} ${styles.option} ${displayV && styles.displayV}`}>
             <div>
                <IconButton
+                  type={type}
                   backgroundColor={currSelection.sec}
                   icon={icon.secondary}
                   cta={{

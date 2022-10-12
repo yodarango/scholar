@@ -103,7 +103,7 @@
    --fs-xxxlarge: 3rem;
 
    /* --------------- dark mode colors ---------- */
-   --primary-color: #2a2438;
+   --primary-color: #2a2438; /* OPTION B: #1e1a29*/
    --secondary-color: #38304b;
    --third-color: #5c5470;
    --gradient-1--dark: #7350ec;

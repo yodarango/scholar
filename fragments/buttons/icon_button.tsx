@@ -17,6 +17,7 @@ export type TIconButtonProps = {
    custombuttonSize?: boolean;
    link?: string;
    isDownload?: boolean;
+   type?: any;
    shadowColor?: string;
    cta?: {
       handleClick: () => void;
@@ -31,6 +32,7 @@ export const IconButton = ({
    backgroundColor,
    link,
    isDownload = false,
+   type = "button",
    cta,
    shadowColor = "1"
 }: TIconButtonProps) => {
@@ -39,6 +41,7 @@ export const IconButton = ({
          {backgroundColor === "1" &&
             (!link ? (
                <button
+                  type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${styles.primary} ${
@@ -63,6 +66,7 @@ export const IconButton = ({
          {backgroundColor === "2" &&
             (!link ? (
                <button
+                  type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${styles.secondary} ${
@@ -88,6 +92,7 @@ export const IconButton = ({
             backgroundColor !== "2" &&
             (!link ? (
                <button
+                  type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}

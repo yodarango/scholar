@@ -5,17 +5,19 @@ type TPrimaryProps = {
    type: string;
    title: string;
    href?: string;
+   htmlType?: any;
    cta?: {
       handleClick: () => any;
    };
 };
 
-export const Primary = ({ title, cta, type, href }: TPrimaryProps) => {
+export const Primary = ({ title, cta, type, href, htmlType = "button" }: TPrimaryProps) => {
    return (
       <>
          {type === "1" &&
             (!href && cta ? (
                <button
+                  type={htmlType}
                   className={`${styles.primary} ${styles.mainWrapper}`}
                   onClick={cta.handleClick}>
                   <Parragraph
@@ -40,6 +42,7 @@ export const Primary = ({ title, cta, type, href }: TPrimaryProps) => {
          {type === "2" &&
             (!href && cta ? (
                <button
+                  type={htmlType}
                   className={`${styles.secondary} ${styles.mainWrapper}`}
                   onClick={cta.handleClick}>
                   <Parragraph
