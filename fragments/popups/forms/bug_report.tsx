@@ -22,8 +22,8 @@ import styles from "./bug_report.module.css";
 // data
 import { errorMessages } from "../../../data/error_messages";
 import { notificationMessages } from "../../../data/notification_messages";
-const formError = errorMessages.posts.failToBugReportSubmitForm;
-const missingFieldsError = errorMessages.posts.missingFormFields;
+const formError = errorMessages.forms.failToSubmitForm;
+const missingFieldsError = errorMessages.forms.missingFormFields;
 const submittedForm = notificationMessages.bugReportSubmitted;
 
 // types
