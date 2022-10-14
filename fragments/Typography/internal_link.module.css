@@ -1,0 +1,70 @@
+.link {
+   text-decoration: underline;
+}
+
+.two {
+   color: var(--third-color);
+}
+
+.two:hover {
+   color: var(--font-color);
+}
+
+.three {
+   background-image: linear-gradient(45deg, var(--gradient-1-light), var(--gradient-1-dark));
+   background-size: 100%;
+   background-repeat: repeat;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   -moz-background-clip: text;
+   -moz-text-fill-color: transparent;
+   font-weight: 600;
+   font: var(--primary-font);
+   text-align: center;
+   padding: 0;
+   margin: 0;
+}
+
+.xxsmall {
+   font-size: var(--fs-xxsmall);
+}
+
+.xsmall {
+   font-size: var(--fs-xsmall);
+}
+
+.small {
+   font-size: var(--fs-small);
+}
+
+.main {
+   font-size: var(--fs-main);
+}
+
+.large {
+   font-size: var(--fs-large);
+}
+
+.xlarge {
+   font-size: var(--fs-xlarge);
+}
+
+.xxlarge {
+   font-size: var(--fs-xxlarge);
+}
+
+.xxxlarge {
+   font-size: var(--fs-xxxlarge);
+}
+
+.right {
+   text-align: right;
+}
+
+.center {
+   text-align: center;
+}
+
+.justify {
+   text-align: justify;
+}

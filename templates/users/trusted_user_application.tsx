@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styles from "./trusted_user_application.module.css";
 
 // comps
-import { TrustedUserApplicationForm } from "../../fragments/popups/forms/trusted_user_application";
+import { TrustedUserApplicationForm } from "../../layouts/forms/trusted_user_application";
 import { PrimaryStack } from "../../layouts/stacks/templates/primary_stack";
 import { Parragraph } from "../../fragments/Typography/parragraph";
 

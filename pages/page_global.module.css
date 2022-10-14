@@ -2,3 +2,7 @@
    width: var(--global-wrapper-width);
    margin: auto;
 }
+
+.mainWrapperFW {
+   width: 100vw;
+}

@@ -1,26 +1,26 @@
 import { useState } from "react";
 
 // graphql
-import { NEW_TRUSTED_USER_REQUEST } from "../../../graphql/emails/content";
-import client from "../../../apollo-client";
+import { NEW_TRUSTED_USER_REQUEST } from "../../graphql/emails/content";
+import client from "../../apollo-client";
 
 // comps
-import { InputPrimary } from "../../inputs/input_primary";
-import { RadioPrimary } from "../../inputs/radio_primary";
-import { Parragraph } from "../../Typography/parragraph";
-import { SmallLoader } from "../../chunks/small_loader";
-import { Primary } from "../../buttons/primary";
-import Portal from "../../../hoc/potal";
+import { InputPrimary } from "../../fragments/inputs/input_primary";
+import { RadioPrimary } from "../../fragments/inputs/radio_primary";
+import { Parragraph } from "../../fragments/Typography/parragraph";
+import { SmallLoader } from "../../fragments/chunks/small_loader";
+import { Primary } from "../../fragments/buttons/primary";
+import Portal from "../../hoc/potal";
 
 // styles
 import styles from "./trusted_user_application.module.css";
-import { Notification } from "../notification";
+import { Notification } from "../../fragments/popups/notification";
 
 // data
-import { errorMessages } from "../../../data/error_messages";
+import { errorMessages } from "../../data/error_messages";
 const failFormSubmission = errorMessages.forms.failToSubmitForm;
 const emptyField = errorMessages.forms.missingFormFields;
-import { notificationMessages } from "../../../data/notification_messages";
+import { notificationMessages } from "../../data/notification_messages";
 const formSubmitted = notificationMessages.userVerificationSubmitted;
 
 // types
@@ -232,7 +232,12 @@ export const TrustedUserApplicationForm = () => {
 
             {!smallLoader && (
                <div className={styles.button}>
-                  <Primary title='Submit' type='1' cta={{ handleClick: handleFormSubmission }} />
+                  <Primary
+                     title='Submit'
+                     type='1'
+                     cta={{ handleClick: handleFormSubmission }}
+                     htmlType='button'
+                  />
                </div>
             )}
             {smallLoader && <SmallLoader />}

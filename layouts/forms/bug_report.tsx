@@ -3,25 +3,25 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 // graphQL
-import client from "../../../apollo-client";
-import { BUG_REPORT } from "../../../graphql/emails/content";
-import { PrimaryStack } from "../../../layouts/stacks/templates/primary_stack";
-import { Primary } from "../../buttons/primary";
+import client from "../../apollo-client";
+import { BUG_REPORT } from "../../graphql/emails/content";
+import { PrimaryStack } from "../stacks/templates/primary_stack";
+import { Primary } from "../../fragments/buttons/primary";
 
 // comps
-import { SmallLoader } from "../../chunks/small_loader";
-import { InputPrimary } from "../../inputs/input_primary";
-import { TextAreaPrimary } from "../../inputs/text_area_primary";
-import { Header } from "../../Typography/header";
-import { Parragraph } from "../../Typography/parragraph";
-import { Notification } from "../notification";
+import { SmallLoader } from "../../fragments/chunks/small_loader";
+import { InputPrimary } from "../../fragments/inputs/input_primary";
+import { TextAreaPrimary } from "../../fragments/inputs/text_area_primary";
+import { Header } from "../../fragments/Typography/header";
+import { Parragraph } from "../../fragments/Typography/parragraph";
+import { Notification } from "../../fragments/popups/notification";
 
 // styles
 import styles from "./bug_report.module.css";
 
 // data
-import { errorMessages } from "../../../data/error_messages";
-import { notificationMessages } from "../../../data/notification_messages";
+import { errorMessages } from "../../data/error_messages";
+import { notificationMessages } from "../../data/notification_messages";
 const formError = errorMessages.forms.failToSubmitForm;
 const missingFieldsError = errorMessages.forms.missingFormFields;
 const submittedForm = notificationMessages.bugReportSubmitted;
@@ -148,7 +148,12 @@ export const BugReport = () => {
 
                {!smallLoaderState && (
                   <div className={styles.button}>
-                     <Primary title='Submit' type='1' cta={{ handleClick: handleFormSubmission }} />
+                     <Primary
+                        title='Submit'
+                        type='1'
+                        cta={{ handleClick: handleFormSubmission }}
+                        htmlType='button'
+                     />
                   </div>
                )}
                {smallLoaderState && <SmallLoader />}

@@ -39,6 +39,22 @@ export const errorMessages = {
          description: "in case form fields are missing this will let the user know.",
          title: "Empty fields detected 🤔",
          body: "Please make sure you have filled out all required fields!"
+      },
+      wrongVerificationCode: {
+         id: 2,
+         type: "error",
+         description: "if the user inserts incorrect account verification code",
+         title: "Wrong code ❌",
+         body: "The code you entered is incorrect or has expired, please try again!"
+      }
+   },
+   unknown: {
+      a: {
+         id: 2,
+         type: "error",
+         description: "if the user inserts incorrect account verification code",
+         title: "Oops 🙈",
+         body: "Something has gone south and we're at it, please try again later!"
       }
    }
 };
