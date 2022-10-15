@@ -83,7 +83,8 @@
    font-size: var(--fs-xxxlarge);
 }
 
-.bold {
+.bold,
+.input:focus {
    font-weight: 600;
 }
 

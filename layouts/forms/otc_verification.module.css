@@ -1,0 +1,14 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.input,
+.button {
+   margin-bottom: var(--spacing-m);
+}
+
+.link {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}

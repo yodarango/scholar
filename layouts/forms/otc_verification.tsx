@@ -1,3 +1,6 @@
+/**************************************************************************************** 
+-  handles the verification of a one time pass code
+****************************************************************************************/
 import { useState } from "react";
 
 // graphQL
@@ -13,14 +16,21 @@ import { SmallLoader } from "../../fragments/chunks/small_loader";
 import Portal from "../../hoc/potal";
 
 // styles
-import styles from "./account_verification.module.css";
+import styles from "./otc_verification.module.css";
 
 // data
 import { errorMessages } from "../../data/error_messages";
-const incorrectCode = errorMessages.forms.wrongVerificationCode;
+const incorrectCode = errorMessages.account.wrongVerificationCode;
 const unknown = errorMessages.unknown.a;
 
-export const AccountVerificationForm = () => {
+type TAccountVerificationFormProps = {
+   redirect?: string;
+   cta?: {
+      handleResult: (result: number) => void;
+   };
+};
+
+export const OTCVerification = ({ redirect = "register", cta }: TAccountVerificationFormProps) => {
    const [code, setcode] = useState<string>("");
    const [loader, setloader] = useState<boolean>(false);
    const [notification, setnotification] = useState<boolean | JSX.Element>(false);
@@ -40,6 +50,8 @@ export const AccountVerificationForm = () => {
    const handleFormUpload = async () => {
       // send code
       console.log(code);
+
+      cta?.handleResult(1);
 
       //   try {
       //      setloader(true);
@@ -70,12 +82,45 @@ export const AccountVerificationForm = () => {
       //   }
    };
 
+   // ----------- OR ---------------
+   // check the code
+   //? this is handled in the Account verification modal noe
+   //    const checkCode = async () => {
+   //       if (codeInput.current?.value != "" || !codeInput.current?.value) {
+   //          try {
+   //             const { data } = await client.mutate({
+   //                mutation: VERIFY_FORGOTTEN_PASSWORD_CODE,
+   //                variables: { verification_code: codeInput.current?.value }
+   //             });
+
+   //             console.log("verification_code", data);
+
+   //             if (data.forgotten_password_code === 0) {
+   //                setNotificationPopUp(
+   //                   <NotificationPopup
+   //                      closeModal={() => setNotificationPopUp(false)}
+   //                      title='Wrong Code ❌'
+   //                      contentString={`The code you entered is incorrect or has expired, please try again!`}
+   //                      newClass='notification-wrapper--Error'
+   //                   />
+   //                );
+   //             } else if (data.forgotten_password_code > 0) {
+   //                setVerificationStepsState(2);
+   //                setUserIDState(data.forgotten_password_code);
+   //             }
+   //          } catch (error) {
+   //             console.log(error);
+   //          }
+   //       }
+   //    };
+
    return (
       <div className={styles.mainWrapper}>
          <Portal>{notification}</Portal>
          <form>
             <div className={styles.input}>
                <InputPrimary
+                  bold
                   placeholder='Enter verification code'
                   maxL={6}
                   type='text'
@@ -86,16 +131,18 @@ export const AccountVerificationForm = () => {
                <div className={styles.button}>
                   <Primary
                      htmlType='button'
-                     type='1'
+                     type='2'
                      title='Verify'
                      cta={{ handleClick: handleFormUpload }}
                   />
                </div>
             )}
             {loader && <SmallLoader />}
-            <InternalLink type='2' size='main' href='/register'>
-               Back to registration
-            </InternalLink>
+            <div className={styles.link}>
+               <InternalLink type='2' size='main' href={`/${redirect}`} align='center'>
+                  {`Back to ${redirect} page`}
+               </InternalLink>
+            </div>
          </form>
       </div>
    );

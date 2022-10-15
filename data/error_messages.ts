@@ -1,4 +1,44 @@
 export const errorMessages = {
+   account: {
+      emailNotFound: {
+         id: 0,
+         type: "error",
+         description:
+            "Check user's email to see if it exists. This is specially useful on password recovery.",
+         title: "Email Not Found 🔎",
+         body: "Sorry! the email address provided was not found. Please try again"
+      },
+      wrongVerificationCode: {
+         id: 1,
+         type: "error",
+         description: "if the user inserts incorrect account verification code",
+         title: "Wrong code ❌",
+         body: "The code you entered is incorrect or has expired, please try again!"
+      },
+      unableToUpdatePassword: {
+         id: 2,
+         type: "error",
+         description: "if the user is unable t update their password",
+         title: "Oh no! 😔",
+         body: "We were unable to update your password, please try again later!"
+      }
+   },
+   forms: {
+      failToSubmitForm: {
+         id: 0,
+         type: "error",
+         description: "Bug Report form could not be sent for some reason.",
+         title: "Unable to send form 📤",
+         body: "We were unable to send your form. Please try again later. If the problem persists consider submitting a <a href='/bug-report'>bug report</a>!"
+      },
+      missingFormFields: {
+         id: 1,
+         type: "error",
+         description: "in case form fields are missing this will let the user know.",
+         title: "Empty fields detected 🤔",
+         body: "Please make sure you have filled out all required fields!"
+      }
+   },
    posts: {
       maxPostCount: {
          id: 0,
@@ -23,29 +63,6 @@ export const errorMessages = {
          body(size: string) {
             return `Your file is too big. Max size is ${size}, please try again!`;
          }
-      }
-   },
-   forms: {
-      failToSubmitForm: {
-         id: 0,
-         type: "error",
-         description: "Bug Report form could not be sent for some reason.",
-         title: "Unable to send form 📤",
-         body: "We were unable to send your form. Please try again later. If the problem persists consider submitting a <a href='/bug-report'>bug report</a>!"
-      },
-      missingFormFields: {
-         id: 1,
-         type: "error",
-         description: "in case form fields are missing this will let the user know.",
-         title: "Empty fields detected 🤔",
-         body: "Please make sure you have filled out all required fields!"
-      },
-      wrongVerificationCode: {
-         id: 2,
-         type: "error",
-         description: "if the user inserts incorrect account verification code",
-         title: "Wrong code ❌",
-         body: "The code you entered is incorrect or has expired, please try again!"
       }
    },
    unknown: {

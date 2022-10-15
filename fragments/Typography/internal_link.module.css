@@ -2,8 +2,10 @@
    text-decoration: underline;
 }
 
-.two {
-   color: var(--third-color);
+.two,
+.two:visited,
+.two:active {
+   color: var(--third-color) !important;
 }
 
 .two:hover {
