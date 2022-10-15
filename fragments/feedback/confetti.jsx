@@ -9,10 +9,10 @@ export const Confetti = () => {
       var DEG_TO_RAD = Math.PI / 180;
       var RAD_TO_DEG = 180 / Math.PI;
       var colors = [
-         ["#df0049", "#660671"],
-         ["#00e857", "#005291"],
-         ["#2bebbc", "#05798a"],
-         ["#ffd200", "#b06c00"]
+         ["#B293FE", "#7350EC"],
+         ["#FF8655", "#FF3269"],
+         ["#F1EAFF", "#FFE600"],
+         ["#7FDC7D", "#55D6C2"]
       ];
 
       function Vector2(_x, _y) {

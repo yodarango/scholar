@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 // graphQL
-import client from "../../apollo-client";
-import { ACCEPT_INTRO_INTRUCTIONS } from "../../graphql/users/profile";
+import client from "../apollo-client";
+import { ACCEPT_INTRO_INTRUCTIONS } from "../graphql/users/profile";
 
 // styles
 import newUserStyles from "../../styles/layouts/sudo-pages/NewUser.module.css";
-import NotificationPopup from "../../fragments/popups/notification";
+import NotificationPopup from "../fragments/popups/notification";
 
 type newuserProps = {
    acceptedIntroTerms: any;
 };
 
-const NewUser = ({ acceptedIntroTerms }: newuserProps) => {
+const Welcome = ({ acceptedIntroTerms }: newuserProps) => {
    const [notificationPopUpState, setNotificationPopUpState] =
       useState<boolean | JSX.Element>(false);
 

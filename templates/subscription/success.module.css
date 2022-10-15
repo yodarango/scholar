@@ -1,0 +1,49 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.layer {
+   width: 90%;
+   aspect-ratio: 400 / 400;
+   max-width: 50rem;
+   margin: 10rem auto var(--spacing-l);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position: center;
+   background-image: url("/images/bkgs/layer_2.svg");
+}
+
+.graphics {
+   width: 40%;
+   aspect-ratio: 30 / 30;
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position: center;
+   background-image: url("/images/logo.png");
+}
+
+.title {
+   width: 100%;
+   margin: 0 auto var(--spacing-xs);
+}
+
+.parragraph {
+   width: 100%;
+   margin: 0 auto var(--spacing-l);
+}
+
+.button {
+   position: relative;
+   z-index: 2;
+   width: 100%;
+}
+
+.confetti {
+   position: fixed;
+   left: 0;
+   top: 0;
+   z-index: 1;
+}

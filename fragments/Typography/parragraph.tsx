@@ -137,7 +137,7 @@ export const Parragraph = ({
             (!href ? (
                <b
                   className={`${styles.parragraph} ${fontSize} ${fontAlign} ${
-                     bold ? styles.bold : ""
+                     bold && styles.bold
                   } ${fontColor}`}
                   style={{ lineHeight: fontLineHeight }}>
                   {text}

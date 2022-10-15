@@ -3,13 +3,6 @@
    margin-bottom: var(--spacing-l);
 }
 
-.svg {
-   position: relative;
-   width: 100vw;
-   left: calc(-50vw + 50%);
-   margin: 0 auto var(--spacing-l);
-}
-
 .logoWrapper {
    position: fixed;
    margin: auto;

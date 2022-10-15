@@ -40,7 +40,7 @@ const stepMessages = [
    },
    {
       title: "Help us make sure it's you!",
-      message: `Please verify the email sent to ${"email"}`,
+      message: `Please verify the email sent to your email`,
       graphics: styles.graphicsTwo
    },
    {
@@ -72,23 +72,22 @@ export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
    return (
       <div className={styles.mainWrapper}>
          {stepProcess === 3 && (
-            <Portal>
+            <div className={styles.confetti}>
                <Confetti />
-            </Portal>
+            </div>
          )}
-         <div className={styles.svg}>
-            <Layer1 />
-            <div className={styles.logoWrapper}>
-               {/* switch graphics per step completion */}
-               <div className={`${styles.graphics} ${currentStepData.graphics}`}></div>
-               <div className={styles.title}>
-                  <Parragraph align='center' bold size='large' text={currentStepData.title} />
-               </div>
-               <div className={styles.desc}>
-                  <Parragraph align='center' size='large' text={currentStepData.message} />
-               </div>
+         <Layer1 />
+         <div className={styles.logoWrapper}>
+            {/* switch graphics per step completion */}
+            <div className={`${styles.graphics} ${currentStepData.graphics}`}></div>
+            <div className={styles.title}>
+               <Parragraph align='center' bold size='large' text={currentStepData.title} />
+            </div>
+            <div className={styles.desc}>
+               <Parragraph align='center' size='large' text={currentStepData.message} />
             </div>
          </div>
+
          {stepProcess === 0 && (
             <EmailVerification
                redirect='login'
@@ -109,7 +108,11 @@ export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
                cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
             />
          )}
-         {stepProcess === 3 && <Primary type='2' title='Back to login' href='/login' />}
+         {stepProcess === 3 && (
+            <div className={styles.redirect}>
+               <Primary type='2' title='Back to login' href='/login' />
+            </div>
+         )}
       </div>
    );
 };

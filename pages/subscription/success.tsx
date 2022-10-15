@@ -11,14 +11,17 @@ import client from "../../apollo-client";
 import { GET_ORDER_SUCCESS_DATA } from "../../graphql/billing/billing";
 
 // styles
-import subscriptionSuccessPageStyle from "../../styles/pages/subscription/Success.module.css";
+import styles from "./success.module.css";
+import { SuccessTemplate } from "../../templates/subscription/success";
+import { Confetti } from "../../fragments/feedback/confetti";
 
 const Success = () => {
    // router
    const router = useRouter();
 
-   // user Details
-   const [checkoutDeets, setCheckoutDeets] = useState<any>(false);
+   // states
+   const [checkout, setcheckout] = useState<any>(false);
+   const [isLoggedIn, setisLoggedIn] = useState(false);
    const [failedTransaction, setFailedTransaction] = useState<string | boolean>(false);
 
    const getUserCheckoutData = async () => {
@@ -33,7 +36,7 @@ const Success = () => {
             const expTime = new Date(today + 1209600000);
 
             document.cookie = `authorization=${data.order_success.token}; expires=${expTime}; path=/`;
-            setCheckoutDeets(data.order_success);
+            setcheckout(data.order_success);
          } else if (data.order_success.__typename === "Failed_Order") {
             setFailedTransaction(data.order_success.message);
          }
@@ -48,33 +51,17 @@ const Success = () => {
       }
    }, [router.isReady]);
 
+   //! coming from checkout = name and email
    return (
       <>
          <Head>
             <HeadContent />
          </Head>
-         <div>
-            {checkoutDeets && (
-               <div className={subscriptionSuccessPageStyle.mainWrapper}>
-                  <div className={subscriptionSuccessPageStyle.imageWrapper}>
-                     <Image src='/images/layouts/subscription_thanks.png' layout='fill' />
-                  </div>
-                  <h1 className={`${subscriptionSuccessPageStyle.stdH1} std-button_gradient-text`}>
-                     Welcome to Scholar
-                  </h1>
-                  <p>Thank you, {checkoutDeets.name} for keeping Scholar alive!</p>
-                  <p>a confirmation email has been sent to {checkoutDeets.email}</p>
-
-                  <button className={`std-button`}>
-                     <Link href='/users/me'>
-                        <a className={`std-button_gradient-text`}>Done</a>
-                     </Link>
-                  </button>
-                  <div className='large-spacer'></div>
-               </div>
-            )}
-            {failedTransaction}
-         </div>
+         {!isLoggedIn && (
+            <div className={styles.mainWrapper}>
+               <SuccessTemplate name={checkout.name} email={checkout.email} />
+            </div>
+         )}
       </>
    );
 };
