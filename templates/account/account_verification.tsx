@@ -4,7 +4,7 @@ import { useState } from "react";
 // comps
 import { Parragraph } from "../../fragments/Typography/parragraph";
 import { OTCVerification } from "../../layouts/forms/otc_verification";
-import { BackgroundOne } from "../../public/images/backgrounds/top_half_gradient";
+import { BackgroundOne } from "../../styles/layouts/backgrounds/gradient_1";
 
 // styles
 import styles from "./account_verification.module.css";

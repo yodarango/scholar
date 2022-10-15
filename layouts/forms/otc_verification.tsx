@@ -22,6 +22,7 @@ import styles from "./otc_verification.module.css";
 import { errorMessages } from "../../data/error_messages";
 const incorrectCode = errorMessages.account.wrongVerificationCode;
 const unknown = errorMessages.unknown.a;
+const emptyCode = errorMessages.forms.missingCode;
 
 type TAccountVerificationFormProps = {
    redirect?: string;
@@ -49,37 +50,39 @@ export const OTCVerification = ({ redirect = "register", cta }: TAccountVerifica
    // send the code
    const handleFormUpload = async () => {
       // send code
-      console.log(code);
 
-      cta?.handleResult(1);
+      if (code) {
+         cta?.handleResult(1);
+         try {
+            setloader(true);
+            const { data } = await client.mutate({
+               mutation: VERIFY_ACCOUNT,
+               variables: {
+                  verification_code: code
+               }
+            });
+            if (data.verify_account && data.verify_account.__typename === "NewSession") {
+               console.log(data.verify_account);
 
-      //   try {
-      //      setloader(true);
-      //      const { data } = await client.mutate({
-      //         mutation: VERIFY_ACCOUNT,
-      //         variables: {
-      //            verification_code: code
-      //         }
-      //      });
-      //      if (data.verify_account && data.verify_account.__typename === "NewSession") {
-      //         console.log(data.verify_account);
+               const today = Date.now();
+               const expTime = new Date(today + 1209600000);
 
-      //         const today = Date.now();
-      //         const expTime = new Date(today + 1209600000);
+               document.cookie = `authorization=${data.verify_account.token}; expires=${expTime}; path=/`;
 
-      //         document.cookie = `authorization=${data.verify_account.token}; expires=${expTime}; path=/`;
-
-      //         location.href = "/account_verification";
-      //      } else if (data.verify_account.__typename === "IncorrectVerificatoinCode") {
-      //         setloader(false);
-      //         updateNotification(incorrectCode.body, "4", incorrectCode.title);
-      //      } else {
-      //         setloader(false);
-      //         updateNotification(unknown.body, "4", unknown.title);
-      //      }
-      //   } catch (error) {
-      //      console.log(error);
-      //   }
+               location.href = "/account_verification";
+            } else if (data.verify_account.__typename === "IncorrectVerificatoinCode") {
+               setloader(false);
+               updateNotification(incorrectCode.body, "4", incorrectCode.title);
+            } else {
+               setloader(false);
+               updateNotification(unknown.body, "4", unknown.title);
+            }
+         } catch (error) {
+            console.log(error);
+         }
+      } else {
+         updateNotification(emptyCode.body, "4", emptyCode.title);
+      }
    };
 
    // ----------- OR ---------------

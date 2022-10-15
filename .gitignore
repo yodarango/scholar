@@ -38,4 +38,4 @@ env.js
 .prettierignore
 .env.local
 .env
-/public/images
+#/public/images

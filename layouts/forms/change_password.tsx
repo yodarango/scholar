@@ -22,6 +22,7 @@ import styles from "./change_password.module.css";
 import { errorMessages } from "../../data/error_messages";
 const unableToUpdate = errorMessages.account.unableToUpdatePassword;
 const unknown = errorMessages.unknown.a;
+const emptyPassword = errorMessages.forms.missingPassword;
 
 type TAccountVerificationFormProps = {
    redirect?: string;
@@ -53,24 +54,28 @@ export const ChangePassword = ({
 
    // update password
    const updatePassword = async () => {
-      cta?.handleResult(1);
-      // try {
-      //    const { data } = await client.mutate({
-      //       mutation: PASSWORD_RECOVERY_NEW,
-      //       variables: { new_password: password, USER_ID: USER_ID }
-      //    });
+      if (password) {
+         cta?.handleResult(1);
+         // try {
+         //    const { data } = await client.mutate({
+         //       mutation: PASSWORD_RECOVERY_NEW,
+         //       variables: { new_password: password, USER_ID: USER_ID }
+         //    });
 
-      //    if (data.recover_password === false) {
-      //       updateNotification(unableToUpdate.body, "4", unableToUpdate.title);
-      //    } else if (data.recover_password === true) {
-      //       cta?.handleResult(1);
-      //       setloader(false);
-      //    }
-      // } catch (error) {
-      //    console.log(error);
-      //    cta?.handleResult(1);
-      //    setloader(false);
-      // }
+         //    if (data.recover_password === false) {
+         //       updateNotification(unableToUpdate.body, "4", unableToUpdate.title);
+         //    } else if (data.recover_password === true) {
+         //       cta?.handleResult(1);
+         //       setloader(false);
+         //    }
+         // } catch (error) {
+         //    console.log(error);
+         //    cta?.handleResult(1);
+         //    setloader(false);
+         // }
+      } else {
+         updateNotification(emptyPassword.body, "4", emptyPassword.title);
+      }
    };
 
    return (

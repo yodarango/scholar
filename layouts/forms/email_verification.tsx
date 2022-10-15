@@ -1,7 +1,7 @@
 /**************************************************************************************** 
 -  handles the verification of a one time pass code
 ****************************************************************************************/
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // graphQL
 import client from "../../apollo-client";
@@ -22,6 +22,11 @@ import styles from "./email_verification.module.css";
 import { errorMessages } from "../../data/error_messages";
 const emailNotFound = errorMessages.account.emailNotFound;
 const unknown = errorMessages.unknown.a;
+const emptyEmail = errorMessages.forms.missingEmail;
+const invalidEmailAddress = errorMessages.forms.invalidEmailAddress;
+
+// helpers
+import { validateEmail } from "../../helpers/input/validate_email";
 
 type TAccountVerificationFormProps = {
    redirect?: string;
@@ -37,7 +42,6 @@ export const EmailVerification = ({
    const [email, setemail] = useState<string>("");
    const [loader, setloader] = useState<boolean>(false);
    const [notification, setnotification] = useState<boolean | JSX.Element>(false);
-   const [stepProcess, setstepProcess] = useState<number>(0);
 
    // handle update notification state
    const updateNotification = (body: string, type: string, title: string) =>
@@ -52,25 +56,32 @@ export const EmailVerification = ({
 
    // verify email
    const handleCheckEmail = async () => {
-      cta?.handleResult(1);
-      // send code
-      // const { email } = verificationData;
-      // try {
-      //    const { data } = await client.mutate({
-      //       mutation: VERIFY_EMAIL_EXISTS,
-      //       variables: { email }
-      //    });
-      //    if (data.verify_email_exists === 0) {
-      //       updateNotification(emailNotFound.body, "4", emailNotFound.title);
-      //    } else if (data.verify_email_exists > 0) {
-      //       setstepProcess(1);
-      //       cta?.handleResult(1);
-      //    }
-      // } catch (error) {
-      //    updateNotification(unknown.body, "4", unknown.title);
-      //    cta?.handleResult(0);
-      //    console.log(error);
-      // }
+      //send code
+      if (email) {
+         const isValidEmail = validateEmail(email);
+         if (!isValidEmail) {
+            updateNotification(invalidEmailAddress.body, "4", invalidEmailAddress.title);
+            return;
+         }
+         cta?.handleResult(1);
+         // try {
+         //    const { data } = await client.mutate({
+         //       mutation: VERIFY_EMAIL_EXISTS,
+         //       variables: { email }
+         //    });
+         //    if (data.verify_email_exists === 0) {
+         //       updateNotification(emailNotFound.body, "4", emailNotFound.title);
+         //    } else if (data.verify_email_exists > 0) {
+         //       cta?.handleResult(1);
+         //    }
+         // } catch (error) {
+         //    updateNotification(unknown.body, "4", unknown.title);
+         //    cta?.handleResult(0);
+         //    console.log(error);
+         // }
+      } else {
+         updateNotification(emptyEmail.body, "4", emptyEmail.title);
+      }
    };
 
    return (

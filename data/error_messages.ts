@@ -37,6 +37,37 @@ export const errorMessages = {
          description: "in case form fields are missing this will let the user know.",
          title: "Empty fields detected 🤔",
          body: "Please make sure you have filled out all required fields!"
+      },
+      missingEmail: {
+         id: 2,
+         type: "error",
+         description:
+            "during password recovery the user is asked to enter their email. If empty this error will show",
+         title: "Please enter email 📧",
+         body: "Email field cannot be empty!"
+      },
+      missingCode: {
+         id: 2,
+         type: "error",
+         description:
+            "during password recovery the user is asked to enter the pass code sent to their email. If empty this error will show",
+         title: "Please enter code 📥",
+         body: "Code field cannot be empty!"
+      },
+      missingPassword: {
+         id: 2,
+         type: "error",
+         description:
+            "during password recovery the user is asked to enter the new password. If empty this error will show",
+         title: "Please enter new password 🪪",
+         body: "Password field cannot be empty!"
+      },
+      invalidEmailAddress: {
+         id: 3,
+         type: "error",
+         description: "If the email address the user entered is not a lid format",
+         title: "Invalid email address ＠",
+         body: "The email you entered is not valid. Try another one!"
       }
    },
    posts: {

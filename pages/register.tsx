@@ -18,7 +18,7 @@ import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 import registerStyles from "../styles/pages/Register.module.css";
 
 //helpers
-import { checkForValidSignature } from "../helpers/input-validaton";
+import { checkForValidSignature } from "../helpers/input/validate_signature";
 
 export default function Register() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
