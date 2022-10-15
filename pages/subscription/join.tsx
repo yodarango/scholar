@@ -8,13 +8,12 @@ import client from "../../apollo-client";
 import { CHECK_IF_PATRON_ACCOUNT, CREATE_CHECKOUT_SESSION } from "../../graphql/billing/billing";
 
 // components
-import NavigationMenu from "../../layouts/navigation_main";
 
 // style
 import goProPageStyles from "../../styles/pages/GoPro.module.css";
 import Link from "next/link";
 import HeadContent from "../../SEO/head-content";
-import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
+import { JoinTemplate } from "../../templates/subscription/join";
 
 const GoPro = () => {
    // =================== go back in histroy   ============== //
@@ -50,115 +49,15 @@ const GoPro = () => {
       checkIfUserPatron();
    }, []);
 
-   // =================== Create checkout Session ============= //
-   const productId = process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID;
-   const checkout = async () => {
-      const { data } = await client.mutate({
-         mutation: CREATE_CHECKOUT_SESSION,
-         variables: {
-            price_id: `${productId}`
-         }
-      });
-
-      console.log(data.create_checkout_session != "error");
-      if (data.create_checkout_session) {
-         router.replace(data.create_checkout_session);
-      }
-   };
-
    return (
       <>
          <Head key='payment-apge'>
             <HeadContent />
          </Head>
-         {loadingState === "done" && (
-            <div className={goProPageStyles.mainWrapper}>
-               <Link href={`/users/me`}>
-                  <a className={`goBack ${goProPageStyles.goBack}`}></a>
-               </Link>
-
-               <h1 className={`${goProPageStyles.stdH1} std-button_gradient-text`}>
-                  HELP SCHOLAR STAY ALIVE!
-               </h1>
-               {/* <button
-               className={`std-button--clear ${goProPageStyles.stdButton} ${goProPageStyles.stdButtonClear}`}>
-               <p className={`std-button_gradient-text`}>ONE TIME DONATION</p>
-            </button> */}
-
-               <button className={`std-button ${goProPageStyles.stdButton}`} onClick={checkout}>
-                  <p className={`std-button_gradient-text`}>JOIN FOR ONLY $3.99/month</p>
-               </button>
-               <p className={`std-text-block--info ${goProPageStyles.stdInfoText}`}>
-                  Cancel any time!
-               </p>
-               <div className={`${goProPageStyles.verctorItem}`}></div>
-               <h2 className={goProPageStyles.stdH2}>Why Subscribe?</h2>
-               <p className={goProPageStyles.stdP}>
-                  When you become a patron you help Scholar:
-                  <ul>
-                     <li>Stay alive</li>
-                     <li>Stay ad free</li>
-                     <li>Stay looking slick</li>
-                     <li>Work efficiently</li>
-                     <li>provide great Christian resources</li>
-                     <li>Continue growing and improving</li>
-                  </ul>
-               </p>
-               <h2 className={goProPageStyles.stdH2}>
-                  Are there any benefits to the being a patron?
-               </h2>
-               <p className={goProPageStyles.stdP}>
-                  Scholar does not limit the consumption of any of its content to any users. The
-                  purpose of Scholar is to help Christians fall in love with the Word of God,
-                  therefore it aims to provide all content for free. However, data and development
-                  are very expensive and therefore there is a limit to how much data can be created
-                  without a subscription. Purchasing a subscription will allow you unlimited content
-                  creation and future priviledged access to certain resources <br />
-               </p>
-               <table className={goProPageStyles.table}>
-                  <tbody>
-                     <tr>
-                        <th>FREE</th>
-                        <th>SUBS</th>
-                     </tr>
-                     <tr>
-                        <td>Limit to 20 commentary posts</td>
-                        <td>Unlimited commentary posts</td>
-                     </tr>
-                     <tr>
-                        <td>Limit to 5 quote posts</td>
-                        <td>Unlimited quote posts</td>
-                     </tr>
-                     <tr>
-                        <td>Limit to 5 thought posts</td>
-                        <td>Unlimited thought posts</td>
-                     </tr>
-                     <tr>
-                        <td>0 sermon notes uploads</td>
-                        <td>Unlimited sermon notes uploads</td>
-                     </tr>
-                     <tr>
-                        <td>Limit to 5 post comments/ day</td>
-                        <td>Unlimited comments</td>
-                     </tr>
-                  </tbody>
-               </table>
-               <div className='medium-spacer'></div>
-               <p className={goProPageStyles.stdP}>
-                  In addition of helping scholar stay alive you will be helping other ministries for
-                  the Glory of God and the advancemnet of His Kingdom as a great percentage of the
-                  profits goes out to different ministries nationally and internationally.
-               </p>
-               {/* <h2 className={goProPageStyles.stdH2}>Does it really take alot to run Scholar?</h2>
-         <div className={`${goProPageStyles.infrastructureIcons}`}>
-
-         </div> */}
-
-               <div className={"large-spacer"}></div>
-               <NavigationMenu />
-            </div>
-         )}
-         {loadingState === "error" && <ResourceNotFoundError />}
+         <div className={goProPageStyles.mainWrapper}>
+            <JoinTemplate />
+         </div>
+         {/* {loadingState === "error" && <ResourceNotFoundError />} */}
       </>
    );
 };

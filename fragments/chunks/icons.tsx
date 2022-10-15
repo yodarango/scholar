@@ -327,6 +327,17 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
          );
          break;
 
+      case "checkmarkFilled":
+         icon = (
+            <svg viewBox='0 0 20 20' fill='none'>
+               <path
+                  d='M10 0C4.48606 0 0 4.48606 0 10C0 15.5139 4.48606 20 10 20C15.5139 20 20 15.5139 20 10C20 4.48606 15.5139 0 10 0ZM8.17308 15.0183L4.29808 10.712L5.44183 9.68269L8.13414 12.674L14.5192 5.07019L15.699 6.05769L8.17308 15.0183Z'
+                  fill={color}
+               />
+            </svg>
+         );
+         break;
+
       case "clock":
          icon = (
             <svg viewBox='0 0 512 512'>

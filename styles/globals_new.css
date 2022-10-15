@@ -405,6 +405,11 @@ a:active {
    width: 100%;
    height: var(--spacing-l);
 }
+
+.spacer--page-bottom {
+   width: 100%;
+   height: calc(5rem + var(--spacing-m)); /*navigation height + margin*/
+}
 /* --------------- ScripturesHTML Styles for popup references */
 
 .c /*chapter*/ {

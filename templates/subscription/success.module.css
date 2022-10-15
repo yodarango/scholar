@@ -5,8 +5,8 @@
 .layer {
    width: 90%;
    aspect-ratio: 400 / 400;
-   max-width: 50rem;
-   margin: 10rem auto var(--spacing-l);
+   max-width: 40rem;
+   margin: 8rem auto var(--spacing-l);
    display: flex;
    align-items: center;
    justify-content: center;

@@ -1,0 +1,80 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.close {
+   position: fixed;
+   top: var(--spacing-l);
+   right: var(--spacing-l);
+}
+
+.layer {
+   width: 90%;
+   aspect-ratio: 400 / 400;
+   max-width: 40rem;
+   margin: 8rem auto var(--spacing-l);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position: center;
+   background-image: url("/images/bkgs/layer_2.svg");
+}
+
+.graphics {
+   width: 40%;
+   aspect-ratio: 30 / 30;
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position: center;
+   background-image: url("/images/logo.png");
+}
+
+.button {
+   width: 100%;
+   margin-bottom: var(--spacing-xs);
+}
+
+.cancel {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: var(--spacing-l);
+}
+
+.section {
+   width: 100%;
+   margin-bottom: var(--spacing-l);
+}
+
+.section .secTitle {
+   margin-bottom: var(--spacing-m);
+}
+
+.section .secList ul li {
+   font-size: var(--fs-main);
+   margin-bottom: var(--spacing-s);
+}
+
+.section2 .secList ul li {
+   line-height: calc(var(--fs-main) * 2);
+}
+
+.section .secList ul {
+   list-style: none;
+   padding-left: var(--spacing-xs);
+}
+
+.section .secList ul li div {
+   display: inline-flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.listIcon {
+   height: 2rem;
+   width: 2rem;
+   margin-right: var(--spacing-xxs);
+}
