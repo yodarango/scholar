@@ -2,18 +2,26 @@
    text-decoration: underline;
 }
 
+.one,
+.one:visited,
+.one:active {
+   color: var(--gradient-2--dark);
+}
+
 .two,
 .two:visited,
 .two:active {
-   color: var(--third-color) !important;
+   color: var(--third-color);
 }
 
 .two:hover {
    color: var(--font-color);
 }
 
-.three {
-   background-image: linear-gradient(45deg, var(--gradient-1-light), var(--gradient-1-dark));
+.three,
+.three:visited,
+.three:active {
+   background-image: linear-gradient(45deg, var(--gradient-1--light), var(--gradient-1--dark));
    background-size: 100%;
    background-repeat: repeat;
    -webkit-background-clip: text;
@@ -25,6 +33,7 @@
    text-align: center;
    padding: 0;
    margin: 0;
+   border-bottom: 0.1rem solid var(--gradient-1--light);
 }
 
 .xxsmall {

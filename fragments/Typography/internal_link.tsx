@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import styles from "./external_link.module.css";
+import styles from "./internal_link.module.css";
 
 type TExternalLinkProps = {
    href: string;
@@ -73,6 +73,16 @@ export const InternalLink = ({
          {type === "2" && (
             <Link href={href}>
                <a className={`${styles.link} ${styles.two} ${styles.fontAlign} ${styles.fontSize}`}>
+                  {italics && <i>{children}</i>}
+                  {!italics && children}
+               </a>
+            </Link>
+         )}
+
+         {type === "3" && (
+            <Link href={href}>
+               <a
+                  className={`${styles.link} ${styles.three} ${styles.fontAlign} ${styles.fontSize}`}>
                   {italics && <i>{children}</i>}
                   {!italics && children}
                </a>

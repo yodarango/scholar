@@ -1,0 +1,50 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.logoWrapper {
+   margin: 8rem auto var(--spacing-l) 0;
+}
+
+.logo {
+   background-image: url("/images/logo.png");
+   background-position: center;
+   background-size: contain;
+   background-repeat: no-repeat;
+   width: 15rem;
+   height: 15rem;
+   margin: 0 auto var(--spacing-l);
+}
+
+.logoWrapper .title {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 90%;
+   margin: 0 auto var(--spacing-ml);
+}
+
+.desc {
+   width: 90%;
+   max-width: 40rem;
+   margin: auto;
+}
+
+.list {
+   width: 100%;
+   margin-bottom: var(--spacing-l);
+}
+.links {
+   width: 100%;
+   margin-bottom: var(--spacing-l);
+}
+
+.links .title,
+.list .title {
+   width: 100%;
+   margin-bottom: var(--spacing-s);
+}
+
+.link {
+   margin-bottom: var(--spacing-xs);
+}

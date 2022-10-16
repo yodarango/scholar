@@ -1,12 +1,10 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SuccessTemplate } from "./success";
+import { BillingTemplate } from "./billing";
 
 export default {
    title: "Templates/Subscription Success",
-   component: SuccessTemplate
-} as ComponentMeta<typeof SuccessTemplate>;
-SuccessTemplate;
-export const Primary: ComponentStory<typeof SuccessTemplate> = () => (
-   <SuccessTemplate email='me@mail.com' name='ego' />
-);
+   component: BillingTemplate
+} as ComponentMeta<typeof BillingTemplate>;
+BillingTemplate;
+export const Primary: ComponentStory<typeof BillingTemplate> = () => <BillingTemplate />;
