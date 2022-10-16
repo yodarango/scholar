@@ -5,24 +5,23 @@ import { useRouter } from "next/router";
 
 // react
 import client from "../../apollo-client";
-import { CHECK_IF_PATRON_ACCOUNT, CREATE_CHECKOUT_SESSION } from "../../graphql/billing/billing";
+import { CHECK_IF_PATRON_ACCOUNT } from "../../graphql/billing/billing";
 
 // components
-
-// style
-import goProPageStyles from "../../styles/pages/GoPro.module.css";
-import Link from "next/link";
 import HeadContent from "../../SEO/head-content";
 import { JoinTemplate } from "../../templates/subscription/join";
 
+// style
+import styles from "../page_global.module.css";
+
 const GoPro = () => {
-   // =================== go back in histroy   ============== //
+   // router
    const router = useRouter();
 
    const [loadingState, setLoadingState] = useState<string>("loading");
 
-   // =================== check if user is a patron   ============== //
-   // Check if the user is a patron to redirect them appropiately
+   //  check if user is a patron
+   // Check if the user is a patron to redirect them correctly
    const checkIfUserPatron = async () => {
       try {
          const { data } = await client.query({
@@ -46,7 +45,7 @@ const GoPro = () => {
    };
 
    useEffect(() => {
-      checkIfUserPatron();
+      //checkIfUserPatron();
    }, []);
 
    return (
@@ -54,7 +53,7 @@ const GoPro = () => {
          <Head key='payment-apge'>
             <HeadContent />
          </Head>
-         <div className={goProPageStyles.mainWrapper}>
+         <div className={styles.mainWrapper}>
             <JoinTemplate />
          </div>
          {/* {loadingState === "error" && <ResourceNotFoundError />} */}

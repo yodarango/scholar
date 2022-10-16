@@ -1,0 +1,40 @@
+.secList ul li {
+   font-size: var(--fs-main);
+   margin-bottom: var(--spacing-s);
+}
+
+.secList ul li {
+   line-height: calc(var(--fs-main) * 2);
+}
+
+.secList ul {
+   list-style: none;
+   padding-left: var(--spacing-xs);
+}
+
+.secList ul li div {
+   display: inline-flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.listIcon {
+   height: 2rem;
+   width: 2rem;
+   margin-right: var(--spacing-xxs);
+}
+
+.secList .decorated {
+   list-style: disc;
+   margin-left: var(--spacing-xs);
+}
+
+.secList .decorated > li {
+   line-height: 1.1em;
+   margin-bottom: var(--spacing-xxs);
+}
+
+.secList .noIcon > li {
+   line-height: 1.5em;
+   margin-bottom: var(--spacing-xxs);
+}

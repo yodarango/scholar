@@ -27,8 +27,8 @@ export const SuccessTemplate = ({ email, name }: TSuccessProps) => {
             <div className={styles.parragraph}>
                <Parragraph
                   text={`thank you ${name} for keeping Scholar alive! a confirmation email has been sent to ${email}`}
-                  size='large'
-                  align='medium'
+                  size='main'
+                  align='center'
                />
             </div>
             <div className={styles.button}>

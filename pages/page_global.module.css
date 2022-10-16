@@ -6,3 +6,9 @@
 .mainWrapperFW {
    width: 100vw;
 }
+
+.close {
+   position: fixed;
+   top: var(--spacing-l);
+   right: var(--spacing-l);
+}

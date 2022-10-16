@@ -2,12 +2,6 @@
    width: 100%;
 }
 
-.close {
-   position: fixed;
-   top: var(--spacing-l);
-   right: var(--spacing-l);
-}
-
 .layer {
    width: 90%;
    aspect-ratio: 400 / 400;
@@ -31,24 +25,29 @@
    background-image: url("/images/logo.png");
 }
 
+.graphics.error {
+   background-image: url("/images/error.png");
+}
+
+.title {
+   width: 100%;
+   margin: 0 auto var(--spacing-xs);
+}
+
+.parragraph {
+   width: 100%;
+   margin: 0 auto var(--spacing-l);
+}
+
 .button {
+   position: relative;
+   z-index: 2;
    width: 100%;
-   margin-bottom: var(--spacing-xs);
 }
 
-.cancel {
-   width: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-bottom: var(--spacing-l);
-}
-
-.section {
-   width: 100%;
-   margin-bottom: var(--spacing-l);
-}
-
-.section .secTitle {
-   margin-bottom: var(--spacing-m);
+.confetti {
+   position: fixed;
+   left: 0;
+   top: 0;
+   z-index: 1;
 }

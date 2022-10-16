@@ -13,6 +13,7 @@ import { Parragraph } from "../../fragments/Typography/parragraph";
 import styles from "./join.module.css";
 import { Icon } from "../../fragments/chunks/icons";
 import { CloseContent } from "../../fragments/buttons/close_content";
+import { UlListPrimary } from "../../fragments/lists/ul_list_primary";
 
 export const JoinTemplate = () => {
    // router
@@ -59,13 +60,15 @@ export const JoinTemplate = () => {
                />
             </div>
             <div className={styles.secList}>
-               <ul>
-                  <li>Stay alive</li>
-                  <li>Keep looking slick</li>
-                  <li>Work great</li>
-                  <li>Bring new features</li>
-                  <li>Continue to grow and improve</li>
-               </ul>
+               <UlListPrimary
+                  items={[
+                     "Stay alive",
+                     "Keep looking slick",
+                     "Work great",
+                     "Bring new features",
+                     "Continue to grow and improve"
+                  ]}
+               />
             </div>
          </section>
 
@@ -81,41 +84,14 @@ export const JoinTemplate = () => {
 
             {/* patron benefits list */}
             <div className={styles.secList}>
-               <ul>
-                  <li>
-                     <div>
-                        <span className={styles.listIcon}>
-                           <Icon name='checkmarkFilled' color='#F1EAFF' />
-                        </span>
-                        <Parragraph text='Unlimited posts' size='main' lineHieght='.9em' />
-                     </div>
-                  </li>
-                  <li>
-                     <div>
-                        <span className={styles.listIcon}>
-                           <Icon name='checkmarkFilled' color='#F1EAFF' />
-                        </span>
-                        <Parragraph
-                           text='Unlimited reactions to posts'
-                           size='main'
-                           lineHieght='.9em'
-                        />
-                     </div>
-                  </li>
-                  <li>
-                     <div>
-                        <span className={styles.listIcon}>
-                           <Icon name='checkmarkFilled' color='#F1EAFF' />
-                        </span>
-                        <Parragraph
-                           text='First access to upcoming features'
-                           size='main'
-                           lineHieght='.9em'
-                        />
-                     </div>
-                  </li>
-                  {/* <li>Custom content folder</li> */}
-               </ul>
+               <UlListPrimary
+                  items={[
+                     "Unlimited posts",
+                     "Unlimited reactions to posts",
+                     "First access to upcoming features"
+                  ]}
+                  icon='checkmarkFilled'
+               />
             </div>
          </section>
          <div className='spacer--page-bottom'></div>
