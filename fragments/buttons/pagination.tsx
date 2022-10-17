@@ -1,5 +1,5 @@
 /**********************************************************************************
--  Paginates through any content by passsing the string to go to back or forth, the 
+-  Paginates through any content by passing the string to go to back or forth, the 
    strings passed can be handled as a helper to help parse the router string
  **********************************************************************************/
 // core

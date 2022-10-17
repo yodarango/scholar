@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Notification } from "../../../fragments/popups/notification";
+import { Notification } from "./notification";
 
 export default {
    title: "fragments/popups/Notification",
@@ -8,16 +8,36 @@ export default {
 } as ComponentMeta<typeof Notification>;
 
 export const Info: ComponentStory<typeof Notification> = () => (
-   <Notification cta={() => console.log("...")} title={"Title"} type='1' body='lorem ipsum' />
+   <Notification
+      cta={{ handleClose: () => console.log("...") }}
+      title={"Title"}
+      type='1'
+      body='lorem ipsum'
+   />
 );
 
 export const Safe: ComponentStory<typeof Notification> = () => (
-   <Notification cta={() => console.log("...")} title={"Title"} type='2' body='lorem ipsum' />
+   <Notification
+      cta={{ handleClose: () => console.log("...") }}
+      title={"Title"}
+      type='2'
+      body='lorem ipsum'
+   />
 );
 export const Warning: ComponentStory<typeof Notification> = () => (
-   <Notification cta={() => console.log("...")} title={"Title"} type='3' body='lorem ipsum' />
+   <Notification
+      cta={{ handleClose: () => console.log("...") }}
+      title={"Title"}
+      type='3'
+      body='lorem ipsum'
+   />
 );
 
 export const Danger: ComponentStory<typeof Notification> = () => (
-   <Notification cta={() => console.log("...")} title={"Title"} type='4' body='lorem ipsum' />
+   <Notification
+      cta={{ handleClose: () => console.log("...") }}
+      title={"Title"}
+      type='4'
+      body='lorem ipsum'
+   />
 );

@@ -7,9 +7,9 @@ import { OPEN_QUOTE_STORY_COMMENTS } from "../graphql/posts/quotes";
 import { GET_QUOTE_APPROVALS } from "../graphql/posts/approvals";
 
 // components
-import PostReactions, { Tapprovals } from "../fragments/buttons/post-reactions";
+import PostReactions, { Tapprovals } from "../archive/post-reactions";
 import CommentsOfQuote from "../fragments/popups/comments-of-quote";
-import ContentApprovalDropdown from "../fragments/chunks/content-approval-dropdown";
+import ContentApprovalDropdown from "../archive/content-approval-dropdown";
 import NotificationPopup from "../fragments/popups/notification";
 
 // styles

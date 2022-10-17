@@ -16,7 +16,8 @@ export const Default: ComponentStory<typeof ThumbsUpPoll> = () => (
             votesDown: 3
          },
          countdownLimit: "08/20/22 22:00",
-         poll: "Do you like coffee?"
+         poll: "Do you like coffee?",
+         type: 2
       }}
    />
 );

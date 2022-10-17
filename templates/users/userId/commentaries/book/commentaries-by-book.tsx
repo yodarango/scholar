@@ -8,7 +8,7 @@ import client from "../../../../../apollo-client";
 import { GET_COMMETNARIES_BY_BOOK_DATA } from "../../../../../graphql/users/profile";
 
 // comps
-import CommentariesByBook from "../../../../../fragments/squares/commentary-books/commentaries-by-book";
+import CommentariesByBook from "../../../../../archive/squares/commentary-books/commentaries-by-book";
 import CommentariesProfileMenu from "../../../../../fragments/buttons/commentaries-profile-menu";
 import PopupWrapper from "../../../../../layouts/popup-wrapper";
 import CommentariesByChapterTemp from "../../../../../fragments/popups/commentaries-by-book-chapter";

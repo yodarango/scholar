@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 // comps
 import { IconGhost } from "./icon_ghost";
 import { Parragraph } from "../Typography/parragraph";
-import { SelectBibleLanguage, TavailableLanuages } from "../../layouts/menus/select_bible_laguage";
+import { SelectBibleLanguage, TavailableLanuages } from "../../layouts/menus/select_bible_language";
 import Portal from "../../hoc/potal";
 
 // styles

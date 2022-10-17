@@ -1,7 +1,7 @@
 // comps
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
-import { QuoteOneLineCarrousel } from "../scrollers/quote_one_line_carrousel";
+import { QuoteOneLineCarrousel } from "../scrollers/user_content/quote_one_line_carrousel";
 
 // styles
 import styles from "./fast_facts.module.css";

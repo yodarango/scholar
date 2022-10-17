@@ -17,7 +17,7 @@ import quoteProfileStyles from "../styles/posts/QuotesProfile.module.css";
 import cardStyles from "../styles/components/Cards.module.css";
 
 //helpers and types
-import { Tapprovals } from "../fragments/buttons/post-reactions";
+import { Tapprovals } from "../archive/post-reactions";
 import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export type TsingleStory = {

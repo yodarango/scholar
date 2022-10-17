@@ -74,7 +74,7 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
                         className={styles.data}
                         dangerouslySetInnerHTML={{ __html: verseFetched.content }}></span>
                   }
-                  cta={() => setshowNotificationCard("none")}
+                  cta={{ handleClose: () => setshowNotificationCard("none") }}
                   type='1'
                />
             )}
@@ -83,7 +83,7 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
                <Notification
                   title={notificationMessages.selectNewScriptureError.title}
                   body={notificationMessages.selectNewScriptureError.body}
-                  cta={() => setshowNotificationCard("none")}
+                  cta={{ handleClose: () => setshowNotificationCard("none") }}
                   type='4'
                />
             )}

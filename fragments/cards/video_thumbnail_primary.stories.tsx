@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { VideoThumbnailPrimary } from "../../../fragments/cards/video_thumbnail_primary";
+import { VideoThumbnailPrimary } from "./video_thumbnail_primary";
 
 export default {
    title: "fragments/cards/Video Thumbnail Primary",

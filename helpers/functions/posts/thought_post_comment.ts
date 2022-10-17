@@ -2,7 +2,7 @@ import client from "../../../apollo-client";
 import { CREATE_THOUGHT_COMMENT } from "../../../graphql/posts/comments";
 
 // types
-import { Tcomment } from "../../../fragments/buttons/post-reactions";
+import { Tcomment } from "../../../archive/post-reactions";
 
 const handlePostComment = async (THOUGHT_ID: string, body: string, USER_ID: string) => {
    try {

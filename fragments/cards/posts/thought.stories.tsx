@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Thought } from "../../../../fragments/cards/posts/thought";
+import { Thought } from "./thought";
 
 export default {
    title: "fragments/cards/posts/thought",
@@ -10,17 +10,8 @@ export default {
 export const ChapterCount: ComponentStory<typeof Thought> = () => (
    <Thought
       cta={{
-         handleShowCategoryMeta(categoryId) {
+         handleDelete(categoryId) {
             console.log("show category id", categoryId);
-         },
-         handleShowRatePost() {
-            console.log("handle show post");
-         },
-         handleShowPostComments() {
-            console.log("handle show post comments");
-         },
-         handleShowPostOptions() {
-            console.log("handle show post options");
          }
       }}
       thought={{

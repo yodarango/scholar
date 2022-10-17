@@ -1,7 +1,7 @@
 /*********************************************************************************************
  self closing popup. It triggers a timeout that removes it from the dom after 2600ms. The 
  component depends in a prop called render which the parent updates to signify every time the 
- the component should "render". Because the useEffect depends on the "render" proop it needs
+ the component should "render". Because the useEffect depends on the "render" prop it needs
  to be a different value every time is passed. A helpful solution is passing an updated number
 /*********************************************************************************************/
 

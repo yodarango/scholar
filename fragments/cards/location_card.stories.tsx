@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { LocationCard } from "../../../fragments/cards/location_card";
+import { LocationCard } from "./location_card";
 
 export default {
    title: "fragments/cards/location card",

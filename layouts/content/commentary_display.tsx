@@ -1,14 +1,13 @@
 // comps
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
-import { ThoughtsOneLineCarrousel } from "../scrollers/thoughts_one_line_carrousel";
+import { CommentaryOneLineCarrousel } from "../scrollers/user_content/commentaries_one_line_carrousel";
 
 // styles
 import styles from "./fast_facts.module.css";
 
 // types
 import { TCommentary } from "../../types/posts";
-import { CommentaryOneLineCarrousel } from "../scrollers/commentaries_one_line_carrousel";
 
 type TCommentariesDisplayProps = {
    commentaries: TCommentary[];

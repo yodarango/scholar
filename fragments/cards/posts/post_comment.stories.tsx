@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { PostComment } from "../../../../fragments/cards/posts/post_comment";
+import { PostComment } from "./post_comment";
 export default {
    title: "fragments/cards/posts/post comment",
    component: PostComment

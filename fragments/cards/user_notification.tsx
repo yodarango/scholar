@@ -5,7 +5,7 @@ import { Parragraph } from "../Typography/parragraph";
 import { Icon } from "../chunks/icons";
 
 // styles
-import styles from "./user_notifications.module.css";
+import styles from "./user_notification.module.css";
 
 // types
 import { TUserNotification } from "../../types/account";

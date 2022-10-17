@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { PostThumbnailPick } from "../../../fragments/cards/post_thumbnail_pick";
+import { PostThumbnailPick } from "./post_thumbnail_pick";
 
 export default {
    title: "fragments/cards/Post Thumbnail Pick",

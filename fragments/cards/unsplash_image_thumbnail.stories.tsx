@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { UnsplashImageThumbnail } from "../../../fragments/cards/unsplash_image_thumbnail";
+import { UnsplashImageThumbnail } from "./unsplash_image_thumbnail";
 
 export default {
    title: "fragments/cards/Unsplah Photo Thumbnail",

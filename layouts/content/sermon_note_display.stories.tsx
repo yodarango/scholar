@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SermonNoteDisplay } from "../../../layouts/content/sermon_note_display";
+import { SermonNoteDisplay } from "./sermon_note_display";
 
 export default {
    title: "layouts/content/Sermon Note Display",

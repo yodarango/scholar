@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { WinningPoll } from "../../../fragments/cards/winning_poll";
+import { WinningPoll } from "./winning_poll";
 
 export default {
    title: "fragments/cards/Winnning Poll",

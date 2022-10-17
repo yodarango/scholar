@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SermonNote } from "../../../../fragments/cards/posts/sermon_note";
+import { SermonNote } from "./sermon_note";
 
 export default {
    title: "fragments/cards/posts/sermon note",
@@ -10,17 +10,8 @@ export default {
 export const ChapterCount: ComponentStory<typeof SermonNote> = () => (
    <SermonNote
       cta={{
-         handleShowCategoryMeta(categoryId) {
-            console.log("show category id", categoryId);
-         },
-         handleShowRatePost() {
-            console.log("handle show post");
-         },
-         handleShowPostComments() {
-            console.log("handle show post comments");
-         },
-         handleShowPostOptions() {
-            console.log("handle show post options");
+         handleDelete(id) {
+            console.log("delete", id);
          }
       }}
       sermonNote={{

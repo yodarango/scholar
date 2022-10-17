@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { MultipleChoicePollCard } from "../../../fragments/cards/multiple_choice_poll";
+import { MultipleChoicePollCard } from "./multiple_choice_poll";
 
 export default {
    title: "fragments/cards/Multiple Choice Poll Card",
@@ -13,13 +13,9 @@ export const Default: ComponentStory<typeof MultipleChoicePollCard> = () => (
          options: ["Genesis", "Exoduds", "Leviticus"],
          votes: [23, 5, 78],
          id: "2",
-         question: "Which is your favorite book?"
-      }}
-      countTo='08/05/22 21:00'
-      cta={{
-         handleVote(selection) {
-            console.log("selection is", selection);
-         }
+         question: "Which is your favorite book?",
+         type: 2,
+         countTo: "12/12/22"
       }}
    />
 );

@@ -6,7 +6,7 @@
 import { useEffect, useState } from "react";
 
 // comps
-import { TBiblePreferences } from "./buttons/bible_version_scripture";
+import { TBiblePreferences } from "../buttons/bible_version_scripture";
 import { VerseRefTag } from "./chunks/verse_ref_tag";
 import { Header } from "./Typography/header";
 
