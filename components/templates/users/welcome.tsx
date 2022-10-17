@@ -3,7 +3,7 @@ import { UlListPrimary } from "../../fragments/lists/ul_list_primary";
 import { Header } from "../../fragments/Typography/header";
 import { InternalLink } from "../../fragments/Typography/internal_link";
 import { Parragraph } from "../../fragments/Typography/parragraph";
-import { Layer2 } from "../../styles/layouts/backgrounds/layer_2";
+import { Layer2 } from "../../layouts/backgrounds/layer_2";
 
 // styles
 import styles from "./welcome.module.css";

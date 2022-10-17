@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // graphQL
-import client from "../../apollo-client";
-import { GET_USER_PORTAL_SESSION } from "../../graphql/billing/billing";
+import client from "../../../apollo-client";
+import { GET_USER_PORTAL_SESSION } from "../../../graphql/billing/billing";
 
 // components
 import { Primary } from "../../fragments/buttons/primary";

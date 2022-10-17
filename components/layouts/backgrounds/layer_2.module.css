@@ -1,0 +1,38 @@
+.mainWrapper {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vw;
+}
+
+.top,
+.bottom {
+   position: fixed;
+   background-size: contain;
+   background-repeat: no-repeat;
+   aspect-ratio: 397 / 490;
+   width: 70vw;
+   z-index: 0;
+}
+
+.top {
+   top: -0.5rem;
+   left: -0.5rem;
+   background-image: url("/images/bkgs/layer_3_top.svg");
+}
+
+.bottom {
+   bottom: -0.5rem;
+   right: -0.5rem;
+   background-image: url("/images/bkgs/layer_3_bottom.svg");
+}
+
+.content {
+   position: relative;
+   z-index: 1;
+   overflow-y: scroll;
+   margin: 0 auto;
+   width: 90%;
+   height: calc(100vh - 8rem);
+}

@@ -13,7 +13,8 @@ export const ThoughtPost: ComponentStory<typeof ThumbsUpDownPoll> = () => (
          countdownLimit: "08/03/2022 21:00:00",
          id: "1",
          poll: "The earth is 6,000 years old",
-         votes: { votesDown: 1, votesUp: 3 }
+         votes: { votesDown: 1, votesUp: 3 },
+         type: 2
       }}
    />
 );

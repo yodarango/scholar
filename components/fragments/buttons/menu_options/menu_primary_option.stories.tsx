@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { MenuPrimaryOption } from "../../../fragments/buttons/menu_primary_option";
+import { MenuPrimaryOption } from "./menu_primary_option";
 import { Icon } from "../../../fragments/chunks/icons";
 
 export default {

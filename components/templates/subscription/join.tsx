@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 
 // graphql
-import client from "../../apollo-client";
-import { CREATE_CHECKOUT_SESSION } from "../../graphql/billing/billing";
+import client from "../../../apollo-client";
+import { CREATE_CHECKOUT_SESSION } from "../../../graphql/billing/billing";
 
 //comps
 import { Primary } from "../../fragments/buttons/primary";

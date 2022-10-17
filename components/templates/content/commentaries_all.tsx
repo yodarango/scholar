@@ -6,7 +6,7 @@ import { CommentariesGrid } from "../../layouts/scrollers/user_content/commentar
 import styles from "./commentaries_all.module.css";
 
 // types
-import { TCommentary } from "../../types/posts";
+import { TCommentary } from "../../../types/posts";
 import { CommentaryFilter } from "../../fragments/commentary_filter";
 import { SearchInputWCat } from "../../fragments/search_input_w_cat";
 

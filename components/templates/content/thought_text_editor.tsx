@@ -1,77 +1,55 @@
-import { useState, useReducer, Reducer, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState, useReducer, Reducer } from "react";
 
 // components
 import { TextEditor } from "../../layouts/text_editor";
-import { TextEditorVerseSelection } from "../../fragments/text_editor_verse_selection";
+import { TextEditorTopInfo } from "../../fragments/text_editor_top_info";
 
 // styles
-import styles from "./commentary_text_editor.module.css";
+import styles from "./thought_text_editor.module.css";
 
 // helpers
-import { ThandlePostCommentary } from "../../helpers/functions/posts/commentary_post";
-import { Bible, TBible } from "../../data/bible";
-import { TBibleVerse } from "../../types/bible_api";
+import { THandlePostThought } from "../../../helpers/functions/posts/thought_post";
+import { Bible, TBible } from "../../../data/bible";
+import { TBibleVerse } from "../../../types/bible_api";
 
-type TCommentaryTextEditorProps = {
+type TThoughtTextEditorProps = {
    userId: string;
    username: string;
    avatar: string;
    userAuthority: number;
-   verseId?: string;
-   verseCitation?: string;
-   verseContent?: string;
    body?: string;
+   titleDefaultValue: string;
    postImage?: string;
    postPostedOnDate?: string;
    postCreatedDate?: string;
    postCategory?: string;
    postReferences?: string[];
    postPrivacy?: boolean;
-   closeModalHref?: string | undefined;
-   readyData?: {
-      verseId: string;
-      reference: string;
-      content: string;
-   };
-   cta?: {
-      handleCloseModal: () => void;
-   };
 };
 
-export const CommentaryTextEditor = ({
+export const ThoughtTextEditor = ({
    userId,
    username,
    avatar,
    userAuthority,
-   verseId = "",
-   verseCitation = "",
-   verseContent = "",
    body = "",
+   titleDefaultValue = "",
    postImage = "",
    postPostedOnDate = "",
    postCreatedDate = "",
    postCategory = "",
    postReferences = [],
-   postPrivacy = false,
-   closeModalHref,
-   readyData,
-   cta
-}: TCommentaryTextEditorProps) => {
-   // router 
-   const router = useRouter();
-
+   postPrivacy = false
+}: TThoughtTextEditorProps) => {
    // state
    // postReferencedVerses do not update on reducer changing
    const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
 
-   const post: ThandlePostCommentary = {
+   const post: THandlePostThought = {
       categoryTag: postCategory,
       body,
+      title: titleDefaultValue,
       referencedVerses: postReferences,
-      isPrivate: postPrivacy,
-      verseId: verseId,
-      verseCitation: verseCitation,
       postImage: postImage
    };
 
@@ -82,8 +60,10 @@ export const CommentaryTextEditor = ({
             return { ...state, category: action.payload };
 
          case "body":
-            console.log(action.payload);
             return { ...state, body: action.payload };
+
+         case "title":
+            return { ...state, title: action.payload };
 
          case "referencedVerses":
             return { ...state, referencedVerses: [...state.referencedVerses, action.payload] };
@@ -126,19 +106,29 @@ export const CommentaryTextEditor = ({
       dispatch({ type: "postImage", payload: book[0].image });
    };
 
-   
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.verseSelection}>
-            <TextEditorVerseSelection
-               readyData={readyData}
+         <div className={styles.topInfo}>
+            <TextEditorTopInfo
+               userAuthority={1}
+               userId='123'
+               username='username'
+               avatar='img/avatars/default.png'
+               postPostedOnDate='12/12/12 12:00'
+               postCreatedDate='12/12/12 12:00'
+               postCategory='PPL'
                cta={{
-                  handleVerseData
+                  handleCloseModal: () => {},
+                  handleImageBkgSelection: (url: string) => {}
                }}
             />
          </div>
          <div className={styles.textEditor}>
             <TextEditor
+               withTitle={true}
+               titleMaxL={150}
+               titleDefaultValue={titleDefaultValue}
+               titlePlaceHolder='Post Title'
                body={body}
                postImage={postImage}
                userAuthority={userAuthority}
@@ -150,7 +140,6 @@ export const CommentaryTextEditor = ({
                postCategory={postCategory}
                postReferences={state.referencedVerses}
                postPrivacy={postPrivacy}
-               closeModalHref={closeModalHref}
                cta={{
                   handleCategorySelection: (category) =>
                      dispatch({ type: "category", payload: category }),
@@ -161,7 +150,7 @@ export const CommentaryTextEditor = ({
                      dispatch({ type: "referencedVersesRemove", payload: verses }),
                   handleRefVerseSelection: (verse) =>
                      dispatch({ type: "referencedVerses", payload: verse }),
-                  handleCloseModal: cta?.handleCloseModal,
+                  handleTitleValue: (title) => dispatch({ type: "title", payload: title }),
                   handlePost
                }}
             />
