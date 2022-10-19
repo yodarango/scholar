@@ -8,7 +8,7 @@ import client from "../../apollo-client";
 import { CHECK_IF_PATRON_ACCOUNT } from "../../graphql/billing/billing";
 
 // components
-import HeadContent from "../../SEO/head-content";
+import HeadContent from "../../SEO/head_content";
 import { JoinTemplate } from "../../templates/subscription/join";
 
 // style

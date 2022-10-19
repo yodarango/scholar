@@ -1,5 +1,5 @@
 // comps
-import { Profile } from "../../templates/account/profile";
+import { Profile } from "../../components/templates/account/profile";
 
 // styles
 import styles from "./me.module.css";

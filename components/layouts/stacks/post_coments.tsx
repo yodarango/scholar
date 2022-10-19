@@ -11,11 +11,11 @@ import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not
 import styles from "./post_coments.module.css";
 
 // types
-import { TComment } from "../../types/posts_contnet";
-import { EnumContentType } from "../../types/enums";
+import { TComment } from "../../../types/posts_contnet";
+import { EnumContentType } from "../../../types/enums";
 
 // data
-import { ServerErrors } from "../../data/server_errors";
+import { ServerErrors } from "../../../data/server_errors";
 
 type TPostCommentsProps = {
    postId: string;

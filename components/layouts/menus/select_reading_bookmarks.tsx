@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
-import { parseChapterId } from "../../helpers/data/parse_bible_id";
+import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 
 //styles
 import styles from "./select_menu_global.module.css";

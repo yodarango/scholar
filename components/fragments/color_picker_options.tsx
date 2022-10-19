@@ -1,7 +1,7 @@
 import styles from "./color_picker_options.module.css";
 
 // data
-import { higlighterColorPicker } from "../data/color_picker";
+import { higlighterColorPicker } from "../../data/color_picker";
 import { GradientBackground } from "./buttons/gradient_background";
 
 type TColorPickerOptionsProps = {

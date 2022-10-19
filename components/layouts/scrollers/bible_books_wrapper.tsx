@@ -5,7 +5,7 @@
 import styles from "./bible_books_wrapper.module.css";
 
 // data
-import { Bible, TBible } from "../../data/bible";
+import { Bible, TBible } from "../../../data/bible";
 import { ScripturePicker } from "../menus/scripture_picker";
 
 type TBibleBooksWrapperProps = {
@@ -25,7 +25,7 @@ export const BibleBooksWrapper = ({
 }: TBibleBooksWrapperProps) => {
    return (
       <div className={styles.mainWrapper}>
-         {Bible.map((book: TBible, index) => (
+         {Bible.map((book: TBible, index: number) => (
             <div className={styles.book} key={index}>
                <ScripturePicker
                   bible={book}

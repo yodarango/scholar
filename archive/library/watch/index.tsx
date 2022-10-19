@@ -32,7 +32,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 import { watchProps } from "../../../fragments/library-items/watch";
 import NavigationMenu from "../../../layouts/navigation_main";
 import SkipContent from "../../../fragments/buttons/pagination";
-import HeadContent from "../../../SEO/head-content";
+import HeadContent from "../../../SEO/head_content";
 
 // type watchPageProps = {
 //    watch: watchProps[];

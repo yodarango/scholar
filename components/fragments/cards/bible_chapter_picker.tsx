@@ -17,11 +17,11 @@ import { Notification } from "../popups/notification";
 import styles from "./bible_chapter_picker.module.css";
 
 // helpers
-import { fetchBibleChapter } from "../../helpers/APIs/fetch_bible_chapter";
+import { fetchBibleChapter } from "../../../helpers/APIs/fetch_bible_chapter";
 import Portal from "../../hoc/potal";
 
 // data
-import { notificationMessages } from "../../data/notification_messages";
+import { notificationMessages } from "../../../data/notification_messages";
 
 type TBibleChapterpickerprops = {
    versionId?: string;

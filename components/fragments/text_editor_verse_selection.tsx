@@ -15,10 +15,10 @@ import { Primary } from "./buttons/primary";
 import styles from "./text_editor_verse_selection.module.css";
 
 // helpers
-import { fetchBibleVerse } from "../helpers/APIs/fetch_bible_verse";
+import { fetchBibleVerse } from "../../helpers/APIs/fetch_bible_verse";
 
 // types
-import { TBibleVerse } from "../types/bible_api";
+import { TBibleVerse } from "../../types/bible_api";
 import { RoundLoader } from "./chunks/round_loader";
 import { ResourceNotFoundError } from "./chunks/error_resource_not_found";
 import { PrimaryStack } from "../layouts/stacks/templates/primary_stack";
@@ -59,7 +59,7 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
 
    // fetch data on render
    useEffect(() => {
-      console.log(readyData)
+      console.log(readyData);
       // check if the parent is passing the data so the API call does not happen
       if (readyData) {
          setLoading("done");

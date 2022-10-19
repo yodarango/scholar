@@ -10,10 +10,10 @@ import { SmallLoader } from "./small_loader";
 import styles from "./verse_ref_tag.module.css";
 
 // helpers
-import { chosenKey } from "../../helpers/APIs/select-random-api-key";
+import { chosenKey } from "../../../helpers/APIs/select-random-api-key";
 
 // data
-import { notificationMessages } from "../../data/notification_messages";
+import { notificationMessages } from "../../../data/notification_messages";
 import Portal from "../../hoc/potal";
 
 type TVerseRefTag = {

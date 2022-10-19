@@ -11,7 +11,7 @@ import { useRef, useState, useEffect } from "react";
 import Head from "next/head";
 //import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import HeadContent from "../../../SEO/head-content";
+import HeadContent from "../../../SEO/head_content";
 import Image from "next/image";
 
 // graphql

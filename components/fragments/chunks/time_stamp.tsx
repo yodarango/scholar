@@ -18,7 +18,7 @@ import { Icon } from "./icons";
 import styles from "./time_stamp.module.css";
 
 // helpers
-import { calcElapsedTime } from "../../helpers/Time/calc_time_elapsed";
+import { calcElapsedTime } from "../../../helpers/Time/calc_time_elapsed";
 
 export type TimeStampProps = {
    time: string;

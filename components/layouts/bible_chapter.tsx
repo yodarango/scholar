@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import styles from "./bible_chapter.module.css";
 
 // helpers
-import { fetchBibleChapter } from "../helpers/APIs/fetch_bible_chapter";
+import { fetchBibleChapter } from "../../helpers/APIs/fetch_bible_chapter";
 import { RoundLoader } from "../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
 import { Header } from "../fragments/Typography/header";
@@ -21,7 +21,7 @@ import { SelectReadingActions } from "./menus/select_reading_actions";
 import Portal from "../hoc/potal";
 
 // helpers
-import { higlighterColorPicker } from "../data/color_picker";
+import { higlighterColorPicker } from "../../data/color_picker";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy rnext router type

@@ -2,6 +2,7 @@ import { AddContent } from "../../fragments/buttons/add_content";
 import { AboutMe } from "../../layouts/account/profile/about_me";
 import { NavigateThruPosts } from "../../layouts/account/profile/navigate_thru_posts";
 import { UserPostStats } from "../../layouts/account/profile/user_post_stats";
+import { CommentariesByBook } from "../../layouts/stacks/commentaries_by_book";
 import { ProfileArt } from "../../layouts/stacks/headers/profile_art";
 import styles from "./profile.module.css";
 
@@ -32,6 +33,8 @@ export const Profile = ({ username }: TProfileProps) => {
          <div className={styles.addContent}>
             <AddContent />
          </div>
+
+         <CommentariesByBook cta={{ handleClose() {} }} />
       </div>
    );
 };

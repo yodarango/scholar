@@ -25,7 +25,7 @@ import { BibleVersePicker } from "../../fragments/cards/bible_verse_picker";
 import styles from "./scripture_picker.module.css";
 
 // data
-import { TBible } from "../../data/bible";
+import { TBible } from "../../../data/bible";
 
 type TBilbleBookPickerProps = {
    bible: TBible;

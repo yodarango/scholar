@@ -20,11 +20,11 @@ import Portal from "../../hoc/potal";
 import styles from "./bible_version_scripture.module.css";
 
 // data
-import { TVersion } from "../../data/supported_bible_versions/version_type";
-import { english } from "../../data/supported_bible_versions/english";
+import { TVersion } from "../../../data/supported_bible_versions/version_type";
+import { english } from "../../../data/supported_bible_versions/english";
 
 // helpers
-import { parseChapterId } from "../../helpers/data/parse_bible_id";
+import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 
 type TBiblePreferences = {
    versionName: string;

@@ -7,7 +7,7 @@ import { Parragraph } from "../../../fragments/Typography/parragraph";
 import styles from "./user_stats.module.css";
 
 // helpers
-import { calulateApprovalLevel } from "../../../helpers/math/calculateArppovalLevel";
+import { calulateApprovalLevel } from "../../../../helpers/math/calculateArppovalLevel";
 
 type TUserStatsProps = {
    username: string;

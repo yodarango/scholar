@@ -8,7 +8,7 @@ import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_pri
 import styles from "./select_menu_global.module.css";
 
 // data
-import { categoryMeta, TcategoryMeta } from "../../data/category_meta";
+import { categoryMeta, TcategoryMeta } from "../../../data/category_meta";
 
 type menuOptions = {
    id: string;

@@ -15,11 +15,11 @@ import { CloseContent } from "../buttons/close_content";
 import { Notification } from "../popups/notification";
 
 // helpers
-import { fetchBibleVerse } from "../../helpers/APIs/fetch_bible_verse";
+import { fetchBibleVerse } from "../../../helpers/APIs/fetch_bible_verse";
 import Portal from "../../hoc/potal";
 
 // data
-import { notificationMessages } from "../../data/notification_messages";
+import { notificationMessages } from "../../../data/notification_messages";
 
 type TBibleVersePickerProps = {
    chapterId: string;

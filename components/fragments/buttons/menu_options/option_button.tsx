@@ -9,7 +9,6 @@
 import Link from "next/link";
 
 // comps
-import { Icon } from "../../chunks/icons";
 import { Parragraph } from "../../Typography/parragraph";
 
 // styles

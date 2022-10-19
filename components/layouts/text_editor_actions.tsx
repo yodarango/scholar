@@ -29,7 +29,7 @@ import styles from "./text_editor_actions.module.css";
 import Portal from "../hoc/potal";
 
 // data
-import { notificationMessages } from "../data/notification_messages";
+import { notificationMessages } from "../../data/notification_messages";
 import { PreviewThoughtCommentaryStack } from "./stacks/preview_thought_commentary_stack";
 
 type TTextEditorFormatterActionsProps = {
@@ -97,6 +97,7 @@ export const TextEditorActions = ({
                      title='Select scripture'
                      cta={{ handleClose: () => setshowChooseScriptureModal(false) }}>
                      <BibleBooksWrapper
+                        stopAtChapterId={true}
                         versionId='de4e12af7f28f599-02'
                         stopAtVerse={false}
                         stopAtChapter={false}

@@ -8,7 +8,7 @@
 // core
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import HeadContent from "../../SEO/head-content";
+import HeadContent from "../../SEO/head_content";
 //import { GetServerSideProps, GetStaticProps } from "next";
 
 // graphql

@@ -7,7 +7,7 @@ import { ThoughtsOneLineCarrousel } from "../scrollers/user_content/thoughts_one
 import styles from "./wigo_thoughts.module.css";
 
 // types
-import { TThought } from "../../types/posts";
+import { TThought } from "../../../types/posts";
 
 type TWigoThoughtsProps = {
    thoughts: TThought[];

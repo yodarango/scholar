@@ -1,9 +1,9 @@
 import Head from "next/head";
-import HeadContent from "../SEO/head-content";
+import HeadContent from "../SEO/head_content";
 import { useState, useEffect } from "react";
 
 // comps
-import { ReadBibleModal } from "../templates/read_bible_modal";
+import { ReadBibleModal } from "../components/templates/read_bible_modal";
 
 // styles
 import styles from "./read.module.css";

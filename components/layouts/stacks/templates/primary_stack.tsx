@@ -9,6 +9,7 @@
 import { CloseContent } from "../../../fragments/buttons/close_content";
 import { Icon } from "../../../fragments/chunks/icons";
 import { Header } from "../../../fragments/Typography/header";
+import Portal from "../../../hoc/potal";
 
 // styles
 import styles from "./primary_stack.module.css";
@@ -19,36 +20,41 @@ type TPrimaryStackprops = {
    link?: string;
    cta?: {
       handleClose: () => void;
+      handleScroll: any;
    };
    icon?: string;
 };
 
 export const PrimaryStack = ({ title, children, cta, icon, link }: TPrimaryStackprops) => {
    return (
-      <div className={styles.mainWrapper}>
-         <div className={styles.gradientBkg}>
-            <div className={styles.title}>
-               <Header size='large' type={1} text={title} lineHieght='.9em' />
-               {icon && (
-                  <div className={styles.icon}>
-                     <Icon size='2rem' name={icon} color='#F1EAFF' />
-                  </div>
-               )}
+      <Portal>
+         <div className={styles.mainWrapper}>
+            <div className={styles.gradientBkg}>
+               <div className={styles.title}>
+                  <Header size='large' type={1} text={title} lineHieght='.9em' />
+                  {icon && (
+                     <div className={styles.icon}>
+                        <Icon size='2rem' name={icon} color='#F1EAFF' />
+                     </div>
+                  )}
+               </div>
+            </div>
+            {cta && !link && (
+               <div className={styles.close}>
+                  <CloseContent cta={{ handleClick: cta.handleClose }} />
+               </div>
+            )}
+            {!cta && link && (
+               <div className={styles.close}>
+                  <CloseContent href={link} />
+               </div>
+            )}
+            <div className={styles.subWrapper}>
+               <div className={styles.contentHolder} onScroll={cta?.handleScroll}>
+                  {children}
+               </div>
             </div>
          </div>
-         {cta && !link && (
-            <div className={styles.close}>
-               <CloseContent cta={{ handleClick: cta.handleClose }} />
-            </div>
-         )}
-         {!cta && link && (
-            <div className={styles.close}>
-               <CloseContent href={link} />
-            </div>
-         )}
-         <div className={styles.subWrapper}>
-            <div className={styles.contentHolder}>{children}</div>
-         </div>
-      </div>
+      </Portal>
    );
 };

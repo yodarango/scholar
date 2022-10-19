@@ -15,7 +15,7 @@ import { SelectCategoryTag } from "../../layouts/menus/select_category_tag";
 import styles from "./category_tag.module.css";
 
 // data
-import { categoryMeta, TcategoryMeta } from "../../data/category_meta";
+import { categoryMeta, TcategoryMeta } from "../../../data/category_meta";
 
 // helpers
 import Portal from "../../hoc/potal";
