@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 
 // comps
 import { GridPrimary } from "../grid_primary";
-import { Thought } from "../../../fragments/cards/posts/thought";
+import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
 
 // styles
 import styles from "./commentaries_grid.module.css";
 
 // types
-import { TSermonNote } from "../../../types/posts";
-import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
+import { TSermonNote } from "../../../../types/posts";
 
-export const SermonNotesGrid = () => {
+type TSermonNotesGridProps = {
+   filters?: {
+      tag?: string;
+   };
+};
+export const SermonNotesGrid = ({ filters }: TSermonNotesGridProps) => {
    const [sermonNotes, setsermonNotes] = useState<TSermonNote[]>([]);
 
    // fetch commentaris based on ID

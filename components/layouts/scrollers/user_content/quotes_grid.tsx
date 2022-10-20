@@ -8,9 +8,14 @@ import { Quote } from "../../../fragments/cards/posts/quote";
 import styles from "./commentaries_grid.module.css";
 
 // types
-import { TQuote } from "../../../types/posts";
+import { TQuote } from "../../../../types/posts";
 
-export const QuotesGrid = () => {
+type TQuotesGridProps = {
+   filters?: {
+      tag?: string;
+   };
+};
+export const QuotesGrid = ({ filters }: TQuotesGridProps) => {
    const [quotes, setquotes] = useState<TQuote[]>([]);
 
    // fetch commentaris based on ID

@@ -10,15 +10,18 @@ import { Commentary } from "../../../fragments/cards/posts/commentary";
 import styles from "./commentaries_grid.module.css";
 
 // types
-import { TCommentary } from "../../../types/posts";
+import { TCommentary } from "../../../../types/posts";
 
 type TCommentariesGridProps = {
    verseCitation?: string;
-   verseId?: string;
    verse?: string;
+   filters?: {
+      verseId?: string;
+      tag?: string;
+   };
 };
 
-export const CommentariesGrid = ({ verseCitation, verseId, verse }: TCommentariesGridProps) => {
+export const CommentariesGrid = ({ verseCitation, verse, filters }: TCommentariesGridProps) => {
    const [commentaries, setcommentaries] = useState<TCommentary[]>([]);
 
    // fetch commentaris based on ID

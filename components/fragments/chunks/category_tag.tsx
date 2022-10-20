@@ -3,6 +3,9 @@
    bring the categories menu to select a new category. This is dependable on which "informativeOnly" value is passed on
    to it. 
 -  InforamtiveOnly = displays the popup witht the tag metadata
+-  initialValue is basically the same as id. The reason why this is being passed is because the onClick function depends
+   on the id being or not being present. This needs to be investigated further and get rid of one of these redundant 
+   props
 ***********************************************************************************************************************/
 
 import { useState } from "react";
@@ -22,6 +25,7 @@ import Portal from "../../hoc/potal";
 
 type TCategoryTagprops = {
    id?: string;
+   initiaValue?: string;
    customSize?: boolean;
    customBorderRadius?: string;
    informativeOnly: boolean;
@@ -32,15 +36,20 @@ type TCategoryTagprops = {
 
 export const CategoryTag = ({
    id,
+   initiaValue,
    customSize,
    informativeOnly,
    customBorderRadius = ".9em",
    cta
 }: TCategoryTagprops) => {
+   const initialCurrCategory = id ? id : initiaValue;
+
+   console.log(initiaValue);
+
    // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
-   const [currentCategory, setcurrentCategory] = useState<string | undefined>(id);
+   const [currentCategory, setcurrentCategory] = useState<string | undefined>(initialCurrCategory);
 
    //  open the category popup
    const handleShowCategoryMeta = () => {
@@ -81,7 +90,6 @@ export const CategoryTag = ({
                />
             )}
          </Portal>
-
          <div
             onClick={
                informativeOnly

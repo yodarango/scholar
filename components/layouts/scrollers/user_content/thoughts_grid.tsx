@@ -10,9 +10,13 @@ import { Thought } from "../../../fragments/cards/posts/thought";
 import styles from "./commentaries_grid.module.css";
 
 // types
-import { TThought } from "../../../types/posts";
+import { TThought } from "../../../../types/posts";
 
-export const ThoughtsGrid = () => {
+type TThoughtsGridProps = {
+   filters?: { tag?: string };
+};
+
+export const ThoughtsGrid = ({ filters }: TThoughtsGridProps) => {
    const [thoughts, setthoughts] = useState<TThought[]>([]);
 
    // fetch commentaris based on ID
