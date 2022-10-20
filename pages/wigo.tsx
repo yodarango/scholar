@@ -1,5 +1,5 @@
 // components
-import { Wigo as WigoTemplate } from "../templates/wigo";
+import { Wigo as WigoTemplate } from "../components/templates/wigo";
 
 // styles
 import styles from "./wigo.module.css";

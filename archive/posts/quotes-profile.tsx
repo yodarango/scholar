@@ -10,7 +10,7 @@ import { DELETE_ONE_QUOTE, REPORT_QUOTE } from "../graphql/posts/quotes";
 // components
 import QuoteViewProfile from "./quotes-view-profile";
 import ConfirmationPopup from "../fragments/confirmation-popup";
-import NotificationPopup from "../fragments/popups/notification";
+import NotificationPopup from "../../components/fragments/popups/notification";
 
 // styles
 import quoteProfileStyles from "../styles/posts/QuotesProfile.module.css";

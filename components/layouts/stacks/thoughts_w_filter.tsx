@@ -3,7 +3,7 @@
    filters to the post wrapper
 ****************************************************************************************/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // comps
@@ -24,18 +24,17 @@ export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
    const router = useRouter();
 
    // states
-   const [currentView, setcurrentView] = useState<string>("1");
-   const [scrollYDis, setscrollYDis] = useState<number>(0);
-   const [scrollingDir, setscrollingDir] = useState<string>("none");
-   const [tagFilter, settagFilter] = useState<any>(router.query.category);
+   const [currentView, setcurrentView] = useState<string>("1"); // all or book by book
+   const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
+   const [scrollingDir, setscrollingDir] = useState<string>("none"); //scrolling direction to know how to move header
+   const [tagFilter, settagFilter] = useState<any>(null); // category
 
    // push new category tag to the router
    const handleCategorySelecion = (tag: string) => {
-      delete router.query.category;
-
-      router.push("");
-      router.push(`${router.pathname}?category=${tag}`);
-      settagFilter(tag);
+      router.push({
+         pathname: router.pathname,
+         query: { ...router.query, category: tag }
+      });
    };
 
    // handle show header
@@ -45,6 +44,13 @@ export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
       setscrollYDis(distance);
       setscrollingDir(isScrollingDown ? "down" : "up");
    };
+
+   // check if there is a query on the initial load
+   useEffect(() => {
+      if (router.query.category) {
+         settagFilter(router.query.category);
+      }
+   }, [router.isReady, router.query]);
 
    return (
       <PrimaryStack

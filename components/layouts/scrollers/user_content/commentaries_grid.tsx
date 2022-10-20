@@ -1,3 +1,8 @@
+/**************************************************************************************** 
+-  handles the query to display the posts to show in the user's profile based on the 
+   filters prop
+****************************************************************************************/
+
 import { useEffect, useState } from "react";
 
 // comps
@@ -16,6 +21,7 @@ type TCommentariesGridProps = {
    verseCitation?: string;
    verse?: string;
    filters?: {
+      folder?: string;
       verseId?: string;
       tag?: string;
    };

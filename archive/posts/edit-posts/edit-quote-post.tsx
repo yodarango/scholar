@@ -8,8 +8,8 @@ import client from "../../apollo-client";
 import { EDIT_ONE_QUOTE } from "../../graphql/posts/quotes";
 
 // components
-import NotificationPopup from "../../fragments/popups/notification";
-import SmallLoader from "../../fragments/chunks/small_loader";
+import NotificationPopup from "../../../components/fragments/popups/notification";
+import SmallLoader from "../../../components/fragments/chunks/small_loader";
 
 // styles
 import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.module.css";
@@ -17,7 +17,7 @@ import quoteEditorStyles from "../../styles/fragments/post-editors/QuoteEditor.m
 // helpers
 import { valuesCat } from "../../data/category_meta";
 import { IvaluesCat } from "../../data/category_meta";
-import { Tstory } from "../../fragments/cards/posts/quote";
+import { Tstory } from "../../../components/fragments/cards/posts/quote";
 
 type quoteEditorProps = {
    //handleCloseStories: any;

@@ -6,6 +6,8 @@ import { WigoDailVerse } from "../layouts/wigo/wigo_daily_verse";
 import { WigoQuotes } from "../layouts/wigo/wigo_quotes";
 import { WigoSermons } from "../layouts/wigo/wigo_sermons";
 import { WigoThoughts } from "../layouts/wigo/wigo_thoughts";
+
+// styles
 import styles from "./wigo.module.css";
 
 export const Wigo = () => {

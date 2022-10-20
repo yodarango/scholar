@@ -8,16 +8,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 // child Comps
-import TextEditor from "../../layouts/text_editor";
-import FormattingRules from "../../fragments/text_editor_formating";
-import ResourceNotFoundError from "../../fragments/chunks/error_resource_not_found";
+import TextEditor from "../../../components/layouts/text_editor";
+import FormattingRules from "../../../components/fragments/text_editor_formating";
+import ResourceNotFoundError from "../../../components/fragments/chunks/error_resource_not_found";
 
 // styes
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";
 import cardsLazyLoadingStyles from "../../styles/layouts/CardsLazyLoading.module.css";
 
 // types
-import { Tcommentary } from "../../fragments/cards/posts/commentary";
+import { Tcommentary } from "../../../components/fragments/cards/posts/commentary";
 import { TverseContent } from "../../pages/verse-by-verse";
 
 // helpers;

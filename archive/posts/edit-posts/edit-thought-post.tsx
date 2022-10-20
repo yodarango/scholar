@@ -7,14 +7,14 @@ import { useState } from "react";
 import Link from "next/link";
 
 // child Comps
-import TextEditor from "../../layouts/text_editor";
-import FormattingRules from "../../fragments/text_editor_formating";
+import TextEditor from "../../../components/layouts/text_editor";
+import FormattingRules from "../../../components/fragments/text_editor_formating";
 
 // styes
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";
 
 // types / helpers
-import { Tthought } from "../../fragments/cards/posts/thought";
+import { Tthought } from "../../../components/fragments/cards/posts/thought";
 import { TverseContent } from "../../pages/verse-by-verse";
 
 type editCommentaryPostProps = {

@@ -1,6 +1,9 @@
 /**************************************************************************************** 
 -  renders a list of commentary posts width a filter on the top that passes down the 
    filters to the post wrapper
+-  The filter is handled in the tagFilter prop which is manipulated through the useEffect
+-  Allows users to filter what types of posts they want to see, by book or all. Eventually
+   folders will be used which will be selected by Id through the currentView prop
 ****************************************************************************************/
 
 import { useEffect, useState } from "react";
@@ -25,18 +28,17 @@ export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
    const router = useRouter();
 
    // states
-   const [currentView, setcurrentView] = useState<string>("1");
-   const [scrollYDis, setscrollYDis] = useState<number>(0);
-   const [scrollingDir, setscrollingDir] = useState<string>("none");
-   const [taggFilter, settagFilter] = useState<any>(router.query.category);
+   const [currentView, setcurrentView] = useState<string>("1"); // all or book by book. Eventually folder id
+   const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
+   const [scrollingDir, setscrollingDir] = useState<string>("none"); //scrolling direction to know how to move header
+   const [tagFilter, settagFilter] = useState<any>(null); // category
 
    // push new category tag to the router
    const handleCategorySelecion = (tag: string) => {
-      delete router.query.category;
-
-      router.push("");
-      router.push(`${router.pathname}?category=${tag}`);
-      settagFilter(tag);
+      router.push({
+         pathname: router.pathname,
+         query: { ...router.query, category: tag }
+      });
    };
 
    // handle show header
@@ -46,6 +48,13 @@ export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
       setscrollYDis(distance);
       setscrollingDir(isScrollingDown ? "down" : "up");
    };
+
+   // check if there is a query on the initial load
+   useEffect(() => {
+      if (router.query.category) {
+         settagFilter(router.query.category);
+      }
+   }, [router.isReady, router.query]);
 
    return (
       <PrimaryStack
@@ -59,30 +68,35 @@ export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
                <Secondary
                   fullWidth
                   icon='📚'
-                  type={currentView}
+                  type={currentView === "1" ? "2" : "1"}
                   title='All'
-                  cta={{ handleClick: () => {} }}
+                  cta={{ handleClick: () => setcurrentView("1") }}
                />
             </div>
             <div className={styles.button}>
                <Secondary
                   fullWidth
                   icon='📖'
-                  type={currentView}
+                  type={currentView === "2" ? "2" : "1"}
                   title='By book'
-                  cta={{ handleClick: () => {} }}
+                  cta={{ handleClick: () => setcurrentView("2") }}
                />
             </div>
             <div className={styles.tag}>
                <CategoryTag
-                  initiaValue={taggFilter}
+                  initiaValue={tagFilter}
                   cta={{ handleSelection: handleCategorySelecion }}
                   informativeOnly={false}
                />
             </div>
          </div>
          <section className={styles.posts}>
-            <CommentariesGrid filters={{ tag: taggFilter }} />
+            <CommentariesGrid
+               filters={{
+                  tag: tagFilter,
+                  folder: currentView
+               }}
+            />
          </section>
       </PrimaryStack>
    );

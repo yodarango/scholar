@@ -8,15 +8,15 @@ import { EDIT_SERMON_NOTE } from "../../graphql/posts/sermon_notes";
 
 // components
 import GeneralDropdown from "../../fragments/buttons/general-dropdown";
-import NotificationPopup from "../../fragments/popups/notification";
-import SmallLoader from "../../fragments/chunks/small_loader";
+import NotificationPopup from "../../../components/fragments/popups/notification";
+import SmallLoader from "../../../components/fragments/chunks/small_loader";
 
 // styles
 import sermonNotesPost from "../../styles/fragments/post-editors/SermonNotesPost.module.css";
 
 // helpers
 import { valuesCat } from "../../data/category_meta";
-import { TsermonPost } from "../../fragments/cards/posts/sermon_note";
+import { TsermonPost } from "../../../components/fragments/cards/posts/sermon_note";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 
 type sermonNotesProps = {

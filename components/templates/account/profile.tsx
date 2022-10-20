@@ -2,11 +2,9 @@ import { AddContent } from "../../fragments/buttons/add_content";
 import { AboutMe } from "../../layouts/account/profile/about_me";
 import { NavigateThruPosts } from "../../layouts/account/profile/navigate_thru_posts";
 import { UserPostStats } from "../../layouts/account/profile/user_post_stats";
-import { CommentariesWFilter } from "../../layouts/stacks/commentaries_w_filter";
 import { ProfileArt } from "../../layouts/stacks/headers/profile_art";
-import { QuotesWFilter } from "../../layouts/stacks/quotes_w_filter";
-import { SermonNotesWFilter } from "../../layouts/stacks/sermon_notes_w_filter";
-import { ThoughtsWFilter } from "../../layouts/stacks/thoughts_w_filter";
+
+// styles
 import styles from "./profile.module.css";
 
 type TProfileProps = {
@@ -36,12 +34,6 @@ export const Profile = ({ username }: TProfileProps) => {
          <div className={styles.addContent}>
             <AddContent />
          </div>
-         //! This four stacks are not filtering properly. the Tag component is not working as //!
-         //! expected
-         {/* {<CommentariesWFilter cta={{ handleClose() {} }} />} */}
-         {/* {<QuotesWFilter cta={{ handleClose() {} }} />} */}
-         {/* <ThoughtsWFilter cta={{ handleClose() {} }} /> */}
-         <SermonNotesWFilter cta={{ handleClose() {} }} />
       </div>
    );
 };

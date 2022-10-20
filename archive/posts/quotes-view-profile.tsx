@@ -10,7 +10,7 @@ import { GET_QUOTE_APPROVALS } from "../graphql/posts/approvals";
 import PostReactions, { Tapprovals } from "../archive/post-reactions";
 import CommentsOfQuote from "../fragments/popups/comments-of-quote";
 import ContentApprovalDropdown from "../archive/content-approval-dropdown";
-import NotificationPopup from "../fragments/popups/notification";
+import NotificationPopup from "../../components/fragments/popups/notification";
 
 // styles
 import quoteStoriesStyles from "../styles/posts/QuotesStories.module.css";

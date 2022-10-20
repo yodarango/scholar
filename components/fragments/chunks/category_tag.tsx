@@ -44,8 +44,6 @@ export const CategoryTag = ({
 }: TCategoryTagprops) => {
    const initialCurrCategory = id ? id : initiaValue;
 
-   console.log(initiaValue);
-
    // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);

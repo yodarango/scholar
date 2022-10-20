@@ -7,14 +7,14 @@ import client from "../apollo-client";
 import { QUOTE_STORIES_IN_LAST_24 } from "../graphql/posts/quotes";
 
 //components
-import QuoteStories from "../fragments/cards/posts/quote";
-import ResourceNotFoundError from "../fragments/chunks/error_resource_not_found";
+import QuoteStories from "../../components/fragments/cards/posts/quote";
+import ResourceNotFoundError from "../../components/fragments/chunks/error_resource_not_found";
 
 //styles
 import storiesCarrouselStyles from "../styles/posts/StoriesCarrousel.module.css";
 import cardsLazyLoadingStyles from "../styles/layouts/CardsLazyLoading.module.css";
 
-import { last24SingleQuote } from "../fragments/cards/posts/quote";
+import { last24SingleQuote } from "../../components/fragments/cards/posts/quote";
 
 type storiesCarrouselProps = {
    quotes_in_the_last24: last24SingleQuote[] | null;
