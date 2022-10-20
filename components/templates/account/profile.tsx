@@ -36,7 +36,8 @@ export const Profile = ({ username }: TProfileProps) => {
          <div className={styles.addContent}>
             <AddContent />
          </div>
-
+         //! This four stacks are not filtering properly. the Tag component is not working as //!
+         //! expected
          {/* {<CommentariesWFilter cta={{ handleClose() {} }} />} */}
          {/* {<QuotesWFilter cta={{ handleClose() {} }} />} */}
          {/* <ThoughtsWFilter cta={{ handleClose() {} }} /> */}
