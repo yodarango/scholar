@@ -12,10 +12,10 @@ import { NotificationSticker } from "./notification_sticker";
 import styles from "./multiple_choice_poll.module.css";
 
 // helpers
-import { getCookie } from "../../helpers/get-cookie";
+import { getCookie } from "../../../helpers/get-cookie";
 
 // types
-import { TMultipleChicePoll } from "../../types/wigo_content";
+import { TMultipleChicePoll } from "../../../types/wigo_content";
 
 type fridayPropsT = {
    content: TMultipleChicePoll;

@@ -11,8 +11,8 @@ import { useRouter } from "next/router";
 import styles from "./daily_verse_image.module.css";
 
 // helpers
-import { setDailyVerseCache } from "../../helpers/APIs/set_daily_verse_cache";
-import { TBibleVerse } from "../../types/bible_api";
+import { setDailyVerseCache } from "../../../helpers/APIs/set_daily_verse_cache";
+import { TBibleVerse } from "../../../types/bible_api";
 
 type TDailyVerseImageProps = {
    versionId?: string;

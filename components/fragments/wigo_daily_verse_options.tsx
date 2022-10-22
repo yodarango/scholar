@@ -5,7 +5,7 @@ import { IconButton } from "./buttons/icon_button";
 import styles from "./wigo_daily_verse_options.module.css";
 
 //helpers
-import { downloadImage } from "../helpers/content/download_image";
+import { downloadImage } from "../../helpers/content/download_image";
 
 type TWigoDailyVerseOptionsProps = {
    imgSrc: string;
