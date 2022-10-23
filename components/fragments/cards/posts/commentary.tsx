@@ -12,6 +12,7 @@ import styles from "./commentary.module.css";
 
 // types
 import { TCommentary } from "../../../../types/posts";
+import { COM_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
 
 type TCommentaryProps = {
    customWidth?: boolean;
@@ -23,7 +24,7 @@ type TCommentaryProps = {
 
 export const Commentary = ({ commentary, cta, customWidth = false }: TCommentaryProps) => {
    // parse the raw category coming from the DB
-   const categoryIdNormalized = commentary.category_tags.split(" ")[0].replace("#", "");
+   const categoryIdNormalized = commentary?.category_tags.split(" ")[0].replace("#", "");
    const categoryId = `category-${categoryIdNormalized}`;
 
    return (
@@ -34,11 +35,11 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
          <div className={styles.header}>
             <PostCardHeader
                cta={{ handleDelete: cta.handleDelete }}
-               userAuthority={commentary.creator.authority_level}
-               username={commentary.creator.signature}
-               avatar={commentary.creator.avatar}
-               userId={commentary.creator.ID}
-               postId={commentary.ID}
+               userAuthority={commentary?.creator?.authority_level}
+               username={commentary?.creator?.signature}
+               avatar={commentary?.creator?.avatar}
+               userId={commentary?.creator?.ID}
+               postId={commentary?.ID}
                postType='commentary'
                fontColor={
                   categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW" ? "#2A2438" : ""
@@ -47,11 +48,13 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
          </div>
 
          {/* ----------------- post thumbnail ----------- */}
-         <Link href={`/posts/commentary/${commentary.ID}`}>
+         <Link href={`/posts/commentary/${commentary?.ID}`}>
             <a>
                <div className={styles.image}>
                   <Image
-                     src={commentary.postImage}
+                     src={
+                        commentary?.postImage ? commentary?.postImage : COM_DEFAULT_IMG_PLACEHOLDER
+                     }
                      layout='fill'
                      alt='background cover for a book of the bible'
                   />
@@ -60,7 +63,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                {/* ----------------- verse reference ---------------- */}
                <div className={styles.reference}>
                   <Parragraph
-                     text={commentary.verse_citation}
+                     text={commentary?.verse_citation}
                      size='small'
                      lineHieght='.9em'
                      color={
@@ -77,16 +80,16 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
             <div className={styles.reactions}>
                <PostReactions
                   contentType={1}
-                  postId={commentary.ID}
+                  postId={commentary?.ID}
                   iconColor={
                      categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
                         ? "#2A2438"
                         : ""
                   }
-                  totalComments={commentary.comments.total_count}
+                  totalComments={commentary?.comments?.total_count}
                   postRating={{
-                     totalCount: commentary.approvals.total_count,
-                     averageCount: commentary.approvals.average_count
+                     totalCount: commentary?.approvals?.total_count,
+                     averageCount: commentary?.approvals?.average_count
                   }}
                />
             </div>
@@ -94,8 +97,8 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                <TimeStamp
                   colorId={categoryId}
                   quiet={false}
-                  time={commentary.date}
-                  niceTime={commentary.posted_on}
+                  time={commentary?.date}
+                  niceTime={commentary?.posted_on}
                />
             </div>
          </div>

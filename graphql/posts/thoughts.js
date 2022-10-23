@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_THOUGHTS = gql`
-   query ($ID: ID, $USER_ID: ID, $category_tags: String) {
-      thought(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags) {
+   query ($ID: ID, $USER_ID: ID, $category_tags: String, $last_id: ID) {
+      thought(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags, last_id: $last_id) {
          ID
          body
          USER_ID
@@ -17,12 +17,7 @@ export const GET_THOUGHTS = gql`
             avatar
          }
          comments {
-            ID
-            body
-            creator_avatar
-            creator_signature
-            creator_approval_rate
-            posted_on
+            total_count
          }
          approvals {
             average_count
@@ -32,9 +27,9 @@ export const GET_THOUGHTS = gql`
    }
 `;
 
-export const GET_ONE_THOUGHT = gql`
-   query ($ID: ID, $showComment: Boolean) {
-      thought(ID: $ID) {
+export const GET_THOUGHT_IN_24 = gql`
+   query {
+      thought_in_24 {
          ID
          body
          USER_ID
@@ -48,13 +43,8 @@ export const GET_ONE_THOUGHT = gql`
             authority_level
             avatar
          }
-         comments(showComment: $showComment) {
-            ID
-            body
-            creator_avatar
-            creator_signature
-            creator_approval_rate
-            posted_on
+         comments {
+            total_count
          }
          approvals {
             average_count

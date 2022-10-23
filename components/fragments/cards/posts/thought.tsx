@@ -17,7 +17,8 @@ import { Parragraph } from "../../Typography/parragraph";
 import styles from "./thought.module.css";
 
 // types
-import { TThought } from "../../../types/posts";
+import { TThought } from "../../../../types/posts";
+import { THO_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
 
 type TThoughtProps = {
    thought: TThought;
@@ -28,7 +29,7 @@ type TThoughtProps = {
 
 export const Thought = ({ thought, cta }: TThoughtProps) => {
    // parse the Category ID
-   const categoryId = thought.category_tags.split(" ")[0].replace("#", "");
+   const categoryId = thought?.category_tags.split(" ")[0].replace("#", "");
 
    return (
       <div className={`${styles.mainWrapper}`}>
@@ -37,26 +38,30 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
             <PostCardHeader
                cta={{ handleDelete: cta.handleDelete }}
                postType='thought'
-               username={thought.creator.signature}
-               userAuthority={thought.creator.authority_level}
-               avatar={thought.creator.avatar}
-               userId={thought.creator.ID}
-               postId={thought.ID}
+               username={thought?.creator?.signature}
+               userAuthority={thought?.creator?.authority_level}
+               avatar={thought?.creator?.avatar}
+               userId={thought?.creator?.ID}
+               postId={thought?.ID}
                withCategoryTag={categoryId}
             />
          </div>
 
          {/* -------------------- post image ------------ */}
-         <Link href={`/posts/thoughts/${thought.ID}`}>
+         <Link href={`/posts/thoughts/${thought?.ID}`}>
             <a>
                <div className={styles.image}>
-                  <Image src={thought.postImage} layout='fill' alt='post thumbnail' />
+                  <Image
+                     src={thought?.postImage ? thought?.postImage : THO_DEFAULT_IMG_PLACEHOLDER}
+                     layout='fill'
+                     alt='post thumbnail'
+                  />
                </div>
 
                {/* -------------------- post header and desc ------------ */}
                <div className={styles.titleDesc}>
-                  <Header type={3} size='small' lineHieght='1.2em' text={thought.title} />
-                  <Parragraph text={thought.body} size='small' lineHieght='1.2em' />
+                  <Header type={3} size='small' lineHieght='1.2em' text={thought?.title} />
+                  <Parragraph text={thought?.body} size='small' lineHieght='1.2em' />
                </div>
             </a>
          </Link>
@@ -65,10 +70,12 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
          <div className={styles.footer}>
             <div className={styles.reactions}>
                <PostReactions
-                  totalComments={thought.comments[0].total_count}
+                  postId={thought?.ID}
+                  contentType={2}
+                  totalComments={thought?.comments?.total_count}
                   postRating={{
-                     totalCount: thought.approvals.length,
-                     averageCount: thought.approvals.length
+                     totalCount: thought?.approvals?.total_count,
+                     averageCount: thought?.approvals?.average_count
                   }}
                />
             </div>
@@ -77,8 +84,8 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
                <TimeStamp
                   colorId={categoryId}
                   quiet={false}
-                  time={thought.date}
-                  niceTime={thought.posted_on}
+                  time={thought?.date}
+                  niceTime={thought?.posted_on}
                />
             </div>
          </div>

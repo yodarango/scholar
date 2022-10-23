@@ -50,8 +50,8 @@ export type TThought = {
    };
    comments: {
       total_count: number;
-   }[];
-   approvals: TRating[];
+   };
+   approvals: TRating;
 };
 
 export type TSermonNote = {

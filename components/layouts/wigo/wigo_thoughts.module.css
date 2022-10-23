@@ -17,3 +17,12 @@
 .carrousel {
    width: 100%;
 }
+
+.loader,
+.error {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: var(--spacing-m) 0;
+}

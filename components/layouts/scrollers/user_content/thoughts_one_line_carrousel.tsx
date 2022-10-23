@@ -5,7 +5,7 @@ import { Thought } from "../../../fragments/cards/posts/thought";
 import styles from "./thoughts_one_line_carrouse.module.css";
 
 //helpers
-import { TThought } from "../../../types/posts";
+import { TThought } from "../../../../types/posts";
 import { useState } from "react";
 
 type TThoughtsOneLineCarrouselProps = {

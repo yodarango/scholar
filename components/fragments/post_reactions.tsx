@@ -6,7 +6,7 @@ import { PostRating } from "./chunks/post_rating";
 import styles from "./post_reactions.module.css";
 
 // types
-import { EnumContentType } from "../types/enums";
+import { EnumContentType } from "../../types/enums";
 
 type TPostReactionsProps = {
    postId: string;

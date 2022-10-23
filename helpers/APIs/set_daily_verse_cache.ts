@@ -22,7 +22,7 @@ export const setDailyVerseCache = async (versionId: string = "de4e12af7f28f599-0
    } else {
       const JsonData = JSON.parse(getCache);
 
-      if (JsonData.lastCall !== MM_DD_YYYY()) {
+      if (JsonData.lastCall !== MM_DD_YYYY() || !JsonData.data) {
          const randomVerse = await fetchBibleVerseWDefault(getRandomVerseId(), versionId);
 
          const data = {
