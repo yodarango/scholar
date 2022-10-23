@@ -11,7 +11,7 @@ import { TimeStamp } from "../../chunks/time_stamp";
 import styles from "./commentary.module.css";
 
 // types
-import { TCommentary } from "../../../types/posts";
+import { TCommentary } from "../../../../types/posts";
 
 type TCommentaryProps = {
    customWidth?: boolean;
@@ -83,10 +83,10 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                         ? "#2A2438"
                         : ""
                   }
-                  totalComments={commentary.comments[0].total_count}
+                  totalComments={commentary.comments.total_count}
                   postRating={{
-                     totalCount: commentary.approvals.length,
-                     averageCount: commentary.approvals.length
+                     totalCount: commentary.approvals.total_count,
+                     averageCount: commentary.approvals.average_count
                   }}
                />
             </div>

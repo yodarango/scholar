@@ -11,6 +11,7 @@ export type TCommentary = {
    verse_citation: string;
    total_count: number;
    postImage: string;
+   is_private: boolean;
    creator: {
       ID: string;
       signature: string;
@@ -23,8 +24,8 @@ export type TCommentary = {
    };
    comments: {
       total_count: number;
-   }[];
-   approvals: TRating[];
+   };
+   approvals: TRating;
 };
 
 export type TThought = {
@@ -93,6 +94,6 @@ export type TQuote = {
    };
    comments: {
       total_count: number;
-   }[];
-   approvals: TRating[];
+   };
+   approvals: TRating;
 };

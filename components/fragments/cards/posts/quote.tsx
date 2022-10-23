@@ -8,7 +8,7 @@ import { PostReactions } from "../../post_reactions";
 import styles from "./quote.module.css";
 
 //types
-import { TQuote } from "../../../types/posts";
+import { TQuote } from "../../../../types/posts";
 
 export type TQuoteProps = {
    quote: TQuote;
@@ -22,25 +22,25 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
    return (
       <div
          className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
-         id={quote.background}>
+         id={quote?.background}>
          {/* ------------------------------ header ----------------------- */}
          <div className={styles.header}>
             <QuoteCardHeader
                cta={{ handleDelete: cta.handleDelete }}
-               postId={quote.ID}
-               userId={quote.creator.ID}
-               userAuthority={quote.creator.authority_level}
-               avatar={quote.creator.avatar}
+               postId={quote?.ID}
+               userId={quote?.creator?.ID}
+               userAuthority={quote?.creator?.authority_level}
+               avatar={quote?.creator?.avatar}
             />
          </div>
 
          {/* ------------------------------ body ----------------------- */}
          <div className={`${styles.body} ${type === 1 && styles.bodyWide}`}>
-            <Header type={3} size={type === 1 ? "main" : "xxsmall"} text={quote.body} />
+            <Header type={3} size={type === 1 ? "main" : "xxsmall"} text={quote?.body} />
             <div className={styles.author}>
                <Parragraph
                   size={type === 1 ? "small" : "xxsmall"}
-                  text={`—	${quote.creator.signature}`}
+                  text={`—	${quote.creator?.signature}`}
                   align='right'
                />
             </div>
@@ -51,10 +51,10 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
                postId=''
                contentType={1}
                postRating={{
-                  totalCount: quote.approvals[0].total_count,
-                  averageCount: quote.approvals[0].average_count
+                  totalCount: quote?.approvals?.total_count,
+                  averageCount: quote.approvals.average_count
                }}
-               totalComments={quote.comments[0].total_count}
+               totalComments={quote?.comments?.total_count}
             />
          </div>
       </div>

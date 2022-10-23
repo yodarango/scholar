@@ -1,18 +1,20 @@
 // graphQl
 import { client } from "../../../apollo-client";
-import { GET_QUOTE_IN_24 } from "../../../graphql/posts/quotes";
+import { GET_COMMENTARIES_IN_24 } from "../../../graphql/posts/commentaries";
 
 // fetch data
-export const handleGetQuotesIn24 = async () => {
+export const handleGetCommentariesIn24 = async () => {
    try {
       const { data } = await client.query({
-         query: GET_QUOTE_IN_24,
+         query: GET_COMMENTARIES_IN_24,
          variables: {}
       });
 
-      if (!data.quote_in_24) {
+      if (!data.commentary_in_24) {
          return { data: null, status: "error" };
       }
+
+      console.log(data);
 
       return { data, status: "done" };
    } catch (error) {

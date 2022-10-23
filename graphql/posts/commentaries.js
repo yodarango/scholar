@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-//================== GET ================== //
+// get all commentaries by filter. Only one will be fetch if ID is passed
 export const GET_COMMENTARIES = gql`
    query ($ID: ID, $USER_ID: ID, $VERSE_ID: String, $category_tags: String, $last_id: ID) {
       commentary(
@@ -11,7 +11,39 @@ export const GET_COMMENTARIES = gql`
          last_id: $last_id
       ) {
          ID
-         USER_ID
+         VERSE_ID
+         body
+         category_tags
+         referenced_verses
+         verse_citation
+         created_date
+         posted_on
+         is_private
+         creator {
+            ID
+            signature
+            approval_rating
+            authority_level
+            avatar
+            first_name
+            last_name
+         }
+         comments {
+            total_count
+         }
+         approvals {
+            average_count
+            total_count
+         }
+      }
+   }
+`;
+
+// the commentaries in the last 24hrs for teh wigo page
+export const GET_COMMENTARIES_IN_24 = gql`
+   query {
+      commentary_in_24 {
+         ID
          VERSE_ID
          body
          category_tags
@@ -64,94 +96,6 @@ export const GET_COMMENTARIES_BY_BOOK = gql`
          is_private
          comments {
             total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
-      }
-   }
-`;
-
-export const WIGO_REQUEST_MORE_COMMENTARIES = gql`
-   query ($last_id: ID) {
-      # commentaries
-      commentary(last_id: $last_id) {
-         ID
-         USER_ID
-         VERSE_ID
-         body
-         category_tags
-         referenced_verses
-         verse_citation
-         created_date
-         posted_on
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
-         comments {
-            total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
-      }
-   }
-`;
-
-export const SHOW_COMMENTS_OF_COMMENTARY = gql`
-   query ($ID: ID, $showComment: Boolean) {
-      commentary(ID: $ID) {
-         comments(showComment: $showComment) {
-            ID
-            body
-            creator_avatar
-            creator_signature
-            creator_approval_rate
-            creator_authority_level
-            creator_id
-            posted_on
-         }
-         approvals {
-            average_count
-            total_count
-         }
-      }
-   }
-`;
-
-export const GET_ONE_COMMENTARY = gql`
-   query ($ID: ID, $showComment: Boolean) {
-      commentary(ID: $ID) {
-         ID
-         USER_ID
-         VERSE_ID
-         body
-         category_tags
-         referenced_verses
-         verse_citation
-         created_date
-         posted_on
-         is_private
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
-         comments(showComment: $showComment) {
-            ID
-            body
-            creator_avatar
-            creator_signature
-            creator_approval_rate
-            posted_on
          }
          approvals {
             average_count

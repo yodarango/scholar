@@ -10,7 +10,7 @@ export default {
 
 export const WithIcon: ComponentStory<typeof MenuPrimaryOption> = () => (
    <MenuPrimaryOption
-      cta={() => console.log("...")}
+      cta={{ handleOptionClick: () => console.log("...") }}
       textType='text'
       iconType='icon'
       optionProperties={{
@@ -23,7 +23,7 @@ export const WithIcon: ComponentStory<typeof MenuPrimaryOption> = () => (
 
 export const WithText: ComponentStory<typeof MenuPrimaryOption> = () => (
    <MenuPrimaryOption
-      cta={() => console.log("...")}
+      cta={{ handleOptionClick: () => console.log("...") }}
       textType='jsx'
       iconType='text'
       optionProperties={{
@@ -36,7 +36,7 @@ export const WithText: ComponentStory<typeof MenuPrimaryOption> = () => (
 
 export const Filled: ComponentStory<typeof MenuPrimaryOption> = () => (
    <MenuPrimaryOption
-      cta={() => console.log("...")}
+      cta={{ handleOptionClick: () => console.log("...") }}
       textType='text'
       iconType='filled'
       optionProperties={{

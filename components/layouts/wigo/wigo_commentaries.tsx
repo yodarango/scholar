@@ -6,13 +6,10 @@ import { CommentaryOneLineCarrousel } from "../scrollers/user_content/commentari
 import styles from "./wigo_commentaries.module.css";
 
 // types
-import { TCommentary } from "../../types/posts";
+import { TCommentary } from "../../../types/posts";
 import { Header } from "../../fragments/Typography/header";
 
-type TWigoCommentariesProps = {
-   commentaries: TCommentary[];
-};
-export const WigoCommentaries = ({ commentaries }: TWigoCommentariesProps) => {
+export const WigoCommentaries = () => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
@@ -24,7 +21,7 @@ export const WigoCommentaries = ({ commentaries }: TWigoCommentariesProps) => {
             </div>
          </div>
          <div className={styles.carrousel}>
-            <CommentaryOneLineCarrousel commentaries={commentaries} />
+            <CommentaryOneLineCarrousel />
          </div>
       </div>
    );
