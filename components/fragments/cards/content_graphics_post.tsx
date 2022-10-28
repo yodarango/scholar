@@ -1,16 +1,26 @@
+/**************************************************************************************** 
+-  Displays an Instagram-like image display from an array of photos passed down to it
+****************************************************************************************/
+
 import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { SlideCounter } from "../chunks/slide_counter";
-import { Parragraph } from "../Typography/parragraph";
 
 // styles
 import styles from "./content_graphics_post.module.css";
 
+// types
+import { TFastFacts } from "../../../types/interactive";
+
 type TContentGraphicsPostProps = {
-   images: string[];
+   content: TFastFacts;
 };
 
-export const ContentGraphicsPost = ({ images }: TContentGraphicsPostProps) => {
+export const ContentGraphicsPost = ({ content }: TContentGraphicsPostProps) => {
+   // global variables
+   let { images } = content;
+   let imagesArr = images.split(" ");
+
    // states
    const [isDown, setisDown] = useState<boolean>(false);
    const [startX, setstartX] = useState<number>(0);
@@ -41,16 +51,16 @@ export const ContentGraphicsPost = ({ images }: TContentGraphicsPostProps) => {
       setcurrClass("");
 
       if (gallery.current) {
-         // get the width of the galllery to make sure the user has scrrolled at least halfway
+         // get the width of the gallery to make sure the user has scrolled at least halfway
          const galleryWidth = gallery.current.getBoundingClientRect();
          const minScroll = galleryWidth.width / 2;
 
          // check that user scrolled at least past half way
          if (Math.abs(swipDir) > minScroll) {
-            if (swipDir < 0 && currIndex < images.length) {
-               setcurrIndex(currIndex + 1);
+            if (swipDir < 0 && currIndex < imagesArr.length) {
+               setcurrIndex(currIndex + 1); // srcoll fwd
             } else if (swipDir > 0 && currIndex > 0) {
-               setcurrIndex(currIndex - 1);
+               setcurrIndex(currIndex - 1); // scroll bkd
             }
          }
       }
@@ -71,10 +81,10 @@ export const ContentGraphicsPost = ({ images }: TContentGraphicsPostProps) => {
 
    return (
       <>
-         {images.length > 0 && (
+         {imagesArr.length > 0 && (
             <div className={styles.mainWrapper}>
                <div className={styles.imagePosition}>
-                  <SlideCounter currIndex={currIndex} length={images.length} />
+                  <SlideCounter currIndex={currIndex} length={imagesArr.length} />
                </div>
                <div
                   className={`${styles.gallery} ${currClass}`}
@@ -83,7 +93,7 @@ export const ContentGraphicsPost = ({ images }: TContentGraphicsPostProps) => {
                   onMouseUp={mouseUp}
                   onMouseMove={mouseMove}
                   ref={gallery}>
-                  {images.map((image: string, index: number) => (
+                  {imagesArr.map((image: string, index: number) => (
                      <div className={styles.image} key={index}>
                         <Image src={image} alt='image' className={styles.image} layout='fill' />
                      </div>

@@ -1,5 +1,5 @@
 .mainWrapper {
-   width: 13rem;
+   width: 100%;
    padding: var(--spacing-s);
    border-radius: 2em;
    box-shadow: var(--shadow-s);

@@ -2,11 +2,9 @@ import { useState } from "react";
 
 // comps
 import { Quote } from "../../../fragments/cards/posts/quote";
-import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
-import styles from "./commentaries_one_line_carrousel.module.css";
+import styles from "./quote_one_line_carrousel.module.css";
 
 // types
 import { TQuote } from "../../../../types/posts";

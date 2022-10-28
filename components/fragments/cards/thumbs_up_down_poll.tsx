@@ -16,7 +16,7 @@ import { NotificationSticker } from "./notification_sticker";
 import styles from "./thumbs_up_down_poll.module.css";
 
 // types
-import { TThumbsUpDownPoll } from "../../../types/wigo_content";
+import { TThumbsUpDownPoll } from "../../../types/interactive";
 import { ThumbsUpDownStats } from "../chunks/thumbs_up_down_stats";
 
 // helpers

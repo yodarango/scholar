@@ -15,7 +15,7 @@ import styles from "./multiple_choice_poll.module.css";
 import { getCookie } from "../../../helpers/get-cookie";
 
 // types
-import { TMultipleChicePoll } from "../../../types/wigo_content";
+import { TMultipleChicePoll } from "../../../types/interactive";
 
 type fridayPropsT = {
    content: TMultipleChicePoll;

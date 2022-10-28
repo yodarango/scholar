@@ -51,23 +51,18 @@ export const DailyVerseImage = ({
       }
    }, [router.isReady]);
 
-   //    Random image number
-   const randomImg = Math.floor(Math.random() * 31);
+   // //    Random image number
+   // const randomImg = Math.floor(Math.random() * 31);
    // Random font class
    const fontClass = Math.floor(Math.random() * 3);
 
+   // get the right font class
+   const fontStyles =
+      fontClass === 0 ? styles.fontOne : fontClass === 1 ? styles.fontTwo : styles.fontThree;
+
    return (
       <div className={`${styles.mainWrapper}`}>
-         <h1
-            className={`${styles.text} ${
-               fontClass === 0
-                  ? styles.fontOne
-                  : fontClass === 1
-                  ? styles.fontTwo
-                  : styles.fontThree
-            }`}>
-            {verse && verse.content}
-         </h1>
+         <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1>
          <p className={styles.reference}>{verse && verse.reference}</p>
          <div className={styles.img}>
             <img

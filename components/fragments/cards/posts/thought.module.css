@@ -6,6 +6,12 @@
    box-shadow: var(--shadow-s);
 }
 
+.mainWrapper:hover {
+   box-shadow: none;
+   transform: scale(0.96);
+   transition: transform 300ms;
+}
+
 .header {
    width: 100%;
    margin-bottom: var(--spacing-xs);

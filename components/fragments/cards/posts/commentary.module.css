@@ -1,9 +1,16 @@
 .mainWrapper,
 .mainWrapperCustomWidth {
-   width: 20rem;
+   width: 100%;
    padding: var(--spacing-xs) var(--spacing-xxs);
    border-radius: 2em;
    box-shadow: var(--shadow-s);
+   background-color: var(--secondary-color);
+}
+
+.mainWrapper:hover {
+   box-shadow: none;
+   transform: scale(0.96);
+   transition: transform 300ms;
 }
 
 .mainWrapperCustomWidth {

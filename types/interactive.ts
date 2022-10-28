@@ -23,3 +23,11 @@ export type TVideoThumbnail = {
    title: string;
    description: string;
 };
+
+export type TFastFacts = {
+   ID: string;
+   type: string;
+   images: string;
+   created_date?: string;
+   posted_on?: string;
+};

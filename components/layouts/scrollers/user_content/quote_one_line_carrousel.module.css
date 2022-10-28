@@ -1,0 +1,20 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.carrousel {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: nowrap;
+   overflow-x: scroll;
+   padding: var(--spacing-xxs) 0;
+}
+
+.commentary {
+   width: 13rem;
+   flex-grow: 0;
+   flex-shrink: 0;
+   margin-left: var(--spacing-xs);
+}

@@ -1,48 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_SERMON_NOTES = gql`
-   query ($ID: ID, $USER_ID: ID, $category_tags: String) {
-      sermon_notes(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags) {
-         ID
-         content
-         title
-         USER_ID
-         category_tags
-         creator {
-            ID
-            signature
-            authority_level
-            approval_rating
-         }
-      }
-   }
-`;
-
-export const GET_ONE_SERMON_NOTE = gql`
-   query ($ID: ID) {
-      sermon_notes(ID: $ID) {
-         ID
-         content
-         title
-         USER_ID
-         category_tags
-         creator {
-            ID
-            signature
-            authority_level
-            approval_rating
-         }
-      }
-   }
-`;
-
-export const WIGO_REQUEST_MORE_SERMON_NOTES = gql`
    query ($ID: ID, $USER_ID: ID, $category_tags: String, $last_id: ID) {
-      sermon_notes(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags, last_id: $last_id) {
+      sermon_note(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags, last_id: $last_id) {
          ID
          content
+         title
          USER_ID
          category_tags
+         file_url
          creator {
             ID
             signature
@@ -53,6 +19,24 @@ export const WIGO_REQUEST_MORE_SERMON_NOTES = gql`
    }
 `;
 
+export const GET_SERMON_NOTE_IN_24 = gql`
+   query {
+      sermon_note_in_24 {
+         ID
+         content
+         title
+         USER_ID
+         category_tags
+         file_url
+         creator {
+            ID
+            signature
+            authority_level
+            approval_rating
+         }
+      }
+   }
+`;
 export const CREATE_NEW_SERMON_NOTE = gql`
    mutation (
       $description: String

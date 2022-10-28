@@ -7,7 +7,7 @@ import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
 import styles from "./sermon_note_one_line_carrousel.module.css";
 
 //types
-import { TSermonNote } from "../../../types/posts";
+import { TSermonNote } from "../../../../types/posts";
 
 type TSermonOneLineCarrouselProps = {
    sermonNotes: TSermonNote[];
