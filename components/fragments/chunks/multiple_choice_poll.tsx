@@ -2,7 +2,7 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./multiple_choice_poll.module.css";
 
 type TMultipleChoicePollProps = {
-   votes: number[];
+   votes: number[] | undefined;
 };
 
 export const MultipleChoicePoll = ({ votes }: TMultipleChoicePollProps) => {
@@ -63,31 +63,32 @@ export const MultipleChoicePoll = ({ votes }: TMultipleChoicePollProps) => {
    ];
 
    // ------------------- extrapolate percentages -------------
-
-   const totalVotes = votes.reduce((a, b) => a + b, 0);
-   const max = Math.max(...votes);
-   const min = Math.min(...votes);
+   console.log(votes);
+   const totalVotes = votes && votes.reduce((a, b) => a + b, 0);
+   const max = votes ? Math.max(...votes) : 0;
+   const min = votes ? Math.min(...votes) : 0;
    return (
       <div className={styles.mainWrapper}>
          <section className={styles.optionsWrapper}>
-            {votes.map((vote: number, index: number) => (
-               <div className={styles.option} key={index}>
-                  <div
-                     className={`${styles.bar} ${max === vote && styles.max} ${
-                        min === vote && styles.min
-                     }`}
-                     style={{ height: `${(vote / totalVotes) * 15}rem` }}></div>
-                  <div className={styles.letter}>
-                     <Parragraph
-                        size='xsmall'
-                        text={alphabet[index]}
-                        align='center'
-                        bold={true}
-                        lineHieght='.9em'
-                     />
+            {votes &&
+               votes.map((vote: number, index: number) => (
+                  <div className={styles.option} key={index}>
+                     <div
+                        className={`${styles.bar} ${max === vote && styles.max} ${
+                           min === vote && styles.min
+                        }`}
+                        style={{ height: `${(vote / totalVotes) * 15}rem` }}></div>
+                     <div className={styles.letter}>
+                        <Parragraph
+                           size='xsmall'
+                           text={alphabet[index]}
+                           align='center'
+                           bold={true}
+                           lineHieght='.9em'
+                        />
+                     </div>
                   </div>
-               </div>
-            ))}
+               ))}
          </section>
          <div className={styles.totalVotes}>
             <Parragraph size='small' quiet={true} text={`Total votes: ${totalVotes}`} />

@@ -1,5 +1,5 @@
 .mainWrapper {
-   padding: var(--spacing-m) var(--spacing-xs);
+   padding: var(--spacing-m) var(--spacing-s);
    background-color: var(--secondary-color);
    border-radius: 3em;
 }
@@ -24,4 +24,12 @@
 
 .poll {
    margin-bottom: calc(var(--spacing-l) + var(--spacing-xs));
+}
+
+.loader,
+.error {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: var(--spacing-l) 0;
 }

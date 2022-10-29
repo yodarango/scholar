@@ -70,20 +70,21 @@ export const MultipleChoicePollOptions = ({ options, cta }: TMultipleChoicePollO
 
    return (
       <div className={styles.mainWrapper}>
-         {options.map((option: string, index: number) => (
-            <div className={styles.option} key={index}>
-               <div className={styles.button}>
-                  <OptionButton
-                     option={alphabet[index]}
-                     cta={() => cta.handleVote(option)}
-                     backgroundColor='1'
-                  />
+         {options &&
+            options.map((option: string, index: number) => (
+               <div className={styles.option} key={index}>
+                  <div className={styles.button}>
+                     <OptionButton
+                        option={alphabet[index]}
+                        cta={() => cta.handleVote(option)}
+                        backgroundColor='1'
+                     />
+                  </div>
+                  <div className={styles.text}>
+                     <Parragraph text={option} size='main' />
+                  </div>
                </div>
-               <div className={styles.text}>
-                  <Parragraph text={option} size='main' />
-               </div>
-            </div>
-         ))}
+            ))}
       </div>
    );
 };

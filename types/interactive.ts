@@ -1,8 +1,13 @@
+export enum EPolllType {
+   THUMBS_UP = 1,
+   MULTIPLE_OPTIONS = 2
+}
+
 export type TThumbsUpDownPoll = {
-   id: string;
+   ID: string;
    type: number;
-   poll: string;
-   countdownLimit: string;
+   dilemma: string;
+   countdown: string;
    votes: {
       votesUp: number;
       votesDown: number;
@@ -10,12 +15,12 @@ export type TThumbsUpDownPoll = {
 };
 
 export type TMultipleChicePoll = {
-   id: string;
+   ID: string;
    type: number;
-   question: string;
+   dilemma: string;
    options: string[];
    votes: number[];
-   countTo: string;
+   countdown: string;
 };
 
 export type TVideoThumbnail = {

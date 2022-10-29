@@ -19,3 +19,11 @@
 .options {
    margin-bottom: var(--spacing-m);
 }
+
+.loader,
+.error {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: var(--spacing-l) 0;
+}

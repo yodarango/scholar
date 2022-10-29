@@ -18,11 +18,11 @@ export const ThumbsUpDownStats = ({ votesUp, votesDown }: TThumbsUpDownStatsProp
          {/* ---------------------- left side -------------- */}
          <div className={styles.thumbsUpWrapper}>
             <div className={styles.percentage}>
-               <Parragraph size='xsmall' text={`${upPercentage}%`} />
+               <Parragraph size='xsmall' text={`${votesUp ? upPercentage : 0}%`} />
             </div>
             <div
                className={`${styles.bar} ${styles.barDown}`}
-               style={{ width: `${upPercentage}%` }}></div>
+               style={{ width: `${votesUp ? upPercentage : 100}%` }}></div>
          </div>
 
          {/* ---------------------- middle side -------------- */}
@@ -32,9 +32,9 @@ export const ThumbsUpDownStats = ({ votesUp, votesDown }: TThumbsUpDownStatsProp
          <div className={styles.thumbsDownWrapper}>
             <div
                className={`${styles.bar} ${styles.barUp}`}
-               style={{ width: `${downPercentage}%` }}></div>
+               style={{ width: `${votesDown ? downPercentage : 100}%` }}></div>
             <div className={styles.percentage}>
-               <Parragraph size='xsmall' text={`${downPercentage}%`} />
+               <Parragraph size='xsmall' text={`${votesDown ? downPercentage : 0}%`} />
             </div>
          </div>
       </div>

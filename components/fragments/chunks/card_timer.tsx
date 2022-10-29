@@ -1,3 +1,4 @@
+// TODO: This clock might not be working as expected if a data over 24 hours is passed
 // This component needs a static time to count down to. Right now the value is saved in the DB
 import { useEffect, useState } from "react";
 

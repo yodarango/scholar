@@ -13,7 +13,7 @@ export const CastYourVote = () => {
 
    // decide which poll to load
    const getPollToLoad = () => {
-      setpollToLoad(1);
+      setpollToLoad(2);
    };
 
    useEffect(() => {
@@ -31,29 +31,8 @@ export const CastYourVote = () => {
             </div>
          </div>
          <div className={styles.poll}>
-            {pollToLoad === 1 && (
-               <ThumbsUpDownPoll
-                  content={{
-                     countdownLimit: "08/03/2022 21:00:00",
-                     id: "1",
-                     type: 1,
-                     poll: "The earth is 6,000 years old",
-                     votes: { votesDown: 1, votesUp: 3 }
-                  }}
-               />
-            )}
-            {pollToLoad === 2 && (
-               <MultipleChoicePollCard
-                  content={{
-                     id: "",
-                     type: 2,
-                     question: "Coffe or tea?",
-                     options: ["yes", "no", "maybe"],
-                     votes: [2, 4, 6],
-                     countTo: "08/22/22 22:00"
-                  }}
-               />
-            )}
+            {pollToLoad === 1 && <ThumbsUpDownPoll />}
+            {pollToLoad === 2 && <MultipleChoicePollCard />}
          </div>
       </div>
    );
