@@ -71,14 +71,11 @@ export const ThumbsUpDownPoll = () => {
          {loading === "done" && poll && (
             <div className={styles.mainWrapper}>
                <div className={styles.countdown}>
-                  <CardTimer time={poll?.countdown} />
+                  <CardTimer time={poll.countdown} />
                </div>
 
                <div className={styles.stats}>
-                  <ThumbsUpDownStats
-                     votesDown={poll?.votes?.votesDown}
-                     votesUp={poll?.votes?.votesUp}
-                  />
+                  <ThumbsUpDownStats votes={poll.votes} />
                </div>
 
                <section className={styles.poll}>
@@ -90,13 +87,13 @@ export const ThumbsUpDownPoll = () => {
                         icon='👍'
                         title='Agree'
                         type='1'
-                        cta={{ handleClick: () => handleVote(1, 0, poll?.ID, "agree") }}
+                        cta={{ handleClick: () => handleVote(1, 0, poll.ID, "agree") }}
                      />
                      <Third
                         icon='👎'
                         title='Disagree'
                         type='2'
-                        cta={{ handleClick: () => handleVote(0, 1, poll?.ID, "disagree") }}
+                        cta={{ handleClick: () => handleVote(0, 1, poll.ID, "disagree") }}
                      />
                   </div>
                )}

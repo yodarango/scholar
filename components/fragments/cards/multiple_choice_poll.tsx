@@ -31,10 +31,8 @@ export const MultipleChoicePollCard = () => {
    const fetchData = async () => {
       try {
          const { data, status } = await getMultipleOptionsPollIn24();
-         const options = data?.poll_multiple_choice_in_24?.options
-            ? data?.poll_multiple_choice_in_24?.options.split(" ")
-            : [];
-         data && setpoll({ ...data.poll_multiple_choice_in_24, options });
+
+         data && setpoll(data.poll_multiple_choice_in_24);
          setloading(status);
          console.log(data);
       } catch (error) {
@@ -71,22 +69,22 @@ export const MultipleChoicePollCard = () => {
          {loading === "done" && poll && (
             <div className={styles.mainWrapper}>
                <div className={styles.timer}>
-                  <CardTimer time={poll?.countdown} />
+                  <CardTimer time={poll.countdown} />
                </div>
                <div className={styles.question}>
-                  <Parragraph text={poll?.dilemma} size='main' />
+                  <Parragraph text={poll.dilemma} size='main' />
                </div>
                {!hasVoted && (
                   <div className={styles.options}>
                      <MultipleChoicePollOptions
                         cta={{ handleVote: (selection) => handleVote(selection) }}
-                        options={poll?.options}
+                        options={poll.options}
                      />
                   </div>
                )}
                {hasVoted && <NotificationSticker type='1' text={`you voted for ${votedFor}`} />}
                <div className={styles.graph}>
-                  <MultipleChoicePoll votes={poll?.votes} />
+                  <MultipleChoicePoll votes={poll.votes} optionsAmount={poll.options.length} />
                </div>
             </div>
          )}

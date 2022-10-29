@@ -30,16 +30,43 @@ import { GET_POLL_MULTIPLE_OPTIONS } from "../../../graphql/interactive/poll_mul
 
 export const getMultipleOptionsPollIn24 = async () => {
    try {
-      const { data } = await client.query({
+      const {
+         data,
+         data: { poll_multiple_choice_in_24 }
+      } = await client.query({
          query: GET_POLL_MULTIPLE_OPTIONS,
          variables: {}
       });
 
-      if (!data.poll_multiple_choice_in_24) {
-         return { data: null, status: "error" };
+      console.log(data);
+
+      if (poll_multiple_choice_in_24) {
+         // parse the the date as the options and votes come in a string form
+         let options = [];
+         let votes = { vote: null };
+
+         // parse the options
+         if (poll_multiple_choice_in_24.options) {
+            options = poll_multiple_choice_in_24.options.split(" ");
+         }
+
+         // parse the votes
+         if (poll_multiple_choice_in_24.votes) {
+            if (poll_multiple_choice_in_24.votes.vote) {
+               // split each vote separately
+               const splitVotes = poll_multiple_choice_in_24.votes.vote.split(" ");
+               // parse it to an integer
+               votes.vote = splitVotes.map((vote: string) => parseInt(vote));
+            }
+         }
+
+         poll_multiple_choice_in_24.options = options;
+         poll_multiple_choice_in_24.votes = { ...poll_multiple_choice_in_24.votes, ...votes };
+
+         return { data, status: "done" };
       }
 
-      return { data, status: "done" };
+      return { data: null, status: "error" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

@@ -4,25 +4,26 @@ import { Parragraph } from "../Typography/parragraph";
 // styles
 import styles from "./thumbs_up_down_stats.module.css";
 
+import { TThumbsUpDownPollVote } from "../../../types/interactive";
+
 type TThumbsUpDownStatsProps = {
-   votesUp: number;
-   votesDown: number;
+   votes: TThumbsUpDownPollVote;
 };
-export const ThumbsUpDownStats = ({ votesUp, votesDown }: TThumbsUpDownStatsProps) => {
-   const totalVotes = votesDown + votesUp;
-   const upPercentage = Math.round((votesUp / totalVotes) * 100);
-   const downPercentage = Math.round((votesDown / totalVotes) * 100);
+export const ThumbsUpDownStats = ({ votes }: TThumbsUpDownStatsProps) => {
+   const totalVotes = votes.votesDown + votes.votesUp;
+   const upPercentage = Math.round((votes.votesUp / totalVotes) * 100);
+   const downPercentage = Math.round((votes.votesDown / totalVotes) * 100);
 
    return (
       <div className={styles.mainWrapper}>
          {/* ---------------------- left side -------------- */}
          <div className={styles.thumbsUpWrapper}>
             <div className={styles.percentage}>
-               <Parragraph size='xsmall' text={`${votesUp ? upPercentage : 0}%`} />
+               <Parragraph size='xsmall' text={`${votes.votesUp ? upPercentage : 0}%`} />
             </div>
             <div
                className={`${styles.bar} ${styles.barDown}`}
-               style={{ width: `${votesUp ? upPercentage : 100}%` }}></div>
+               style={{ width: `${votes.votesUp > 0 ? upPercentage : 100}%` }}></div>
          </div>
 
          {/* ---------------------- middle side -------------- */}
@@ -32,9 +33,9 @@ export const ThumbsUpDownStats = ({ votesUp, votesDown }: TThumbsUpDownStatsProp
          <div className={styles.thumbsDownWrapper}>
             <div
                className={`${styles.bar} ${styles.barUp}`}
-               style={{ width: `${votesDown ? downPercentage : 100}%` }}></div>
+               style={{ width: `${votes.votesDown > 0 ? downPercentage : 100}%` }}></div>
             <div className={styles.percentage}>
-               <Parragraph size='xsmall' text={`${votesDown ? downPercentage : 0}%`} />
+               <Parragraph size='xsmall' text={`${votes.votesDown > 0 ? downPercentage : 0}%`} />
             </div>
          </div>
       </div>

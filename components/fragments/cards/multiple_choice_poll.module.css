@@ -1,5 +1,5 @@
 .mainWrapper {
-   padding: var(--spacing-m) var(--spacing-xs);
+   padding: var(--spacing-m) var(--spacing-s);
    background-color: var(--secondary-color);
    border-radius: 3em;
 }
