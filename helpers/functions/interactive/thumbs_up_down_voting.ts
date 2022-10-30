@@ -44,7 +44,6 @@ export const getThumbsUpPollIn24 = async () => {
          variables: {}
       });
 
-      console.log(data);
       let votes: any = { votesUp: null, votesDown: null };
 
       if (poll_thumbs_up_in_24) {

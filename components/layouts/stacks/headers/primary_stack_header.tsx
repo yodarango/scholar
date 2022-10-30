@@ -8,11 +8,11 @@ import styles from "./primary_stack_header.module.css";
 
 type TPrimaryStackHeaderProps = {
    cta?: { handleClose: () => void };
+   href?: string;
    icon?: string;
    title: string;
-   renderClose?: boolean;
 };
-export const PrimaryStackHeader = ({ cta, icon, title, renderClose }: TPrimaryStackHeaderProps) => {
+export const PrimaryStackHeader = ({ cta, icon, title, href }: TPrimaryStackHeaderProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>
@@ -25,9 +25,14 @@ export const PrimaryStackHeader = ({ cta, icon, title, renderClose }: TPrimarySt
                )}
             </div>
          </div>
-         {renderClose && cta && (
+         {cta && cta.handleClose && (
             <div className={styles.close}>
                <CloseContent cta={{ handleClick: cta.handleClose }} />
+            </div>
+         )}
+         {href && (
+            <div className={styles.close}>
+               <CloseContent href={href} />
             </div>
          )}
          <div className={styles.trim}></div>

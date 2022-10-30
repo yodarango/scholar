@@ -1,3 +1,4 @@
+import { CloseContent } from "../../fragments/buttons/close_content";
 import styles from "./grid_primary.module.css";
 
 type TGridPrimaryProps = {

@@ -19,13 +19,17 @@ import { handleGetCommentaries } from "../../../helpers/functions/posts/commenta
 export const CommentariesAll = () => {
    const [commentaries, setcommentaries] = useState<TCommentary[]>([]);
    const [loading, setloading] = useState<string>("loading");
-   const [last_id, set_last_id] = useState<number>(0);
+   const [last_id, set_last_id] = useState<number>(9999999999);
 
    // fetch data
    const fetchData = async () => {
       try {
          const { data, status } = await handleGetCommentaries({ last_id });
-         data && setcommentaries(data.commentary);
+         if (data && data.commentary) {
+            setcommentaries(data.commentary);
+            set_last_id(data.commentary.at(-1).ID);
+         }
+         console.log(status);
          setloading(status);
       } catch (error) {
          console.error(error);
@@ -48,7 +52,7 @@ export const CommentariesAll = () => {
                <CommentaryFilter />
             </div>
          </div>
-         {loading === "loading" && (
+         {loading === "done" && commentaries.length > 0 && (
             <div className={styles.postsWrapper}>
                <CommentariesGrid commentaries={commentaries} />
             </div>

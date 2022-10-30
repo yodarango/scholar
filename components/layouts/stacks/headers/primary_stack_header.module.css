@@ -33,7 +33,7 @@
 }
 
 .close {
-   z-index: 2;
+   z-index: 5;
    position: fixed;
    top: var(--spacing-ml);
    right: var(--spacing-ml);

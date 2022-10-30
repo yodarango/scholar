@@ -11,3 +11,8 @@
 .child {
    width: 100%;
 }
+
+.close {
+   position: absolute;
+   z-index: 3;
+}
