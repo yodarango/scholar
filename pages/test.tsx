@@ -78,7 +78,7 @@ import { General } from "../templates/account/general";
 const Test = () => {
    return (
       <div style={{ padding: "3rem" }}>
-         {<General />}
+         {/* {<General />} */}
          {/* <UserNotificationsWrapper title='Notifications' cta={{ handleClose() {} }} /> */}
          {/* <Profile username='username' /> */}
          {/* <NavigateThruPosts /> */}

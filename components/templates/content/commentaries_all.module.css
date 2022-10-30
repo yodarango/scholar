@@ -28,3 +28,12 @@
 .postsWrapper {
    padding-top: calc(10rem + var(--spacing-xxs)); /*height of the filter + space*/
 }
+
+.loader,
+.error {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: calc(var(--spacing-l) * 3) 0;
+}

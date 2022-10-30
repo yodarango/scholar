@@ -50,6 +50,7 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
             const { data, status } = await getThumbsUpPollIn24();
             data && setpoll(data.poll_thumbs_up_in_24);
             setloading(status);
+            console.log(data);
          } catch (error) {
             console.error(error);
             setpoll(null);

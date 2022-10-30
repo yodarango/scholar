@@ -1,6 +1,6 @@
 // graphQl
 import { client } from "../../../apollo-client";
-import { GET_COMMENTARIES_IN_24 } from "../../../graphql/posts/commentaries";
+import { GET_COMMENTARIES_IN_24, GET_COMMENTARIES } from "../../../graphql/posts/commentaries";
 
 // fetch data
 export const handleGetCommentariesIn24 = async () => {
@@ -11,6 +11,32 @@ export const handleGetCommentariesIn24 = async () => {
       });
 
       if (!data.commentary_in_24) {
+         return { data: null, status: "error" };
+      }
+
+      return { data, status: "done" };
+   } catch (error) {
+      console.error(error);
+      return { data: null, status: "error" };
+   }
+};
+
+type TgetcommentariesVariables = {
+   ID?: string | number;
+   USER_ID?: string;
+   VERSE_ID?: string;
+   category_tags?: string;
+   last_id: string | number;
+};
+
+export const handleGetCommentaries = async (variables: TgetcommentariesVariables) => {
+   try {
+      const { data } = await client.query({
+         query: GET_COMMENTARIES,
+         variables
+      });
+
+      if (!data.commentary) {
          return { data: null, status: "error" };
       }
 
