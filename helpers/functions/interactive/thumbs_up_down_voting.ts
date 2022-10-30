@@ -59,6 +59,14 @@ export const getThumbsUpPollIn24 = async () => {
                   votesUp: parseInt(votes.votesUp),
                   votesDown: parseInt(votes.votesDown)
                };
+            } else {
+               poll_thumbs_up_in_24.votes.vote = {
+                  ID: null,
+                  type: null,
+                  POLL_ID: null,
+                  votesUp: 0,
+                  votesDown: 0
+               };
             }
             return { data, status: "done" };
          } else {

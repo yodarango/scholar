@@ -2,7 +2,3 @@
    width: var(--global-wrapper-width);
    margin: auto;
 }
-
-.mainWrapper > div {
-   margin: var(--spacing-ml);
-}

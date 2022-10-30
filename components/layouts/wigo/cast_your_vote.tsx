@@ -13,7 +13,12 @@ export const CastYourVote = () => {
 
    // decide which poll to load
    const getPollToLoad = () => {
-      setpollToLoad(2);
+      const dayOfTheWeek = new Date().getDay();
+      if (dayOfTheWeek === 1 || dayOfTheWeek === 3 || dayOfTheWeek === 5) {
+         setpollToLoad(2);
+      } else {
+         setpollToLoad(1);
+      }
    };
 
    useEffect(() => {

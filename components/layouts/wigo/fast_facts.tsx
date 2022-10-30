@@ -21,6 +21,7 @@ export const FastFacts = () => {
       try {
          const { data, status } = await getFastFactsIn24();
          data && setimages(data.fast_facts_in_24);
+         console.log(data);
          setloading(status);
       } catch (error) {
          setimages(null);
@@ -53,11 +54,7 @@ export const FastFacts = () => {
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         {loading === "error" && <div className={styles.error}>#needsgraphics</div>}
       </div>
    );
 };

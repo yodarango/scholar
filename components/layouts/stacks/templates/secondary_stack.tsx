@@ -2,6 +2,7 @@
 -  Content holder that is rendered directly from a page or from a high level component.
 **********************************************************************************************************/
 // comps
+import { CloseContent } from "../../../fragments/buttons/close_content";
 import { CategoryTag } from "../../../fragments/chunks/category_tag";
 import { Icon } from "../../../fragments/chunks/icons";
 import { ToggleMenu } from "../../../fragments/chunks/toggle_menu";
@@ -14,10 +15,13 @@ type TPrimaryStackprops = {
    title: string;
    children: (string | JSX.Element) | (string | JSX.Element)[];
    icon?: string;
-   menuType: number;
+   menuType?: number;
+   cta?: {
+      handleClose: () => void;
+   };
 };
 
-export const SecondaryStack = ({ title, children, menuType, icon }: TPrimaryStackprops) => {
+export const SecondaryStack = ({ title, children, menuType, icon, cta }: TPrimaryStackprops) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>
@@ -33,6 +37,7 @@ export const SecondaryStack = ({ title, children, menuType, icon }: TPrimaryStac
          <div className={styles.toggleIcon}>
             {menuType === 1 && <ToggleMenu type={1} />}
             {menuType === 2 && <CategoryTag informativeOnly={false} />}
+            {cta?.handleClose && <CloseContent cta={{ handleClick: cta?.handleClose }} />}
          </div>
          <div className={styles.subWrapper}>
             <div className={styles.contentHolder}>{children}</div>

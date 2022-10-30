@@ -43,8 +43,9 @@
 .contentHolder {
    height: 100%;
    width: 90%;
-   margin: auto;
+   margin: var(--spacing-xxs) auto 0;
    padding: var(--spacing-l) 0;
+   border-top-right-radius: 3em;
    overflow-y: scroll;
    overflow-x: visible;
 }

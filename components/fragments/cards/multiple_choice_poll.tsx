@@ -1,3 +1,8 @@
+/**************************************************************************************** 
+- Handles a voting and displaying of multiple choice questionss
+ - There is the option to have the parent fetch the data in cases where many polls
+   are rendered, If this is desired passed the dataFromParent prop
+****************************************************************************************/
 // core
 import { useState, useEffect } from "react";
 
@@ -20,7 +25,12 @@ import { TMultipleChicePoll } from "../../../types/interactive";
 import { RoundLoader } from "../chunks/round_loader";
 import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
 
-export const MultipleChoicePollCard = () => {
+type TMultipleChoicePollCardProps = {
+   dataFromParent?: boolean;
+   data?: TMultipleChicePoll;
+};
+
+export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoicePollCardProps) => {
    // check if user has already voted by checking cookie
    const [hasVoted, sethasVoted] = useState<boolean>(false);
    const [votedFor, setvotedFor] = useState<any>();
@@ -29,16 +39,20 @@ export const MultipleChoicePollCard = () => {
 
    // get poll data
    const fetchData = async () => {
-      try {
-         const { data, status } = await getMultipleOptionsPollIn24();
+      if (dataFromParent && data) {
+         setpoll(data);
+         setloading("done");
+      } else {
+         try {
+            const { data, status } = await getMultipleOptionsPollIn24();
 
-         data && setpoll(data.poll_multiple_choice_in_24);
-         setloading(status);
-         console.log(data);
-      } catch (error) {
-         console.error(error);
-         setpoll(null);
-         setloading("error");
+            data && setpoll(data.poll_multiple_choice_in_24);
+            setloading(status);
+         } catch (error) {
+            console.error(error);
+            setpoll(null);
+            setloading("error");
+         }
       }
    };
 
@@ -57,6 +71,7 @@ export const MultipleChoicePollCard = () => {
    useEffect(() => {
       // fetch the data
       fetchData();
+
       // check if user has already voted by checking cookie
       const cookie = getCookie("multChoice${poll?.ID}");
       const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
@@ -93,11 +108,7 @@ export const MultipleChoicePollCard = () => {
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         {loading === "error" && <div className={styles.error}>#needsgraphics</div>}
       </>
    );
 };

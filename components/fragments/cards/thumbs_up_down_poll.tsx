@@ -1,7 +1,9 @@
 /**********************************************************************************
  - allows users to vote on a specific topic from and the percentages are calculated 
  for each side based on the total votes received.
- - hanndle the vote by calling the thumbs_up_down_voting.ts helper
+ - handle the vote by calling the thumbs_up_down_voting.ts helper
+ - There is the option to have the parent fetch the data in cases where many polls
+   are rendered, If this is desired passed the dataFromParent prop
  /*********************************************************************************/
 
 import { useEffect, useState } from "react";
@@ -26,7 +28,12 @@ import { getCookie } from "../../../helpers/get-cookie";
 import { getThumbsUpPollIn24 } from "../../../helpers/functions/interactive/thumbs_up_down_voting";
 import { WinningPoll } from "./winning_poll";
 
-export const ThumbsUpDownPoll = () => {
+type TThumbsUpDownPollProps = {
+   dataFromParent?: boolean;
+   data?: TThumbsUpDownPoll;
+};
+
+export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProps) => {
    //state
    const [hasVoted, sethasVoted] = useState<boolean>(false);
    const [votedFor, setvotedFor] = useState<any>();
@@ -35,14 +42,19 @@ export const ThumbsUpDownPoll = () => {
 
    // get poll data
    const fetchData = async () => {
-      try {
-         const { data, status } = await getThumbsUpPollIn24();
-         data && setpoll(data.poll_thumbs_up_in_24);
-         setloading(status);
-      } catch (error) {
-         console.error(error);
-         setpoll(null);
-         setloading("error");
+      if (dataFromParent && data) {
+         setpoll(data);
+         setloading("done");
+      } else {
+         try {
+            const { data, status } = await getThumbsUpPollIn24();
+            data && setpoll(data.poll_thumbs_up_in_24);
+            setloading(status);
+         } catch (error) {
+            console.error(error);
+            setpoll(null);
+            setloading("error");
+         }
       }
    };
 
@@ -105,11 +117,7 @@ export const ThumbsUpDownPoll = () => {
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         {loading === "error" && <div className={styles.error}>#needsgraphics</div>}
       </>
    );
 };

@@ -38,30 +38,33 @@ export const getMultipleOptionsPollIn24 = async () => {
          variables: {}
       });
 
-      console.log(data);
-
       if (poll_multiple_choice_in_24) {
          // parse the the date as the options and votes come in a string form
-         let options = [];
-         let votes = { vote: null };
-
-         // parse the options
-         if (poll_multiple_choice_in_24.options) {
-            options = poll_multiple_choice_in_24.options.split(" ");
+         if (
+            poll_multiple_choice_in_24.options &&
+            typeof poll_multiple_choice_in_24.options === "string"
+         ) {
+            let options = poll_multiple_choice_in_24.options.split(" ");
+            poll_multiple_choice_in_24.options = options;
          }
 
          // parse the votes
          if (poll_multiple_choice_in_24.votes) {
-            if (poll_multiple_choice_in_24.votes.vote) {
+            if (
+               poll_multiple_choice_in_24.votes.vote &&
+               typeof poll_multiple_choice_in_24.votes.vote === "string"
+            ) {
                // split each vote separately
                const splitVotes = poll_multiple_choice_in_24.votes.vote.split(" ");
                // parse it to an integer
-               votes.vote = splitVotes.map((vote: string) => parseInt(vote));
+
+               let vote = splitVotes.map((vote: string) => parseInt(vote));
+               poll_multiple_choice_in_24.votes = {
+                  ...poll_multiple_choice_in_24.votes,
+                  vote
+               };
             }
          }
-
-         poll_multiple_choice_in_24.options = options;
-         poll_multiple_choice_in_24.votes = { ...poll_multiple_choice_in_24.votes, ...votes };
 
          return { data, status: "done" };
       }

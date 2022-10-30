@@ -23,7 +23,9 @@ export const ThumbsUpDownStats = ({ votes }: TThumbsUpDownStatsProps) => {
             </div>
             <div
                className={`${styles.bar} ${styles.barDown}`}
-               style={{ width: `${votes.votesUp > 0 ? upPercentage : 100}%` }}></div>
+               style={{
+                  width: `${votes.votesUp > 0 || votes.votesDown > 0 ? upPercentage : 100}%`
+               }}></div>
          </div>
 
          {/* ---------------------- middle side -------------- */}
@@ -33,7 +35,9 @@ export const ThumbsUpDownStats = ({ votes }: TThumbsUpDownStatsProps) => {
          <div className={styles.thumbsDownWrapper}>
             <div
                className={`${styles.bar} ${styles.barUp}`}
-               style={{ width: `${votes.votesDown > 0 ? downPercentage : 100}%` }}></div>
+               style={{
+                  width: `${votes.votesDown > 0 || votes.votesUp > 0 ? downPercentage : 100}%`
+               }}></div>
             <div className={styles.percentage}>
                <Parragraph size='xsmall' text={`${votes.votesDown > 0 ? downPercentage : 0}%`} />
             </div>

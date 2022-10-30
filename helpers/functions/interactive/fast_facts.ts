@@ -8,7 +8,7 @@ export const getFastFactsIn24 = async () => {
          variables: {}
       });
 
-      if (!data.fast_facts_in_24) {
+      if (data && !data.fast_facts_in_24) {
          return { data: null, status: "error" };
       }
 

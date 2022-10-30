@@ -75,8 +75,6 @@ export const MultipleChoicePoll = ({ votes, optionsAmount }: TMultipleChoicePoll
       "z"
    ];
 
-   console.log(votes);
-
    let votesArray: number[] = votes?.vote ? votes?.vote : [];
 
    //  extrapolate percentages
