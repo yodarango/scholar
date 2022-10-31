@@ -4,8 +4,13 @@
     the search here by passing values to the router query
 ***********************************************************************************************/
 
+import { useRouter } from "next/router";
+
+// components
 import { CategoryTag } from "./chunks/category_tag";
 import { SearchInput } from "./inputs/search_input";
+
+// styles
 import styles from "./search_input_w_cat.module.css";
 
 type TSearchInputWCatProps = {
@@ -17,14 +22,18 @@ type TSearchInputWCatProps = {
 };
 
 export const SearchInputWCat = ({ placeHolder, cta }: TSearchInputWCatProps) => {
+   // router
+   const router = useRouter();
    const handleSearch = (value: string) => {
       // handle the search here
       // probably set the value in the router.query
    };
 
    const handleCategory = (cat: string) => {
-      // handle the search here
-      // probably set the value in the router.query
+      router.push({
+         pathname: router.pathname,
+         query: { ...router.query, category: cat }
+      });
    };
 
    return (

@@ -29,7 +29,6 @@ export const CommentariesAll = () => {
             setcommentaries(data.commentary);
             set_last_id(data.commentary.at(-1).ID);
          }
-         console.log(status);
          setloading(status);
       } catch (error) {
          console.error(error);

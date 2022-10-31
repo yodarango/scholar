@@ -15,14 +15,14 @@ export const CommentaryFilter = () => {
    const [buttonActive, setbuttonActive] = useState<string | string[] | null>("0");
    const [filterURl, setfilterURl] = useState<string | string[] | null>(null);
 
-   // get router info
+   ///get router info
    useEffect(() => {
       if (router.isReady) {
          if (router.query["verse-id"]) {
             const verseId = router.query["verse-id"];
-            setfilterURl(`/test/?verse-id=${verseId}&`);
+            setfilterURl(`?verse-id=${verseId}&`);
          } else {
-            setfilterURl(`/test/?`);
+            setfilterURl(`?`);
          }
 
          if (router.query["filter"]) {
@@ -43,7 +43,7 @@ export const CommentaryFilter = () => {
                      title='General'
                      icon='🌎'
                      fullWidth
-                     url={`${filterURl}filter=0`}
+                     cta={{ hand }}
                   />
                </div>
                <div className={styles.trusted}>
