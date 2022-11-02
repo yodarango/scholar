@@ -2,11 +2,21 @@ import { gql } from "@apollo/client";
 
 // get all commentaries by filter. Only one will be fetch if ID is passed
 export const GET_COMMENTARIES = gql`
-   query ($ID: ID, $USER_ID: ID, $VERSE_ID: String, $category_tags: String, $last_id: ID) {
+   query (
+      $ID: ID
+      $USER_ID: ID
+      $VERSE_ID: String
+      $AUTHORITY_LEVEL: ID
+      $body: String
+      $category_tags: String
+      $last_id: ID
+   ) {
       commentary(
          ID: $ID
          USER_ID: $USER_ID
          VERSE_ID: $VERSE_ID
+         AUTHORITY_LEVEL: $AUTHORITY_LEVEL
+         body: $body
          category_tags: $category_tags
          last_id: $last_id
       ) {

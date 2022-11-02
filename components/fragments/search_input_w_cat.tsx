@@ -24,15 +24,17 @@ type TSearchInputWCatProps = {
 export const SearchInputWCat = ({ placeHolder, cta }: TSearchInputWCatProps) => {
    // router
    const router = useRouter();
-   const handleSearch = (value: string) => {
-      // handle the search here
-      // probably set the value in the router.query
-   };
-
-   const handleCategory = (cat: string) => {
+   const handleSearch = (body: string) => {
       router.push({
          pathname: router.pathname,
-         query: { ...router.query, category: cat }
+         query: { ...router.query, body }
+      });
+   };
+
+   const handleCategory = (category_tags: string) => {
+      router.push({
+         pathname: router.pathname,
+         query: { ...router.query, category_tags }
       });
    };
 

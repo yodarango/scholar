@@ -21,10 +21,12 @@ export const handleGetCommentariesIn24 = async () => {
    }
 };
 
-type TgetcommentariesVariables = {
+export type TgetcommentariesVariables = {
    ID?: string | number;
    USER_ID?: string;
    VERSE_ID?: string;
+   AUTHORITY_LEVEL?: string;
+   body?: string;
    category_tags?: string;
    last_id: string | number;
 };
