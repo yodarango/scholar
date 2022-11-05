@@ -25,19 +25,20 @@ export const CommentariesAll = () => {
    // components
    const [commentaries, setcommentaries] = useState<TCommentary[]>([]);
    const [loading, setloading] = useState<string>("loading");
-   const [last_id, set_last_id] = useState<number>(9999999999);
+   const [showloadMore, setshowloadMore] = useState<boolean>(true);
+   const last_id = 9999999999;
 
    // fetch data
    const fetchData = async (variables: TgetcommentariesVariables) => {
+      console.log("fetch Data");
       setloading("loading");
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
+            // do this above for every filter this is so that I can filter when there is already filters in the query
             setcommentaries(data.commentary);
-            data.commentary?.at(-1)?.ID
-               ? set_last_id(data.commentary?.at(-1).ID)
-               : set_last_id(9999999999);
          }
+         console.log(data);
          setloading(status);
       } catch (error) {
          console.error(error);
@@ -46,11 +47,55 @@ export const CommentariesAll = () => {
       }
    };
 
+   const fetchMore = async (variables: TgetcommentariesVariables) => {
+      console.log("fetch More");
+      setshowloadMore;
+
+      try {
+         const { data, status } = await handleGetCommentaries(variables);
+         if (data && data.commentary) {
+            // filter tags
+            let commentaries = data.commentary;
+
+            if (variables.category_tags) {
+               const filterTags = data.commentary.filter(
+                  (post: TCommentary) => post.category_tags === variables.category_tags
+               );
+               console.log(filterTags);
+               commentaries.push(...filterTags);
+            }
+
+            if (variables.AUTHORITY_LEVEL) {
+               const filterAuthLevel = data.commentary.filter(
+                  (post: TCommentary) => post.authority_level === variables.AUTHORITY_LEVEL
+               );
+               commentaries.push(...filterAuthLevel);
+            }
+
+            console.log(data.commentary);
+            console.log(commentaries);
+
+            // do this above for every filter this is so that I can filter wehn there is already filters in the query
+            setcommentaries((prev: any) => [...prev, ...commentaries]);
+         }
+         setloading(status);
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
+   // load more
    useEffect(() => {
       if (Object.keys(router.query).length > 0) {
-         router.query.AUTHORITY_LEVEL
-            ? fetchData({ last_id, ...router.query })
-            : fetchData({ last_id, AUTHORITY_LEVEL: "0", ...router.query });
+         if (router.query.last_id) {
+            router.query.AUTHORITY_LEVEL
+               ? fetchMore({ ...router.query })
+               : fetchMore({ AUTHORITY_LEVEL: "0", ...router.query });
+         } else {
+            router.query.AUTHORITY_LEVEL
+               ? fetchData({ last_id, ...router.query })
+               : fetchData({ last_id, AUTHORITY_LEVEL: "0", ...router.query });
+         }
       } else {
          fetchData({ last_id });
       }
@@ -68,7 +113,7 @@ export const CommentariesAll = () => {
          </div>
          {loading === "done" && commentaries.length > 0 && (
             <div className={styles.postsWrapper}>
-               <CommentariesGrid commentaries={commentaries} />
+               <CommentariesGrid commentaries={commentaries} showLoadMore={showloadMore} />
             </div>
          )}
          {loading === "loading" && (

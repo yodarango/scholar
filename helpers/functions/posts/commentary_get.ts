@@ -28,7 +28,7 @@ export type TgetcommentariesVariables = {
    AUTHORITY_LEVEL?: string;
    body?: string;
    category_tags?: string;
-   last_id: string | number;
+   last_id?: string | number;
 };
 
 export const handleGetCommentaries = async (variables: TgetcommentariesVariables) => {
@@ -48,3 +48,21 @@ export const handleGetCommentaries = async (variables: TgetcommentariesVariables
       return { data: null, status: "error" };
    }
 };
+
+// export const handleGetMore = async (variables: TgetcommentariesVariables) => {
+//    try {
+//       const { data } = await client.query({
+//          query: GET_COMMENTARIES,
+//          variables
+//       });
+
+//       if (!data.commentary) {
+//          return { data: null, status: "error" };
+//       }
+
+//       return { data, status: "done" };
+//    } catch (error) {
+//       console.error(error);
+//       return { data: null, status: "error" };
+//    }
+// };

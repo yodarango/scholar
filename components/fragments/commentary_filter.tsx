@@ -17,8 +17,8 @@ export const CommentaryFilter = () => {
    ///get router info
    useEffect(() => {
       if (router.isReady) {
-         if (router.query["filter"]) {
-            setbuttonActive(router.query["filter"]);
+         if (router.query["AUTHORITY_LEVEL"]) {
+            setbuttonActive(router.query["AUTHORITY_LEVEL"]);
          }
       }
    }, [router.isReady, router.query]);

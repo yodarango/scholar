@@ -12,6 +12,7 @@ export type TCommentary = {
    total_count: number;
    postImage: string;
    is_private: boolean;
+   authority_level: string;
    creator: {
       ID: string;
       signature: string;
