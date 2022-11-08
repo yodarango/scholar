@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // comps
 import { GridPrimary } from "../grid_primary";
@@ -9,64 +10,155 @@ import styles from "./commentaries_grid.module.css";
 
 // types
 import { TQuote } from "../../../../types/posts";
+import { Primary } from "../../../fragments/buttons/primary";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { handleGetQuote, TgetQuoteVariables } from "../../../../helpers/functions/posts/quote_get";
 
-type TQuotesGridProps = {
-   filters?: {
-      tag?: string;
-   };
-};
-export const QuotesGrid = ({ filters }: TQuotesGridProps) => {
+export const QuotesGrid = () => {
+   // router
+   const router = useRouter();
+
+   // components
    const [quotes, setquotes] = useState<TQuote[]>([]);
+   const [loading, setloading] = useState<string>("loading");
+   const [showloadMore, setshowloadMore] = useState<boolean>(true);
+   const [smallLoader, setsmallLoader] = useState<boolean>(false);
+   const [queryVariables, setqueryVariables] = useState<TgetQuoteVariables>({ last_id: 999999999 });
 
-   // fetch commentaris based on ID
+   // fetch data on first time loading. Only runs on first load
+   const fetchData = async (variables: TgetQuoteVariables) => {
+      setloading("loading");
+      try {
+         const { data, status } = await handleGetQuote(variables);
+         if (data && data.quote) {
+            setquotes(data.quote);
+            data.quote.length > 0 &&
+               setqueryVariables({ last_id: data.quote[data.quote.length - 1].ID });
+         }
+         data.quote.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         setloading(status);
+      } catch (error) {
+         console.error(error);
+         setquotes([]);
+         setloading("error");
+      }
+   };
+
+   // fetch data any time any of the query params change.
+   const fetchOnQueryChange = async (variables: TgetQuoteVariables) => {
+      setshowloadMore(false);
+      setsmallLoader(true);
+
+      try {
+         const {
+            data,
+            data: { quote },
+            status
+         } = await handleGetQuote(variables);
+         if (data && quote) {
+            setquotes(data.quote);
+            quote.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setsmallLoader(false);
+         }
+      } catch (error) {
+         setquotes([]);
+         console.error(error);
+      }
+   };
+
+   // only fetches more with watever params are there in the router posts
+   const fetchMore = async (variables: TgetQuoteVariables) => {
+      setshowloadMore(false);
+      setsmallLoader(true);
+
+      try {
+         const { data, status } = await handleGetQuote(variables);
+         if (data && data.quote) {
+            // filter tags
+            let moreQuotes = data.quote;
+
+            // update query variables
+            moreQuotes.length > 0 &&
+               setqueryVariables({
+                  ...queryVariables,
+                  last_id: moreQuotes[moreQuotes.length - 1].ID
+               });
+
+            setquotes((prev) => [...prev, ...moreQuotes]);
+            moreQuotes.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setsmallLoader(false);
+         }
+      } catch (error) {
+         setquotes([]);
+         console.error(error);
+      }
+   };
+
+   // only call fetch data on initial load
    useEffect(() => {
-      setquotes(
-         [...Array(20)].map(() => ({
-            ID: "1",
-            body: "This is my post",
-            category_tags: "#CYN #BLK",
-            author: "myusername",
-            background: "quote-bkg--5",
-            posted_on: "12/24/2022",
-            date: "07/07/2022 02:00",
-            total_count: 5,
-            creator: {
-               ID: "1",
-               signature: "Myusername",
-               authority_level: 1,
-               approval_rating: 100,
-               avatar: "/images/logo.png"
-            },
-            comments: [{ total_count: 20 }],
-            approvals: [
-               {
-                  total_count: 5,
-                  average_count: 5
-               }
-            ]
-         }))
-      );
-   }, []);
+      if (router.isReady)
+         router.query.last_id
+            ? fetchData({ ...router.query })
+            : fetchData({ ...queryVariables, ...router.query });
+   }, [router.isReady]);
+
+   // call on query params change
+   useEffect(() => {
+      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+   }, [router.query]);
 
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.gridWrapper}>
-            <GridPrimary>
-               {quotes.map((quote: TQuote, index: number) => (
-                  <div key={index} className={styles.child}>
-                     <Quote
-                        type={1}
+         {loading === "done" && (
+            <div className={styles.gridWrapper}>
+               <GridPrimary>
+                  {quotes.map((quote: TQuote, index: number) => (
+                     <div data-test={quote.ID} key={index} className={styles.child}>
+                        <Quote
+                           type={1}
+                           cta={{
+                              handleDelete(id: string) {
+                                 console.log(id);
+                              }
+                           }}
+                           quote={quote}
+                        />
+                     </div>
+                  ))}
+               </GridPrimary>
+
+               {showloadMore && (
+                  <div className={styles.loadMore}>
+                     <Primary
+                        title='Load more'
+                        type='1'
                         cta={{
-                           handleDelete(id: string) {
-                              console.log(id);
-                           }
+                           handleClick: () =>
+                              fetchMore({ ...router.query, last_id: quotes[quotes.length - 1].ID })
                         }}
-                        quote={quote}
                      />
                   </div>
-               ))}
-            </GridPrimary>
-         </div>
+               )}
+
+               {smallLoader && (
+                  <div className={styles.smallLoader}>
+                     <SmallLoader />
+                  </div>
+               )}
+            </div>
+         )}
+         {loading === "loading" && (
+            <div className={styles.loader}>
+               <RoundLoader />
+            </div>
+         )}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <ResourceNotFoundError />
+            </div>
+         )}
       </div>
    );
 };

@@ -9,7 +9,6 @@ export const GET_QUOTES = gql`
          category_tags
          author
          background
-         created_date
          posted_on
          creator {
             ID

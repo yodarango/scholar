@@ -3,7 +3,7 @@
    filters prop
 ****************************************************************************************/
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 // comps
@@ -18,10 +18,6 @@ import styles from "./commentaries_grid.module.css";
 // types
 import { TCommentary } from "../../../../types/posts";
 import { Primary } from "../../../fragments/buttons/primary";
-import {
-   handleGetCommentaries,
-   TgetcommentariesVariables
-} from "../../../../helpers/functions/posts/commentary_get";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 type TCommentariesGridProps = {
@@ -41,31 +37,11 @@ export const CommentariesGrid = ({
    verse,
    filters,
    showLoadMore,
-   commentaries
+   commentaries = []
 }: TCommentariesGridProps) => {
    const [commentariesArray, setcommentariesArray] = useState<any>(commentaries);
    const router = useRouter();
-   // //const [last_id, set_last_id] = useState<number>(9999999999);
-   // const [loading, setloading] = useState("done");
 
-   // // fetch data
-   // const handleLoadMore = async () => {
-   //    setloading("loading");
-   //    const last_id = commentariesArray ? commentariesArray.at(-1).ID : 9999999;
-   //    try {
-   //       const { data, status } = await handleGetCommentaries({ last_id });
-   //       if (data && data.commentary) {
-   //          setcommentariesArray((prev: any) => [...prev, ...data.commentary]);
-
-   //          console.log(data);
-   //       }
-   //       setloading(status);
-   //    } catch (error) {
-   //       console.error(error);
-   //       setcommentariesArray([]);
-   //       setloading("done");
-   //    }
-   // };
    return (
       <div className={styles.mainWrapper}>
          {verseCitation && verse && (

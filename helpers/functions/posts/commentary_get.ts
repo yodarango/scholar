@@ -2,6 +2,17 @@
 import { client } from "../../../apollo-client";
 import { GET_COMMENTARIES_IN_24, GET_COMMENTARIES } from "../../../graphql/posts/commentaries";
 
+// field types
+export type TgetcommentariesVariables = {
+   ID?: string | number;
+   USER_ID?: string;
+   VERSE_ID?: string;
+   AUTHORITY_LEVEL?: string;
+   body?: string;
+   category_tags?: string;
+   last_id?: string | number;
+};
+
 // fetch data
 export const handleGetCommentariesIn24 = async () => {
    try {
@@ -19,16 +30,6 @@ export const handleGetCommentariesIn24 = async () => {
       console.error(error);
       return { data: null, status: "error" };
    }
-};
-
-export type TgetcommentariesVariables = {
-   ID?: string | number;
-   USER_ID?: string;
-   VERSE_ID?: string;
-   AUTHORITY_LEVEL?: string;
-   body?: string;
-   category_tags?: string;
-   last_id?: string | number;
 };
 
 export const handleGetCommentaries = async (variables: TgetcommentariesVariables) => {

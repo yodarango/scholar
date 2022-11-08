@@ -30,7 +30,6 @@ export const CommentariesAll = () => {
 
    // fetch data
    const fetchData = async (variables: TgetcommentariesVariables) => {
-      console.log("fetch Data");
       setloading("loading");
       try {
          const { data, status } = await handleGetCommentaries(variables);
@@ -38,7 +37,7 @@ export const CommentariesAll = () => {
             // do this above for every filter this is so that I can filter when there is already filters in the query
             setcommentaries(data.commentary);
          }
-         console.log(data);
+
          setloading(status);
       } catch (error) {
          console.error(error);
@@ -48,8 +47,7 @@ export const CommentariesAll = () => {
    };
 
    const fetchMore = async (variables: TgetcommentariesVariables) => {
-      console.log("fetch More");
-      setshowloadMore;
+      setshowloadMore(false);
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
@@ -61,7 +59,6 @@ export const CommentariesAll = () => {
                const filterTags = data.commentary.filter(
                   (post: TCommentary) => post.category_tags === variables.category_tags
                );
-               console.log(filterTags);
                commentaries.push(...filterTags);
             }
 
@@ -72,11 +69,9 @@ export const CommentariesAll = () => {
                commentaries.push(...filterAuthLevel);
             }
 
-            console.log(data.commentary);
-            console.log(commentaries);
-
             // do this above for every filter this is so that I can filter wehn there is already filters in the query
             setcommentaries((prev: any) => [...prev, ...commentaries]);
+            setshowloadMore(true);
          }
          setloading(status);
       } catch (error) {

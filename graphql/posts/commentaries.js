@@ -35,8 +35,6 @@ export const GET_COMMENTARIES = gql`
             approval_rating
             authority_level
             avatar
-            first_name
-            last_name
          }
          comments {
             total_count
