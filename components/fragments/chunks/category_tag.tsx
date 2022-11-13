@@ -71,7 +71,7 @@ export const CategoryTag = ({
    // update category state and initiate callback to send selection date to the parent
    const handleSelection = (id: string) => {
       setIsCategoryMenuOpen(false);
-      setcurrentCategory(id);
+      id === "*" ? setcurrentCategory(undefined) : setcurrentCategory(id);
       cta?.handleSelection(id);
    };
 

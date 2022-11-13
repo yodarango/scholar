@@ -159,8 +159,8 @@ export const categoryMeta: TcategoryMeta[] = [
       title: "No Tag",
       key: "No Tag",
       categoryID: 11,
-      tag: "",
+      tag: "*",
       color: "#5c5470",
-      subjects: [""]
+      subjects: ["All"]
    }
 ];

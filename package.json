@@ -7,7 +7,7 @@
       "dev": "next dev",
       "build": "next build",
       "start": "next start",
-      "prod": "pm2 start --name=scholar-fe -- start --watch ignore-watch=\"node_modules\"",
+      "prod": "pm2 start --name=scholar-fe npm -- start --watch",
       "storybook": "start-storybook -p 6006 -s ./public",
       "build-storybook": "build-storybook -s public"
    },

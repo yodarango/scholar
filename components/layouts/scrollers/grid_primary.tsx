@@ -2,7 +2,7 @@ import { CloseContent } from "../../fragments/buttons/close_content";
 import styles from "./grid_primary.module.css";
 
 type TGridPrimaryProps = {
-   children: JSX.Element[];
+   children: JSX.Element[] | any;
 };
 
 export const GridPrimary = ({ children }: TGridPrimaryProps) => {

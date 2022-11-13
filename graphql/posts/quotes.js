@@ -2,8 +2,14 @@ import { gql } from "@apollo/client";
 
 // gets a list of quote if no ID is passed or one quote WHERE ID = ID if it is passed.
 export const GET_QUOTES = gql`
-   query ($ID: ID, $USER_ID: ID, $category_tags: String, $last_id: ID) {
-      quote(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags, last_id: $last_id) {
+   query ($ID: ID, $USER_ID: ID, $category_tags: String, $last_id: ID, $body: String) {
+      quote(
+         ID: $ID
+         USER_ID: $USER_ID
+         category_tags: $category_tags
+         last_id: $last_id
+         body: $body
+      ) {
          ID
          body
          category_tags

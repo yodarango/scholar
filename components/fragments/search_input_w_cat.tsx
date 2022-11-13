@@ -32,10 +32,17 @@ export const SearchInputWCat = ({ placeHolder, cta }: TSearchInputWCatProps) => 
    };
 
    const handleCategory = (category_tags: string) => {
-      router.push({
-         pathname: router.pathname,
-         query: { ...router.query, category_tags }
-      });
+      if (category_tags === "*")
+         delete router.query.category_tags,
+            router.push({
+               pathname: router.pathname,
+               query: { ...router.query }
+            });
+      else
+         router.push({
+            pathname: router.pathname,
+            query: { ...router.query, category_tags }
+         });
    };
 
    return (

@@ -6,7 +6,7 @@ import { GridPrimary } from "../grid_primary";
 import { Quote } from "../../../fragments/cards/posts/quote";
 
 // styles
-import styles from "./commentaries_grid.module.css";
+import styles from "./quotes_grid.module.css";
 
 // types
 import { TQuote } from "../../../../types/posts";
@@ -37,6 +37,7 @@ export const QuotesGrid = () => {
             data.quote.length > 0 &&
                setqueryVariables({ last_id: data.quote[data.quote.length - 1].ID });
          }
+
          data.quote.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          setloading(status);
       } catch (error) {
@@ -49,7 +50,7 @@ export const QuotesGrid = () => {
    // fetch data any time any of the query params change.
    const fetchOnQueryChange = async (variables: TgetQuoteVariables) => {
       setshowloadMore(false);
-      setsmallLoader(true);
+      setloading("loading");
 
       try {
          const {
@@ -60,15 +61,16 @@ export const QuotesGrid = () => {
          if (data && quote) {
             setquotes(data.quote);
             quote.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setsmallLoader(false);
+            setloading(status);
          }
       } catch (error) {
          setquotes([]);
+         setloading("error");
          console.error(error);
       }
    };
 
-   // only fetches more with watever params are there in the router posts
+   // only fetches more with whatever params are there in the router posts
    const fetchMore = async (variables: TgetQuoteVariables) => {
       setshowloadMore(false);
       setsmallLoader(true);
@@ -111,10 +113,10 @@ export const QuotesGrid = () => {
 
    return (
       <div className={styles.mainWrapper}>
-         {loading === "done" && (
+         {loading === "done" && quotes && (
             <div className={styles.gridWrapper}>
                <GridPrimary>
-                  {quotes.map((quote: TQuote, index: number) => (
+                  {quotes?.map((quote: TQuote, index: number) => (
                      <div data-test={quote.ID} key={index} className={styles.child}>
                         <Quote
                            type={1}

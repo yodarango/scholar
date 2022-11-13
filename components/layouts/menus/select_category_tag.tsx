@@ -35,7 +35,7 @@ export const SelectCategoryTag = ({
       const options = categoryMeta.map((item: TcategoryMeta) => {
          const id = item.tag.replace("#", "");
          return {
-            id: item.tag.replace("#", ""),
+            id,
             description: item.subjects.toString().replaceAll(",", ", "),
             color: item.color
          };
