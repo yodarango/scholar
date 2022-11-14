@@ -20,81 +20,81 @@ import { handleGetCommentaries } from "../../../helpers/functions/posts/commenta
 
 export const CommentariesAll = () => {
    // router
-   const router = useRouter();
+   // const router = useRouter();
 
-   // components
-   const [commentaries, setcommentaries] = useState<TCommentary[]>([]);
-   const [loading, setloading] = useState<string>("loading");
-   const [showloadMore, setshowloadMore] = useState<boolean>(true);
-   const last_id = 9999999999;
+   // // components
+   // const [commentaries, setcommentaries] = useState<TCommentary[]>([]);
+   // const [loading, setloading] = useState<string>("loading");
+   // const [showloadMore, setshowloadMore] = useState<boolean>(true);
+   // const last_id = 9999999999;
 
-   // fetch data
-   const fetchData = async (variables: TgetcommentariesVariables) => {
-      setloading("loading");
-      try {
-         const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            // do this above for every filter this is so that I can filter when there is already filters in the query
-            setcommentaries(data.commentary);
-         }
+   // // fetch data
+   // const fetchData = async (variables: TgetcommentariesVariables) => {
+   //    setloading("loading");
+   //    try {
+   //       const { data, status } = await handleGetCommentaries(variables);
+   //       if (data && data.commentary) {
+   //          // do this above for every filter this is so that I can filter when there is already filters in the query
+   //          setcommentaries(data.commentary);
+   //       }
 
-         setloading(status);
-      } catch (error) {
-         console.error(error);
-         setcommentaries([]);
-         setloading("error");
-      }
-   };
+   //       setloading(status);
+   //    } catch (error) {
+   //       console.error(error);
+   //       setcommentaries([]);
+   //       setloading("error");
+   //    }
+   // };
 
-   const fetchMore = async (variables: TgetcommentariesVariables) => {
-      setshowloadMore(false);
+   // const fetchMore = async (variables: TgetcommentariesVariables) => {
+   //    setshowloadMore(false);
 
-      try {
-         const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            // filter tags
-            let commentaries = data.commentary;
+   //    try {
+   //       const { data, status } = await handleGetCommentaries(variables);
+   //       if (data && data.commentary) {
+   //          // filter tags
+   //          let commentaries = data.commentary;
 
-            if (variables.category_tags) {
-               const filterTags = data.commentary.filter(
-                  (post: TCommentary) => post.category_tags === variables.category_tags
-               );
-               commentaries.push(...filterTags);
-            }
+   //          if (variables.category_tags) {
+   //             const filterTags = data.commentary.filter(
+   //                (post: TCommentary) => post.category_tags === variables.category_tags
+   //             );
+   //             commentaries.push(...filterTags);
+   //          }
 
-            if (variables.AUTHORITY_LEVEL) {
-               const filterAuthLevel = data.commentary.filter(
-                  (post: TCommentary) => post.authority_level === variables.AUTHORITY_LEVEL
-               );
-               commentaries.push(...filterAuthLevel);
-            }
+   //          if (variables.AUTHORITY_LEVEL) {
+   //             const filterAuthLevel = data.commentary.filter(
+   //                (post: TCommentary) => post.authority_level === variables.AUTHORITY_LEVEL
+   //             );
+   //             commentaries.push(...filterAuthLevel);
+   //          }
 
-            // do this above for every filter this is so that I can filter wehn there is already filters in the query
-            setcommentaries((prev: any) => [...prev, ...commentaries]);
-            setshowloadMore(true);
-         }
-         setloading(status);
-      } catch (error) {
-         console.error(error);
-      }
-   };
+   //          // do this above for every filter this is so that I can filter wehn there is already filters in the query
+   //          setcommentaries((prev: any) => [...prev, ...commentaries]);
+   //          setshowloadMore(true);
+   //       }
+   //       setloading(status);
+   //    } catch (error) {
+   //       console.error(error);
+   //    }
+   // };
 
-   // load more
-   useEffect(() => {
-      if (Object.keys(router.query).length > 0) {
-         if (router.query.last_id) {
-            router.query.AUTHORITY_LEVEL
-               ? fetchMore({ ...router.query })
-               : fetchMore({ AUTHORITY_LEVEL: "0", ...router.query });
-         } else {
-            router.query.AUTHORITY_LEVEL
-               ? fetchData({ last_id, ...router.query })
-               : fetchData({ last_id, AUTHORITY_LEVEL: "0", ...router.query });
-         }
-      } else {
-         fetchData({ last_id });
-      }
-   }, [router.query, router.isReady]);
+   // // load more
+   // useEffect(() => {
+   //    if (Object.keys(router.query).length > 0) {
+   //       if (router.query.last_id) {
+   //          router.query.AUTHORITY_LEVEL
+   //             ? fetchMore({ ...router.query })
+   //             : fetchMore({ AUTHORITY_LEVEL: "0", ...router.query });
+   //       } else {
+   //          router.query.AUTHORITY_LEVEL
+   //             ? fetchData({ last_id, ...router.query })
+   //             : fetchData({ last_id, AUTHORITY_LEVEL: "0", ...router.query });
+   //       }
+   //    } else {
+   //       fetchData({ last_id });
+   //    }
+   // }, [router.query, router.isReady]);
 
    return (
       <div className={styles.mainWrapper}>
@@ -106,21 +106,10 @@ export const CommentariesAll = () => {
                <CommentaryFilter />
             </div>
          </div>
-         {loading === "done" && commentaries.length > 0 && (
-            <div className={styles.postsWrapper}>
-               <CommentariesGrid commentaries={commentaries} showLoadMore={showloadMore} />
-            </div>
-         )}
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+
+         <div className={styles.postsWrapper}>
+            <CommentariesGrid />
+         </div>
       </div>
    );
 };
