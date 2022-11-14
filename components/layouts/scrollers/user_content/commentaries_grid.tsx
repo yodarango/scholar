@@ -1,6 +1,5 @@
 /**************************************************************************************** 
--  handles the query to display the posts to show in the user's profile based on the 
-   user_authority prop
+-  displays grid of commentaries.
 ****************************************************************************************/
 
 import { useEffect, useState } from "react";
@@ -11,32 +10,27 @@ import { Header } from "../../../fragments/Typography/header";
 import { Parragraph } from "../../../fragments/Typography/parragraph";
 import { GridPrimary } from "../grid_primary";
 import { Commentary } from "../../../fragments/cards/posts/commentary";
+import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { Primary } from "../../../fragments/buttons/primary";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 // styles
 import styles from "./commentaries_grid.module.css";
 
 // types
 import { TCommentary } from "../../../../types/posts";
-import { Primary } from "../../../fragments/buttons/primary";
-import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import {
    handleGetCommentaries,
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
-import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
 
 type TCommentariesGridProps = {
    verseCitation?: string;
    verse?: string;
-   filters?: {
-      folder?: string;
-      verseId?: string;
-      tag?: string;
-   };
 };
 
-export const CommentariesGrid = ({ verseCitation, verse, filters }: TCommentariesGridProps) => {
+export const CommentariesGrid = ({ verseCitation, verse }: TCommentariesGridProps) => {
    // router
    const router = useRouter();
 
@@ -55,9 +49,7 @@ export const CommentariesGrid = ({ verseCitation, verse, filters }: TCommentarie
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
-            console.log(data);
             setcommentaries(data.commentary);
-            console.log(data);
             data.commentary.length > 0 &&
                setqueryVariables({ last_id: data.commentary[data.commentary.length - 1].ID });
 

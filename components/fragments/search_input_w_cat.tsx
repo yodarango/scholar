@@ -15,13 +15,14 @@ import styles from "./search_input_w_cat.module.css";
 
 type TSearchInputWCatProps = {
    placeHolder: string;
+   initialValue: string;
    cta?: {
       handleSearch?: (value: string) => void;
       handleCategory?: (cat: string) => void;
    };
 };
 
-export const SearchInputWCat = ({ placeHolder, cta }: TSearchInputWCatProps) => {
+export const SearchInputWCat = ({ placeHolder, initialValue = "", cta }: TSearchInputWCatProps) => {
    // router
    const router = useRouter();
    const handleSearch = (body: string) => {
@@ -49,6 +50,7 @@ export const SearchInputWCat = ({ placeHolder, cta }: TSearchInputWCatProps) => 
       <div className={styles.mainWrapper}>
          <div className={styles.search}>
             <SearchInput
+               initialValue={initialValue}
                placeholder={placeHolder}
                maxL={50}
                cta={{ handleOnChange: cta?.handleSearch ? cta.handleSearch : handleSearch }}

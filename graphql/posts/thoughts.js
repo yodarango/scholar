@@ -1,8 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_THOUGHTS = gql`
-   query ($ID: ID, $USER_ID: ID, $category_tags: String, $last_id: ID) {
-      thought(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags, last_id: $last_id) {
+   query ($ID: ID, $USER_ID: ID, $category_tags: String, $body: String, $last_id: ID) {
+      thought(
+         ID: $ID
+         USER_ID: $USER_ID
+         category_tags: $category_tags
+         body: $body
+         last_id: $last_id
+      ) {
          ID
          body
          USER_ID

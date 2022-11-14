@@ -1,10 +1,16 @@
+/**************************************************************************************** 
+- displays a grid of thoughts.
+****************************************************************************************/
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // comps
-import { Header } from "../../../fragments/Typography/header";
-import { Parragraph } from "../../../fragments/Typography/parragraph";
 import { GridPrimary } from "../grid_primary";
 import { Thought } from "../../../fragments/cards/posts/thought";
+import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { Primary } from "../../../fragments/buttons/primary";
 
 // styles
 import styles from "./commentaries_grid.module.css";
@@ -12,67 +18,155 @@ import styles from "./commentaries_grid.module.css";
 // types
 import { TThought } from "../../../../types/posts";
 
-type TThoughtsGridProps = {
-   filters?: { tag?: string };
-};
+// helpers
+import {
+   handleGetThoughts,
+   TgetThoughtsVariables
+} from "../../../../helpers/functions/posts/thought_get";
 
-export const ThoughtsGrid = ({ filters }: TThoughtsGridProps) => {
-   const [thoughts, setthoughts] = useState<TThought[]>([]);
+export const ThoughtsGrid = () => {
+   // router
+   const router = useRouter();
 
-   // fetch commentaris based on ID
+   // components
+   const [thoughts, setthougts] = useState<TThought[]>([]);
+   const [loading, setloading] = useState<string>("loading");
+   const [showloadMore, setshowloadMore] = useState<boolean>(true);
+   const [smallLoader, setsmallLoader] = useState<boolean>(false);
+   const [queryVariables, setqueryVariables] = useState<TgetThoughtsVariables>({
+      last_id: 999999999
+   });
+
+   // fetch data on first time loading. Only runs on first load
+   const fetchData = async (variables: TgetThoughtsVariables) => {
+      setloading("loading");
+      try {
+         const { data, status } = await handleGetThoughts(variables);
+         if (data && data.thought) {
+            setthougts(data.thought);
+            data.thought.length > 0 &&
+               setqueryVariables({ last_id: data.thought[data.thought.length - 1].ID });
+
+            data.thought.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         }
+         setloading(status);
+      } catch (error) {
+         console.error(error);
+         setthougts([]);
+         setloading("error");
+      }
+   };
+
+   //fetch data any time any of the query params change.
+   const fetchOnQueryChange = async (variables: TgetThoughtsVariables) => {
+      setshowloadMore(false);
+      setloading("loading");
+
+      try {
+         const { data, status } = await handleGetThoughts(variables);
+         if (data && data.thought) {
+            setthougts(data.thought);
+            data.thought.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setloading(status);
+         }
+      } catch (error) {
+         setthougts([]);
+         setloading("error");
+         console.error(error);
+      }
+   };
+
+   // only fetches more with whatever params are there in the router posts
+   const fetchMore = async (variables: TgetThoughtsVariables) => {
+      setshowloadMore(false);
+      setsmallLoader(true);
+
+      try {
+         const { data, status } = await handleGetThoughts(variables);
+         if (data && data.thought) {
+            // filter tags
+            let moreCommentaries = data.thought;
+
+            // update query variables
+            moreCommentaries.length > 0 &&
+               setqueryVariables({
+                  ...queryVariables,
+                  last_id: moreCommentaries[moreCommentaries.length - 1].ID
+               });
+
+            setthougts((prev) => [...prev, ...moreCommentaries]);
+            moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setsmallLoader(false);
+         }
+      } catch (error) {
+         setthougts([]);
+         console.error(error);
+      }
+   };
+
+   // only call fetch data on initial load
    useEffect(() => {
-      setthoughts(
-         [...Array(20)].map(() => ({
-            ID: "32",
-            title: "This is a title",
-            body: "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
-            category_tags: "#YLW",
-            referenced_verses: "1CO.1.1 MATT.2.2",
-            posted_on: "11/29/22 22:00",
-            date: "11/29/22 22:00",
-            total_count: 10,
-            postImage: "/images/bible_books/1.png",
-            creator: {
-               ID: "1",
-               signature: "Username",
-               authority_level: 1,
-               approval_rating: 90,
-               avatar: "/imges/user_avatars/default.png",
-               first_name: "John",
-               last_name: "Doe",
-               my_church: "The Chruch of my Lord Jesus Christ"
-            },
-            comments: [
-               {
-                  total_count: 34
-               }
-            ],
-            approvals: [
-               {
-                  average_count: 3,
-                  total_count: 34
-               }
-            ]
-         }))
-      );
-   }, []);
+      if (router.isReady)
+         router.query.last_id
+            ? fetchData({ ...router.query })
+            : fetchData({ ...queryVariables, ...router.query });
+   }, [router.isReady]);
+
+   //call on query params change
+   useEffect(() => {
+      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+   }, [router.query]);
 
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.gridWrapper}>
-            <GridPrimary>
-               {thoughts.map((thought: TThought, index: number) => (
-                  <div key={index} className={styles.child}>
-                     <Thought
+         {loading === "done" && (
+            <div className={styles.gridWrapper}>
+               <GridPrimary>
+                  {thoughts.map((thought: TThought, index: number) => (
+                     <div key={index} className={styles.child}>
+                        <Thought
+                           cta={{
+                              handleDelete: () => console.log("handle show post")
+                           }}
+                           thought={thought}
+                        />
+                     </div>
+                  ))}
+               </GridPrimary>
+               {showloadMore && (
+                  <div className={styles.loadMore}>
+                     <Primary
+                        title='Load more'
+                        type='1'
                         cta={{
-                           handleDelete: () => console.log("handle show post")
+                           handleClick: () =>
+                              fetchMore({
+                                 ...router.query,
+                                 last_id: thoughts[thoughts.length - 1].ID
+                              })
                         }}
-                        thought={thought}
                      />
                   </div>
-               ))}
-            </GridPrimary>
-         </div>
+               )}
+
+               {smallLoader && (
+                  <div className={styles.smallLoader}>
+                     <SmallLoader />
+                  </div>
+               )}
+            </div>
+         )}
+
+         {loading === "loading" && (
+            <div className={styles.loader}>
+               <RoundLoader />
+            </div>
+         )}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <ResourceNotFoundError />
+            </div>
+         )}
       </div>
    );
 };

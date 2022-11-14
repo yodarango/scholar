@@ -15,12 +15,13 @@ import styles from "./search_input.module.css";
 type TSearchInputProps = {
    placeholder: string;
    maxL: number;
+   initialValue?: string;
    cta: {
       handleOnChange?: (value: string) => void;
       handleSearchGo?: (value: string) => void;
    };
 };
-export const SearchInput = ({ placeholder, maxL, cta }: TSearchInputProps) => {
+export const SearchInput = ({ placeholder, initialValue = "", maxL, cta }: TSearchInputProps) => {
    // references
    const input = useRef<HTMLInputElement>(null);
    let lastinput: number;
@@ -57,6 +58,7 @@ export const SearchInput = ({ placeholder, maxL, cta }: TSearchInputProps) => {
                   className={styles.input}
                   placeholder={placeholder}
                   onChange={handleSearch}
+                  defaultValue={initialValue}
                />
 
                <div className={styles.icon}>
@@ -72,6 +74,7 @@ export const SearchInput = ({ placeholder, maxL, cta }: TSearchInputProps) => {
                   role='hidden'
                   className={styles.inputWBtn}
                   placeholder={placeholder}
+                  defaultValue={initialValue}
                   ref={input}
                />
 

@@ -1,20 +1,23 @@
+/**************************************************************************************** 
+-  Displays a grid of quotes
+****************************************************************************************/
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // comps
 import { GridPrimary } from "../grid_primary";
 import { Quote } from "../../../fragments/cards/posts/quote";
+import { Primary } from "../../../fragments/buttons/primary";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { handleGetQuote, TgetQuoteVariables } from "../../../../helpers/functions/posts/quote_get";
 
 // styles
 import styles from "./quotes_grid.module.css";
 
 // types
 import { TQuote } from "../../../../types/posts";
-import { Primary } from "../../../fragments/buttons/primary";
-import { SmallLoader } from "../../../fragments/chunks/small_loader";
-import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
-import { handleGetQuote, TgetQuoteVariables } from "../../../../helpers/functions/posts/quote_get";
 
 export const QuotesGrid = () => {
    // router

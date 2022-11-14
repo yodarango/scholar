@@ -1,6 +1,6 @@
 // components
-import { PrimaryStackHeader } from "../../../layouts/stacks/headers/primary_stack_header";
-import { ThoughtsAll } from "../../../templates/content/thoughts_all";
+import { PrimaryStackHeader } from "../../../components/layouts/stacks/headers/primary_stack_header";
+import { ThoughtsAll } from "../../../components/templates/content/thoughts_all";
 
 // styles
 import styles from "./index.module.css";
