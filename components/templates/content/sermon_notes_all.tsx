@@ -10,7 +10,11 @@ export const SermonNotesAll = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.searchFilter}>
             <div className={styles.search}>
-               <SearchInputWCat placeHolder='Search anything...' />
+               <SearchInputWCat
+                  searchValTitle='title'
+                  initialValInComp={true}
+                  placeHolder='Search by title'
+               />
             </div>
          </div>
          <div className={styles.postsWrapper}>

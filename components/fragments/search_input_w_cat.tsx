@@ -4,6 +4,7 @@
     the search here by passing values to the router query
 -  The component takes in initial values for the category and the search props but also an 
    initialValInComp which sets it in the component.
+- "serachValTitle" sets the name of the query value. defaults to "body"
 ***********************************************************************************************/
 
 import { useRouter } from "next/router";
@@ -18,6 +19,7 @@ import styles from "./search_input_w_cat.module.css";
 
 type TSearchInputWCatProps = {
    placeHolder: string;
+   searchValTitle?: string;
    initialValInComp?: boolean;
    initialValSearch?: any;
    initialValCat?: any;
@@ -29,6 +31,7 @@ type TSearchInputWCatProps = {
 
 export const SearchInputWCat = ({
    placeHolder,
+   searchValTitle = "body",
    initialValInComp,
    initialValSearch = "",
    initialValCat = "",
@@ -45,7 +48,7 @@ export const SearchInputWCat = ({
    const handleSearch = (body: string) => {
       router.push({
          pathname: router.pathname,
-         query: { ...router.query, body }
+         query: { ...router.query, [searchValTitle]: body }
       });
    };
 
@@ -65,14 +68,11 @@ export const SearchInputWCat = ({
 
    // set the initial value
    useEffect(() => {
-      console.log(initialValInComp);
       if (router.isReady && initialValInComp) {
          setInitialValues({ cat: router?.query?.category_tags, sea: router?.query?.body });
       }
-      console.log("2", router.query);
    }, [router.isReady]);
 
-   console.log(initialValues);
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.search}>

@@ -1,7 +1,7 @@
 // components
 import { CommentariesGrid } from "../../layouts/scrollers/user_content/commentaries_grid";
-import { CommentaryFilter } from "../../fragments/commentary_filter";
-import { SearchInputWCat } from "../../fragments/search_input_w_cat";
+import { CommentaryFilter } from "../../../components/fragments/commentary_filter";
+import { SearchInputWCat } from "../../../components/fragments/search_input_w_cat";
 
 // styles
 import styles from "./commentaries_all.module.css";

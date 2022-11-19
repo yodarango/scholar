@@ -1,8 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_SERMON_NOTES = gql`
-   query ($ID: ID, $USER_ID: ID, $category_tags: String, $last_id: ID) {
-      sermon_note(ID: $ID, USER_ID: $USER_ID, category_tags: $category_tags, last_id: $last_id) {
+   query ($ID: ID, $USER_ID: ID, $category_tags: String, $title: String, $last_id: ID) {
+      sermon_note(
+         ID: $ID
+         USER_ID: $USER_ID
+         category_tags: $category_tags
+         title: $title
+         last_id: $last_id
+      ) {
          ID
          content
          title
@@ -37,6 +43,7 @@ export const GET_SERMON_NOTE_IN_24 = gql`
       }
    }
 `;
+
 export const CREATE_NEW_SERMON_NOTE = gql`
    mutation (
       $description: String

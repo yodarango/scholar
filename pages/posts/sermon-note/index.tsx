@@ -1,6 +1,6 @@
 // components
-import { PrimaryStackHeader } from "../../../layouts/stacks/headers/primary_stack_header";
-import { SermonNotesAll } from "../../../templates/content/sermon_notes_all";
+import { PrimaryStackHeader } from "../../../components/layouts/stacks/headers/primary_stack_header";
+import { SermonNotesAll } from "../../../components/templates/content/sermon_notes_all";
 
 // styles
 import styles from "./index.module.css";

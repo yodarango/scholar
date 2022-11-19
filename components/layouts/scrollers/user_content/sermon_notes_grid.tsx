@@ -1,66 +1,169 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // comps
 import { GridPrimary } from "../grid_primary";
 import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
+import { Primary } from "../../../fragments/buttons/primary";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
 
 // styles
-import styles from "./commentaries_grid.module.css";
+import styles from "./sermon_notes_grid.module.css";
 
 // types
 import { TSermonNote } from "../../../../types/posts";
 
-type TSermonNotesGridProps = {
-   filters?: {
-      tag?: string;
-   };
-};
-export const SermonNotesGrid = ({ filters }: TSermonNotesGridProps) => {
-   const [sermonNotes, setsermonNotes] = useState<TSermonNote[]>([]);
+// helpers
+import {
+   handleGetSermonNotes,
+   TgetSermonNotesVariables
+} from "../../../../helpers/functions/posts/sermon_note_get";
 
-   // fetch commentaris based on ID
+export const SermonNotesGrid = () => {
+   // router
+   const router = useRouter();
+
+   // components
+   const [sermonNotes, setsermonNotes] = useState<TSermonNote[]>([]);
+   const [loading, setloading] = useState<string>("loading");
+   const [showloadMore, setshowloadMore] = useState<boolean>(true);
+   const [smallLoader, setsmallLoader] = useState<boolean>(false);
+   const [queryVariables, setqueryVariables] = useState<TgetSermonNotesVariables>({
+      last_id: 999999999
+   });
+
+   // fetch data on first time loading. Only runs on first load
+   const fetchData = async (variables: TgetSermonNotesVariables) => {
+      setloading("loading");
+      try {
+         const { data, status } = await handleGetSermonNotes(variables);
+         if (data && data.sermon_note) {
+            setsermonNotes(data.sermon_note);
+            data.sermon_note.length > 0 &&
+               setqueryVariables({ last_id: data.sermon_note[data.sermon_note.length - 1].ID });
+
+            data.sermon_note.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         }
+         setloading(status);
+      } catch (error) {
+         console.error(error);
+         setsermonNotes([]);
+         setloading("error");
+      }
+   };
+
+   //fetch data any time any of the query params change.
+   const fetchOnQueryChange = async (variables: TgetSermonNotesVariables) => {
+      setshowloadMore(false);
+      setloading("loading");
+
+      try {
+         const { data, status } = await handleGetSermonNotes(variables);
+         if (data && data.sermon_note) {
+            setsermonNotes(data.sermon_note);
+            data.sermon_note.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setloading(status);
+         }
+      } catch (error) {
+         setsermonNotes([]);
+         setloading("error");
+         console.error(error);
+      }
+   };
+
+   // only fetches more with whatever params are there in the router posts
+   const fetchMore = async (variables: TgetSermonNotesVariables) => {
+      setshowloadMore(false);
+      setsmallLoader(true);
+
+      try {
+         const { data, status } = await handleGetSermonNotes(variables);
+         if (data && data.sermon_note) {
+            // filter tags
+            let moreSermonNotes = data.sermon_note;
+
+            // update query variables
+            moreSermonNotes.length > 0 &&
+               setqueryVariables({
+                  ...queryVariables,
+                  last_id: moreSermonNotes[moreSermonNotes.length - 1].ID
+               });
+
+            setsermonNotes((prev) => [...prev, ...moreSermonNotes]);
+            moreSermonNotes.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setsmallLoader(false);
+         }
+      } catch (error) {
+         setsermonNotes([]);
+         console.error(error);
+      }
+   };
+
+   // only call fetch data on initial load
    useEffect(() => {
-      setsermonNotes(
-         [...Array(20)].map(() => ({
-            ID: "32",
-            content: "This is a title",
-            DROPBOX_ID:
-               "this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body this is the body",
-            category_tags: "#YLW",
-            posted_on: "07/29/22 22:00",
-            date: "07/29/22 22:00",
-            title: "title",
-            file_url: "#",
-            creator: {
-               ID: "1",
-               signature: "Username",
-               authority_level: 1,
-               approval_rating: 90,
-               avatar: "/imges/user_avatars/default.png",
-               first_name: "John",
-               last_name: "Doe",
-               my_church: "The Chruch of my Lord Jesus Christ"
-            }
-         }))
-      );
-   }, []);
+      if (router.isReady)
+         router.query.last_id
+            ? fetchData({ ...router.query })
+            : fetchData({ ...queryVariables, ...router.query });
+   }, [router.isReady]);
+
+   //call on query params change
+   useEffect(() => {
+      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+   }, [router.query]);
 
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.gridWrapper}>
-            <GridPrimary>
-               {sermonNotes.map((sermonNote: TSermonNote, index: number) => (
-                  <div key={index} className={styles.child}>
-                     <SermonNote
+         {loading === "done" && (
+            <div className={styles.gridWrapper}>
+               <GridPrimary>
+                  {sermonNotes.map((sermonNote: TSermonNote, index: number) => (
+                     <div key={index} className={styles.child}>
+                        <SermonNote
+                           cta={{
+                              handleDelete: () => console.log("handle show post")
+                           }}
+                           sermonNote={sermonNote}
+                        />
+                     </div>
+                  ))}
+               </GridPrimary>
+
+               {showloadMore && (
+                  <div className={styles.loadMore}>
+                     <Primary
+                        title='Load more'
+                        type='1'
                         cta={{
-                           handleDelete: () => console.log("handle show post")
+                           handleClick: () =>
+                              fetchMore({
+                                 ...router.query,
+                                 last_id: sermonNotes[sermonNotes.length - 1].ID
+                              })
                         }}
-                        sermonNote={sermonNote}
                      />
                   </div>
-               ))}
-            </GridPrimary>
-         </div>
+               )}
+
+               {smallLoader && (
+                  <div className={styles.smallLoader}>
+                     <SmallLoader />
+                  </div>
+               )}
+            </div>
+         )}
+         {loading === "loading" && (
+            <div className={styles.loader}>
+               <RoundLoader />
+            </div>
+         )}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <ResourceNotFoundError />
+            </div>
+         )}
       </div>
    );
 };
