@@ -11,7 +11,9 @@ export const CommentariesAll = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.searchFilter}>
             <div className={styles.search}>
-               <SearchInputWCat placeHolder='Search anything...' />
+               {/* TODO: Add body and category_values initial values from the router query when not
+               /empty*/}
+               <SearchInputWCat initialValInComp={true} placeHolder='Search anything...' />
             </div>
             <div className={styles.filter}>
                <CommentaryFilter />

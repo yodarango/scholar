@@ -8,7 +8,7 @@
    props
 ***********************************************************************************************************************/
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // comps
 import { Notification } from "../popups/notification";
@@ -42,12 +42,12 @@ export const CategoryTag = ({
    customBorderRadius = ".9em",
    cta
 }: TCategoryTagprops) => {
-   const initialCurrCategory = id ? id : initiaValue;
-
    // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
-   const [currentCategory, setcurrentCategory] = useState<string | undefined>(initialCurrCategory);
+   const [currentCategory, setcurrentCategory] = useState<string | undefined>(
+      id ? id : initiaValue
+   );
 
    //  open the category popup
    const handleShowCategoryMeta = () => {

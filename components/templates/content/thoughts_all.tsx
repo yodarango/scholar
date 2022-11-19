@@ -10,7 +10,7 @@ export const ThoughtsAll = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.searchFilter}>
             <div className={styles.search}>
-               <SearchInputWCat placeHolder='Search anything...' />
+               <SearchInputWCat initialValInComp={true} placeHolder='Search anything...' />
             </div>
          </div>
          <div className={styles.postsWrapper}>
