@@ -22,7 +22,7 @@ import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
 import styles from "./daily_verse_card.module.css";
 
 // helpers: types
-import { fetchBibleVerseWDefault } from "../../helpers/APIs/fetch_bible_verse_with_default";
+import { fetchBibleVerseWDefault } from "../../../helpers/APIs/fetch_bible_verse_with_default";
 import { RoundLoader } from "../chunks/round_loader";
 
 export const DailyVerseCard = () => {
