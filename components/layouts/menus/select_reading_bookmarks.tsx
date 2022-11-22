@@ -79,7 +79,7 @@ export const SelectReadingBookmarks = ({
                      iconShadow: "#F1EAFF",
                      text: parseChapterId(bookmark)
                   }}
-                  href={`/read?verse-id=${bookmark}`}
+                  href={`/read?VERSE_ID=${bookmark}`}
                />
             </div>
          ))}

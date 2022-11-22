@@ -17,10 +17,6 @@ import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_
 import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
-type TCommentaryOneLineCarrouselProps = {
-   commentaries: TCommentary[];
-};
-
 export const CommentaryOneLineCarrousel = () => {
    // router
    const router = useRouter();
@@ -123,8 +119,7 @@ export const CommentaryOneLineCarrousel = () => {
          else if (!router.query.AUTHORITY_LEVEL)
             router.query.last_id
                ? fetchData({ ...router.query })
-               : fetchData({ ...queryVariables, ...router.query }),
-               console.log("2");
+               : fetchData({ ...queryVariables, ...router.query });
    }, [router.isReady]);
 
    // handle delete

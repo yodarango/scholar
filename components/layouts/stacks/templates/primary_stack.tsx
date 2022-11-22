@@ -20,7 +20,7 @@ type TPrimaryStackprops = {
    link?: string;
    cta?: {
       handleClose: () => void;
-      handleScroll: any;
+      handleScroll?: any;
    };
    icon?: string;
 };

@@ -27,7 +27,7 @@ export const DailyVerseModal = () => {
                         stopAtChapterId={false}
                         cta={{
                            handleChoice: (choice: string) =>
-                              (location.href = `/verse-by-verse/?verse-id=${choice}`)
+                              (location.href = `/verse-by-verse/?VERSE_ID=${choice}`)
                         }}
                      />
                   </PrimaryStack>

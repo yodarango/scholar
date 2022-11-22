@@ -67,9 +67,9 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
          setbuttonTitle("Change scripture");
       } else {
          setLoading("loading");
-         const verseId: string | undefined | string[] = router.query["verse-id"];
+         const verseId: string | undefined | string[] = router.query["VERSE_ID"];
 
-         if (router.isReady && router.query["verse-id"]) {
+         if (router.isReady && router.query["VERSE_ID"]) {
             fetchVerse(verseId);
             setbuttonTitle("Change scripture");
          } else {
@@ -83,7 +83,7 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
    //    handle verse selection from the BibleBook Wrapper
    const handlerefVerseSelection = (id: string) => {
       setshowChooseScriptureModal(false);
-      router.push(`${router.pathname}?verse-id=${id}`);
+      router.push(`${router.pathname}?VERSE_ID=${id}`);
    };
 
    return (

@@ -32,7 +32,7 @@ export const DailyVerseCard = () => {
 
    // ----------------- make the call to the API on useEffect and router.isReady
    const getVerseDate = async (version?: string) => {
-      const verseId = router.query["verse-id"];
+      const verseId = router.query["VERSE_ID"];
 
       const verseContent = await fetchBibleVerseWDefault(verseId, version);
 
@@ -94,19 +94,19 @@ export const DailyVerseCard = () => {
 
                {/* --------------------- card actions ----------------- */}
                <div className={styles.actions}>
-                  <Link href={`/verse-by-verse?verse-id=${verseContent.previous.id}`}>
+                  <Link href={`/verse-by-verse?VERSE_ID=${verseContent.previous.id}`}>
                      <a>
                         <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
 
-                  <Link href={`/posts/commentary/new?verse-id=${verseContent.id}`}>
+                  <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
                      <a>
                         <Icon name='comment' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
 
-                  <Link href={`/verse-by-verse?verse-id=${verseContent.next.id}`}>
+                  <Link href={`/verse-by-verse?VERSE_ID=${verseContent.next.id}`}>
                      <a>
                         <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
                      </a>

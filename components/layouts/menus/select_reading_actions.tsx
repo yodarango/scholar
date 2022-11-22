@@ -66,7 +66,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
    const handleAction = (action: string) => {
       if (action === "commentaries") setshowStackModal(1);
       if (action === "comment") {
-         router.query["verse-id"] = data.verseId;
+         router.query["VERSE_ID"] = data.verseId;
          setshowStackModal(2);
       }
       if (action === "highlight") setshowStackModal(3);

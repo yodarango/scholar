@@ -1,14 +1,11 @@
 import { IconButton } from "../fragments/buttons/icon_button";
-import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
 import { CommentaryFilter } from "../fragments/commentary_filter";
 import { CommentaryOneLineCarrousel } from "../layouts/scrollers/user_content/commentaries_one_line_carrousel";
 import { TCommentary } from "../../types/posts";
 import styles from "./verse_by_verse.module.css";
+import { DailyVerseModal } from "../layouts/daily_verse_modal";
 
-type TVerseByVerseProps = {
-   commentaries: TCommentary[];
-};
-export const VerseByVerse = ({ commentaries }: TVerseByVerseProps) => {
+export const VerseByVerse = () => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.addBtn}>
@@ -19,14 +16,14 @@ export const VerseByVerse = ({ commentaries }: TVerseByVerseProps) => {
             />
          </div>
          <div className={styles.verse}>
-            <DailyVerseCard />
+            <DailyVerseModal />
          </div>
          <div className={styles.filter}>
             <CommentaryFilter />
          </div>
          <div className={styles.commentaries}>
             <div className={styles.shadow}></div>
-            <CommentaryOneLineCarrousel commentaries={commentaries} />
+            <CommentaryOneLineCarrousel />
          </div>
       </div>
    );
