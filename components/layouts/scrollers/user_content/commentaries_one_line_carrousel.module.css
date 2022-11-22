@@ -18,3 +18,16 @@
    flex-shrink: 0;
    margin-left: var(--spacing-xs);
 }
+
+.loader,
+.error {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 12rem;
+}
+
+.loadMore {
+   flex-shrink: 0;
+   margin: 0 calc(var(--spacing-l) * 2) 0 var(--spacing-s);
+}

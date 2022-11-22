@@ -14,6 +14,8 @@ import {
 } from "../../../../helpers/functions/posts/commentary_get";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { Primary } from "../../../fragments/buttons/primary";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 type TCommentaryOneLineCarrouselProps = {
    commentaries: TCommentary[];
@@ -29,6 +31,7 @@ export const CommentaryOneLineCarrousel = () => {
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
+      AUTHORITY_LEVEL: "0",
       last_id: 999999999
    });
 
@@ -40,7 +43,10 @@ export const CommentaryOneLineCarrousel = () => {
          if (data && data.commentary) {
             setcommentaries(data.commentary);
             data.commentary.length > 0 &&
-               setqueryVariables({ last_id: data.commentary[data.commentary.length - 1].ID });
+               setqueryVariables({
+                  ...queryVariables,
+                  last_id: data.commentary[data.commentary.length - 1].ID
+               });
 
             data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
@@ -99,18 +105,27 @@ export const CommentaryOneLineCarrousel = () => {
       }
    };
 
+   // only call on query params change and not on first load
+   let isFirstLoad = true; // make sure it does not get called on first load
+   useEffect(() => {
+      if (router.isReady && !isFirstLoad)
+         fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+   }, [router.query]);
+   isFirstLoad = false;
+
    // only call fetch data on initial load
    useEffect(() => {
       if (router.isReady)
-         router.query.last_id
-            ? fetchData({ ...router.query })
-            : fetchData({ ...queryVariables, ...router.query });
+         if (router.query.AUTHORITY_LEVEL)
+            router.query.last_id
+               ? fetchData({ ...router.query })
+               : fetchData({ ...queryVariables, ...router.query });
+         else if (!router.query.AUTHORITY_LEVEL)
+            router.query.last_id
+               ? fetchData({ ...router.query })
+               : fetchData({ ...queryVariables, ...router.query }),
+               console.log("2");
    }, [router.isReady]);
-
-   //call on query params change
-   useEffect(() => {
-      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
-   }, [router.query]);
 
    // handle delete
    const handleDelete = (id: string) => {
@@ -127,6 +142,27 @@ export const CommentaryOneLineCarrousel = () => {
                      <Commentary commentary={commentary} cta={{ handleDelete }} />
                   </div>
                ))}
+               {showloadMore && (
+                  <div className={styles.loadMore}>
+                     <Primary
+                        title='Load more'
+                        type='1'
+                        cta={{
+                           handleClick: () =>
+                              fetchMore({
+                                 ...router.query,
+                                 last_id: commentaries[commentaries.length - 1].ID
+                              })
+                        }}
+                     />
+                  </div>
+               )}
+
+               {smallLoader && (
+                  <div className={styles.smallLoader}>
+                     <SmallLoader />
+                  </div>
+               )}
             </div>
          )}
          {loading === "loading" && (
