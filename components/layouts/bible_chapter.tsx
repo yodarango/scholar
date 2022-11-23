@@ -1,7 +1,7 @@
 /**************************************************************************************** 
 -  This component renders a reading full Bible chapter of the Bible APi. 
--  The rendering is control by a parent's state wich is dependant on the useRouter hook, 
-   so everytime a new Scripture is selected, the router is updated and this component 
+-  The rendering is control by a parent's state which is dependant on the useRouter hook, 
+   so every time a new Scripture is selected, the router is updated and this component 
    re-rendered.
 -  this component passes down data to all his children as the prop {data} so that its
    children do not have to refetch
@@ -42,6 +42,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (versionId: string) => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
+      console.log(chapter);
 
       //const HLVerses = await getHighlightedVerses()
       if (chapter === undefined) {
@@ -92,9 +93,9 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
                ? styles.firstTheme
                : theme === "2"
                ? styles.secondTheme
-               : theme === "3"
-               ? styles.thirdTheme
-               : styles.fourthTheme
+               : theme === "4"
+               ? styles.fourthTheme
+               : styles.thirdTheme // default one
          );
       }
    }, [theme]);

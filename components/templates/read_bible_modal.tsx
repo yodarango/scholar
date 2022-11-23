@@ -1,3 +1,7 @@
+/**************************************************************************************** 
+-  this component is in charge of passing down the chapter ID to be rendered and the 
+   theme ID to its child 
+****************************************************************************************/
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -30,12 +34,14 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
       setchapterData({ isChapterBookmarked: false });
    };
 
-   // set the chapterId
+   // set the chapterId on initial load
    useEffect(() => {
       if (router.isReady) {
          if (router.query["chapter-id"]) {
             const chaptId = router.query["chapter-id"];
             setcurrChapter(chaptId);
+         } else {
+            setcurrChapter("GEN.1");
          }
       }
       getChapterData();
@@ -59,6 +65,8 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
       if (LSExists) {
          const LSParsed = JSON.parse(LSExists);
          settheme(LSParsed.theme);
+      } else {
+         settheme("3");
       }
    }, []);
 
