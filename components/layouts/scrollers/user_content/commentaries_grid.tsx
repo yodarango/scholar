@@ -1,5 +1,6 @@
 /**************************************************************************************** 
 -  displays grid of commentaries.
+-  Pages that render this modal include at least /read and posts/commentaries/
 ****************************************************************************************/
 
 import { useEffect, useState } from "react";
@@ -26,11 +27,12 @@ import {
 } from "../../../../helpers/functions/posts/commentary_get";
 
 type TCommentariesGridProps = {
+   verseId?: string; // not used by any comps at the moment
    verseCitation?: string;
    verse?: string;
 };
 
-export const CommentariesGrid = ({ verseCitation, verse }: TCommentariesGridProps) => {
+export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentariesGridProps) => {
    // router
    const router = useRouter();
 

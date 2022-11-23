@@ -42,7 +42,6 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (versionId: string) => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
-      console.log(chapter);
 
       //const HLVerses = await getHighlightedVerses()
       if (chapter === undefined) {

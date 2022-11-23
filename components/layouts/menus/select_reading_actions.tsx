@@ -30,7 +30,6 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
    // states
    const [showStackModal, setshowStackModal] = useState<number>(0);
 
-   console.log(data);
    const menuOptions = [
       {
          action: "commentaries",
@@ -64,7 +63,14 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
 
    // handle actions
    const handleAction = (action: string) => {
-      if (action === "commentaries") setshowStackModal(1);
+      if (action === "commentaries") {
+         router.push({
+            pathname: router.pathname,
+            query: { ...router.query, VERSE_ID: `${data.id}.${data.verseNumber}` }
+         });
+         //router.query["VERSE_ID"] = data.verseId;
+         setshowStackModal(1);
+      }
       if (action === "comment") {
          router.query["VERSE_ID"] = data.verseId;
          setshowStackModal(2);
@@ -83,7 +89,6 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                <CommentariesGrid
                   verse={data.verseContent}
                   verseCitation={`${data.reference}:${data.verseNumber}`}
-                  verseId={`${data.id}.${data.verseNumber}`}
                />
             </PrimaryStack>
          )}
