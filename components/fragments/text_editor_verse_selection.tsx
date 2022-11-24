@@ -61,7 +61,6 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
 
    // fetch data on render
    useEffect(() => {
-      console.log(readyData);
       // check if the parent is passing the data so the API call does not happen
       if (readyData) {
          setLoading("done");

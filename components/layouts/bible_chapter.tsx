@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 // styles
 import styles from "./bible_chapter.module.css";
 
-// helpers
+// components
 import { fetchBibleChapter } from "../../helpers/APIs/fetch_bible_chapter";
 import { RoundLoader } from "../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
@@ -22,6 +22,13 @@ import Portal from "../hoc/potal";
 
 // helpers
 import { higlighterColorPicker } from "../../data/color_picker";
+import {
+   handleGetHighilightedVerses,
+   ThighlightedVersesVariables
+} from "../../helpers/functions/reading/highlighted_verses";
+
+// types
+import { THighlightVerses } from "../../types/read";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy rnext router type
@@ -33,28 +40,58 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    // states
    const [showReadingMenu, setshowReadingMenu] =
       useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
-   const [highlightedVerses, sethighlightedVerses] = useState<string[]>([]);
+   const [highlightedVerses, sethighlightedVerses] = useState<THighlightVerses[]>([]);
    const [data, setdata] = useState<any>(null);
-   const [loading, setloading] = useState("done");
+   const [loading, setloading] = useState("loading");
    const [fntSize, setfntSize] = useState<string | undefined>(fontSize);
    const [thme, setthme] = useState<string | undefined>(fontSize);
+   const [hlVaraibles, sethlVariables] = useState<ThighlightedVersesVariables>({
+      last_id: 9999999,
+      VERSE_ID: "",
+      USER_ID: 1001
+   });
 
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (versionId: string) => {
-      const chapter = await fetchBibleChapter(chapterId, versionId);
+      try {
+         const chapter = await fetchBibleChapter(chapterId, versionId);
 
-      //const HLVerses = await getHighlightedVerses()
-      if (chapter === undefined) {
+         if (chapter === undefined) {
+            setloading("error");
+            setdata(null);
+            sethighlightedVerses([]);
+         } else {
+            // call "done" in the highlighted verses call since it is the last step to run
+            setdata(chapter);
+            sethlVariables({ ...hlVaraibles, VERSE_ID: chapter.id });
+            sethighlightedVerses([]);
+         }
+      } catch (error) {
+         console.error(error);
          setloading("error");
          setdata(null);
-         sethighlightedVerses([]);
-      } else {
-         setloading("done");
-         setdata(chapter);
          sethighlightedVerses([]);
       }
    };
 
+   // fetch highlighted verses
+   const fetchHighLightedVerses = async (variables: ThighlightedVersesVariables) => {
+      try {
+         const { data }: any = await handleGetHighilightedVerses(variables);
+         console.log(data);
+         if (data.highlighted_verses) {
+            sethighlightedVerses(data.highlighted_verses);
+            setloading("done");
+         } else {
+            sethighlightedVerses([]);
+         }
+      } catch (error) {
+         sethighlightedVerses([]);
+         console.log(error);
+      }
+   };
+
+   // call chapter data API
    useEffect(() => {
       const LSExists = localStorage.getItem("reading-preferences");
       if (LSExists) {
@@ -62,6 +99,13 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
          fetchData(LSParsed.versionId);
       }
    }, []);
+
+   // get the highlighted verses
+   useEffect(() => {
+      if (hlVaraibles.VERSE_ID) {
+         fetchHighLightedVerses(hlVaraibles);
+      }
+   }, [hlVaraibles]);
 
    // update font
    useEffect(() => {
@@ -105,23 +149,21 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
       verseId: string,
       ID: string
    ) => {
-      // check if the color is transparent with ID of -1 which means the user is removeing the highlight
+      console.log(ID);
+      // check if the color is transparent with ID of -1 which means the user is removing the highlight
       if (ID === "-1") {
          // remove the verse from the array
-         const findVerse = highlightedVerses.filter(
-            (highlight) => highlight && highlight.split(":")[0] !== verseId
-         );
-
+         const findVerse = highlightedVerses.filter((highlight) => highlight.VERSE_ID !== verseId);
          sethighlightedVerses(findVerse);
       } else {
          const highlightedVerse: string = `${verseId}:${ID}`;
 
          // exclude the verse being highlighted from the saved verses in case it already exists
-         const findVerse = highlightedVerses.filter(
-            (highlight) => highlight && highlight.split(":")[0] !== verseId
+         const findVerse: THighlightVerses[] = highlightedVerses.filter(
+            (highlight) => highlight.VERSE_ID !== verseId
          );
 
-         sethighlightedVerses([...findVerse, `${highlightedVerse}`]);
+         sethighlightedVerses([...findVerse, { ID }]);
       }
 
       // close modal
@@ -131,6 +173,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    const chapterTitle = data && data.content.split("\n")[0];
    const versesArray = data && data.content.split(/\[[0-9]*\]/g);
 
+   console.log("parent", highlightedVerses);
    return (
       <>
          {loading === "done" && data && (
@@ -142,7 +185,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
                         data={{ ...data, ...showReadingMenu }}
                         cta={{
                            handleCloseModal: () => setshowReadingMenu(undefined),
-                           handleHighlightVerse
+                           handleHighlightVerse: (hl_id) => handleHighlightVerse(hl_id)
                         }}
                      />
                   )}
@@ -156,10 +199,10 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
                   {versesArray.map((verse: string, index: number) => {
                      // check if the verse is Highlighted
                      const isHighlighted = highlightedVerses.find(
-                        (verse) => verse && verse.split(":")[0] === `${chapterId}.${index}`
+                        (verse) => verse.VERSE_ID === `${chapterId}.${index}`
                      );
 
-                     const highlight = isHighlighted ? isHighlighted.split(":")[1] : "";
+                     const highlight = isHighlighted ? isHighlighted.highlight_id : "";
 
                      // get the metadata for the highlighted color if found
                      const getHighlighMeta = higlighterColorPicker.find(
