@@ -43,6 +43,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    const fetchData = async (versionId: string) => {
       const chapter = await fetchBibleChapter(chapterId, versionId);
 
+      console.log(chapter);
       //const HLVerses = await getHighlightedVerses()
       if (chapter === undefined) {
          setloading("error");

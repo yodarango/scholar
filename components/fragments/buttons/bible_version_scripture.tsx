@@ -1,5 +1,5 @@
 /*******************************************************************************************************************************
--  responsible for getting a new chapter of scripture and setting it on the rotuer for the pchapter modal to render it 
+-  responsible for getting a new chapter of scripture and setting it on the router for the chapter modal to render it 
 -  responsible for updating the Bible version name
 -  responsible for updating Bible version Id 
 -  responsible for updating Bible for updating scripture reference 
@@ -26,6 +26,9 @@ import { english } from "../../../data/supported_bible_versions/english";
 // helpers
 import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 
+// constants
+import { DEFAULT_BIBLE_SETTINGS } from "../../../constants/defaults";
+
 type TBiblePreferences = {
    versionName: string;
    versionId: string;
@@ -42,7 +45,7 @@ export const BibleVersionScripture = () => {
    const readingPrefs: TBiblePreferences = {
       versionName: english[0].abbreviation,
       versionId: english[0].id,
-      scriptureRef: "Genesis 1"
+      scriptureRef: DEFAULT_BIBLE_SETTINGS.CHAPTER_CITATION
    };
 
    function reducer(state: any, action: any) {
@@ -65,7 +68,12 @@ export const BibleVersionScripture = () => {
          case "scriptureRef":
             localStorage.setItem(
                "reading-preferences",
-               JSON.stringify({ ...state, ...prefs, scriptureRef: action.payload })
+               JSON.stringify({
+                  ...state,
+                  ...prefs,
+                  scriptureRef: action.payload.scripture,
+                  chapterId: action.payload.chapterId
+               })
             );
             return { ...state, scriptureRef: action.payload };
          case "localStorage":
@@ -94,9 +102,9 @@ export const BibleVersionScripture = () => {
          localStorage.setItem(
             "reading-preferences",
             JSON.stringify({
-               versionName: english[0].abbreviation,
-               versionId: english[0].id,
-               scriptureRef: "Genesis 1"
+               versionName: DEFAULT_BIBLE_SETTINGS.VERSION_NAME,
+               versionId: DEFAULT_BIBLE_SETTINGS.VERSION_ID,
+               scriptureRef: DEFAULT_BIBLE_SETTINGS.CHAPTER_CITATION
             })
          );
       }
@@ -108,7 +116,7 @@ export const BibleVersionScripture = () => {
       setTimeout(() => {
          const localSExists = localStorage.getItem("reading-preferences");
          const prefs = localSExists && JSON.parse(localSExists);
-         console.log(prefs);
+
          dispatch({
             type: "localStorage",
             payload: {
@@ -128,11 +136,12 @@ export const BibleVersionScripture = () => {
    // handle the chapter selection: close the modal, update the state, and push to the router
    const handleChapterSelection = (content: any) => {
       location.href = `/read?chapter-id=${content}`;
+
       setshowModal(0);
 
       // parse the scriptures
       const scripture = parseChapterId(content);
-      dispatch({ type: "scriptureRef", payload: scripture });
+      dispatch({ type: "scriptureRef", payload: { scripture, chapterId: content } });
    };
 
    return (

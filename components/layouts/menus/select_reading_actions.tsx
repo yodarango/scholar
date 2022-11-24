@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -66,9 +66,8 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
       if (action === "commentaries") {
          router.push({
             pathname: router.pathname,
-            query: { ...router.query, VERSE_ID: `${data.id}.${data.verseNumber}` }
+            query: { ...router.query, VERSE_ID: `${data.id}.${data.verseNumber}`, modal: 1 }
          });
-         //router.query["VERSE_ID"] = data.verseId;
          setshowStackModal(1);
       }
       if (action === "comment") {
@@ -78,6 +77,15 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
       if (action === "highlight") setshowStackModal(3);
    };
 
+   // figure out if a modal is open to set it open on load
+   useEffect(() => {
+      if (router.isReady && router?.query?.modal && router.query?.VERSE_ID) {
+         if (typeof router.query.modal === "string") {
+            const modal: number = parseInt(router.query.modal);
+            setshowStackModal(modal);
+         }
+      }
+   }, [router.isReady, router.query]);
    return (
       <>
          {showStackModal === 1 && (

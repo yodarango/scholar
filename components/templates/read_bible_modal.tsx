@@ -12,6 +12,9 @@ import { ReadBibleHeader } from "../layouts/read_bible_header";
 // styles
 import styles from "./read_bible_modal.module.css";
 
+// constants
+import { DEFAULT_BIBLE_SETTINGS, DEFAULT_THEME } from "../../constants/defaults";
+
 type TReadBibleTemplateProps = {
    cta: {
       handleTheme: (theme: string) => void;
@@ -35,13 +38,22 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
    };
 
    // set the chapterId on initial load
+   // 1. If there is a chapter-id in the router that is used else :
+   // 2. If there is a chapter-id in Local Storage that is used: else :
+   // 3. fallback to DEFAULTS
    useEffect(() => {
+      const LSExists = localStorage.getItem("reading-preferences");
+      const LSParsed = LSExists && JSON.parse(LSExists);
+      const LSChapterId = LSParsed && LSParsed.chapterId;
+
       if (router.isReady) {
          if (router.query["chapter-id"]) {
             const chaptId = router.query["chapter-id"];
             setcurrChapter(chaptId);
+         } else if (LSChapterId) {
+            setcurrChapter(LSChapterId);
          } else {
-            setcurrChapter("GEN.1");
+            setcurrChapter(DEFAULT_BIBLE_SETTINGS.CHAPTER_ID);
          }
       }
       getChapterData();
@@ -66,7 +78,7 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
          const LSParsed = JSON.parse(LSExists);
          settheme(LSParsed.theme);
       } else {
-         settheme("3");
+         settheme(DEFAULT_THEME);
       }
    }, []);
 
