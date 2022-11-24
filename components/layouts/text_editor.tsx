@@ -1,4 +1,3 @@
-
 /**************************************************************************************** 
 - renders the a text editor for either the thought or commentary type.
 - if cta.closeModal is passed than the "x" button will be rendered and called on Click()
@@ -74,35 +73,34 @@ export const TextEditor = ({
    //state
    const [postbody, setpostBody] = useState(body);
    // close prop from the router
-   const [closeHref, setcloseHref] = useState<string>("#")
+   const [closeHref, setcloseHref] = useState<string>("#");
    // pas the body down to the preview component and to the parent component for posting
    const handleUpdateBody = (value: string) => {
       setpostBody(value);
       cta.handleBody(value);
    };
 
-   useEffect(()=>{
-      if(router.isReady){
+   useEffect(() => {
+      if (router.isReady) {
          const closeExists = router.query["close"] !== undefined;
-         if (closeExists || closeModalHref){
+         if (closeExists || closeModalHref) {
             const closeLink = router.query["close"];
-            if(typeof closeLink === 'string'){
-               setcloseHref(closeLink.replaceAll("_", "/"))
+            if (typeof closeLink === "string") {
+               setcloseHref(closeLink.replaceAll("_", "/"));
             }
          }
-         
       }
-   }, [router.isReady])
+   }, [router.isReady]);
 
+   console.log(cta.handleCloseModal, closeHref);
    return (
       <div className={styles.mainWrapper}>
-   
-            <div className={styles.close}>
-               {closeHref && <CloseContent href={`/${closeHref}`} />}
-               {cta.handleCloseModal && (
-                  <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
-               )}
-            </div>
+         <div className={styles.close}>
+            {closeHref && !cta.handleCloseModal && <CloseContent href={`/${closeHref}`} />}
+            {cta.handleCloseModal && !closeHref && (
+               <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
+            )}
+         </div>
          <div className={styles.textArea}>
             <TextEditorTextArea
                withTitle={withTitle}

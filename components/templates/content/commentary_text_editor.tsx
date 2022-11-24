@@ -97,7 +97,7 @@ export const CommentaryTextEditor = ({
          case "postImage":
             return { ...state, postImage: action.payload };
 
-         // why am I returning the data from a nested child rather than frmo the bottom"handlePost' function below?
+         // why am I returning the data from a nested child rather than from the bottom "handlePost' function below?
          // Because why waste more network when the data is already in the client
          case "verseData":
             return {
@@ -149,7 +149,6 @@ export const CommentaryTextEditor = ({
                postCategory={postCategory}
                postReferences={state.referencedVerses}
                postPrivacy={postPrivacy}
-               closeModalHref={closeModalHref}
                cta={{
                   handleCategorySelection: (category) =>
                      dispatch({ type: "category", payload: category }),

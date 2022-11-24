@@ -1,5 +1,7 @@
 /***********************************************************************************************************  
--   A new Bible verse based on router.query
+-   A new Bible verse based on router.query or readyData
+    - readyData is checked on the useEffect. If it is present the call will not happen. Otherwise a call to
+      API is made
 -   If the query is null than only the button will be rendered
 ************************************************************************************************************/
 

@@ -108,6 +108,11 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
             <div className={stylesLocal.newCommentStack}>
                <div className={stylesLocal.commenaryEditor}>
                   <CommentaryTextEditor
+                     readyData={{
+                        verseId: `${data.id}.${data.verseNumber}`,
+                        reference: `${data.reference}:${data.verseNumber}`,
+                        content: data.verseContent
+                     }}
                      userAuthority={1}
                      userId='123'
                      username='Username'
