@@ -1,7 +1,7 @@
 /**************************************************************************************** 
 - renders the a text editor for either the thought or commentary type.
 - if cta.closeModal is passed than the "x" button will be rendered and called on Click()
-- if closeModalHref is passed then the modal will redirect to the route specified in the 
+- if closeHref is passed then the modal will redirect to the route specified in the 
    router.query.close prop
 ****************************************************************************************/
 
@@ -21,6 +21,7 @@ import { VerseRefTagWrapper } from "../fragments/verse_ref_tag_wrapper";
 
 type TTextEditorProps = {
    body: string | null;
+   closeHref?: string;
    postImage: string;
    userAuthority: number;
    userId: string;
@@ -35,7 +36,6 @@ type TTextEditorProps = {
    titleMaxL?: number;
    titleDefaultValue?: string;
    titlePlaceHolder?: string;
-   closeModalHref?: string | undefined;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -50,6 +50,7 @@ type TTextEditorProps = {
 
 export const TextEditor = ({
    body,
+   closeHref,
    postImage,
    userAuthority,
    userId,
@@ -64,7 +65,6 @@ export const TextEditor = ({
    withTitle,
    titleDefaultValue = "",
    titlePlaceHolder,
-   closeModalHref,
    cta
 }: TTextEditorProps) => {
    // router
@@ -72,27 +72,12 @@ export const TextEditor = ({
 
    //state
    const [postbody, setpostBody] = useState(body);
-   // close prop from the router
-   const [closeHref, setcloseHref] = useState<string>("#");
    // pas the body down to the preview component and to the parent component for posting
    const handleUpdateBody = (value: string) => {
       setpostBody(value);
       cta.handleBody(value);
    };
 
-   useEffect(() => {
-      if (router.isReady) {
-         const closeExists = router.query["close"] !== undefined;
-         if (closeExists || closeModalHref) {
-            const closeLink = router.query["close"];
-            if (typeof closeLink === "string") {
-               setcloseHref(closeLink.replaceAll("_", "/"));
-            }
-         }
-      }
-   }, [router.isReady]);
-
-   console.log(cta.handleCloseModal, closeHref);
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.close}>

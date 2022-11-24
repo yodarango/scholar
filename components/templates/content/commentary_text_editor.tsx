@@ -28,7 +28,6 @@ type TCommentaryTextEditorProps = {
    postCategory?: string;
    postReferences?: string[];
    postPrivacy?: boolean;
-   closeModalHref?: string | undefined;
    readyData?: {
       verseId: string;
       reference: string;
@@ -54,7 +53,6 @@ export const CommentaryTextEditor = ({
    postCategory = "",
    postReferences = [],
    postPrivacy = false,
-   closeModalHref,
    readyData,
    cta
 }: TCommentaryTextEditorProps) => {
