@@ -78,14 +78,17 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
    };
 
    // figure out if a modal is open to set it open on load
-   useEffect(() => {
-      if (router.isReady && router?.query?.modal && router.query?.VERSE_ID) {
-         if (typeof router.query.modal === "string") {
-            const modal: number = parseInt(router.query.modal);
-            setshowStackModal(modal);
-         }
-      }
-   }, [router.isReady, router.query]);
+   //! not working right now because this comp is not loaded unless
+   //! the click in the parent happens. This needs to be refactor to
+   //! work.
+   // useEffect(() => {
+   //    if (router.isReady && router?.query?.modal && router.query?.VERSE_ID) {
+   //       if (typeof router.query.modal === "string") {
+   //          const modal: number = parseInt(router.query.modal);
+   //          setshowStackModal(modal);
+   //       }
+   //    }
+   // }, [router.isReady, router.query]);
    return (
       <>
          {showStackModal === 1 && (
