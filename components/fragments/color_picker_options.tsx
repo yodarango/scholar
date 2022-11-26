@@ -6,7 +6,7 @@ import { GradientBackground } from "./buttons/gradient_background";
 
 type TColorPickerOptionsProps = {
    cta: {
-      handleColorSelection: (color: string | { light: string; dark: string }, ID: string) => void;
+      handleColorSelection: (color: string | { light: string; dark: string }, ID: number) => void;
    };
 };
 export const ColorPickerOptions = ({ cta }: TColorPickerOptionsProps) => {
@@ -17,7 +17,7 @@ export const ColorPickerOptions = ({ cta }: TColorPickerOptionsProps) => {
                bkgSolid='transparent'
                cta={{
                   handleSelection: (color: string | { light: string; dark: string }) =>
-                     cta.handleColorSelection("transparent", "-1")
+                     cta.handleColorSelection("transparent", -1)
                }}
             />
          </div>

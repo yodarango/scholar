@@ -21,7 +21,7 @@ export type TSelectPostRatingMenuProps = {
       handleHighlightVerse: (
          color: string | { light: string; dark: string },
          verseId: string,
-         color_ID: string
+         color_ID: number
       ) => void;
    };
 };
@@ -131,7 +131,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                cta={{
                   handleColorSelection: (
                      color: string | { light: string; dark: string },
-                     ID: string
+                     ID: number
                   ) => cta.handleHighlightVerse(color, `${data.id}.${data.verseNumber}`, ID),
                   handleClose: cta.handleCloseModal
                }}

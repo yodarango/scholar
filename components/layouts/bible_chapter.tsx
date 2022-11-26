@@ -78,7 +78,6 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    const fetchHighLightedVerses = async (variables: ThighlightedVersesVariables) => {
       try {
          const { data }: any = await handleGetHighilightedVerses(variables);
-         console.log(data);
          if (data.highlighted_verses) {
             sethighlightedVerses(data.highlighted_verses);
             setloading("done");
@@ -146,24 +145,21 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    // highlight the verse
    const handleHighlightVerse = (
       color: string | { light: string; dark: string },
-      verseId: string,
-      ID: string
+      VERSE_ID: string,
+      highlight_id: number
    ) => {
-      console.log(ID);
       // check if the color is transparent with ID of -1 which means the user is removing the highlight
-      if (ID === "-1") {
+      if (highlight_id === -1) {
          // remove the verse from the array
-         const findVerse = highlightedVerses.filter((highlight) => highlight.VERSE_ID !== verseId);
+         const findVerse = highlightedVerses.filter((highlight) => highlight.VERSE_ID !== VERSE_ID);
          sethighlightedVerses(findVerse);
       } else {
-         const highlightedVerse: string = `${verseId}:${ID}`;
-
          // exclude the verse being highlighted from the saved verses in case it already exists
          const findVerse: THighlightVerses[] = highlightedVerses.filter(
-            (highlight) => highlight.VERSE_ID !== verseId
+            (highlight) => highlight.VERSE_ID !== VERSE_ID
          );
 
-         sethighlightedVerses([...findVerse, { ID }]);
+         sethighlightedVerses([...findVerse, { ID: 2, USER_ID: "1", VERSE_ID, highlight_id }]);
       }
 
       // close modal
@@ -173,7 +169,6 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
    const chapterTitle = data && data.content.split("\n")[0];
    const versesArray = data && data.content.split(/\[[0-9]*\]/g);
 
-   console.log("parent", highlightedVerses);
    return (
       <>
          {loading === "done" && data && (
@@ -185,7 +180,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
                         data={{ ...data, ...showReadingMenu }}
                         cta={{
                            handleCloseModal: () => setshowReadingMenu(undefined),
-                           handleHighlightVerse: (hl_id) => handleHighlightVerse(hl_id)
+                           handleHighlightVerse: handleHighlightVerse
                         }}
                      />
                   )}
@@ -243,11 +238,19 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
             </div>
          )}
 
-         {loading === "loading" && <RoundLoader />}
+         {loading === "loading" && (
+            <div className={styles.loader}>
+               <RoundLoader />
+            </div>
+         )}
          {loading === "done" && data && data.copyright && (
             <p className='scriptures-copyright'>{data.copyright}</p>
          )}
-         {loading == "error" && <ResourceNotFoundError />}
+         {loading == "error" && (
+            <div className={styles.error}>
+               <ResourceNotFoundError />
+            </div>
+         )}
       </>
    );
 };

@@ -3,6 +3,6 @@ export type THighlightVerses = {
    USER_ID: string;
    VERSE_ID: string;
    highlight_id: string | number;
-   created_date: string;
-   posted_on: string;
+   created_date?: string;
+   posted_on?: string;
 };

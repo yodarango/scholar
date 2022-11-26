@@ -11,7 +11,7 @@ import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 type TSelectHighlightColorProps = {
    cta: {
       handleClose: () => void;
-      handleColorSelection: (color: string | { light: string; dark: string }, ID: string) => void;
+      handleColorSelection: (color: string | { light: string; dark: string }, ID: number) => void;
    };
 };
 export const SelectHighlightColor = ({ cta }: TSelectHighlightColorProps) => {
