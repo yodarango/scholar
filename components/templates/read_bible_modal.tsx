@@ -25,17 +25,11 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
    const router = useRouter();
 
    //state
-   const [chapterData, setchapterData] = useState<any>(null);
    const [currChapter, setcurrChapter] = useState<string | string[]>("");
    const [fontSize, setfontSize] = useState<string | undefined>(undefined);
    const [theme, settheme] = useState<string | undefined>(undefined);
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
-
-   const getChapterData = () => {
-      // get the chapter data
-      setchapterData({ isChapterBookmarked: false });
-   };
 
    // set the chapterId on initial load
    // 1. If there is a chapter-id in the router that is used else :
@@ -56,7 +50,6 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
             setcurrChapter(DEFAULT_BIBLE_SETTINGS.CHAPTER_ID);
          }
       }
-      getChapterData();
    }, [router.query, router.isReady]);
 
    const handleThemeSelection = (value: string) => {
@@ -97,15 +90,12 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
                   : styles.thirdTheme // default one
             }
             `}>
-            {chapterData && (
-               <ReadBibleHeader
-                  cta={{
-                     handleFontSelection: (value: string) => setfontSize(value),
-                     handleThemeSelection
-                  }}
-                  isChapeterBookmarked={chapterData.isChapterBookmarked}
-               />
-            )}
+            <ReadBibleHeader
+               cta={{
+                  handleFontSelection: (value: string) => setfontSize(value),
+                  handleThemeSelection
+               }}
+            />
          </div>
          <div className={styles.chapter}>
             {currChapter && (

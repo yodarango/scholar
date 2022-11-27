@@ -8,13 +8,12 @@ import { ReadSettings } from "../fragments/chunks/read_settings";
 import styles from "./read_bible_header.module.css";
 
 type TReadBibleHeaderProps = {
-   isChapeterBookmarked: boolean;
    cta: {
       handleFontSelection: (value: string) => void;
       handleThemeSelection: (value: string) => void;
    };
 };
-export const ReadBibleHeader = ({ isChapeterBookmarked, cta }: TReadBibleHeaderProps) => {
+export const ReadBibleHeader = ({ cta }: TReadBibleHeaderProps) => {
    return (
       <div className={styles.mainWrpper}>
          <div className={styles.language}>
@@ -24,11 +23,7 @@ export const ReadBibleHeader = ({ isChapeterBookmarked, cta }: TReadBibleHeaderP
             <BibleVersionScripture />
          </div>
          <div className={styles.bookmarks}>
-            <ReadBookmark
-               chapterId='GEN.1'
-               bookMarks={["1CO.2", "JHN.3", "MAT.1"]}
-               isBookMarked={isChapeterBookmarked}
-            />
+            <ReadBookmark />
          </div>
          <div className={styles.settings}>
             <ReadSettings

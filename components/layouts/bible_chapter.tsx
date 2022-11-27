@@ -8,6 +8,7 @@
 ****************************************************************************************/
 // core
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // styles
 import styles from "./bible_chapter.module.css";
@@ -29,6 +30,7 @@ import {
 
 // types
 import { THighlightVerses } from "../../types/read";
+import { handleGetBookmarks, TBookmarksVariables } from "../../helpers/functions/reading/bookmarks";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy rnext router type
@@ -37,6 +39,9 @@ type chapterProps = {
 };
 
 export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chapterProps) => {
+   // use router
+   const router = useRouter();
+
    // states
    const [showReadingMenu, setshowReadingMenu] =
       useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
@@ -50,7 +55,6 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
       VERSE_ID: "",
       USER_ID: 1001
    });
-
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (versionId: string) => {
       try {
@@ -97,7 +101,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
          const LSParsed = JSON.parse(LSExists);
          fetchData(LSParsed.versionId);
       }
-   }, []);
+   }, [router.query]);
 
    // get the highlighted verses
    useEffect(() => {

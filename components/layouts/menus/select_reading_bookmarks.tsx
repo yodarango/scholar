@@ -7,6 +7,7 @@
 
 // components
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // cmops
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -16,6 +17,12 @@ import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 
 //styles
 import styles from "./select_menu_global.module.css";
+
+// types
+import {
+   handleGetBookmarks,
+   TBookmarksVariables
+} from "../../../helpers/functions/reading/bookmarks";
 
 type TSelectReadingBookmarksProps = {
    chapterId: string;
@@ -31,11 +38,39 @@ export const SelectReadingBookmarks = ({
    isChapterBookmarked,
    chapterId
 }: TSelectReadingBookmarksProps) => {
-   const [bookMarks, setbookMarks] = useState<string[]>([]);
-   const getBookMarks = () => {
-      // fetch bookmarks from DB
-      setbookMarks(["1CO.2", "JHN.3", "MAT.1"]);
+   // router
+   const router = useRouter();
+   // state
+   const [bookMarked, setbookMarked] = useState<boolean>(false);
+   const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
+
+   // const handleSetBookMark = (value: boolean) => {
+   //    setbookMarked(value);
+   //    console.log(value);
+   //    // handle the request to DB via helper
+   // };
+
+   // fetch highlighted verses
+   const fetchBookmarks = async (variables: TBookmarksVariables) => {
+      try {
+         const { data }: any = await handleGetBookmarks(variables);
+         if (data.bookmarks) {
+            console.log(bookmarks);
+            setBookmarks(data.bookmarks);
+         } else {
+            setBookmarks([]);
+         }
+      } catch (error) {
+         setBookmarks([]);
+         console.log(error);
+      }
    };
+
+   // get the bookmarks
+   useEffect(() => {
+      fetchBookmarks({ USER_ID: 1001, last_id: 9999999 });
+   }, []);
+
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
       console.log(chapterId);
@@ -48,11 +83,6 @@ export const SelectReadingBookmarks = ({
       color: !isChapterBookmarked ? "#7fdc7d" : "#ff4d62",
       text: !isChapterBookmarked ? "Bookmark this chapter" : "Remove this bookmark"
    };
-
-   // get the data
-   useEffect(() => {
-      getBookMarks();
-   }, []);
 
    return (
       <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
@@ -69,7 +99,7 @@ export const SelectReadingBookmarks = ({
                cta={{ handleOptionClick: handleBookMark }}
             />
          </div>
-         {bookMarks.map((bookmark, index) => (
+         {bookmarks.map((bookmark, index) => (
             <div className={styles.menuOption} key={index}>
                <MenuPrimaryOption
                   textType='text'
@@ -77,9 +107,14 @@ export const SelectReadingBookmarks = ({
                   optionProperties={{
                      icon: <Icon name='bookmarkFilled' size='2rem' color='#F1EAFF' />,
                      iconShadow: "#F1EAFF",
-                     text: parseChapterId(bookmark)
+                     text: bookmark.CHAPTER_ID
+                        ? parseChapterId(bookmark.CHAPTER_ID)
+                        : "Error loading bookmark"
                   }}
-                  href={`/read?VERSE_ID=${bookmark}`}
+                  href={`/read?chapter-id=${bookmark.CHAPTER_ID}`}
+                  // cta={{
+                  //    handleOptionClick: () => router.push({query: bookmark.CHAPTER_ID })
+                  // }}
                />
             </div>
          ))}

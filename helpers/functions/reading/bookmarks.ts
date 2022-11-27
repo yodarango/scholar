@@ -1,22 +1,22 @@
 // graphQl
 import { client } from "../../../apollo-client";
-import { GET_HIGHILGHTED_VERSES } from "../../../graphql/reading/read";
+import { GET_BOOKMARKS } from "../../../graphql/reading/read";
 
-export type ThighlightedVersesVariables = {
+export type TBookmarksVariables = {
    ID?: string;
-   VERSE_ID?: string;
+   CHAPTER_ID?: string;
    USER_ID?: number | string;
    last_id: number | string;
 };
 
-export const handleGetHighilightedVerses = async (variables: ThighlightedVersesVariables) => {
+export const handleGetBookmarks = async (variables: TBookmarksVariables) => {
    try {
       const { data } = await client.query({
-         query: GET_HIGHILGHTED_VERSES,
+         query: GET_BOOKMARKS,
          variables
       });
 
-      if (!data.highlighted_verses) {
+      if (!data.bookmarks) {
          return { data: null, status: "error" };
       }
 
