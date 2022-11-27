@@ -2,7 +2,7 @@
 -  This component renders a reading full Bible chapter of the Bible APi. 
 -  The rendering is control by a parent's state which is dependant on the useRouter hook, 
    so every time a new Scripture is selected, the router is updated and this component 
-   re-rendered.
+   re-rendered via the chapterId prop.
 -  this component passes down data to all his children as the prop {data} so that its
    children do not have to refetch
 ****************************************************************************************/
@@ -33,12 +33,13 @@ import { THighlightVerses } from "../../types/read";
 import { handleGetBookmarks, TBookmarksVariables } from "../../helpers/functions/reading/bookmarks";
 
 type chapterProps = {
-   chapterId: string | string[]; // string[] is only to satisfy rnext router type
+   chapterId: string | string[]; // string[] is only to satisfy next router type
    fontSize?: string;
    theme?: string;
 };
 
 export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chapterProps) => {
+   console.log(chapterId);
    // use router
    const router = useRouter();
 
@@ -56,7 +57,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
       USER_ID: 1001
    });
    // fetch the Bible API Data along with the highlighted verses by the user
-   const fetchData = async (versionId: string) => {
+   const fetchData = async (chapterId: string | string[], versionId: string) => {
       try {
          const chapter = await fetchBibleChapter(chapterId, versionId);
 
@@ -94,14 +95,16 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
       }
    };
 
-   // call chapter data API
+   // call chapter data API on chapter Id change
    useEffect(() => {
-      const LSExists = localStorage.getItem("reading-preferences");
-      if (LSExists) {
-         const LSParsed = JSON.parse(LSExists);
-         fetchData(LSParsed.versionId);
+      if (router.isReady) {
+         const LSExists = localStorage.getItem("reading-preferences");
+         if (LSExists) {
+            const LSParsed = JSON.parse(LSExists);
+            fetchData(chapterId, LSParsed.versionId);
+         }
       }
-   }, [router.query]);
+   }, [chapterId]);
 
    // get the highlighted verses
    useEffect(() => {

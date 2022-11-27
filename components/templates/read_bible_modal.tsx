@@ -1,6 +1,7 @@
 /**************************************************************************************** 
--  this component is in charge of passing down the chapter ID to be rendered and the 
-   theme ID to its child 
+-  this component is in charge of passing down the chapter ID to be rendered children and 
+   the theme ID to its child therefore the subcomponents should not be worried about handling
+   router or local storage state
 ****************************************************************************************/
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -41,6 +42,7 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
       const LSChapterId = LSParsed && LSParsed.chapterId;
 
       if (router.isReady) {
+         console.log(router.query);
          if (router.query["chapter-id"]) {
             const chaptId = router.query["chapter-id"];
             setcurrChapter(chaptId);
@@ -91,6 +93,7 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
             }
             `}>
             <ReadBibleHeader
+               chapterId={currChapter}
                cta={{
                   handleFontSelection: (value: string) => setfontSize(value),
                   handleThemeSelection

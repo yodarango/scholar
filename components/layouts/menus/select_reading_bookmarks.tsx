@@ -25,7 +25,7 @@ import {
 } from "../../../helpers/functions/reading/bookmarks";
 
 type TSelectReadingBookmarksProps = {
-   chapterId: string;
+   chapterId: string | string[];
    isChapterBookmarked: boolean;
    cta: {
       handleCloseModal: () => void;
@@ -38,17 +38,12 @@ export const SelectReadingBookmarks = ({
    isChapterBookmarked,
    chapterId
 }: TSelectReadingBookmarksProps) => {
+   console.log(isChapterBookmarked);
    // router
    const router = useRouter();
-   // state
-   const [bookMarked, setbookMarked] = useState<boolean>(false);
-   const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
 
-   // const handleSetBookMark = (value: boolean) => {
-   //    setbookMarked(value);
-   //    console.log(value);
-   //    // handle the request to DB via helper
-   // };
+   // state
+   const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
 
    // fetch highlighted verses
    const fetchBookmarks = async (variables: TBookmarksVariables) => {
@@ -69,7 +64,7 @@ export const SelectReadingBookmarks = ({
    // get the bookmarks
    useEffect(() => {
       fetchBookmarks({ USER_ID: 1001, last_id: 9999999 });
-   }, []);
+   }, [chapterId]);
 
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
