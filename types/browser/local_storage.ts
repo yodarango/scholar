@@ -1,11 +1,12 @@
 // reading-preferences
-export type BiblePreferences = {
-   language: string;
-   langIcon: string;
-   theme: string;
+export type ReadingPreferences = {
    font: string;
-   versionName: string;
-   versionId: string;
+   langIcon: string;
+   language: string;
    scriptureRef: string;
+   theme: string;
+   versionId: string;
+   versionName: string;
+   chapterId: string;
    bibleLanguage: string;
 };

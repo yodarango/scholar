@@ -35,13 +35,17 @@ import { handleGetBookmarks, TBookmarksVariables } from "../../helpers/functions
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
    fontSize?: string;
+   versionId: string;
    theme?: string;
 };
 
-export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chapterProps) => {
-   console.log(chapterId);
-   // use router
-   const router = useRouter();
+export const BibleChapter = ({
+   chapterId,
+   versionId,
+   fontSize = "main",
+   theme = "1"
+}: chapterProps) => {
+   console.log(chapterId, versionId);
 
    // states
    const [showReadingMenu, setshowReadingMenu] =
@@ -97,13 +101,7 @@ export const BibleChapter = ({ chapterId, fontSize = "main", theme = "1" }: chap
 
    // call chapter data API on chapter Id change
    useEffect(() => {
-      if (router.isReady) {
-         const LSExists = localStorage.getItem("reading-preferences");
-         if (LSExists) {
-            const LSParsed = JSON.parse(LSExists);
-            fetchData(chapterId, LSParsed.versionId);
-         }
-      }
+      fetchData(chapterId, versionId);
    }, [chapterId]);
 
    // get the highlighted verses

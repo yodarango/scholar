@@ -16,6 +16,9 @@ import styles from "./read_bible_modal.module.css";
 // constants
 import { DEFAULT_BIBLE_SETTINGS, DEFAULT_THEME } from "../../constants/defaults";
 
+// types
+import { ReadingPreferences } from "../../types/browser/local_storage";
+
 type TReadBibleTemplateProps = {
    cta: {
       handleTheme: (theme: string) => void;
@@ -26,36 +29,59 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
    const router = useRouter();
 
    //state
-   const [currChapter, setcurrChapter] = useState<string | string[]>("");
-   const [fontSize, setfontSize] = useState<string | undefined>(undefined);
-   const [theme, settheme] = useState<string | undefined>(undefined);
+   // const [currChapter, setcurrChapter] = useState<string | string[]>("");
+   // const [fontSize, setfontSize] = useState<string | undefined>(undefined);
+   // const [theme, settheme] = useState<string | undefined>(undefined);
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
+   const [readingPrefs, setreadingPrefs] = useState<ReadingPreferences | null>(null);
 
    // set the chapterId on initial load
    // 1. If there is a chapter-id in the router that is used else :
    // 2. If there is a chapter-id in Local Storage that is used: else :
    // 3. fallback to DEFAULTS
+   // follow this procedure for all settings that require multiple checks
    useEffect(() => {
-      const LSExists = localStorage.getItem("reading-preferences");
-      const LSParsed = LSExists && JSON.parse(LSExists);
-      const LSChapterId = LSParsed && LSParsed.chapterId;
-
       if (router.isReady) {
-         console.log(router.query);
+         let preferences;
+         const LSExists = localStorage.getItem("reading-preferences");
+         const LSParsed = LSExists && JSON.parse(LSExists);
+         const chapterId = LSParsed.chapterId;
+         const versionId = LSParsed.versionId;
+         const theme = LSParsed.theme;
+
+         // set preferences in the global state
+         setreadingPrefs({ ...readingPrefs, ...LSParsed });
+
          if (router.query["chapter-id"]) {
             const chaptId = router.query["chapter-id"];
-            setcurrChapter(chaptId);
-         } else if (LSChapterId) {
-            setcurrChapter(LSChapterId);
+            preferences = { chaptId };
+         } else if (chapterId) {
+            preferences = { chapterId };
          } else {
-            setcurrChapter(DEFAULT_BIBLE_SETTINGS.CHAPTER_ID);
+            preferences = { chapterId: DEFAULT_BIBLE_SETTINGS.CHAPTER_ID };
          }
+
+         // version
+         if (versionId) {
+            preferences = { versionId };
+         } else {
+            preferences = { versionId: DEFAULT_BIBLE_SETTINGS.VERSION_ID };
+         }
+
+         // theme
+         if (theme) {
+            preferences = { theme };
+         } else {
+            preferences = { theme: DEFAULT_THEME };
+         }
+
+         setreadingPrefs({ ...LSParsed, ...preferences });
       }
    }, [router.query, router.isReady]);
 
    const handleThemeSelection = (value: string) => {
-      settheme(value);
+      setreadingPrefs((prev) => prev && { ...prev, theme: value });
       cta.handleTheme(value);
    };
 
@@ -66,43 +92,40 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
       setscrollingDir(isScrollingDown ? "down" : "up");
    };
 
-   // get the theme settings
-   useEffect(() => {
-      const LSExists = localStorage.getItem("reading-preferences");
-      if (LSExists) {
-         const LSParsed = JSON.parse(LSExists);
-         settheme(LSParsed.theme);
-      } else {
-         settheme(DEFAULT_THEME);
-      }
-   }, []);
-
    return (
       <div className={styles.mainWrapper} onScroll={handleHeader}>
-         <div
-            className={`${styles.header} ${scrollingDir === "up" && styles.scrollingUp} ${
-               scrollingDir === "down" && styles.scrollingDown
-            } ${
-               theme === "1"
-                  ? styles.firstTheme
-                  : theme === "2"
-                  ? styles.secondTheme
-                  : theme === "4"
-                  ? styles.fourthTheme
-                  : styles.thirdTheme // default one
-            }
+         {readingPrefs && (
+            <div
+               className={`${styles.header} ${scrollingDir === "up" && styles.scrollingUp} ${
+                  scrollingDir === "down" && styles.scrollingDown
+               } ${
+                  readingPrefs.theme === "1"
+                     ? styles.firstTheme
+                     : readingPrefs.theme === "2"
+                     ? styles.secondTheme
+                     : readingPrefs.theme === "4"
+                     ? styles.fourthTheme
+                     : styles.thirdTheme // default one
+               }
             `}>
-            <ReadBibleHeader
-               chapterId={currChapter}
-               cta={{
-                  handleFontSelection: (value: string) => setfontSize(value),
-                  handleThemeSelection
-               }}
-            />
-         </div>
+               <ReadBibleHeader
+                  chapterId={readingPrefs.chapterId}
+                  cta={{
+                     handleFontSelection: (value: string) =>
+                        setreadingPrefs({ ...readingPrefs, font: value }),
+                     handleThemeSelection
+                  }}
+               />
+            </div>
+         )}
          <div className={styles.chapter}>
-            {currChapter && (
-               <BibleChapter chapterId={currChapter} fontSize={fontSize} theme={theme} />
+            {readingPrefs && (
+               <BibleChapter
+                  versionId={readingPrefs.versionId}
+                  chapterId={readingPrefs.chapterId}
+                  fontSize={readingPrefs.font}
+                  theme={readingPrefs.theme}
+               />
             )}
          </div>
       </div>
