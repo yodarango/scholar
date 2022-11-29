@@ -13,11 +13,11 @@ import { ReadBibleHeader } from "../layouts/read_bible_header";
 // styles
 import styles from "./read_bible_modal.module.css";
 
-// constants
-import { DEFAULT_BIBLE_SETTINGS, DEFAULT_THEME } from "../../constants/defaults";
-
 // types
 import { ReadingPreferences } from "../../types/browser/local_storage";
+
+// helpers
+import { getLSBibleSettings } from "../../helpers/browser/ls_bible_settings";
 
 type TReadBibleTemplateProps = {
    cta: {
@@ -29,54 +29,13 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
    const router = useRouter();
 
    //state
-   // const [currChapter, setcurrChapter] = useState<string | string[]>("");
-   // const [fontSize, setfontSize] = useState<string | undefined>(undefined);
-   // const [theme, settheme] = useState<string | undefined>(undefined);
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
    const [readingPrefs, setreadingPrefs] = useState<ReadingPreferences | null>(null);
 
-   // set the chapterId on initial load
-   // 1. If there is a chapter-id in the router that is used else :
-   // 2. If there is a chapter-id in Local Storage that is used: else :
-   // 3. fallback to DEFAULTS
-   // follow this procedure for all settings that require multiple checks
    useEffect(() => {
       if (router.isReady) {
-         let preferences;
-         const LSExists = localStorage.getItem("reading-preferences");
-         const LSParsed = LSExists && JSON.parse(LSExists);
-         const chapterId = LSParsed.chapterId;
-         const versionId = LSParsed.versionId;
-         const theme = LSParsed.theme;
-
-         // set preferences in the global state
-         setreadingPrefs({ ...readingPrefs, ...LSParsed });
-
-         if (router.query["chapter-id"]) {
-            const chaptId = router.query["chapter-id"];
-            preferences = { chaptId };
-         } else if (chapterId) {
-            preferences = { chapterId };
-         } else {
-            preferences = { chapterId: DEFAULT_BIBLE_SETTINGS.CHAPTER_ID };
-         }
-
-         // version
-         if (versionId) {
-            preferences = { versionId };
-         } else {
-            preferences = { versionId: DEFAULT_BIBLE_SETTINGS.VERSION_ID };
-         }
-
-         // theme
-         if (theme) {
-            preferences = { theme };
-         } else {
-            preferences = { theme: DEFAULT_THEME };
-         }
-
-         setreadingPrefs({ ...LSParsed, ...preferences });
+         setreadingPrefs(getLSBibleSettings(router));
       }
    }, [router.query, router.isReady]);
 
@@ -109,6 +68,10 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
                }
             `}>
                <ReadBibleHeader
+                  versionId={readingPrefs.versionId}
+                  versionName={readingPrefs.versionName}
+                  scriptureRef={readingPrefs.scriptureRef}
+                  langIcon={readingPrefs.langIcon}
                   chapterId={readingPrefs.chapterId}
                   cta={{
                      handleFontSelection: (value: string) =>

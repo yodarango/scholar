@@ -45,8 +45,6 @@ export const BibleChapter = ({
    fontSize = "main",
    theme = "1"
 }: chapterProps) => {
-   console.log(chapterId, versionId);
-
    // states
    const [showReadingMenu, setshowReadingMenu] =
       useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
@@ -87,7 +85,8 @@ export const BibleChapter = ({
    const fetchHighLightedVerses = async (variables: ThighlightedVersesVariables) => {
       try {
          const { data }: any = await handleGetHighilightedVerses(variables);
-         if (data.highlighted_verses) {
+         console.log(data);
+         if (data?.highlighted_verses) {
             sethighlightedVerses(data.highlighted_verses);
             setloading("done");
          } else {

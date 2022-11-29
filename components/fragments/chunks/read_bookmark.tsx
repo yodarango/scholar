@@ -35,7 +35,8 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
    const fetchBookmarks = async (variables: TBookmarksVariables) => {
       try {
          const { data }: any = await handleGetBookmarks(variables);
-         if (data.bookmarks) {
+         console.log(data);
+         if (data?.bookmarks) {
             setbookMarked(data.bookmarks.length > 0);
          }
       } catch (error) {

@@ -11,7 +11,9 @@ export const DEFAULT_BIBLE_SETTINGS = {
    VERSE_ID: "GEN.1.1",
    VERSE_CITATION: "Genesis 1:1",
    CHAPTER_ID: "GEN.1",
-   CHAPTER_CITATION: "Genesis 1"
+   CHAPTER_CITATION: "Genesis 1",
+   LANG_ICON: "🇺🇸",
+   LANGUAGE: "english"
 };
 
 export const DEFAULT_THEME = "3";

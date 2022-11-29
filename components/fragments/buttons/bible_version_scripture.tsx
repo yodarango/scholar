@@ -35,17 +35,18 @@ type TBiblePreferences = {
    scriptureRef: string;
 };
 
-export const BibleVersionScripture = () => {
-   // router
-   const router = useRouter();
-
+export const BibleVersionScripture = ({
+   versionName,
+   versionId,
+   scriptureRef
+}: TBiblePreferences) => {
    // states
    const [showModal, setshowModal] = useState<number>(0);
 
    const readingPrefs: TBiblePreferences = {
-      versionName: english[0].abbreviation,
-      versionId: english[0].id,
-      scriptureRef: DEFAULT_BIBLE_SETTINGS.CHAPTER_CITATION
+      versionName,
+      versionId,
+      scriptureRef
    };
 
    function reducer(state: any, action: any) {
@@ -84,47 +85,6 @@ export const BibleVersionScripture = () => {
    }
 
    const [state, dispatch] = useReducer(reducer, readingPrefs);
-
-   // update the state from local storage
-   useEffect(() => {
-      const localSExists = localStorage.getItem("reading-preferences");
-      // if local storage exists
-      if (localSExists) {
-         const prefs = JSON.parse(localSExists);
-         dispatch({
-            type: "localStorage",
-            payload: {
-               ...prefs
-            }
-         });
-      } else {
-         // if not, updated
-         localStorage.setItem(
-            "reading-preferences",
-            JSON.stringify({
-               versionName: DEFAULT_BIBLE_SETTINGS.VERSION_NAME,
-               versionId: DEFAULT_BIBLE_SETTINGS.VERSION_ID,
-               scriptureRef: DEFAULT_BIBLE_SETTINGS.CHAPTER_CITATION
-            })
-         );
-      }
-   }, []);
-
-   //! this will not be needed once the LS is moved to the parent. RIgh now this is just running after the
-   //! inital load to get the language from the LS
-   useEffect(() => {
-      setTimeout(() => {
-         const localSExists = localStorage.getItem("reading-preferences");
-         const prefs = localSExists && JSON.parse(localSExists);
-
-         dispatch({
-            type: "localStorage",
-            payload: {
-               ...prefs
-            }
-         });
-      }, 800);
-   }, []);
 
    //  handle the bible version selection by updating the state and closing the modal
    const handleVersionSelection = (item: TVersion) => {
