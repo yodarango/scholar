@@ -23,6 +23,9 @@ import {
    handleGetBookmarks,
    TBookmarksVariables
 } from "../../../helpers/functions/reading/bookmarks";
+import { RoundLoader } from "../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { CONTENT_LAST_ID } from "../../../constants/defaults";
 
 type TSelectReadingBookmarksProps = {
    chapterId: string | string[];
@@ -38,11 +41,9 @@ export const SelectReadingBookmarks = ({
    isChapterBookmarked,
    chapterId
 }: TSelectReadingBookmarksProps) => {
-   // router
-   const router = useRouter();
-
    // state
    const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
+   const [loading, setloading] = useState("loading");
 
    // fetch highlighted verses
    const fetchBookmarks = async (variables: TBookmarksVariables) => {
@@ -50,18 +51,21 @@ export const SelectReadingBookmarks = ({
          const { data }: any = await handleGetBookmarks(variables);
          if (data.bookmarks) {
             setBookmarks(data.bookmarks);
+            setloading("done");
          } else {
             setBookmarks([]);
+            setloading("done");
          }
       } catch (error) {
          setBookmarks([]);
+         setloading("done");
          console.log(error);
       }
    };
 
    // get the bookmarks
    useEffect(() => {
-      fetchBookmarks({ USER_ID: 1001, last_id: 9999999 });
+      fetchBookmarks({ USER_ID: 1001, last_id: CONTENT_LAST_ID });
    }, [chapterId]);
 
    const handleBookMark = () => {
@@ -91,25 +95,34 @@ export const SelectReadingBookmarks = ({
                cta={{ handleOptionClick: handleBookMark }}
             />
          </div>
-         {bookmarks.map((bookmark, index) => (
-            <div className={styles.menuOption} key={index}>
-               <MenuPrimaryOption
-                  textType='text'
-                  iconType='icon'
-                  optionProperties={{
-                     icon: <Icon name='bookmarkFilled' size='2rem' color='#F1EAFF' />,
-                     iconShadow: "#F1EAFF",
-                     text: bookmark.CHAPTER_ID
-                        ? parseChapterId(bookmark.CHAPTER_ID)
-                        : "Error loading bookmark"
-                  }}
-                  href={`/read?chapter-id=${bookmark.CHAPTER_ID}`}
-                  // cta={{
-                  //    handleOptionClick: () => router.push({query: bookmark.CHAPTER_ID })
-                  // }}
-               />
+         {loading === "done" &&
+            bookmarks.map((bookmark, index) => (
+               <div className={styles.menuOption} key={index}>
+                  <MenuPrimaryOption
+                     textType='text'
+                     iconType='icon'
+                     optionProperties={{
+                        icon: <Icon name='bookmarkFilled' size='2rem' color='#F1EAFF' />,
+                        iconShadow: "#F1EAFF",
+                        text: bookmark.CHAPTER_ID
+                           ? parseChapterId(bookmark.CHAPTER_ID)
+                           : "Error loading bookmark"
+                     }}
+                     href={`/read?chapter-id=${bookmark.CHAPTER_ID}`}
+                  />
+               </div>
+            ))}
+         {loading === "loading" && (
+            <div className={styles.loading}>
+               <RoundLoader />
             </div>
-         ))}
+         )}
+         {/* #NEEDS GRAPHICS */}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <ResourceNotFoundError />
+            </div>
+         )}
       </PrimaryMenuBkg>
    );
 };

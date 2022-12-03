@@ -18,4 +18,4 @@ export const DEFAULT_BIBLE_SETTINGS = {
    THEME: "3"
 };
 
-export const DEFAULT_THEME = "3";
+export const CONTENT_LAST_ID = 999999999;

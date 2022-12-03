@@ -20,6 +20,7 @@ import {
    handleGetSermonNotes,
    TgetSermonNotesVariables
 } from "../../../../helpers/functions/posts/sermon_note_get";
+import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 export const SermonNotesGrid = () => {
    // router
@@ -31,7 +32,7 @@ export const SermonNotesGrid = () => {
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetSermonNotesVariables>({
-      last_id: 999999999
+      last_id: CONTENT_LAST_ID
    });
 
    // fetch data on first time loading. Only runs on first load
@@ -111,7 +112,7 @@ export const SermonNotesGrid = () => {
 
    //call on query params change
    useEffect(() => {
-      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
    }, [router.query]);
 
    return (

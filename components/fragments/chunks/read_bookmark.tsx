@@ -15,6 +15,9 @@ import {
    TBookmarksVariables
 } from "../../../helpers/functions/reading/bookmarks";
 
+// data
+import { CONTENT_LAST_ID } from "../../../constants/defaults";
+
 type TReadBookmarkProps = {
    chapterId: any;
    size?: string;
@@ -44,7 +47,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
 
    // get the bookmarks
    useEffect(() => {
-      fetchBookmarks({ USER_ID: 1001, CHAPTER_ID: chapterId, last_id: 9999999 });
+      fetchBookmarks({ USER_ID: 1001, CHAPTER_ID: chapterId, last_id: CONTENT_LAST_ID });
    }, [chapterId]);
 
    return (

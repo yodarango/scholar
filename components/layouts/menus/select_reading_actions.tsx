@@ -98,6 +98,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                icon='chat'
                cta={{ handleClose: cta.handleCloseModal }}>
                <CommentariesGrid
+                  verseId={`${data.id}.${data.verseNumber}`}
                   verse={data.verseContent}
                   verseCitation={`${data.reference}:${data.verseNumber}`}
                />

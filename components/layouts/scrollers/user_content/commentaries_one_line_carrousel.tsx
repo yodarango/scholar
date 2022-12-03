@@ -16,6 +16,7 @@ import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
 import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 export const CommentaryOneLineCarrousel = () => {
    // router
@@ -28,7 +29,7 @@ export const CommentaryOneLineCarrousel = () => {
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       AUTHORITY_LEVEL: "0",
-      last_id: 999999999
+      last_id: CONTENT_LAST_ID
    });
 
    // fetch data on first time loading. Only runs on first load
@@ -105,7 +106,7 @@ export const CommentaryOneLineCarrousel = () => {
    let isFirstLoad = true; // make sure it does not get called on first load
    useEffect(() => {
       if (router.isReady && !isFirstLoad)
-         fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
    }, [router.query]);
    isFirstLoad = false;
 

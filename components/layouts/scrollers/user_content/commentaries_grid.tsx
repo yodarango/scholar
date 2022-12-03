@@ -1,6 +1,7 @@
 /**************************************************************************************** 
 -  displays grid of commentaries.
 -  Pages that render this modal include at least /read and posts/commentaries/
+-  If the props verseId is passed the call to the API will not use the query value
 ****************************************************************************************/
 
 import { useEffect, useState } from "react";
@@ -25,6 +26,7 @@ import {
    handleGetCommentaries,
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
+import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
@@ -33,6 +35,7 @@ type TCommentariesGridProps = {
 };
 
 export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentariesGridProps) => {
+   console.log(verseId);
    // router
    const router = useRouter();
 
@@ -41,13 +44,17 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
+   const [isFirstLoad, setisFirstLoad] = useState(true);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
-      last_id: 999999999
+      last_id: CONTENT_LAST_ID
    });
 
    // fetch data on first time loading. Only runs on first load
-   const fetchData = async (variables: TgetcommentariesVariables) => {
+   const fetchData = async (variables: any) => {
       setloading("loading");
+
+      if (verseId) variables.VERSE_ID = verseId;
+
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
@@ -57,6 +64,7 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
 
             data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
+         setisFirstLoad(false);
          setloading(status);
       } catch (error) {
          console.error(error);
@@ -70,12 +78,15 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
       setshowloadMore(false);
       setloading("loading");
 
+      if (verseId) variables.VERSE_ID = verseId;
+
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
             setcommentaries(data.commentary);
             data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setloading(status);
+            setisFirstLoad(false);
          }
       } catch (error) {
          setcommentaries([]);
@@ -88,6 +99,8 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
    const fetchMore = async (variables: TgetcommentariesVariables) => {
       setshowloadMore(false);
       setsmallLoader(true);
+
+      if (verseId) variables.VERSE_ID = verseId;
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
@@ -105,6 +118,7 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
             setcommentaries((prev) => [...prev, ...moreCommentaries]);
             moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setsmallLoader(false);
+            setisFirstLoad(false);
          }
       } catch (error) {
          setcommentaries([]);
@@ -120,9 +134,10 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
             : fetchData({ ...queryVariables, ...router.query });
    }, [router.isReady]);
 
-   //call on query params change
+   //call on query params change only, Avoid calling on first oad
    useEffect(() => {
-      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+      if (router.isReady && !isFirstLoad)
+         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
    }, [router.query]);
 
    return (

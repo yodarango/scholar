@@ -30,6 +30,7 @@ import {
 
 // types
 import { THighlightVerses } from "../../types/read";
+import { CONTENT_LAST_ID } from "../../constants/defaults";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -54,7 +55,7 @@ export const BibleChapter = ({
    const [fntSize, setfntSize] = useState<string | undefined>(fontSize);
    const [thme, setthme] = useState<string | undefined>(fontSize);
    const [hlVaraibles, sethlVariables] = useState<ThighlightedVersesVariables>({
-      last_id: 9999999,
+      last_id: CONTENT_LAST_ID,
       VERSE_ID: "",
       USER_ID: 1001
    });

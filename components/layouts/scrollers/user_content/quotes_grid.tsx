@@ -18,6 +18,7 @@ import styles from "./quotes_grid.module.css";
 
 // types
 import { TQuote } from "../../../../types/posts";
+import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 export const QuotesGrid = () => {
    // router
@@ -28,7 +29,9 @@ export const QuotesGrid = () => {
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
-   const [queryVariables, setqueryVariables] = useState<TgetQuoteVariables>({ last_id: 999999999 });
+   const [queryVariables, setqueryVariables] = useState<TgetQuoteVariables>({
+      last_id: CONTENT_LAST_ID
+   });
 
    // fetch data on first time loading. Only runs on first load
    const fetchData = async (variables: TgetQuoteVariables) => {
@@ -111,7 +114,7 @@ export const QuotesGrid = () => {
 
    // call on query params change
    useEffect(() => {
-      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: 999999999 });
+      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
    }, [router.query]);
 
    return (
