@@ -16,33 +16,20 @@ import styles from "./read_bible_modal.module.css";
 // types
 import { ReadingPreferences } from "../../types/browser/local_storage";
 
-// helpers
-import { getLSBibleSettings } from "../../helpers/browser/ls_bible_settings";
-
 type TReadBibleTemplateProps = {
+   readingPrefs: ReadingPreferences | null;
    cta: {
+      handleFont: (font: string) => void;
       handleTheme: (theme: string) => void;
    };
 };
-export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
+export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) => {
    // router
    const router = useRouter();
 
    //state
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
-   const [readingPrefs, setreadingPrefs] = useState<ReadingPreferences | null>(null);
-
-   useEffect(() => {
-      if (router.isReady) {
-         setreadingPrefs(getLSBibleSettings(router));
-      }
-   }, [router.query, router.isReady]);
-
-   const handleThemeSelection = (value: string) => {
-      setreadingPrefs((prev) => prev && { ...prev, theme: value });
-      cta.handleTheme(value);
-   };
 
    const handleHeader = (e: any) => {
       const distance = e.target.scrollTop;
@@ -74,9 +61,8 @@ export const ReadBibleModal = ({ cta }: TReadBibleTemplateProps) => {
                   langIcon={readingPrefs.langIcon}
                   chapterId={readingPrefs.chapterId}
                   cta={{
-                     handleFontSelection: (value: string) =>
-                        setreadingPrefs({ ...readingPrefs, font: value }),
-                     handleThemeSelection
+                     handleFontSelection: cta.handleFont,
+                     handleThemeSelection: cta.handleTheme
                   }}
                />
             </div>

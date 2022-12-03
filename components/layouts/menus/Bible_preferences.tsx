@@ -13,9 +13,9 @@ import {
 import styles from "./Bible_preferences.module.css";
 
 export const BiblePreferences = () => {
-   // ---------------- router -----------------
+   // router
    const router = useRouter();
-   // -------------------------------- states -----------------------
+   // states
    const [BiblePreferences, setBiblePreferences] = useState<TBiblePreferences | null>(null);
 
    const getLocalStorage = () => {

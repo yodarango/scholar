@@ -38,7 +38,6 @@ export const SelectReadingBookmarks = ({
    isChapterBookmarked,
    chapterId
 }: TSelectReadingBookmarksProps) => {
-   console.log(isChapterBookmarked);
    // router
    const router = useRouter();
 
@@ -50,7 +49,6 @@ export const SelectReadingBookmarks = ({
       try {
          const { data }: any = await handleGetBookmarks(variables);
          if (data.bookmarks) {
-            console.log(bookmarks);
             setBookmarks(data.bookmarks);
          } else {
             setBookmarks([]);
@@ -68,7 +66,6 @@ export const SelectReadingBookmarks = ({
 
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
-      console.log(chapterId);
       isChapterBookmarked ? cta.handleBookMark(false) : cta.handleBookMark(true);
    };
 

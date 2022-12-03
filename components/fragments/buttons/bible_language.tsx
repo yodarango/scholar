@@ -18,11 +18,11 @@ type TBibleLanguageProps = {
 };
 
 export const BibleLanguage = ({ langIcon }: TBibleLanguageProps) => {
-   // -------------------- states -----------
+   // states
    const [showMenu, setshowMenu] = useState(false);
    const [currentLangIcon, setcurrentLangIcon] = useState(langIcon);
 
-   // chnage the icon on the button and send the informatin to the parent to handle selection
+   // change the icon on the button and send the informatin to the parent to handle selection
    const handleLangSeclection = (item: TavailableLanuages) => {
       const LSExists = localStorage.getItem("reading-preferences");
       const parseLS = LSExists && JSON.parse(LSExists);

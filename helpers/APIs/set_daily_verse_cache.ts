@@ -1,4 +1,3 @@
-import { TBibleVerse } from "../../types/bible_api";
 import { MM_DD_YYYY } from "../Time/dateFormats";
 import { fetchBibleVerseWDefault } from "./fetch_bible_verse_with_default";
 import { getRandomVerseId } from "./random-daily-verses";

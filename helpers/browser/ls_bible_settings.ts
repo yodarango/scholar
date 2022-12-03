@@ -1,79 +1,110 @@
 import { DEFAULT_BIBLE_SETTINGS, DEFAULT_THEME } from "../../constants/defaults";
 
+// helpers
+import { parseChapterId } from "../data/parse_bible_id";
+
 // process for getting LS items
 // 1. If item is in the router that is used else :
 // 2. If item is in Local Storage that is used: else :
 // 3. fallback to DEFAULTS
 
 export const getLSBibleSettings = (router: any) => {
-   console.log(window.localStorage);
-   let preferences = {};
    const LSExists = localStorage.getItem("reading-preferences");
    const LSParsed = LSExists && JSON.parse(LSExists);
+   const chapterId = router.query["chapter-id"];
 
    if (LSExists) {
-      const chapterId = LSParsed.chapterId;
-      const versionId = LSParsed.versionId;
-      const versionName = LSParsed.versionName;
-      const scriptureRef = LSParsed.scriptureRef;
-      const theme = LSParsed.theme;
-      const langIcon = LSParsed.langIcon;
-      const language = LSParsed.language;
+      //const chapterId = LSParsed.chapterId;
+      // const versionId = LSParsed.versionId;
+      // const versionName = LSParsed.versionName;
+      // const scriptureRef = LSParsed.scriptureRef;
+      // const theme = LSParsed.theme;
+      // const langIcon = LSParsed.langIcon;
+      // const language = LSParsed.language;
 
       if (router.query["chapter-id"]) {
-         const chaptId = router.query["chapter-id"];
-         preferences = { ...preferences, chaptId };
-      } else if (chapterId) {
-         preferences = { ...preferences, chapterId };
-      } else {
-         preferences = { ...preferences, chapterId: DEFAULT_BIBLE_SETTINGS.CHAPTER_ID };
-      }
+         const updateScripture = { ...LSParsed, chapterId };
+         localStorage.setItem("reading-preferences", JSON.stringify(updateScripture));
 
-      // version ID
-      if (versionId) {
-         preferences = { ...preferences, versionId };
-      } else {
-         preferences = { ...preferences, versionId: DEFAULT_BIBLE_SETTINGS.VERSION_ID };
+         return updateScripture;
       }
+      //  else if (chapterId) {
+      //    preferences = { ...preferences, chapterId };
+      // } else {
+      //    preferences = { ...preferences, chapterId: DEFAULT_BIBLE_SETTINGS.CHAPTER_ID };
+      // }
 
-      // version name
-      if (versionName) {
-         preferences = { ...preferences, versionName };
-      } else {
-         preferences = { ...preferences, versionName: DEFAULT_BIBLE_SETTINGS.VERSION_NAME };
-      }
+      // // version ID
+      // if (versionId) {
+      //    preferences = { ...preferences, versionId };
+      // } else {
+      //    preferences = { ...preferences, versionId: DEFAULT_BIBLE_SETTINGS.VERSION_ID };
+      // }
 
-      // scripture reference
-      if (scriptureRef) {
-         preferences = { ...preferences, scriptureRef };
-      } else {
-         preferences = {
-            ...preferences,
-            scriptureRef: DEFAULT_BIBLE_SETTINGS.CHAPTER_CITATION
-         };
-      }
+      // // version name
+      // if (versionName) {
+      //    preferences = { ...preferences, versionName };
+      // } else {
+      //    preferences = { ...preferences, versionName: DEFAULT_BIBLE_SETTINGS.VERSION_NAME };
+      // }
 
-      // theme
-      if (theme) {
-         preferences = { ...preferences, theme };
-      } else {
-         preferences = { ...preferences, theme: DEFAULT_THEME };
-      }
+      // // scripture reference
+      // if (scriptureRef) {
+      //    preferences = { ...preferences, scriptureRef };
+      // } else {
+      //    preferences = {
+      //       ...preferences,
+      //       scriptureRef: DEFAULT_BIBLE_SETTINGS.CHAPTER_CITATION
+      //    };
+      // }
 
-      // language icon
-      if (langIcon) {
-         preferences = { ...preferences, langIcon };
-      } else {
-         preferences = { ...preferences, langIcon: DEFAULT_BIBLE_SETTINGS.LANG_ICON };
-      }
+      // // theme
+      // if (theme) {
+      //    preferences = { ...preferences, theme };
+      // } else {
+      //    preferences = { ...preferences, theme: DEFAULT_THEME };
+      // }
 
-      // language
-      if (language) {
-         preferences = { ...preferences, language };
-      } else {
-         preferences = { ...preferences, langIcon: DEFAULT_BIBLE_SETTINGS.LANGUAGE };
-      }
+      // // language icon
+      // if (langIcon) {
+      //    preferences = { ...preferences, langIcon };
+      // } else {
+      //    preferences = { ...preferences, langIcon: DEFAULT_BIBLE_SETTINGS.LANG_ICON };
+      // }
 
-      return { ...LSParsed, ...preferences };
+      // // language
+      // if (language) {
+      //    preferences = { ...preferences, language };
+      // } else {
+      //    preferences = { ...preferences, langIcon: DEFAULT_BIBLE_SETTINGS.LANGUAGE };
+      // }
+   } else {
+      const {
+         FONT,
+         LANG_ICON,
+         LANGUAGE,
+         THEME,
+         CHAPTER_CITATION,
+         VERSION_ID,
+         VERSION_NAME,
+         CHAPTER_ID
+      } = DEFAULT_BIBLE_SETTINGS;
+
+      const defaults = {
+         font: FONT,
+         langIcon: LANG_ICON,
+         language: LANGUAGE,
+         scriptureRef: chapterId ? parseChapterId(chapterId) : CHAPTER_CITATION,
+         theme: THEME,
+         versionId: VERSION_ID,
+         versionName: VERSION_NAME,
+         chapterId: chapterId ? chapterId : CHAPTER_ID
+      };
+
+      const stringifyDeafaults = JSON.stringify(defaults);
+
+      localStorage.setItem("reading-preferences", stringifyDeafaults);
+
+      return defaults;
    }
 };

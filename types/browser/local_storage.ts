@@ -8,5 +8,5 @@ export type ReadingPreferences = {
    versionId: string;
    versionName: string;
    chapterId: string;
-   bibleLanguage: string;
+   //   bibleLanguage: string;
 };

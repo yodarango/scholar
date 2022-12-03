@@ -6,6 +6,7 @@ export const THO_DEFAULT_IMG_PLACEHOLDER = "/default.png";
 
 // bible reading
 export const DEFAULT_BIBLE_SETTINGS = {
+   FONT: "default",
    VERSION_ID: english[0].id,
    VERSION_NAME: english[0].abbreviation,
    VERSE_ID: "GEN.1.1",
@@ -13,7 +14,8 @@ export const DEFAULT_BIBLE_SETTINGS = {
    CHAPTER_ID: "GEN.1",
    CHAPTER_CITATION: "Genesis 1",
    LANG_ICON: "🇺🇸",
-   LANGUAGE: "english"
+   LANGUAGE: "english",
+   THEME: "3"
 };
 
 export const DEFAULT_THEME = "3";

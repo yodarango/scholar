@@ -30,7 +30,6 @@ import {
 
 // types
 import { THighlightVerses } from "../../types/read";
-import { handleGetBookmarks, TBookmarksVariables } from "../../helpers/functions/reading/bookmarks";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -48,6 +47,7 @@ export const BibleChapter = ({
    // states
    const [showReadingMenu, setshowReadingMenu] =
       useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
+
    const [highlightedVerses, sethighlightedVerses] = useState<THighlightVerses[]>([]);
    const [data, setdata] = useState<any>(null);
    const [loading, setloading] = useState("loading");
@@ -85,7 +85,6 @@ export const BibleChapter = ({
    const fetchHighLightedVerses = async (variables: ThighlightedVersesVariables) => {
       try {
          const { data }: any = await handleGetHighilightedVerses(variables);
-         console.log(data);
          if (data?.highlighted_verses) {
             sethighlightedVerses(data.highlighted_verses);
             setloading("done");

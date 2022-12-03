@@ -52,8 +52,6 @@ export const SelectBibleVersion = ({ cta }: TSelectBibleVersionprops) => {
       }
    }, []);
 
-   console.log(versions);
-
    return (
       <>
          <PrimaryMenuBkg

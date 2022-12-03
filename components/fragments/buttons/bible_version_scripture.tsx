@@ -6,8 +6,7 @@
 -  rather than sending any data to the parent, all the settings are saved in Local Storage
 ********************************************************************************************************************************/
 
-import { useState, useReducer, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState, useReducer } from "react";
 
 // comps
 import { SelectBibleVersion } from "../../layouts/menus/select_bible_version";
@@ -21,13 +20,9 @@ import styles from "./bible_version_scripture.module.css";
 
 // data
 import { TVersion } from "../../../data/supported_bible_versions/version_type";
-import { english } from "../../../data/supported_bible_versions/english";
 
 // helpers
 import { parseChapterId } from "../../../helpers/data/parse_bible_id";
-
-// constants
-import { DEFAULT_BIBLE_SETTINGS } from "../../../constants/defaults";
 
 type TBiblePreferences = {
    versionName: string;
