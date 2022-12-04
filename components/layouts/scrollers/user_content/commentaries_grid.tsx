@@ -35,7 +35,6 @@ type TCommentariesGridProps = {
 };
 
 export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentariesGridProps) => {
-   console.log(verseId);
    // router
    const router = useRouter();
 

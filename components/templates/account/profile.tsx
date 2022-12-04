@@ -8,12 +8,13 @@ import { ProfileArt } from "../../layouts/stacks/headers/profile_art";
 import styles from "./profile.module.css";
 
 type TProfileProps = {
+   userID?: string;
    username: string;
 };
-export const Profile = ({ username }: TProfileProps) => {
+export const Profile = ({ username, userID }: TProfileProps) => {
    return (
       <div className={styles.mainWrapper}>
-         <ProfileArt title={username} />
+         <ProfileArt title={username} userID={userID} />
          <div className={styles.stats}>
             <UserPostStats commentaries={45} thoughts={11} quotes={67} sermonNotes={27} />
          </div>

@@ -8,42 +8,33 @@ import styles from "./user_stats.module.css";
 
 // helpers
 import { calulateApprovalLevel } from "../../../../helpers/math/calculateArppovalLevel";
+import { TuserSummary } from "../../../../types/user";
 
-type TUserStatsProps = {
-   username: string;
-   avatar: string;
-   userAuthority: number;
-   ratingCount: number;
-   rating: number;
-   postCount: number;
+export type TUserStatsProps = {
+   user_summary: TuserSummary;
 };
 
 export const UserStats = ({
-   username,
-   avatar,
-   userAuthority,
-   ratingCount,
-   rating,
-   postCount
+   user_summary: { username, avatar, authority_level, approval_rating, total_posts }
 }: TUserStatsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.avatar}>
-            <UserAvatar src={avatar} userAuthority={userAuthority} />
+            <UserAvatar src={avatar} userAuthority={authority_level} />
          </div>
          <div className={styles.rating}>
             <StatsCount
                alignment='left'
                title='rating'
-               count={calulateApprovalLevel(rating, ratingCount).grade}
-               countColor={calulateApprovalLevel(rating, ratingCount).color}
+               count={calulateApprovalLevel(approval_rating, 4).grade}
+               countColor={calulateApprovalLevel(approval_rating, 5).color}
             />
          </div>
          <div className={styles.totalRatings}>
-            <StatsCount title='ratings' count={ratingCount} alignment='left' />
+            <StatsCount title='ratings' count={43} alignment='left' />
          </div>
          <div className={styles.totalPosts}>
-            <StatsCount title='posts' count={postCount} alignment='left' />
+            <StatsCount title='posts' count={total_posts} alignment='left' />
          </div>
          <div className={styles.username}>
             <Parragraph text={username} size='large' bold={true} lineHieght='.9em' />

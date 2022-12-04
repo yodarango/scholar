@@ -32,3 +32,14 @@ export type TUser = {
    all_posts?: TAllPosts;
    all_posts_profile?: TAllPosts;
 };
+
+export type TuserSummary = {
+   ID: string;
+   username: string;
+   avatar: string;
+   authority_level: number;
+   ///ratingCount: number;
+   approval_rating: number;
+   total_posts: number;
+   has_new_notifications: boolean;
+};
