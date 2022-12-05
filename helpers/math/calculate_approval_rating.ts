@@ -1,12 +1,11 @@
-export const calulateApprovalLevel: (
-   approval_rating: number,
-   count: number
-) => { grade: string; styles: string; color: string } = (
-   approval_rating: number,
-   count: number
-) => {
-   if (count === 0) {
-      return { grade: "NR", styles: "rating-level-nr", color: "#5C5470" };
+// takes is the ratings of the user to return the approapiate grading
+export const calulateApprovalLevel: (approval_rating: number) => {
+   grade: string;
+   styles: string;
+   color: string;
+} = (approval_rating: number) => {
+   if (approval_rating === 101) {
+      return { grade: "NR", styles: "rating-level-nr", color: "#f1eaff" };
    } else if (approval_rating >= 97)
       return { grade: "A+", styles: "rating-level-a", color: "#75d975" };
    else if (approval_rating >= 94 && approval_rating < 97)

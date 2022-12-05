@@ -7,7 +7,7 @@ import quickUserInfoStyles from "../../styles/fragments/squares/QuickAccessUserI
 import { Tuser } from "../../pages/users/[userId]";
 
 // helpers
-import calulateApprovalLevel from "../../helpers/math/calculateArppovalLevel";
+import calulateApprovalLevel from "../../helpers/math/calculate_approval_rating";
 
 type quickUserInfoPopupProps = {
    user: Tuser;

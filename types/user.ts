@@ -29,17 +29,20 @@ export type TUser = {
    my_story: string;
    my_ministry: string;
    my_favorite_verse: string;
+   total_posts: number;
+   total_ratings: number;
    all_posts?: TAllPosts;
    all_posts_profile?: TAllPosts;
 };
 
 export type TuserSummary = {
    ID: string;
-   username: string;
+   signature: string;
    avatar: string;
    authority_level: number;
    ///ratingCount: number;
    approval_rating: number;
    total_posts: number;
+   total_ratings: number;
    has_new_notifications: boolean;
 };

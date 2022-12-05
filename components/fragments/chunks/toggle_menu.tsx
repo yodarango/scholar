@@ -28,6 +28,7 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
    const [showMenu, setshowMenu] = useState(false);
    const [showModal, setshowModal] = useState<string | null>(null);
 
+   const hasNotifications = profileMenuOptions?.userHasNotifications === true;
    return (
       <>
          <Portal>
@@ -36,14 +37,10 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
             )}
             {showMenu && type === 2 && !showModal && (
                <SelectProfileOptions
-                  userHasNotifications={
-                     profileMenuOptions ? profileMenuOptions.userHasNotifications : false
-                  }
+                  userHasNotifications={hasNotifications}
                   cta={{
                      handleCloseModal: () => setshowMenu(false),
-                     handleShowModal: (option: string) => (
-                        setshowModal(option), console.log(option)
-                     )
+                     handleShowModal: (option: string) => setshowModal(option)
                   }}
                />
             )}
@@ -55,10 +52,12 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
                />
             )}
          </Portal>
-         <div
-            className={styles.mainWrapper}
-            onClick={showMenu ? () => setshowMenu(false) : () => setshowMenu(true)}>
-            <Icon name='menu' size={iconSize} color='#F1EAFF' />
+         <div className={styles.mainWrapper} onClick={() => setshowMenu(!showMenu)}>
+            <Icon
+               name={hasNotifications ? "menuWithDot" : "menu"}
+               size={iconSize}
+               color='#F1EAFF'
+            />
          </div>
       </>
    );

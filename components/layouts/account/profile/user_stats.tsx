@@ -7,7 +7,7 @@ import { Parragraph } from "../../../fragments/Typography/parragraph";
 import styles from "./user_stats.module.css";
 
 // helpers
-import { calulateApprovalLevel } from "../../../../helpers/math/calculateArppovalLevel";
+import { calulateApprovalLevel } from "../../../../helpers/math/calculate_approval_rating";
 import { TuserSummary } from "../../../../types/user";
 
 export type TUserStatsProps = {
@@ -15,7 +15,7 @@ export type TUserStatsProps = {
 };
 
 export const UserStats = ({
-   user_summary: { username, avatar, authority_level, approval_rating, total_posts }
+   user_summary: { signature, avatar, authority_level, approval_rating, total_posts, total_ratings }
 }: TUserStatsProps) => {
    return (
       <div className={styles.mainWrapper}>
@@ -26,18 +26,18 @@ export const UserStats = ({
             <StatsCount
                alignment='left'
                title='rating'
-               count={calulateApprovalLevel(approval_rating, 4).grade}
-               countColor={calulateApprovalLevel(approval_rating, 5).color}
+               count={calulateApprovalLevel(approval_rating).grade}
+               countColor={calulateApprovalLevel(approval_rating).color}
             />
          </div>
          <div className={styles.totalRatings}>
-            <StatsCount title='ratings' count={43} alignment='left' />
+            <StatsCount title='ratings' count={total_ratings} alignment='left' />
          </div>
          <div className={styles.totalPosts}>
             <StatsCount title='posts' count={total_posts} alignment='left' />
          </div>
          <div className={styles.username}>
-            <Parragraph text={username} size='large' bold={true} lineHieght='.9em' />
+            <Parragraph text={signature} size='large' bold={true} lineHieght='.9em' />
          </div>
       </div>
    );

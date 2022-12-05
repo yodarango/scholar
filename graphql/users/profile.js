@@ -428,6 +428,7 @@ export const GET_MY_USER_SUMMARY = gql`
          total_posts
          authority_level
          approval_rating
+         total_ratings
       }
    }
 `;

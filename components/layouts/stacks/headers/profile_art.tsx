@@ -7,7 +7,7 @@
 import { useEffect, useState } from "react";
 
 // comps
-import { Header } from "../../../fragments/Typography/header";
+//import { Header } from "../../../fragments/Typography/header";
 import { ToggleMenu } from "../../../fragments/chunks/toggle_menu";
 import { UserStats } from "../../account/profile/user_stats";
 
@@ -39,12 +39,12 @@ export const ProfileArt = ({
    const [loading, setloading] = useState("loading");
    const [data, setdata] = useState<TuserSummary>({
       ID: "0",
-      username: "",
+      signature: "",
       avatar: "default.png",
-      authority_level: 101,
-      ///ratingCount: number;
+      authority_level: 1,
+      total_ratings: 0,
       approval_rating: 101,
-      total_posts: 50,
+      total_posts: 0,
       has_new_notifications: false
    });
    const getData = async (variables: TgetProfileArt) => {

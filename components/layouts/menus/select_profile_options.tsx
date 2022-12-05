@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -23,7 +22,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
    const menuOptions = [
       {
          action: "notifications",
-         icon: userHasNotifications ? "bellWithNot" : "bell",
+         icon: userHasNotifications ? "bellWithDot" : "bell",
          description: "Notifications",
          color: "#F1EAFF"
       },

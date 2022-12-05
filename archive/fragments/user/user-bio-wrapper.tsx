@@ -2,7 +2,7 @@
 import userBioWrapperStyles from "../../../styles/fragments/chunks/users/UserBioWrapper.module.css";
 
 // helpers / types
-import calulateApprovalLevel from "../../../helpers/math/calculateArppovalLevel";
+import calulateApprovalLevel from "../../../helpers/math/calculate_approval_rating";
 import { Tuser } from "../../../pages/users/[userId]";
 
 type userBioWrapperProps = {

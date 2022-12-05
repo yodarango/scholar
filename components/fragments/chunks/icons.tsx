@@ -171,7 +171,7 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
          );
          break;
 
-      case "bellWithNot":
+      case "bellWithDot":
          icon = (
             <svg viewBox='0 0 21 22' fill='none'>
                <path
@@ -919,6 +919,46 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
          );
          break;
 
+      case "menuWithDot":
+         icon = (
+            // <svg viewBox='0 0 512 512'>
+            //    <path
+            //       fill='none'
+            //       stroke={color}
+            //       strokeLinecap='round'
+            //       strokeMiterlimit='10'
+            //       strokeWidth={strokeWidth ? strokeWidth : "32"}
+            //       d='M80 160h352M80 256h352M80 352h352'
+            //    />
+            //    <circle cx='19' cy='5' r='5' fill='#FF4D62' />
+            // </svg>
+            <svg viewBox='0 0 24 17' fill='none'>
+               <path
+                  d='M2 8.66675H22'
+                  stroke={color}
+                  strokeWidth='2.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+               />
+               <path
+                  d='M2 2H22'
+                  stroke={color}
+                  strokeWidth='2.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+               />
+               <path
+                  d='M2 15.3333H22'
+                  stroke={color}
+                  strokeWidth='2.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+               />
+               <circle cx='19' cy='5' r='5' fill='#FF4D62' />
+            </svg>
+         );
+         break;
+
       case "mic":
          icon = (
             <svg viewBox='0 0 512 512'>
@@ -1341,5 +1381,9 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
          break;
    }
 
-   return <div style={{ width: size, height: size }}>{icon}</div>;
+   return (
+      <div style={{ width: size, height: size }} className='flex-row'>
+         {icon}
+      </div>
+   );
 };
