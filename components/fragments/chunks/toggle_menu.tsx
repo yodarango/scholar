@@ -17,7 +17,7 @@ enum menuTypes {
 
 type TToggleMenuProps = {
    profileMenuOptions?: {
-      userHasNotifications: boolean;
+      userHasNotifications?: boolean;
    };
    iconSize?: string;
    type: menuTypes; // library menu

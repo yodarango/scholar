@@ -40,9 +40,15 @@ export type TuserSummary = {
    signature: string;
    avatar: string;
    authority_level: number;
-   ///ratingCount: number;
    approval_rating: number;
    total_posts: number;
    total_ratings: number;
    has_new_notifications: boolean;
+};
+
+export type TpostSummary = {
+   commentary_count: number;
+   quote_count: number;
+   thought_count: number;
+   sermon_count: number;
 };

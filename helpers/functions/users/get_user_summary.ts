@@ -1,12 +1,12 @@
 import { client } from "../../../apollo-client";
 import { GET_MY_USER_SUMMARY } from "../../../graphql/users/profile";
 
-export type TgetProfileArt = {
+export type TgetUserSummaryVariables = {
    ID?: string;
    isSelf?: boolean;
 };
 
-export const getProfileGetArt = async (variables: TgetProfileArt) => {
+export const getUserSummary = async (variables: TgetUserSummaryVariables) => {
    try {
       const { data } = await client.query({
          query: GET_MY_USER_SUMMARY,

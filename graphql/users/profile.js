@@ -432,3 +432,14 @@ export const GET_MY_USER_SUMMARY = gql`
       }
    }
 `;
+
+export const GET_POSTS_SUMMARY = gql`
+   query ($isSelf: Boolean) {
+      get_posts_summary(isSelf: $isSelf) {
+         commentary_count
+         quote_count
+         thought_count
+         sermon_count
+      }
+   }
+`;

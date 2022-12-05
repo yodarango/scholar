@@ -16,7 +16,7 @@ export const Profile = ({ username, userID }: TProfileProps) => {
       <div className={styles.mainWrapper}>
          <ProfileArt title={username} userID={userID} />
          <div className={styles.stats}>
-            <UserPostStats commentaries={45} thoughts={11} quotes={67} sermonNotes={27} />
+            <UserPostStats userID={userID} />
          </div>
          <div className={styles.aboutMe}>
             <AboutMe

@@ -3,23 +3,23 @@ import styles from "./profile_stats_graph.module.css";
 
 type TProfileStatsGraphProps = {
    content: {
-      commentaries: number;
-      thoughts: number;
-      quotes: number;
-      sermonNotes: number;
+      commentary_count: number;
+      thought_count: number;
+      quote_count: number;
+      sermon_count: number;
    };
 };
 export const ProfileStatsGraph = ({ content }: TProfileStatsGraphProps) => {
    // ref
    const canvas = useRef<HTMLCanvasElement>(null);
-   const { commentaries, thoughts, quotes, sermonNotes } = content;
+   const { commentary_count, thought_count, quote_count, sermon_count } = content;
 
    // plot the graph
    useEffect(() => {
       if (canvas.current) {
          var c: any = canvas.current.getContext("2d");
 
-         var data = [commentaries, thoughts, quotes, sermonNotes];
+         var data = [commentary_count, thought_count, quote_count, sermon_count];
 
          var colors = ["#B293FE", "#533CA3", "#F1EAFF", "#7350EC"];
 
@@ -39,10 +39,10 @@ export const ProfileStatsGraph = ({ content }: TProfileStatsGraphProps) => {
             c.arc(250, 250, 100, prevAngle, angle, false);
             c.fill();
             c.stroke();
-            c.shadowOffsetX = "-5";
-            c.shadowOffsetY = "-5";
-            c.shadowColor = "#B293FE";
-            c.shadowBlur = "15";
+            // c.shadowOffsetX = "-5";
+            // c.shadowOffsetY = "-5";
+            // c.shadowColor = "#B293FE";
+            // c.shadowBlur = "15";
             prevAngle = angle;
          }
       }

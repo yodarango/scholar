@@ -13,9 +13,9 @@ import { UserStats } from "../../account/profile/user_stats";
 
 // comps
 import {
-   getProfileGetArt,
-   TgetProfileArt
-} from "../../../../helpers/functions/users/profile_get_art";
+   getUserSummary,
+   TgetUserSummaryVariables
+} from "../../../../helpers/functions/users/get_user_summary";
 
 // data/ types
 import { TuserSummary } from "../../../../types/user";
@@ -36,7 +36,6 @@ export const ProfileArt = ({
    hasNotifications = false,
    userID
 }: TTeritaryStackprops) => {
-   const [loading, setloading] = useState("loading");
    const [data, setdata] = useState<TuserSummary>({
       ID: "0",
       signature: "",
@@ -47,10 +46,9 @@ export const ProfileArt = ({
       total_posts: 0,
       has_new_notifications: false
    });
-   const getData = async (variables: TgetProfileArt) => {
+   const getData = async (variables: TgetUserSummaryVariables) => {
       try {
-         const { data, status } = await getProfileGetArt(variables);
-         setloading(status);
+         const { data, status } = await getUserSummary(variables);
          setdata(data);
       } catch (error) {
          console.error(error);
