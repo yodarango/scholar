@@ -46,10 +46,10 @@ export const AboutMeTemplate = ({ userID }: TAboutMeProps) => {
          <WithTextContentStack
             withEdit
             noResize
+            closeHref={`/users/${userID}`}
             title='About me'
             body={data}
             cta={{
-               handleCloseModal: () => console.log("close modal"),
                handleSubmit() {},
                handleBodyValue(value) {}
             }}

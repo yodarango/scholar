@@ -27,6 +27,7 @@ type TPrimaryStackprops = {
    userId: string;
    username: string;
    avatar: string;
+   closeHref?: string;
    textAreaHeight?: string;
    textAreaMaxHeight?: string;
    textAreaMaxLength?: number;
@@ -37,7 +38,7 @@ type TPrimaryStackprops = {
    withEdit?: boolean;
    noResize?: boolean;
    cta: {
-      handleCloseModal: () => void;
+      handleCloseModal?: () => void;
       handleSubmit?: () => any;
       handleBodyValue?: (value: string) => void;
    };
@@ -47,6 +48,7 @@ export const WithTextContentStack = ({
    title,
    body,
    cta,
+   closeHref,
    postImage,
    userAuthority,
    userId,
@@ -82,7 +84,10 @@ export const WithTextContentStack = ({
          <div className={styles.imgBkg} style={{ backgroundImage: `url(${postImage})` }}>
             <div className={styles.topLayerColorBkg}></div>
             <div className={styles.close}>
-               <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
+               {cta.handleCloseModal && !closeHref && (
+                  <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
+               )}
+               {closeHref && !cta.handleCloseModal && <CloseContent href={closeHref} />}
             </div>
 
             {withEdit && (
