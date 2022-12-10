@@ -34,6 +34,8 @@ type TPrimaryStackprops = {
    withEdit?: boolean;
    cta: {
       handleCloseModal: () => void;
+      handleSubmit?: () => any;
+      handleBodyValue?: (value: string) => void;
    };
 };
 
@@ -65,8 +67,6 @@ export const WithTextContentStack = ({
          ? setcontentWrapperClass(styles.contentHolderShrink)
          : setcontentWrapperClass("");
    };
-
-   const handleBodyValue = (value: string) => {};
 
    return (
       <div className={styles.mainWrapper}>
@@ -107,11 +107,12 @@ export const WithTextContentStack = ({
             <div className={styles.title}>
                <Header text={title} size='l' type={2} />
             </div>
-            {!isEditable ? (
+            {!isEditable && (
                <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
                   <ReactMarkdown>{body ? body : ""}</ReactMarkdown>
                </div>
-            ) : (
+            )}
+            {cta.handleBodyValue && isEditable && cta.handleSubmit && (
                <div className={styles.text}>
                   <TextAreaPrimary
                      transparent
@@ -121,10 +122,10 @@ export const WithTextContentStack = ({
                      maxLength={500}
                      placeHolder='Tell others about you'
                      height='25rem'
-                     cta={{ handleCurrentValue: handleBodyValue }}
+                     cta={{ handleCurrentValue: cta.handleBodyValue }}
                   />
                   <div className={styles.button}>
-                     <Primary type='1' title='Save' />
+                     <Primary type='1' title='Save' cta={{ handleClick: cta.handleSubmit }} />
                   </div>
                </div>
             )}

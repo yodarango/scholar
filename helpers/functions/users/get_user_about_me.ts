@@ -1,5 +1,5 @@
 import { client } from "../../../apollo-client";
-import { GET_USER_ABOUT_ME } from "../../../graphql/users/profile";
+import { GET_USER_ABOUT_ME, GET_USER_ABOUT_ME_PAGE } from "../../../graphql/users/profile";
 
 export type TgetUserAboutMeVariables = { isSelf?: boolean; ID?: string };
 export const getUserAboutMe = async (variables: TgetUserAboutMeVariables) => {
@@ -12,6 +12,33 @@ export const getUserAboutMe = async (variables: TgetUserAboutMeVariables) => {
       if (data && data.get_user_about_me)
          return {
             data: data.get_user_about_me,
+            status: "done"
+         };
+      else
+         return {
+            data: null,
+            status: "error"
+         };
+   } catch (error) {
+      console.error(error);
+      return {
+         data: null,
+         status: "error"
+      };
+   }
+};
+
+export type TgetUserAboutMePageVariables = { isSelf?: boolean; ID?: string };
+export const getUserAboutMePage = async (variables: TgetUserAboutMePageVariables) => {
+   try {
+      const { data } = await client.query({
+         query: GET_USER_ABOUT_ME_PAGE,
+         variables
+      });
+
+      if (data && data.get_user_about_me_page)
+         return {
+            data: data.get_user_about_me_page,
             status: "done"
          };
       else

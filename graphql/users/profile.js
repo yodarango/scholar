@@ -453,6 +453,15 @@ export const GET_USER_ABOUT_ME = gql`
          my_true_color_personality_test
          my_favorite_verse
          my_ministry
+         about_me
+      }
+   }
+`;
+
+export const GET_USER_ABOUT_ME_PAGE = gql`
+   query ($isSelf: Boolean, $ID: ID) {
+      get_user_about_me_page(isSelf: $isSelf, ID: $ID) {
+         about_me
       }
    }
 `;
