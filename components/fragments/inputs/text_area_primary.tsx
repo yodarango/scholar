@@ -20,6 +20,7 @@ type TTextEditorTextAreaProps = {
    height?: string;
    maxHeight?: number | string;
    border?: String;
+   noResize?: boolean;
    cta: {
       handleCurrentValue: (body: string) => void;
    };
@@ -37,6 +38,7 @@ export const TextAreaPrimary = ({
    height = "10rem",
    maxHeight = 25,
    border,
+   noResize,
    cta
 }: TTextEditorTextAreaProps) => {
    // state
@@ -95,6 +97,7 @@ export const TextAreaPrimary = ({
       border === "top" ? styles.borderTop : border === "bottom" ? styles.borderBottom : "";
    // resize text area & callback to send onChange event so parent has access to text area body
    const resizeTextArea = () => {
+      if (noResize) return;
       if (textArea?.current) {
          cta.handleCurrentValue(textArea.current.value);
          setscrollableHeight(textArea.current.scrollHeight / 10);

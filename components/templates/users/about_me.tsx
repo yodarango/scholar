@@ -45,7 +45,8 @@ export const AboutMeTemplate = ({ userID }: TAboutMeProps) => {
       <div className={styles.mainWrapper}>
          <WithTextContentStack
             withEdit
-            title='My title'
+            noResize
+            title='About me'
             body={data}
             cta={{
                handleCloseModal: () => console.log("close modal"),
@@ -53,6 +54,9 @@ export const AboutMeTemplate = ({ userID }: TAboutMeProps) => {
                handleBodyValue(value) {}
             }}
             postImage='/images/bible_books/1.png'
+            textAreaHeight='50rem'
+            textAreaMaxHeight='50rem'
+            textAreaMaxLength={5000}
             userAuthority={1}
             userId='1'
             username='username'

@@ -27,11 +27,15 @@ type TPrimaryStackprops = {
    userId: string;
    username: string;
    avatar: string;
+   textAreaHeight?: string;
+   textAreaMaxHeight?: string;
+   textAreaMaxLength?: number;
    postPostedOnDate?: string;
    postCreatedDate?: string;
    postCategory?: string;
    postReferences?: string[];
    withEdit?: boolean;
+   noResize?: boolean;
    cta: {
       handleCloseModal: () => void;
       handleSubmit?: () => any;
@@ -51,7 +55,11 @@ export const WithTextContentStack = ({
    postPostedOnDate,
    postCreatedDate,
    postCategory,
+   textAreaHeight,
+   textAreaMaxHeight,
+   textAreaMaxLength = 500,
    withEdit,
+   noResize,
    postReferences
 }: TPrimaryStackprops) => {
    // state
@@ -115,13 +123,14 @@ export const WithTextContentStack = ({
             {cta.handleBodyValue && isEditable && cta.handleSubmit && (
                <div className={styles.text}>
                   <TextAreaPrimary
+                     noResize={noResize}
                      transparent
                      border='bottom'
-                     defaultValue=''
-                     maxHeight={50}
-                     maxLength={500}
+                     defaultValue={body ? body : ""}
+                     maxLength={textAreaMaxLength}
+                     maxHeight={textAreaMaxHeight}
                      placeHolder='Tell others about you'
-                     height='25rem'
+                     height={textAreaHeight}
                      cta={{ handleCurrentValue: cta.handleBodyValue }}
                   />
                   <div className={styles.button}>
