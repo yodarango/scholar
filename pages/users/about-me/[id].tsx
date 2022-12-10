@@ -4,6 +4,7 @@ import { Parragraph } from "../../../components/fragments/Typography/parragraph"
 import { FourthStackHeader } from "../../../components/layouts/stacks/headers/fourth_stack_header";
 import { PrimaryStackHeader } from "../../../components/layouts/stacks/headers/primary_stack_header";
 import { ProfileArt } from "../../../components/layouts/stacks/headers/profile_art";
+import { WithTextContentStack } from "../../../components/layouts/stacks/with_text_content_stack";
 import { TextEditor } from "../../../components/layouts/text_editor";
 // styles
 import styles from "./index.module.css";
@@ -15,7 +16,7 @@ const AboutMe = ({ ID }: TAboutMeProps) => {
    return (
       <div className={styles.mainWrapper}>
          {/* replace this with the commentary header */}
-         <PrimaryStackHeader icon='profile' title='My story ' href={`/users/${1}`} />
+         {/* <PrimaryStackHeader icon='profile' title='My story ' href={`/users/${1}`} />
          <div className={styles.text}>
             <Parragraph text={"sadsds"} size='main' />
          </div>
@@ -30,7 +31,19 @@ const AboutMe = ({ ID }: TAboutMeProps) => {
                height='25rem'
                cta={{ handleCurrentValue: handleBodyValue }}
             />
-         </div>
+         </div> */}
+         <WithTextContentStack
+            withEdit
+            title='My title'
+            body={"fdsfdsfdsfds"}
+            cta={{ handleCloseModal: () => console.log("close modal") }}
+            postImage='/images/bible_books/1.png'
+            userAuthority={1}
+            userId='1'
+            username='username'
+            avatar='/images/user_avatars/default.png'
+            postCategory='PNK'
+         />
       </div>
    );
 };

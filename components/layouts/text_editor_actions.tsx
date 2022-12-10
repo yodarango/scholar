@@ -30,7 +30,7 @@ import Portal from "../hoc/potal";
 
 // data
 import { notificationMessages } from "../../data/notification_messages";
-import { PreviewThoughtCommentaryStack } from "./stacks/preview_thought_commentary_stack";
+import { PreviewThoughtCommentaryStack } from "./stacks/with_text_content_stack";
 
 type TTextEditorFormatterActionsProps = {
    title: string;
@@ -89,7 +89,6 @@ export const TextEditorActions = ({
    return (
       <>
          {/* portals */}
-
          <Portal>
             {showChooseScriptureModal && (
                <div className={styles.bibleBooksStack}>

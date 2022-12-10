@@ -52,14 +52,26 @@
    height: 100%;
    width: 90%;
    margin: auto;
-   padding: var(--spacing-l) 0;
+   padding: var(--spacing-m) 0 var(--spacing-l);
    overflow-y: scroll;
    font-size: var(--fs-main);
 }
 
+/* this modifies the react mark down  */
+.contentHolder > pre,
+.contentHolder > pre > code {
+   margin: 0;
+   width: 100%;
+}
+
+.title {
+   width: 90%;
+   margin: var(--spacing-m) auto 0;
+}
+
 .contentHolderShrink {
    height: calc(100% - 10rem); /*100% - height of the verse ref wrapper*/
-} /* shrink when the references wrapper is shwon otherwise you won't be able to wcroll to the bottom*/
+} /* shrink when the references wrapper is shown otherwise you won't be able to scroll to the bottom*/
 
 .close {
    z-index: 2;
@@ -68,7 +80,7 @@
    right: var(--spacing-ml);
 }
 
-.editOption {
+.edit {
    z-index: 2;
    width: 3.5rem;
    height: 3.5rem;
@@ -141,4 +153,12 @@
    font-size: var(--fs-main);
    text-decoration: underline;
    color: var(--gradient-2--light);
+}
+
+/* editable posts  */
+.text {
+   margin: var(--spacing-m) 0 0;
+}
+.text .button {
+   margin: var(--spacing-m) 0 0;
 }

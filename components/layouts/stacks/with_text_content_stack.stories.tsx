@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { PreviewThoughtCommentaryStack } from "../../../layouts/stacks/preview_thought_commentary_stack";
+import { PreviewThoughtCommentaryStack } from "../../../components/layouts/stacks/with_text_content_stack";
 
 export default {
    title: "layouts/stacks/Preview Thought & Comentary Stack",

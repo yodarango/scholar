@@ -18,7 +18,7 @@ type TThoughtTextEditorProps = {
    avatar: string;
    userAuthority: number;
    body?: string;
-   titleDefaultValue: string;
+   titleDefaultValue?: string;
    postImage?: string;
    postPostedOnDate?: string;
    postCreatedDate?: string;

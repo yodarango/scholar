@@ -1,9 +1,7 @@
 /**********************************************************************************************************
--  Background layer that acts as a layover "page" on top of whatever contnent is calling it.
-   It allows users to preview their content without having to naviate to another page and thus they do not
-   have to lose their data in the post editor.
--  This component is used more specifically for the thought and comentary posts although it might get reused 
-   in other components in the future
+-  Renders a large text body with a header that contains the user's information. 
+-  The stack is composed of several small components, which can be rendered optionally by simply passing the
+   corresponding props
 **********************************************************************************************************/
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -11,12 +9,15 @@ import ReactMarkdown from "react-markdown";
 // comps
 import { BringUpHiddenBottom } from "../../fragments/buttons/bring_up_hidden_bottom";
 import { CloseContent } from "../../fragments/buttons/close_content";
+import { IconButton } from "../../fragments/buttons/icon_button";
+import { Primary } from "../../fragments/buttons/primary";
 import { SeePostInfo } from "../../fragments/chunks/see_post_info";
+import { TextAreaPrimary } from "../../fragments/inputs/text_area_primary";
 import { Header } from "../../fragments/Typography/header";
 import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 
 // styles
-import styles from "./preview_thought_commentary_stack.module.css";
+import styles from "./with_text_content_stack.module.css";
 
 type TPrimaryStackprops = {
    title: string;
@@ -26,16 +27,17 @@ type TPrimaryStackprops = {
    userId: string;
    username: string;
    avatar: string;
-   postPostedOnDate: string;
-   postCreatedDate: string;
-   postCategory: string;
-   postReferences: string[];
+   postPostedOnDate?: string;
+   postCreatedDate?: string;
+   postCategory?: string;
+   postReferences?: string[];
+   withEdit?: boolean;
    cta: {
       handleCloseModal: () => void;
    };
 };
 
-export const PreviewThoughtCommentaryStack = ({
+export const WithTextContentStack = ({
    title,
    body,
    cta,
@@ -47,12 +49,14 @@ export const PreviewThoughtCommentaryStack = ({
    postPostedOnDate,
    postCreatedDate,
    postCategory,
+   withEdit,
    postReferences
 }: TPrimaryStackprops) => {
    // state
    const [showVerseReferences, setshowVerseReferences] = useState(false);
    const [contentWrapperClass, setcontentWrapperClass] =
       useState(""); /* adds a new class to content holder*/
+   const [isEditable, setIsEditable] = useState(false);
 
    // toggle the classes and state of the referenced verses
    const handleShowVerseRefs = () => {
@@ -62,13 +66,27 @@ export const PreviewThoughtCommentaryStack = ({
          : setcontentWrapperClass("");
    };
 
+   const handleBodyValue = (value: string) => {};
+
    return (
       <div className={styles.mainWrapper}>
+         {/* header */}
          <div className={styles.imgBkg} style={{ backgroundImage: `url(${postImage})` }}>
             <div className={styles.topLayerColorBkg}></div>
             <div className={styles.close}>
                <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
             </div>
+
+            {withEdit && (
+               <div className={styles.edit}>
+                  <IconButton
+                     icon='edit'
+                     cta={{ handleClick: () => setIsEditable(!isEditable) }}
+                     backgroundColor={isEditable ? "2" : "1"}
+                     iconColor='#F1EAFF'
+                  />
+               </div>
+            )}
 
             {/*  post info */}
             <div className={styles.postInfo}>
@@ -80,33 +98,54 @@ export const PreviewThoughtCommentaryStack = ({
                   avatar={avatar}
                   postPostedOnDate={postPostedOnDate}
                   postCreatedDate={postCreatedDate}
-                  postCategory={postCategory}
                />
             </div>
          </div>
 
          {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
-            <Header text={title} size='l' type={2} />
-            <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
-               <ReactMarkdown>{body ? body : ""}</ReactMarkdown>
+            <div className={styles.title}>
+               <Header text={title} size='l' type={2} />
             </div>
+            {!isEditable ? (
+               <div className={`${contentWrapperClass} ${styles.contentHolder}`}>
+                  <ReactMarkdown>{body ? body : ""}</ReactMarkdown>
+               </div>
+            ) : (
+               <div className={styles.text}>
+                  <TextAreaPrimary
+                     transparent
+                     border='bottom'
+                     defaultValue=''
+                     maxHeight={50}
+                     maxLength={500}
+                     placeHolder='Tell others about you'
+                     height='25rem'
+                     cta={{ handleCurrentValue: handleBodyValue }}
+                  />
+                  <div className={styles.button}>
+                     <Primary type='1' title='Save' />
+                  </div>
+               </div>
+            )}
 
             {/* references  */}
-            <div className={styles.referencesWrapper}>
-               <div>
-                  <BringUpHiddenBottom
-                     cta={{
-                        handleClick: () => handleShowVerseRefs()
-                     }}
-                  />
-               </div>
-               {showVerseReferences && (
-                  <div className={styles.references}>
-                     <VerseRefTagWrapper refs={postReferences} />
+            {postReferences && (
+               <div className={styles.referencesWrapper}>
+                  <div>
+                     <BringUpHiddenBottom
+                        cta={{
+                           handleClick: () => handleShowVerseRefs()
+                        }}
+                     />
                   </div>
-               )}
-            </div>
+                  {showVerseReferences && (
+                     <div className={styles.references}>
+                        <VerseRefTagWrapper refs={postReferences} />
+                     </div>
+                  )}
+               </div>
+            )}
          </div>
       </div>
    );
