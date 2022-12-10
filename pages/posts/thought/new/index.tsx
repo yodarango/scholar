@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 // comps
-import { ThoughtTextEditor } from "../../../../templates/content/thought_text_editor";
+import { ThoughtTextEditor } from "../../../../components/templates/content/thought_text_editor";
 
 // styles
 import styles from "./index.module.css";

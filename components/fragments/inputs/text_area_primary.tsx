@@ -1,3 +1,7 @@
+/**************************************************************************************** 
+Renders a resizeable text area. All units are in rem
+****************************************************************************************/
+
 import { useRef, useState } from "react";
 
 // styles
@@ -14,7 +18,8 @@ type TTextEditorTextAreaProps = {
    placeHolder: string;
    maxLength: number;
    height?: string;
-   maxHeight?: number;
+   maxHeight?: number | string;
+   border?: String;
    cta: {
       handleCurrentValue: (body: string) => void;
    };
@@ -31,6 +36,7 @@ export const TextAreaPrimary = ({
    maxLength,
    height = "10rem",
    maxHeight = 25,
+   border,
    cta
 }: TTextEditorTextAreaProps) => {
    // state
@@ -83,7 +89,11 @@ export const TextAreaPrimary = ({
          fontAlign = styles.justify;
          break;
    }
-   // resize text area & callback to send onChange event so parent has access totext area body
+
+   // check if there is a border
+   const borderStyles =
+      border === "top" ? styles.borderTop : border === "bottom" ? styles.borderBottom : "";
+   // resize text area & callback to send onChange event so parent has access to text area body
    const resizeTextArea = () => {
       if (textArea?.current) {
          cta.handleCurrentValue(textArea.current.value);
@@ -107,7 +117,9 @@ export const TextAreaPrimary = ({
             <textarea
                style={{ height: currTextAreaHeight, color: textColor }}
                maxLength={maxLength}
-               className={`${styles.textArea} ${fontAlign} ${fontSz} ${bold && styles.bold}`}
+               className={`${styles.textArea} ${fontAlign} ${fontSz} ${
+                  bold && styles.bold
+               } ${border}`}
                ref={textArea}
                defaultValue={defaultValue}
                placeholder={placeHolder}
@@ -117,9 +129,9 @@ export const TextAreaPrimary = ({
             <textarea
                style={{ height: currTextAreaHeight, color: textColor }}
                maxLength={maxLength}
-               className={`${styles.textArea}  ${fontAlign} ${styles.transparent} ${
+               className={`${styles.textArea} ${fontAlign} ${styles.transparent} ${
                   darkText && styles.darkText
-               } ${fontSz} ${bold && styles.bold}`}
+               } ${fontSz} ${bold && styles.bold} ${borderStyles}`}
                ref={textArea}
                defaultValue={defaultValue}
                placeholder={placeHolder}

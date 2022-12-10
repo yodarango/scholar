@@ -19,15 +19,7 @@ export const Profile = ({ username, userID }: TProfileProps) => {
             <UserPostStats userID={userID} />
          </div>
          <div className={styles.aboutMe}>
-            <AboutMe
-               userId='432'
-               myChurch='My good Lord knows'
-               ministry='worthless slave'
-               favBibleVerse='1 Peter 1:8'
-               fullTimeJob='Software Engneer'
-               colorPersonality='green'
-               favColor='Gray'
-            />
+            <AboutMe userID={userID} />
          </div>
          <div className={styles.posts}>
             <NavigateThruPosts />

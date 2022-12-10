@@ -59,7 +59,6 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
    const getData = async (variables: TgetPostsSummaryVariables) => {
       try {
          const { data, status } = await getPostsSummary(variables);
-         console.log(data);
          setdata(data);
       } catch (error) {
          console.error(error);

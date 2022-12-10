@@ -39,10 +39,6 @@ export const ProfileStatsGraph = ({ content }: TProfileStatsGraphProps) => {
             c.arc(250, 250, 100, prevAngle, angle, false);
             c.fill();
             c.stroke();
-            // c.shadowOffsetX = "-5";
-            // c.shadowOffsetY = "-5";
-            // c.shadowColor = "#B293FE";
-            // c.shadowBlur = "15";
             prevAngle = angle;
          }
       }

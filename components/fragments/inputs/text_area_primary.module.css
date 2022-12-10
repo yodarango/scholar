@@ -87,3 +87,12 @@
 .justify {
    text-align: justify;
 }
+
+.borderBottom {
+   border-bottom: 0.2rem solid var(--secondary-color);
+   border-radius: 0;
+}
+.borderTop {
+   border-top: 0.2rem solid var(--secondary-color);
+   border-radius: 0;
+}

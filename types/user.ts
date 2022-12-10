@@ -52,3 +52,13 @@ export type TpostSummary = {
    thought_count: number;
    sermon_count: number;
 };
+
+export type TuserAboutMe = {
+   ID?: string;
+   my_church: string;
+   my_favorite_color: string;
+   my_job: string;
+   my_true_color_personality_test: string;
+   my_favorite_verse: string;
+   my_ministry: string;
+};

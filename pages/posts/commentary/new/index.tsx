@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 // comps
-import { CommentaryTextEditor } from "../../../../templates/content/commentary_text_editor";
+import { CommentaryTextEditor } from "../../../../components/templates/content/commentary_text_editor";
 
 import styles from "./index.module.css";
 

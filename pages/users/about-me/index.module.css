@@ -1,0 +1,3 @@
+.text {
+   margin-top: calc(10rem + var(--spacing-l));
+}

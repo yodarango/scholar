@@ -419,8 +419,8 @@ import { gql } from "@apollo/client";
 // `;
 
 export const GET_MY_USER_SUMMARY = gql`
-   query ($isSelf: Boolean) {
-      user_summary(isSelf: $isSelf) {
+   query ($isSelf: Boolean, $ID: ID) {
+      user_summary(isSelf: $isSelf, ID: $ID) {
          ID
          signature
          avatar
@@ -434,12 +434,25 @@ export const GET_MY_USER_SUMMARY = gql`
 `;
 
 export const GET_POSTS_SUMMARY = gql`
-   query ($isSelf: Boolean) {
-      get_posts_summary(isSelf: $isSelf) {
+   query ($isSelf: Boolean, $ID: ID) {
+      get_posts_summary(isSelf: $isSelf, ID: $ID) {
          commentary_count
          quote_count
          thought_count
          sermon_count
+      }
+   }
+`;
+
+export const GET_USER_ABOUT_ME = gql`
+   query ($isSelf: Boolean, $ID: ID) {
+      get_user_about_me(isSelf: $isSelf, ID: $ID) {
+         my_church
+         my_favorite_color
+         my_job
+         my_true_color_personality_test
+         my_favorite_verse
+         my_ministry
       }
    }
 `;
