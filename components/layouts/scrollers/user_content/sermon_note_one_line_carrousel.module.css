@@ -18,3 +18,11 @@
    flex-shrink: 0;
    margin-bottom: var(--spacing-xs);
 }
+
+.loader,
+.eeror {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
