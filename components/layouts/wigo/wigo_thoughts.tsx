@@ -12,8 +12,6 @@ import { useEffect, useState } from "react";
 
 // helpers
 import { handleGetThoughtIn24 } from "../../../helpers/functions/posts/thought_get";
-import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
 
 export const WigoThoughts = () => {
    const [thoughts, setthoughts] = useState<TThought[]>([]);
@@ -24,6 +22,7 @@ export const WigoThoughts = () => {
       try {
          const { data, status } = await handleGetThoughtIn24();
          data && setthoughts(data.thought_in_24);
+         console.log(data);
          setloading(status);
       } catch (error) {
          console.error(error);
@@ -46,22 +45,9 @@ export const WigoThoughts = () => {
                <LinkWithArrow title='See all' link={"/posts/thought"} />
             </div>
          </div>
-         {loading === "done" && (
-            <div className={styles.carrousel}>
-               <ThoughtsOneLineCarrousel thoughts={thoughts} />
-            </div>
-         )}
-
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         <div className={styles.carrousel}>
+            <ThoughtsOneLineCarrousel thoughts={thoughts} loadingState={loading} />
+         </div>
       </div>
    );
 };

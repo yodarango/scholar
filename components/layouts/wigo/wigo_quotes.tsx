@@ -2,6 +2,7 @@
 -  A display of quotes for the WIGO page. This should only pull the last 20 quotes and 
    redirected to quotes page if "see all" is clicked
 ****************************************************************************************/
+
 import { useState, useEffect } from "react";
 
 // components
@@ -51,22 +52,9 @@ export const WigoQuotes = () => {
                <LinkWithArrow title='See all' link={"/posts/quote"} />
             </div>
          </div>
-         {loading === "done" && quotes && (
-            <div className={styles.carrousel}>
-               <QuoteOneLineCarrousel quotes={quotes} />
-            </div>
-         )}
-
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         <div className={styles.carrousel}>
+            <QuoteOneLineCarrousel quotes={quotes} loadingState={loading} />
+         </div>
       </div>
    );
 };

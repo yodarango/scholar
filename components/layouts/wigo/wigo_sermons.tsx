@@ -1,11 +1,17 @@
+/**************************************************************************************** 
+-  Renders commentaries on a a one line carrousel and if no quotes are passed then 
+   the local fetch is called. 
+-  PROP: Commentaries: the optional props that if passed does not trigger the local fetch
+-  PROP: loadingState: the state of the outside call. If not paused it defaults to "loading"
+-  PROP: userID is passed the function is called for a particular user
+****************************************************************************************/
+
 import { useEffect, useState } from "react";
 
 // components
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
 import { SermonNoteOneLineCarrousel } from "../scrollers/user_content/sermon_note_one_line_carrousel";
-import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import styles from "./wigo_sermons.module.css";
@@ -46,22 +52,9 @@ export const WigoSermons = () => {
                <LinkWithArrow title='See all' link={"/posts/sermon-note"} />
             </div>
          </div>
-         {loading === "done" && (
-            <div className={styles.carrousel}>
-               <SermonNoteOneLineCarrousel sermonNotes={sermonNotes} />
-            </div>
-         )}
-
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         <div className={styles.carrousel}>
+            <SermonNoteOneLineCarrousel sermonNotes={sermonNotes} loadingState={loading} />
+         </div>
       </div>
    );
 };

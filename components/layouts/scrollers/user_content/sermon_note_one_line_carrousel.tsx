@@ -17,11 +17,13 @@ import {
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TSermonOneLineCarrouselProps = {
+   loadingState?: string;
    sermonNotes?: TSermonNote[];
    userID?: string;
 };
 
 export const SermonNoteOneLineCarrousel = ({
+   loadingState = "done",
    sermonNotes,
    userID
 }: TSermonOneLineCarrouselProps) => {
@@ -52,8 +54,11 @@ export const SermonNoteOneLineCarrousel = ({
    useEffect(() => {
       if (!sermonNotes) {
          fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
+      } else {
+         setsermonNotesArr(sermonNotes);
+         setloading(loadingState);
       }
-   }, []);
+   }, [loadingState]);
 
    return (
       <div className={styles.mainWrapper}>

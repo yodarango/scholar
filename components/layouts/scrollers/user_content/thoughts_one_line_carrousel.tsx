@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+-  Renders commentaries on a a one line carrousel and if no quotes are passed then 
+   the local fetch is called. 
+-  PROP: Commentaries: the optional props that if passed does not trigger the local fetch
+-  PROP: loadingState: the state of the outside call. If not paused it defaults to "loading"
+-  PROP: userID is passed the function is called for a particular user
+****************************************************************************************/
+
 import { useEffect, useState } from "react";
 
 // comps
@@ -17,14 +25,19 @@ import {
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TThoughtsOneLineCarrouselProps = {
+   loadingState?: string;
    userID?: string;
    thoughts?: TThought[];
 };
 
-export const ThoughtsOneLineCarrousel = ({ thoughts, userID }: TThoughtsOneLineCarrouselProps) => {
+export const ThoughtsOneLineCarrousel = ({
+   thoughts,
+   userID,
+   loadingState = "loading"
+}: TThoughtsOneLineCarrouselProps) => {
    // state
    const [thoughtsArr, setThoughtsArr] = useState<TThought[] | undefined>(thoughts);
-   const [loading, setloading] = useState<string>("loading");
+   const [loading, setloading] = useState<string>(loadingState);
 
    // will only run if the post was deleted successfully
    const handleDelete = (id: string) => {
@@ -48,8 +61,11 @@ export const ThoughtsOneLineCarrousel = ({ thoughts, userID }: TThoughtsOneLineC
    useEffect(() => {
       if (!thoughts) {
          fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
+      } else {
+         setThoughtsArr(thoughts);
+         setloading(loadingState);
       }
-   }, []);
+   }, [loadingState]);
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && (

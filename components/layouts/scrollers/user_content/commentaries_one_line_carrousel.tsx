@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+-  Renders commentaries on a a one line carrousel and if no commentaries are passed then 
+   the local fetch is called. 
+-  PROP: Commentaries: the optional props that if passed does not trigger the local fetch
+-  PROP: loadingState: the state of the outside call. If not paused it defaults to "loading"
+-  PROP: userID is passed the function is called for a particular user
+****************************************************************************************/
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -18,13 +26,21 @@ import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
-export const CommentaryOneLineCarrousel = () => {
+type TCommentaryOneLineCarrouselProps = {
+   userID?: string;
+   loadingState?: string;
+   commentaries?: TCommentary[];
+};
+export const CommentaryOneLineCarrousel = ({
+   commentaries,
+   loadingState = "loading"
+}: TCommentaryOneLineCarrouselProps) => {
    // router
    const router = useRouter();
 
    // components
-   const [commentaries, setcommentaries] = useState<TCommentary[]>([]);
-   const [loading, setloading] = useState<string>("loading");
+   const [commentariesArr, setcommentariesArr] = useState<TCommentary[] | undefined>(commentaries);
+   const [loading, setloading] = useState<string>(loadingState);
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
@@ -38,7 +54,7 @@ export const CommentaryOneLineCarrousel = () => {
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
-            setcommentaries(data.commentary);
+            setcommentariesArr(data.commentary);
             data.commentary.length > 0 &&
                setqueryVariables({
                   ...queryVariables,
@@ -50,7 +66,7 @@ export const CommentaryOneLineCarrousel = () => {
          setloading(status);
       } catch (error) {
          console.error(error);
-         setcommentaries([]);
+         setcommentariesArr([]);
          setloading("error");
       }
    };
@@ -63,12 +79,12 @@ export const CommentaryOneLineCarrousel = () => {
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
-            setcommentaries(data.commentary);
+            setcommentariesArr(data.commentary);
             data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setloading(status);
          }
       } catch (error) {
-         setcommentaries([]);
+         setcommentariesArr([]);
          setloading("error");
          console.error(error);
       }
@@ -92,12 +108,12 @@ export const CommentaryOneLineCarrousel = () => {
                   last_id: moreCommentaries[moreCommentaries.length - 1].ID
                });
 
-            setcommentaries((prev) => [...prev, ...moreCommentaries]);
+            setcommentariesArr((prev) => prev && [...prev, ...moreCommentaries]);
             moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setsmallLoader(false);
          }
       } catch (error) {
-         setcommentaries([]);
+         setcommentariesArr([]);
          console.error(error);
       }
    };
@@ -105,35 +121,40 @@ export const CommentaryOneLineCarrousel = () => {
    // only call on query params change and not on first load
    let isFirstLoad = true; // make sure it does not get called on first load
    useEffect(() => {
-      if (router.isReady && !isFirstLoad)
-         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+      if (!commentaries)
+         if (router.isReady && !isFirstLoad)
+            fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
    }, [router.query]);
    isFirstLoad = false;
 
    // only call fetch data on initial load
    useEffect(() => {
-      if (router.isReady)
-         if (router.query.AUTHORITY_LEVEL)
-            router.query.last_id
-               ? fetchData({ ...router.query })
-               : fetchData({ ...queryVariables, ...router.query });
-         else if (!router.query.AUTHORITY_LEVEL)
-            router.query.last_id
-               ? fetchData({ ...router.query })
-               : fetchData({ ...queryVariables, ...router.query });
-   }, [router.isReady]);
+      if (!commentaries) {
+         if (router.isReady)
+            if (router.query.AUTHORITY_LEVEL)
+               router.query.last_id
+                  ? fetchData({ ...router.query })
+                  : fetchData({ ...queryVariables, ...router.query });
+            else if (!router.query.AUTHORITY_LEVEL)
+               router.query.last_id
+                  ? fetchData({ ...router.query })
+                  : fetchData({ ...queryVariables, ...router.query });
+      } else {
+         setcommentariesArr(commentaries), setloading(loadingState);
+      }
+   }, [loadingState, router.isReady]);
 
    // handle delete
    const handleDelete = (id: string) => {
-      const updatedArr = commentaries.filter((thought) => thought.ID !== id);
-      setcommentaries(updatedArr);
+      const updatedArr = commentariesArr?.filter((thought) => thought.ID !== id);
+      setcommentariesArr(updatedArr);
    };
 
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <div className={styles.carrousel}>
-               {commentaries.map((commentary: TCommentary, index: number) => (
+               {commentariesArr?.map((commentary: TCommentary, index: number) => (
                   <div className={styles.commentary} key={index}>
                      <Commentary commentary={commentary} cta={{ handleDelete }} />
                   </div>
@@ -147,7 +168,9 @@ export const CommentaryOneLineCarrousel = () => {
                            handleClick: () =>
                               fetchMore({
                                  ...router.query,
-                                 last_id: commentaries[commentaries.length - 1].ID
+                                 last_id:
+                                    commentariesArr &&
+                                    commentariesArr[commentariesArr.length - 1].ID
                               })
                         }}
                      />

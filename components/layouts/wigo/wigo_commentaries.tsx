@@ -47,22 +47,10 @@ export const WigoCommentaries = () => {
                <LinkWithArrow title='See all' link={"/posts/commentary"} />
             </div>
          </div>
-         {loading === "done" && (
-            <div className={styles.carrousel}>
-               <CommentaryOneLineCarrousel commentaries={commentaries} />
-            </div>
-         )}
 
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         <div className={styles.carrousel}>
+            <CommentaryOneLineCarrousel commentaries={commentaries} loadingState={loading} />
+         </div>
       </div>
    );
 };

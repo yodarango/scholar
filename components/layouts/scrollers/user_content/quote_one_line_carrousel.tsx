@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+-  Renders commentaries on a a one line carrousel and if no quotes are passed then 
+   the local fetch is called. 
+-  PROP: Commentaries: the optional props that if passed does not trigger the local fetch
+-  PROP: loadingState: the state of the outside call. If not paused it defaults to "loading"
+-  PROP: userID is passed the function is called for a particular user
+****************************************************************************************/
+
 import { useEffect, useState } from "react";
 
 // comps
@@ -14,13 +22,18 @@ import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TQuoteOneLineCarrouselProps = {
+   loadingState?: string;
    quotes?: TQuote[];
    userID?: string;
 };
-export const QuoteOneLineCarrousel = ({ quotes, userID }: TQuoteOneLineCarrouselProps) => {
+export const QuoteOneLineCarrousel = ({
+   quotes,
+   userID,
+   loadingState = "done"
+}: TQuoteOneLineCarrouselProps) => {
    // state
    const [quotesArr, setquotesArr] = useState<TQuote[] | undefined>(quotes);
-   const [loading, setloading] = useState<string>("loading");
+   const [loading, setloading] = useState<string>(loadingState);
 
    const handleDelete = (id: string) => {
       const updatedArr = quotesArr?.filter((quote) => quote.ID !== id);
@@ -44,8 +57,11 @@ export const QuoteOneLineCarrousel = ({ quotes, userID }: TQuoteOneLineCarrousel
    useEffect(() => {
       if (!quotes) {
          fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
+      } else {
+         setquotesArr(quotes);
+         setloading(loadingState);
       }
-   }, []);
+   }, [loadingState]);
 
    return (
       <div className={styles.mainWrapper}>
