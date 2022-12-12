@@ -50,6 +50,7 @@ export const ProfileArt = ({
       try {
          const { data, status } = await getUserSummary(variables);
          setdata(data);
+         console.log(data);
       } catch (error) {
          console.error(error);
       }
@@ -74,7 +75,7 @@ export const ProfileArt = ({
             {hasNotifications && <span className={styles.notificationBadge}></span>}
             <ToggleMenu
                type={2}
-               profileMenuOptions={{ userHasNotifications: data.has_new_notifications }}
+               profileMenuOptions={{ userHasNotifications: data?.has_new_notifications }}
             />
          </div>
          <div className={styles.subWrapper}></div>

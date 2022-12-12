@@ -465,3 +465,16 @@ export const GET_USER_ABOUT_ME_PAGE = gql`
       }
    }
 `;
+
+export const GET_USER_NOTIFICATIONS = gql`
+   query ($isSelf: Boolean, $ID: ID, $last_id: ID) {
+      notifications(isSelf: $isSelf, ID: $ID, last_id: $last_id) {
+         ID
+         USER_ID
+         CREATED_BY
+         CONTENT_TYPE
+         body
+         posted_on
+      }
+   }
+`;

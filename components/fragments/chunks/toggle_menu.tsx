@@ -1,4 +1,8 @@
 import { useState } from "react";
+import {
+   getUserNotification,
+   TgetUserNotificationVariables
+} from "../../../helpers/functions/users/get_user_notification";
 
 // components
 import Portal from "../../hoc/potal";
@@ -29,6 +33,7 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
    const [showModal, setshowModal] = useState<string | null>(null);
 
    const hasNotifications = profileMenuOptions?.userHasNotifications === true;
+
    return (
       <>
          <Portal>

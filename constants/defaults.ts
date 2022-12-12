@@ -19,3 +19,4 @@ export const DEFAULT_BIBLE_SETTINGS = {
 };
 
 export const CONTENT_LAST_ID = 999999999;
+export const NOTIFICATIONS_LAST_ID = 999999999;
