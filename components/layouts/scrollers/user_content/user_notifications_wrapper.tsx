@@ -28,19 +28,17 @@ export const UserNotificationsWrapper = ({
    userID
 }: TUserNotificationsWrapperProps) => {
    // state
-   const [notifications, setnotifications] = useState<TUserNotification[]>([
-      { ID: "2343", body: "abc", postId: "2343", postType: 0 },
-      { ID: "2343", body: "abc", postId: "2343", postType: 1 },
-      { ID: "2343", body: "abc", postId: "2343", postType: 2 },
-      { ID: "2343", body: "abc", postId: "2343", postType: 3 }
-   ]);
+   const [notifications, setnotifications] = useState<TUserNotification[]>([]);
+   const [loading, setloading] = useState("loading");
 
    // get notification
    const getNotifications = async (variables: TgetUserNotificationVariables) => {
       try {
          const { data } = await getUserNotification(variables);
          console.log(data);
+         setnotifications(data);
       } catch (error) {
+         setnotifications([]);
          console.log(error);
       }
    };
@@ -61,8 +59,8 @@ export const UserNotificationsWrapper = ({
                   <UserNotifications
                      ID={notification.ID}
                      body={notification.body}
-                     postId={notification.postId}
-                     postType={notification.postType}
+                     postId={notification.POST_ID}
+                     postType={notification.CONTENT_TYPE}
                   />
                </div>
             ))}

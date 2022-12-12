@@ -1,6 +1,9 @@
 export type TUserNotification = {
-   ID: string;
-   postId: string;
+   ID: number | string;
+   USER_ID: number | string;
+   CONTENT_TYPE: number | string;
+   POST_ID: number | string;
+   CREATED_BY: number | string;
    body: string;
-   postType: number;
+   posted_on: string;
 };

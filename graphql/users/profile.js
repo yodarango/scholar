@@ -473,6 +473,7 @@ export const GET_USER_NOTIFICATIONS = gql`
          USER_ID
          CREATED_BY
          CONTENT_TYPE
+         POST_ID
          body
          posted_on
       }
