@@ -41,7 +41,6 @@ export const CommentaryOneLineCarrousel = ({
    // components
    const [commentariesArr, setcommentariesArr] = useState<TCommentary[] | undefined>(commentaries);
    const [loading, setloading] = useState<string>(loadingState);
-   const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       AUTHORITY_LEVEL: "0",
@@ -60,8 +59,6 @@ export const CommentaryOneLineCarrousel = ({
                   ...queryVariables,
                   last_id: data.commentary[data.commentary.length - 1].ID
                });
-
-            data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
          setloading(status);
       } catch (error) {
@@ -73,14 +70,13 @@ export const CommentaryOneLineCarrousel = ({
 
    //fetch data any time any of the query params change.
    const fetchOnQueryChange = async (variables: TgetcommentariesVariables) => {
-      setshowloadMore(false);
       setloading("loading");
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data && data.commentary) {
             setcommentariesArr(data.commentary);
-            data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+
             setloading(status);
          }
       } catch (error) {
@@ -91,32 +87,33 @@ export const CommentaryOneLineCarrousel = ({
    };
 
    // only fetches more with whatever params are there in the router posts
-   const fetchMore = async (variables: TgetcommentariesVariables) => {
-      setshowloadMore(false);
-      setsmallLoader(true);
+   //! This might not longe be used for anything. Investigate. If true, delete it!
+   // const fetchMore = async (variables: TgetcommentariesVariables) => {
 
-      try {
-         const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            // filter tags
-            let moreCommentaries = data.commentary;
+   //    setsmallLoader(true);
 
-            // update query variables
-            moreCommentaries.length > 0 &&
-               setqueryVariables({
-                  ...queryVariables,
-                  last_id: moreCommentaries[moreCommentaries.length - 1].ID
-               });
+   //    try {
+   //       const { data, status } = await handleGetCommentaries(variables);
+   //       if (data && data.commentary) {
+   //          // filter tags
+   //          let moreCommentaries = data.commentary;
 
-            setcommentariesArr((prev) => prev && [...prev, ...moreCommentaries]);
-            moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setsmallLoader(false);
-         }
-      } catch (error) {
-         setcommentariesArr([]);
-         console.error(error);
-      }
-   };
+   //          // update query variables
+   //          moreCommentaries.length > 0 &&
+   //             setqueryVariables({
+   //                ...queryVariables,
+   //                last_id: moreCommentaries[moreCommentaries.length - 1].ID
+   //             });
+
+   //          setcommentariesArr((prev) => prev && [...prev, ...moreCommentaries]);
+
+   //          setsmallLoader(false);
+   //       }
+   //    } catch (error) {
+   //       setcommentariesArr([]);
+   //       console.error(error);
+   //    }
+   // };
 
    // only call on query params change and not on first load
    let isFirstLoad = true; // make sure it does not get called on first load
@@ -159,23 +156,6 @@ export const CommentaryOneLineCarrousel = ({
                      <Commentary commentary={commentary} cta={{ handleDelete }} />
                   </div>
                ))}
-               {showloadMore && (
-                  <div className={styles.loadMore}>
-                     <Primary
-                        title='Load more'
-                        type='1'
-                        cta={{
-                           handleClick: () =>
-                              fetchMore({
-                                 ...router.query,
-                                 last_id:
-                                    commentariesArr &&
-                                    commentariesArr[commentariesArr.length - 1].ID
-                              })
-                        }}
-                     />
-                  </div>
-               )}
 
                {smallLoader && (
                   <div className={styles.smallLoader}>

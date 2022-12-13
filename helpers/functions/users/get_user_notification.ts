@@ -4,7 +4,7 @@ import { GET_POSTS_SUMMARY, GET_USER_NOTIFICATIONS } from "../../../graphql/user
 export type TgetUserNotificationVariables = {
    ID?: string;
    isSelf?: boolean;
-   last_id: number;
+   last_id: number | string;
 };
 
 export const getUserNotification = async (variables: TgetUserNotificationVariables) => {
