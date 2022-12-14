@@ -18,9 +18,9 @@
    margin-bottom: var(--spacing-xs);
 }
 
-.field:nth-child(6) {
+/* .field:nth-child(6) {
    margin-bottom: var(--spacing-m);
-}
+} */
 
 .colorPersonality {
    margin-bottom: var(--spacing-l);

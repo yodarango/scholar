@@ -479,3 +479,19 @@ export const GET_USER_NOTIFICATIONS = gql`
       }
    }
 `;
+
+export const GET_USER_GENERAL_SETTINGS = gql`
+   query {
+      get_user_general_settings {
+         avatar
+         signature
+         my_church
+         my_favorite_color
+         my_favorite_verse
+         my_job
+         my_true_color_personality_test
+         about_me
+         my_ministry
+      }
+   }
+`;

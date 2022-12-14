@@ -12,10 +12,13 @@ import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ChangeAvatar } from "../../layouts/account/settings/change_avatar";
 import { ChangeSignature } from "../../layouts/account/settings/change_signature";
+import { FourthStackHeader } from "../../layouts/stacks/headers/fourth_stack_header";
 
 // styles
 import styles from "./general.module.css";
-import { FourthStackHeader } from "../../layouts/stacks/headers/fourth_stack_header";
+
+// helpers
+import { getUserGeneralSettings } from "../../../helpers/functions/users/get_user_settings";
 
 export const General = () => {
    // state
@@ -32,19 +35,17 @@ export const General = () => {
       my_color_personality: ""
    });
 
+   const getData = async () => {
+      try {
+         const { data, status } = await getUserGeneralSettings();
+         setgeneralSettings(data);
+         setloaading(status);
+      } catch (error) {
+         console.log(error);
+      }
+   };
    useEffect(() => {
-      setgeneralSettings({
-         signature: "",
-         avatar: "",
-         user_authority: 1,
-         my_church: "Fac Maryville",
-         my_ministry: "Anything",
-         my_favorite_verse: "1 Peter 1:8",
-         my_job: "Slave",
-         my_favorite_color: "Gray",
-         my_color_personality: "green"
-      });
-      setloaading("done");
+      getData();
    }, []);
 
    // handle the saving

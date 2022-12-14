@@ -1,4 +1,4 @@
-import { General } from "../../../templates/account/general";
+import { General } from "../../../components/templates/account/general";
 import styles from "./index.module.css";
 
 const Index = () => {

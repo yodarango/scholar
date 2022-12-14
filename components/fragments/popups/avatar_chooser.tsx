@@ -5,7 +5,7 @@ import { useState } from "react";
 import styles from "./avatar_chooser.module.css";
 
 // helpers
-import { sortedAvatar } from "../../data/available_avatars";
+import { sortedAvatar } from "../../../data/available_avatars";
 import { Secondary } from "../buttons/secondary";
 import Portal from "../../hoc/potal";
 import { PrimaryMenuBkg } from "./primary_menu_bkg";
