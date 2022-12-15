@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 // gets a list of quote if no ID is passed or one quote WHERE ID = ID if it is passed.
-export const GET_QUOTES = gql`
+export const GET_QUOTE = gql`
    query ($ID: ID, $USER_ID: ID, $category_tags: String, $body: String, $last_id: ID) {
       quote(
          ID: $ID
@@ -34,7 +34,7 @@ export const GET_QUOTES = gql`
    }
 `;
 
-// gets the last 20 quotes posted for the wigo page
+// gets the last 20 quotes posted for the main page
 export const GET_QUOTE_IN_24 = gql`
    query {
       quote_in_24 {

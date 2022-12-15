@@ -30,7 +30,7 @@ import Portal from "../hoc/potal";
 
 // data
 import { notificationMessages } from "../../data/notification_messages";
-import { PreviewThoughtCommentaryStack } from "./stacks/with_text_content_stack";
+import { WithTextContentStack } from "./stacks/with_text_content_stack";
 
 type TTextEditorFormatterActionsProps = {
    title: string;
@@ -116,7 +116,7 @@ export const TextEditorActions = ({
             )}
 
             {showPostPreview && (
-               <PreviewThoughtCommentaryStack
+               <WithTextContentStack
                   title={title}
                   postReferences={postReferences}
                   body={body}

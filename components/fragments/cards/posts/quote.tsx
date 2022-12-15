@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // components
 import { QuoteCardHeader } from "../../chunks/quote_card_header";
 import { Parragraph } from "../../Typography/parragraph";
@@ -19,11 +21,13 @@ export type TQuoteProps = {
 };
 
 export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
-   console.log(quote);
    return (
       <div
          className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
          id={quote?.background}>
+         <Link href={`/posts/quote/${quote.ID}`}>
+            <a className={styles.clickableArea}></a>
+         </Link>
          {/* ------------------------------ header ----------------------- */}
          <div className={styles.header}>
             <QuoteCardHeader

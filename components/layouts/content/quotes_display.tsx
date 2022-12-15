@@ -7,7 +7,7 @@ import { QuoteOneLineCarrousel } from "../scrollers/user_content/quote_one_line_
 import styles from "./fast_facts.module.css";
 
 // types
-import { TQuote } from "../../types/posts";
+import { TQuote } from "../../../types/posts";
 
 type TQuoteDisplayProps = {
    quotes: TQuote[];
