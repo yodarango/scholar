@@ -2,14 +2,10 @@ import { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // comps
-import { PrimaryStack } from "../layouts/stacks/templates/primary_stack";
+import { PrimaryStack } from "../components/layouts/stacks/templates/primary_stack";
 
 const Privacy = () => {
-   const policyHolder = useRef<HTMLDivElement>(null);
-
-   useEffect(() => {
-      policyHolder.current &&
-         (policyHolder.current.innerHTML = `
+   const policy = `
          <style>
   [data-custom-class='body'], [data-custom-class='body'] * {
           background: transparent !important;
@@ -66,9 +62,7 @@ word-break: break-word !important;
       <div style="color: #ffffff;font-size: 14px;font-family: Arial;padding-top:16px;">
       This privacy policy was created using Termly's <a style="color: rgb(48, 48, 241) !important;" href="https://termly.io/products/privacy-policy-generator">Privacy Policy Generator</a>.
       </div>
-      `);
-   }, []);
-
+      `;
    // rotuer
    const router = useRouter();
 
@@ -81,7 +75,7 @@ word-break: break-word !important;
                   padding: `3rem 0`,
                   maxWidth: `700px`
                }}>
-               <main ref={policyHolder}></main>
+               <main dangerouslySetInnerHTML={{ __html: policy }}></main>
             </div>
          </PrimaryStack>
       </>

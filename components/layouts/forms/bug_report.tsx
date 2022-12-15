@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 // graphQL
-import client from "../../apollo-client";
-import { BUG_REPORT } from "../../graphql/emails/content";
+import { client } from "../../../apollo-client";
+import { BUG_REPORT } from "../../../graphql/emails/content";
 import { PrimaryStack } from "../stacks/templates/primary_stack";
 import { Primary } from "../../fragments/buttons/primary";
 
@@ -20,8 +20,8 @@ import { Notification } from "../../fragments/popups/notification";
 import styles from "./bug_report.module.css";
 
 // data
-import { errorMessages } from "../../data/error_messages";
-import { notificationMessages } from "../../data/notification_messages";
+import { errorMessages } from "../../../data/error_messages";
+import { notificationMessages } from "../../../data/notification_messages";
 const formError = errorMessages.forms.failToSubmitForm;
 const missingFieldsError = errorMessages.forms.missingFormFields;
 const submittedForm = notificationMessages.bugReportSubmitted;

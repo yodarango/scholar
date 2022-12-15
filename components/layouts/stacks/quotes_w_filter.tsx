@@ -24,7 +24,6 @@ export const QuotesWFilter = ({ cta }: TCommentariesByBookProps) => {
    const router = useRouter();
 
    // states
-   const [currentView, setcurrentView] = useState<string>("1"); // all or book by book
    const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
    const [scrollingDir, setscrollingDir] = useState<string>("none"); //scrolling direction to know how to move header
    const [tagFilter, settagFilter] = useState<any>(null); // category
@@ -69,7 +68,7 @@ export const QuotesWFilter = ({ cta }: TCommentariesByBookProps) => {
          </div>
          <section className={styles.posts}>
             {/* <CommentariesGrid filters={{ tag: commentaryTagFilter }} /> */}
-            <QuotesGrid filters={{}} />
+            <QuotesGrid />
          </section>
       </PrimaryStack>
    );

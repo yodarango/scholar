@@ -1,4 +1,4 @@
-import { TrustedUserApplication } from "../templates/users/trusted_user_application";
+import { TrustedUserApplication } from "../components/templates/users/trusted_user_application";
 import styles from "./page_global.module.css";
 
 const UserVerification = () => {

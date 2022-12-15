@@ -19,6 +19,7 @@ export type TQuoteProps = {
 };
 
 export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
+   console.log(quote);
    return (
       <div
          className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
