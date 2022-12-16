@@ -63,7 +63,7 @@ export const UserAvatarWUsername = ({
                      <UserAvatar
                         src={avatarSrc}
                         userAuthority={userAuthority}
-                        cta={() => cta.handleClick(userId)}
+                        cta={{ handleClick: () => cta.handleClick(userId) }}
                         customSize={true}
                      />
                   )}
@@ -88,7 +88,7 @@ export const UserAvatarWUsername = ({
                      <UserAvatar
                         src={avatarSrc}
                         userAuthority={userAuthority}
-                        cta={() => cta.handleClick(userId)}
+                        cta={{ handleClick: () => cta.handleClick(userId) }}
                      />
                   )}
                   {!cta && (

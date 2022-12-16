@@ -83,7 +83,8 @@ export type TQuote = {
    category_tags: string;
    author: string;
    background: string;
-   posted_on: string;
+   posted_on?: string;
+   created_date?: string;
    date: string;
    total_count: number;
    creator: {

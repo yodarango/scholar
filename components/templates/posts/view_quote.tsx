@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import { SeePostInfo } from "../../fragments/chunks/see_post_info";
 import { PostReactions } from "../../fragments/post_reactions";
 import { Parragraph } from "../../fragments/Typography/parragraph";
+import { Header } from "../../fragments/Typography/header";
+import { RoundLoader } from "../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import styles from "./view_quote.module.css";
@@ -13,80 +16,85 @@ import styles from "./view_quote.module.css";
 // helpers | types
 import { handleGetQuote } from "../../../helpers/functions/posts/quote_get";
 import { TQuote } from "../../../types/posts";
-import { useEffect } from "react";
+import { colors } from "../../../styles/tokens";
 
 export const ViewQuote = () => {
    const router = useRouter();
-   const ID = router?.query && router?.query.ID ? router?.query.ID : "10";
+   const ID = router?.query && router?.query.id ? router?.query.id : "1";
 
    const [quote, setquote] = useState<TQuote | null>(null);
+   const [loading, setloading] = useState<string>("loading");
 
-   const getData = async (ID: any) => {
+   const getData = async (variables: any) => {
       try {
-         const { data } = await handleGetQuote({ ID });
-         console.log(data);
+         const { data, status } = await handleGetQuote(variables);
+         if (data?.quote) setquote(data.quote[0]);
+         setloading(status);
       } catch (error) {
+         setloading("error");
          console.error(error);
       }
    };
 
    useEffect(() => {
-      getData({ ID });
-   }, []);
+      if (router.isReady) getData({ ID });
+   }, [router.isReady]);
 
    return (
-      <></>
-      //   <div
-      //      className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
-      //      id={quote?.background}>
-      //      <Link href={`/posts/quote/${quote.ID}`}>
-      //         <a className={styles.clickableArea}></a>
-      //      </Link>
-      //      {/*  header  */}
-      //      <div className={styles.header}>
-      //         {/* <QuoteCardHeader
-      //            cta={{ handleDelete: cta.handleDelete }}
-      //            postId={quote?.ID}
-      //            userId={quote?.creator?.ID}
-      //            userAuthority={quote?.creator?.authority_level}
-      //            avatar={quote?.creator?.avatar}
-      //         /> */}
-      //         <div className={styles.postInfo}>
-      //            <SeePostInfo
-      //               cta={{ handleClickOnAvatar() {} }}
-      //               userAuthority={userAuthority}
-      //               userId={userId}
-      //               username={username}
-      //               avatar={avatar}
-      //               postPostedOnDate={postPostedOnDate}
-      //               postCreatedDate={postCreatedDate}
-      //            />
-      //         </div>
-      //      </div>
+      <>
+         {quote && loading === "done" && (
+            <div className={`${styles.mainWrapper}`} id={quote?.background}>
+               {/*  header  */}
+               <div className={styles.header}>
+                  <div className={styles.postInfo}>
+                     <SeePostInfo
+                        cta={{ handleClickOnAvatar() {} }}
+                        customDateColor={colors.font}
+                        shadowDateColor={colors.font}
+                        customDateFontColor={colors.primary}
+                        userAuthority={quote.creator.authority_level}
+                        userId={quote.creator.ID}
+                        username={quote.creator.signature}
+                        avatar={quote.creator.avatar}
+                        postPostedOnDate={quote.posted_on}
+                        postCreatedDate={quote.created_date}
+                     />
+                  </div>
+               </div>
 
-      //      {/*  body  */}
-      //      <div className={`${styles.body} ${type === 1 && styles.bodyWide}`}>
-      //         <Header type={3} size={type === 1 ? "main" : "xxsmall"} text={quote?.body} />
-      //         <div className={styles.author}>
-      //            <Parragraph
-      //               size={type === 1 ? "small" : "xxsmall"}
-      //               text={`—	${quote.creator?.signature}`}
-      //               align='right'
-      //            />
-      //         </div>
-      //      </div>
+               {/*  body  */}
+               <div className={`${styles.body}`}>
+                  <Header type={2} size='xlarge' text={quote?.body} />
+                  <div className={styles.author}>
+                     <Parragraph size={"small"} text={`—	${quote.author}`} align='right' />
+                  </div>
+               </div>
 
-      //      <div className={styles.footer}>
-      //         <PostReactions
-      //            postId={quote?.ID}
-      //            contentType={1}
-      //            postRating={{
-      //               totalCount: quote?.approvals?.total_count,
-      //               averageCount: quote?.approvals?.average_count
-      //            }}
-      //            totalComments={quote?.comments?.total_count}
-      //         />
-      //      </div>
-      //   </div>
+               <div className={styles.footer}>
+                  <PostReactions
+                     postId={quote?.ID}
+                     contentType={1}
+                     postRating={{
+                        totalCount: quote?.approvals?.total_count,
+                        averageCount: quote?.approvals?.average_count
+                     }}
+                     totalComments={quote?.comments?.total_count}
+                  />
+               </div>
+            </div>
+         )}
+         {/* loader */}
+         {loading === "loading" && (
+            <div className={styles.loader}>
+               <RoundLoader />
+            </div>
+         )}
+         {/* error */}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <ResourceNotFoundError />
+            </div>
+         )}
+      </>
    );
 };

@@ -12,6 +12,7 @@ import { UserAvatarWUsername } from "./user_avatar_w_username";
 import styles from "./see_post_info.module.css";
 
 type TSeePostInfoProps = {
+   avatarSize?: string;
    userAuthority: number;
    userId: string;
    username: string;
@@ -19,12 +20,16 @@ type TSeePostInfoProps = {
    postPostedOnDate?: string;
    postCreatedDate?: string;
    postCategory?: string;
+   customDateColor?: string;
+   customDateFontColor?: string;
+   shadowDateColor?: string;
    cta?: {
       handleClickOnAvatar: (userId: string) => void;
    };
 };
 
 export const SeePostInfo = ({
+   avatarSize = "3.5rem",
    userAuthority,
    userId,
    username,
@@ -32,6 +37,9 @@ export const SeePostInfo = ({
    postPostedOnDate,
    postCreatedDate,
    postCategory,
+   customDateFontColor,
+   customDateColor,
+   shadowDateColor,
    cta
 }: TSeePostInfoProps) => {
    return (
@@ -41,7 +49,7 @@ export const SeePostInfo = ({
             {cta && (
                <UserAvatarWUsername
                   cta={{ handleClick: () => cta.handleClickOnAvatar(userId) }}
-                  avatarSize='3.5rem'
+                  avatarSize={avatarSize}
                   userAuthority={userAuthority}
                   avatarSrc={avatar}
                   userId={userId}
@@ -55,7 +63,7 @@ export const SeePostInfo = ({
             {/* onClick user will be redirected to users profile */}
             {!cta && (
                <UserAvatarWUsername
-                  avatarSize='3.5rem'
+                  avatarSize={avatarSize}
                   userAuthority={userAuthority}
                   avatarSrc={avatar}
                   userId={userId}
@@ -69,7 +77,14 @@ export const SeePostInfo = ({
          </div>
          {postCreatedDate && postPostedOnDate && (
             <div className={styles.timeStamp}>
-               <TimeStamp time={postCreatedDate} niceTime={postPostedOnDate} quiet={false} />
+               <TimeStamp
+                  customColor={customDateColor}
+                  shadowColor={shadowDateColor}
+                  time={postCreatedDate}
+                  niceTime={postPostedOnDate}
+                  customFontColor={customDateFontColor}
+                  quiet={false}
+               />
             </div>
          )}
          {postCategory && (

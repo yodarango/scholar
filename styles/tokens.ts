@@ -1,0 +1,20 @@
+export const colors: any = {
+   // primary: "#2a2438",
+   primary: "#1e1a29" /* OPTION B */,
+   //secondary: "#38304b",
+   secondary: "#2f293f" /*OPTION B */,
+   //third: "#5c5470",
+   third: " #685795" /* OPTION B */,
+   gradient_1_dark: "#7350ec",
+   gradient_1_light: "#b293fe",
+   gradient_2_dark: "#ff3269",
+   gradient_2_light: "#ff8655",
+   font: "#f1eaff",
+   font_color_darker: "#ff89a9",
+   danger: "#ff4d62",
+   warning: "#e9d259",
+   safe: "#7fdc7d",
+   rating_star_dark: "#fca101",
+   rating_star_light: "#ffe600",
+   shadow: "#1a1723"
+};

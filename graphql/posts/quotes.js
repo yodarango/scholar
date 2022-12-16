@@ -16,6 +16,7 @@ export const GET_QUOTE = gql`
          author
          background
          posted_on
+         created_date
          creator {
             ID
             signature
