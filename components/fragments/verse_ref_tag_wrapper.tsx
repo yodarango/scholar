@@ -4,9 +4,11 @@
 *********************************************************************************************/
 
 import { useEffect, useState } from "react";
+import { DEFAULT_BIBLE_SETTINGS } from "../../constants/defaults";
+import { ReadingPreferences } from "../../types/browser/local_storage";
 
 // comps
-import { TBiblePreferences } from "../buttons/bible_version_scripture";
+
 import { VerseRefTag } from "./chunks/verse_ref_tag";
 import { Header } from "./Typography/header";
 
@@ -26,15 +28,16 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
    const [versionId, setVersionId] = useState<null | string>(null);
    const [allTags, setallTags] = useState<string[]>(refs);
 
+   console.log(allTags);
    //! check if the user has reading preferences to use that versionId. Might be able to refactor this. #COMEBACK
    const getLS = () => {
       const versionId = localStorage.getItem("reading-preferences");
 
       if (versionId) {
-         const prefs: TBiblePreferences = JSON.parse(versionId);
+         const prefs: ReadingPreferences = JSON.parse(versionId);
          setVersionId(prefs.versionId);
       } else {
-         setVersionId("de4e12af7f28f599-02");
+         setVersionId(DEFAULT_BIBLE_SETTINGS.VERSION_ID);
       }
    };
 
@@ -60,6 +63,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
          {!showRemoveoption && (
             <div className={styles.tagsWrapper}>
                {versionId &&
+                  allTags &&
                   allTags.map((ref: string, index: number) => (
                      <div className={styles.tag} key={index}>
                         <VerseRefTag

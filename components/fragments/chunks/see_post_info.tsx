@@ -24,7 +24,7 @@ type TSeePostInfoProps = {
    customDateFontColor?: string;
    shadowDateColor?: string;
    cta?: {
-      handleClickOnAvatar: (userId: string) => void;
+      handleClickOnAvatar?: (userId: string) => void;
    };
 };
 
@@ -46,9 +46,11 @@ export const SeePostInfo = ({
       <div className={styles.mainWrapper}>
          <div className={styles.avatar}>
             {/* user wont be redirected to users profile when click. a callback will be initiated instead */}
-            {cta && (
+            {cta?.handleClickOnAvatar && (
                <UserAvatarWUsername
-                  cta={{ handleClick: () => cta.handleClickOnAvatar(userId) }}
+                  cta={{
+                     handleClick: () => cta.handleClickOnAvatar && cta.handleClickOnAvatar(userId)
+                  }}
                   avatarSize={avatarSize}
                   userAuthority={userAuthority}
                   avatarSrc={avatar}
@@ -61,7 +63,7 @@ export const SeePostInfo = ({
                />
             )}
             {/* onClick user will be redirected to users profile */}
-            {!cta && (
+            {!cta?.handleClickOnAvatar && (
                <UserAvatarWUsername
                   avatarSize={avatarSize}
                   userAuthority={userAuthority}

@@ -34,7 +34,7 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
       setLoading(true);
       try {
          const req = await fetch(
-            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${reference}`,
+            `https://api.scripture.api.bible/v1/bibles/${versionId}/verses/${reference}?content-type=text&include-notes=false&include-chapter-numbers=false&include-verse-spans=false&include-titles=false`,
             {
                method: "GET",
                headers: {
@@ -43,7 +43,6 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
             }
          );
          const res = await req.json();
-         console.log(res);
 
          if (res) {
             setverseFetched(res.data);
@@ -69,11 +68,7 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
             {showNotificationCard === "success" && verseFetched && (
                <Notification
                   title={verseFetched.reference}
-                  jsxContent={
-                     <span
-                        className={styles.data}
-                        dangerouslySetInnerHTML={{ __html: verseFetched.content }}></span>
-                  }
+                  jsxContent={<Parragraph text={verseFetched.content} size='xsmall' />}
                   cta={{ handleClose: () => setshowNotificationCard("none") }}
                   type='1'
                />

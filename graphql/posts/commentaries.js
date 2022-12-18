@@ -28,6 +28,7 @@ export const GET_COMMENTARIES = gql`
          verse_citation
          created_date
          posted_on
+         post_image
          is_private
          creator {
             ID
@@ -58,6 +59,7 @@ export const GET_COMMENTARIES_IN_24 = gql`
          referenced_verses
          verse_citation
          created_date
+         post_image
          posted_on
          is_private
          creator {

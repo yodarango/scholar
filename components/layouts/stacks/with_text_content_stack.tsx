@@ -34,13 +34,14 @@ type TPrimaryStackprops = {
    postPostedOnDate?: string;
    postCreatedDate?: string;
    postCategory?: string;
-   postReferences?: string[];
+   postReferences?: any;
    withEdit?: boolean;
    noResize?: boolean;
    cta: {
       handleCloseModal?: () => void;
       handleSubmit?: () => any;
       handleBodyValue?: (value: string) => void;
+      handleClickOnAvatar?: (id: string) => void;
    };
 };
 
@@ -78,6 +79,13 @@ export const WithTextContentStack = ({
          : setcontentWrapperClass("");
    };
 
+   // convert post references to array
+   if (postReferences && typeof postReferences === "string") {
+      postReferences = postReferences.split(" ");
+   } else if (!postReferences) {
+      postReferences = [];
+   }
+
    return (
       <div className={styles.mainWrapper}>
          {/* header */}
@@ -104,11 +112,12 @@ export const WithTextContentStack = ({
             {/*  post info */}
             <div className={styles.postInfo}>
                <SeePostInfo
-                  cta={{ handleClickOnAvatar() {} }}
+                  cta={{ handleClickOnAvatar: cta.handleClickOnAvatar }}
                   userAuthority={userAuthority}
                   userId={userId}
                   username={username}
                   avatar={avatar}
+                  postCategory={postCategory}
                   postPostedOnDate={postPostedOnDate}
                   postCreatedDate={postCreatedDate}
                />
@@ -150,7 +159,7 @@ export const WithTextContentStack = ({
                   <div>
                      <BringUpHiddenBottom
                         cta={{
-                           handleClick: () => handleShowVerseRefs()
+                           handleClick: handleShowVerseRefs
                         }}
                      />
                   </div>

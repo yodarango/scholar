@@ -7,10 +7,11 @@ export type TCommentary = {
    category_tags: string;
    referenced_verses: string;
    posted_on: string;
+   created_date: string;
    date: string;
    verse_citation: string;
    total_count: number;
-   postImage: string;
+   post_image: string;
    is_private: boolean;
    authority_level: string;
    creator: {
