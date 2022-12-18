@@ -14,7 +14,9 @@ export const GET_THOUGHTS = gql`
          USER_ID
          category_tags
          posted_on
+         created_date
          referenced_verses
+         post_image
          creator {
             ID
             signature

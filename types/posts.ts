@@ -37,9 +37,10 @@ export type TThought = {
    category_tags: string;
    referenced_verses: string;
    posted_on: string;
+   created_date: string;
    date: string;
    total_count: number;
-   postImage: string;
+   post_image: string;
    creator: {
       ID: string;
       signature: string;

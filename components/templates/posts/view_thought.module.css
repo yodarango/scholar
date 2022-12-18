@@ -1,0 +1,19 @@
+.mainWrapper {
+   position: relative;
+   top: 0;
+   left: 0;
+   width: 100dvw;
+   height: 100dvh;
+   padding: var(--spacing-m);
+   overflow: hidden;
+   z-index: 1;
+}
+
+.loader,
+.error {
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}

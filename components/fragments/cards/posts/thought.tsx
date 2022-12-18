@@ -48,7 +48,7 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
          </div>
 
          {/* -------------------- post image ------------ */}
-         <Link href={`/posts/thoughts/${thought?.ID}`}>
+         <Link href={`/posts/thought/${thought?.ID}`}>
             <a>
                <div className={styles.image}>
                   <Image
