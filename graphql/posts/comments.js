@@ -2,23 +2,23 @@ import { gql } from "@apollo/client";
 
 // ====================== GET ROUTES ============================ //
 export const GET_COMMENTARY_COMMENTS = gql`
-   query ($COMMENTARY_ID: ID, $last_id: ID) {
-      commentary_comments(COMMENTARY_ID: $COMMENTARY_ID, last_id: $last_id) {
+   query ($ID: ID, $POST_ID: ID, $USER_ID: ID, $last_id: ID) {
+      commentary_comments(ID: $ID, POST_ID: $POST_ID, USER_ID: $USER_ID, last_id: $last_id) {
          ID
          COMMENTARY_ID
-         USER_ID
          posted_on
          body
          creator_signature
          creator_avatar
          creator_approval_rate
+         creator_id
       }
    }
 `;
 
 export const GET_THOUGHT_COMMENTS = gql`
-   query ($THOUGHT_ID: ID, $last_id: ID) {
-      thought_comments(THOUGHT_ID: $THOUGHT_ID, last_id: $last_id) {
+   query ($ID: ID, $POST_ID: ID, $USER_ID: ID, $last_id: ID) {
+      thought_comments(ID: $ID, POST_ID: $POST_ID, USER_ID: $USER_ID, last_id: $last_id) {
          ID
          THOUGHT_ID
          USER_ID
@@ -27,6 +27,23 @@ export const GET_THOUGHT_COMMENTS = gql`
          creator_signature
          creator_avatar
          creator_approval_rate
+         creator_id
+      }
+   }
+`;
+
+export const GET_QUOTE_COMMENTS = gql`
+   query ($ID: ID, $POST_ID: ID, $USER_ID: ID, $last_id: ID) {
+      quote_comments(ID: $ID, POST_ID: $POST_ID, USER_ID: $USER_ID, last_id: $last_id) {
+         ID
+         THOUGHT_ID
+         USER_ID
+         posted_on
+         body
+         creator_signature
+         creator_avatar
+         creator_approval_rate
+         creator_id
       }
    }
 `;

@@ -15,6 +15,8 @@ export const GET_SERMON_NOTES = gql`
          USER_ID
          category_tags
          file_url
+         posted_on
+         created_date
          creator {
             ID
             signature

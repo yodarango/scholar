@@ -1,13 +1,16 @@
 export type TComment = {
    ID: string;
+   COMMENTARY_ID?: string;
+   QUOTE_ID?: string;
+   THOUGHT_ID?: string;
    body: string;
    creator_avatar: string;
    creator_signature: string;
    creator_approval_rate: string;
    creator_authority_level: number;
    creator_id: string;
-   posted_on: string;
-   date: string;
+   posted_on?: string;
+   created_date?: string;
 };
 
 export type TRating = {

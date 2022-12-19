@@ -18,7 +18,7 @@ type TPostCommentProps = {
       fontColor?: string;
       widthTimeStamp?: TimeStampProps;
    };
-   postSettingsOptions: {
+   postSettingsOptions?: {
       showShareopton?: boolean;
       showEditOption?: boolean;
       showDeleteOption?: boolean;

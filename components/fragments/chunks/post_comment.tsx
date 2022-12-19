@@ -14,7 +14,7 @@ import { PostComments } from "../../layouts/stacks/post_coments";
 import styles from "./post_comment.module.css";
 
 //types
-import { EnumContentType } from "../../types/enums";
+import { EnumContentType } from "../../../types/enums";
 
 type TPostCommentProps = {
    postId: string;
