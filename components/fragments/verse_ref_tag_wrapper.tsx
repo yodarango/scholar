@@ -28,7 +28,6 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
    const [versionId, setVersionId] = useState<null | string>(null);
    const [allTags, setallTags] = useState<string[]>(refs);
 
-   console.log(allTags);
    //! check if the user has reading preferences to use that versionId. Might be able to refactor this. #COMEBACK
    const getLS = () => {
       const versionId = localStorage.getItem("reading-preferences");

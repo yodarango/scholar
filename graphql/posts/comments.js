@@ -11,6 +11,7 @@ export const GET_COMMENTARY_COMMENTS = gql`
          creator_signature
          creator_avatar
          creator_approval_rate
+         creator_authority_level
          creator_id
       }
    }
@@ -27,6 +28,7 @@ export const GET_THOUGHT_COMMENTS = gql`
          creator_signature
          creator_avatar
          creator_approval_rate
+         creator_authority_level
          creator_id
       }
    }
@@ -43,6 +45,7 @@ export const GET_QUOTE_COMMENTS = gql`
          creator_signature
          creator_avatar
          creator_approval_rate
+         creator_authority_level
          creator_id
       }
    }
