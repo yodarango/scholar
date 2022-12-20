@@ -43,6 +43,7 @@ export const GET_THOUGHT_IN_24 = gql`
          USER_ID
          category_tags
          posted_on
+         post_image
          referenced_verses
          creator {
             ID

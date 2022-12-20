@@ -46,7 +46,6 @@ export const QuoteOneLineCarrousel = ({
          const { data, status } = await handleGetQuote(variables);
          data && setquotesArr(data.quote);
          setloading(status);
-         console.log(data);
       } catch (error) {
          console.error(error);
          setquotesArr([]);

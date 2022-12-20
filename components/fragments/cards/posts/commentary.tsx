@@ -53,7 +53,9 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                <div className={styles.image}>
                   <Image
                      src={
-                        commentary?.postImage ? commentary?.postImage : COM_DEFAULT_IMG_PLACEHOLDER
+                        commentary?.post_image
+                           ? commentary?.post_image
+                           : COM_DEFAULT_IMG_PLACEHOLDER
                      }
                      layout='fill'
                      alt='background cover for a book of the bible'

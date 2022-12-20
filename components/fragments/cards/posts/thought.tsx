@@ -52,7 +52,7 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
             <a>
                <div className={styles.image}>
                   <Image
-                     src={thought?.postImage ? thought?.postImage : THO_DEFAULT_IMG_PLACEHOLDER}
+                     src={thought?.post_image ? thought?.post_image : THO_DEFAULT_IMG_PLACEHOLDER}
                      layout='fill'
                      alt='post thumbnail'
                   />
@@ -71,7 +71,7 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
             <div className={styles.reactions}>
                <PostReactions
                   postId={thought?.ID}
-                  contentType={2}
+                  contentType={3}
                   totalComments={thought?.comments?.total_count}
                   postRating={{
                      totalCount: thought?.approvals?.total_count,
