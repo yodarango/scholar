@@ -17,17 +17,19 @@ import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
 import { CONTENT_COMMENTS_LAST_ID } from "../../../../constants/defaults";
 import { PostComment } from "../../../fragments/cards/posts/post_comment";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 type TPostCommentsWrapperProps = {
    postId: string;
    contentType: EnumContentType;
 };
 
+const SHOW_LOAD_MORE = 20;
 export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrapperProps) => {
    // state
    const [loading, setloading] = useState("loading");
    const [commentArr, setCommentsArr] = useState<TComment[] | null>(null);
-   const [showLoadMore, setshowLoadMore] = useState(false);
+   const [showLoadMore, setshowLoadMore] = useState("loading");
 
    const getData = async (variables: TgetPostComments) => {
       try {
@@ -35,9 +37,22 @@ export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrappe
          if (data) setCommentsArr(data);
          else setCommentsArr([]);
          setloading(status);
-         setshowLoadMore(data.length === 50);
+         setshowLoadMore(data.length === SHOW_LOAD_MORE ? "done" : "error");
       } catch (error) {
          setCommentsArr([]);
+         console.error(error);
+         setloading("error");
+      }
+   };
+
+   const getMore = async (last_id: string | number) => {
+      setshowLoadMore("loading");
+      try {
+         const { data, status } = await getPostComments({ POST_ID: postId, last_id }, contentType);
+         if (data) setCommentsArr((prev) => prev && [...prev, ...data]);
+         setloading(status);
+         setshowLoadMore(data.length === SHOW_LOAD_MORE ? "done" : "error");
+      } catch (error) {
          console.error(error);
          setloading("error");
       }
@@ -80,9 +95,16 @@ export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrappe
                ))}
             </div>
          )}
-         {showLoadMore && (
+         {commentArr && (
             <div className={styles.loadMoreButton}>
-               <Primary type='1' title='Load more' cta={{ handleClick: () => {} }} />
+               {showLoadMore === "done" && (
+                  <Primary
+                     type='1'
+                     title='Load more'
+                     cta={{ handleClick: () => getMore(commentArr[commentArr.length - 1].ID) }}
+                  />
+               )}
+               {showLoadMore === "loading" && <SmallLoader />}
             </div>
          )}
          {loading === "loading" && (

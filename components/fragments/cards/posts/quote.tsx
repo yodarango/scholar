@@ -54,7 +54,7 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
          <div className={styles.footer}>
             <PostReactions
                postId={quote?.ID}
-               contentType={1}
+               contentType={2}
                postRating={{
                   totalCount: quote?.approvals?.total_count,
                   averageCount: quote?.approvals?.average_count

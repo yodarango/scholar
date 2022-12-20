@@ -10,7 +10,7 @@ export type TgetPostComments = {
    ID?: string;
    USER_ID?: string;
    POST_ID?: string;
-   last_id?: number;
+   last_id?: number | string;
 };
 export const getPostComments = async (
    variables: TgetPostComments,

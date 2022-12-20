@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-// ====================== GET ROUTES ============================ //
+// get routes
 export const GET_COMMENTARY_COMMENTS = gql`
    query ($ID: ID, $POST_ID: ID, $USER_ID: ID, $last_id: ID) {
       commentary_comments(ID: $ID, POST_ID: $POST_ID, USER_ID: $USER_ID, last_id: $last_id) {
@@ -38,7 +38,7 @@ export const GET_QUOTE_COMMENTS = gql`
    query ($ID: ID, $POST_ID: ID, $USER_ID: ID, $last_id: ID) {
       quote_comments(ID: $ID, POST_ID: $POST_ID, USER_ID: $USER_ID, last_id: $last_id) {
          ID
-         THOUGHT_ID
+         QUOTE_ID
          USER_ID
          posted_on
          body
@@ -51,7 +51,7 @@ export const GET_QUOTE_COMMENTS = gql`
    }
 `;
 
-// ====================== POST ROUTES =========================== //
+//  POST ROUTES
 export const CREATE_COMMENTARY_COMMENT = gql`
    mutation ($COMMENTARY_ID: ID, $body: String, $USER_ID: ID) {
       Commentary_Comment(data: { COMMENTARY_ID: $COMMENTARY_ID, body: $body, USER_ID: $USER_ID }) {
