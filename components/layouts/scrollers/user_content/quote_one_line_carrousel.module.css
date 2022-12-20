@@ -12,8 +12,9 @@
    padding: var(--spacing-xxs) 0;
 }
 
-.commentary {
+.quote {
    width: 13rem;
+   height: 25rem;
    flex-grow: 0;
    flex-shrink: 0;
    margin-left: var(--spacing-xs);

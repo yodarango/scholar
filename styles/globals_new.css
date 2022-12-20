@@ -574,3 +574,29 @@ a:active {
 #quote-bkg--20 {
    background-image: var(--content-bkg-20);
 }
+
+/* content ratings */
+
+.rating-level-nr {
+   background-color: var(--third-color);
+}
+
+.rating-level-a {
+   background-color: var(--rating-level-a);
+}
+
+.rating-level-b {
+   background-color: var(--rating-level-b);
+}
+
+.rating-level-c {
+   background-color: var(--rating-level-c);
+}
+
+.rating-level-d {
+   background-color: var(--rating-level-d);
+}
+
+.rating-level-f {
+   background-color: var(--rating-level-f);
+}

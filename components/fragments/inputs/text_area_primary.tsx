@@ -45,9 +45,6 @@ export const TextAreaPrimary = ({
    const [currTextAreaHeight, setcurrTextAreaHeight] = useState<string>(height);
    const [scrollableHeight, setscrollableHeight] = useState<number>(0);
 
-   // ref
-   const textArea = useRef<HTMLTextAreaElement>(null);
-
    let fontSz: string = "";
    let fontAlign: string = "";
 
@@ -96,21 +93,23 @@ export const TextAreaPrimary = ({
    const borderStyles =
       border === "top" ? styles.borderTop : border === "bottom" ? styles.borderBottom : "";
    // resize text area & callback to send onChange event so parent has access to text area body
-   const resizeTextArea = () => {
+   const resizeTextArea = (e: any) => {
       if (noResize) return;
-      if (textArea?.current) {
-         cta.handleCurrentValue(textArea.current.value);
-         setscrollableHeight(textArea.current.scrollHeight / 10);
-         const textAreaHeight = currTextAreaHeight.replace("rem", "");
-         let heightInt = parseInt(textAreaHeight);
 
-         if (heightInt < scrollableHeight && heightInt < maxHeight) {
-            setcurrTextAreaHeight(`${scrollableHeight}rem`);
-         } else if (heightInt >= scrollableHeight && heightInt > 10) {
-            setscrollableHeight(0);
-            heightInt = heightInt - 2.6;
-            setcurrTextAreaHeight(`${heightInt}rem`);
-         }
+      cta.handleCurrentValue(e.target.value);
+      setscrollableHeight(e.target.scrollHeight / 10);
+      const textAreaHeight = currTextAreaHeight.replace("rem", "");
+      let heightInt = parseInt(textAreaHeight);
+
+      if (e.target.value === "" || e.target.value === undefined) {
+         setcurrTextAreaHeight(height);
+      }
+      if (heightInt < scrollableHeight && heightInt < maxHeight) {
+         setcurrTextAreaHeight(`${scrollableHeight}rem`);
+      } else if (heightInt >= scrollableHeight && heightInt > 10) {
+         setscrollableHeight(0);
+         heightInt = heightInt - 2.6;
+         setcurrTextAreaHeight(`${heightInt}rem`);
       }
    };
 
@@ -123,7 +122,6 @@ export const TextAreaPrimary = ({
                className={`${styles.textArea} ${fontAlign} ${fontSz} ${
                   bold && styles.bold
                } ${border}`}
-               ref={textArea}
                defaultValue={defaultValue}
                placeholder={placeHolder}
                onChange={resizeTextArea}></textarea>
@@ -135,7 +133,6 @@ export const TextAreaPrimary = ({
                className={`${styles.textArea} ${fontAlign} ${styles.transparent} ${
                   darkText && styles.darkText
                } ${fontSz} ${bold && styles.bold} ${borderStyles}`}
-               ref={textArea}
                defaultValue={defaultValue}
                placeholder={placeHolder}
                onChange={resizeTextArea}></textarea>

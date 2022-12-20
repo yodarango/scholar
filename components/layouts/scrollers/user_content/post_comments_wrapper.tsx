@@ -29,7 +29,7 @@ export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrappe
    // state
    const [loading, setloading] = useState("loading");
    const [commentArr, setCommentsArr] = useState<TComment[] | null>(null);
-   const [showLoadMore, setshowLoadMore] = useState("loading");
+   const [showLoadMore, setshowLoadMore] = useState("none");
 
    const getData = async (variables: TgetPostComments) => {
       try {

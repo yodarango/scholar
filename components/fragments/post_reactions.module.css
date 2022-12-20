@@ -9,6 +9,6 @@
    cursor: pointer;
 }
 
-.mainWrapper div:nth-child(2) {
+.mainWrapper > div:nth-child(2) {
    margin-left: var(--spacing-xs);
 }

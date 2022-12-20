@@ -27,6 +27,8 @@ export const PostComment = ({ comments, iconColor, postId, contentType }: TPostC
    // state
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
 
+   // total comments
+   const totalComments = comments && comments > 0 ? comments : 0;
    return (
       <>
          <Portal>
@@ -41,22 +43,13 @@ export const PostComment = ({ comments, iconColor, postId, contentType }: TPostC
                />
             )}
          </Portal>
-         <div className={`${styles.mainWrapper}`}>
+         <div className={`${styles.mainWrapper}`} onClick={() => setshowCommentariesOfPost(true)}>
             {/* -------------- comment count ------------ */}
-            {!iconColor && (
-               <Parragraph text={comments ? comments : ""} size='small' inline={true} />
-            )}
+            {!iconColor && <Parragraph text={totalComments} size='small' inline={true} />}
             {iconColor && (
-               <Parragraph
-                  text={comments ? comments : ""}
-                  size='small'
-                  inline={true}
-                  color={iconColor}
-               />
+               <Parragraph text={totalComments} size='small' inline={true} color={iconColor} />
             )}
-            <div
-               className={styles.commentIconWrapper}
-               onClick={() => setshowCommentariesOfPost(true)}>
+            <div className={styles.commentIconWrapper} onClick={() => {}}>
                <Icon name='comment' color={iconColor ? iconColor : "#F1EAFF"} size={"2rem"} />
             </div>
          </div>

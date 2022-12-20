@@ -67,7 +67,7 @@ export const QuoteOneLineCarrousel = ({
          {
             <div className={styles.carrousel}>
                {quotesArr?.map((quote: TQuote, index: number) => (
-                  <div className={styles.commentary} key={index}>
+                  <div className={styles.quote} key={index}>
                      <Quote quote={quote} cta={{ handleDelete }} />
                   </div>
                ))}

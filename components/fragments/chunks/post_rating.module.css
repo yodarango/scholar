@@ -10,7 +10,7 @@
    width: 2rem;
    height: 2rem;
    border-radius: 50%;
-   margin-left: var(--spacing-xxs);
+   margin-left: calc(var(--spacing-xxs) / 1.5);
    overflow: hidden;
    display: flex;
    align-items: center;

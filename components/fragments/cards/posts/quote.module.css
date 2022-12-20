@@ -77,5 +77,6 @@
 
 .footer {
    z-index: 2;
-   position: relative;
+   position: absolute;
+   bottom: var(--spacing-xs);
 }

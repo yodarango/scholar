@@ -5,12 +5,12 @@
    justify-content: flex-start;
 }
 
-.commentIconWrapper{
+.commentIconWrapper {
    width: 2rem;
-   margin-left: var(--spacing-xxs);
+   margin-left: calc(var(--spacing-xxs) / 1.5);
 }
 
-.commentIconWrapper:hover{
+.commentIconWrapper:hover {
    transform: scale(1.1);
    cursor: pointer;
 }
