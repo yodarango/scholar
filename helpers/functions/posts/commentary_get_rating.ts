@@ -1,5 +1,5 @@
-import client from "../../../apollo-client";
-import { GET_COMMENTARY_APPROVALS } from "../../../graphql/posts/approvals";
+import { client } from "../../../apollo-client";
+import { GET_COMMENTARY_APPROVALS } from "../../../graphql/posts/rating";
 
 export const handleGetCommentaryRatings = async (id: string) => {
    try {

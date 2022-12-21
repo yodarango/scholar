@@ -7,7 +7,7 @@ import {
    CREATE_COMMENTARY_APPROVAL,
    CREATE_QUOTE_APPROVAL,
    CREATE_THOUGHT_APPROVAL
-} from "../graphql/posts/approvals";
+} from "../graphql/posts/rating";
 
 // childs comps
 import NotificationPopup from "../fragments/popups/notification";

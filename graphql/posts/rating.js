@@ -1,16 +1,9 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_COMMENTARY_APPROVAL = gql`
+export const CONTENT_RATING = gql`
    mutation ($COMMENTARY_ID: ID, $rating: Int, $USER_ID: ID) {
       rate_commentary(data: { COMMENTARY_ID: $COMMENTARY_ID, rating: $rating, USER_ID: $USER_ID }) {
-         # ... on Commentary_Approval {
          ID
-         # }
-
-         # ... on ExceedsPostCount {
-         # message
-         # }
-      }
    }
 `;
 

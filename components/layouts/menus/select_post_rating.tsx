@@ -2,6 +2,9 @@
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
+// helpers
+import { TrateContent } from "../../../helpers/functions/posts/content_post_rating";
+
 // styles
 import styles from "./select_menu_global.module.css";
 
@@ -87,6 +90,15 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
          color: "#db4c42"
       }
    ];
+
+   const rateContent = async (variables: TrateContent) => {
+      try {
+         const { data } = await rateContent(variables);
+         console.log(data);
+      } catch (error) {
+         console.error(error);
+      }
+   };
    return (
       <>
          <PrimaryMenuBkg title='Rate content' color='1' cta={{ handleClose: cta.handleCloseModal }}>
