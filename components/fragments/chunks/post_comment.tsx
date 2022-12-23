@@ -17,7 +17,7 @@ import styles from "./post_comment.module.css";
 import { EnumContentType } from "../../../types/enums";
 
 type TPostCommentProps = {
-   postId: string;
+   postId: string | number;
    contentType: EnumContentType;
    comments: number | null;
    iconColor?: string;

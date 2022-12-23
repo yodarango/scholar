@@ -1,18 +1,23 @@
-import { CONTENT_RATING } from "../../../graphql/posts/rating";
+import { RATE_COMMENT, RATE_QUOTE, RATE_THOUGHT } from "../../../graphql/posts/rating";
 import { client } from "../../../apollo-client";
 
+// type
+import { EnumContentType } from "../../../types/enums";
+
 export type TrateContent = {
-   COMMENTARY_ID: number | string;
-   rating: number;
+   POST_ID: number | string;
    USER_ID: number | string;
+   rating: number;
 };
-export const rateContent = async (variables: TrateContent) => {
+export const rateContent = async (variables: TrateContent, contentType: EnumContentType) => {
+   const RATE_CONTENT =
+      contentType === 1 ? RATE_COMMENT : contentType === 2 ? RATE_QUOTE : RATE_THOUGHT;
    try {
       const { data } = await client.mutate({
-         mutation: CONTENT_RATING,
+         mutation: RATE_CONTENT,
          variables
       });
-      console.log(data);
+
       if (data) {
          return { data, status: "done" };
       }

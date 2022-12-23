@@ -20,7 +20,7 @@ import { PostComment } from "../../../fragments/cards/posts/post_comment";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 type TPostCommentsWrapperProps = {
-   postId: string;
+   postId: string | number;
    contentType: EnumContentType;
 };
 

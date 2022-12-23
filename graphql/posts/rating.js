@@ -1,34 +1,25 @@
 import { gql } from "@apollo/client";
 
-export const CONTENT_RATING = gql`
-   mutation ($COMMENTARY_ID: ID, $rating: Int, $USER_ID: ID) {
-      rate_commentary(data: { COMMENTARY_ID: $COMMENTARY_ID, rating: $rating, USER_ID: $USER_ID }) {
-         ID
-   }
-`;
-
-export const CREATE_THOUGHT_APPROVAL = gql`
-   mutation ($THOUGHT_ID: ID, $rating: Int, $USER_ID: ID) {
-      rate_thought(data: { THOUGHT_ID: $THOUGHT_ID, rating: $rating, USER_ID: $USER_ID }) {
-         # ... on Quote_Approval {
-         ID
-         # }
-         # ... on ExceedsPostCount {
-         #    message
-         # }
+export const RATE_COMMENT = gql`
+   mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
+      rate_commentary(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
+         status
       }
    }
 `;
 
-export const CREATE_QUOTE_APPROVAL = gql`
-   mutation ($QUOTE_ID: ID, $rating: Int, $USER_ID: ID) {
-      rate_quote(data: { QUOTE_ID: $QUOTE_ID, rating: $rating, USER_ID: $USER_ID }) {
-         # ... on Thought_Approval {
-         ID
-         # }
-         # ... on ExceedsPostCount {
-         #    message
-         # }
+export const RATE_THOUGHT = gql`
+   mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
+      rate_thought(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
+         status
+      }
+   }
+`;
+
+export const RATE_QUOTE = gql`
+   mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
+      rate_quote(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
+         status
       }
    }
 `;

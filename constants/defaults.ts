@@ -4,7 +4,7 @@ import { english } from "../data/supported_bible_versions/english";
 export const COM_DEFAULT_IMG_PLACEHOLDER = "/default.png";
 export const THO_DEFAULT_IMG_PLACEHOLDER = "/default.png";
 
-// bible reading
+// BIBLE READING
 export const DEFAULT_BIBLE_SETTINGS = {
    FONT: "default",
    VERSION_ID: english[0].id,
@@ -21,3 +21,7 @@ export const DEFAULT_BIBLE_SETTINGS = {
 export const CONTENT_LAST_ID = 999999999;
 export const NOTIFICATIONS_LAST_ID = 999999999;
 export const CONTENT_COMMENTS_LAST_ID = 999999999;
+
+// REQ/ RES
+export const QUERY_WAS_INSERT = 0;
+export const QUERY_WAS_UPDATE = 1;

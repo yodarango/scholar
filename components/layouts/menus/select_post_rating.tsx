@@ -8,13 +8,22 @@ import { TrateContent } from "../../../helpers/functions/posts/content_post_rati
 // styles
 import styles from "./select_menu_global.module.css";
 
+// helpers
+import { rateContent } from "../../../helpers/functions/posts/content_post_rating";
+
+// constants
+import { QUERY_WAS_INSERT } from "../../../constants/defaults";
+
 export type TSelectPostRatingMenuProps = {
+   userId: string | number;
+   postId: string | number;
    cta: {
+      handleRating: (rating: number, status: number) => void;
       handleCloseModal: () => void;
    };
 };
 
-export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
+export const SelectPostRatingMenu = ({ cta, userId, postId }: TSelectPostRatingMenuProps) => {
    const menuOptions = [
       {
          rating: 100,
@@ -23,61 +32,61 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
          color: "#75d975"
       },
       {
-         rating: 97,
+         rating: 96,
          letter: "A",
          description: "94 - 97",
          color: "#75d975"
       },
       {
-         rating: 94,
+         rating: 92,
          letter: "A-",
          description: "90 - 94",
          color: "#75d975"
       },
       {
-         rating: 90,
+         rating: 89,
          letter: "B+",
          description: "87 - 90",
          color: "#b3eeb3"
       },
       {
-         rating: 87,
+         rating: 86,
          letter: "B",
          description: "83 - 87",
          color: "#b3eeb3"
       },
       {
-         rating: 83,
+         rating: 82,
          letter: "B-",
          description: "80 - 83",
          color: "#b3eeb3"
       },
       {
-         rating: 80,
+         rating: 79,
          letter: "C+",
          description: "77 - 80",
          color: "#ebcf5e"
       },
       {
-         rating: 77,
+         rating: 76,
          letter: "C",
          description: "73 - 77",
          color: "#ebcf5e"
       },
       {
-         rating: 73,
+         rating: 72,
          letter: "C-",
          description: "70 - 73",
          color: "#ebcf5e"
       },
       {
-         rating: 70,
+         rating: 69,
          letter: "D+",
          description: "67 - 70",
          color: "#f4745e"
       },
       {
-         rating: 67,
+         rating: 66,
          letter: "D",
          description: "60 - 67",
          color: "#f4745e"
@@ -91,10 +100,13 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
       }
    ];
 
-   const rateContent = async (variables: TrateContent) => {
+   const handleRating = async (variables: TrateContent) => {
+      cta.handleCloseModal();
       try {
-         const { data } = await rateContent(variables);
-         console.log(data);
+         const { data, status } = await rateContent(variables, 1);
+         if (data && data.rate_commentary) {
+            cta.handleRating(variables.rating, data.rate_commentary.status);
+         }
       } catch (error) {
          console.error(error);
       }
@@ -112,7 +124,14 @@ export const SelectPostRatingMenu = ({ cta }: TSelectPostRatingMenuProps) => {
                         iconShadow: option.color,
                         text: option.description
                      }}
-                     cta={{ handleOptionClick: () => console.log(option.rating) }}
+                     cta={{
+                        handleOptionClick: () =>
+                           handleRating({
+                              rating: option.rating,
+                              USER_ID: userId,
+                              POST_ID: postId
+                           })
+                     }}
                   />
                </div>
             ))}

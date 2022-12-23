@@ -9,7 +9,8 @@ import styles from "./post_reactions.module.css";
 import { EnumContentType } from "../../types/enums";
 
 type TPostReactionsProps = {
-   postId: string;
+   userId: string | number;
+   postId: string | number;
    contentType: EnumContentType;
    postRating: {
       totalCount: number;
@@ -24,12 +25,15 @@ export const PostReactions = ({
    totalComments,
    iconColor,
    contentType,
-   postId
+   postId,
+   userId
 }: TPostReactionsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div>
             <PostRating
+               userId={userId}
+               postId={postId}
                iconColor={iconColor}
                rating={{
                   totalCount: postRating.totalCount,

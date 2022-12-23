@@ -8,9 +8,9 @@ import { EnumContentType } from "../../../types/enums";
 
 export type TgetPostComments = {
    ID?: string;
-   USER_ID?: string;
-   POST_ID?: string;
-   last_id?: number | string;
+   USER_ID?: string | number;
+   POST_ID?: string | number;
+   last_id?: string | number;
 };
 export const getPostComments = async (
    variables: TgetPostComments,

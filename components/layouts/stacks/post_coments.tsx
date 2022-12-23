@@ -15,7 +15,7 @@ import { TComment } from "../../../types/posts_contnet";
 import { EnumContentType } from "../../../types/enums";
 
 type TPostCommentsProps = {
-   postId: string;
+   postId: string | number;
    contentType: EnumContentType;
    cta: {
       handleValue: (value: string) => void;

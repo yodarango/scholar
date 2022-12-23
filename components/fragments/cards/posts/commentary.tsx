@@ -83,6 +83,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                <PostReactions
                   contentType={1}
                   postId={commentary?.ID}
+                  userId={commentary?.creator?.ID}
                   iconColor={
                      categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
                         ? "#2A2438"
