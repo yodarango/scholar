@@ -9,7 +9,7 @@ import { SmallLoader } from "../chunks/small_loader";
 import styles from "./post_comment_text_area.module.css";
 
 // helpers
-import { postContentComment } from "../../../helpers/functions/posts/commentary_post_comment";
+import { postContentComment } from "../../../helpers/functions/posts/content_post_comment";
 
 // types
 import { EnumContentType } from "../../../types/enums";
