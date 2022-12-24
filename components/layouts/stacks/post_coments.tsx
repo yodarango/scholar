@@ -20,7 +20,7 @@ type TPostCommentsProps = {
    contentType: EnumContentType;
    cta: {
       handleClose: () => void;
-      handlePost: () => void;
+      handlePost: () => any;
    };
 };
 
@@ -36,7 +36,8 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
                <PostCommentTextArea
                   postId={postId}
                   userId={userId}
-                  cta={{ handleValue: (post) => setpost(post) }}
+                  contentType={contentType}
+                  cta={{ handleValue: (post) => setpost(post), handlePost: cta.handlePost }}
                />
             </div>
          </div>

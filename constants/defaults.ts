@@ -25,3 +25,8 @@ export const CONTENT_COMMENTS_LAST_ID = 999999999;
 // REQ/ RES
 export const QUERY_WAS_INSERT = 0;
 export const QUERY_WAS_UPDATE = 1;
+
+// content type
+export const POST_TYPE_COMMENTARY = 1;
+export const POST_TYPE_QUOTE = 2;
+export const POST_TYPE_THOUGHT = 3;

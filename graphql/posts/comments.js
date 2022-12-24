@@ -77,8 +77,8 @@ export const CREATE_COMMENTARY_COMMENT = gql`
 `;
 
 export const CREATE_QUOTE_COMMENT = gql`
-   mutation ($QUOTE_ID: ID, $body: String, $USER_ID: ID) {
-      Quote_Comment(data: { QUOTE_ID: $QUOTE_ID, body: $body, USER_ID: $USER_ID }) {
+   mutation ($POST_ID: ID, $body: String, $USER_ID: ID) {
+      quote_comment(data: { POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
          ... on Quote_Comment {
             ID
             body
@@ -96,8 +96,8 @@ export const CREATE_QUOTE_COMMENT = gql`
 `;
 
 export const CREATE_THOUGHT_COMMENT = gql`
-   mutation ($THOUGHT_ID: ID, $body: String, $USER_ID: ID) {
-      Thought_Comment(data: { THOUGHT_ID: $THOUGHT_ID, body: $body, USER_ID: $USER_ID }) {
+   mutation ($POST_ID: ID, $body: String, $USER_ID: ID) {
+      thought_comment(data: { POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
          ... on Thought_Comment {
             ID
             body

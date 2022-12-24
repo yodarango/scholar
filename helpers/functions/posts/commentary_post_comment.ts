@@ -1,8 +1,12 @@
 import { client } from "../../../apollo-client";
-import { CREATE_COMMENTARY_COMMENT } from "../../../graphql/posts/comments";
+import {
+   CREATE_COMMENTARY_COMMENT,
+   CREATE_QUOTE_COMMENT,
+   CREATE_THOUGHT_COMMENT
+} from "../../../graphql/posts/comments";
 
 // types
-import { TCommentary } from "../../../types/posts";
+import { EnumContentType } from "../../../types/enums";
 
 export type ThandlePostComment = {
    POST_ID: string | number;
@@ -10,15 +14,24 @@ export type ThandlePostComment = {
    body: string;
 };
 
-export const postContentComment = async (variables: ThandlePostComment) => {
+export const postContentComment = async (
+   variables: ThandlePostComment,
+   contentType: EnumContentType
+) => {
+   const CONTENT =
+      contentType === 1
+         ? CREATE_COMMENTARY_COMMENT
+         : contentType === 2
+         ? CREATE_QUOTE_COMMENT
+         : CREATE_THOUGHT_COMMENT;
    try {
       const { data } = await client.mutate({
-         mutation: CREATE_COMMENTARY_COMMENT,
+         mutation: CONTENT,
          variables
       });
-      if (data && data.commentary_comment) {
-         return data.commentary_comment;
-      }
+      if (data && data.commentary_comment) return data.commentary_comment;
+      else if (data && data.thought_comment) return data.thought_comment;
+      else if (data && data.quote_comment) return data.quote_comment;
    } catch (error) {
       console.log(error);
       return "Error";

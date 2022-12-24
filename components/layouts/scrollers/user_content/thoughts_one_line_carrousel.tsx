@@ -26,7 +26,7 @@ import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TThoughtsOneLineCarrouselProps = {
    loadingState?: string;
-   userID?: string;
+   userID?: string | number;
    thoughts?: TThought[];
 };
 

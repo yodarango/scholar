@@ -24,7 +24,7 @@ import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 type TQuoteOneLineCarrouselProps = {
    loadingState?: string;
    quotes?: TQuote[];
-   userID?: string;
+   userID?: string | number;
 };
 export const QuoteOneLineCarrousel = ({
    quotes,

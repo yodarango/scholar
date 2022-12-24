@@ -86,15 +86,15 @@ export const PostCommentsWrapper = ({
                   <div className={styles.comment} key={index}>
                      <PostComment
                         postHeader={{
-                           username: comment.creator_signature,
-                           avatar: comment.creator_avatar,
-                           userId: comment.creator_id,
-                           postId: comment.POST_ID || "",
-                           userAuthority: comment.creator_authority_level,
+                           username: comment?.creator_signature,
+                           avatar: comment?.creator_avatar,
+                           userId: comment?.creator_id,
+                           postId: comment?.POST_ID || "",
+                           userAuthority: comment?.creator_authority_level,
                            postType: "1",
                            widthTimeStamp: {
-                              time: comment.created_date || "",
-                              niceTime: comment.posted_on || "",
+                              time: comment?.created_date || "",
+                              niceTime: comment?.posted_on || "",
                               quiet: false
                            }
                         }}

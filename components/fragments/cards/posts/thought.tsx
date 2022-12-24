@@ -71,6 +71,7 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
             <div className={styles.reactions}>
                <PostReactions
                   postId={thought?.ID}
+                  userId={thought?.creator?.ID}
                   contentType={3}
                   totalComments={thought?.comments?.total_count}
                   postRating={{

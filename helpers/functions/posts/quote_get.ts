@@ -5,7 +5,7 @@ import { GET_QUOTE, GET_QUOTE_IN_24 } from "../../../graphql/posts/quotes";
 // field types
 export type TgetQuoteVariables = {
    ID?: string | number;
-   USER_ID?: string;
+   USER_ID?: string | number;
    body?: string;
    category_tags?: string;
    last_id?: string | number;

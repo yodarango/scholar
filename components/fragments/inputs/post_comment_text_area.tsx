@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // components
 import { IconButton } from "../buttons/icon_button";
 import { TextAreaPrimary } from "./text_area_primary";
+import { SmallLoader } from "../chunks/small_loader";
 
 // styles
 import styles from "./post_comment_text_area.module.css";
@@ -10,27 +11,48 @@ import styles from "./post_comment_text_area.module.css";
 // helpers
 import { postContentComment } from "../../../helpers/functions/posts/commentary_post_comment";
 
+// types
+import { EnumContentType } from "../../../types/enums";
+
 type TPostCommentTextAreaProps = {
    postId: string | number;
    userId: string | number;
+   contentType: EnumContentType;
    cta: {
+      handlePost: () => void;
       handleValue: (value: string) => void;
    };
 };
 
-export const PostCommentTextArea = ({ cta, postId, userId }: TPostCommentTextAreaProps) => {
+export const PostCommentTextArea = ({
+   cta,
+   postId,
+   userId,
+   contentType
+}: TPostCommentTextAreaProps) => {
    const [currentInputValue, setcurrentInputValue] = useState<string>("");
    const [resetInput, setresetInput] = useState<number>(0);
    const [displayInput, setdisplayInput] = useState(true);
+   const [loading, setloading] = useState("done");
 
    const handlePostComment = async () => {
+      setloading("loading");
       // post to db and send the value to the parent after success to add it to the comentary array
-      const data = await postContentComment({
-         USER_ID: userId,
-         POST_ID: postId,
-         body: currentInputValue
-      });
-      cta.handleValue(data);
+      const data = await postContentComment(
+         {
+            USER_ID: userId,
+            POST_ID: postId,
+            body: currentInputValue
+         },
+         contentType
+      );
+      if (data) {
+         cta.handleValue(data);
+         setloading("done");
+      }
+
+      // send post to parent array
+      cta.handlePost();
 
       // hide input
       setdisplayInput(false);
@@ -60,7 +82,8 @@ export const PostCommentTextArea = ({ cta, postId, userId }: TPostCommentTextAre
                   />
                </div>
                <div onClick={handlePostComment}>
-                  <IconButton icon='checkmark' backgroundColor='1' />
+                  {loading === "loading" && <SmallLoader />}
+                  {loading !== "loading" && <IconButton icon='checkmark' backgroundColor='1' />}
                </div>
             </div>
          )}

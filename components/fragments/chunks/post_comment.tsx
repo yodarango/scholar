@@ -33,10 +33,8 @@ export const PostComment = ({
 }: TPostCommentProps) => {
    // state
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
-
-   // total comments
    const [totalComments, settotalComments] = useState(comments && comments > 0 ? comments : 0);
-   console.log(totalComments);
+
    return (
       <>
          <Portal>
@@ -47,11 +45,7 @@ export const PostComment = ({
                   contentType={contentType}
                   cta={{
                      handleClose: () => setshowCommentariesOfPost(false),
-                     handlePost: () =>
-                        settotalComments((prev) => {
-                           console.log(prev);
-                           return prev + 1;
-                        })
+                     handlePost: () => settotalComments((prev) => prev + 1)
                   }}
                />
             )}
@@ -62,6 +56,7 @@ export const PostComment = ({
             {iconColor && (
                <Parragraph text={totalComments} size='small' inline={true} color={iconColor} />
             )}
+
             <div className={styles.commentIconWrapper} onClick={() => {}}>
                <Icon name='comment' color={iconColor ? iconColor : "#F1EAFF"} size={"2rem"} />
             </div>

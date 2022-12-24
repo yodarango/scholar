@@ -23,7 +23,7 @@ export const handleGetThoughtIn24 = async () => {
 
 export type TgetThoughtsVariables = {
    ID?: string;
-   USER_ID?: string;
+   USER_ID?: string | number;
    category_tags?: string;
    body?: string;
    last_id?: number | string;
