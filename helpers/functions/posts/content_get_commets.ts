@@ -9,6 +9,9 @@ import { EnumContentType } from "../../../types/enums";
 export type TgetPostComments = {
    ID?: string;
    USER_ID?: string | number;
+   COMMENTARY_ID?: string | number;
+   QUOTE_ID?: string | number;
+   THOUGHT_ID?: string | number;
    POST_ID?: string | number;
    last_id?: string | number;
 };
@@ -16,12 +19,18 @@ export const getPostComments = async (
    variables: TgetPostComments,
    contentType: EnumContentType
 ) => {
-   const CTYPE =
-      contentType === 1
-         ? GET_COMMENTARY_COMMENTS
-         : contentType === 2
-         ? GET_QUOTE_COMMENTS
-         : GET_THOUGHT_COMMENTS;
+   let CTYPE;
+   if (contentType === 1) {
+      CTYPE = GET_COMMENTARY_COMMENTS;
+      variables.COMMENTARY_ID = variables.POST_ID;
+   } else if (contentType === 2) {
+      CTYPE = GET_QUOTE_COMMENTS;
+      variables.QUOTE_ID = variables.POST_ID;
+   } else {
+      CTYPE = GET_THOUGHT_COMMENTS;
+      variables.THOUGHT_ID = variables.POST_ID;
+   }
+
    try {
       const { data } = await client.query({
          query: CTYPE,

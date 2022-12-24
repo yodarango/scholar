@@ -1,4 +1,4 @@
-import { TRating } from "./posts_contnet";
+import { TRating } from "./posts_content";
 
 export type TCommentary = {
    ID: string;

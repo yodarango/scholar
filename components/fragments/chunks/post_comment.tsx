@@ -18,27 +18,40 @@ import { EnumContentType } from "../../../types/enums";
 
 type TPostCommentProps = {
    postId: string | number;
+   userId: string | number;
    contentType: EnumContentType;
    comments: number | null;
    iconColor?: string;
 };
 
-export const PostComment = ({ comments, iconColor, postId, contentType }: TPostCommentProps) => {
+export const PostComment = ({
+   comments,
+   iconColor,
+   postId,
+   userId,
+   contentType
+}: TPostCommentProps) => {
    // state
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
 
    // total comments
-   const totalComments = comments && comments > 0 ? comments : 0;
+   const [totalComments, settotalComments] = useState(comments && comments > 0 ? comments : 0);
+   console.log(totalComments);
    return (
       <>
          <Portal>
             {showCommentariesOfPost && (
                <PostComments
-                  contentType={contentType}
                   postId={postId}
+                  userId={userId}
+                  contentType={contentType}
                   cta={{
                      handleClose: () => setshowCommentariesOfPost(false),
-                     handleValue: (value: string) => console.log(value)
+                     handlePost: () =>
+                        settotalComments((prev) => {
+                           console.log(prev);
+                           return prev + 1;
+                        })
                   }}
                />
             )}

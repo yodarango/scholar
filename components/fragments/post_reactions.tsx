@@ -47,6 +47,7 @@ export const PostReactions = ({
                iconColor={iconColor}
                contentType={contentType}
                postId={postId}
+               userId={userId}
             />
          </div>
       </div>

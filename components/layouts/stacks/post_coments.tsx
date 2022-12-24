@@ -11,27 +11,33 @@ import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not
 import styles from "./post_coments.module.css";
 
 // types
-import { TComment } from "../../../types/posts_contnet";
+import { TComment } from "../../../types/posts_content";
 import { EnumContentType } from "../../../types/enums";
 
 type TPostCommentsProps = {
    postId: string | number;
+   userId: string | number;
    contentType: EnumContentType;
    cta: {
-      handleValue: (value: string) => void;
       handleClose: () => void;
+      handlePost: () => void;
    };
 };
 
-export const PostComments = ({ postId, contentType, cta }: TPostCommentsProps) => {
+export const PostComments = ({ postId, userId, contentType, cta }: TPostCommentsProps) => {
+   const [post, setpost] = useState<any>(null);
    return (
       <PrimaryStack title={"Comments"} cta={{ handleClose: cta.handleClose }}>
          <div className={styles.mainWrapper}>
             <div className={styles.postComments}>
-               <PostCommentsWrapper postId={postId} contentType={contentType} />
+               <PostCommentsWrapper postId={postId} contentType={contentType} newPost={post} />
             </div>
             <div className={styles.textArea}>
-               <PostCommentTextArea cta={{ handleValue: cta.handleValue }} />
+               <PostCommentTextArea
+                  postId={postId}
+                  userId={userId}
+                  cta={{ handleValue: (post) => setpost(post) }}
+               />
             </div>
          </div>
       </PrimaryStack>

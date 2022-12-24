@@ -1,8 +1,6 @@
 export type TComment = {
    ID: string;
-   COMMENTARY_ID?: string;
-   QUOTE_ID?: string;
-   THOUGHT_ID?: string;
+   POST_ID: string;
    body: string;
    creator_avatar: string;
    creator_signature: string;

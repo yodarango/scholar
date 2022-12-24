@@ -1,34 +1,41 @@
 import { useEffect, useState } from "react";
 
 // comps
+import { PostComment } from "../../../fragments/cards/posts/post_comment";
+import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { RoundLoader } from "../../../fragments/chunks/round_loader";
+import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { Primary } from "../../../fragments/buttons/primary";
 
 // styles
 import styles from "./post_comments_wrapper.module.css";
 
 //types
-import { TComment } from "../../../../types/posts_contnet";
-import { Primary } from "../../../fragments/buttons/primary";
+import { TComment } from "../../../../types/posts_content";
 import { EnumContentType } from "../../../../types/enums";
 import {
    getPostComments,
    TgetPostComments
 } from "../../../../helpers/functions/posts/content_get_commets";
-import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+
+// constants
 import { CONTENT_COMMENTS_LAST_ID } from "../../../../constants/defaults";
-import { PostComment } from "../../../fragments/cards/posts/post_comment";
-import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 type TPostCommentsWrapperProps = {
+   newPost: any;
    postId: string | number;
    contentType: EnumContentType;
 };
 
 const SHOW_LOAD_MORE = 20;
-export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrapperProps) => {
+export const PostCommentsWrapper = ({
+   postId,
+   contentType,
+   newPost
+}: TPostCommentsWrapperProps) => {
    // state
    const [loading, setloading] = useState("loading");
-   const [commentArr, setCommentsArr] = useState<TComment[] | null>(null);
+   const [commentArr, setCommentsArr] = useState<TComment[] | null>([]);
    const [showLoadMore, setshowLoadMore] = useState("none");
 
    const getData = async (variables: TgetPostComments) => {
@@ -62,10 +69,13 @@ export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrappe
       getData({ POST_ID: postId, last_id: CONTENT_COMMENTS_LAST_ID });
    }, []);
 
+   // update the comment when a new post is made
+   useEffect(() => setCommentsArr((prev) => prev && [...prev, newPost]), [newPost]);
+
    // will only run if the post was deleted successfully
    const handleDelete = (id: string) => {
       const updatedArr = commentArr?.filter((sermonNotes) => sermonNotes.ID !== id);
-      setCommentsArr(updatedArr || null);
+      setCommentsArr(updatedArr || []);
    };
 
    return (
@@ -79,7 +89,7 @@ export const PostCommentsWrapper = ({ postId, contentType }: TPostCommentsWrappe
                            username: comment.creator_signature,
                            avatar: comment.creator_avatar,
                            userId: comment.creator_id,
-                           postId: comment.COMMENTARY_ID || "",
+                           postId: comment.POST_ID || "",
                            userAuthority: comment.creator_authority_level,
                            postType: "1",
                            widthTimeStamp: {

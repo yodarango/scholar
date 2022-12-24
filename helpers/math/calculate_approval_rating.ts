@@ -4,7 +4,6 @@ export const calculateApprovalLevel: (approval_rating: number) => {
    styles: string;
    color: string;
 } = (approval_rating: number) => {
-   console.log(approval_rating);
    if (approval_rating === 101) {
       return { grade: "R", styles: "rating-level-nr", color: "#f1eaff" };
    } else if (approval_rating >= 97)

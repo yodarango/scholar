@@ -1,19 +1,24 @@
-import client from "../../../apollo-client";
+import { client } from "../../../apollo-client";
 import { CREATE_COMMENTARY_COMMENT } from "../../../graphql/posts/comments";
 
 // types
 import { TCommentary } from "../../../types/posts";
 
-export const handlePostComment = async (COMMENTARY_ID: string, body: string, USER_ID: string) => {
+export type ThandlePostComment = {
+   POST_ID: string | number;
+   USER_ID: string | number;
+   body: string;
+};
+
+export const postContentComment = async (variables: ThandlePostComment) => {
    try {
       const { data } = await client.mutate({
          mutation: CREATE_COMMENTARY_COMMENT,
-         variables: { COMMENTARY_ID, body, USER_ID }
+         variables
       });
-
-      let result: boolean | TCommentary;
-      data.Commentary_Comment ? (result = data.Commentary_Comment) : (result = false);
-      return result;
+      if (data && data.commentary_comment) {
+         return data.commentary_comment;
+      }
    } catch (error) {
       console.log(error);
       return "Error";
