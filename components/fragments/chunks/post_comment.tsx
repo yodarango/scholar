@@ -45,7 +45,8 @@ export const PostComment = ({
                   contentType={contentType}
                   cta={{
                      handleClose: () => setshowCommentariesOfPost(false),
-                     handlePost: () => settotalComments((prev) => prev + 1)
+                     handlePost: () => settotalComments((prev) => prev + 1),
+                     handleDelete: () => settotalComments((prev) => prev - 1)
                   }}
                />
             )}

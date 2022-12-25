@@ -98,7 +98,7 @@ export const EDIT_SERMON_NOTE = gql`
 `;
 
 //================== DELETE ================== //
-export const DELETE_ONE_SEMRON_POST = gql`
+export const DELETE_ONE_SERMON_POST = gql`
    mutation ($ID: ID) {
       delete_one_sermon_note(ID: $ID) {
          ID

@@ -20,18 +20,23 @@ import {
 
 // constants
 import { CONTENT_COMMENTS_LAST_ID } from "../../../../constants/defaults";
+import { deleteContentComment } from "../../../../helpers/functions/posts/commentary_delete";
 
 type TPostCommentsWrapperProps = {
    newPost: any;
    postId: string | number;
    contentType: EnumContentType;
+   cta: {
+      handleDelete: () => void;
+   };
 };
 
 const SHOW_LOAD_MORE = 20;
 export const PostCommentsWrapper = ({
    postId,
    contentType,
-   newPost
+   newPost,
+   cta
 }: TPostCommentsWrapperProps) => {
    // state
    const [loading, setloading] = useState("loading");
@@ -73,9 +78,17 @@ export const PostCommentsWrapper = ({
    useEffect(() => setCommentsArr((prev) => prev && [...prev, newPost]), [newPost]);
 
    // will only run if the post was deleted successfully
-   const handleDelete = (id: string) => {
-      const updatedArr = commentArr?.filter((sermonNotes) => sermonNotes.ID !== id);
-      setCommentsArr(updatedArr || []);
+   const handleDelete = async (id: string | number, type: EnumContentType) => {
+      try {
+         const isDeleted = await deleteContentComment(id, type);
+         if (isDeleted) {
+            const updatedArr = commentArr?.filter((post) => post.ID !== id);
+            setCommentsArr(updatedArr || []);
+            cta.handleDelete();
+         }
+      } catch (error) {
+         console.error(error);
+      }
    };
 
    return (
@@ -98,8 +111,8 @@ export const PostCommentsWrapper = ({
                               quiet: false
                            }
                         }}
-                        comment={comment.body}
-                        cta={{ handleDelete: () => {} }}
+                        comment={comment?.body}
+                        cta={{ handleDelete: () => handleDelete(comment.ID, contentType) }}
                      />
                   </div>
                ))}

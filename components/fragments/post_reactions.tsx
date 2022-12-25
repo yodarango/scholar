@@ -32,6 +32,7 @@ export const PostReactions = ({
       <div className={styles.mainWrapper}>
          <div>
             <PostRating
+               contentType={contentType}
                userId={userId}
                postId={postId}
                iconColor={iconColor}

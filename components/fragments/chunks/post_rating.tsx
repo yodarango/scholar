@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // comps
 import { Parragraph } from "../Typography/parragraph";
@@ -13,6 +13,7 @@ import { calculateApprovalLevel } from "../../../helpers/math/calculate_approval
 
 // constants
 import { QUERY_WAS_INSERT } from "../../../constants/defaults";
+import { EnumContentType } from "../../../types/enums";
 
 export type Trating = {
    totalCount: number;
@@ -20,6 +21,7 @@ export type Trating = {
 };
 
 type TPostRatingProps = {
+   contentType: EnumContentType;
    userId: string | number;
    postId: string | number;
    rating: Trating | null;
@@ -27,7 +29,14 @@ type TPostRatingProps = {
    iconColor?: string;
 };
 
-export const PostRating = ({ rating, customSize, iconColor, postId, userId }: TPostRatingProps) => {
+export const PostRating = ({
+   rating,
+   customSize,
+   iconColor,
+   postId,
+   userId,
+   contentType
+}: TPostRatingProps) => {
    // state
    const [showPostRating, setshowPostRating] = useState<boolean>(false);
    const [totalRatingCount, setTotalRatingCount] = useState<any>(
@@ -39,13 +48,12 @@ export const PostRating = ({ rating, customSize, iconColor, postId, userId }: TP
    // handle the rating after coming from <SelectPostRatingMenu. Update the count and the grade
    const handleRating = (value: number, status: number) => {
       const newCount = rating ? rating?.totalCount + 1 : 0;
-      console.log(value);
+
       // update the count only if it was an insertion and not and an update in the DB
       if (status === QUERY_WAS_INSERT) {
          setTotalRatingCount(newCount);
          setRatingGrade(calculateApprovalLevel(value));
       } else {
-         console.log(totalRatingCount);
          if (totalRatingCount > 1) {
             let update = rating ? (rating?.averageCount + value) / 2 : 101;
             setRatingGrade(calculateApprovalLevel(update));
@@ -55,13 +63,12 @@ export const PostRating = ({ rating, customSize, iconColor, postId, userId }: TP
       }
    };
 
-   useEffect(() => {}, [ratingGrade]);
-
    return (
       <>
          <Portal>
             {showPostRating && (
                <SelectPostRatingMenu
+                  contentType={contentType}
                   postId={postId}
                   userId={userId}
                   cta={{ handleCloseModal: () => setshowPostRating(false), handleRating }}

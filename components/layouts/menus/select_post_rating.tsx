@@ -12,9 +12,11 @@ import styles from "./select_menu_global.module.css";
 import { rateContent } from "../../../helpers/functions/posts/content_post_rating";
 
 // constants
-import { QUERY_WAS_INSERT } from "../../../constants/defaults";
+import { EnumContentType } from "../../../types/enums";
+import { POST_TYPE_COMMENTARY, POST_TYPE_QUOTE } from "../../../constants/defaults";
 
 export type TSelectPostRatingMenuProps = {
+   contentType: EnumContentType;
    userId: string | number;
    postId: string | number;
    cta: {
@@ -23,7 +25,12 @@ export type TSelectPostRatingMenuProps = {
    };
 };
 
-export const SelectPostRatingMenu = ({ cta, userId, postId }: TSelectPostRatingMenuProps) => {
+export const SelectPostRatingMenu = ({
+   cta,
+   userId,
+   postId,
+   contentType
+}: TSelectPostRatingMenuProps) => {
    const menuOptions = [
       {
          rating: 100,
@@ -100,12 +107,18 @@ export const SelectPostRatingMenu = ({ cta, userId, postId }: TSelectPostRatingM
       }
    ];
 
+   const dataType =
+      contentType === POST_TYPE_COMMENTARY
+         ? "rate_commentary"
+         : contentType === POST_TYPE_QUOTE
+         ? "rate_quote"
+         : "rate_thought";
    const handleRating = async (variables: TrateContent) => {
       cta.handleCloseModal();
       try {
-         const { data, status } = await rateContent(variables, 1);
-         if (data && data.rate_commentary) {
-            cta.handleRating(variables.rating, data.rate_commentary.status);
+         const { data } = await rateContent(variables, contentType);
+         if (data && data[dataType]) {
+            cta.handleRating(variables.rating, data[dataType].status);
          }
       } catch (error) {
          console.error(error);

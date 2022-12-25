@@ -21,6 +21,7 @@ type TPostCommentsProps = {
    cta: {
       handleClose: () => void;
       handlePost: () => any;
+      handleDelete: () => void;
    };
 };
 
@@ -30,7 +31,12 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
       <PrimaryStack title={"Comments"} cta={{ handleClose: cta.handleClose }}>
          <div className={styles.mainWrapper}>
             <div className={styles.postComments}>
-               <PostCommentsWrapper postId={postId} contentType={contentType} newPost={post} />
+               <PostCommentsWrapper
+                  cta={{ handleDelete: cta.handleDelete }}
+                  postId={postId}
+                  contentType={contentType}
+                  newPost={post}
+               />
             </div>
             <div className={styles.textArea}>
                <PostCommentTextArea
