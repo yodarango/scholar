@@ -1,4 +1,16 @@
-import { useEffect, useState } from "react";
+/********************************************************************************************
+-  EDIT functionality
+      the relationship among this component and it children and the children to each other is 
+      kind of weird. Might be able to ix it in the future. For now:
+         1. The parent (this comp) passes the postId to the PostCommentsWrapper > 
+         2. PostCommentsWrapper contains the "Edit" button that triggers the "handleEdit()" >
+         3. handleEdit contains the current body and ID of the comment being edited
+         4. handleEdit sets those values in a state which are passed to the PostCommentTextArea
+         5. PostCommentTextArea does the editing and posting using the body and ID props
+         6. the "post" function calls the callback to add the edited comp to PostCommentsWrapper
+         by passing the curren "post" value and the boolean isEditPost
+********************************************************************************************/
+import { useState } from "react";
 
 // comps
 import { PostCommentsWrapper } from "../scrollers/user_content/post_comments_wrapper";
@@ -11,7 +23,6 @@ import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not
 import styles from "./post_coments.module.css";
 
 // types
-import { TComment } from "../../../types/posts_content";
 import { EnumContentType } from "../../../types/enums";
 
 type TPostCommentsProps = {
@@ -21,21 +32,34 @@ type TPostCommentsProps = {
    cta: {
       handleClose: () => void;
       handlePost: () => any;
+      handleEditPost?: () => void;
       handleDelete: () => void;
    };
 };
 
 export const PostComments = ({ postId, userId, contentType, cta }: TPostCommentsProps) => {
    const [post, setpost] = useState<any>(null);
+   const [isEditPost, setisEditPost] = useState<boolean>(false);
+   const [editPost, seteditPost] = useState<{ ID: string; body: string } | null>(null);
+
+   // pass the body down to text area body
+   const handleEdit = (ID: string, body: string) => {
+      console.log(ID, body);
+      seteditPost({ ID, body });
+      setisEditPost(true);
+   };
+
    return (
       <PrimaryStack title={"Comments"} cta={{ handleClose: cta.handleClose }}>
          <div className={styles.mainWrapper}>
             <div className={styles.postComments}>
                <PostCommentsWrapper
-                  cta={{ handleDelete: cta.handleDelete }}
+                  cta={{ handleDelete: cta.handleDelete, handleEdit }}
                   postId={postId}
                   contentType={contentType}
                   newPost={post}
+                  isEditPost={isEditPost}
+                  editPost={post}
                />
             </div>
             <div className={styles.textArea}>
@@ -43,7 +67,11 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
                   postId={postId}
                   userId={userId}
                   contentType={contentType}
-                  cta={{ handleValue: (post) => setpost(post), handlePost: cta.handlePost }}
+                  editPost={editPost ? { ID: editPost.ID, body: editPost.body } : null}
+                  cta={{
+                     handleValue: (post) => setpost(post),
+                     handlePost: cta.handlePost
+                  }}
                />
             </div>
          </div>

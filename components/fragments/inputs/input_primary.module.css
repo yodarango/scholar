@@ -84,8 +84,16 @@
 }
 
 .bold,
-.input:focus {
+.input:focus,
+.input:active {
    font-weight: 600;
+}
+
+.input,
+.input::placeholder,
+.input:focus,
+.input:active {
+   font-weight: 400;
 }
 
 .right {

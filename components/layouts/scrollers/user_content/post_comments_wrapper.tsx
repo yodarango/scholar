@@ -26,7 +26,10 @@ type TPostCommentsWrapperProps = {
    newPost: any;
    postId: string | number;
    contentType: EnumContentType;
+   editPost?: any;
+   isEditPost: boolean;
    cta: {
+      handleEdit: (id: string, comment: string) => void;
       handleDelete: () => void;
    };
 };
@@ -36,6 +39,8 @@ export const PostCommentsWrapper = ({
    postId,
    contentType,
    newPost,
+   isEditPost,
+   editPost,
    cta
 }: TPostCommentsWrapperProps) => {
    // state
@@ -52,7 +57,6 @@ export const PostCommentsWrapper = ({
          setshowLoadMore(data.length === SHOW_LOAD_MORE ? "done" : "error");
       } catch (error) {
          setCommentsArr([]);
-         console.error(error);
          setloading("error");
       }
    };
@@ -91,12 +95,24 @@ export const PostCommentsWrapper = ({
       }
    };
 
+   // handle the edit to the comment
+   useEffect(() => {
+      if (isEditPost && commentArr) {
+         console.log("should not render");
+         const removeComment = commentArr.filter((comm) => comm?.ID !== editPost?.ID);
+         let newComment: any = commentArr.filter((comm) => comm?.ID === editPost?.ID);
+         if (newComment && newComment.length > 0) {
+            newComment = { ...newComment[0], body: editPost?.body };
+         }
+         setCommentsArr([...removeComment, newComment]);
+      }
+   }, [isEditPost, editPost]);
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && commentArr && (
             <div className={styles.carrousel}>
                {commentArr.map((comment: TComment, index: number) => (
-                  <div className={styles.comment} key={index}>
+                  <div className={styles.comment} key={index} data-key={comment?.ID}>
                      <PostComment
                         postHeader={{
                            username: comment?.creator_signature,
@@ -112,7 +128,10 @@ export const PostCommentsWrapper = ({
                            }
                         }}
                         comment={comment?.body}
-                        cta={{ handleDelete: () => handleDelete(comment.ID, contentType) }}
+                        cta={{
+                           handleDelete: () => handleDelete(comment?.ID, contentType),
+                           handleEdit: () => cta.handleEdit(comment?.ID, comment?.body)
+                        }}
                      />
                   </div>
                ))}

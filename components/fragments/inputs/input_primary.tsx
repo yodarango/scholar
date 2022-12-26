@@ -90,7 +90,7 @@ export const InputPrimary = ({
                defaultValue={value}
                placeholder={placeholder}
                className={`${styles.input} ${styles.dark} ${fontAlign} ${
-                  bold && styles.bold
+                  bold ? styles.bold : ""
                } ${fontSz}  ${customHeight && styles.customHeight}`}
             />
          )}

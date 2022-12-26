@@ -58,8 +58,8 @@ export const GET_QUOTE_COMMENTS = gql`
 
 //  POST ROUTES
 export const CREATE_COMMENTARY_COMMENT = gql`
-   mutation ($POST_ID: ID, $body: String, $USER_ID: ID) {
-      commentary_comment(data: { POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
+   mutation ($ID: ID, $POST_ID: ID, $body: String, $USER_ID: ID) {
+      commentary_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
          ... on Commentary_Comment {
             ID
             body
@@ -77,8 +77,8 @@ export const CREATE_COMMENTARY_COMMENT = gql`
 `;
 
 export const CREATE_QUOTE_COMMENT = gql`
-   mutation ($POST_ID: ID, $body: String, $USER_ID: ID) {
-      quote_comment(data: { POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
+   mutation ($ID: ID, $POST_ID: ID, $body: String, $USER_ID: ID) {
+      quote_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
          ... on Quote_Comment {
             ID
             body
@@ -96,8 +96,8 @@ export const CREATE_QUOTE_COMMENT = gql`
 `;
 
 export const CREATE_THOUGHT_COMMENT = gql`
-   mutation ($POST_ID: ID, $body: String, $USER_ID: ID) {
-      thought_comment(data: { POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
+   mutation ($ID: ID, $POST_ID: ID, $body: String, $USER_ID: ID) {
+      thought_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
          ... on Thought_Comment {
             ID
             body

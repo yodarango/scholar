@@ -1,3 +1,9 @@
+/*******************************************************************************************
+-  This component sets the current input value to the parent to post it.
+-  The body sent can be a newly written comment or an edit of an already made post 
+-  If the body is an edit post the props editPost and isEditPost need to be passed containing 
+   the existent comment body and commentID 
+********************************************************************************************/
 import { useEffect, useState } from "react";
 
 // components
@@ -18,8 +24,10 @@ type TPostCommentTextAreaProps = {
    postId: string | number;
    userId: string | number;
    contentType: EnumContentType;
+   editPost?: { body: string; ID: string } | null;
    cta: {
       handlePost: () => void;
+      handleEditPost?: () => void;
       handleValue: (value: string) => void;
    };
 };
@@ -28,6 +36,7 @@ export const PostCommentTextArea = ({
    cta,
    postId,
    userId,
+   editPost = null,
    contentType
 }: TPostCommentTextAreaProps) => {
    const [currentInputValue, setcurrentInputValue] = useState<string>("");
@@ -40,6 +49,7 @@ export const PostCommentTextArea = ({
       // post to db and send the value to the parent after success to add it to the comentary array
       const data = await postContentComment(
          {
+            ID: editPost?.ID ? editPost?.ID : null,
             USER_ID: userId,
             POST_ID: postId,
             body: currentInputValue
@@ -52,7 +62,7 @@ export const PostCommentTextArea = ({
       }
 
       // send post to parent array
-      cta.handlePost();
+      if (!editPost) cta.handlePost();
 
       // hide input
       setdisplayInput(false);
@@ -75,7 +85,7 @@ export const PostCommentTextArea = ({
                   <TextAreaPrimary
                      height='5rem'
                      maxHeight={15}
-                     defaultValue=''
+                     defaultValue={editPost && editPost.body ? editPost.body : ""}
                      placeHolder='Comment...'
                      maxLength={150}
                      cta={{ handleCurrentValue: (value: string) => setcurrentInputValue(value) }}

@@ -9,6 +9,7 @@ import {
 import { EnumContentType } from "../../../types/enums";
 
 export type ThandlePostComment = {
+   ID?: string | null;
    POST_ID: string | number;
    USER_ID: string | number;
    body: string;

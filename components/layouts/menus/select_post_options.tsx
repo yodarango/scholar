@@ -29,6 +29,7 @@ import { copyToClipboard } from "../../../helpers/copy_text_to_clipboard";
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;
    showEditOption?: boolean;
+   editOptionUrl?: string;
    showDeleteOption?: boolean;
    showReportOption?: boolean;
    postid: string;
@@ -36,6 +37,7 @@ export type TSelectpostOptionsProps = {
    cta: {
       handleCloseModal: () => void;
       handleDelete: (id: string) => void;
+      handleEdit?: (id: string) => void;
    };
 };
 
@@ -43,6 +45,7 @@ export const SelectpostOptions = ({
    cta,
    postid,
    postType,
+   editOptionUrl,
    showShareopton = true,
    showEditOption = true,
    showDeleteOption = true,
@@ -61,7 +64,6 @@ export const SelectpostOptions = ({
    // handle delete the post and send ID to the parent
    const handleSelection = (selection: string) => {
       // handle deletion
-      console.log(selection, postid);
       cta.handleDelete(postid);
    };
 
@@ -112,20 +114,37 @@ export const SelectpostOptions = ({
                {/* ------------- Redirect to the edit page ------------ */}
                {showEditOption && (
                   <div className={styles.menuOption} key={3}>
-                     <Link href={`/posts/${postType}/edit/${postid}`}>
-                        <a>
-                           <MenuPrimaryOption
-                              textType='text'
-                              iconType='icon'
-                              optionProperties={{
-                                 icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
-                                 iconShadow: "#F1EAFF",
-                                 text: "Edit"
-                              }}
-                              cta={{ handleOptionClick: () => {} }}
-                           />
-                        </a>
-                     </Link>
+                     {editOptionUrl && !cta.handleEdit && (
+                        <Link href={`/posts/${postType}/edit/${postid}`}>
+                           <a>
+                              <MenuPrimaryOption
+                                 textType='text'
+                                 iconType='icon'
+                                 optionProperties={{
+                                    icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
+                                    iconShadow: "#F1EAFF",
+                                    text: "Edit"
+                                 }}
+                              />
+                           </a>
+                        </Link>
+                     )}
+                     {!editOptionUrl && cta.handleEdit && (
+                        <MenuPrimaryOption
+                           textType='text'
+                           iconType='icon'
+                           optionProperties={{
+                              icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
+                              iconShadow: "#F1EAFF",
+                              text: "Edit"
+                           }}
+                           cta={{
+                              handleOptionClick: () => {
+                                 if (cta.handleEdit) cta.handleEdit(postid);
+                              }
+                           }}
+                        />
+                     )}
                   </div>
                )}
                {/* ------------- delete the post ------------ */}

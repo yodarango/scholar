@@ -1,6 +1,8 @@
 // comps
+import { useState } from "react";
 import { PostCardHeader } from "../../chunks/post_card_header";
 import { TimeStampProps } from "../../chunks/time_stamp";
+import { InputPrimary } from "../../inputs/input_primary";
 import { Parragraph } from "../../Typography/parragraph";
 
 // styles
@@ -26,6 +28,7 @@ type TPostCommentProps = {
    };
    comment: string;
    cta: {
+      handleEdit: (id: string) => void;
       handleDelete: (id: string) => void;
    };
 };
@@ -54,7 +57,7 @@ export const PostComment = ({
                   }
                }
                postSettingsOptions={postSettingsOptions}
-               cta={{ handleDelete: cta.handleDelete }}
+               cta={{ handleDelete: cta.handleDelete, handleEdit: cta.handleEdit }}
             />
          </div>
          <div className={styles.comment}>

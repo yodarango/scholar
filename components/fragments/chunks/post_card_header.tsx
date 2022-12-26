@@ -16,7 +16,6 @@ import { TimeStamp, TimeStampProps } from "./time_stamp";
 
 // styles
 import styles from "./post_card_header.module.css";
-import { time, timeStamp } from "console";
 
 export type TCommentaryCardHeaderProps = {
    username: string;
@@ -35,6 +34,7 @@ export type TCommentaryCardHeaderProps = {
       showReportOption?: boolean;
    };
    cta: {
+      handleEdit: (id: string) => void;
       handleDelete: (id: string) => void;
    };
 };
@@ -54,10 +54,15 @@ export const PostCardHeader = ({
    // state
    const [showPostOptions, setshowPostOptions] = useState<boolean>(false);
 
-   // handle delete: pass ID to parent and hidem menu
+   // handle action: pass ID to parent and hide menu
    const handleDelete = (id: string) => {
       setshowPostOptions(false);
       cta.handleDelete(id);
+   };
+
+   const handleEdit = (id: string) => {
+      setshowPostOptions(false);
+      cta.handleEdit(id);
    };
 
    return (
@@ -73,7 +78,8 @@ export const PostCardHeader = ({
                   showReportOption={postSettingsOptions?.showReportOption}
                   cta={{
                      handleCloseModal: () => setshowPostOptions(false),
-                     handleDelete
+                     handleDelete,
+                     handleEdit
                   }}
                />
             )}
