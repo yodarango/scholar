@@ -1,11 +1,21 @@
 .mainWrapper {
    width: 100%;
    display: flex;
-   align-items: flex-start;
+   align-items: center;
    justify-content: center;
 }
 
 .textArea {
    width: 100%;
    margin-right: var(--spacing-xxs);
+}
+
+.buttonsWrapper {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.cancelButton {
+   margin-right: var(--spacing-xs);
 }

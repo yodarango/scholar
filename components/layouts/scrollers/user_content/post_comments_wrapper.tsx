@@ -26,7 +26,7 @@ type TPostCommentsWrapperProps = {
    newPost: any;
    postId: string | number;
    contentType: EnumContentType;
-   isEditPost: boolean;
+   isEditPost: number;
    cta: {
       handleEdit: (id: string, comment: string) => void;
       handleDelete: () => void;

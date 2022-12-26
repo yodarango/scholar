@@ -39,7 +39,7 @@ type TPostCommentsProps = {
 
 export const PostComments = ({ postId, userId, contentType, cta }: TPostCommentsProps) => {
    const [post, setpost] = useState<any>(null);
-   const [isEditPost, setisEditPost] = useState<boolean>(false);
+   const [isEditPost, setisEditPost] = useState<number>(0);
    const [editPost, seteditPost] = useState<{ ID: string; body: string } | null>(null);
 
    // pass the body down to text area body once edit option has been clicked
@@ -49,7 +49,7 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
 
    // reset everything once the comment has been edited
    const finishEdit = () => {
-      setisEditPost(true);
+      setisEditPost(isEditPost + 1);
       seteditPost(null);
    };
 
@@ -70,11 +70,13 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
                   postId={postId}
                   userId={userId}
                   contentType={contentType}
+                  canCancel={!(editPost === null || editPost === undefined)}
                   editPost={editPost ? { ID: editPost.ID, body: editPost.body } : null}
                   cta={{
                      handleValue: (post) => setpost(post),
                      handlePost: cta.handlePost,
-                     handleEdit: finishEdit
+                     handleEdit: finishEdit,
+                     handleCancel: () => seteditPost(null)
                   }}
                />
             </div>

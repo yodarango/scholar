@@ -24,8 +24,10 @@ type TPostCommentTextAreaProps = {
    postId: string | number;
    userId: string | number;
    contentType: EnumContentType;
+   canCancel?: boolean;
    editPost?: { body: string; ID: string } | null;
    cta: {
+      handleCancel?: () => void;
       handlePost: () => void;
       handleEdit?: () => void;
       handleValue: (value: string) => void;
@@ -37,6 +39,7 @@ export const PostCommentTextArea = ({
    postId,
    userId,
    editPost = null,
+   canCancel = false,
    contentType
 }: TPostCommentTextAreaProps) => {
    const [currentInputValue, setcurrentInputValue] = useState<string>("");
@@ -93,9 +96,24 @@ export const PostCommentTextArea = ({
                      cta={{ handleCurrentValue: (value: string) => setcurrentInputValue(value) }}
                   />
                </div>
-               <div onClick={handlePostComment}>
+               <div className={styles.buttonsWrapper}>
                   {loading === "loading" && <SmallLoader />}
-                  {loading !== "loading" && <IconButton icon='checkmark' backgroundColor='1' />}
+                  {loading !== "loading" && canCancel && (
+                     <div className={styles.cancelButton}>
+                        <IconButton
+                           icon='close'
+                           backgroundColor='2'
+                           cta={{ handleClick: cta.handleCancel ? cta.handleCancel : () => {} }}
+                        />
+                     </div>
+                  )}
+                  {loading !== "loading" && (
+                     <IconButton
+                        icon='checkmark'
+                        backgroundColor='1'
+                        cta={{ handleClick: handlePostComment }}
+                     />
+                  )}
                </div>
             </div>
          )}
