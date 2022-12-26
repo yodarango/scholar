@@ -27,7 +27,7 @@ type TPostCommentTextAreaProps = {
    editPost?: { body: string; ID: string } | null;
    cta: {
       handlePost: () => void;
-      handleEditPost?: () => void;
+      handleEdit?: () => void;
       handleValue: (value: string) => void;
    };
 };
@@ -46,6 +46,7 @@ export const PostCommentTextArea = ({
 
    const handlePostComment = async () => {
       setloading("loading");
+
       // post to db and send the value to the parent after success to add it to the comentary array
       const data = await postContentComment(
          {
@@ -63,6 +64,7 @@ export const PostCommentTextArea = ({
 
       // send post to parent array
       if (!editPost) cta.handlePost();
+      else if (editPost && cta.handleEdit) cta.handleEdit();
 
       // hide input
       setdisplayInput(false);

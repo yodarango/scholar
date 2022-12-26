@@ -26,7 +26,6 @@ type TPostCommentsWrapperProps = {
    newPost: any;
    postId: string | number;
    contentType: EnumContentType;
-   editPost?: any;
    isEditPost: boolean;
    cta: {
       handleEdit: (id: string, comment: string) => void;
@@ -40,7 +39,6 @@ export const PostCommentsWrapper = ({
    contentType,
    newPost,
    isEditPost,
-   editPost,
    cta
 }: TPostCommentsWrapperProps) => {
    // state
@@ -74,14 +72,16 @@ export const PostCommentsWrapper = ({
       }
    };
 
+   // call on initial fetch
+   // ?reload once a commentary is updated: this needs to be updated in teh future so I don't
+   //? have to refetch and just add the new edited commend to teh DOM
    useEffect(() => {
       getData({ POST_ID: postId, last_id: CONTENT_COMMENTS_LAST_ID });
-   }, []);
+   }, [isEditPost]);
 
    // update the comment when a new post is made
    useEffect(() => setCommentsArr((prev) => prev && [...prev, newPost]), [newPost]);
 
-   // will only run if the post was deleted successfully
    const handleDelete = async (id: string | number, type: EnumContentType) => {
       try {
          const isDeleted = await deleteContentComment(id, type);
@@ -95,18 +95,6 @@ export const PostCommentsWrapper = ({
       }
    };
 
-   // handle the edit to the comment
-   useEffect(() => {
-      if (isEditPost && commentArr) {
-         console.log("should not render");
-         const removeComment = commentArr.filter((comm) => comm?.ID !== editPost?.ID);
-         let newComment: any = commentArr.filter((comm) => comm?.ID === editPost?.ID);
-         if (newComment && newComment.length > 0) {
-            newComment = { ...newComment[0], body: editPost?.body };
-         }
-         setCommentsArr([...removeComment, newComment]);
-      }
-   }, [isEditPost, editPost]);
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && commentArr && (

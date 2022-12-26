@@ -10,7 +10,7 @@
          6. the "post" function calls the callback to add the edited comp to PostCommentsWrapper
          by passing the curren "post" value and the boolean isEditPost
 ********************************************************************************************/
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // comps
 import { PostCommentsWrapper } from "../scrollers/user_content/post_comments_wrapper";
@@ -42,11 +42,15 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
    const [isEditPost, setisEditPost] = useState<boolean>(false);
    const [editPost, seteditPost] = useState<{ ID: string; body: string } | null>(null);
 
-   // pass the body down to text area body
+   // pass the body down to text area body once edit option has been clicked
    const handleEdit = (ID: string, body: string) => {
-      console.log(ID, body);
       seteditPost({ ID, body });
+   };
+
+   // reset everything once the comment has been edited
+   const finishEdit = () => {
       setisEditPost(true);
+      seteditPost(null);
    };
 
    return (
@@ -59,7 +63,6 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
                   contentType={contentType}
                   newPost={post}
                   isEditPost={isEditPost}
-                  editPost={post}
                />
             </div>
             <div className={styles.textArea}>
@@ -70,7 +73,8 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
                   editPost={editPost ? { ID: editPost.ID, body: editPost.body } : null}
                   cta={{
                      handleValue: (post) => setpost(post),
-                     handlePost: cta.handlePost
+                     handlePost: cta.handlePost,
+                     handleEdit: finishEdit
                   }}
                />
             </div>
