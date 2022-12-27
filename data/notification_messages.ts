@@ -35,5 +35,12 @@ export const notificationMessages = {
       description: "Notification after a user submits a form for verification",
       title: "Form submitted successfully ✅",
       body: "We will notify you of the final decision via the email associated with the account"
+   },
+   postReported: {
+      id: 5,
+      type: "Success",
+      description: "Notification after a user reports a post",
+      title: "Post has been reported 👮‍♀️",
+      body: "Post is being reviewed. Thank you for making Scholar a better platform."
    }
 };

@@ -25,6 +25,8 @@ import { notificationMessages } from "../../../data/notification_messages";
 
 // helpers
 import { copyToClipboard } from "../../../helpers/copy_text_to_clipboard";
+import { reportCommentary } from "../../../helpers/functions/posts/content_report";
+import { EnumContentType } from "../../../types/enums";
 
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;
@@ -34,6 +36,8 @@ export type TSelectpostOptionsProps = {
    showReportOption?: boolean;
    postid: string;
    postType: string;
+   userId: string;
+   contentType: EnumContentType;
    cta: {
       handleCloseModal: () => void;
       handleDelete: (id: string) => void;
@@ -46,15 +50,24 @@ export const SelectpostOptions = ({
    postid,
    postType,
    editOptionUrl,
+   contentType,
+   userId,
    showShareopton = true,
    showEditOption = true,
    showDeleteOption = true,
    showReportOption = true
 }: TSelectpostOptionsProps) => {
-   const [showNotification, setshowNotification] = useState<string>("copy");
+   const [showNotification, setshowNotification] = useState<string>("none");
 
    // handle reporting the post
-   const handleReport = () => {};
+   const handleReport = async () => {
+      try {
+         const data = await reportCommentary({ POST_ID: postid, USER_ID: userId }, contentType);
+         if (data) setshowNotification("report");
+      } catch (error) {
+         console.error(error);
+      }
+   };
 
    // handle the copy to the clipboard
    const handleSharePost = () => {
@@ -62,7 +75,7 @@ export const SelectpostOptions = ({
    };
 
    // handle delete the post and send ID to the parent
-   const handleSelection = (selection: string) => {
+   const handleSelection = () => {
       // handle deletion
       cta.handleDelete(postid);
    };
@@ -73,6 +86,14 @@ export const SelectpostOptions = ({
             <Notification
                title={notificationMessages.urlCopied.title}
                body={notificationMessages.urlCopied.body}
+               type='2'
+               cta={{ handleClose: () => setshowNotification("none") }}
+            />
+         )}
+         {showNotification === "report" && (
+            <Notification
+               title={notificationMessages.postReported.title}
+               body={notificationMessages.postReported.body}
                type='2'
                cta={{ handleClose: () => setshowNotification("none") }}
             />
@@ -114,7 +135,7 @@ export const SelectpostOptions = ({
                {/* ------------- Redirect to the edit page ------------ */}
                {showEditOption && (
                   <div className={styles.menuOption} key={3}>
-                     {editOptionUrl && !cta.handleEdit && (
+                     {postType && !cta.handleEdit && (
                         <Link href={`/posts/${postType}/edit/${postid}`}>
                            <a>
                               <MenuPrimaryOption
@@ -129,7 +150,7 @@ export const SelectpostOptions = ({
                            </a>
                         </Link>
                      )}
-                     {!editOptionUrl && cta.handleEdit && (
+                     {!postType && cta.handleEdit && (
                         <MenuPrimaryOption
                            textType='text'
                            iconType='icon'

@@ -13,6 +13,7 @@ import styles from "./commentary.module.css";
 // types
 import { TCommentary } from "../../../../types/posts";
 import { COM_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
+import { EnumContentType } from "../../../../types/enums";
 
 type TCommentaryProps = {
    customWidth?: boolean;
@@ -41,6 +42,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                userId={commentary?.creator?.ID}
                postId={commentary?.ID}
                postType='commentary'
+               contentType={EnumContentType.commentary}
                fontColor={
                   categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW" ? "#2A2438" : ""
                }

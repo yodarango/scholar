@@ -17,6 +17,9 @@ import { TimeStamp, TimeStampProps } from "./time_stamp";
 // styles
 import styles from "./post_card_header.module.css";
 
+// type
+import { EnumContentType } from "../../../types/enums";
+
 export type TCommentaryCardHeaderProps = {
    username: string;
    avatar: string;
@@ -25,6 +28,7 @@ export type TCommentaryCardHeaderProps = {
    userAuthority: number;
    withCategoryTag?: string;
    postType: string;
+   contentType: EnumContentType;
    fontColor?: string;
    widthTimeStamp?: TimeStampProps;
    postSettingsOptions?: {
@@ -34,7 +38,6 @@ export type TCommentaryCardHeaderProps = {
       showReportOption?: boolean;
    };
    cta: {
-      handleEdit: (id: string) => void;
       handleDelete: (id: string) => void;
    };
 };
@@ -46,6 +49,7 @@ export const PostCardHeader = ({
    userAuthority,
    withCategoryTag,
    postType,
+   contentType,
    fontColor,
    widthTimeStamp,
    postSettingsOptions,
@@ -60,11 +64,6 @@ export const PostCardHeader = ({
       cta.handleDelete(id);
    };
 
-   const handleEdit = (id: string) => {
-      setshowPostOptions(false);
-      cta.handleEdit(id);
-   };
-
    return (
       <div className={styles.mainWrapper}>
          <Portal>
@@ -72,14 +71,15 @@ export const PostCardHeader = ({
                <SelectpostOptions
                   postid={postId}
                   postType={postType}
+                  userId={userId}
+                  contentType={contentType}
                   showShareopton={postSettingsOptions?.showShareopton}
                   showEditOption={postSettingsOptions?.showEditOption}
                   showDeleteOption={postSettingsOptions?.showDeleteOption}
                   showReportOption={postSettingsOptions?.showReportOption}
                   cta={{
                      handleCloseModal: () => setshowPostOptions(false),
-                     handleDelete,
-                     handleEdit
+                     handleDelete
                   }}
                />
             )}

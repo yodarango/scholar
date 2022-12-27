@@ -11,6 +11,7 @@ import styles from "./quote.module.css";
 
 //types
 import { TQuote } from "../../../../types/posts";
+import { EnumContentType } from "../../../../types/enums";
 
 export type TQuoteProps = {
    quote: TQuote;
@@ -31,6 +32,7 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
          {/* ------------------------------ header ----------------------- */}
          <div className={styles.header}>
             <QuoteCardHeader
+               contentType={EnumContentType.quote}
                cta={{ handleDelete: cta.handleDelete }}
                postId={quote?.ID}
                userId={quote?.creator?.ID}

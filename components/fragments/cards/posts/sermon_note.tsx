@@ -10,6 +10,7 @@ import { TimeStamp } from "../../chunks/time_stamp";
 
 // types
 import { TSermonNote } from "../../../../types/posts";
+import { EnumContentType } from "../../../../types/enums";
 
 type sermonNotesPostProps = {
    sermonNote: TSermonNote;
@@ -25,6 +26,7 @@ export const SermonNote = ({ sermonNote, cta }: sermonNotesPostProps) => {
          <div className={styles.header}>
             <PostCardHeader
                cta={{ handleDelete: cta.handleDelete }}
+               contentType={EnumContentType.sermonNote}
                postType='sermon-note'
                postId={sermonNote?.ID}
                withCategoryTag={categoryId}

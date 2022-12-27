@@ -151,16 +151,6 @@ export const CREATE_NEW_THOUGHT = gql`
    }
 `;
 
-export const REPORT_THOUGHT = gql`
-   mutation ($THOUGHT_ID: ID, $USER_ID: ID) {
-      report_thought(data: { THOUGHT_ID: $THOUGHT_ID, USER_ID: $USER_ID }) {
-         ID
-         THOUGHT_ID
-         USER_ID
-      }
-   }
-`;
-
 // ================== EDIT ================== //
 export const EDIT_THOUGHT = gql`
    mutation ($body: String, $category_tags: String, $referenced_verses: String, $ID: ID) {

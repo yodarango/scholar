@@ -1,17 +1,20 @@
+import { useState } from "react";
 import Link from "next/link";
 
 // comps
 import { Icon } from "./icons";
 import { UserAvatar } from "./user_avatar";
+import Portal from "../../hoc/potal";
+import { SelectpostOptions } from "../../layouts/menus/select_post_options";
 
 // styles
 import styles from "./quote_card_header.module.css";
-import Portal from "../../hoc/potal";
-import { SelectpostOptions } from "../../layouts/menus/select_post_options";
-import { useState } from "react";
+
+import { EnumContentType } from "../../../types/enums";
 
 type TQuoteCardHeaderprops = {
    userAuthority: number;
+   contentType: EnumContentType;
    postId: string;
    avatar: string;
    userId: string;
@@ -21,6 +24,7 @@ type TQuoteCardHeaderprops = {
 };
 
 export const QuoteCardHeader = ({
+   contentType,
    userAuthority,
    postId,
    avatar,
@@ -40,8 +44,11 @@ export const QuoteCardHeader = ({
          <Portal>
             {showPostOptions && (
                <SelectpostOptions
+                  contentType={contentType}
                   postid={postId}
                   postType='quote'
+                  userId={userId}
+                  showEditOption
                   cta={{ handleCloseModal: () => setshowPostOptions(false), handleDelete }}
                />
             )}

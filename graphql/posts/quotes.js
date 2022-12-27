@@ -104,15 +104,6 @@ export const CREATE_NEW_QUOTE = gql`
    }
 `;
 
-export const REPORT_QUOTE = gql`
-   mutation ($QUOTE_ID: ID) {
-      report_quote(data: { QUOTE_ID: $QUOTE_ID }) {
-         ID
-         QUOTE_ID
-      }
-   }
-`;
-
 //====================== EDIT ROUTES ==================== //
 export const EDIT_ONE_QUOTE = gql`
    mutation ($body: String, $category_tags: String, $author: String, $ID: ID, $background: String) {

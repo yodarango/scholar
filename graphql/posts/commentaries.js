@@ -165,16 +165,6 @@ export const CREATE_NEW_COMMENTARY = gql`
    }
 `;
 
-export const REPORT_COMMENTARY = gql`
-   mutation ($COMMENTARY_ID: ID, $USER_ID: ID) {
-      report_commentary(data: { COMMENTARY_ID: $COMMENTARY_ID, USER_ID: $USER_ID }) {
-         ID
-         COMMENTARY_ID
-         USER_ID
-      }
-   }
-`;
-
 //================== EDIT ================== //
 export const EDIT_COMMENTARY = gql`
    mutation (

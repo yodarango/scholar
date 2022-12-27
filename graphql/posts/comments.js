@@ -115,7 +115,7 @@ export const CREATE_THOUGHT_COMMENT = gql`
    }
 `;
 
-// ====================== DELETE ROUTES =========================== //
+//  DELETE ROUTES
 export const DELETE_COMMENTARY_COMMENT = gql`
    mutation ($ID: ID) {
       delete_commentary_comment(ID: $ID)

@@ -19,6 +19,7 @@ import styles from "./thought.module.css";
 // types
 import { TThought } from "../../../../types/posts";
 import { THO_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
+import { EnumContentType } from "../../../../types/enums";
 
 type TThoughtProps = {
    thought: TThought;
@@ -38,6 +39,7 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
             <PostCardHeader
                cta={{ handleDelete: cta.handleDelete }}
                postType='thought'
+               contentType={EnumContentType.thought}
                username={thought?.creator?.signature}
                userAuthority={thought?.creator?.authority_level}
                avatar={thought?.creator?.avatar}
