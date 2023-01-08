@@ -9,7 +9,7 @@
    -  post to db
 *********************************************************************************************/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //comps
 import { IconButton } from "../fragments/buttons/icon_button";
@@ -31,6 +31,7 @@ import Portal from "../hoc/potal";
 // data
 import { notificationMessages } from "../../data/notification_messages";
 import { WithTextContentStack } from "./stacks/with_text_content_stack";
+import { SmallLoader } from "../fragments/chunks/small_loader";
 
 type TTextEditorFormatterActionsProps = {
    title: string;
@@ -46,6 +47,7 @@ type TTextEditorFormatterActionsProps = {
    postReferences: string[];
    postPrivacy: boolean;
    postButtonTitle?: string;
+   requestStatus?: string;
    cta: {
       handleRefVerseSelection: (id: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -68,6 +70,7 @@ export const TextEditorActions = ({
    postCategory,
    postReferences,
    postPrivacy,
+   requestStatus = "done",
    postButtonTitle = "Post"
 }: TTextEditorFormatterActionsProps) => {
    // state
@@ -75,6 +78,7 @@ export const TextEditorActions = ({
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
    const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
+   const [loading, setloading] = useState<string>(requestStatus);
 
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
    const handlerefVerseSelection = (id: string) => {
@@ -86,6 +90,11 @@ export const TextEditorActions = ({
    const handlePreview = () => {
       setshowPostPreview(true);
    };
+
+   useEffect(() => {
+      setloading(requestStatus);
+   }, [requestStatus]);
+
    return (
       <>
          {/* portals */}
@@ -201,7 +210,10 @@ export const TextEditorActions = ({
             </div>
 
             <div className={styles.post}>
-               <Primary type='1' title={postButtonTitle} cta={{ handleClick: cta.handlePost }} />
+               {loading === "done" && (
+                  <Primary type='1' title={postButtonTitle} cta={{ handleClick: cta.handlePost }} />
+               )}
+               {loading === "loading" && <SmallLoader />}
             </div>
          </div>
       </>

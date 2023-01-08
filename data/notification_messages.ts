@@ -42,5 +42,12 @@ export const notificationMessages = {
       description: "Notification after a user reports a post",
       title: "Post has been reported 👮‍♀️",
       body: "Post is being reviewed. Thank you for making Scholar a better platform."
+   },
+   postSuccess: {
+      id: 6,
+      type: "Success",
+      description: "Notification after a post is uploaded successfully",
+      title: "Your post is up 📃",
+      body: "Hooray! Your post has been successful!"
    }
 };

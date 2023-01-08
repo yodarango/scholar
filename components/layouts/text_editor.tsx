@@ -36,6 +36,7 @@ type TTextEditorProps = {
    titleMaxL?: number;
    titleDefaultValue?: string;
    titlePlaceHolder?: string;
+   requestStatus?: string;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -65,6 +66,7 @@ export const TextEditor = ({
    withTitle,
    titleDefaultValue = "",
    titlePlaceHolder,
+   requestStatus,
    cta
 }: TTextEditorProps) => {
    // router
@@ -123,6 +125,7 @@ export const TextEditor = ({
                postCategory={postCategory}
                postReferences={postReferences}
                postPrivacy={postPrivacy}
+               requestStatus={requestStatus}
                cta={{
                   handleCategorySelection: cta.handleCategorySelection,
                   handlePrivacySelection: cta.handlePrivacySelection,

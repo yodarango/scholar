@@ -142,6 +142,7 @@ export const CREATE_NEW_COMMENTARY = gql`
       $referenced_verses: String
       $verse_citation: String
       $is_private: Boolean
+      $post_image: String
    ) {
       commentary(
          data: {
@@ -151,6 +152,7 @@ export const CREATE_NEW_COMMENTARY = gql`
             referenced_verses: $referenced_verses
             verse_citation: $verse_citation
             is_private: $is_private
+            post_image: $post_image
          }
       ) {
          ... on Commentary {

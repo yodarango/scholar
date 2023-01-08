@@ -94,6 +94,27 @@ export const errorMessages = {
          body(size: string) {
             return `Your file is too big. Max size is ${size}, please try again!`;
          }
+      },
+      missingCategoryTag: {
+         id: 3,
+         type: "error",
+         description: "shows if a category tag is not selected. ",
+         title: "You must select a category 🏷",
+         body: "Your post does not have a category. Please select one and try again!"
+      },
+      missingVerse: {
+         id: 4,
+         type: "error",
+         description: "shows if a verse to comment on is not selected. ",
+         title: "You must select a verse 📖",
+         body: "Please select the verse you would like to comment on before continuing"
+      },
+      emptyBody: {
+         id: 4,
+         type: "error",
+         description: "post body cannot be empty ",
+         title: "Empty text box 📭",
+         body: "That text box looks better when it has text on it 😉"
       }
    },
    unknown: {

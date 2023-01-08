@@ -1,4 +1,4 @@
-import { useState, useReducer, Reducer, useEffect } from "react";
+import { useState, useReducer, Reducer } from "react";
 import { useRouter } from "next/router";
 
 // components
@@ -9,9 +9,15 @@ import { TextEditorVerseSelection } from "../../fragments/text_editor_verse_sele
 import styles from "./commentary_text_editor.module.css";
 
 // helpers
-import { ThandlePostCommentary } from "../../../helpers/functions/posts/commentary_post";
+import {
+   handlePostCommentary,
+   ThandlePostCommentary
+} from "../../../helpers/functions/posts/commentary_post";
 import { Bible, TBible } from "../../../data/bible";
 import { TBibleVerse } from "../../../types/bible_api";
+import Portal from "../../hoc/potal";
+import { Notification } from "../../fragments/popups/notification";
+import { type } from "os";
 
 type TCommentaryTextEditorProps = {
    userId: string;
@@ -62,6 +68,9 @@ export const CommentaryTextEditor = ({
    // state
    // postReferencedVerses do not update on reducer changing
    const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
+   const [notification, setnotification] =
+      useState<null | { title: string; body: string; type: string }>(null);
+   const [loading, setloading] = useState("done");
 
    const post: ThandlePostCommentary = {
       categoryTag: postCategory,
@@ -75,12 +84,12 @@ export const CommentaryTextEditor = ({
 
    // reducer
    function reducer(state: any, action: any) {
+      console.log(state);
       switch (action.type) {
          case "category":
-            return { ...state, category: action.payload };
+            return { ...state, categoryTag: action.payload };
 
          case "body":
-            console.log(action.payload);
             return { ...state, body: action.payload };
 
          case "referencedVerses":
@@ -110,8 +119,15 @@ export const CommentaryTextEditor = ({
 
    // handle the saving the post to the DB
    const handlePost = async () => {
-      //const body = await handlePostCommentary(post);
       console.log(state);
+      setloading("loading");
+      const post = await handlePostCommentary(state);
+      if (post?.error) {
+         setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
+      } else if (post?.success) {
+         setnotification({ title: post?.success.title, body: post?.success?.body, type: "2" });
+      }
+      setloading("done");
    };
 
    // handle the selection of a verse from the ScripturePicker component and also
@@ -125,43 +141,56 @@ export const CommentaryTextEditor = ({
    };
 
    return (
-      <div className={styles.mainWrapper}>
-         <div className={styles.verseSelection}>
-            <TextEditorVerseSelection
-               readyData={readyData}
-               cta={{
-                  handleVerseData
-               }}
-            />
+      <>
+         <Portal>
+            {notification && (
+               <Notification
+                  title={notification.title}
+                  body={notification.body}
+                  type={notification.type}
+                  cta={{ handleClose: () => (window.location.href = "/posts/commentary/new") }}
+               />
+            )}
+         </Portal>
+         <div className={styles.mainWrapper}>
+            <div className={styles.verseSelection}>
+               <TextEditorVerseSelection
+                  readyData={readyData}
+                  cta={{
+                     handleVerseData
+                  }}
+               />
+            </div>
+            <div className={styles.textEditor}>
+               <TextEditor
+                  body={body}
+                  postImage={postImage}
+                  userAuthority={userAuthority}
+                  userId={userId}
+                  username={username}
+                  avatar={avatar}
+                  postPostedOnDate={postPostedOnDate}
+                  postCreatedDate={postCreatedDate}
+                  postCategory={postCategory}
+                  postReferences={state.referencedVerses}
+                  postPrivacy={postPrivacy}
+                  requestStatus={loading}
+                  cta={{
+                     handleCategorySelection: (category) =>
+                        dispatch({ type: "category", payload: category }),
+                     handlePrivacySelection: (privacy) =>
+                        dispatch({ type: "isPrivate", payload: privacy }),
+                     handleBody: (body) => dispatch({ type: "body", payload: body }),
+                     handleReferencedVerses: (verses) =>
+                        dispatch({ type: "referencedVersesRemove", payload: verses }),
+                     handleRefVerseSelection: (verse) =>
+                        dispatch({ type: "referencedVerses", payload: verse }),
+                     handleCloseModal: cta?.handleCloseModal,
+                     handlePost
+                  }}
+               />
+            </div>
          </div>
-         <div className={styles.textEditor}>
-            <TextEditor
-               body={body}
-               postImage={postImage}
-               userAuthority={userAuthority}
-               userId={userId}
-               username={username}
-               avatar={avatar}
-               postPostedOnDate={postPostedOnDate}
-               postCreatedDate={postCreatedDate}
-               postCategory={postCategory}
-               postReferences={state.referencedVerses}
-               postPrivacy={postPrivacy}
-               cta={{
-                  handleCategorySelection: (category) =>
-                     dispatch({ type: "category", payload: category }),
-                  handlePrivacySelection: (privacy) =>
-                     dispatch({ type: "isPrivate", payload: privacy }),
-                  handleBody: (body) => dispatch({ type: "body", payload: body }),
-                  handleReferencedVerses: (verses) =>
-                     dispatch({ type: "referencedVersesRemove", payload: verses }),
-                  handleRefVerseSelection: (verse) =>
-                     dispatch({ type: "referencedVerses", payload: verse }),
-                  handleCloseModal: cta?.handleCloseModal,
-                  handlePost
-               }}
-            />
-         </div>
-      </div>
+      </>
    );
 };
