@@ -65,6 +65,26 @@ export const WithTextContentStack = ({
    noResize,
    postReferences
 }: TPrimaryStackprops) => {
+   console.table({
+      title,
+      body,
+      cta,
+      closeHref,
+      postImage,
+      userAuthority,
+      userId,
+      username,
+      avatar,
+      postPostedOnDate,
+      postCreatedDate,
+      postCategory,
+      textAreaHeight,
+      textAreaMaxHeight,
+      textAreaMaxLength,
+      withEdit,
+      noResize,
+      postReferences
+   });
    // state
    const [showVerseReferences, setshowVerseReferences] = useState(false);
    const [contentWrapperClass, setcontentWrapperClass] =
@@ -127,7 +147,7 @@ export const WithTextContentStack = ({
          {/* subwrapper where content is held */}
          <div className={styles.subWrapper}>
             <div className={styles.title}>
-               <Header text={title} size='l' type={2} />
+               <Header text={title} size='large' type={2} />
             </div>
             {!isEditable && (
                <div className={`${contentWrapperClass} ${styles.contentHolder}`}>

@@ -46,20 +46,6 @@ export const ThoughtTextEditor = ({
    postReferences = [],
    postPrivacy = false
 }: TThoughtTextEditorProps) => {
-   console.log(
-      userId,
-      username,
-      avatar,
-      userAuthority,
-      body,
-      titleDefaultValue,
-      postImage,
-      postPostedOnDate,
-      postCreatedDate,
-      postCategory,
-      postReferences,
-      postPrivacy
-   );
    // state
    // postReferencedVerses do not update on reducer changing
    const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
@@ -128,12 +114,8 @@ export const ThoughtTextEditor = ({
 
    // handle the selection of a verse from the ScripturePicker component and also
    // if postImage does not exist, get the corresponding image based on the router verseId
-   const handleVerseData = (verse: TBibleVerse) => {
-      dispatch({ type: "verseData", payload: verse });
-
-      // get the corresponding image
-      const book = Bible.filter((book: TBible) => book.bookId === verse.bookId);
-      dispatch({ type: "postImage", payload: book[0].image });
+   const handleImageBkgSelection = (url: string) => {
+      dispatch({ type: "postImage", payload: url });
    };
 
    return (
@@ -165,7 +147,7 @@ export const ThoughtTextEditor = ({
                   postCategory={postCategory}
                   cta={{
                      handleCloseModal: () => {},
-                     handleImageBkgSelection: (url: string) => {}
+                     handleImageBkgSelection
                   }}
                />
             </div>
@@ -173,17 +155,17 @@ export const ThoughtTextEditor = ({
                <TextEditor
                   withTitle={true}
                   titleMaxL={150}
-                  titleDefaultValue={titleDefaultValue}
+                  titleDefaultValue={state.title}
                   titlePlaceHolder='Post Title'
                   body={body}
-                  postImage={postImage}
+                  postImage={state.postImage}
                   userAuthority={userAuthority}
                   userId={userId}
                   username={username}
                   avatar={avatar}
                   postPostedOnDate={postPostedOnDate}
                   postCreatedDate={postCreatedDate}
-                  postCategory={postCategory}
+                  postCategory={state.categoryTag}
                   postReferences={state.referencedVerses}
                   postPrivacy={postPrivacy}
                   requestStatus={loading}
