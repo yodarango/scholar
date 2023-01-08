@@ -110,11 +110,18 @@ export const errorMessages = {
          body: "Please select the verse you would like to comment on before continuing"
       },
       emptyBody: {
-         id: 4,
+         id: 5,
          type: "error",
          description: "post body cannot be empty ",
          title: "Empty text box 📭",
          body: "That text box looks better when it has text on it 😉"
+      },
+      missingTitle: {
+         id: 6,
+         type: "error",
+         description: "post title cannot be empty ",
+         title: "Title must be provided 📰",
+         body: "How about we enter a title to make your post searchable? "
       }
    },
    unknown: {

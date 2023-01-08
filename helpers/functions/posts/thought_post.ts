@@ -1,8 +1,9 @@
-import client from "../../../apollo-client";
+import { client } from "../../../apollo-client";
 import { CREATE_NEW_THOUGHT } from "../../../graphql/posts/thoughts";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
+import { notificationMessages } from "../../../data/notification_messages";
 
 export type THandlePostThought = {
    title: string;
@@ -12,8 +13,8 @@ export type THandlePostThought = {
    postImage: string; // not in DB implement this field
 };
 
-export const handlePostThought = async (post: THandlePostThought) => {
-   const { body, title, categoryTag, referencedVerses } = post;
+export const dataHandler = async (post: THandlePostThought) => {
+   const { body, title, categoryTag, referencedVerses, postImage } = post;
 
    try {
       const { data } = await client.mutate({
@@ -22,19 +23,32 @@ export const handlePostThought = async (post: THandlePostThought) => {
             body,
             title,
             category_tags: categoryTag,
-            referenced_verses: referencedVerses
+            post_image: postImage,
+            referenced_verses: referencedVerses.toString().replaceAll(", ", "")
          }
       });
 
-      if (data.commentary.__typename === "Thought") {
-         return data.commentary;
-      } else if (data.commentary.__typename === "ExceedsPostCount") {
-         return errorMessages.posts.maxPostCount;
+      console.log(data);
+      if (data.thought.__typename === "Thought") {
+         return { success: notificationMessages.postSuccess };
+      } else if (data.thought.__typename === "ExceedsPostCount") {
+         return { error: errorMessages.posts.maxPostCount };
       } else {
-         return errorMessages.posts.failToPostCommentary;
+         return { error: errorMessages.posts.failToPostCommentary };
       }
    } catch (error: any) {
-      console.log(error);
-      return errorMessages.posts.failToPostCommentary;
+      console.error(error);
+      return { error: errorMessages.posts.failToPostCommentary };
+   }
+};
+
+export const handlePostThought = async (post: THandlePostThought) => {
+   try {
+      if (!post.categoryTag) return { error: errorMessages.posts.missingCategoryTag };
+      if (!post.title) return { error: errorMessages.posts.missingTitle };
+      if (!post.body || post.body === "") return { error: errorMessages.posts.emptyBody };
+      return await dataHandler(post);
+   } catch (error) {
+      console.error(error);
    }
 };

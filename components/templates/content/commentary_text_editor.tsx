@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 // components
 import { TextEditor } from "../../layouts/text_editor";
 import { TextEditorVerseSelection } from "../../fragments/text_editor_verse_selection";
+import Portal from "../../hoc/potal";
+import { Notification } from "../../fragments/popups/notification";
 
 // styles
 import styles from "./commentary_text_editor.module.css";
@@ -15,9 +17,6 @@ import {
 } from "../../../helpers/functions/posts/commentary_post";
 import { Bible, TBible } from "../../../data/bible";
 import { TBibleVerse } from "../../../types/bible_api";
-import Portal from "../../hoc/potal";
-import { Notification } from "../../fragments/popups/notification";
-import { type } from "os";
 
 type TCommentaryTextEditorProps = {
    userId: string;
@@ -75,7 +74,7 @@ export const CommentaryTextEditor = ({
    const post: ThandlePostCommentary = {
       categoryTag: postCategory,
       body,
-      referencedVerses: postReferences,
+      referencedVerses: postReferencedVerses,
       isPrivate: postPrivacy,
       verseId: verseId,
       verseCitation: verseCitation,
@@ -119,7 +118,6 @@ export const CommentaryTextEditor = ({
 
    // handle the saving the post to the DB
    const handlePost = async () => {
-      console.log(state);
       setloading("loading");
       const post = await handlePostCommentary(state);
       if (post?.error) {
@@ -148,7 +146,12 @@ export const CommentaryTextEditor = ({
                   title={notification.title}
                   body={notification.body}
                   type={notification.type}
-                  cta={{ handleClose: () => (window.location.href = "/posts/commentary/new") }}
+                  cta={{
+                     handleClose: () =>
+                        notification.type === "2"
+                           ? (window.location.href = "/posts/commentary/new")
+                           : setnotification(null)
+                  }}
                />
             )}
          </Portal>

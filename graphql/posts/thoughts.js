@@ -130,13 +130,20 @@ export const SHOW_COMMENTS_OF_THOUGHTS = gql`
 
 // ================== POSTING routes ===================
 export const CREATE_NEW_THOUGHT = gql`
-   mutation ($body: String, $category_tags: String, $referenced_verses: String, $title: String) {
+   mutation (
+      $body: String
+      $category_tags: String
+      $referenced_verses: String
+      $title: String
+      $post_image: String
+   ) {
       thought(
          data: {
             body: $body
             category_tags: $category_tags
             referenced_verses: $referenced_verses
             title: $title
+            post_image: $post_image
          }
       ) {
          ... on Thought {
