@@ -30,3 +30,6 @@ export const QUERY_WAS_UPDATE = 1;
 export const POST_TYPE_COMMENTARY = 1;
 export const POST_TYPE_QUOTE = 2;
 export const POST_TYPE_THOUGHT = 3;
+
+// images
+export const DEFAULT_THOUGHT_IMAGE = "/images/thoughts/default.png";

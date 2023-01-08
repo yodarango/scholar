@@ -46,6 +46,20 @@ export const ThoughtTextEditor = ({
    postReferences = [],
    postPrivacy = false
 }: TThoughtTextEditorProps) => {
+   console.log(
+      userId,
+      username,
+      avatar,
+      userAuthority,
+      body,
+      titleDefaultValue,
+      postImage,
+      postPostedOnDate,
+      postCreatedDate,
+      postCategory,
+      postReferences,
+      postPrivacy
+   );
    // state
    // postReferencedVerses do not update on reducer changing
    const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
@@ -65,7 +79,7 @@ export const ThoughtTextEditor = ({
    function reducer(state: any, action: any) {
       switch (action.type) {
          case "category":
-            return { ...state, category: action.payload };
+            return { ...state, categoryTag: action.payload };
 
          case "body":
             return { ...state, body: action.payload };
@@ -101,8 +115,9 @@ export const ThoughtTextEditor = ({
    // handle the saving the post to the DB
    const handlePost = async () => {
       setloading("loading");
+      console.log(state);
       const post = await handlePostThought(state);
-      console.log(post);
+
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
       } else if (post?.success) {
@@ -141,13 +156,13 @@ export const ThoughtTextEditor = ({
          <div className={styles.mainWrapper}>
             <div className={styles.topInfo}>
                <TextEditorTopInfo
-                  userAuthority={1}
-                  userId='123'
-                  username='username'
-                  avatar='img/avatars/default.png'
-                  postPostedOnDate='12/12/12 12:00'
-                  postCreatedDate='12/12/12 12:00'
-                  postCategory='PPL'
+                  userAuthority={userAuthority}
+                  userId={userId}
+                  username={username}
+                  avatar={avatar}
+                  postPostedOnDate={postPostedOnDate}
+                  postCreatedDate={postCreatedDate}
+                  postCategory={postCategory}
                   cta={{
                      handleCloseModal: () => {},
                      handleImageBkgSelection: (url: string) => {}

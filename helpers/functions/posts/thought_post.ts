@@ -5,6 +5,9 @@ import { CREATE_NEW_THOUGHT } from "../../../graphql/posts/thoughts";
 import { errorMessages } from "../../../data/error_messages";
 import { notificationMessages } from "../../../data/notification_messages";
 
+// constants
+import { DEFAULT_THOUGHT_IMAGE } from "../../../constants/defaults";
+
 export type THandlePostThought = {
    title: string;
    body: string;
@@ -14,8 +17,9 @@ export type THandlePostThought = {
 };
 
 export const dataHandler = async (post: THandlePostThought) => {
-   const { body, title, categoryTag, referencedVerses, postImage } = post;
+   let { body, title, categoryTag, referencedVerses, postImage } = post;
 
+   if (!postImage) postImage = DEFAULT_THOUGHT_IMAGE;
    try {
       const { data } = await client.mutate({
          mutation: CREATE_NEW_THOUGHT,

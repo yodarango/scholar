@@ -24,7 +24,17 @@ export type TTextEditorTopInfoProps = {
       handleImageBkgSelection: (url: string) => void;
    };
 };
-export const TextEditorTopInfo = ({ cta, postImgBkg = "" }: TTextEditorTopInfoProps) => {
+export const TextEditorTopInfo = ({
+   userAuthority,
+   userId,
+   username,
+   avatar,
+   postCategory,
+   postCreatedDate,
+   postPostedOnDate,
+   cta,
+   postImgBkg = ""
+}: TTextEditorTopInfoProps) => {
    const [showUnsplahPicker, setshowUnsplahPicker] = useState<boolean>(false);
    const [imgBkg, setImgBkg] = useState(postImgBkg);
 
@@ -51,13 +61,13 @@ export const TextEditorTopInfo = ({ cta, postImgBkg = "" }: TTextEditorTopInfoPr
             <div className={styles.imgBkg} style={{ backgroundImage: `url(${imgBkg})` }}>
                <div className={styles.seePostInfo}>
                   <SeePostInfo
-                     userAuthority={1}
-                     userId='1'
-                     username='username'
-                     avatar='/images/user_avatars/default.png'
-                     postPostedOnDate='07/08/2022 11:00'
-                     postCreatedDate='07/08/2022 11:00'
-                     postCategory='PNK'
+                     userAuthority={userAuthority}
+                     userId={userId}
+                     username={username}
+                     avatar={avatar}
+                     postPostedOnDate={postPostedOnDate}
+                     postCreatedDate={postCreatedDate}
+                     postCategory={postCategory}
                   />
                </div>
                <div className={styles.closeEditButtons}>
