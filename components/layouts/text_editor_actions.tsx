@@ -210,8 +210,13 @@ export const TextEditorActions = ({
             </div>
 
             <div className={styles.post}>
-               {loading === "done" && (
-                  <Primary type='1' title={postButtonTitle} cta={{ handleClick: cta.handlePost }} />
+               {loading !== "loading" && (
+                  <Primary
+                     type='1'
+                     title={postButtonTitle}
+                     cta={{ handleClick: cta.handlePost }}
+                     disabled={loading === "disabled"}
+                  />
                )}
                {loading === "loading" && <SmallLoader />}
             </div>

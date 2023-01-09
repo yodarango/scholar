@@ -73,7 +73,6 @@ export const ThoughtTextEditor = ({
             return { ...state, title: action.payload };
 
          case "referencedVerses":
-            console.log(action);
             return { ...state, referenced_verses: [...state.referenced_verses, action.payload] };
 
          case "isPrivate":
@@ -102,16 +101,16 @@ export const ThoughtTextEditor = ({
    const handlePost = async () => {
       console.log("before", state);
       setloading("loading");
-      let post: any;
-      //const post = await handlePostContent(state, "Thought");
+
+      const post = await handlePostContent(state, "Thought");
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
+         setloading("done");
       } else if (post?.success) {
+         setloading("disabled");
          setnotification({ title: post?.success.title, body: post?.success?.body, type: "2" });
       }
-      setloading("done");
-      console.log("after", state);
    };
 
    // handle the selection of a verse from the ScripturePicker component and also
@@ -180,7 +179,6 @@ export const ThoughtTextEditor = ({
                      handleReferencedVerses: (verses) =>
                         dispatch({ type: "referencedVersesRemove", payload: verses }),
                      handleRefVerseSelection: (verse) => {
-                        console.log(verse);
                         dispatch({ type: "referencedVerses", payload: verse });
                      },
                      handleTitleValue: (title) => dispatch({ type: "title", payload: title }),

@@ -11,3 +11,5 @@
 -  Have a filtering option where users can select books by "Jon Doe's faves" and have different ministers recommend their top 10 books
 
 -  collect articles from different authors and pay them in a download base
+
+-  add a denomination icon to uses maybe

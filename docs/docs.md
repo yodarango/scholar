@@ -1,3 +1,0 @@
-**POSTS**
-
-# Comments of content

@@ -1,23 +1,28 @@
-.mainWrapper{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-s);
-    background-color: transparent;
-    border-radius: 2em;
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: var(--spacing-s);
+   background-color: transparent;
+   border-radius: 2em;
 }
 
 .primary {
-    background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
 }
 
 .secondary {
-    background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
+   background-image: linear-gradient(-10deg, var(--gradient-2--light), var(--gradient-2--dark));
 }
 
 .mainWrapper:hover {
-    cursor: pointer;
-    transform: scale(.95);
-    transition: transform 300ms ease;
+   cursor: pointer;
+   transform: scale(0.95);
+   transition: transform 300ms ease;
+}
+
+.disabled {
+   pointer-events: none;
+   opacity: 0.5;
 }
