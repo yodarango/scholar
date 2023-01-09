@@ -10,12 +10,11 @@ import { Notification } from "../../fragments/popups/notification";
 import styles from "./thought_text_editor.module.css";
 
 // helpers
+import { THandlePostThought } from "../../../helpers/functions/posts/thought_post";
 import {
-   handlePostThought,
-   THandlePostThought
-} from "../../../helpers/functions/posts/thought_post";
-import { Bible, TBible } from "../../../data/bible";
-import { TBibleVerse } from "../../../types/bible_api";
+   handlePostContent,
+   THandlePostContent
+} from "../../../helpers/functions/posts/content_post";
 
 type TThoughtTextEditorProps = {
    userId: string;
@@ -53,19 +52,19 @@ export const ThoughtTextEditor = ({
       useState<null | { title: string; body: string; type: string }>(null);
    const [loading, setloading] = useState("done");
 
-   const post: THandlePostThought = {
-      categoryTag: postCategory,
+   const post: THandlePostContent = {
+      category_tags: postCategory,
       body,
       title: titleDefaultValue,
-      referencedVerses: postReferencedVerses,
-      postImage: postImage
+      referenced_verses: postReferences,
+      post_image: postImage
    };
 
    // reducer
    function reducer(state: any, action: any) {
       switch (action.type) {
          case "category":
-            return { ...state, categoryTag: action.payload };
+            return { ...state, category_tags: action.payload };
 
          case "body":
             return { ...state, body: action.payload };
@@ -74,24 +73,25 @@ export const ThoughtTextEditor = ({
             return { ...state, title: action.payload };
 
          case "referencedVerses":
-            return { ...state, referencedVerses: [...state.referencedVerses, action.payload] };
+            console.log(action);
+            return { ...state, referenced_verses: [...state.referenced_verses, action.payload] };
 
          case "isPrivate":
-            return { ...state, isPrivate: action.payload };
+            return { ...state, is_private: action.payload };
 
          case "referencedVersesRemove":
-            return { ...state, referencedVerses: action.payload };
+            return { ...state, referenced_verses: action.payload };
 
          case "postImage":
-            return { ...state, postImage: action.payload };
+            return { ...state, post_image: action.payload };
 
-         // why am I returning the data from a nested child rather than frmo the bottom"handlePost' function below?
+         // why am I returning the data from a nested child rather than from the bottom"handlePost' function below?
          // Because why waste more network when the data is already in the client
          case "verseData":
             return {
                ...state,
-               verseId: action.payload.id,
-               verseCitation: action.payload.reference
+               VERSE_ID: action.payload.id,
+               verse_citation: action.payload.reference
             };
       }
    }
@@ -100,9 +100,10 @@ export const ThoughtTextEditor = ({
 
    // handle the saving the post to the DB
    const handlePost = async () => {
+      console.log("before", state);
       setloading("loading");
-      console.log(state);
-      const post = await handlePostThought(state);
+      let post: any;
+      //const post = await handlePostContent(state, "Thought");
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
@@ -110,6 +111,7 @@ export const ThoughtTextEditor = ({
          setnotification({ title: post?.success.title, body: post?.success?.body, type: "2" });
       }
       setloading("done");
+      console.log("after", state);
    };
 
    // handle the selection of a verse from the ScripturePicker component and also
@@ -158,15 +160,15 @@ export const ThoughtTextEditor = ({
                   titleDefaultValue={state.title}
                   titlePlaceHolder='Post Title'
                   body={body}
-                  postImage={state.postImage}
+                  postImage={state.post_image}
                   userAuthority={userAuthority}
                   userId={userId}
                   username={username}
                   avatar={avatar}
                   postPostedOnDate={postPostedOnDate}
                   postCreatedDate={postCreatedDate}
-                  postCategory={state.categoryTag}
-                  postReferences={state.referencedVerses}
+                  postCategory={state.category_tags}
+                  postReferences={state.referenced_verses}
                   postPrivacy={postPrivacy}
                   requestStatus={loading}
                   cta={{
@@ -177,8 +179,10 @@ export const ThoughtTextEditor = ({
                      handleBody: (body) => dispatch({ type: "body", payload: body }),
                      handleReferencedVerses: (verses) =>
                         dispatch({ type: "referencedVersesRemove", payload: verses }),
-                     handleRefVerseSelection: (verse) =>
-                        dispatch({ type: "referencedVerses", payload: verse }),
+                     handleRefVerseSelection: (verse) => {
+                        console.log(verse);
+                        dispatch({ type: "referencedVerses", payload: verse });
+                     },
                      handleTitleValue: (title) => dispatch({ type: "title", payload: title }),
                      handlePost
                   }}

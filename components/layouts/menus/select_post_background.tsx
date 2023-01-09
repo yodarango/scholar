@@ -90,22 +90,18 @@ export const SelectPostBackground = ({ cta }: TSelectProfileOptionsProps) => {
    ];
 
    return (
-      <>
-         <PrimaryMenuBkg
-            color='1'
-            cta={cta.handleCloseModal}
-            content={menuOptions.map((option, index) => (
-               <div className={styles.menuOption} key={index}>
-                  {option.background && (
-                     <GradientBackgroundOption
-                        text={option.text}
-                        background={option.background}
-                        cta={{ handleClick: () => cta.handleValue(option.background) }}
-                     />
-                  )}
-               </div>
-            ))}
-         />
-      </>
+      <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
+         {menuOptions.map((option, index) => (
+            <div className={styles.menuOption} key={index}>
+               {option.background && (
+                  <GradientBackgroundOption
+                     text={option.text}
+                     background={option.background}
+                     cta={{ handleClick: () => cta.handleValue(option.background) }}
+                  />
+               )}
+            </div>
+         ))}
+      </PrimaryMenuBkg>
    );
 };

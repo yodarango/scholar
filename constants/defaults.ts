@@ -30,6 +30,9 @@ export const QUERY_WAS_UPDATE = 1;
 export const POST_TYPE_COMMENTARY = 1;
 export const POST_TYPE_QUOTE = 2;
 export const POST_TYPE_THOUGHT = 3;
+export const POST_TYPE_SERMON_NOTE = 4;
 
 // images
 export const DEFAULT_THOUGHT_IMAGE = "/images/thoughts/default.png";
+export const DEFAULT_COMMENTARY_IMAGE = "/images/commentary/default.png";
+export const DEFAULT_QUOTE_BACKGROUND = "#quote-bkg--0";

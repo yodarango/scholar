@@ -122,6 +122,13 @@ export const errorMessages = {
          description: "post title cannot be empty ",
          title: "Title must be provided 📰",
          body: "How about we enter a title to make your post searchable? "
+      },
+      missingAuthor: {
+         id: 7,
+         type: "error",
+         description: "users must enter an author quote",
+         title: "Do you know the author? 🖋",
+         body: "Please give the author credit or type unknown if you don't know!"
       }
    },
    unknown: {

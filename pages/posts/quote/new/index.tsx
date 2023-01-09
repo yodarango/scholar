@@ -1,5 +1,5 @@
 // components
-import { QuoteEditor } from "../../../../templates/content/quote_editor";
+import { QuoteEditor } from "../../../../components/templates/content/quote_editor";
 
 // styles
 import styles from "./index.module.css";

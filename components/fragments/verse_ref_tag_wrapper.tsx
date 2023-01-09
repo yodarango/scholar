@@ -24,6 +24,7 @@ type TVerseRefTagWrapperProps = {
 };
 
 export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTagWrapperProps) => {
+   console.log(refs);
    // states
    const [versionId, setVersionId] = useState<null | string>(null);
    const [allTags, setallTags] = useState<string[]>(refs);
@@ -47,7 +48,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
 
    // ------------------- remove the tags
    const handleRemoveTag = (tagId: string) => {
-      const removedtag: string[] = allTags.filter((tag) => tag !== tagId);
+      const removedtag: string[] = allTags?.filter((tag) => tag !== tagId);
       setallTags(removedtag);
 
       // update the tag array and pass it to the parent
@@ -63,7 +64,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
             <div className={styles.tagsWrapper}>
                {versionId &&
                   allTags &&
-                  allTags.map((ref: string, index: number) => (
+                  allTags?.map((ref: string, index: number) => (
                      <div className={styles.tag} key={index}>
                         <VerseRefTag
                            reference={ref}
@@ -78,7 +79,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
          {showRemoveoption && (
             <div className={styles.tagsWrapper}>
                {versionId &&
-                  allTags.map((ref: string, index: number) => (
+                  allTags?.map((ref: string, index: number) => (
                      <div className={styles.tag} key={index}>
                         <VerseRefTag
                            reference={ref}
