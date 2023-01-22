@@ -23,7 +23,22 @@ export const handleGetQuotesIn24 = async () => {
          return { data: null, status: "error" };
       }
 
-      return { data, status: "done" };
+      //  format the data into commentary: { user:{}}
+      const quote = data.quote_in_24.map((c: any) => ({
+         ...c,
+         creator: {
+            ID: c.USER_ID,
+            signature: c.signature,
+            authority_level: c.authority_level,
+            approval_rating: c.approval_rating,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            my_church: c.my_church,
+            avatar: c.avatar
+         }
+      }));
+
+      return { data: quote, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
@@ -41,7 +56,22 @@ export const handleGetQuote = async (variables: TgetQuoteVariables) => {
          return { data: null, status: "error" };
       }
 
-      return { data, status: "done" };
+      //  format the data into commentary: { user:{}}
+      const quote = data.quote_in_24.map((c: any) => ({
+         ...c,
+         creator: {
+            ID: c.USER_ID,
+            signature: c.signature,
+            authority_level: c.authority_level,
+            approval_rating: c.approval_rating,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            my_church: c.my_church,
+            avatar: c.avatar
+         }
+      }));
+
+      return { data: quote, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

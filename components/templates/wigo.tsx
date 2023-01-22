@@ -4,8 +4,8 @@ import { FastFacts } from "../layouts/wigo/fast_facts";
 import { WigoCommentaries } from "../layouts/wigo/wigo_commentaries";
 import { WigoDailVerse } from "../layouts/wigo/wigo_daily_verse";
 import { WigoQuotes } from "../layouts/wigo/wigo_quotes";
-import { WigoSermons } from "../layouts/wigo/wigo_sermons";
 import { WigoThoughts } from "../layouts/wigo/wigo_thoughts";
+// import { WigoSermons } from "../layouts/wigo/wigo_sermons";
 
 // styles
 import styles from "./wigo.module.css";
@@ -16,9 +16,7 @@ export const Wigo = () => {
          <div className={styles.addButton}>
             <AddContent />
          </div>
-         <div className={styles.quote}>
-            <WigoQuotes />
-         </div>
+         <div className={styles.quote}>{<WigoQuotes />}</div>
          <div className={styles.fastFacts}>
             <FastFacts />
          </div>
@@ -34,9 +32,10 @@ export const Wigo = () => {
          <div className={styles.commentaries}>
             <WigoCommentaries />
          </div>
-         <div className={styles.sermonNotes}>
+         {/* #remove_sermon_notes for now */}
+         {/* <div className={styles.sermonNotes}>
             <WigoSermons />
-         </div>
+         </div> */}
       </div>
    );
 };

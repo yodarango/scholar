@@ -1,5 +1,5 @@
 // components
-import { SermonNoteEditor } from "../../../../templates/content/sermon_note_editor";
+import { SermonNoteEditor } from "../../../../components/templates/content/sermon_note_editor";
 
 // styles
 import styles from "./index.module.css";

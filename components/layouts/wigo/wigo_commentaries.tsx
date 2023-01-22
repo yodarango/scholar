@@ -24,7 +24,8 @@ export const WigoCommentaries = () => {
    const fetchData = async () => {
       try {
          const { data, status } = await handleGetCommentariesIn24();
-         data && setcommentaries(data.commentary_in_24);
+         data && setcommentaries(data);
+
          setloading(status);
       } catch (error) {
          console.error(error);

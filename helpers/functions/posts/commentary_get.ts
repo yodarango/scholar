@@ -25,7 +25,22 @@ export const handleGetCommentariesIn24 = async () => {
          return { data: null, status: "error" };
       }
 
-      return { data, status: "done" };
+      //  format the data into commentary: { user:{}}
+      const commentaries = data.commentary_in_24.map((c: any) => ({
+         ...c,
+         creator: {
+            ID: c.USER_ID,
+            signature: c.signature,
+            authority_level: c.authority_level,
+            approval_rating: c.approval_rating,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            my_church: c.my_church,
+            avatar: c.avatar
+         }
+      }));
+
+      return { data: commentaries, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
@@ -43,7 +58,22 @@ export const handleGetCommentaries = async (variables: TgetcommentariesVariables
          return { data: null, status: "error" };
       }
 
-      return { data, status: "done" };
+      //  format the data into commentary: { user:{}}
+      const commentaries = data.commentary_in_24.map((c: any) => ({
+         ...c,
+         creator: {
+            ID: c.USER_ID,
+            signature: c.signature,
+            authority_level: c.authority_level,
+            approval_rating: c.approval_rating,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            my_church: c.my_church,
+            avatar: c.avatar
+         }
+      }));
+
+      return { data: commentaries, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

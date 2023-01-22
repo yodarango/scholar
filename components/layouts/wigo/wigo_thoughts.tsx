@@ -21,7 +21,8 @@ export const WigoThoughts = () => {
    const fetchData = async () => {
       try {
          const { data, status } = await handleGetThoughtIn24();
-         data && setthoughts(data.thought_in_24);
+         data && setthoughts(data);
+         console.log(data);
 
          setloading(status);
       } catch (error) {

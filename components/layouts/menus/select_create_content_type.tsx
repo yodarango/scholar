@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 // comps
-import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
+import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
 // styles
@@ -33,13 +33,14 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
          icon: "think",
          description: "Thought",
          color: "#F1EAFF"
-      },
-      {
-         url: "sermon-note",
-         icon: "folder",
-         description: "Sermon notes",
-         color: "#F1EAFF"
       }
+      // #remove_sermon_notes for now
+      // {
+      //    url: "sermon-note",
+      //    icon: "folder",
+      //    description: "Sermon notes",
+      //    color: "#F1EAFF"
+      // }
    ];
 
    return (

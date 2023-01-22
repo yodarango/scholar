@@ -35,10 +35,10 @@ export const DailyVerseImage = ({
    // get a new verse
    const getVerse = async () => {
       const dailyVerse = await setDailyVerseCache(versionId);
-      setVerse(dailyVerse.data);
+      setVerse(dailyVerse?.data);
 
       // send the verseId to the parent
-      cta.handleSendVerseId(dailyVerse.data.id);
+      cta.handleSendVerseId(dailyVerse?.data?.id);
    };
 
    useEffect(() => {

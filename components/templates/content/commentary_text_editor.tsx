@@ -11,12 +11,12 @@ import { Notification } from "../../fragments/popups/notification";
 import styles from "./commentary_text_editor.module.css";
 
 // helpers
-import {
-   handlePostCommentary,
-   ThandlePostCommentary
-} from "../../../helpers/functions/posts/commentary_post";
 import { Bible, TBible } from "../../../data/bible";
 import { TBibleVerse } from "../../../types/bible_api";
+import {
+   handlePostContent,
+   THandlePostContent
+} from "../../../helpers/functions/posts/content_post";
 
 type TCommentaryTextEditorProps = {
    userId: string;
@@ -71,45 +71,44 @@ export const CommentaryTextEditor = ({
       useState<null | { title: string; body: string; type: string }>(null);
    const [loading, setloading] = useState("done");
 
-   const post: ThandlePostCommentary = {
-      categoryTag: postCategory,
+   const post: THandlePostContent = {
+      category_tags: postCategory,
       body,
-      referencedVerses: postReferencedVerses,
-      isPrivate: postPrivacy,
-      verseId: verseId,
-      verseCitation: verseCitation,
-      postImage: postImage
+      referenced_verses: postReferencedVerses,
+      is_private: postPrivacy,
+      VERSE_ID: verseId,
+      verse_citation: verseCitation,
+      post_image: postImage
    };
 
    // reducer
    function reducer(state: any, action: any) {
-      console.log(state);
       switch (action.type) {
          case "category":
-            return { ...state, categoryTag: action.payload };
+            return { ...state, category_tags: action.payload };
 
          case "body":
             return { ...state, body: action.payload };
 
          case "referencedVerses":
-            return { ...state, referencedVerses: [...state.referencedVerses, action.payload] };
+            return { ...state, referenced_verses: [...state.referenced_verses, action.payload] };
 
          case "isPrivate":
-            return { ...state, isPrivate: action.payload };
+            return { ...state, is_private: action.payload };
 
          case "referencedVersesRemove":
-            return { ...state, referencedVerses: action.payload };
+            return { ...state, referenced_verses: action.payload };
 
          case "postImage":
-            return { ...state, postImage: action.payload };
+            return { ...state, post_image: action.payload };
 
          // why am I returning the data from a nested child rather than from the bottom "handlePost' function below?
          // Because why waste more network when the data is already in the client
          case "verseData":
             return {
                ...state,
-               verseId: action.payload.id,
-               verseCitation: action.payload.reference
+               VERSE_ID: action.payload.id,
+               verse_citation: action.payload.reference
             };
       }
    }
@@ -119,13 +118,16 @@ export const CommentaryTextEditor = ({
    // handle the saving the post to the DB
    const handlePost = async () => {
       setloading("loading");
-      const post = await handlePostCommentary(state);
+
+      const post = await handlePostContent(state, "Commentary");
+
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
+         setloading("done");
       } else if (post?.success) {
+         setloading("disabled");
          setnotification({ title: post?.success.title, body: post?.success?.body, type: "2" });
       }
-      setloading("done");
    };
 
    // handle the selection of a verse from the ScripturePicker component and also

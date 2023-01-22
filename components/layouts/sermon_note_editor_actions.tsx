@@ -12,10 +12,10 @@ import Portal from "../hoc/potal";
 import styles from "./sermon_note_editor_actions.module.css";
 
 // helpers
-import { handleUploadFile } from "../helpers/content/file_upload";
+import { handleUploadFile } from "../../helpers/content/file_upload";
 
 // data
-import { errorMessages } from "../data/error_messages";
+import { errorMessages } from "../../data/error_messages";
 
 type TSermonNoteEditorActionsProps = {
    sermonTitle: string;

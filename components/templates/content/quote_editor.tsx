@@ -74,10 +74,11 @@ export const QuoteEditor = ({
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
+         setloading("done");
       } else if (post?.success) {
          setnotification({ title: post?.success.title, body: post?.success?.body, type: "2" });
+         setloading("disabled");
       }
-      setloading("done");
    };
 
    return (
@@ -100,7 +101,7 @@ export const QuoteEditor = ({
          <div className={styles.mainWrapper} id={quoteBackground}>
             {renderClose && (
                <div className={styles.close}>
-                  <CloseContent cta={{ handleClick: () => router.push("/quote") }} />
+                  <CloseContent cta={{ handleClick: () => router.push("/posts/quote/new") }} />
                </div>
             )}
             <section className={styles.contentWrapper}>

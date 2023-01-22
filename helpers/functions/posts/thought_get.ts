@@ -14,7 +14,24 @@ export const handleGetThoughtIn24 = async () => {
          return { data: null, status: "error" };
       }
 
-      return { data, status: "done" };
+      //  format the data into commentary: { user:{}}
+      const thought = data.thought_in_24.map((c: any) => ({
+         ...c,
+         creator: {
+            ID: c.USER_ID,
+            signature: c.signature,
+            authority_level: c.authority_level,
+            approval_rating: c.approval_rating,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            my_church: c.my_church,
+            avatar: c.avatar
+         }
+      }));
+
+      console.log(thought);
+
+      return { data: thought, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
@@ -40,7 +57,22 @@ export const handleGetThoughts = async (variables: TgetThoughtsVariables) => {
          return { data: null, status: "error" };
       }
 
-      return { data, status: "done" };
+      //  format the data into commentary: { user:{}}
+      const thought = data.thought.map((c: any) => ({
+         ...c,
+         creator: {
+            ID: c.USER_ID,
+            signature: c.signature,
+            authority_level: c.authority_level,
+            approval_rating: c.approval_rating,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            my_church: c.my_church,
+            avatar: c.avatar
+         }
+      }));
+
+      return { data: thought, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

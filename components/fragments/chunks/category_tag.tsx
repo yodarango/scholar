@@ -92,9 +92,9 @@ export const CategoryTag = ({
             onClick={
                informativeOnly
                   ? () => handleShowCategoryMeta()
-                  : id
-                  ? () => handleShowCategoryMeta()
-                  : () => setIsCategoryMenuOpen(true)
+                  : // : id
+                    // ? () => handleShowCategoryMeta() might be able to delete this
+                    () => setIsCategoryMenuOpen(true)
             }
             className={customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}>
             {!currentCategory && (

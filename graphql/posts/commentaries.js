@@ -6,7 +6,7 @@ export const GET_COMMENTARIES = gql`
       $ID: ID
       $USER_ID: ID
       $VERSE_ID: String
-      $AUTHORITY_LEVEL: ID
+      $AUTHORITY_LEVEL: Int
       $body: String
       $category_tags: String
       $last_id: ID
@@ -22,6 +22,7 @@ export const GET_COMMENTARIES = gql`
       ) {
          ID
          VERSE_ID
+         USER_ID
          body
          category_tags
          referenced_verses
@@ -30,13 +31,12 @@ export const GET_COMMENTARIES = gql`
          posted_on
          post_image
          is_private
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
+         # creator {
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # }
          comments {
             total_count
          }
@@ -53,6 +53,7 @@ export const GET_COMMENTARIES_IN_24 = gql`
    query {
       commentary_in_24 {
          ID
+         USER_ID
          VERSE_ID
          body
          category_tags
@@ -62,15 +63,14 @@ export const GET_COMMENTARIES_IN_24 = gql`
          post_image
          posted_on
          is_private
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-            first_name
-            last_name
-         }
+         # creator {
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # first_name
+         # last_name
+         # }
          comments {
             total_count
          }

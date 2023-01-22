@@ -29,7 +29,8 @@ export const WigoQuotes = () => {
    const fetchData = async () => {
       try {
          const { data, status } = await handleGetQuotesIn24();
-         data && setquotes(data.quote_in_24);
+         data && setquotes(data);
+
          setloading(status);
       } catch (error) {
          console.error(error);

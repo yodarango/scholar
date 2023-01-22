@@ -48,6 +48,7 @@ type TTextEditorFormatterActionsProps = {
    postPrivacy: boolean;
    postButtonTitle?: string;
    requestStatus?: string;
+   includeIsPrivate?: boolean;
    cta: {
       handleRefVerseSelection: (id: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -70,6 +71,7 @@ export const TextEditorActions = ({
    postCategory,
    postReferences,
    postPrivacy,
+   includeIsPrivate = true,
    requestStatus = "done",
    postButtonTitle = "Post"
 }: TTextEditorFormatterActionsProps) => {
@@ -163,40 +165,42 @@ export const TextEditorActions = ({
                />
             </div>
 
-            <div className={styles.privacy}>
-               {postIsPrivate && (
-                  <>
-                     <div className={styles.sideText}>
-                        <Parragraph text='Private' quiet={true} size='xsmall' bold={true} />
-                     </div>
-                     <IconButton
-                        icon='lockClosed'
-                        backgroundColor='2'
-                        cta={{
-                           handleClick: () => (
-                              setpostIsPrivate(false), cta.handlePrivacySelection(false)
-                           )
-                        }}
-                     />
-                  </>
-               )}
-               {!postIsPrivate && (
-                  <>
-                     <div className={styles.sideText}>
-                        <Parragraph text='Public' quiet={true} size='xsmall' bold={true} />
-                     </div>
-                     <IconButton
-                        icon='lockOpen'
-                        backgroundColor='1'
-                        cta={{
-                           handleClick: () => (
-                              setpostIsPrivate(true), cta.handlePrivacySelection(true)
-                           )
-                        }}
-                     />
-                  </>
-               )}
-            </div>
+            {includeIsPrivate && (
+               <div className={styles.privacy}>
+                  {postIsPrivate && (
+                     <>
+                        <div className={styles.sideText}>
+                           <Parragraph text='Private' quiet={true} size='xsmall' bold={true} />
+                        </div>
+                        <IconButton
+                           icon='lockClosed'
+                           backgroundColor='2'
+                           cta={{
+                              handleClick: () => (
+                                 setpostIsPrivate(false), cta.handlePrivacySelection(false)
+                              )
+                           }}
+                        />
+                     </>
+                  )}
+                  {!postIsPrivate && (
+                     <>
+                        <div className={styles.sideText}>
+                           <Parragraph text='Public' quiet={true} size='xsmall' bold={true} />
+                        </div>
+                        <IconButton
+                           icon='lockOpen'
+                           backgroundColor='1'
+                           cta={{
+                              handleClick: () => (
+                                 setpostIsPrivate(true), cta.handlePrivacySelection(true)
+                              )
+                           }}
+                        />
+                     </>
+                  )}
+               </div>
+            )}
 
             <div className={styles.category}>
                <div className={styles.sideText}>
@@ -215,7 +219,7 @@ export const TextEditorActions = ({
                      type='1'
                      title={postButtonTitle}
                      cta={{ handleClick: cta.handlePost }}
-                     disabled={loading === "disabled"}
+                     disabled={requestStatus === "disabled"}
                   />
                )}
                {loading === "loading" && <SmallLoader />}

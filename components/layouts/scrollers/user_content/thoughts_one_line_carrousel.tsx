@@ -49,7 +49,7 @@ export const ThoughtsOneLineCarrousel = ({
    const fetchData = async (variables: TgetThoughtsVariables) => {
       try {
          const { data, status } = await handleGetThoughts(variables);
-         data && setThoughtsArr(data.thought);
+         data && setThoughtsArr(data);
          setloading(status);
       } catch (error) {
          console.error(error);

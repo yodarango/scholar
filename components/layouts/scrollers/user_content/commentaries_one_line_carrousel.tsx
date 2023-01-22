@@ -22,7 +22,6 @@ import {
 } from "../../../../helpers/functions/posts/commentary_get";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
-import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
@@ -85,35 +84,6 @@ export const CommentaryOneLineCarrousel = ({
          console.error(error);
       }
    };
-
-   // only fetches more with whatever params are there in the router posts
-   //! This might not longe be used for anything. Investigate. If true, delete it!
-   // const fetchMore = async (variables: TgetcommentariesVariables) => {
-
-   //    setsmallLoader(true);
-
-   //    try {
-   //       const { data, status } = await handleGetCommentaries(variables);
-   //       if (data && data.commentary) {
-   //          // filter tags
-   //          let moreCommentaries = data.commentary;
-
-   //          // update query variables
-   //          moreCommentaries.length > 0 &&
-   //             setqueryVariables({
-   //                ...queryVariables,
-   //                last_id: moreCommentaries[moreCommentaries.length - 1].ID
-   //             });
-
-   //          setcommentariesArr((prev) => prev && [...prev, ...moreCommentaries]);
-
-   //          setsmallLoader(false);
-   //       }
-   //    } catch (error) {
-   //       setcommentariesArr([]);
-   //       console.error(error);
-   //    }
-   // };
 
    // only call on query params change and not on first load
    let isFirstLoad = true; // make sure it does not get called on first load

@@ -36,6 +36,7 @@ type TTextEditorProps = {
    titleMaxL?: number;
    titleDefaultValue?: string;
    titlePlaceHolder?: string;
+   includeIsPrivate?: boolean;
    requestStatus?: string;
    cta: {
       handleCategorySelection: (category: string) => void;
@@ -67,6 +68,7 @@ export const TextEditor = ({
    titleDefaultValue = "",
    titlePlaceHolder,
    requestStatus,
+   includeIsPrivate,
    cta
 }: TTextEditorProps) => {
    // router
@@ -113,6 +115,7 @@ export const TextEditor = ({
 
          <div className={styles.editorActions}>
             <TextEditorActions
+               includeIsPrivate={includeIsPrivate}
                title={titleDefaultValue}
                body={postbody}
                postImage={postImage}

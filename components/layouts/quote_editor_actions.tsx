@@ -13,7 +13,7 @@ import styles from "./quote_editor_actions.module.css";
 type TQuoteEditorActionsProps = {
    categoryId?: string;
    background?: string;
-   requestStatus: string;
+   requestStatus?: string;
    cta: {
       handleCategory: (cat: string) => void;
       handleBkg: (background: string | { light: string; dark: string }) => void;
@@ -50,8 +50,13 @@ export const QuoteEditorActions = ({
          </div>
 
          <div className={styles.post}>
-            {loading === "done" && (
-               <Primary type='1' cta={{ handleClick: cta.handlePost }} title='Post' />
+            {loading !== "loading" && (
+               <Primary
+                  type='1'
+                  cta={{ handleClick: cta.handlePost }}
+                  title='Post'
+                  disabled={requestStatus === "disabled"}
+               />
             )}
             {loading === "loading" && <SmallLoader />}
          </div>

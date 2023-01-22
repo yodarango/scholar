@@ -17,13 +17,12 @@ export const GET_THOUGHTS = gql`
          created_date
          referenced_verses
          post_image
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
+         # creator {
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # }
          comments {
             total_count
          }
@@ -45,13 +44,12 @@ export const GET_THOUGHT_IN_24 = gql`
          posted_on
          post_image
          referenced_verses
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
+         # creator {
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # }
          comments {
             total_count
          }

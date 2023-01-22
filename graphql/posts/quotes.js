@@ -17,13 +17,13 @@ export const GET_QUOTE = gql`
          background
          posted_on
          created_date
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
+         # creator {
+         USER_ID
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # }
          comments {
             total_count
          }
@@ -46,13 +46,13 @@ export const GET_QUOTE_IN_24 = gql`
          background
          created_date
          posted_on
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
+         # creator {
+         USER_ID
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # }
          comments {
             total_count
          }
@@ -80,7 +80,7 @@ export const GET_EDIT_QUOTE = gql`
    }
 `;
 
-// ========================  POST ===================
+//  POST
 export const CREATE_NEW_QUOTE = gql`
    mutation ($body: String, $category_tags: String, $author: String, $background: String) {
       quote(

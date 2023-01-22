@@ -10,6 +10,7 @@ import { notificationMessages } from "../../../data/notification_messages";
 
 // constants
 import { DEFAULT_THOUGHT_IMAGE, DEFAULT_COMMENTARY_IMAGE } from "../../../constants/defaults";
+import commentaries_one_line_carrouselStories from "../../../components/layouts/scrollers/user_content/commentaries_one_line_carrousel.stories";
 
 export type THandlePostContent = {
    title?: string;
@@ -45,6 +46,7 @@ export const dataHandler = async (variables: THandlePostContent, QUERY: any, typ
 };
 
 export const handlePostContent = async (variables: THandlePostContent, type: string) => {
+   console.log(variables, type);
    let QUERY;
    variables.category_tags = variables
       ? variables.category_tags?.toString().replaceAll(", ", "")

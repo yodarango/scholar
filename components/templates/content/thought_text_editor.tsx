@@ -10,7 +10,6 @@ import { Notification } from "../../fragments/popups/notification";
 import styles from "./thought_text_editor.module.css";
 
 // helpers
-import { THandlePostThought } from "../../../helpers/functions/posts/thought_post";
 import {
    handlePostContent,
    THandlePostContent
@@ -99,7 +98,6 @@ export const ThoughtTextEditor = ({
 
    // handle the saving the post to the DB
    const handlePost = async () => {
-      console.log("before", state);
       setloading("loading");
 
       const post = await handlePostContent(state, "Thought");
@@ -154,6 +152,7 @@ export const ThoughtTextEditor = ({
             </div>
             <div className={styles.textEditor}>
                <TextEditor
+                  includeIsPrivate={false}
                   withTitle={true}
                   titleMaxL={150}
                   titleDefaultValue={state.title}
