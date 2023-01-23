@@ -23,13 +23,13 @@ export const GET_THOUGHTS = gql`
          authority_level
          avatar
          # }
-         comments {
-            total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
+         # comments {
+         total_comment_count
+         # }
+         # approvals {
+         average_rating_count
+         total_rating_count
+         # }
       }
    }
 `;
@@ -50,13 +50,13 @@ export const GET_THOUGHT_IN_24 = gql`
          authority_level
          avatar
          # }
-         comments {
-            total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
+         # comments {
+         total_comment_count
+         # }
+         # approvals {
+         average_rating_count
+         total_rating_count
+         # }
       }
    }
 `;
@@ -70,9 +70,9 @@ export const GET_EDIT_THOUGHT = gql`
          category_tags
          posted_on
          referenced_verses
-         creator {
-            ID
-         }
+         # creator {
+         #    ID
+         # }
       }
    }
 `;
@@ -87,20 +87,20 @@ export const WIGO_REQUEST_MORE_THOUGHTS = gql`
          USER_ID
          category_tags
          posted_on
-         creator {
-            ID
-            signature
-            approval_rating
-            authority_level
-            avatar
-         }
-         comments {
-            total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
+         # creator {
+         ID
+         signature
+         approval_rating
+         authority_level
+         avatar
+         # }
+         # comments {
+         total_comment_count
+         # }
+         # approvals {
+         average_rating_count
+         total_rating_count
+         # }
       }
    }
 `;

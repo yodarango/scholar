@@ -26,10 +26,15 @@ export const handleGetThoughtIn24 = async () => {
             last_name: c.last_name,
             my_church: c.my_church,
             avatar: c.avatar
+         },
+         comments: {
+            total_count: c.total_comment_count
+         },
+         approvals: {
+            average_count: c.average_rating_count,
+            total_count: c.total_rating_count
          }
       }));
-
-      console.log(thought);
 
       return { data: thought, status: "done" };
    } catch (error) {
@@ -69,6 +74,9 @@ export const handleGetThoughts = async (variables: TgetThoughtsVariables) => {
             last_name: c.last_name,
             my_church: c.my_church,
             avatar: c.avatar
+         },
+         comments: {
+            total_count: c.total_comment_count
          }
       }));
 

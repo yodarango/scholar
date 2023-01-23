@@ -277,7 +277,6 @@ const ReadingCollageUnit = ({ multiViewClass, versionId }: ReadingCollageUnitPro
          ".readingCollageUnit_currentChapterWrapper__R59Gr span"
       );
       verse.forEach((el: any) => (el.style.fontSize = `${size}`));
-      console.log(size);
    };
 
    // 4. handle color reset

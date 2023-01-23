@@ -24,13 +24,13 @@ export const GET_QUOTE = gql`
          authority_level
          avatar
          # }
-         comments {
-            total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
+         # comments {
+         total_comment_count
+         # }
+         # approvals {
+         average_rating_count
+         total_rating_count
+         # }
       }
    }
 `;
@@ -53,13 +53,13 @@ export const GET_QUOTE_IN_24 = gql`
          authority_level
          avatar
          # }
-         comments {
-            total_count
-         }
-         approvals {
-            average_count
-            total_count
-         }
+         # comments {
+         total_comment_count
+         # }
+         # approvals {
+         average_rating_count
+         total_rating_count
+         # }
       }
    }
 `;
