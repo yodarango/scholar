@@ -64,7 +64,7 @@ export const handleGetQuote = async (variables: TgetQuoteVariables) => {
       }
 
       // format the data into commentary: { user:{}}
-      const quote = data.quote_in_24.map((c: any) => ({
+      const quote = data.quote.map((c: any) => ({
          ...c,
          creator: {
             ID: c.USER_ID,

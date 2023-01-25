@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // components
@@ -18,6 +17,8 @@ import { handleGetQuote } from "../../../helpers/functions/posts/quote_get";
 import { TQuote } from "../../../types/posts";
 import { colors } from "../../../styles/tokens";
 
+// constants
+import { POST_TYPE_QUOTE } from "../../../constants/defaults";
 export const ViewQuote = () => {
    const router = useRouter();
    const ID = router?.query && router?.query.id ? router?.query.id : "1";
@@ -28,7 +29,7 @@ export const ViewQuote = () => {
    const getData = async (variables: any) => {
       try {
          const { data, status } = await handleGetQuote(variables);
-         if (data?.quote) setquote(data.quote[0]);
+         if (data) setquote(data[0]);
          setloading(status);
       } catch (error) {
          setloading("error");
@@ -72,8 +73,9 @@ export const ViewQuote = () => {
 
                <div className={styles.footer}>
                   <PostReactions
+                     userId={quote.creator.ID}
                      postId={quote?.ID}
-                     contentType={1}
+                     contentType={POST_TYPE_QUOTE}
                      postRating={{
                         totalCount: quote?.approvals?.total_count,
                         averageCount: quote?.approvals?.average_count

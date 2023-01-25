@@ -65,26 +65,6 @@ export const WithTextContentStack = ({
    noResize,
    postReferences
 }: TPrimaryStackprops) => {
-   console.table({
-      title,
-      body,
-      cta,
-      closeHref,
-      postImage,
-      userAuthority,
-      userId,
-      username,
-      avatar,
-      postPostedOnDate,
-      postCreatedDate,
-      postCategory,
-      textAreaHeight,
-      textAreaMaxHeight,
-      textAreaMaxLength,
-      withEdit,
-      noResize,
-      postReferences
-   });
    // state
    const [showVerseReferences, setshowVerseReferences] = useState(false);
    const [contentWrapperClass, setcontentWrapperClass] =

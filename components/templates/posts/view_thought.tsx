@@ -23,7 +23,7 @@ export const ViewThought = () => {
    const getData = async (variables: any) => {
       try {
          const { data, status } = await handleGetThoughts(variables);
-         if (data?.thought) setthought(data.thought[0]);
+         if (data) setthought(data[0]);
 
          setloading(status);
       } catch (error) {
