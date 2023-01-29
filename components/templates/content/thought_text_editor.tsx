@@ -15,6 +15,9 @@ import {
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
 
+// helpers
+import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
+
 type TThoughtTextEditorProps = {
    userId: string;
    username: string;
@@ -46,10 +49,10 @@ export const ThoughtTextEditor = ({
 }: TThoughtTextEditorProps) => {
    // state
    // postReferencedVerses do not update on reducer changing
-   const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
    const [notification, setnotification] =
       useState<null | { title: string; body: string; type: string }>(null);
    const [loading, setloading] = useState("done");
+   const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
    const post: THandlePostContent = {
       category_tags: postCategory,
@@ -158,15 +161,15 @@ export const ThoughtTextEditor = ({
                   titleDefaultValue={state.title}
                   titlePlaceHolder='Post Title'
                   body={body}
-                  postImage={state.post_image}
+                  postImage={postImage || state.post_image}
                   userAuthority={userAuthority}
                   userId={userId}
                   username={username}
                   avatar={avatar}
-                  postPostedOnDate={postPostedOnDate}
-                  postCreatedDate={postCreatedDate}
-                  postCategory={state.category_tags}
-                  postReferences={state.referenced_verses}
+                  postPostedOnDate={postPostedOnDate || postDate.posted}
+                  postCreatedDate={postCreatedDate || postDate.created}
+                  postCategory={postCategory || state.category_tags}
+                  postReferences={postReferences || state.referenced_verses}
                   postPrivacy={postPrivacy}
                   requestStatus={loading}
                   cta={{

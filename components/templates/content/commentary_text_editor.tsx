@@ -17,6 +17,7 @@ import {
    handlePostContent,
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
+import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
 
 type TCommentaryTextEditorProps = {
    userId: string;
@@ -56,7 +57,7 @@ export const CommentaryTextEditor = ({
    postPostedOnDate = "",
    postCreatedDate = "",
    postCategory = "",
-   postReferences = [],
+   postReferences,
    postPrivacy = false,
    readyData,
    cta
@@ -65,16 +66,15 @@ export const CommentaryTextEditor = ({
    const router = useRouter();
 
    // state
-   // postReferencedVerses do not update on reducer changing
-   const [postReferencedVerses, setpostReferencedVerses] = useState<string[]>(postReferences);
    const [notification, setnotification] =
       useState<null | { title: string; body: string; type: string }>(null);
    const [loading, setloading] = useState("done");
+   const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
    const post: THandlePostContent = {
       category_tags: postCategory,
       body,
-      referenced_verses: postReferencedVerses,
+      referenced_verses: postReferences,
       is_private: postPrivacy,
       VERSE_ID: verseId,
       verse_citation: verseCitation,
@@ -174,10 +174,10 @@ export const CommentaryTextEditor = ({
                   userId={userId}
                   username={username}
                   avatar={avatar}
-                  postPostedOnDate={postPostedOnDate}
-                  postCreatedDate={postCreatedDate}
-                  postCategory={postCategory}
-                  postReferences={state.referencedVerses}
+                  postPostedOnDate={postPostedOnDate || postDate.posted}
+                  postCreatedDate={postCreatedDate || postDate.created}
+                  postCategory={postCategory || state.category_tags}
+                  postReferences={postReferences || state.referenced_verses}
                   postPrivacy={postPrivacy}
                   requestStatus={loading}
                   cta={{

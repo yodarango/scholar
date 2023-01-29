@@ -105,7 +105,7 @@ export const ScripturePicker = ({
                cta={{
                   handleOpenVerseSelectionModal,
                   handleChapterSelection: cta,
-                  handleInitLoader: (init: boolean) => handleSetInitLoader(init)
+                  handleInitLoader: handleSetInitLoader
                }}
                chapterCount={bible.chapters}
             />
@@ -121,9 +121,7 @@ export const ScripturePicker = ({
                cta={{
                   handleCloseModal: handlecloseShowVerseMenuModal,
                   handleVerseSelection: cta,
-                  handleInitLoader: (init: boolean) => (
-                     console.log(init), handleSetInitLoader(init)
-                  )
+                  handleInitLoader: handleSetInitLoader
                }}
             />
          )}

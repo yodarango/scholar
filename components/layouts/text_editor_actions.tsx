@@ -107,7 +107,7 @@ export const TextEditorActions = ({
                      title='Select scripture'
                      cta={{ handleClose: () => setshowChooseScriptureModal(false) }}>
                      <BibleBooksWrapper
-                        stopAtChapterId={true}
+                        stopAtChapterId={false}
                         versionId='de4e12af7f28f599-02'
                         stopAtVerse={false}
                         stopAtChapter={false}
