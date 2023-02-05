@@ -10,39 +10,26 @@ import styles from "./navigation_main.module.css";
 export const NavigationMain = ({ children }: any) => {
    //-------------- router -------------
    const router = useRouter();
+   // var ua = navigator.userAgent;
+   // const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua);
 
-   // --------------- state ------------------
-   const [displayLib, setDisplayLib] = useState<boolean>(true);
    const [currentPage, setcurrentPage] = useState<string>("");
 
-   // check if user is on mobile
-   const goFullscreen = () => {
-      var ua = navigator.userAgent;
-      var isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua);
-
-      if (isMobile) {
-         setDisplayLib(false);
-      }
-   };
-
-   useEffect(() => {
-      goFullscreen();
-   }, []);
-
    // ------------ check the current page to change the color of the icon ----------
-   useEffect(() => {
-      if (router.isReady) {
-         if (router.asPath === "/") {
-            setcurrentPage("home");
-         } else if (router.asPath.includes("/verse-by-verse")) {
-            setcurrentPage("commentary");
-         } else if (router.asPath.includes("/read")) {
-            setcurrentPage("read");
-         } else if (router.asPath.includes("/users")) {
-            setcurrentPage("profile");
-         }
-      }
-   }, [router.isReady]);
+   // useEffect(() => {
+   //    if (router.isReady) {
+   //       console.log(router.asPath.includes("/users"));
+   //       if (router.asPath === "/") {
+   //          setcurrentPage("home");
+   //       } else if (router.asPath.includes("/verse-by-verse")) {
+   //          setcurrentPage("commentary");
+   //       } else if (router.asPath.includes("/read")) {
+   //          setcurrentPage("read");
+   //       } else if (router.asPath.includes("/users")) {
+   //          setcurrentPage("users");
+   //       }
+   //    }
+   // }, [router]);
 
    return (
       <>
@@ -51,14 +38,17 @@ export const NavigationMain = ({ children }: any) => {
             <div className={styles.subWrapper}>
                <Link href={"/"}>
                   <a
+                     onClick={() => setcurrentPage("home")}
                      className={`${styles.home} ${styles.menuOption} ${
                         currentPage === "home" && styles.active
                      }`}>
                      <Icon name='home' size='2rem' color='#F1EAFF' />
                   </a>
                </Link>
+
                <Link href={"/verse-by-verse"}>
                   <a
+                     onClick={() => setcurrentPage("commentary")}
                      className={`${styles.feed} ${styles.menuOption} ${
                         currentPage === "commentary" && styles.active
                      }`}>
@@ -67,6 +57,7 @@ export const NavigationMain = ({ children }: any) => {
                </Link>
                <Link href={"/read"}>
                   <a
+                     onClick={() => setcurrentPage("read")}
                      className={`${styles.read} ${styles.menuOption} ${
                         currentPage === "read" && styles.active
                      }`}>
@@ -75,6 +66,7 @@ export const NavigationMain = ({ children }: any) => {
                </Link>
                <Link href={"/users/me"}>
                   <a
+                     onClick={() => setcurrentPage("users")}
                      className={`${styles.profile} ${styles.menuOption} ${
                         currentPage === "users" && styles.active
                      }`}>

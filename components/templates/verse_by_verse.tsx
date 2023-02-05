@@ -11,12 +11,26 @@ export const VerseByVerse = () => {
    //state
    const [triggerEffect, setsTriggerEffect] = useState<boolean>(false);
    let scrollYDis = 0;
+   let changeDir = false; // kep comp from rerendering each time
    const handleHeader = () => {
       const distance = scrollTarget.current.getBoundingClientRect().y;
       const isScrollingDown = scrollYDis - distance > 0 ? true : false;
 
+      const innerHeight = window.innerHeight;
+      const bottom = scrollTarget.current.getBoundingClientRect().bottom;
+      console.log(scrollTarget.current.getBoundingClientRect());
+      console.log(window.innerHeight);
+
+      console.log(innerHeight - bottom);
+
+      if (innerHeight - bottom < 100 && innerHeight - bottom > -100) {
+         setsTriggerEffect(true);
+      } else if (triggerEffect !== changeDir) {
+         setsTriggerEffect(isScrollingDown);
+      }
       scrollYDis = distance;
-      setsTriggerEffect(isScrollingDown);
+
+      changeDir = isScrollingDown;
    };
 
    useEffect(() => {
