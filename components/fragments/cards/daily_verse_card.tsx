@@ -1,5 +1,4 @@
 /********************************************************************************************* 
-   //! not able to load in stories due to the useRouter hook by next
 -  This component loads a specific verse by calling the verse-id in the router. If no verse-id 
    value is found in the router, however, a default verse will be returned by the helper
    function making the call.
@@ -25,12 +24,16 @@ import styles from "./daily_verse_card.module.css";
 import { fetchBibleVerseWDefault } from "../../../helpers/APIs/fetch_bible_verse_with_default";
 import { RoundLoader } from "../chunks/round_loader";
 
-export const DailyVerseCard = () => {
-   // -------------------------- hooks --------------------
+type TypeDailyVerseCardProps = {
+   withOutActions?: boolean;
+};
+
+export const DailyVerseCard = ({ withOutActions }: TypeDailyVerseCardProps) => {
+   //  hooks
    const [verseContent, setverseContent] = useState<any>(null);
    const [loading, setloading] = useState<string>("loading");
 
-   // ----------------- make the call to the API on useEffect and router.isReady
+   //  make the call to the API on useEffect and router.isReady
    const getVerseDate = async (version?: string) => {
       const verseId = router.query["VERSE_ID"];
 
@@ -59,7 +62,7 @@ export const DailyVerseCard = () => {
    }, [router.isReady, router.query]);
 
    return (
-      // ------------------------ loading state ------------------------
+      //  loading state
       <div className={styles.mainWrapper}>
          {loading === "loading" && (
             <div className={`${styles.card} ${styles.loadinCard}`}>
@@ -72,11 +75,11 @@ export const DailyVerseCard = () => {
             </div>
          )}
 
-         {/* ------------------------ load content -------------------------- */}
+         {/*  load content  */}
 
          {verseContent && loading === "done" && (
-            <div className={styles.card}>
-               {/* --------------------- title ---------------------- */}
+            <div className={`${styles.card} ${withOutActions ? styles.cardWithOutActions : ""}`}>
+               {/*  title  */}
                <div className={styles.title}>
                   <Header
                      text={verseContent.reference}
@@ -87,31 +90,36 @@ export const DailyVerseCard = () => {
                   />
                </div>
 
-               {/* --------------------- content ---------------------- */}
-               <div className={styles.content}>
+               {/*  content  */}
+               <div
+                  className={`${styles.content} ${
+                     withOutActions ? styles.contentWithOutActions : ""
+                  }`}>
                   <Parragraph text={verseContent.content} size='main' align='center' />
                </div>
 
                {/* --------------------- card actions ----------------- */}
-               <div className={styles.actions}>
-                  <Link href={`/verse-by-verse?VERSE_ID=${verseContent.previous.id}`}>
-                     <a>
-                        <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
-                     </a>
-                  </Link>
+               {!withOutActions && (
+                  <div className={styles.actions}>
+                     <Link href={`/verse-by-verse?VERSE_ID=${verseContent.previous.id}`}>
+                        <a>
+                           <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
+                        </a>
+                     </Link>
 
-                  <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
-                     <a>
-                        <Icon name='comment' size='2rem' color='#F1EAFF' />
-                     </a>
-                  </Link>
+                     <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
+                        <a>
+                           <Icon name='comment' size='2rem' color='#F1EAFF' />
+                        </a>
+                     </Link>
 
-                  <Link href={`/verse-by-verse?VERSE_ID=${verseContent.next.id}`}>
-                     <a>
-                        <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
-                     </a>
-                  </Link>
-               </div>
+                     <Link href={`/verse-by-verse?VERSE_ID=${verseContent.next.id}`}>
+                        <a>
+                           <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
+                        </a>
+                     </Link>
+                  </div>
+               )}
             </div>
          )}
          {loading === "error" && (

@@ -24,9 +24,6 @@ type TReadBibleTemplateProps = {
    };
 };
 export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) => {
-   // router
-   const router = useRouter();
-
    //state
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");

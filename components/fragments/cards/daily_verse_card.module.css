@@ -1,3 +1,7 @@
+.mainWrapper {
+   width: 100%;
+}
+
 .card {
    width: 100%;
    min-height: 10rem;
@@ -7,8 +11,17 @@
    box-shadow: 0.4rem 0.4rem 0.8rem var(--shadow-color);
 }
 
+.cardWithOutActions {
+   width: 100%;
+   padding-bottom: var(--spacing-xs);
+}
+
 .content {
    margin: var(--spacing-m) auto var(--spacing-l);
+}
+
+.contentWithOutActions {
+   margin-bottom: 0;
 }
 
 .content p {
@@ -36,10 +49,10 @@
 
 /* ---------------------- loading card --------------- */
 .loadinCard .loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: var(--spacing-m);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: var(--spacing-m);
 }
 
 /* ---------------------- loading card --------------- */

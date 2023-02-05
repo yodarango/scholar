@@ -5,6 +5,7 @@ const Index = () => {
    return (
       <main className={styles.mainWrapper}>
          <VerseByVerse />
+         <div className='spacer-page-bottom'></div>
       </main>
    );
 };

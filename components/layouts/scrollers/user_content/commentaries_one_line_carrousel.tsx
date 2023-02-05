@@ -6,7 +6,7 @@
 -  PROP: userID is passed the function is called for a particular user
 ****************************************************************************************/
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 // comps
@@ -42,7 +42,7 @@ export const CommentaryOneLineCarrousel = ({
    const [loading, setloading] = useState<string>(loadingState);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
-      AUTHORITY_LEVEL: "0",
+      AUTHORITY_LEVEL: 0,
       last_id: CONTENT_LAST_ID
    });
 
@@ -51,12 +51,12 @@ export const CommentaryOneLineCarrousel = ({
       setloading("loading");
       try {
          const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            setcommentariesArr(data.commentary);
-            data.commentary.length > 0 &&
+         if (data) {
+            setcommentariesArr(data);
+            data.length > 0 &&
                setqueryVariables({
                   ...queryVariables,
-                  last_id: data.commentary[data.commentary.length - 1].ID
+                  last_id: data[data.length - 1].ID
                });
          }
          setloading(status);
@@ -73,8 +73,8 @@ export const CommentaryOneLineCarrousel = ({
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            setcommentariesArr(data.commentary);
+         if (data) {
+            setcommentariesArr(data);
 
             setloading(status);
          }
@@ -86,13 +86,20 @@ export const CommentaryOneLineCarrousel = ({
    };
 
    // only call on query params change and not on first load
-   let isFirstLoad = true; // make sure it does not get called on first load
+   // make sure it does not get called on first load
+   const isFirstLoad = useRef(1);
    useEffect(() => {
-      if (!commentaries)
-         if (router.isReady && !isFirstLoad)
+      console.log("mount");
+      if (!commentaries) {
+         if (router.isReady && isFirstLoad.current >= 3)
             fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+      }
+
+      return () => {
+         console.log("unmounted");
+         isFirstLoad.current = isFirstLoad.current + 1;
+      };
    }, [router.query]);
-   isFirstLoad = false;
 
    // only call fetch data on initial load
    useEffect(() => {

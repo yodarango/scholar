@@ -56,12 +56,11 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            setcommentaries(data.commentary);
-            data.commentary.length > 0 &&
-               setqueryVariables({ last_id: data.commentary[data.commentary.length - 1].ID });
+         if (data) {
+            setcommentaries(data);
+            data.length > 0 && setqueryVariables({ last_id: data[data.length - 1].ID });
 
-            data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
          setisFirstLoad(false);
          setloading(status);
@@ -81,9 +80,9 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
-            setcommentaries(data.commentary);
-            data.commentary.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         if (data) {
+            setcommentaries(data);
+            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setloading(status);
             setisFirstLoad(false);
          }
@@ -103,9 +102,9 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
-         if (data && data.commentary) {
+         if (data) {
             // filter tags
-            let moreCommentaries = data.commentary;
+            let moreCommentaries = data;
 
             // update query variables
             moreCommentaries.length > 0 &&

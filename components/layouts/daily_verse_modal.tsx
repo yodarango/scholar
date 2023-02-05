@@ -10,7 +10,11 @@ import Portal from "../hoc/potal";
 //styles
 import styles from "./daily_verse_modal.module.css";
 
-export const DailyVerseModal = () => {
+type TDailyVerseModalProps = {
+   versecardOnly?: boolean;
+};
+
+export const DailyVerseModal = ({ versecardOnly }: TDailyVerseModalProps) => {
    const [showModal, setshowModal] = useState<number>(0);
 
    return (
@@ -34,17 +38,25 @@ export const DailyVerseModal = () => {
                </div>
             )}
          </Portal>
-         <div className={styles.dailyVerseCard}>
-            <DailyVerseCard />
-         </div>
-
-         <div className={styles.button}>
-            <Primary
-               title='Select new verse'
-               type='1'
-               cta={{ handleClick: () => setshowModal(1) }}
-            />
-         </div>
+         {!versecardOnly && (
+            <>
+               <div className={styles.dailyVerseCard}>
+                  <DailyVerseCard />
+               </div>
+               <div className={styles.button}>
+                  <Primary
+                     title='Select new verse'
+                     type='1'
+                     cta={{ handleClick: () => setshowModal(1) }}
+                  />
+               </div>
+            </>
+         )}
+         {versecardOnly && (
+            <div className={styles.dailyVerseCardOnly}>
+               <DailyVerseCard withOutActions={versecardOnly} />
+            </div>
+         )}
       </div>
    );
 };

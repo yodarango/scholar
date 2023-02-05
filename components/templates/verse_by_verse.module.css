@@ -2,15 +2,46 @@
    width: 100%;
 }
 
-.addBtn{
-position: fixed;
-top:var(--spacing-m) ;
-right: var(--spacing-m);
+.addBtn {
+   z-index: 3;
+   position: fixed;
+   top: var(--spacing-m);
+   right: var(--spacing-m);
+}
+
+.top {
+   background-color: var(--primary-color);
+   z-index: 2;
+   top: 0;
+   width: 100vw;
+   position: fixed;
+   left: calc(-50vw + 50%);
+   transition: all 500ms ease;
+}
+
+.topScrolling {
+   background-color: var(--secondary-color);
+   top: -2rem;
+   width: 100vw;
+   position: fixed;
+   left: calc(-50vw + 50%);
+}
+
+.topScrolling .verseFilter {
+   background-color: var(--secondary-color);
+}
+
+.topScrolling * div:not(.shadow) {
+   box-shadow: none;
 }
 
 .verse {
    width: 100%;
-   margin: 10rem auto var(--spacing-l);
+   margin: 5rem auto var(--spacing-l);
+}
+
+.topScrolling .verse {
+   margin-bottom: 0;
 }
 
 .filter {
@@ -19,13 +50,22 @@ right: var(--spacing-m);
 }
 
 .commentaries {
+   z-index: 1;
+   margin-top: 25rem;
+   padding-top: 20rem;
    position: relative;
+   transition: all 500ms ease;
+}
+
+.commentariesTopScrolling {
+   padding-top: 0rem;
 }
 
 .shadow {
    position: absolute;
-   width: 10rem;
-   height: 100%;
-   left: calc(100% - 10rem);
-   background-image: linear-gradient(-90deg, var(--primary-color), transparent);
+   width: 100%;
+   height: 5rem;
+   bottom: -5rem;
+   left: 0;
+   background-image: linear-gradient(-180deg, var(--primary-color), transparent);
 }

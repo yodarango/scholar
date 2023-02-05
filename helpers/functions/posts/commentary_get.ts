@@ -7,7 +7,7 @@ export type TgetcommentariesVariables = {
    ID?: string | number;
    USER_ID?: string;
    VERSE_ID?: string;
-   AUTHORITY_LEVEL?: string;
+   AUTHORITY_LEVEL?: string | number;
    body?: string;
    category_tags?: string;
    last_id?: string | number;
@@ -55,6 +55,10 @@ export const handleGetCommentariesIn24 = async () => {
 };
 
 export const handleGetCommentaries = async (variables: TgetcommentariesVariables) => {
+   if (variables.AUTHORITY_LEVEL && typeof variables.AUTHORITY_LEVEL === "string") {
+      variables.AUTHORITY_LEVEL = parseInt(variables.AUTHORITY_LEVEL);
+   }
+
    try {
       const { data } = await client.query({
          query: GET_COMMENTARIES,
@@ -66,7 +70,7 @@ export const handleGetCommentaries = async (variables: TgetcommentariesVariables
       }
 
       //  format the data into commentary: { user:{}}
-      const commentaries = data.commentary_in_24.map((c: any) => ({
+      const commentaries = data.commentary.map((c: any) => ({
          ...c,
          creator: {
             ID: c.USER_ID,
@@ -93,21 +97,3 @@ export const handleGetCommentaries = async (variables: TgetcommentariesVariables
       return { data: null, status: "error" };
    }
 };
-
-// export const handleGetMore = async (variables: TgetcommentariesVariables) => {
-//    try {
-//       const { data } = await client.query({
-//          query: GET_COMMENTARIES,
-//          variables
-//       });
-
-//       if (!data.commentary) {
-//          return { data: null, status: "error" };
-//       }
-
-//       return { data, status: "done" };
-//    } catch (error) {
-//       console.error(error);
-//       return { data: null, status: "error" };
-//    }
-// };
