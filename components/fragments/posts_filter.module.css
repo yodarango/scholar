@@ -1,0 +1,12 @@
+.mainWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: var(--spacing-xs) 0;
+   border-bottom: 0.1rem solid var(--third-color);
+   background-color: var(--primary-color);
+}
+.link {
+   width: 33.33%;
+}

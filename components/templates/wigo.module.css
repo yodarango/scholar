@@ -2,8 +2,8 @@
    width: 100%;
 }
 
-.mainWrapper > div,
-.mainWrapper > div:not(first-of-type) {
+.dailyVerse,
+.polls {
    margin: var(--spacing-l) auto;
 }
 
@@ -12,7 +12,14 @@
 }
 .addButton {
    position: fixed;
-   top: var(--spacing-m);
-   right: var(--spacing-l);
+   top: var(--spacing-l);
+   right: var(--spacing-xs);
    z-index: 5;
+}
+
+.filter {
+   z-index: 2;
+   top: 0;
+   position: sticky;
+   margin: 0 0 var(--spacing-l);
 }

@@ -8,7 +8,8 @@ import { Icon } from "../../fragments/chunks/icons";
 import styles from "./navigation_main.module.css";
 
 export const NavigationMain = ({ children }: any) => {
-   //-------------- router -------------
+   const [shouldRender, setshouldRender] = useState<boolean>(true);
+   // router
    const router = useRouter();
    // var ua = navigator.userAgent;
    // const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua);
@@ -28,53 +29,64 @@ export const NavigationMain = ({ children }: any) => {
          } else if (router.asPath.includes("/users")) {
             setcurrentPage("users");
          }
+
+         if (
+            router.asPath.includes("/commentary/new") ||
+            router.asPath.includes("/quote/new") ||
+            router.asPath.includes("/thought/new") ||
+            router.asPath.includes("/sermon-note/new")
+         ) {
+            setshouldRender(false);
+         }
       }
-   }, []);
+   }, [router]);
 
    return (
       <>
          {children}
-         <div className={`${styles.mainWrapper}`}>
-            <div className={styles.subWrapper}>
-               <Link href={"/"}>
-                  <a
-                     onClick={() => setcurrentPage("home")}
-                     className={`${styles.home} ${styles.menuOption} ${
-                        currentPage === "home" && styles.active
-                     }`}>
-                     <Icon name='home' size='2rem' color='#F1EAFF' />
-                  </a>
-               </Link>
+         {shouldRender && (
+            <div className={`${styles.mainWrapper}`}>
+               <div className={styles.subWrapper}>
+                  <Link href={"/"}>
+                     <a
+                        onClick={() => setcurrentPage("home")}
+                        className={`${styles.home} ${styles.menuOption} ${
+                           currentPage === "home" && styles.active
+                        }`}>
+                        <Icon name='home' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
 
-               <Link href={"/verse-by-verse"}>
-                  <a
-                     onClick={() => setcurrentPage("commentary")}
-                     className={`${styles.feed} ${styles.menuOption} ${
-                        currentPage === "commentary" && styles.active
-                     }`}>
-                     <Icon name='chat' size='2rem' color='#F1EAFF' />
-                  </a>
-               </Link>
-               <Link href={"/read"}>
-                  <a
-                     onClick={() => setcurrentPage("read")}
-                     className={`${styles.read} ${styles.menuOption} ${
-                        currentPage === "read" && styles.active
-                     }`}>
-                     <Icon name='book' size='2rem' color='#F1EAFF' />
-                  </a>
-               </Link>
-               <Link href={"/users/me"}>
-                  <a
-                     onClick={() => setcurrentPage("users")}
-                     className={`${styles.profile} ${styles.menuOption} ${
-                        currentPage === "users" && styles.active
-                     }`}>
-                     <Icon name='profile' size='2rem' color='#F1EAFF' />
-                  </a>
-               </Link>
+                  <Link href={"/verse-by-verse"}>
+                     <a
+                        onClick={() => setcurrentPage("commentary")}
+                        className={`${styles.feed} ${styles.menuOption} ${
+                           currentPage === "commentary" && styles.active
+                        }`}>
+                        <Icon name='chat' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
+                  <Link href={"/read"}>
+                     <a
+                        onClick={() => setcurrentPage("read")}
+                        className={`${styles.read} ${styles.menuOption} ${
+                           currentPage === "read" && styles.active
+                        }`}>
+                        <Icon name='book' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
+                  <Link href={"/users/me"}>
+                     <a
+                        onClick={() => setcurrentPage("users")}
+                        className={`${styles.profile} ${styles.menuOption} ${
+                           currentPage === "users" && styles.active
+                        }`}>
+                        <Icon name='profile' size='2rem' color='#F1EAFF' />
+                     </a>
+                  </Link>
+               </div>
             </div>
-         </div>
+         )}
       </>
    );
 };

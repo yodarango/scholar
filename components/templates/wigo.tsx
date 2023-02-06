@@ -1,4 +1,5 @@
 import { AddContent } from "../fragments/buttons/add_content";
+import { PostFilter } from "../fragments/posts_filter";
 import { CastYourVote } from "../layouts/wigo/cast_your_vote";
 import { FastFacts } from "../layouts/wigo/fast_facts";
 import { WigoCommentaries } from "../layouts/wigo/wigo_commentaries";
@@ -26,6 +27,9 @@ export const Wigo = () => {
          </div>
          <div className={styles.polls}>
             <CastYourVote />
+         </div>
+         <div className={styles.filter}>
+            <PostFilter />
          </div>
          <div>
             <WigoFeed />
