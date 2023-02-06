@@ -31,19 +31,13 @@ export const GET_COMMENTARIES = gql`
          posted_on
          post_image
          is_private
-         # creator {
          signature
          approval_rating
          authority_level
          avatar
-         # }
-         # comments {
          total_comment_count
-         # }
-         # approvals {
          average_rating_count
          total_rating_count
-         # }
       }
    }
 `;

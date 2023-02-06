@@ -15,21 +15,21 @@ export const NavigationMain = ({ children }: any) => {
 
    const [currentPage, setcurrentPage] = useState<string>("");
 
-   // ------------ check the current page to change the color of the icon ----------
-   // useEffect(() => {
-   //    if (router.isReady) {
-   //       console.log(router.asPath.includes("/users"));
-   //       if (router.asPath === "/") {
-   //          setcurrentPage("home");
-   //       } else if (router.asPath.includes("/verse-by-verse")) {
-   //          setcurrentPage("commentary");
-   //       } else if (router.asPath.includes("/read")) {
-   //          setcurrentPage("read");
-   //       } else if (router.asPath.includes("/users")) {
-   //          setcurrentPage("users");
-   //       }
-   //    }
-   // }, [router]);
+   // check the current page to change the color of the icon
+   useEffect(() => {
+      if (router.isReady) {
+         console.log(router.asPath.includes("/users"));
+         if (router.asPath === "/") {
+            setcurrentPage("home");
+         } else if (router.asPath.includes("/verse-by-verse")) {
+            setcurrentPage("commentary");
+         } else if (router.asPath.includes("/read")) {
+            setcurrentPage("read");
+         } else if (router.asPath.includes("/users")) {
+            setcurrentPage("users");
+         }
+      }
+   }, []);
 
    return (
       <>

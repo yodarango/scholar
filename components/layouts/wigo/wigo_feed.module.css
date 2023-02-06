@@ -1,0 +1,7 @@
+.mainWrapper {
+   width: 100%;
+}
+
+.post {
+   margin: 0 0 var(--spacing-m);
+}

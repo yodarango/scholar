@@ -18,10 +18,6 @@ export const VerseByVerse = () => {
 
       const innerHeight = window.innerHeight;
       const bottom = scrollTarget.current.getBoundingClientRect().bottom;
-      console.log(scrollTarget.current.getBoundingClientRect());
-      console.log(window.innerHeight);
-
-      console.log(innerHeight - bottom);
 
       if (innerHeight - bottom < 100 && innerHeight - bottom > -100) {
          setsTriggerEffect(true);
