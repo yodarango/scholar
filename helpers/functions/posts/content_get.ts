@@ -2,12 +2,18 @@
 import { client } from "../../../apollo-client";
 import { GET_ALL_POSTS } from "../../../graphql/posts/content";
 
+type TgetAllPostsVaribles = {
+   cID: number;
+   qID: number;
+   tID: number;
+};
+
 // fetch data
-export const handleGetAllPosts = async (last_id: number) => {
+export const handleGetAllPosts = async (variables: TgetAllPostsVaribles) => {
    try {
       const { data } = await client.query({
          query: GET_ALL_POSTS,
-         variables: { last_id }
+         variables
       });
 
       if (!data.all_posts) {

@@ -5,3 +5,10 @@
 .post {
    margin: 0 0 var(--spacing-m);
 }
+
+.loader {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: var(--spacing-m) auto;
+}

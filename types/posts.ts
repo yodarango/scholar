@@ -3,6 +3,7 @@ import { TRating } from "./posts_content";
 export type TCommentary = {
    ID: string;
    VERSE_ID: string;
+   POST_TYPE: string | number;
    body: string;
    category_tags: string;
    referenced_verses: string;
@@ -32,6 +33,7 @@ export type TCommentary = {
 
 export type TThought = {
    ID: string;
+   POST_TYPE: number | number;
    title: string;
    body: string;
    category_tags: string;
@@ -59,6 +61,7 @@ export type TThought = {
 
 export type TSermonNote = {
    ID: string;
+   POST_TYPE: number | number;
    content: string;
    DROPBOX_ID: string;
    title: string;
@@ -81,6 +84,7 @@ export type TSermonNote = {
 
 export type TQuote = {
    ID: string;
+   POST_TYPE: number | number;
    body: string;
    category_tags: string;
    author: string;

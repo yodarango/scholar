@@ -8,6 +8,7 @@ const Index = () => {
    return (
       <main className={styles.mainWrapper}>
          <Wigo />
+         <div className='spacer-page-bottom'></div>
       </main>
    );
 };

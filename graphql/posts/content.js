@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_POSTS = gql`
-   query ($last_id: ID) {
-      all_posts(last_id: $last_id) {
+   query ($cID: ID, $qID: ID, $tID: ID) {
+      all_posts(cID: $cID, qID: $qID, tID: $tID) {
          ID
          POST_TYPE
          VERSE_ID

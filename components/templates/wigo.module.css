@@ -18,7 +18,7 @@
 }
 
 .filter {
-   z-index: 2;
+   z-index: 3;
    top: 0;
    position: sticky;
    margin: 0 0 var(--spacing-l);
