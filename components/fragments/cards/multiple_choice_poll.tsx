@@ -24,6 +24,8 @@ import { getMultipleOptionsPollIn24 } from "../../../helpers/functions/interacti
 import { TMultipleChicePoll } from "../../../types/interactive";
 import { RoundLoader } from "../chunks/round_loader";
 import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
+import { WinningPoll } from "./winning_poll";
+import { createPollVote } from "../../../helpers/functions/interactive/polls";
 
 type TMultipleChoicePollCardProps = {
    dataFromParent?: boolean;
@@ -36,6 +38,7 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
    const [votedFor, setvotedFor] = useState<any>();
    const [poll, setpoll] = useState<TMultipleChicePoll | null>(null);
    const [loading, setloading] = useState<string>("loading");
+   const [isTimeUp, setisTimeUp] = useState<boolean>(false);
 
    // get poll data
    const fetchData = async () => {
@@ -45,8 +48,18 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
       } else {
          try {
             const { data, status } = await getMultipleOptionsPollIn24();
+            const poll = data?.poll_multiple_choice_in_24;
+            data && setpoll(poll);
 
-            data && setpoll(data.poll_multiple_choice_in_24);
+            if (poll) {
+               // check if user has already voted by checking cookie
+               const cookie = getCookie(`multChoice${poll?.ID}`);
+               const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
+
+               sethasVoted(hasvoted);
+               setvotedFor(cookie);
+            }
+
             setloading(status);
          } catch (error) {
             console.error(error);
@@ -56,27 +69,39 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
       }
    };
 
-   const handleVote = (selection: string) => {
-      console.log(selection);
+   type ThandleVoteArgs = {
+      selection: string;
+      index: number;
+      id: string | number;
+      type: number;
+      pollVotes: number[];
+   };
+   const handleVote = async (args: ThandleVoteArgs) => {
+      const { selection, index, id, type, pollVotes } = args;
       // implement helper like the one for the thumbs up poll oto handle the posting
       const now = Date.now() + 86400000;
       const cookieExpiration = new Date(now);
-      document.cookie = `multChoice${poll?.ID}=${selection}; expires=${cookieExpiration}; path=/test`;
 
-      setvotedFor(selection);
-      sethasVoted(true);
+      try {
+         const setAllVotesToZero = pollVotes.map((v, i) => 0);
+         setAllVotesToZero.splice(index, 1, 1);
+         let vote = setAllVotesToZero.join(":");
+
+         const voteIt: any = await createPollVote({ POLL_ID: id, type, vote });
+         if (voteIt) {
+            document.cookie = `multChoice${poll?.ID}=${selection}; expires=${cookieExpiration}; path=/`;
+            setvotedFor(selection);
+            sethasVoted(true);
+         }
+      } catch (error) {
+         console.error(error);
+      }
    };
 
    // get the cookies
    useEffect(() => {
       // fetch the data
       fetchData();
-
-      // check if user has already voted by checking cookie
-      const cookie = getCookie("multChoice${poll?.ID}");
-      const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
-      sethasVoted(hasvoted);
-      setvotedFor(cookie);
    }, []);
 
    return (
@@ -84,20 +109,49 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
          {loading === "done" && poll && (
             <div className={styles.mainWrapper}>
                <div className={styles.timer}>
-                  <CardTimer time={poll.countdown} />
+                  <CardTimer
+                     time={poll.countdown}
+                     cta={{
+                        timesUp: () => setisTimeUp(true)
+                     }}
+                  />
                </div>
                <div className={styles.question}>
-                  <Parragraph text={poll.dilemma} size='main' />
+                  <Parragraph
+                     text={poll.dilemma}
+                     size='main'
+                     align={isTimeUp ? "center" : "left"}
+                  />
                </div>
-               {!hasVoted && (
-                  <div className={styles.options}>
+
+               <div className={styles.options}>
+                  {!hasVoted && !isTimeUp && (
                      <MultipleChoicePollOptions
-                        cta={{ handleVote: (selection) => handleVote(selection) }}
+                        cta={{
+                           handleVote: (sel, ind) =>
+                              handleVote({
+                                 selection: sel,
+                                 index: ind,
+                                 id: poll.ID,
+                                 type: poll.type,
+                                 pollVotes: poll.votes.vote
+                              })
+                        }}
                         options={poll.options}
                      />
-                  </div>
+                  )}
+
+                  {isTimeUp && (
+                     <WinningPoll
+                        message={`Most people have voted for`}
+                        image='/images/bible_books/1.png'
+                     />
+                  )}
+               </div>
+
+               {hasVoted && !isTimeUp && (
+                  <NotificationSticker type='1' text={`you voted for ${votedFor}`} />
                )}
-               {hasVoted && <NotificationSticker type='1' text={`you voted for ${votedFor}`} />}
                <div className={styles.graph}>
                   <MultipleChoicePoll votes={poll.votes} optionsAmount={poll.options.length} />
                </div>

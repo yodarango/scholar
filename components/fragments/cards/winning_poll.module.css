@@ -1,22 +1,23 @@
 .mainWrapper {
-    padding: var(--spacing-m) var(--spacing-s);
-    background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
-    border-radius: 2em;
+   padding: var(--spacing-m) var(--spacing-s);
+   /* background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark)); */
+   border-radius: 2em;
 }
 
 .image {
-    height: 10rem;
-    width: 10rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--spacing-m);
+   height: 10rem;
+   width: 10rem;
+   margin: auto;
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: var(--spacing-m);
 }
 
 .image img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    object-position: center;
+   height: 100%;
+   width: 100%;
+   object-fit: contain;
+   object-position: center;
 }

@@ -99,8 +99,7 @@ export const createPollVote = async (variables: TcreatePollVoteVariables) => {
          mutation: CREATE_POLL_VOTE,
          variables
       });
-
-      console.log(data);
+      if (data && data.poll_vote) return data.poll_vote;
    } catch (error) {
       console.error(error);
    }

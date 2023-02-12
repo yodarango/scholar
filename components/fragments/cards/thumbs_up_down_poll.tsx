@@ -51,7 +51,16 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
          try {
             const { data, status } = await getThumbsUpPollIn24();
             data && setpoll(data.poll_thumbs_up_in_24);
-            console.log(data);
+            const poll = data.poll_thumbs_up_in_24;
+
+            if (poll) {
+               // check if user has already voted by checking cookie
+               const cookie = getCookie(`thumbsUpDown${poll?.ID}`);
+               const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
+               sethasVoted(hasvoted);
+               setvotedFor(cookie);
+            }
+
             setloading(status);
          } catch (error) {
             console.error(error);
@@ -93,11 +102,6 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
    useEffect(() => {
       // get the poll data
       fetchData();
-      // check if user has already voted by checking cookie
-      const cookie = getCookie(`thumbsUpDown${poll?.ID}`);
-      const hasvoted = cookie !== undefined && cookie !== "" && cookie !== " ";
-      sethasVoted(hasvoted);
-      setvotedFor(cookie);
    }, []);
 
    return (

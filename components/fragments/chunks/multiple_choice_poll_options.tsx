@@ -7,12 +7,12 @@ import styles from "./multiple_choice_poll_options.module.css";
 type TMultipleChoicePollOptionsProps = {
    options: string[];
    cta: {
-      handleVote: (option: string) => void;
+      handleVote: (option: string, index: number) => void;
    };
 };
 
 export const MultipleChoicePollOptions = ({ options, cta }: TMultipleChoicePollOptionsProps) => {
-   // ------------------ alphabet to assign uniwue letter to each option -----------
+   // ------------------ alphabet to assign unique letter to each option -----------
    const alphabet = [
       "A",
       "B",
@@ -76,7 +76,7 @@ export const MultipleChoicePollOptions = ({ options, cta }: TMultipleChoicePollO
                   <div className={styles.button}>
                      <OptionButton
                         option={alphabet[index]}
-                        cta={() => cta.handleVote(option)}
+                        cta={() => cta.handleVote(option, index)}
                         backgroundColor='1'
                      />
                   </div>

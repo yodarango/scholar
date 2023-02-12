@@ -1,32 +1,5 @@
 import { client } from "../../../apollo-client";
 import { GET_POLL_MULTIPLE_OPTIONS } from "../../../graphql/interactive/poll_multiple_options";
-// import { HANDLE_VOTE } from "../../../graphql/wigo/friday";
-
-// export const handleVote = async (votes: number[], contentId: string, position: string) => {
-//    try {
-//       const { data } = await client.mutate({
-//          mutation: HANDLE_VOTE,
-//          variables: {
-//             votes,
-//             contentId
-//          }
-//       });
-
-//       if (data.fridayVotes) {
-//          const now = Date.now() + 86400000;
-//          const cookieExpiration = new Date(now);
-
-//          document.cookie = `multChoice=${position}; expires=${cookieExpiration}; path=/wigo;`;
-
-//          return data.fridayVotes;
-//       } else {
-//          return "Something went wrong!";
-//       }
-//    } catch (error) {
-//       console.log(error);
-//       return "Error";
-//    }
-// };
 
 export const getMultipleOptionsPollIn24 = async () => {
    try {
@@ -38,24 +11,22 @@ export const getMultipleOptionsPollIn24 = async () => {
          variables: {}
       });
 
+      const { options, votes } = poll_multiple_choice_in_24;
+
+      let totalOptions = [];
+
       if (poll_multiple_choice_in_24) {
          // parse the the date as the options and votes come in a string form
-         if (
-            poll_multiple_choice_in_24.options &&
-            typeof poll_multiple_choice_in_24.options === "string"
-         ) {
-            let options = poll_multiple_choice_in_24.options.split(" ");
-            poll_multiple_choice_in_24.options = options;
+         if (options && typeof options === "string") {
+            totalOptions = options.split(":");
+            poll_multiple_choice_in_24.options = totalOptions;
          }
 
          // parse the votes
-         if (poll_multiple_choice_in_24.votes) {
-            if (
-               poll_multiple_choice_in_24.votes.vote &&
-               typeof poll_multiple_choice_in_24.votes.vote === "string"
-            ) {
+         if (votes) {
+            if (votes.vote && typeof votes.vote === "string") {
                // split each vote separately
-               const splitVotes = poll_multiple_choice_in_24.votes.vote.split(" ");
+               const splitVotes = votes.vote.split(":");
                // parse it to an integer
 
                let vote = splitVotes.map((vote: string) => parseInt(vote));
@@ -64,6 +35,11 @@ export const getMultipleOptionsPollIn24 = async () => {
                   vote
                };
             }
+         } else {
+            poll_multiple_choice_in_24.votes = {
+               ID: null,
+               vote: [...Array(totalOptions.length)].map((o, i) => 0)
+            };
          }
 
          return { data, status: "done" };
