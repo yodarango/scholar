@@ -52,7 +52,6 @@ export const WigoFeed = () => {
       try {
          const { data, status } = await handleGetAllPosts(variables);
          if (data) {
-            console.log(data);
             setposts((prev) => [...prev, ...data]);
             setvariables(getLastPostID(data));
 

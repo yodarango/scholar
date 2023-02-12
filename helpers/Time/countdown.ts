@@ -1,12 +1,16 @@
-export const contDown = (countTo: string) => {
-   const now = new Date().getTime();
-   let countToDate = new Date(countTo).getTime() - now;
-   let h = Math.floor((countToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-   let m = Math.floor((countToDate % (1000 * 60 * 60)) / (1000 * 60));
-   let s = Math.floor((countToDate % (1000 * 60)) / 1000);
+export function countDown(countTo: string) {
+   const currDate = new Date().getTime();
+   let timeLeft = new Date(countTo).getTime() - currDate;
+   let h = Math.floor((timeLeft % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
+   let m = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+   let s = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-   if (now < 0) {
-      return "00:00:00";
+   let result = { time: "", done: true };
+   if (timeLeft < 0) {
+      result = { time: "00:00:00", done: true };
+   } else if (timeLeft > 0) {
+      result = { time: `${h}:${m}:${s}`, done: false };
    }
-   return `${h}:${m}:${s}`;
-};
+
+   return result;
+}

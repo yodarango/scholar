@@ -1,6 +1,7 @@
 // TODO: This clock might not be working as expected if a data over 24 hours is passed
 // This component needs a static time to count down to. Right now the value is saved in the DB
 import { useEffect, useState } from "react";
+import { countDown } from "../../../helpers/Time/countdown";
 
 // comps
 import { Parragraph } from "../Typography/parragraph";
@@ -10,9 +11,10 @@ import styles from "./card_timer.module.css";
 
 type TCardProps = {
    time: string;
+   cta: { timesUp: () => void };
 };
 
-export const CardTimer = ({ time }: TCardProps) => {
+export const CardTimer = ({ time, cta }: TCardProps) => {
    // --------------------- set the timer ---------------------
 
    // -- get the original date to count to
@@ -23,17 +25,11 @@ export const CardTimer = ({ time }: TCardProps) => {
    // --  updates the time left when called every second
    const updateTimer = setInterval(setTimer, 1000);
    function setTimer() {
-      const currDate = new Date().getTime();
-      let timeLeft = new Date(originalDate).getTime() - currDate;
-      let h = Math.floor((timeLeft % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
-      let m = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      let s = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      const timer = countDown(originalDate);
+      settimer(timer.time);
 
-      if (timeLeft < 0) {
-         clearInterval(updateTimer);
-         settimer("00:00:00");
-      } else if (timeLeft > 0) {
-         settimer(`${h}:${m}:${s}`);
+      if (timer.done) {
+         clearInterval(updateTimer), cta.timesUp();
       }
    }
 

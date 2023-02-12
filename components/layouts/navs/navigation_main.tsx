@@ -19,7 +19,6 @@ export const NavigationMain = ({ children }: any) => {
    // check the current page to change the color of the icon
    useEffect(() => {
       if (router.isReady) {
-         console.log(router.asPath.includes("/users"));
          if (router.asPath === "/") {
             setcurrentPage("home");
          } else if (router.asPath.includes("/verse-by-verse")) {

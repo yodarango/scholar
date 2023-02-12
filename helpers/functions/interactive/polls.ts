@@ -1,5 +1,5 @@
 import { client } from "../../../apollo-client";
-import { GET_ALL_POLLS } from "../../../graphql/interactive/polls";
+import { CREATE_POLL_VOTE, GET_ALL_POLLS } from "../../../graphql/interactive/polls";
 
 export const getAllPolls = async () => {
    try {
@@ -81,5 +81,27 @@ export const getAllPolls = async () => {
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
+   }
+};
+
+type TcreatePollVoteVariables = {
+   POLL_ID: string | number;
+   type: number;
+   vote: string;
+};
+
+/**************************************************************************************** 
+Creates votes for the thumbsupdown poll, THe vote data comes in the form 'up:down'
+****************************************************************************************/
+export const createPollVote = async (variables: TcreatePollVoteVariables) => {
+   try {
+      const { data } = await client.mutate({
+         mutation: CREATE_POLL_VOTE,
+         variables
+      });
+
+      console.log(data);
+   } catch (error) {
+      console.error(error);
    }
 };
