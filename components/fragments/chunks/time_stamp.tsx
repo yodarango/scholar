@@ -44,6 +44,13 @@ export const TimeStamp = ({
    const formatedTime = calcElapsedTime(time);
 
    const [isOpenTimeStamp, setisOpenTimeStamp] = useState<boolean>(false);
+   const textColor =
+      colorId === "category-YLW" ||
+      colorId === "category-CYN" ||
+      colorId === "category-PNK" ||
+      colorId === "category-GRN"
+         ? "#2a2438"
+         : "#f1eaff";
 
    return (
       <div className={`${styles.mainWrapper}`}>
@@ -58,19 +65,12 @@ export const TimeStamp = ({
                   text={formatedTime ? `${formatedTime} ago` : "sometime ago"}
                   quiet={quiet}
                   lineHieght={"1em"}
-                  color={
-                     colorId === "category-YLW" ||
-                     colorId === "category-CYN" ||
-                     colorId === "category-PNK" ||
-                     colorId === "category-GRN"
-                        ? "#2a2438"
-                        : "#f1eaff"
-                  }
+                  color={textColor}
                />
             </div>
          )}
 
-         {/* -- opne time stamp. Might add some nice css animations like stretch in the future -- */}
+         {/* -- open time stamp. Might add some nice css animations like stretch in the future -- */}
          {isOpenTimeStamp && !customColor && (
             <div
                className={`${styles.open}  ${colorId && styles.hasColorId}`}
@@ -81,30 +81,13 @@ export const TimeStamp = ({
                   text={niceTime}
                   quiet={quiet}
                   lineHieght={"1em"}
-                  color={
-                     colorId === "category-YLW" ||
-                     colorId === "category-CYN" ||
-                     colorId === "category-PNK"
-                        ? "#2a2438"
-                        : "#f1eaff"
-                  }
+                  color={textColor}
                />
                <div
                   className={`${styles.closeBtnWrapper}  ${colorId && styles.hasColorId}`}
                   onClick={() => setisOpenTimeStamp(false)}
                   id={`${colorId && colorId}`}>
-                  <Icon
-                     name='remove'
-                     color={
-                        colorId === "category-YLW" ||
-                        colorId === "category-CYN" ||
-                        colorId === "category-PNK"
-                           ? "#2a2438"
-                           : "#f1eaff"
-                     }
-                     size='2rem'
-                     strokeWidth='42'
-                  />
+                  <Icon name='remove' color={textColor} size='2rem' strokeWidth='42' />
                </div>
             </div>
          )}

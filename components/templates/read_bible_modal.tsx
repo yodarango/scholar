@@ -3,8 +3,7 @@
    the theme ID to its child therefore the subcomponents should not be worried about handling
    router or local storage state
 ****************************************************************************************/
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react";
 
 // comps
 import { BibleChapter } from "../layouts/bible_chapter";

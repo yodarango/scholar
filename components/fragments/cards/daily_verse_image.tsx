@@ -45,14 +45,12 @@ export const DailyVerseImage = ({
       if (router.isReady) {
          getVerse();
          // send the image to the parent
-         cta.handleSendImgSrc(
-            `sm_logo.png` /*`/images/daily_verse_backgrounds/${randomImg}.jpeg`*/
-         );
+         cta.handleSendImgSrc(`/images/daily_verse_backgrounds/${randomImg}.jpeg`);
       }
    }, [router.isReady]);
 
-   // //    Random image number
-   // const randomImg = Math.floor(Math.random() * 31);
+   // choose image based on random number
+   const randomImg = Math.floor(Math.random() * 31);
    // Random font class
    const fontClass = Math.floor(Math.random() * 3);
 
@@ -62,11 +60,14 @@ export const DailyVerseImage = ({
 
    return (
       <div className={`${styles.mainWrapper}`}>
-         <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1>
-         <p className={styles.reference}>{verse && verse.reference}</p>
+         <div className={styles.textContainer}>
+            <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1>
+            <p className={styles.reference}>{verse && verse.reference}</p>
+         </div>
          <div className={styles.img}>
+            <div className={styles.imgBgOverlay}></div>
             <img
-               src={`sm_logo.png` /*`/images/daily_verse_backgrounds/${randomImg}.jpeg`*/}
+               src={`/images/daily_verse_backgrounds/${randomImg}.jpeg`}
                alt='bible verse with background'
             />
          </div>

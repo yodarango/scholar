@@ -15,7 +15,9 @@ export const getLSBibleSettings = (router: any) => {
 
    if (LSExists) {
       if (router.query["chapter-id"]) {
-         const updateScripture = { ...LSParsed, chapterId };
+         let scriptureRef = parseChapterId(chapterId);
+         const updateScripture = { ...LSParsed, chapterId, scriptureRef };
+
          localStorage.setItem("reading-preferences", JSON.stringify(updateScripture));
 
          return updateScripture;

@@ -15,7 +15,7 @@ export const CastYourVote = () => {
    const getPollToLoad = () => {
       const dayOfTheWeek = new Date().getDay();
       if (dayOfTheWeek === 1 || dayOfTheWeek === 3 || dayOfTheWeek === 5) {
-         setpollToLoad(2);
+         setpollToLoad(1);
       } else {
          setpollToLoad(2);
       }

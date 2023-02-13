@@ -16,9 +16,13 @@ export const WigoDailyVerseOptions = ({
    imgSrc = `sm_logo.png`,
    verseId
 }: TWigoDailyVerseOptionsProps) => {
+   let chapterId = verseId ? verseId.split(".") : "GEN.1";
+   chapterId = `${chapterId[0]}.${chapterId[1]}`;
+
    return (
       <div className={styles.mainWrapper}>
-         {imgSrc && (
+         {/* removing this option for now */}
+         {/* {imgSrc && (
             <div>
                <IconButton
                   cta={{ handleClick: () => downloadImage(imgSrc) }}
@@ -26,15 +30,15 @@ export const WigoDailyVerseOptions = ({
                   backgroundColor='1'
                />
             </div>
-         )}
+         )} */}
 
          <div>
-            <IconButton icon='read' backgroundColor='1' link={`/read?VERSE_ID=${verseId}`} />
+            <IconButton icon='read' backgroundColor='1' link={`/read?chapter-id=${chapterId}`} />
          </div>
 
          <div>
             <IconButton
-               link={`/posts/commentary/new?VERSE_ID?${verseId}`}
+               link={`/posts/commentary/new?VERSE_ID=${verseId}`}
                icon='comment'
                backgroundColor='1'
             />
