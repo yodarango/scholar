@@ -19,9 +19,31 @@ type TPrimaryStackprops = {
    cta?: {
       handleClose: () => void;
    };
+   href?: string;
+   withOnScrollEvt?: (value: boolean) => void;
+   minScrollPercentage?: number; // at what percentage of scrolling down to make the call;
 };
 
-export const SecondaryStack = ({ title, children, menuType, icon, cta }: TPrimaryStackprops) => {
+export const SecondaryStack = ({
+   minScrollPercentage = 5,
+   withOnScrollEvt,
+   title,
+   children,
+   menuType,
+   icon,
+   cta,
+   href
+}: TPrimaryStackprops) => {
+   const reachedBottom = (e: any) => {
+      if (withOnScrollEvt) {
+         const scrolledHeight = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
+         const totalHeight = e.target.scrollHeight + e.target.scrollTop + e.target.clientHeight;
+         const makeCall = (scrolledHeight / totalHeight) * 100 < minScrollPercentage;
+
+         withOnScrollEvt(makeCall);
+      }
+   };
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>
@@ -37,10 +59,16 @@ export const SecondaryStack = ({ title, children, menuType, icon, cta }: TPrimar
          <div className={styles.toggleIcon}>
             {menuType === 1 && <ToggleMenu type={1} />}
             {menuType === 2 && <CategoryTag informativeOnly={false} />}
-            {cta?.handleClose && <CloseContent cta={{ handleClick: cta?.handleClose }} />}
+            {cta?.handleClose && !href && <CloseContent cta={{ handleClick: cta?.handleClose }} />}
+            {!cta?.handleClose && href && <CloseContent href={href} />}
          </div>
          <div className={styles.subWrapper}>
-            <div className={styles.contentHolder}>{children}</div>
+            {!withOnScrollEvt && <div className={styles.contentHolder}>{children}</div>}
+            {withOnScrollEvt && (
+               <div className={styles.contentHolder} onScroll={reachedBottom}>
+                  {children}
+               </div>
+            )}
          </div>
       </div>
    );

@@ -66,11 +66,7 @@ export const WigoFeed = () => {
       }
    };
 
-   useEffect(() => {
-      fetchData();
-   }, []);
-
-   const fetchMoreData = (e: any) => {
+   const fetchMoreData = () => {
       if (wrapper.current) {
          const makeCall = window.scrollY / wrapper.current.clientHeight >= 0.92;
 
@@ -85,9 +81,9 @@ export const WigoFeed = () => {
       }
    };
 
-   // useEffect(() => {
-   //    window.addEventListener("scroll", fetchMoreData);
-   // }, []);
+   useEffect(() => {
+      fetchData();
+   }, []);
 
    const handleDelete = (id: string) => {};
    return (

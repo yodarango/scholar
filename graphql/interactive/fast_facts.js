@@ -9,3 +9,13 @@ export const GET_FAST_FACTS_IN_24 = gql`
       }
    }
 `;
+
+export const GET_ALL_FAST_FACTS = gql`
+   query ($last_id: ID) {
+      fast_facts(last_id: $last_id) {
+         ID
+         posted_on
+         images
+      }
+   }
+`;

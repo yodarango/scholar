@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { PollsTemplate } from "../../../components/templates/content/polls";
 
 // components

@@ -19,7 +19,7 @@ type TContentGraphicsPostProps = {
 export const ContentGraphicsPost = ({ content }: TContentGraphicsPostProps) => {
    // global variables
    let { images } = content;
-   let imagesArr = images.split(" ");
+   let imagesArr = images.split(",");
 
    // states
    const [isDown, setisDown] = useState<boolean>(false);

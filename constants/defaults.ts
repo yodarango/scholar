@@ -36,3 +36,12 @@ export const POST_TYPE_SERMON_NOTE = 4;
 export const DEFAULT_THOUGHT_IMAGE = "/images/thoughts/default.png";
 export const DEFAULT_COMMENTARY_IMAGE = "/images/commentary/default.png";
 export const DEFAULT_QUOTE_BACKGROUND = "#quote-bkg--0";
+
+// amount of records per query to return from db calls
+export const COMMENTARIES_PER_QUERY = 20;
+export const QUOTES_PER_QUERY = 20;
+export const THOUGHTS_PER_QUERY = 20;
+export const SERMON_NOTES_PER_QUERY = 20;
+export const POST_COMMENTS_PER_QUERY = 20;
+export const CONTENT_PER_QUERY_24 = 10;
+export const FAST_FACTS_PER_QUERY = 6;
