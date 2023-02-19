@@ -12,7 +12,7 @@ import styles from "./index.module.css";
 
 // types
 import { TThought } from "../../../../types/posts";
-import { REQUEST_TYPE_IS_EDIT } from "../../../../helpers/functions/posts/content_post";
+import { REQUEST_TYPE_IS_EDIT_THOUGHT } from "../../../../helpers/functions/posts/content_post";
 
 const EditThought = () => {
    const router = useRouter();
@@ -50,7 +50,7 @@ const EditThought = () => {
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <ThoughtTextEditor
-               requestType={REQUEST_TYPE_IS_EDIT}
+               requestType={REQUEST_TYPE_IS_EDIT_THOUGHT}
                ID={thought?.ID}
                body={thought?.body}
                titleDefaultValue={thought?.title}

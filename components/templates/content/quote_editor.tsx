@@ -8,19 +8,25 @@ import { CloseContent } from "../../fragments/buttons/close_content";
 
 // styles
 import styles from "./quote_editor.module.css";
-import { handlePostContent } from "../../../helpers/functions/posts/content_post";
+import {
+   handlePostContent,
+   REQUEST_TYPE_IS_EDIT_QUOTE
+} from "../../../helpers/functions/posts/content_post";
 import Portal from "../../hoc/potal";
 import { Notification } from "../../fragments/popups/notification";
 
 type TQuoteEditorProps = {
+   ID?: string;
    renderClose: boolean;
    categoryId?: string;
    background?: string;
    quote?: string;
    author?: string;
+   requestType: string;
 };
 
 type TquoteObj = {
+   ID?: string;
    category_tags: string;
    body: string;
    background: string;
@@ -32,10 +38,12 @@ export const QuoteEditor = ({
    categoryId = "",
    background = "",
    quote = "",
-   author = ""
+   author = "",
+   requestType,
+   ID
 }: TQuoteEditorProps) => {
    // states
-   const [quoteBackground, setquoteBackground] = useState<string>("");
+   const [quoteBackground, setquoteBackground] = useState<string>(background);
    const [loading, setloading] = useState<string>("done");
    const [notification, setnotification] =
       useState<null | { title: string; body: string; type: string }>(null);
@@ -45,6 +53,7 @@ export const QuoteEditor = ({
 
    // reducer
    const quoteObj: TquoteObj = {
+      ID,
       category_tags: categoryId,
       body: quote,
       background,
@@ -70,7 +79,7 @@ export const QuoteEditor = ({
    // handle the saving the post to the DB
    const handlePost = async () => {
       setloading("loading");
-      const post = await handlePostContent(state, "Quote");
+      const post = await handlePostContent(state, "Quote", requestType);
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
@@ -92,7 +101,7 @@ export const QuoteEditor = ({
                   cta={{
                      handleClose: () =>
                         notification.type === "2"
-                           ? (window.location.href = "/posts/quote/new")
+                           ? (window.location.href = "/")
                            : setnotification(null)
                   }}
                />
@@ -101,12 +110,14 @@ export const QuoteEditor = ({
          <div className={styles.mainWrapper} id={quoteBackground}>
             {renderClose && (
                <div className={styles.close}>
-                  <CloseContent cta={{ handleClick: () => router.push("/posts/quote/new") }} />
+                  <CloseContent cta={{ handleClick: () => router.back() }} />
                </div>
             )}
             <section className={styles.contentWrapper}>
                <div className={styles.editor}>
                   <QuoteEditorTextEditor
+                     quote={quote}
+                     author={author}
                      background={quoteBackground}
                      cta={{
                         handleQuote: (quote: string) => dispatch({ type: "body", payload: quote }),
@@ -118,6 +129,8 @@ export const QuoteEditor = ({
                <div className={styles.actions}>
                   <QuoteEditorActions
                      requestStatus={loading}
+                     background={background}
+                     categoryId={categoryId}
                      cta={{
                         handleBkg: (background: string | { light: string; dark: string }) =>
                            dispatch({ type: "background", payload: background }),

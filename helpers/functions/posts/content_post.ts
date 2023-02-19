@@ -9,7 +9,7 @@
 import { client } from "../../../apollo-client";
 import { CREATE_NEW_THOUGHT, EDIT_THOUGHT } from "../../../graphql/posts/thoughts";
 import { CREATE_NEW_COMMENTARY } from "../../../graphql/posts/commentaries";
-import { CREATE_NEW_QUOTE } from "../../../graphql/posts/quotes";
+import { CREATE_NEW_QUOTE, EDIT_QUOTE } from "../../../graphql/posts/quotes";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
@@ -57,8 +57,10 @@ export const dataHandler = async (
    }
 };
 
-export const REQUEST_TYPE_IS_EDIT = "edit_thought"; // pass this to edit or create new post
-export const REQUEST_TYPE_IS_NEW = "thought";
+export const REQUEST_TYPE_IS_EDIT_THOUGHT = "edit_thought"; // pass this to edit or create new post
+export const REQUEST_TYPE_IS_NEW_THOUGHT = "thought";
+export const REQUEST_TYPE_IS_EDIT_QUOTE = "edit_quote"; // pass this to edit or create new post
+export const REQUEST_TYPE_IS_NEW_QUOTE = "quote";
 export const handlePostContent = async (
    variables: THandlePostContent,
    type: string,
@@ -70,7 +72,7 @@ export const handlePostContent = async (
       : "";
    try {
       if (type === "Thought") {
-         QUERY = requestType === REQUEST_TYPE_IS_EDIT ? EDIT_THOUGHT : CREATE_NEW_THOUGHT;
+         QUERY = requestType === REQUEST_TYPE_IS_EDIT_THOUGHT ? EDIT_THOUGHT : CREATE_NEW_THOUGHT;
 
          variables.referenced_verses = variables
             ? variables?.referenced_verses?.toString().replaceAll(", ", "")
@@ -94,7 +96,7 @@ export const handlePostContent = async (
             return { error: errorMessages.posts.emptyBody };
       } else if (type === "Quote") {
          variables;
-         QUERY = CREATE_NEW_QUOTE;
+         QUERY = requestType === REQUEST_TYPE_IS_EDIT_QUOTE ? EDIT_QUOTE : CREATE_NEW_QUOTE;
 
          if (!variables.background) variables.background = "#quote-bkg--0";
          if (!variables.body || variables.body === "")

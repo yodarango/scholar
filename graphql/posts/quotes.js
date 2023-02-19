@@ -104,8 +104,8 @@ export const CREATE_NEW_QUOTE = gql`
    }
 `;
 
-//====================== EDIT ROUTES ==================== //
-export const EDIT_ONE_QUOTE = gql`
+// EDIT
+export const EDIT_QUOTE = gql`
    mutation ($body: String, $category_tags: String, $author: String, $ID: ID, $background: String) {
       edit_quote(
          data: {
