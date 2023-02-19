@@ -1,4 +1,5 @@
-import { useState, useReducer, Reducer } from "react";
+import { useState, useReducer, Reducer, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // components
 import { TextEditor } from "../../layouts/text_editor";
@@ -19,6 +20,7 @@ import {
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
 
 type TThoughtTextEditorProps = {
+   ID?: string; // if the id is not passed the the editor will create new post
    userId: string;
    username: string;
    avatar: string;
@@ -31,21 +33,23 @@ type TThoughtTextEditorProps = {
    postCategory?: string;
    postReferences?: string[];
    postPrivacy?: boolean;
+   requestType: string;
 };
 
 export const ThoughtTextEditor = ({
+   ID,
    userId,
    username,
    avatar,
    userAuthority,
    body = "",
    titleDefaultValue = "",
+   requestType,
    postImage = "",
    postPostedOnDate = "",
    postCreatedDate = "",
    postCategory = "",
-   postReferences = [],
-   postPrivacy = false
+   postReferences = []
 }: TThoughtTextEditorProps) => {
    // state
    // postReferencedVerses do not update on reducer changing
@@ -55,6 +59,7 @@ export const ThoughtTextEditor = ({
    const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
    const post: THandlePostContent = {
+      ID: ID,
       category_tags: postCategory,
       body,
       title: titleDefaultValue,
@@ -62,6 +67,7 @@ export const ThoughtTextEditor = ({
       post_image: postImage
    };
 
+   const router = useRouter();
    // reducer
    function reducer(state: any, action: any) {
       switch (action.type) {
@@ -103,7 +109,7 @@ export const ThoughtTextEditor = ({
    const handlePost = async () => {
       setloading("loading");
 
-      const post = await handlePostContent(state, "Thought");
+      const post = await handlePostContent(state, "Thought", requestType);
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
@@ -131,7 +137,7 @@ export const ThoughtTextEditor = ({
                   cta={{
                      handleClose: () =>
                         notification.type === "2"
-                           ? (window.location.href = "/posts/thought/new")
+                           ? (window.location.href = "/")
                            : setnotification(null)
                   }}
                />
@@ -144,11 +150,12 @@ export const ThoughtTextEditor = ({
                   userId={userId}
                   username={username}
                   avatar={avatar}
+                  postImgBkg={postImage}
                   postPostedOnDate={postPostedOnDate}
                   postCreatedDate={postCreatedDate}
                   postCategory={postCategory}
                   cta={{
-                     handleCloseModal: () => {},
+                     handleCloseModal: () => router.back(),
                      handleImageBkgSelection
                   }}
                />
@@ -170,7 +177,6 @@ export const ThoughtTextEditor = ({
                   postCreatedDate={postCreatedDate || postDate.created}
                   postCategory={postCategory || state.category_tags}
                   postReferences={postReferences || state.referenced_verses}
-                  postPrivacy={postPrivacy}
                   requestStatus={loading}
                   cta={{
                      handleCategorySelection: (category) =>

@@ -6,6 +6,7 @@
    border-radius: 2em;
    box-shadow: var(--shadow-s);
    overflow: hidden;
+   min-height: 30rem;
 }
 
 .clickableArea {
@@ -33,6 +34,7 @@
    z-index: 0;
    position: relative;
    margin-bottom: var(--spacing-ml);
+   height: 100%;
 }
 .body h3 {
    z-index: 2;

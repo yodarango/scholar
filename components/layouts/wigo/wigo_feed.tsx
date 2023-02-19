@@ -92,7 +92,7 @@ export const WigoFeed = () => {
             posts.map((post, index) => {
                if (post.POST_TYPE === POST_TYPE_COMMENTARY?.toString())
                   return (
-                     <div className={styles.post} key={index}>
+                     <div className={`${styles.post}`} key={index}>
                         <Commentary commentary={post} cta={{ handleDelete }} />
                      </div>
                   );

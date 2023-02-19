@@ -43,12 +43,17 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
 
          {/* ------------------------------ body ----------------------- */}
          <div className={`${styles.body} ${type === 1 && styles.bodyWide}`}>
-            <Header type={3} size={type === 1 ? "main" : "xxsmall"} text={quote?.body} />
+            <Header
+               type={3}
+               size={type === 1 ? "main" : "xxsmall"}
+               text={quote?.body}
+               align='center'
+            />
             <div className={styles.author}>
                <Parragraph
                   size={type === 1 ? "small" : "xxsmall"}
                   text={`—	${quote.creator?.signature}`}
-                  align='right'
+                  align='center'
                />
             </div>
          </div>

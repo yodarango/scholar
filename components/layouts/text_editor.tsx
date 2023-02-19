@@ -31,7 +31,7 @@ type TTextEditorProps = {
    postCreatedDate: string;
    postCategory: string;
    postReferences: string[];
-   postPrivacy: boolean;
+   postPrivacy?: boolean;
    withTitle?: boolean;
    titleMaxL?: number;
    titleDefaultValue?: string;

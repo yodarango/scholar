@@ -1,8 +1,15 @@
+/****************************************************************************************
+ * Very flexible  and complex function. It is used to edit and create all kinds of posts.
+ * The four arguments are:
+ *    - variables: the fields to save to DB
+ *    - type: The name of the content (Commentary, Thought, Quote)
+ *    - requestType: the name of the graphql query
+ ****************************************************************************************/
+
 import { client } from "../../../apollo-client";
-import { CREATE_NEW_THOUGHT } from "../../../graphql/posts/thoughts";
+import { CREATE_NEW_THOUGHT, EDIT_THOUGHT } from "../../../graphql/posts/thoughts";
 import { CREATE_NEW_COMMENTARY } from "../../../graphql/posts/commentaries";
 import { CREATE_NEW_QUOTE } from "../../../graphql/posts/quotes";
-import { CREATE_NEW_SERMON_NOTE } from "../../../graphql/posts/sermon_notes";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
@@ -10,9 +17,9 @@ import { notificationMessages } from "../../../data/notification_messages";
 
 // constants
 import { DEFAULT_THOUGHT_IMAGE, DEFAULT_COMMENTARY_IMAGE } from "../../../constants/defaults";
-import commentaries_one_line_carrouselStories from "../../../components/layouts/scrollers/user_content/commentaries_one_line_carrousel.stories";
 
 export type THandlePostContent = {
+   ID: string | undefined;
    title?: string;
    body?: string;
    category_tags?: string;
@@ -25,16 +32,21 @@ export type THandlePostContent = {
    background?: String;
 };
 
-export const dataHandler = async (variables: THandlePostContent, QUERY: any, type: string) => {
+export const dataHandler = async (
+   variables: THandlePostContent,
+   QUERY: any,
+   type: string,
+   requestType: string
+) => {
    try {
       const { data } = await client.mutate({
          mutation: QUERY,
          variables
       });
 
-      if (data[type.toLowerCase()].__typename === type) {
+      if (data[requestType.toLowerCase()].__typename === type) {
          return { success: notificationMessages.postSuccess };
-      } else if (data[type.toLowerCase()].__typename === "ExceedsPostCount") {
+      } else if (data[requestType.toLowerCase()].__typename === "ExceedsPostCount") {
          return { error: errorMessages.posts.maxPostCount };
       } else {
          return { error: errorMessages.posts.failToPostCommentary };
@@ -45,15 +57,21 @@ export const dataHandler = async (variables: THandlePostContent, QUERY: any, typ
    }
 };
 
-export const handlePostContent = async (variables: THandlePostContent, type: string) => {
-   console.log(variables, type);
+export const REQUEST_TYPE_IS_EDIT = "edit_thought"; // pass this to edit or create new post
+export const REQUEST_TYPE_IS_NEW = "thought";
+export const handlePostContent = async (
+   variables: THandlePostContent,
+   type: string,
+   requestType: string
+) => {
    let QUERY;
    variables.category_tags = variables
       ? variables.category_tags?.toString().replaceAll(", ", "")
       : "";
    try {
       if (type === "Thought") {
-         QUERY = CREATE_NEW_THOUGHT;
+         QUERY = requestType === REQUEST_TYPE_IS_EDIT ? EDIT_THOUGHT : CREATE_NEW_THOUGHT;
+
          variables.referenced_verses = variables
             ? variables?.referenced_verses?.toString().replaceAll(", ", "")
             : "";
@@ -85,7 +103,7 @@ export const handlePostContent = async (variables: THandlePostContent, type: str
          if (!variables.author) return { error: errorMessages.posts.missingAuthor };
       }
 
-      return await dataHandler(variables, QUERY, type);
+      return await dataHandler(variables, QUERY, type, requestType);
    } catch (error) {
       console.error(error);
    }

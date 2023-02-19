@@ -33,7 +33,11 @@ export const NavigationMain = ({ children }: any) => {
             router.asPath.includes("/commentary/new") ||
             router.asPath.includes("/quote/new") ||
             router.asPath.includes("/thought/new") ||
-            router.asPath.includes("/sermon-note/new")
+            router.asPath.includes("/sermon-note/new") ||
+            router.asPath.includes("/commentary/edit") ||
+            router.asPath.includes("/quote/edit") ||
+            router.asPath.includes("/thought/edit") ||
+            router.asPath.includes("/sermon-note/edit")
          ) {
             setshouldRender(false);
          }

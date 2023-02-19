@@ -11,25 +11,20 @@ export const GET_THOUGHTS = gql`
       ) {
          ID
          body
+         title
          USER_ID
          category_tags
          posted_on
          created_date
          referenced_verses
          post_image
-         # creator {
          signature
          approval_rating
          authority_level
          avatar
-         # }
-         # comments {
          total_comment_count
-         # }
-         # approvals {
          average_rating_count
          total_rating_count
-         # }
       }
    }
 `;
@@ -56,22 +51,6 @@ export const GET_THOUGHT_IN_24 = gql`
          # approvals {
          average_rating_count
          total_rating_count
-         # }
-      }
-   }
-`;
-
-export const GET_EDIT_THOUGHT = gql`
-   query ($ID: ID) {
-      thought(ID: $ID) {
-         ID
-         body
-         USER_ID
-         category_tags
-         posted_on
-         referenced_verses
-         # creator {
-         #    ID
          # }
       }
    }
@@ -126,7 +105,7 @@ export const SHOW_COMMENTS_OF_THOUGHTS = gql`
    }
 `;
 
-// ================== POSTING routes ===================
+// POST ROUTES
 export const CREATE_NEW_THOUGHT = gql`
    mutation (
       $body: String
@@ -156,15 +135,24 @@ export const CREATE_NEW_THOUGHT = gql`
    }
 `;
 
-// ================== EDIT ================== //
+//
 export const EDIT_THOUGHT = gql`
-   mutation ($body: String, $category_tags: String, $referenced_verses: String, $ID: ID) {
+   mutation (
+      $body: String
+      $category_tags: String
+      $referenced_verses: String
+      $title: String
+      $post_image: String
+      $ID: ID
+   ) {
       edit_thought(
          data: {
+            ID: $ID
             body: $body
             category_tags: $category_tags
             referenced_verses: $referenced_verses
-            ID: $ID
+            title: $title
+            post_image: $post_image
          }
       ) {
          ID

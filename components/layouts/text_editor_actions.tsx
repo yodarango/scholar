@@ -45,7 +45,7 @@ type TTextEditorFormatterActionsProps = {
    postCreatedDate: string;
    postCategory: string;
    postReferences: string[];
-   postPrivacy: boolean;
+   postPrivacy?: boolean;
    postButtonTitle?: string;
    requestStatus?: string;
    includeIsPrivate?: boolean;
@@ -76,7 +76,7 @@ export const TextEditorActions = ({
    postButtonTitle = "Post"
 }: TTextEditorFormatterActionsProps) => {
    // state
-   const [postIsPrivate, setpostIsPrivate] = useState<boolean>(postPrivacy);
+   const [postIsPrivate, setpostIsPrivate] = useState<boolean | undefined>(postPrivacy);
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
    const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
