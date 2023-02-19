@@ -31,12 +31,17 @@ import Portal from "../hoc/potal";
 
 type TTextEditorVerseSelectionProps = {
    readyData?: any;
+   verseID?: string;
    cta: {
       handleVerseData: (verse: TBibleVerse) => void;
    };
 };
 
-export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSelectionProps) => {
+export const TextEditorVerseSelection = ({
+   cta,
+   readyData,
+   verseID
+}: TTextEditorVerseSelectionProps) => {
    const [buttonTitle, setbuttonTitle] = useState<string>("");
    const [verseData, setverseData] = useState<null | TBibleVerse>(null);
    const [loading, setLoading] = useState<string>("loading");
@@ -66,6 +71,9 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
          setLoading("done");
          setverseData(readyData);
          setbuttonTitle("Change scripture");
+      }
+      if (verseID) {
+         fetchVerse(verseID);
       } else {
          setLoading("loading");
          const verseId: string | undefined | string[] = router.query["VERSE_ID"];
@@ -81,7 +89,7 @@ export const TextEditorVerseSelection = ({ cta, readyData }: TTextEditorVerseSel
       }
    }, [router.isReady, router.query]);
 
-   //    handle verse selection from the BibleBook Wrapper
+   // handle verse selection from the BibleBook Wrapper
    const handlerefVerseSelection = (id: string) => {
       setshowChooseScriptureModal(false);
       router.push(`${router.pathname}?VERSE_ID=${id}`);

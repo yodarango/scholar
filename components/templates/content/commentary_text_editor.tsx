@@ -20,6 +20,7 @@ import {
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
 
 type TCommentaryTextEditorProps = {
+   ID?: string;
    userId: string;
    username: string;
    avatar: string;
@@ -34,6 +35,7 @@ type TCommentaryTextEditorProps = {
    postCategory?: string;
    postReferences?: string[];
    postPrivacy?: boolean;
+   requestType: string;
    readyData?: {
       verseId: string;
       reference: string;
@@ -45,6 +47,7 @@ type TCommentaryTextEditorProps = {
 };
 
 export const CommentaryTextEditor = ({
+   ID,
    userId,
    username,
    avatar,
@@ -60,7 +63,8 @@ export const CommentaryTextEditor = ({
    postReferences,
    postPrivacy = false,
    readyData,
-   cta
+   cta,
+   requestType
 }: TCommentaryTextEditorProps) => {
    // router
    const router = useRouter();
@@ -72,6 +76,7 @@ export const CommentaryTextEditor = ({
    const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
    const post: THandlePostContent = {
+      ID,
       category_tags: postCategory,
       body,
       referenced_verses: postReferences,
@@ -119,7 +124,7 @@ export const CommentaryTextEditor = ({
    const handlePost = async () => {
       setloading("loading");
 
-      const post = await handlePostContent(state, "Commentary");
+      const post = await handlePostContent(state, "Commentary", requestType);
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
@@ -151,7 +156,7 @@ export const CommentaryTextEditor = ({
                   cta={{
                      handleClose: () =>
                         notification.type === "2"
-                           ? (window.location.href = "/posts/commentary/new")
+                           ? (window.location.href = "/")
                            : setnotification(null)
                   }}
                />
@@ -161,6 +166,7 @@ export const CommentaryTextEditor = ({
             <div className={styles.verseSelection}>
                <TextEditorVerseSelection
                   readyData={readyData}
+                  verseID={verseId}
                   cta={{
                      handleVerseData
                   }}

@@ -57,10 +57,13 @@ export const dataHandler = async (
    }
 };
 
+export const REQUEST_TYPE_IS_EDIT_COMMENTARY = "edit_quote"; // pass this to edit or create new post
+export const REQUEST_TYPE_IS_NEW_COMMENTARY = "quote";
 export const REQUEST_TYPE_IS_EDIT_THOUGHT = "edit_thought"; // pass this to edit or create new post
 export const REQUEST_TYPE_IS_NEW_THOUGHT = "thought";
 export const REQUEST_TYPE_IS_EDIT_QUOTE = "edit_quote"; // pass this to edit or create new post
 export const REQUEST_TYPE_IS_NEW_QUOTE = "quote";
+
 export const handlePostContent = async (
    variables: THandlePostContent,
    type: string,
