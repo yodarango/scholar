@@ -42,6 +42,7 @@ const EditCommentary = () => {
       commentary?.referenced_verses && commentary.referenced_verses.length > 0
          ? commentary.referenced_verses
          : [];
+
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && (

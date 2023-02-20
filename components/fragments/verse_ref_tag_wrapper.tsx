@@ -16,7 +16,7 @@ import { Header } from "./Typography/header";
 import styles from "./verse_ref_tag_wrapper.module.css";
 
 type TVerseRefTagWrapperProps = {
-   refs: string[];
+   refs: any;
    showRemoveoption?: boolean;
    cta?: {
       handleUpdateTagArray: (tags: string[]) => void;
@@ -42,9 +42,13 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
 
    useEffect(() => {
       if (typeof refs === "string") {
-         refs = [...allTags];
+         refs = refs.split(",");
+         setallTags(refs);
+      } else if (typeof refs === "object") {
+         refs = refs.map((ref: any) => ref).join(",");
+         refs = refs.split(",");
+         setallTags(refs);
       }
-      setallTags(refs);
       getLS();
    }, [refs]);
 
@@ -66,7 +70,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
             <div className={styles.tagsWrapper}>
                {versionId &&
                   allTags &&
-                  allTags?.map((ref: string, index: number) => (
+                  allTags.map((ref: string, index: number) => (
                      <div className={styles.tag} key={index}>
                         <VerseRefTag
                            reference={ref}
@@ -81,7 +85,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
          {showRemoveoption && (
             <div className={styles.tagsWrapper}>
                {versionId &&
-                  allTags?.map((ref: string, index: number) => (
+                  allTags.map((ref: string, index: number) => (
                      <div className={styles.tag} key={index}>
                         <VerseRefTag
                            reference={ref}
