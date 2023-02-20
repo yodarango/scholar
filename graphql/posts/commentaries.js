@@ -161,7 +161,7 @@ export const CREATE_NEW_COMMENTARY = gql`
    }
 `;
 
-//================== EDIT ================== //
+// EDIT
 export const EDIT_COMMENTARY = gql`
    mutation (
       $body: String

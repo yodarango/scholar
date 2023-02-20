@@ -8,7 +8,7 @@
 
 import { client } from "../../../apollo-client";
 import { CREATE_NEW_THOUGHT, EDIT_THOUGHT } from "../../../graphql/posts/thoughts";
-import { CREATE_NEW_COMMENTARY } from "../../../graphql/posts/commentaries";
+import { CREATE_NEW_COMMENTARY, EDIT_COMMENTARY } from "../../../graphql/posts/commentaries";
 import { CREATE_NEW_QUOTE, EDIT_QUOTE } from "../../../graphql/posts/quotes";
 
 // data
@@ -19,7 +19,7 @@ import { notificationMessages } from "../../../data/notification_messages";
 import { DEFAULT_THOUGHT_IMAGE, DEFAULT_COMMENTARY_IMAGE } from "../../../constants/defaults";
 
 export type THandlePostContent = {
-   ID: string | undefined;
+   ID?: string;
    title?: string;
    body?: string;
    category_tags?: string;
@@ -57,8 +57,8 @@ export const dataHandler = async (
    }
 };
 
-export const REQUEST_TYPE_IS_EDIT_COMMENTARY = "edit_quote"; // pass this to edit or create new post
-export const REQUEST_TYPE_IS_NEW_COMMENTARY = "quote";
+export const REQUEST_TYPE_IS_EDIT_COMMENTARY = "edit_commentary"; // pass this to edit or create new post
+export const REQUEST_TYPE_IS_NEW_COMMENTARY = "commentary";
 export const REQUEST_TYPE_IS_EDIT_THOUGHT = "edit_thought"; // pass this to edit or create new post
 export const REQUEST_TYPE_IS_NEW_THOUGHT = "thought";
 export const REQUEST_TYPE_IS_EDIT_QUOTE = "edit_quote"; // pass this to edit or create new post
@@ -69,6 +69,7 @@ export const handlePostContent = async (
    type: string,
    requestType: string
 ) => {
+   console.log(variables);
    let QUERY;
    variables.category_tags = variables
       ? variables.category_tags?.toString().replaceAll(", ", "")
@@ -87,7 +88,10 @@ export const handlePostContent = async (
          if (!variables.body || variables.body === "")
             return { error: errorMessages.posts.emptyBody };
       } else if (type === "Commentary") {
-         QUERY = CREATE_NEW_COMMENTARY;
+         QUERY =
+            requestType === REQUEST_TYPE_IS_EDIT_COMMENTARY
+               ? EDIT_COMMENTARY
+               : CREATE_NEW_COMMENTARY;
          variables.referenced_verses = variables
             ? variables?.referenced_verses?.toString().replaceAll(", ", "")
             : "";

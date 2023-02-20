@@ -32,6 +32,7 @@ import Portal from "../hoc/potal";
 type TTextEditorVerseSelectionProps = {
    readyData?: any;
    verseID?: string;
+   renderButton?: boolean;
    cta: {
       handleVerseData: (verse: TBibleVerse) => void;
    };
@@ -40,6 +41,7 @@ type TTextEditorVerseSelectionProps = {
 export const TextEditorVerseSelection = ({
    cta,
    readyData,
+   renderButton,
    verseID
 }: TTextEditorVerseSelectionProps) => {
    const [buttonTitle, setbuttonTitle] = useState<string>("");
@@ -57,48 +59,53 @@ export const TextEditorVerseSelection = ({
       if (verse !== null) {
          setLoading("done");
          cta.handleVerseData(verse);
+         setbuttonTitle("Change scripture");
       } else {
          setLoading("error");
+         setbuttonTitle("Select scripture");
       }
 
       setverseData(verse);
    };
 
    // fetch data on render
-   useEffect(() => {
+   // set the data in the following hierarchy
+   // 1. router, 2. readyData, 3. verseID
+   const setIdToFetch = () => {
+      const verseId: string | undefined | string[] = router.query["VERSE_ID"];
       // check if the parent is passing the data so the API call does not happen
-      if (readyData) {
-         setLoading("done");
-         setverseData(readyData);
-         setbuttonTitle("Change scripture");
-      }
-      if (verseID) {
-         fetchVerse(verseID);
-      } else {
+      if (verseId) {
          setLoading("loading");
-         const verseId: string | undefined | string[] = router.query["VERSE_ID"];
 
          if (router.isReady && router.query["VERSE_ID"]) {
             fetchVerse(verseId);
-            setbuttonTitle("Change scripture");
          } else {
             setverseData(null);
-            setbuttonTitle("Select scripture");
             setLoading("done");
          }
+      } else if (readyData) {
+         setLoading("done");
+         setverseData(readyData);
+      } else if (verseID) {
+         fetchVerse(verseID);
       }
+   };
+   useEffect(() => {
+      if (router.isReady) setIdToFetch();
    }, [router.isReady, router.query]);
 
    // handle verse selection from the BibleBook Wrapper
    const handlerefVerseSelection = (id: string) => {
       setshowChooseScriptureModal(false);
-      router.push(`${router.pathname}?VERSE_ID=${id}`);
+      router.push(`${router.pathname.replace("[id]", "")}${router.query.id}?VERSE_ID=${id}`);
    };
+
+   console;
 
    return (
       <>
          <Portal>
-            {showChooseScriptureModal && (
+            {showChooseScriptureModal && renderButton && (
                <div className={styles.bibleBooksStack}>
                   <PrimaryStack
                      title='Select scripture'
@@ -140,13 +147,15 @@ export const TextEditorVerseSelection = ({
                   <ResourceNotFoundError />
                </div>
             )}
-            <div>
-               <Primary
-                  type='2'
-                  title={buttonTitle}
-                  cta={{ handleClick: () => setshowChooseScriptureModal(true) }}
-               />
-            </div>
+            {renderButton && (
+               <div>
+                  <Primary
+                     type='2'
+                     title={buttonTitle}
+                     cta={{ handleClick: () => setshowChooseScriptureModal(true) }}
+                  />
+               </div>
+            )}
          </div>
       </>
    );
