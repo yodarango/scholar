@@ -22,6 +22,7 @@ export type Trating = {
 
 type TPostRatingProps = {
    contentType: EnumContentType;
+   darkText?: boolean;
    userId: string | number;
    postId: string | number;
    rating: Trating | null;
@@ -77,7 +78,7 @@ export const PostRating = ({
          </Portal>
          <div className={`${styles.mainWrapper}`} onClick={() => setshowPostRating(true)}>
             {/*  ratings count  */}
-            {!iconColor && <Parragraph text={totalRatingCount} size='small' />}
+            {!iconColor && <Parragraph text={totalRatingCount} size='small' color={iconColor} />}
             {iconColor && <Parragraph text={totalRatingCount} size='small' color={iconColor} />}
 
             {/*  ratings average in grade  */}

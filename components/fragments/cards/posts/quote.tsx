@@ -22,6 +22,15 @@ export type TQuoteProps = {
 };
 
 export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
+   let darkContext: boolean =
+      quote.background === "quote-bkg--5" ||
+      quote.background === "quote-bkg--11" ||
+      quote.background === "quote-bkg--12" ||
+      quote.background === "quote-bkg--13" ||
+      quote.background === "quote-bkg--20";
+
+   const actionsColor = darkContext ? "#2a2438" : "#F1EAFF";
+
    return (
       <div
          className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
@@ -32,6 +41,7 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
          {/* ------------------------------ header ----------------------- */}
          <div className={styles.header}>
             <QuoteCardHeader
+               dark={darkContext}
                contentType={EnumContentType.quote}
                cta={{ handleDelete: cta.handleDelete }}
                postId={quote?.ID}
@@ -44,6 +54,7 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
          {/* ------------------------------ body ----------------------- */}
          <div className={`${styles.body} ${type === 1 && styles.bodyWide}`}>
             <Header
+               color={darkContext ? "#2a2438" : "#f1eaff"}
                type={3}
                size={type === 1 ? "main" : "xxsmall"}
                text={quote?.body}
@@ -51,6 +62,7 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
             />
             <div className={styles.author}>
                <Parragraph
+                  color={darkContext ? "#2a2438" : "#f1eaff"}
                   size={type === 1 ? "small" : "xxsmall"}
                   text={`—	${quote.creator?.signature}`}
                   align='center'
@@ -60,6 +72,7 @@ export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
 
          <div className={styles.footer}>
             <PostReactions
+               iconColor={actionsColor}
                postId={quote?.ID}
                userId={quote?.creator?.ID}
                contentType={2}

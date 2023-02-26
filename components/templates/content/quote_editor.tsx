@@ -60,6 +60,13 @@ export const QuoteEditor = ({
       author
    };
 
+   let darkText: boolean =
+      background === "quote-bkg--5" ||
+      background === "quote-bkg--11" ||
+      background === "quote-bkg--12" ||
+      background === "quote-bkg--13" ||
+      background === "quote-bkg--20";
+
    function reducer(state: TquoteObj, action: any) {
       switch (action.type) {
          case "category":
@@ -110,12 +117,16 @@ export const QuoteEditor = ({
          <div className={styles.mainWrapper} id={quoteBackground}>
             {renderClose && (
                <div className={styles.close}>
-                  <CloseContent cta={{ handleClick: () => router.back() }} />
+                  <CloseContent
+                     cta={{ handleClick: () => router.back() }}
+                     color={darkText ? "#1e1a29" : "#f1eaff"}
+                  />
                </div>
             )}
             <section className={styles.contentWrapper}>
                <div className={styles.editor}>
                   <QuoteEditorTextEditor
+                     darkText={darkText}
                      quote={quote}
                      author={author}
                      background={quoteBackground}

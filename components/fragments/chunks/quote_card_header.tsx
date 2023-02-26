@@ -15,6 +15,7 @@ import { EnumContentType } from "../../../types/enums";
 type TQuoteCardHeaderprops = {
    userAuthority: number;
    contentType: EnumContentType;
+   dark?: boolean;
    postId: string;
    avatar: string;
    userId: string;
@@ -24,14 +25,17 @@ type TQuoteCardHeaderprops = {
 };
 
 export const QuoteCardHeader = ({
-   contentType,
    userAuthority,
+   contentType,
+   dark,
    postId,
    avatar,
    userId,
    cta
 }: TQuoteCardHeaderprops) => {
    const [showPostOptions, setshowPostOptions] = useState<boolean>(false);
+
+   const contextColor = dark ? "#2a2438" : "#F1EAFF";
 
    // handle the delete and send ID to the parent to remove from the array
    const handleDelete = () => {
@@ -62,7 +66,7 @@ export const QuoteCardHeader = ({
                </Link>
             </div>
             <div className={styles.more} onClick={() => setshowPostOptions(true)}>
-               <Icon size='2rem' color='#F1EAFF' name='ellipsisH' />
+               <Icon size='2rem' color={contextColor} name='ellipsisH' />
             </div>
          </div>
       </>

@@ -26,7 +26,7 @@ type TPostCommentProps = {
 
 export const PostComment = ({
    comments,
-   iconColor,
+   iconColor = "#F1EAFF",
    postId,
    userId,
    contentType
@@ -59,7 +59,7 @@ export const PostComment = ({
             )}
 
             <div className={styles.commentIconWrapper} onClick={() => {}}>
-               <Icon name='comment' color={iconColor ? iconColor : "#F1EAFF"} size={"2rem"} />
+               <Icon name='comment' color={iconColor} size={"2rem"} />
             </div>
          </div>
       </>

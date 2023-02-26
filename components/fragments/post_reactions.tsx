@@ -12,6 +12,7 @@ type TPostReactionsProps = {
    userId: string | number;
    postId: string | number;
    contentType: EnumContentType;
+   dark?: boolean;
    postRating: {
       totalCount: number;
       averageCount: number;
@@ -22,6 +23,7 @@ type TPostReactionsProps = {
 
 export const PostReactions = ({
    postRating,
+   dark,
    totalComments,
    iconColor,
    contentType,

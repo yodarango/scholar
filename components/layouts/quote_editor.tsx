@@ -5,6 +5,7 @@ import styles from "./quote_editor.module.css";
 
 type TQuoteEditorProps = {
    background?: string;
+   darkText?: boolean;
    quote?: string;
    author?: string;
    cta: {
@@ -13,14 +14,13 @@ type TQuoteEditorProps = {
    };
 };
 
-export const QuoteEditorTextEditor = ({ background, quote, author, cta }: TQuoteEditorProps) => {
-   let darkText: boolean =
-      background === "quote-bkg--5" ||
-      background === "quote-bkg--11" ||
-      background === "quote-bkg--12" ||
-      background === "quote-bkg--13" ||
-      background === "quote-bkg--20";
-
+export const QuoteEditorTextEditor = ({
+   background,
+   darkText,
+   quote,
+   author,
+   cta
+}: TQuoteEditorProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.quote}>
