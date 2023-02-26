@@ -61,6 +61,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
       cta?.handleUpdateTagArray(removedtag);
    };
 
+   console.log(allTags);
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.title}>
@@ -70,15 +71,18 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
             <div className={styles.tagsWrapper}>
                {versionId &&
                   allTags &&
-                  allTags.map((ref: string, index: number) => (
-                     <div className={styles.tag} key={index}>
-                        <VerseRefTag
-                           reference={ref}
-                           showRemoveoption={false}
-                           versionId={versionId}
-                        />
-                     </div>
-                  ))}
+                  allTags.map(
+                     (ref: string, index: number) =>
+                        ref !== "" && (
+                           <div className={styles.tag} key={index}>
+                              <VerseRefTag
+                                 reference={ref}
+                                 showRemoveoption={false}
+                                 versionId={versionId}
+                              />
+                           </div>
+                        )
+                  )}
             </div>
          )}
 
