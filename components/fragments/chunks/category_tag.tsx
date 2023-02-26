@@ -2,7 +2,7 @@
  - simple small button that onClick can either show the metadata of the category clicked or it can
    bring the categories menu to select a new category. This is dependable on which "informativeOnly" value is passed on
    to it. 
--  InforamtiveOnly = displays the popup witht the tag metadata
+-  InformativeOnly = displays the popup with the tag metadata
 -  initialValue is basically the same as id. The reason why this is being passed is because the onClick function depends
    on the id being or not being present. This needs to be investigated further and get rid of one of these redundant 
    props
@@ -53,9 +53,11 @@ export const CategoryTag = ({
    const handleShowCategoryMeta = () => {
       const category = categoryMeta.filter((item: TcategoryMeta) => item.tag === `#${id}`);
 
+      console.log(category);
       const cardTitle = category[0]?.title;
       const cardBody = category[0]?.subjects.toString().split(",").join(", ");
       const cardColor = category[0]?.color;
+      const textColor = category[0]?.textColor;
 
       setisPopupOpen(
          <Notification
@@ -63,6 +65,7 @@ export const CategoryTag = ({
             body={cardBody}
             cta={{ handleClose: () => setisPopupOpen(false) }}
             type='custom'
+            textColor={textColor}
             customColor={{ light: cardColor, dark: cardColor }}
          />
       );

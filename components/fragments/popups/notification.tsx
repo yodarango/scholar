@@ -1,4 +1,5 @@
 // comps
+import { FONT_COLOR, PRIMARY_COLOR } from "../../../constants/tokens";
 import { CloseContent } from "../buttons/close_content";
 import { Header } from "../Typography/header";
 import { Parragraph } from "../Typography/parragraph";
@@ -10,6 +11,7 @@ type notificatrionPopupProps = {
    title: string;
    jsxContent?: JSX.Element;
    body?: string;
+   textColor?: string;
    type: string;
    cta: {
       handleClose: () => void;
@@ -25,8 +27,16 @@ export const Notification = ({
    type,
    body,
    customColor,
+   textColor,
    jsxContent
 }: notificatrionPopupProps) => {
+   const contextColor =
+      (type === "2" || type === "3") && !textColor
+         ? PRIMARY_COLOR
+         : textColor
+         ? textColor
+         : FONT_COLOR;
+
    // determine the card type
    let notificationType: string = "";
 
@@ -53,13 +63,16 @@ export const Notification = ({
          {!customColor && body && (
             <div className={`${styles.mainWrapper} ${notificationType}`}>
                <div className={styles.close}>
-                  <CloseContent
-                     cta={{ handleClick: cta.handleClose }}
-                     color={type === "2" || type === "3" ? "#2a2438" : undefined}
-                  />
+                  <CloseContent cta={{ handleClick: cta.handleClose }} color={contextColor} />
                </div>
                <div className={styles.title}>
-                  <Header type={2} text={title} size='main' lineHieght='.9em' />
+                  <Header
+                     type={2}
+                     text={title}
+                     size='main'
+                     lineHieght='.9em'
+                     color={contextColor}
+                  />
                </div>
                <Parragraph text={body} size='small' />
             </div>
@@ -72,15 +85,18 @@ export const Notification = ({
                   backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
                }}>
                <div className={styles.close}>
-                  <CloseContent
-                     cta={{ handleClick: cta.handleClose }}
-                     color={type === "2" || type === "3" ? "#2a2438" : undefined}
-                  />
+                  <CloseContent cta={{ handleClick: cta.handleClose }} color={contextColor} />
                </div>
                <div className={styles.title}>
-                  <Header type={2} text={title} size='main' lineHieght='.9em' />
+                  <Header
+                     type={2}
+                     text={title}
+                     size='main'
+                     lineHieght='.9em'
+                     color={contextColor}
+                  />
                </div>
-               <Parragraph text={body} size='small' />
+               <Parragraph text={body} size='small' color={contextColor} />
             </div>
          )}
 
@@ -88,10 +104,7 @@ export const Notification = ({
          {!customColor && jsxContent && (
             <div className={`${styles.mainWrapper} ${notificationType}`}>
                <div className={styles.close}>
-                  <CloseContent
-                     cta={{ handleClick: cta.handleClose }}
-                     color={type === "2" || type === "3" ? "#2a2438" : undefined}
-                  />
+                  <CloseContent cta={{ handleClick: cta.handleClose }} color={contextColor} />
                </div>
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />
@@ -107,10 +120,7 @@ export const Notification = ({
                   backgroundImage: `linear-gradient(-10deg,${customColor.light}, ${customColor.dark})`
                }}>
                <div className={styles.close}>
-                  <CloseContent
-                     cta={{ handleClick: cta.handleClose }}
-                     color={type === "2" || type === "3" ? "#2a2438" : undefined}
-                  />
+                  <CloseContent cta={{ handleClick: cta.handleClose }} color={contextColor} />
                </div>
                <div className={styles.title}>
                   <Header type={2} text={title} size='main' lineHieght='.9em' />

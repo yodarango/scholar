@@ -112,7 +112,7 @@ export const PostCardHeader = ({
             <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : "#F1EAFF"} />
          </div>
 
-         {/* ------------------ include / exlude category tag ------------  */}
+         {/*  include / exclude category tag   */}
          {withCategoryTag && (
             <div className={styles.category}>
                <CategoryTag
