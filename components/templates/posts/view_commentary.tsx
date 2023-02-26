@@ -23,8 +23,9 @@ export const ViewCommentary = () => {
    const getData = async (variables: any) => {
       try {
          const { data, status } = await handleGetCommentaries(variables);
-         if (data?.commentary) setcommentary(data.commentary[0]);
+         if (data) setcommentary(data[0]);
 
+         console.log(data);
          setloading(status);
       } catch (error) {
          setloading("error");
@@ -41,10 +42,11 @@ export const ViewCommentary = () => {
       commentary?.referenced_verses && commentary.referenced_verses.length > 0
          ? commentary.referenced_verses
          : [];
+
    return (
       <>
          {commentary && (
-            <div className={styles.mainWrapper}>
+            <div className={`${styles.mainWrapper}`}>
                <WithTextContentStack
                   title={commentary.verse_citation}
                   postReferences={postReferneces}

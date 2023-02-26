@@ -136,11 +136,34 @@
    font-size: var(--fs-xsmall);
 }
 
-.contentHolder ol {
+.contentHolder ol,
+.contentHolder ul {
+   font-size: var(--fs-main);
    margin: var(--spacing-s) auto;
 }
 
+.contentHolder code {
+   background-color: var(--third-color);
+   padding: var(--spacing-xxs);
+   border-radius: 0.25em;
+}
+
+.contentHolder ul,
+.contentHolder ol {
+   padding-left: var(--spacing-ml);
+   border-left: 0.3rem solid var(--third-color);
+}
+
+.contentHolder ul li {
+   font-family: var(--primary-font);
+   list-style-type: "\25cb";
+   padding-left: 0.25em;
+   margin: var(--spacing-xxs) auto;
+}
+
 .contentHolder ol li {
+   padding-left: 0.25em;
+   font-family: var(--primary-font);
    font-size: var(--fs-small);
    margin: var(--spacing-xxs) auto;
 }
@@ -161,4 +184,16 @@
 }
 .text .button {
    margin: var(--spacing-m) 0 0;
+}
+
+.contentHolder b,
+.contentHolder strong {
+   font-family: var(--primary-font);
+   font-size: var(--fs-main);
+   font-weight: bold;
+}
+
+.contentHolder em {
+   font-family: var(--primary-font);
+   font-size: var(--fs-main);
 }
