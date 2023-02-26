@@ -45,3 +45,33 @@ export const SERMON_NOTES_PER_QUERY = 20;
 export const POST_COMMENTS_PER_QUERY = 20;
 export const CONTENT_PER_QUERY_24 = 10;
 export const FAST_FACTS_PER_QUERY = 6;
+
+// quote backgrounds
+export const QUOTE_BKG_1 = "quote-bkg--1";
+export const QUOTE_BKG_2 = "quote-bkg--2";
+export const QUOTE_BKG_3 = "quote-bkg--3";
+export const QUOTE_BKG_4 = "quote-bkg--4";
+export const QUOTE_BKG_5 = "quote-bkg--5";
+export const QUOTE_BKG_6 = "quote-bkg--6";
+export const QUOTE_BKG_7 = "quote-bkg--7";
+export const QUOTE_BKG_8 = "quote-bkg--8";
+export const QUOTE_BKG_9 = "quote-bkg--9";
+export const QUOTE_BKG_10 = "quote-bkg--10";
+export const QUOTE_BKG_11 = "quote-bkg--11";
+export const QUOTE_BKG_12 = "quote-bkg--12";
+export const QUOTE_BKG_13 = "quote-bkg--13";
+export const QUOTE_BKG_14 = "quote-bkg--14";
+export const QUOTE_BKG_15 = "quote-bkg--15";
+export const QUOTE_BKG_16 = "quote-bkg--16";
+export const QUOTE_BKG_17 = "quote-bkg--17";
+export const QUOTE_BKG_18 = "quote-bkg--18";
+export const QUOTE_BKG_19 = "quote-bkg--19";
+export const QUOTE_BKG_20 = "quote-bkg--20";
+
+export const LIGHT_QUOTE_BACKGROUNDS = [
+   "quote-bkg--11",
+   "quote-bkg--12",
+   "quote-bkg--13",
+   "quote-bkg--20",
+   "quote-bkg--5"
+];

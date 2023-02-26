@@ -63,3 +63,10 @@
    align-items: center;
    justify-content: center;
 }
+
+.closeContent {
+   position: absolute;
+   top: 2rem;
+   right: 2rem;
+   z-index: 3;
+}

@@ -18,7 +18,10 @@ import { TQuote } from "../../../types/posts";
 import { colors } from "../../../styles/tokens";
 
 // constants
-import { POST_TYPE_QUOTE } from "../../../constants/defaults";
+import { LIGHT_QUOTE_BACKGROUNDS, POST_TYPE_QUOTE } from "../../../constants/defaults";
+import { FONT_COLOR, PRIMARY_COLOR } from "../../../constants/tokens";
+import { CloseContent } from "../../fragments/buttons/close_content";
+
 export const ViewQuote = () => {
    const router = useRouter();
    const ID = router?.query && router?.query.id ? router?.query.id : "1";
@@ -37,6 +40,8 @@ export const ViewQuote = () => {
       }
    };
 
+   const darkContext = quote ? LIGHT_QUOTE_BACKGROUNDS.includes(quote.background) : false;
+
    useEffect(() => {
       if (router.isReady) getData({ ID });
    }, [router.isReady]);
@@ -45,10 +50,17 @@ export const ViewQuote = () => {
       <>
          {quote && loading === "done" && (
             <div className={`${styles.mainWrapper}`} id={quote?.background}>
+               <div className={styles.closeContent}>
+                  <CloseContent
+                     color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
+                     cta={{ handleClick: () => router.back() }}
+                  />
+               </div>
                {/*  header  */}
                <div className={styles.header}>
                   <div className={styles.postInfo}>
                      <SeePostInfo
+                        dark={darkContext}
                         cta={{ handleClickOnAvatar() {} }}
                         customDateColor={colors.font}
                         shadowDateColor={colors.font}
@@ -65,14 +77,25 @@ export const ViewQuote = () => {
 
                {/*  body  */}
                <div className={`${styles.body}`}>
-                  <Header type={2} size='xlarge' text={quote?.body} />
+                  <Header
+                     type={2}
+                     size='xlarge'
+                     text={quote?.body}
+                     color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
+                  />
                   <div className={styles.author}>
-                     <Parragraph size={"small"} text={`—	${quote.author}`} align='right' />
+                     <Parragraph
+                        size={"small"}
+                        text={`—	${quote.author}`}
+                        align='right'
+                        color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
+                     />
                   </div>
                </div>
 
                <div className={styles.footer}>
                   <PostReactions
+                     iconColor={darkContext ? PRIMARY_COLOR : FONT_COLOR}
                      userId={quote.creator.ID}
                      postId={quote?.ID}
                      contentType={POST_TYPE_QUOTE}

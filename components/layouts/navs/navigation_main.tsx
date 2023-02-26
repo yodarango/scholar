@@ -30,14 +30,14 @@ export const NavigationMain = ({ children }: any) => {
          }
 
          if (
-            router.asPath.includes("/commentary/new") ||
-            router.asPath.includes("/quote/new") ||
-            router.asPath.includes("/thought/new") ||
-            router.asPath.includes("/sermon-note/new") ||
-            router.asPath.includes("/commentary/edit") ||
-            router.asPath.includes("/quote/edit") ||
-            router.asPath.includes("/thought/edit") ||
-            router.asPath.includes("/sermon-note/edit")
+            router.asPath.includes("/commentary") ||
+            router.asPath.includes("/quote") ||
+            router.asPath.includes("/thought") ||
+            router.asPath.includes("/sermon-note") ||
+            router.asPath.includes("/commentary") ||
+            router.asPath.includes("/quote") ||
+            router.asPath.includes("/thought") ||
+            router.asPath.includes("/sermon-note")
          ) {
             setshouldRender(false);
          }

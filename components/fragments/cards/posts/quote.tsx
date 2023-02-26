@@ -12,6 +12,7 @@ import styles from "./quote.module.css";
 //types
 import { TQuote } from "../../../../types/posts";
 import { EnumContentType } from "../../../../types/enums";
+import { LIGHT_QUOTE_BACKGROUNDS } from "../../../../constants/defaults";
 
 export type TQuoteProps = {
    quote: TQuote;
@@ -22,12 +23,7 @@ export type TQuoteProps = {
 };
 
 export const Quote = ({ quote, cta, type = 0 }: TQuoteProps) => {
-   let darkContext: boolean =
-      quote.background === "quote-bkg--5" ||
-      quote.background === "quote-bkg--11" ||
-      quote.background === "quote-bkg--12" ||
-      quote.background === "quote-bkg--13" ||
-      quote.background === "quote-bkg--20";
+   let darkContext: boolean = LIGHT_QUOTE_BACKGROUNDS.includes(quote.background);
 
    const actionsColor = darkContext ? "#2a2438" : "#F1EAFF";
 

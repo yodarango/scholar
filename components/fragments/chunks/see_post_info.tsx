@@ -17,6 +17,7 @@ type TSeePostInfoProps = {
    userId: string;
    username: string;
    avatar: string;
+   dark?: boolean;
    postPostedOnDate?: string;
    postCreatedDate?: string;
    postCategory?: string;
@@ -40,6 +41,7 @@ export const SeePostInfo = ({
    customDateFontColor,
    customDateColor,
    shadowDateColor,
+   dark = false,
    cta
 }: TSeePostInfoProps) => {
    return (
@@ -58,7 +60,7 @@ export const SeePostInfo = ({
                   username={username}
                   flowV={false}
                   fontSize='xsmall'
-                  quiet={false}
+                  quiet={dark}
                   align='left'
                />
             )}
