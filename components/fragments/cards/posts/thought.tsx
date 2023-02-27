@@ -87,7 +87,7 @@ export const Thought = ({ thought, cta }: TThoughtProps) => {
                <TimeStamp
                   colorId={categoryId}
                   quiet={false}
-                  time={thought?.date}
+                  time={thought?.created_date}
                   niceTime={thought?.posted_on}
                />
             </div>

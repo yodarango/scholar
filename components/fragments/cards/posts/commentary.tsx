@@ -24,6 +24,7 @@ type TCommentaryProps = {
 };
 
 export const Commentary = ({ commentary, cta, customWidth = false }: TCommentaryProps) => {
+   console.log(new Date(parseInt(commentary.created_date)));
    // parse the raw category coming from the DB
    const categoryIdNormalized = commentary?.category_tags.split(" ")[0].replace("#", "");
    const categoryId = `category-${categoryIdNormalized}`;
@@ -102,7 +103,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                <TimeStamp
                   colorId={categoryId}
                   quiet={false}
-                  time={commentary?.date}
+                  time={commentary?.created_date}
                   niceTime={commentary?.posted_on}
                />
             </div>

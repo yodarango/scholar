@@ -124,7 +124,7 @@ export const WithTextContentStack = ({
             </div>
          </div>
 
-         {/* subwrapper where content is held */}
+         {/* sub wrapper where content is held */}
          <div className={styles.subWrapper}>
             <div className={styles.title}>
                <Header text={title} size='large' type={2} />

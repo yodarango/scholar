@@ -73,7 +73,6 @@ export const CommentaryTextEditor = ({
    const [notification, setnotification] =
       useState<null | { title: string; body: string; type: string }>(null);
    const [loading, setloading] = useState("done");
-   const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
    const post: THandlePostContent = {
       ID,
@@ -180,8 +179,8 @@ export const CommentaryTextEditor = ({
                   userId={userId}
                   username={username}
                   avatar={avatar}
-                  postPostedOnDate={postDate.posted}
-                  postCreatedDate={postDate.created}
+                  postPostedOnDate={postPostedOnDate}
+                  postCreatedDate={postCreatedDate}
                   postCategory={state.category_tags}
                   postReferences={state.referenced_verses}
                   postPrivacy={postPrivacy}

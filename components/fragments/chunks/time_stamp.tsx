@@ -41,6 +41,7 @@ export const TimeStamp = ({
    colorId,
    customFontColor
 }: TimeStampProps) => {
+   //console.log(niceTime, time);
    const formatedTime = calcElapsedTime(time);
 
    const [isOpenTimeStamp, setisOpenTimeStamp] = useState<boolean>(false);
@@ -54,6 +55,7 @@ export const TimeStamp = ({
 
    return (
       <div className={`${styles.mainWrapper}`}>
+         {/* this is the close time stamp that shows the format '2secs ago' */}
          {!isOpenTimeStamp && !customColor && (
             <div
                className={`${styles.closed} ${colorId && styles.hasColorId}`}
@@ -62,7 +64,7 @@ export const TimeStamp = ({
                <Parragraph
                   size={fontSize ? fontSize : "xxsmall"}
                   bold={true}
-                  text={formatedTime ? `${formatedTime} ago` : "sometime ago"}
+                  text={formatedTime}
                   quiet={quiet}
                   lineHieght={"1em"}
                   color={textColor}
