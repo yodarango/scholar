@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 // components
 import { TextEditor } from "../../layouts/text_editor";
 import { TextEditorVerseSelection } from "../../fragments/text_editor_verse_selection";
-import Portal from "../../hoc/potal";
 import { Notification } from "../../fragments/popups/notification";
+import Portal from "../../hoc/potal";
 
 // styles
 import styles from "./commentary_text_editor.module.css";
@@ -18,13 +18,14 @@ import {
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
+import { CloseContent } from "../../fragments/buttons/close_content";
 
 type TCommentaryTextEditorProps = {
    ID?: string;
-   userId: string;
-   username: string;
-   avatar: string;
-   userAuthority: number;
+   userId?: string;
+   username?: string;
+   avatar?: string;
+   userAuthority?: number;
    verseId?: string;
    verseCitation?: string;
    verseContent?: string;
@@ -36,6 +37,7 @@ type TCommentaryTextEditorProps = {
    postReferences?: string[];
    postPrivacy?: boolean;
    requestType: string;
+   includeClose?: boolean;
    readyData?: {
       verseId: string;
       reference: string;
@@ -47,11 +49,11 @@ type TCommentaryTextEditorProps = {
 };
 
 export const CommentaryTextEditor = ({
-   ID,
-   userId,
-   username,
-   avatar,
-   userAuthority,
+   ID = "",
+   userId = "",
+   username = "",
+   avatar = "",
+   userAuthority = 1,
    verseId = "",
    verseCitation = "",
    verseContent = "",
@@ -60,9 +62,10 @@ export const CommentaryTextEditor = ({
    postPostedOnDate = "",
    postCreatedDate = "",
    postCategory = "",
-   postReferences,
+   postReferences = [],
    postPrivacy = false,
    readyData,
+   includeClose,
    cta,
    requestType
 }: TCommentaryTextEditorProps) => {
@@ -146,6 +149,11 @@ export const CommentaryTextEditor = ({
 
    return (
       <>
+         {includeClose && (
+            <div className={styles.close}>
+               <CloseContent href='/' />
+            </div>
+         )}
          <Portal>
             {notification && (
                <Notification
@@ -166,6 +174,7 @@ export const CommentaryTextEditor = ({
                <TextEditorVerseSelection
                   readyData={readyData}
                   verseID={verseId}
+                  renderButton={true}
                   cta={{
                      handleVerseData
                   }}

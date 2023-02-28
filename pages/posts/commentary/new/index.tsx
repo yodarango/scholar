@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 // comps
 import { CommentaryTextEditor } from "../../../../components/templates/content/commentary_text_editor";
+import { REQUEST_TYPE_IS_NEW_COMMENTARY } from "../../../../helpers/functions/posts/content_post";
 
 import styles from "./index.module.css";
 
@@ -12,10 +13,9 @@ const NewCommentary = () => {
    return (
       <div className={styles.mainWrapper}>
          <CommentaryTextEditor
-            userAuthority={1}
-            userId='123'
-            username='Username'
-            avatar='/images/user_avatar'
+            includeClose
+            verseId=''
+            requestType={REQUEST_TYPE_IS_NEW_COMMENTARY}
          />
       </div>
    );

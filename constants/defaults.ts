@@ -75,3 +75,5 @@ export const LIGHT_QUOTE_BACKGROUNDS = [
    "quote-bkg--20",
    "quote-bkg--5"
 ];
+
+export const LIGHT_COMMENT_BACKGROUNDS = ["GRN", "CYN", "YLW", "PNK"];

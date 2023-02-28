@@ -12,8 +12,12 @@ import styles from "./commentary.module.css";
 
 // types
 import { TCommentary } from "../../../../types/posts";
-import { COM_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
+import {
+   COM_DEFAULT_IMG_PLACEHOLDER,
+   LIGHT_COMMENT_BACKGROUNDS
+} from "../../../../constants/defaults";
 import { EnumContentType } from "../../../../types/enums";
+import { FONT_COLOR, PRIMARY_COLOR } from "../../../../constants/tokens";
 
 type TCommentaryProps = {
    customWidth?: boolean;
@@ -24,10 +28,11 @@ type TCommentaryProps = {
 };
 
 export const Commentary = ({ commentary, cta, customWidth = false }: TCommentaryProps) => {
-   console.log(new Date(parseInt(commentary.created_date)));
    // parse the raw category coming from the DB
    const categoryIdNormalized = commentary?.category_tags.split(" ")[0].replace("#", "");
    const categoryId = `category-${categoryIdNormalized}`;
+
+   const isLightBkg = LIGHT_COMMENT_BACKGROUNDS.includes(categoryIdNormalized);
 
    return (
       <div
@@ -44,9 +49,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                postId={commentary?.ID}
                postType='commentary'
                contentType={EnumContentType.commentary}
-               fontColor={
-                  categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW" ? "#2A2438" : ""
-               }
+               fontColor={isLightBkg ? PRIMARY_COLOR : undefined}
             />
          </div>
 
@@ -71,11 +74,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                      text={commentary?.verse_citation}
                      size='small'
                      lineHieght='.9em'
-                     color={
-                        categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
-                           ? "#2A2438"
-                           : "F1EAFF"
-                     }
+                     color={isLightBkg ? PRIMARY_COLOR : FONT_COLOR}
                   />
                </div>
             </a>
@@ -87,11 +86,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
                   contentType={1}
                   postId={commentary?.ID}
                   userId={commentary?.creator?.ID}
-                  iconColor={
-                     categoryIdNormalized === "GRN" || categoryIdNormalized === "YLW"
-                        ? "#2A2438"
-                        : ""
-                  }
+                  iconColor={isLightBkg ? PRIMARY_COLOR : undefined}
                   totalComments={commentary?.comments?.total_count}
                   postRating={{
                      totalCount: commentary?.approvals?.total_count,
@@ -102,7 +97,7 @@ export const Commentary = ({ commentary, cta, customWidth = false }: TCommentary
             <div className={styles.timeStamp}>
                <TimeStamp
                   colorId={categoryId}
-                  quiet={false}
+                  quiet={isLightBkg}
                   time={commentary?.created_date}
                   niceTime={commentary?.posted_on}
                />

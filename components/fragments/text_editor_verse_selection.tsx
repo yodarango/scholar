@@ -44,6 +44,7 @@ export const TextEditorVerseSelection = ({
    renderButton,
    verseID
 }: TTextEditorVerseSelectionProps) => {
+   console.log(verseID);
    const [buttonTitle, setbuttonTitle] = useState<string>("");
    const [verseData, setverseData] = useState<null | TBibleVerse>(null);
    const [loading, setLoading] = useState<string>("loading");
@@ -88,6 +89,9 @@ export const TextEditorVerseSelection = ({
          setverseData(readyData);
       } else if (verseID) {
          fetchVerse(verseID);
+      } else {
+         setbuttonTitle("Select scripture");
+         setLoading("done");
       }
    };
    useEffect(() => {
@@ -97,10 +101,10 @@ export const TextEditorVerseSelection = ({
    // handle verse selection from the BibleBook Wrapper
    const handlerefVerseSelection = (id: string) => {
       setshowChooseScriptureModal(false);
-      router.push(`${router.pathname.replace("[id]", "")}${router.query.id}?VERSE_ID=${id}`);
-   };
 
-   console;
+      const queryID = router.query.id ? router.query.id : "";
+      router.push(`${router.pathname.replace("[id]", "")}${queryID}?VERSE_ID=${id}`);
+   };
 
    return (
       <>

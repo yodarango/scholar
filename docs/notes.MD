@@ -21,5 +21,5 @@
 
 ## FROM LAST CODING SESSION
 
--  working on integrating the _Post_ action of all post types into one function in helpers/functions/posts/post_content.ts
--  Commentary: in **Thought** there was issues remapping the referenced_verses after post submission as it was converted to string. Make sure this does not happen in **Commentary**
+-  add different types of highlights in read and map them to types in sql (eg: gradient, color, image, etc)
+-  add commentary annotations after the verse commented: (emojis, icons, etc)
