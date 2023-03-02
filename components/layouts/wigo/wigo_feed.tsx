@@ -85,7 +85,6 @@ export const WigoFeed = () => {
       fetchData();
    }, []);
 
-   const handleDelete = (id: string) => {};
    return (
       <div className={styles.mainWrapper} ref={wrapper}>
          {loading !== "first_load" &&
@@ -93,19 +92,19 @@ export const WigoFeed = () => {
                if (post.POST_TYPE === POST_TYPE_COMMENTARY?.toString())
                   return (
                      <div className={`${styles.post}`} key={index}>
-                        <Commentary commentary={post} cta={{ handleDelete }} />
+                        <Commentary commentary={post} />
                      </div>
                   );
                else if (post.POST_TYPE === POST_TYPE_QUOTE?.toString())
                   return (
                      <div className={styles.post} key={index}>
-                        <Quote quote={post} cta={{ handleDelete }} />{" "}
+                        <Quote quote={post} />{" "}
                      </div>
                   );
                else if (post.POST_TYPE === POST_TYPE_THOUGHT?.toString())
                   return (
                      <div className={styles.post} key={index}>
-                        <Thought thought={post} cta={{ handleDelete }} />{" "}
+                        <Thought thought={post} />{" "}
                      </div>
                   );
             })}

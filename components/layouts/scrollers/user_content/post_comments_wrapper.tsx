@@ -20,7 +20,7 @@ import {
 
 // constants
 import { CONTENT_COMMENTS_LAST_ID } from "../../../../constants/defaults";
-import { deleteContentComment } from "../../../../helpers/functions/posts/commentary_delete";
+import { deleteContentComment } from "../../../../helpers/functions/posts/content_comment_delete";
 
 type TPostCommentsWrapperProps = {
    newPost: any;

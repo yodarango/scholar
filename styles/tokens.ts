@@ -12,6 +12,7 @@ export const colors: any = {
    font: "#f1eaff",
    font_color_darker: "#ff89a9",
    danger: "#ff4d62",
+   danger_secondary: "#c03142",
    warning: "#e9d259",
    safe: "#7fdc7d",
    rating_star_dark: "#fca101",

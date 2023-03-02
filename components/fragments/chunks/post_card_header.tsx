@@ -38,7 +38,7 @@ export type TCommentaryCardHeaderProps = {
       showReportOption?: boolean;
    };
    cta: {
-      handleDelete: (id: string) => void;
+      handleDelete: (id: string | number) => Promise<void>;
    };
 };
 export const PostCardHeader = ({

@@ -27,6 +27,7 @@ import { notificationMessages } from "../../../data/notification_messages";
 import { copyToClipboard } from "../../../helpers/copy_text_to_clipboard";
 import { reportCommentary } from "../../../helpers/functions/posts/content_report";
 import { EnumContentType } from "../../../types/enums";
+import { colors } from "../../../styles/tokens";
 
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;
@@ -124,8 +125,8 @@ export const SelectpostOptions = ({
                         textType='text'
                         iconType='icon'
                         optionProperties={{
-                           icon: <Icon name='share' color='#F1EAFF' size='2rem' />,
-                           iconShadow: "#F1EAFF",
+                           icon: <Icon name='share' color={colors.font} size='2rem' />,
+                           iconShadow: colors.font,
                            text: "Share"
                         }}
                         cta={{ handleOptionClick: handleSharePost }}
@@ -142,8 +143,8 @@ export const SelectpostOptions = ({
                                  textType='text'
                                  iconType='icon'
                                  optionProperties={{
-                                    icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
-                                    iconShadow: "#F1EAFF",
+                                    icon: <Icon name='edit' color={colors.font} size='2rem' />,
+                                    iconShadow: colors.font,
                                     text: "Edit"
                                  }}
                               />
@@ -155,8 +156,8 @@ export const SelectpostOptions = ({
                            textType='text'
                            iconType='icon'
                            optionProperties={{
-                              icon: <Icon name='edit' color='#F1EAFF' size='2rem' />,
-                              iconShadow: "#F1EAFF",
+                              icon: <Icon name='edit' color={colors.font} size='2rem' />,
+                              iconShadow: colors.font,
                               text: "Edit"
                            }}
                            cta={{
@@ -177,10 +178,10 @@ export const SelectpostOptions = ({
                         iconType='icon'
                         cta={{ handleSelection }}
                         optionProperties={{
-                           icon: <Icon name='delete' color='#ff4d62' size='2rem' />,
-                           iconShadow: "#ff4d62",
+                           icon: <Icon name='delete' color={colors.danger_secondary} size='2rem' />,
+                           iconShadow: colors.danger_secondary,
                            text: "Delete",
-                           descColor: "#ff4d62"
+                           descColor: colors.danger_secondary
                         }}
                      />
                   </div>

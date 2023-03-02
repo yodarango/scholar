@@ -11,7 +11,6 @@ export type TCommentary = {
    created_date: string;
    date: string;
    verse_citation: string;
-   total_count: number;
    post_image: string;
    is_private: boolean;
    authority_level: string;
@@ -41,7 +40,6 @@ export type TThought = {
    posted_on: string;
    created_date: string;
    date: string;
-   total_count: number;
    post_image: string;
    creator: {
       ID: string;
@@ -68,7 +66,6 @@ export type TSermonNote = {
    category_tags: string;
    posted_on: string;
    date: string;
-   // total_count: number;
    file_url: string;
    creator: {
       ID: string;
@@ -92,7 +89,6 @@ export type TQuote = {
    posted_on?: string;
    created_date?: string;
    date: string;
-   total_count: number;
    creator: {
       ID: string;
       signature: string;

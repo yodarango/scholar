@@ -95,6 +95,7 @@ export const errorMessages = {
             return `Your file is too big. Max size is ${size}, please try again!`;
          }
       },
+
       missingCategoryTag: {
          id: 3,
          type: "error",
@@ -129,6 +130,13 @@ export const errorMessages = {
          description: "users must enter an author quote",
          title: "Do you know the author? 🖋",
          body: "Please give the author credit or type unknown if you don't know!"
+      },
+      failedToDeletePost: {
+         id: 8,
+         type: "error",
+         description: "when a posts fails to delete",
+         title: "Deletion failed 👎",
+         body: "We were unable to delete this post, Sorry! Try again later!"
       }
    },
    unknown: {
