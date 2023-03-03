@@ -40,6 +40,8 @@ export const NavigationMain = ({ children }: any) => {
             router.asPath.includes("/sermon-note")
          ) {
             setshouldRender(false);
+         } else {
+            setshouldRender(true);
          }
       }
    }, [router]);

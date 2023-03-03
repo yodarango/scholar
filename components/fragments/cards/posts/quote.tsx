@@ -18,6 +18,7 @@ import { useState } from "react";
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
+import { FONT_COLOR, PRIMARY_COLOR } from "../../../../constants/tokens";
 
 export type TQuoteProps = {
    quote: TQuote;
@@ -30,7 +31,7 @@ export const Quote = ({ quote, type = 0 }: TQuoteProps) => {
 
    let darkContext: boolean = LIGHT_QUOTE_BACKGROUNDS.includes(quote.background);
 
-   const actionsColor = darkContext ? "#2a2438" : "#F1EAFF";
+   const actionsColor = darkContext ? PRIMARY_COLOR : FONT_COLOR;
 
    const handleDelete = async (id: string | number) => {
       try {
@@ -80,7 +81,7 @@ export const Quote = ({ quote, type = 0 }: TQuoteProps) => {
                {/* ------------------------------ body ----------------------- */}
                <div className={`${styles.body} ${type === 1 && styles.bodyWide}`}>
                   <Header
-                     color={darkContext ? "#2a2438" : "#f1eaff"}
+                     color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
                      type={3}
                      size={type === 1 ? "main" : "xxsmall"}
                      text={quote?.body}
@@ -88,7 +89,7 @@ export const Quote = ({ quote, type = 0 }: TQuoteProps) => {
                   />
                   <div className={styles.author}>
                      <Parragraph
-                        color={darkContext ? "#2a2438" : "#f1eaff"}
+                        color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
                         size={type === 1 ? "small" : "xxsmall"}
                         text={`—	${quote.creator?.signature}`}
                         align='center'

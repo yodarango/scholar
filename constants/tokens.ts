@@ -12,6 +12,7 @@ export const GRADIENT_2__LIGHT = "#ff8655";
 export const FONT_COLOR = "#f1eAff";
 export const FONT_COLOR_DARKER = "#ff89A9";
 export const DANGER_COLOR = "#ff4d62";
+export const DANGER_COLOR_SECONDARY = "#ffc0c8";
 export const WARNING_COLOR = "#e9d259";
 export const SAFE_COLOR = "#7fdc7d";
 export const RATING_LEVEL_STAR_DARK = "#fcA101";

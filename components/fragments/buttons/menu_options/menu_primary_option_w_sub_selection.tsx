@@ -10,7 +10,7 @@ import { Parragraph } from "../../Typography/parragraph";
 // styles
 import styles from "./menu_primary_option_w_sub_selection.module.css";
 import { Icon } from "../../chunks/icons";
-import { colors } from "../../../../styles/tokens";
+import { DANGER_COLOR_SECONDARY, FONT_COLOR } from "../../../../constants/tokens";
 
 type TMenuPrimaryOptionWithSubSelectionProps = {
    iconType: string;
@@ -64,12 +64,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
                </div>
 
                <div onClick={() => cta.handleSelection("delete")}>
-                  <Parragraph
-                     text={"YES"}
-                     size='main'
-                     bold={true}
-                     color={colors.danger_secondary}
-                  />
+                  <Parragraph text={"YES"} size='main' bold={true} color={DANGER_COLOR_SECONDARY} />
                </div>
             </div>
          )}
@@ -103,7 +98,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
             <div className={styles.subOptionsWrapperCustom}>
                {customSubSelections?.map((selection, index) => (
                   <div onClick={() => cta.handleSelection(selection.value)} key={index}>
-                     <Icon name={selection.title} size='2.5rem' color={colors.font} />
+                     <Icon name={selection.title} size='2.5rem' color={FONT_COLOR} />
                   </div>
                ))}
             </div>

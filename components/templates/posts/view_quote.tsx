@@ -15,7 +15,6 @@ import styles from "./view_quote.module.css";
 // helpers | types
 import { handleGetQuote } from "../../../helpers/functions/posts/quote_get";
 import { TQuote } from "../../../types/posts";
-import { colors } from "../../../styles/tokens";
 
 // constants
 import { LIGHT_QUOTE_BACKGROUNDS, POST_TYPE_QUOTE } from "../../../constants/defaults";
@@ -62,9 +61,9 @@ export const ViewQuote = () => {
                      <SeePostInfo
                         dark={darkContext}
                         cta={{ handleClickOnAvatar() {} }}
-                        customDateColor={colors.font}
-                        shadowDateColor={colors.font}
-                        customDateFontColor={colors.primary}
+                        customDateColor={FONT_COLOR}
+                        shadowDateColor={FONT_COLOR}
+                        customDateFontColor={PRIMARY_COLOR}
                         userAuthority={quote.creator.authority_level}
                         userId={quote.creator.ID}
                         username={quote.creator.signature}

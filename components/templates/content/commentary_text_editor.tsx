@@ -17,7 +17,6 @@ import {
    handlePostContent,
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
-import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
 import { CloseContent } from "../../fragments/buttons/close_content";
 
 type TCommentaryTextEditorProps = {

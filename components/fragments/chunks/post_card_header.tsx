@@ -19,6 +19,7 @@ import styles from "./post_card_header.module.css";
 
 // type
 import { EnumContentType } from "../../../types/enums";
+import { FONT_COLOR } from "../../../constants/tokens";
 
 export type TCommentaryCardHeaderProps = {
    username: string;
@@ -109,7 +110,7 @@ export const PostCardHeader = ({
          </div>
 
          <div className={styles.icon} onClick={() => setshowPostOptions(true)}>
-            <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : "#F1EAFF"} />
+            <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : FONT_COLOR} />
          </div>
 
          {/*  include / exclude category tag   */}

@@ -95,7 +95,6 @@ export const errorMessages = {
             return `Your file is too big. Max size is ${size}, please try again!`;
          }
       },
-
       missingCategoryTag: {
          id: 3,
          type: "error",
@@ -136,7 +135,17 @@ export const errorMessages = {
          type: "error",
          description: "when a posts fails to delete",
          title: "Deletion failed 👎",
-         body: "We were unable to delete this post, Sorry! Try again later!"
+         body: "Sorry, e were unable to delete this post. Please try again later!"
+      }
+   },
+   read: {
+      noHighlightVerses: {
+         id: 1,
+         type: "warning",
+         description:
+            "highlight verse returned null or undefined or something else that is not an array ",
+         title: "No highlights",
+         body: "We did not find any highlighted verses "
       }
    },
    unknown: {

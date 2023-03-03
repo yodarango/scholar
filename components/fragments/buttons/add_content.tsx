@@ -8,6 +8,7 @@ import { Icon } from "../chunks/icons";
 
 // styles
 import styles from "./add_content.module.css";
+import { IconButton } from "./icon_button";
 
 type TAddContentProps = {
    href?: string;
@@ -24,17 +25,13 @@ export const AddContent = ({ href }: TAddContentProps) => {
             </Portal>
          )}
          {!href && (
-            <button className={styles.button} onClick={() => setshowModal(true)}>
-               <Icon name='add' color='#F1EAFF' size='2rem' strokeWidth='64' />
-            </button>
+            <IconButton
+               backgroundColor='2'
+               icon='add'
+               cta={{ handleClick: () => setshowModal(true) }}
+            />
          )}
-         {href && (
-            <Link href={href}>
-               <a className={styles.button}>
-                  <Icon name='add' color='#F1EAFF' size='2rem' strokeWidth='64' />
-               </a>
-            </Link>
-         )}
+         {href && <IconButton backgroundColor='2' icon='add' link={href} />}
       </div>
    );
 };

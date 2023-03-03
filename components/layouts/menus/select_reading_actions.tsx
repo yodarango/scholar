@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { REQUEST_TYPE_IS_NEW_COMMENTARY } from "../../../helpers/functions/posts/content_post";
+import { ThandlePostHighlight } from "../../../helpers/functions/reading/highlighted_verses";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -18,11 +20,7 @@ export type TSelectPostRatingMenuProps = {
    data: any;
    cta: {
       handleCloseModal: () => void;
-      handleHighlightVerse: (
-         color: string | { light: string; dark: string },
-         verseId: string,
-         color_ID: number
-      ) => void;
+      handleHighlightVerse: ({ color, VERSE_ID, highlight_type }: ThandlePostHighlight) => void;
    };
 };
 
@@ -114,6 +112,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                         reference: `${data.reference}:${data.verseNumber}`,
                         content: data.verseContent
                      }}
+                     requestType={REQUEST_TYPE_IS_NEW_COMMENTARY}
                      userAuthority={1}
                      userId='123'
                      username='Username'
@@ -133,7 +132,12 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                   handleColorSelection: (
                      color: string | { light: string; dark: string },
                      ID: number
-                  ) => cta.handleHighlightVerse(color, `${data.id}.${data.verseNumber}`, ID),
+                  ) =>
+                     cta.handleHighlightVerse({
+                        color: `${color}`,
+                        VERSE_ID: `${data.id}.${data.verseNumber}`,
+                        highlight_type: ID
+                     }),
                   handleClose: cta.handleCloseModal
                }}
             />
