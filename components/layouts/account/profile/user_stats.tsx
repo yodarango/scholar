@@ -7,7 +7,7 @@ import { Parragraph } from "../../../fragments/Typography/parragraph";
 import styles from "./user_stats.module.css";
 
 // helpers
-import { calulateApprovalLevel } from "../../../../helpers/math/calculate_approval_rating";
+import { calculateApprovalLevel } from "../../../../helpers/math/calculate_approval_rating";
 import { TuserSummary } from "../../../../types/user";
 
 export type TUserStatsProps = {
@@ -26,8 +26,8 @@ export const UserStats = ({
             <StatsCount
                alignment='left'
                title='rating'
-               count={calulateApprovalLevel(approval_rating).grade}
-               countColor={calulateApprovalLevel(approval_rating).color}
+               count={calculateApprovalLevel(approval_rating).grade}
+               countColor={calculateApprovalLevel(approval_rating).color}
             />
          </div>
          <div className={styles.totalRatings}>

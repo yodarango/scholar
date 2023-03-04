@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { BUG_REPORT, PRIVACY, USER_SETTINGS, USER_VERIFICATION } from "../../../constants/routes";
+import { FONT_COLOR } from "../../../constants/tokens";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -24,37 +26,37 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
          action: "notifications",
          icon: userHasNotifications ? "bellWithDot" : "bell",
          description: "Notifications",
-         color: "#F1EAFF"
+         color: FONT_COLOR
       },
       {
-         url: "/users/settings",
+         url: USER_SETTINGS,
          icon: "settings",
          description: "Settings",
-         color: "#F1EAFF"
+         color: FONT_COLOR
       },
       {
-         url: "/privacy",
+         url: PRIVACY,
          icon: "privacy",
          description: "Privacy",
-         color: "#F1EAFF"
+         color: FONT_COLOR
       },
       {
-         url: "/user-verification",
+         url: USER_VERIFICATION,
          icon: "star",
          description: "Apply for user verification",
-         color: "#F1EAFF"
+         color: FONT_COLOR
       },
       {
-         url: "/bug-report",
+         url: BUG_REPORT,
          icon: "bug",
          description: "Report a bug",
-         color: "#F1EAFF"
+         color: FONT_COLOR
       },
       {
          action: "logout",
          icon: "logout",
          description: "Logout",
-         color: "#F1EAFF"
+         color: FONT_COLOR
       }
    ];
 

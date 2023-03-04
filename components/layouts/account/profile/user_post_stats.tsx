@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import {
+   FONT_COLOR,
+   GRADIENT_1__DARK,
+   GRADIENT_1__LIGHT,
+   THIRD_COLOR_ACCENT
+} from "../../../../constants/tokens";
+import {
    getPostsSummary,
    TgetPostsSummaryVariables
 } from "../../../../helpers/functions/users/profile_get_posts_summary";
@@ -22,25 +28,25 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
    const contentStats = [
       {
          icon: "comment",
-         iconColor: "#B293FE",
+         iconColor: GRADIENT_1__LIGHT,
          totalPosts: "commentary_count",
          contentType: "commentaries"
       },
       {
          icon: "think",
-         iconColor: "#533CA3",
+         iconColor: THIRD_COLOR_ACCENT,
          totalPosts: "thought_count",
          contentType: "thoughts"
       },
       {
          icon: "quote",
-         iconColor: "#F1EAFF",
+         iconColor: FONT_COLOR,
          totalPosts: "quote_count",
          contentType: "quote"
       },
       {
          icon: "folder",
-         iconColor: "#7350EC",
+         iconColor: GRADIENT_1__DARK,
          totalPosts: "sermon_count",
          contentType: "sermon notes"
       }

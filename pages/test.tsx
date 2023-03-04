@@ -73,7 +73,7 @@ import { QuotesAll } from "../components/templates/content/quotes_all";
 import { ProfileArt } from "../components/layouts/stacks/headers/profile_art";
 import { NavigateThruPosts } from "../components/layouts/account/profile/navigate_thru_posts";
 import { Profile } from "../components/templates/account/profile";
-import { General } from "../components/templates/account/general";
+import { General } from "../components/templates/account/general_settings";
 
 const Test = () => {
    return (

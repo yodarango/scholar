@@ -15,25 +15,31 @@ import { ChangeSignature } from "../../layouts/account/settings/change_signature
 import { FourthStackHeader } from "../../layouts/stacks/headers/fourth_stack_header";
 
 // styles
-import styles from "./general.module.css";
+import styles from "./general_settings.module.css";
 
 // helpers
-import { getUserGeneralSettings } from "../../../helpers/functions/users/get_user_settings";
+import {
+   getUserGeneralSettings,
+   handleUpdateSettings,
+   ThandleUpdateSettings
+} from "../../../helpers/functions/users/user_settings";
 
-export const General = () => {
+const settingsDefaults: ThandleUpdateSettings = {
+   my_true_color_personality_test: "",
+   my_favorite_verse: "",
+   my_favorite_color: "",
+   authority_level: 0,
+   my_ministry: "",
+   signature: "",
+   my_church: "",
+   avatar: "",
+   my_job: ""
+};
+
+export const GeneralSettings = () => {
    // state
+   const [generalSettings, setgeneralSettings] = useState<ThandleUpdateSettings>(settingsDefaults);
    const [loading, setloaading] = useState<string>("loading");
-   const [generalSettings, setgeneralSettings] = useState({
-      signature: "",
-      user_authority: 0,
-      avatar: "",
-      my_church: "",
-      my_ministry: "",
-      my_favorite_verse: "",
-      my_job: "",
-      my_favorite_color: "",
-      my_color_personality: ""
-   });
 
    const getData = async () => {
       try {
@@ -44,14 +50,20 @@ export const General = () => {
          console.log(error);
       }
    };
+
    useEffect(() => {
       getData();
    }, []);
 
    // handle the saving
    const handleSave = async () => {
-      // handle the save here
-      console.log(generalSettings);
+      try {
+         const data = await handleUpdateSettings(generalSettings);
+         console.log(data);
+         console.log(generalSettings);
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    return (
@@ -62,7 +74,7 @@ export const General = () => {
                <div className={styles.avatar}>
                   <ChangeAvatar
                      avatar={generalSettings.avatar}
-                     userAuthority={generalSettings.user_authority}
+                     userAuthority={generalSettings.authority_level}
                   />
                </div>
                <div className={styles.signature}>
@@ -131,9 +143,13 @@ export const General = () => {
                <div className={styles.colorPersonality}>
                   <SelectTrueColorPersonality
                      label='My true color personality'
+                     currColor={generalSettings.my_true_color_personality_test}
                      cta={{
                         handleSelection: (color: string) =>
-                           setgeneralSettings({ ...generalSettings, my_color_personality: color })
+                           setgeneralSettings({
+                              ...generalSettings,
+                              my_true_color_personality_test: color
+                           })
                      }}
                   />
                </div>

@@ -5,6 +5,7 @@ export const SECONDARY_COLOR = "#38304B";
 export const THIRD_COLOR = "#5c5470";
 //   export const THIRD_COLOR= "#685795"; /* OPTION B */
 //   export const THIRD_COLOR= "#574c6d"; /* OPTION C */
+export const THIRD_COLOR_ACCENT = "#533CA3";
 export const GRADIENT_1__DARK = "#7350ec";
 export const GRADIENT_1__LIGHT = "#B293fe";
 export const GRADIENT_2__DARK = "#ff3269";

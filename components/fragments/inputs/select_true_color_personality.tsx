@@ -7,7 +7,7 @@ import { Parragraph } from "../Typography/parragraph";
 import styles from "./select_true_color_personality.module.css";
 
 type TSelectTrueColorPersonalityProps = {
-   currColor?: number;
+   currColor?: string;
    label: string;
    cta: {
       handleSelection: (color: string) => void;
@@ -17,10 +17,11 @@ type TSelectTrueColorPersonalityProps = {
 export const SelectTrueColorPersonality = ({
    label,
    cta,
-   currColor = 0
+   currColor = ""
 }: TSelectTrueColorPersonalityProps) => {
+   console.log(currColor);
    // state
-   const [colorIsActive, setcolorIsActive] = useState<number>(currColor);
+   const [colorIsActive, setcolorIsActive] = useState<string>(currColor);
 
    const colors = [
       { color: "#A1DF9F", label: "green" },
@@ -37,11 +38,11 @@ export const SelectTrueColorPersonality = ({
          <div className={styles.colors}>
             {colors.map((item, index: number) => (
                <div
-                  className={`${styles.color} ${index + 1 === colorIsActive && styles.active}`}
+                  className={`${styles.color} ${item.label === colorIsActive ? styles.active : ""}`}
                   key={index}
                   style={{ backgroundColor: item.color, color: item.color }}
                   onClick={() => (
-                     cta.handleSelection(item.label), setcolorIsActive(index + 1)
+                     cta.handleSelection(item.label), setcolorIsActive(item.label)
                   )}></div>
             ))}
          </div>

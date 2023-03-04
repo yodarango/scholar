@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { General } from "./general";
+import { General } from "./general_settings";
 
 export default {
    title: "Layouts/Account/Profile/Settings/General",

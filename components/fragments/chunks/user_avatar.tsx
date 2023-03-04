@@ -1,6 +1,7 @@
 // revamp 2.0
 import styles from "./user_avatar.module.css";
 import { Icon } from "./icons";
+import { PRIMARY_COLOR } from "../../../constants/tokens";
 
 type TuserAvatarProps = {
    src: string | undefined | null;
@@ -27,7 +28,7 @@ export const UserAvatar = ({ src, userAuthority, customSize, cta }: TuserAvatarP
                <div className={`${styles.background}`}>
                   <img className={styles.avatar} alt='user avatar' src={src ? src : ""} />
                   <div className={styles.authorityLevel}>
-                     <Icon name='star' color='#2A2438' size={"100%"} />
+                     <Icon name='star' color={PRIMARY_COLOR} size={"100%"} />
                   </div>
                </div>
             </div>
@@ -37,7 +38,7 @@ export const UserAvatar = ({ src, userAuthority, customSize, cta }: TuserAvatarP
                <div className={`${styles.background}`}>
                   <img className={styles.avatar} alt='user avatar' src={src ? src : ""} />
                   <div className={styles.authorityLevel}>
-                     <Icon name='star' color='#2A2438' size={"100%"} />
+                     <Icon name='star' color={PRIMARY_COLOR} size={"100%"} />
                   </div>
                </div>
             </div>

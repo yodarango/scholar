@@ -46,9 +46,10 @@ export const ProfileArt = ({
       total_posts: 0,
       has_new_notifications: false
    });
+
    const getData = async (variables: TgetUserSummaryVariables) => {
       try {
-         const { data, status } = await getUserSummary(variables);
+         const { data } = await getUserSummary(variables);
          setdata(data);
          console.log(data);
       } catch (error) {

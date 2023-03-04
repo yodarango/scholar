@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FONT_COLOR } from "../../../constants/tokens";
 import {
    getUserNotification,
    TgetUserNotificationVariables
@@ -37,19 +38,26 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
    return (
       <>
          <Portal>
-            {showMenu && type === 1 && (
+            {/* there is no library right now to this is unecessary, in the future
+               this trigger can be used to display a different set of options
+               for different pages */}
+            {/* {showMenu && type === 1 && (
                <SelectLibraryContent cta={{ handleCloseModal: () => setshowMenu(false) }} />
-            )}
+            )} */}
+
+            {/* the menu containing all teh settings options  */}
             {showMenu && type === 2 && !showModal && (
                <SelectProfileOptions
                   userHasNotifications={hasNotifications}
                   cta={{
-                     handleCloseModal: () => setshowMenu(false),
+                     handleCloseModal: () => setshowMenu(!showMenu),
+                     // this triggers the notifications modal below
                      handleShowModal: (option: string) => setshowModal(option)
                   }}
                />
             )}
 
+            {/* the notifications wrapper  */}
             {showModal === "notifications" && (
                <UserNotificationsWrapper
                   title='Notifications'
@@ -61,7 +69,7 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
             <Icon
                name={hasNotifications ? "menuWithDot" : "menu"}
                size={iconSize}
-               color='#F1EAFF'
+               color={FONT_COLOR}
             />
          </div>
       </>
