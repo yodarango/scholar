@@ -27,7 +27,8 @@ import {
    handleGetHighilightedVerses,
    ThandlePostHighlight,
    handlePostHighlight,
-   ThighlightedVersesVariables
+   ThighlightedVersesVariables,
+   handleRemoveHighlight
 } from "../../helpers/functions/reading/highlighted_verses";
 
 // types
@@ -101,7 +102,7 @@ export const BibleChapter = ({
       } catch (error) {
          setloading("done");
          sethighlightedVerses([]);
-         console.log(error);
+         console.error(error);
       }
    };
 
@@ -116,6 +117,54 @@ export const BibleChapter = ({
          fetchHighLightedVerses(hlVaraibles);
       }
    }, [hlVaraibles]);
+
+   // highlight the verse
+   const handleHighlightVerse = async ({
+      VERSE_ID,
+      highlight_type,
+      color
+   }: ThandlePostHighlight) => {
+      // check if the color is transparent with ID of -1 which means the user is removing the highlight
+      if (highlight_type === -1) {
+         try {
+            const { data } = await handleRemoveHighlight(VERSE_ID);
+            if (data) {
+               // if the verse is removed remove the verse from the array
+               const findVerse = highlightedVerses.filter(
+                  (highlight) => highlight.VERSE_ID !== VERSE_ID
+               );
+
+               sethighlightedVerses(findVerse);
+            }
+         } catch (error) {
+            console.error(error);
+         }
+      } else {
+         try {
+            const { data } = await handlePostHighlight({
+               VERSE_ID,
+               highlight_type,
+               color
+            });
+
+            if (data.VERSE_ID) {
+               // exclude the verse being highlighted from the saved verses in case it already exists
+               const findVerse: THighlightVerses[] = highlightedVerses.filter(
+                  (highlight) => highlight.VERSE_ID !== VERSE_ID
+               );
+               sethighlightedVerses([
+                  ...findVerse,
+                  { ID: 2, USER_ID: "1", VERSE_ID, highlight_type }
+               ]);
+            }
+         } catch (error) {
+            console.error(error);
+         }
+      }
+
+      // close modal
+      setshowReadingMenu(undefined);
+   };
 
    // update font
    useEffect(() => {
@@ -153,52 +202,6 @@ export const BibleChapter = ({
       }
    }, [theme]);
 
-   // highlight the verse
-   const handleHighlightVerse = async ({
-      VERSE_ID,
-      highlight_type,
-      color
-   }: ThandlePostHighlight) => {
-      console.log(VERSE_ID, highlight_type, color);
-      // check if the color is transparent with ID of -1 which means the user is removing the highlight
-      if (highlight_type === -1) {
-         // remove the verse from the array
-         const findVerse = highlightedVerses.filter((highlight) => highlight.VERSE_ID !== VERSE_ID);
-         sethighlightedVerses(findVerse);
-
-         // try {
-         //    const req = await handlePostHighlight({ VERSE_ID, highlight_type, color });
-         //    console.log(req);
-         // } catch (error) {
-         //    console.error(error);
-         // }
-      } else {
-         try {
-            const highlighted_verse = await handlePostHighlight({
-               VERSE_ID,
-               highlight_type,
-               color
-            });
-
-            if (highlighted_verse) {
-               // exclude the verse being highlighted from the saved verses in case it already exists
-               const findVerse: THighlightVerses[] = highlightedVerses.filter(
-                  (highlight) => highlight.VERSE_ID !== VERSE_ID
-               );
-               sethighlightedVerses([
-                  ...findVerse,
-                  { ID: 2, USER_ID: "1", VERSE_ID, highlight_type }
-               ]);
-            }
-         } catch (error) {
-            console.error(error);
-         }
-      }
-
-      // close modal
-      setshowReadingMenu(undefined);
-   };
-
    const chapterTitle = data && data.content.split("\n")[0];
    const versesArray = data && data.content.split(/\[[0-9]*\]/g);
 
@@ -230,6 +233,7 @@ export const BibleChapter = ({
                {/* loop through the data array to render the Chapter  */}
                <div className={styles.versesWrapper}>
                   {versesArray.map((verse: string, index: number) => {
+                     console.log();
                      // check if the verse is Highlighted
                      const isHighlighted = highlightedVerses.find(
                         (verse) => verse.VERSE_ID === `${chapterId}.${index}`

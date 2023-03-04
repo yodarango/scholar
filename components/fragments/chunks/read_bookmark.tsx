@@ -12,6 +12,8 @@ import styles from "./read_bookmark.module.css";
 // types
 import {
    handleGetBookmarks,
+   handlePostBookMark,
+   handleRemoveBookMark,
    TBookmarksVariables
 } from "../../../helpers/functions/reading/bookmarks";
 
@@ -28,9 +30,27 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
    const [bookMarked, setbookMarked] = useState<boolean>(false);
    const [showBookmarks, setshowBookmarks] = useState<boolean>(false);
 
-   const handleSetBookMark = (value: boolean) => {
-      setbookMarked(value);
-      // handle the request to DB via helper
+   const handleSetBookMark = async (value: boolean) => {
+      try {
+         // if  the value is TRUE the user is highlighting
+         if (value) {
+            const data = await handlePostBookMark(chapterId);
+
+            if (data) {
+               setbookMarked(value);
+               setshowBookmarks(false);
+            }
+         } else {
+            const data = await handleRemoveBookMark(chapterId);
+
+            if (data) {
+               setbookMarked(value);
+               setshowBookmarks(false);
+            }
+         }
+      } catch (error) {
+         console.error(error);
+      }
    };
 
    // fetch highlighted verses

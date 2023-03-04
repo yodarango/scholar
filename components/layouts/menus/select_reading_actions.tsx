@@ -125,6 +125,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                </div>
             </div>
          )}
+
          {showStackModal === 3 && (
             // render the color picker to highlight a verse
             <SelectHighlightColor
