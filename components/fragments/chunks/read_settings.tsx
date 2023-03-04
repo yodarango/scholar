@@ -29,6 +29,7 @@ export const ReadSettings = ({ cta }: TReadSettingsProps) => {
    // update local storage with theme slection and send value to parent
    const handleThemeSelection = (theme: string) => {
       cta.handleThemeSelection(theme);
+      setshowtMenuModal(false);
 
       const LSExists = localStorage.getItem("reading-preferences");
       if (LSExists) {
@@ -46,6 +47,7 @@ export const ReadSettings = ({ cta }: TReadSettingsProps) => {
    // update local storage with font slection and send value to parent
    const handleFontSelection = (font: string) => {
       cta.handleFontSelection(font);
+      setshowtMenuModal(false);
       const LSExists = localStorage.getItem("reading-preferences");
       if (LSExists) {
          const LSPArsed = JSON.parse(LSExists);
@@ -67,7 +69,7 @@ export const ReadSettings = ({ cta }: TReadSettingsProps) => {
                   cta={{
                      handleThemeSelection: handleThemeSelection,
                      handleFontSelection: handleFontSelection,
-                     handleCloseModal: () => setshowtMenuModal(false)
+                     handleCloseModal: () => setshowtMenuModal(!showtMenuModal)
                   }}
                />
             )}
@@ -76,7 +78,7 @@ export const ReadSettings = ({ cta }: TReadSettingsProps) => {
          <div className={styles.icon}>
             <IconButton
                custombuttonSize={true}
-               cta={{ handleClick: () => setshowtMenuModal(true) }}
+               cta={{ handleClick: () => setshowtMenuModal(!showtMenuModal) }}
                icon='settings'
                backgroundColor='2'
             />

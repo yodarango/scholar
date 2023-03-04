@@ -26,12 +26,14 @@ import {
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
+import { DANGER_COLOR_SECONDARY, SAFE_COLOR } from "../../../constants/tokens";
 
 type TSelectReadingBookmarksProps = {
    chapterId: string | string[];
    isChapterBookmarked: boolean;
+   isModalOpen: boolean;
    cta: {
-      handleCloseModal: () => void;
+      handleCloseModal: (val: boolean) => void;
       handleBookMark: (value: boolean) => void;
    };
 };
@@ -39,14 +41,15 @@ type TSelectReadingBookmarksProps = {
 export const SelectReadingBookmarks = ({
    cta,
    isChapterBookmarked,
+   isModalOpen,
    chapterId
 }: TSelectReadingBookmarksProps) => {
    // state
    const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
    const [loading, setloading] = useState("loading");
 
-   // fetch highlighted verses
-   const fetchBookmarks = async (variables: TBookmarksVariables) => {
+   // fetch bookmark
+   const handleGetData = async (variables: TBookmarksVariables) => {
       try {
          const { data }: any = await handleGetBookmarks(variables);
          if (data.bookmarks) {
@@ -65,23 +68,26 @@ export const SelectReadingBookmarks = ({
 
    // get the bookmarks
    useEffect(() => {
-      fetchBookmarks({ USER_ID: 1001, last_id: CONTENT_LAST_ID });
+      handleGetData({ USER_ID: 1001, last_id: CONTENT_LAST_ID });
    }, [chapterId]);
 
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
-      isChapterBookmarked ? cta.handleBookMark(false) : cta.handleBookMark(true);
+      cta.handleBookMark(!isChapterBookmarked);
    };
 
    // check if the current chapter is bookmarked
    const status = {
       icon: !isChapterBookmarked ? "add" : "remove",
-      color: !isChapterBookmarked ? "#7fdc7d" : "#ff4d62",
+      color: !isChapterBookmarked ? SAFE_COLOR : DANGER_COLOR_SECONDARY,
       text: !isChapterBookmarked ? "Bookmark this chapter" : "Remove this bookmark"
    };
 
    return (
-      <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
+      <PrimaryMenuBkg
+         className={styles.bookmarkMainWrapper}
+         color='1'
+         cta={{ handleClose: () => cta.handleCloseModal(!isModalOpen) }}>
          <div className={styles.menuOption}>
             <MenuPrimaryOption
                textType='text'

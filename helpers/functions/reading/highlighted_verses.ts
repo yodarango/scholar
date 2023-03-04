@@ -3,7 +3,7 @@ import { client } from "../../../apollo-client";
 import {
    GET_HIGHILGHTED_VERSES,
    POST_HIGHILGHTED_VERSES,
-   REMOVE_HIGHILGHTED_VERSES
+   REMOVE_HIGHILGHTED_VERSE
 } from "../../../graphql/reading/read";
 
 export type ThighlightedVersesVariables = {
@@ -58,7 +58,7 @@ export const handlePostHighlight = async (variables: ThandlePostHighlight) => {
 export const handleRemoveHighlight = async (VERSE_ID: string | number) => {
    try {
       const { data } = await client.query({
-         query: REMOVE_HIGHILGHTED_VERSES,
+         query: REMOVE_HIGHILGHTED_VERSE,
          variables: { VERSE_ID }
       });
 

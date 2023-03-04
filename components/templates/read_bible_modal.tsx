@@ -1,8 +1,9 @@
 /**************************************************************************************** 
--  this component is in charge of passing down the chapter ID to be rendered children and 
-   the theme ID to its child therefore the subcomponents should not be worried about handling
-   router or local storage state
-****************************************************************************************/
+this component is in charge of passing down the chapter ID to be rendered children and 
+the theme ID to its child therefore the sub-components should not be worried about 
+handling outer or local storage state
+********************************/
+
 import { useState } from "react";
 
 // comps

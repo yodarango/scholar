@@ -15,3 +15,7 @@
    justify-content: center;
    padding: var(--spacing-s) 0 var(--spacing-l);
 }
+
+.bookmarkMainWrapper {
+   min-height: 22rem;
+}

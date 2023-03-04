@@ -21,7 +21,7 @@
 }
 
 .scrollingUp {
-   top: -5rem;
+   top: -7rem;
    animation: scrollUp 200ms linear;
 }
 
@@ -30,7 +30,7 @@
       top: 0;
    }
    100% {
-      top: -5rem;
+      top: -7rem;
    }
 }
 

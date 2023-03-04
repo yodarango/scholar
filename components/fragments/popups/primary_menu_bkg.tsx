@@ -6,6 +6,7 @@ import { Header } from "../Typography/header";
 import styles from "./primary_menu_bkg.module.css";
 
 type TPrimaryMenuBkgProps = {
+   className?: string;
    children: any;
    color?: string;
    title?: string;
@@ -19,6 +20,7 @@ type TPrimaryMenuBkgProps = {
 };
 
 export const PrimaryMenuBkg = ({
+   className = "",
    children,
    color,
    customColors,
@@ -47,7 +49,7 @@ export const PrimaryMenuBkg = ({
    }
 
    return (
-      <div className={styles.mainWrapper} style={{ backgroundImage: bkgColor }}>
+      <div className={`${styles.mainWrapper} ${className}`} style={{ backgroundImage: bkgColor }}>
          <div className={styles.close}>
             <CloseContent cta={{ handleClick: cta.handleClose }} size='2.5rem' />
          </div>

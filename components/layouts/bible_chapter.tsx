@@ -233,7 +233,6 @@ export const BibleChapter = ({
                {/* loop through the data array to render the Chapter  */}
                <div className={styles.versesWrapper}>
                   {versesArray.map((verse: string, index: number) => {
-                     console.log();
                      // check if the verse is Highlighted
                      const isHighlighted = highlightedVerses.find(
                         (verse) => verse.VERSE_ID === `${chapterId}.${index}`

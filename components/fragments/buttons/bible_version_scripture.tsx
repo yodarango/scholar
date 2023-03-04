@@ -102,7 +102,7 @@ export const BibleVersionScripture = ({
    return (
       <div className={styles.mainWrapper}>
          <Portal>
-            {/* -------- opent the Bible versions mennu ------- */}
+            {/*  open the Bible versions menu */}
             {showModal === 1 && (
                <SelectBibleVersion
                   cta={{
@@ -111,7 +111,7 @@ export const BibleVersionScripture = ({
                   }}
                />
             )}
-            {/* -------- opent the Bible Scripture picker ------- */}
+            {/*  open the Bible Scripture picker  */}
             {showModal === 2 && (
                <PrimaryStack title='Select a passage' cta={{ handleClose: () => setshowModal(0) }}>
                   <BibleBooksWrapper
@@ -126,12 +126,14 @@ export const BibleVersionScripture = ({
             )}
          </Portal>
          <div className={styles.optionsWrapper}>
-            <div className={`${styles.version} ${styles.option}`} onClick={() => setshowModal(1)}>
+            <div
+               className={`${styles.version} ${styles.option}`}
+               onClick={() => setshowModal(showModal !== 0 ? 0 : 1)}>
                <Parragraph text={state.versionName} size='small' align='left' quiet={true} />
             </div>
             <div
                className={`${styles.scriptureRef}  ${styles.option}`}
-               onClick={() => setshowModal(2)}>
+               onClick={() => setshowModal(showModal !== 0 ? 0 : 2)}>
                <Parragraph text={state.scriptureRef} size='small' align='left' quiet={true} />
             </div>
          </div>
