@@ -1,26 +1,29 @@
-export const PRIMARY_COLOR = "#2A2438";
-//   export const PRIMARY_COLOR= "#1e1A29"; /* OPTION B */
-export const SECONDARY_COLOR = "#38304B";
-//   export const SECONDARY_COLOR= "#2f293f"; /*OPTION B */
-export const THIRD_COLOR = "#5c5470";
-//   export const THIRD_COLOR= "#685795"; /* OPTION B */
-//   export const THIRD_COLOR= "#574c6d"; /* OPTION C */
+// main app colors
+export const RATING_LEVEL_STAR_LIGHT = "#ffe600";
+export const DANGER_COLOR_SECONDARY = "#ffc0c8";
+export const RATING_LEVEL_STAR_DARK = "#fcA101";
 export const THIRD_COLOR_ACCENT = "#533CA3";
-export const GRADIENT_1__DARK = "#7350ec";
+export const GRADIENT_2__LIGHT = "#ff8655";
+export const FONT_COLOR_DARKER = "#ff89A9";
 export const GRADIENT_1__LIGHT = "#B293fe";
 export const GRADIENT_2__DARK = "#ff3269";
-export const GRADIENT_2__LIGHT = "#ff8655";
-export const FONT_COLOR = "#f1eAff";
-export const FONT_COLOR_DARKER = "#ff89A9";
-export const DANGER_COLOR = "#ff4d62";
-export const DANGER_COLOR_SECONDARY = "#ffc0c8";
+export const GRADIENT_1__DARK = "#7350ec";
+export const SECONDARY_COLOR = "#38304B";
 export const WARNING_COLOR = "#e9d259";
-export const SAFE_COLOR = "#7fdc7d";
-export const RATING_LEVEL_STAR_DARK = "#fcA101";
-export const RATING_LEVEL_STAR_LIGHT = "#ffe600";
+export const PRIMARY_COLOR = "#2A2438";
+export const DANGER_COLOR = "#ff4d62";
 export const SHADOW_COLOR = "#1A1723";
+export const THIRD_COLOR = "#5c5470";
+export const FONT_COLOR = "#f1eAff";
+export const SAFE_COLOR = "#7fdc7d";
 
-/*export const _____________ READING MODALexport const ________ */
+// possible options for a second theme
+// export const SECONDARY_COLOR= "#2f293f"; /*OPTION B */
+// export const PRIMARY_COLOR= "#1e1A29"; /* OPTION B */
+// export const THIRD_COLOR= "#685795"; /* OPTION B */
+// export const THIRD_COLOR= "#574c6d"; /* OPTION C */
+
+// colors for the reading page
 export const READING_MODAL_1__DARK = "#2B2B2A";
 export const READING_MODAL_1__LIGHT = "#fefffe";
 export const READING_MODAL_2__DARK = "#050825";
@@ -30,7 +33,6 @@ export const READING_MODAL_3__LIGHT = "#f1eAff";
 export const READING_MODAL_4__LIGHT = "#f3def0";
 export const READING_MODAL_4__DARK = "#1f021B";
 
-/*export const _____________ ApprovAl LEVELexport const ________ */
 export const RATING_LEVEL_LEVEL_A = "#75d975";
 export const RATING_LEVEL_LEVEL_B = "#B3eeB3";
 export const RATING_LEVEL_LEVEL_C = "#eBcf5e";
@@ -38,7 +40,7 @@ export const RATING_LEVEL_LEVEL_D = "#f4745e";
 export const RATING_LEVEL_LEVEL_F = "#dB4c42";
 export const RATING_LEVEL_LEVEL_NR = "#f1eAff";
 
-/*export const _____________ CATEGORY COLORsexport const ________ */
+// category colors
 export const CATEGORY_BLK = "#252525";
 export const CATEGORY_BL = "#8093f1";
 export const CATEGORY_BR = "#d3AB9e";
@@ -50,7 +52,7 @@ export const CATEGORY_PPL = "#9381ff";
 export const CATEGORY_RD = "#dd5254";
 export const CATEGORY_YLW = "#ffed91";
 
-//
+// quotes backgrounds
 export const CONTENT_BACKGROUND_1 = ["#00e8ee", "#eB0202"];
 export const CONTENT_BACKGROUND_2 = ["#ffd002", "#e043f1"];
 export const CONTENT_BACKGROUND_3 = ["#9902ed", "#0Acfd5"];

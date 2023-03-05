@@ -49,5 +49,12 @@ export const notificationMessages = {
       description: "Notification after a post is uploaded successfully",
       title: "Your post is up 📃",
       body: "Hooray! Your post has been successful!"
+   },
+   settingsSaved: {
+      id: 7,
+      type: "Success",
+      description: "Notification after a post is settings are saved successfully",
+      title: "Settings saved successfully!",
+      body: "Your changes have been save, now everyone can know all about you 😉"
    }
 };

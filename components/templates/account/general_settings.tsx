@@ -20,9 +20,12 @@ import styles from "./general_settings.module.css";
 // helpers
 import {
    getUserGeneralSettings,
-   handleUpdateSettings,
+   handleUpdateGeneralSettings,
    ThandleUpdateSettings
 } from "../../../helpers/functions/users/user_settings";
+import Portal from "../../hoc/potal";
+import { Notification } from "../../fragments/popups/notification";
+import { notificationMessages } from "../../../data/notification_messages";
 
 const settingsDefaults: ThandleUpdateSettings = {
    my_true_color_personality_test: "",
@@ -37,6 +40,7 @@ const settingsDefaults: ThandleUpdateSettings = {
 };
 
 export const GeneralSettings = () => {
+   const [notification, setnotification] = useState<string | null>(null);
    // state
    const [generalSettings, setgeneralSettings] = useState<ThandleUpdateSettings>(settingsDefaults);
    const [loading, setloaading] = useState<string>("loading");
@@ -47,7 +51,7 @@ export const GeneralSettings = () => {
          setgeneralSettings(data);
          setloaading(status);
       } catch (error) {
-         console.log(error);
+         console.error(error);
       }
    };
 
@@ -58,16 +62,29 @@ export const GeneralSettings = () => {
    // handle the saving
    const handleSave = async () => {
       try {
-         const data = await handleUpdateSettings(generalSettings);
-         console.log(data);
-         console.log(generalSettings);
+         const { data } = await handleUpdateGeneralSettings(generalSettings);
+         if (data) {
+            setnotification("2");
+         } else {
+            setnotification("4");
+         }
       } catch (error) {
-         console.log(error);
+         console.error(error);
       }
    };
 
    return (
       <div className={styles.mainWrapper}>
+         {notification && (
+            <Portal>
+               <Notification
+                  title={notificationMessages.settingsSaved.title}
+                  body={notificationMessages.settingsSaved.body}
+                  type={notification}
+                  cta={{ handleClose: () => setnotification(null) }}
+               />
+            </Portal>
+         )}
          <FourthStackHeader title='Settings' actionName='Back' link='/users/@me' />
          {loading === "done" && (
             <>

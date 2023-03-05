@@ -35,18 +35,22 @@ export type ThandleUpdateSettings = {
    my_job: string;
 };
 
-export const handleUpdateSettings = async (variables: ThandleUpdateSettings) => {
+export const handleUpdateGeneralSettings: (variables: ThandleUpdateSettings) => Promise<{
+   data: any;
+   status: string;
+}> = async (variables: ThandleUpdateSettings) => {
    try {
       const { data } = await client.mutate({
          mutation: UPDATE_GENERAL_SETTINGS,
          variables
       });
-      console.log(data);
+
       if (data.update_general_settings) {
          return { data: data.update_general_settings, status: "done" };
       }
       return { data: null, status: "done" };
    } catch (error) {
       console.error(error);
+      return { data: null, status: "done" };
    }
 };

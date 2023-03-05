@@ -19,7 +19,6 @@ export const SelectTrueColorPersonality = ({
    cta,
    currColor = ""
 }: TSelectTrueColorPersonalityProps) => {
-   console.log(currColor);
    // state
    const [colorIsActive, setcolorIsActive] = useState<string>(currColor);
 

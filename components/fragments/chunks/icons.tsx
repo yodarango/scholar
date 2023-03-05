@@ -337,7 +337,7 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
 
       case "checkmark":
          icon = (
-            <svg viewBox='0 0 512 512'>
+            <svg viewBox='0 0 512 512' stroke='none' fill='none'>
                <path
                   fill='none'
                   stroke={color}
@@ -452,6 +452,20 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
          );
          break;
 
+      case "double_checkmark":
+         icon = (
+            <svg viewBox='0 0 512 512'>
+               <path
+                  fill='none'
+                  stroke={color}
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+                  d='M464 128L240 384l-96-96M144 384l-96-96M368 128L232 284'
+               />
+            </svg>
+         );
+         break;
       case "edit":
          icon = (
             <svg fill={color} viewBox='0 0 16 16'>
@@ -708,6 +722,30 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
                   strokeLinejoin='round'
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
+            </svg>
+         );
+         break;
+
+      case "info":
+         icon = (
+            <svg viewBox='0 0 512 512'>
+               <path
+                  fill='none'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='40'
+                  d='M196 220h64v172'
+               />
+               <path
+                  fill='none'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeMiterlimit='10'
+                  strokeWidth='40'
+                  d='M187 396h138'
+               />
+               <path d='M256 160a32 32 0 1132-32 32 32 0 01-32 32z' fill={color} />
             </svg>
          );
          break;
@@ -1391,6 +1429,28 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
                   strokeWidth={strokeWidth ? strokeWidth : "32"}
                />
                <path d='M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z' fill={color} />
+            </svg>
+         );
+         break;
+
+      case "warning_triangle":
+         icon = (
+            <svg viewBox='0 0 512 512' fill='none'>
+               <path
+                  d='M85.57 446.25h340.86a32 32 0 0028.17-47.17L284.18 82.58c-12.09-22.44-44.27-22.44-56.36 0L57.4 399.08a32 32 0 0028.17 47.17z'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+               <path
+                  d='M250.26 195.39l5.74 122 5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 5.95z'
+                  stroke={color}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+               <path d='M256 397.25a20 20 0 1120-20 20 20 0 01-20 20z' fill='none' />
             </svg>
          );
          break;
