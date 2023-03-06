@@ -51,7 +51,6 @@ export const ProfileArt = ({
       try {
          const { data } = await getUserSummary(variables);
          setdata(data);
-         console.log(data);
       } catch (error) {
          console.error(error);
       }

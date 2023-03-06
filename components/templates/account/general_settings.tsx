@@ -95,7 +95,13 @@ export const GeneralSettings = () => {
                   />
                </div>
                <div className={styles.signature}>
-                  <ChangeSignature signature={generalSettings.signature} />
+                  <ChangeSignature
+                     signature={generalSettings.signature}
+                     cta={{
+                        updateSignature: (signature) =>
+                           setgeneralSettings({ ...generalSettings, signature })
+                     }}
+                  />
                </div>
                <div className={styles.field}>
                   <InputPrimary

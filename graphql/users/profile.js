@@ -121,3 +121,12 @@ export const UPDATE_MY_AVATAR = gql`
       }
    }
 `;
+
+// updates user signature
+export const UPDATE_MY_SIGNATURE = gql`
+   mutation ($signature: String) {
+      update_signature(data: { signature: $signature }) {
+         signature
+      }
+   }
+`;

@@ -13,8 +13,12 @@ type TChangeAvatarProps = {
    userAuthority: number;
 };
 
-export const ChangeAvatar = ({ avatar, userAuthority }: TChangeAvatarProps) => {
+export const ChangeAvatar = ({ avatar, userAuthority = 1 }: TChangeAvatarProps) => {
+   const [avtr, setavtr] = useState<string>(avatar);
    const [showModal, setshowModal] = useState<boolean>(false);
+
+   console.log(avatar, userAuthority);
+
    return (
       <div className={styles.mainWrapper}>
          {showModal && (
@@ -23,16 +27,16 @@ export const ChangeAvatar = ({ avatar, userAuthority }: TChangeAvatarProps) => {
                   title='Change avatar'
                   actionName='Back'
                   cta={{ handleClose: () => setshowModal(false) }}>
-                  <AvatarChooser closeAvatarChooser={() => setshowModal(false)} />
+                  <AvatarChooser cta={{ updateAvatar: (value: string) => setavtr(value) }} />
                </FourthStack>
             </Portal>
          )}
          <div className={styles.avatar}>
             <UserAvatar
+               cta={{ handleClick: () => setshowModal(true) }}
                userAuthority={userAuthority}
                customSize={true}
-               src={avatar}
-               cta={{ handleClick: () => setshowModal(true) }}
+               src={avtr}
             />
          </div>
          <div className={styles.text}>

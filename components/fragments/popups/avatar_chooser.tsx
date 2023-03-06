@@ -20,10 +20,10 @@ import { errorMessages } from "../../../data/error_messages";
 import { Notification } from "./notification";
 
 type avatarChooserProps = {
-   closeAvatarChooser: any;
+   cta: { updateAvatar: (val: string) => void };
 };
 
-const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
+const AvatarChooser = ({ cta }: avatarChooserProps) => {
    type choiceType = {
       gender: { avatar: string; val: string }[];
       skin_male: { avatar: string; val: string }[];
@@ -136,7 +136,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
          }),
          setExtraChoicePopUpState({ type: "", content: [] });
 
-      // ----------- fileter array
+      //  fileter array
       setGenderArray(sortedAvatar.filter((item) => item.gender == val));
       setoriginalAvatarArray(sortedAvatar.filter((item) => item.gender == val));
    };
@@ -214,6 +214,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                type: "2"
             });
             setloading("done");
+            cta.updateAvatar(data.avatar);
          } else {
             setnotification({
                title: errorMessages.account.unableToUpdateAvatar.title,

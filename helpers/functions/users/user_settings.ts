@@ -2,7 +2,8 @@ import { client } from "../../../apollo-client";
 import {
    GET_USER_GENERAL_SETTINGS,
    UPDATE_GENERAL_SETTINGS,
-   UPDATE_MY_AVATAR
+   UPDATE_MY_AVATAR,
+   UPDATE_MY_SIGNATURE
 } from "../../../graphql/users/profile";
 
 export const getUserGeneralSettings: () => Promise<any> = async () => {
@@ -68,6 +69,24 @@ export const handleUpdateAvater = async (avatar: string) => {
 
       if (data.update_user_avatar) {
          return { data: data.update_user_avatar, status: "done" };
+      } else {
+         return { data: null, status: "error" };
+      }
+   } catch (error) {
+      console.error(error);
+      return { data: null, status: "error" };
+   }
+};
+
+export const handleUpdateSignature = async (signature: string) => {
+   try {
+      const { data } = await client.mutate({
+         mutation: UPDATE_MY_SIGNATURE,
+         variables: { signature }
+      });
+
+      if (data.update_signature) {
+         return { data: data.update_signature, status: "done" };
       } else {
          return { data: null, status: "error" };
       }

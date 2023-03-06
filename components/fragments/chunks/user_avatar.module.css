@@ -3,7 +3,7 @@
    height: 5rem;
 }
 
-.mainWrapper:hover{ 
+.mainWrapper:hover {
    transform: scale(1.1);
    cursor: pointer;
 }
@@ -13,11 +13,10 @@
    height: 100%;
 }
 
-.mainWrapperCustomSize:hover{ 
+.mainWrapperCustomSize:hover {
    transform: scale(1.1);
    cursor: pointer;
 }
-
 
 .ratingOutlineGeneral,
 .ratingOutlineTrusted,
@@ -42,6 +41,7 @@
    width: 90%;
    border-radius: 40%;
    position: relative;
+   overflow: hidden;
 }
 
 .avatar {

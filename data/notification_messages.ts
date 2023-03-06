@@ -63,5 +63,12 @@ export const notificationMessages = {
       description: "Notification after an avatar are saved successfully",
       title: "Avatar saved!",
       body: "Your avatar has been saved, you're looking great 😉"
+   },
+   signatureSaved: {
+      id: 9,
+      type: "Success",
+      description: "Notification after a signature are saved successfully",
+      title: "Signature changed!",
+      body: "Your signature has been saved, go show off your new you ✍️"
    }
 };

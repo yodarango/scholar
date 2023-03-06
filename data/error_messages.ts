@@ -28,6 +28,14 @@ export const errorMessages = {
          description: "if the avatar is unable to update their password",
          title: "Oh no! 🙉",
          body: "We were unable to update your avatar, please try again later!"
+      },
+      unableToUpdateSignature: {
+         id: 4,
+         type: "error",
+         description:
+            "if the avatar is unable to update their signature either because it has already been taken or because something went wrong",
+         title: "Oh rats! 🐀",
+         body: "We were unable to update your signature, please try again later!"
       }
    },
    forms: {
