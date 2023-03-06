@@ -1,8 +1,5 @@
 ## FROM LAST CODING SESSION
 
-the las files touched where the general_settings and user_settings.ts
-I set up the mutation to for the general settings. However username and
-avatar are not currently saved under the general_settings call, each needs its own
-call separately and the controller has already been set up in the back end.
+last file touched was change_signature.tsx. I finished the general settings APIs, move to the next section. Might be a good thing to check that everything under general settings actually looks good.
 
 Continue working in the user settings calls
