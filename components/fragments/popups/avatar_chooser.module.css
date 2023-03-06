@@ -70,8 +70,12 @@
 }
 
 .avatarWrapper div {
+   overflow: hidden;
    width: 7.5rem;
    height: 7.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
    border-radius: 2em;
    border-radius: 2;
    background-color: var(--font-color);
@@ -82,10 +86,17 @@
    background: var(--secondary-color);
 }
 
+.avatarWrapper .selected {
+   background: var(--secondary-color);
+   box-shadow: 0.4rem 0rem 0.6rem var(--gradient-1--light),
+      0rem 0.4rem 0.6rem var(--gradient-1--light), -0.4rem 0rem 0.6rem var(--gradient-1--light),
+      0rem -0.4rem 0.6rem var(--gradient-1--light);
+}
+
 .avatar {
    position: relative;
-   width: 5rem;
-   height: 5rem;
+   width: 100%;
+   height: 100%;
    object-fit: contain;
    object-position: center;
    transition: 300ms;

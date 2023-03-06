@@ -18,9 +18,16 @@ export const errorMessages = {
       unableToUpdatePassword: {
          id: 2,
          type: "error",
-         description: "if the user is unable t update their password",
+         description: "if the user is unable to update their password",
          title: "Oh no! 😔",
          body: "We were unable to update your password, please try again later!"
+      },
+      unableToUpdateAvatar: {
+         id: 3,
+         type: "error",
+         description: "if the avatar is unable to update their password",
+         title: "Oh no! 🙉",
+         body: "We were unable to update your avatar, please try again later!"
       }
    },
    forms: {

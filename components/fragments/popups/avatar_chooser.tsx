@@ -13,6 +13,11 @@ import { Parragraph } from "../Typography/parragraph";
 import { MenuPrimaryOption } from "../buttons/menu_options/menu_primary_option";
 import { Icon } from "../chunks/icons";
 import { SmallLoader } from "../chunks/small_loader";
+import { handleUpdateAvater } from "../../../helpers/functions/users/user_settings";
+import { DANGER_COLOR, FONT_COLOR, SECONDARY_COLOR, THIRD_COLOR } from "../../../constants/tokens";
+import { notificationMessages } from "../../../data/notification_messages";
+import { errorMessages } from "../../../data/error_messages";
+import { Notification } from "./notification";
 
 type avatarChooserProps = {
    closeAvatarChooser: any;
@@ -113,6 +118,8 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
    const [accessoriesArray, setAccessoriesArray] = useState<any>();
    const [hairArray, setHairArray] = useState<any>();
 
+   const [selectedAvatar, setselectedAvatar] = useState<number>(-1);
+
    //  gender selction function
    const handleGenderSelcetion = (avatar: string, val: string) => {
       setcurrSelection({
@@ -190,32 +197,41 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
    const [avatarChooserPopUpState, setAvatarChooserPopUpState] = useState<boolean | string>(false);
 
    // handle avatar update
-   const [smallLoader, setSmallLoader] = useState<boolean | JSX.Element>(false);
-   const [notificationPopUpState, setNotificationPopUpState] =
-      useState<boolean | JSX.Element>(false);
+   const [loading, setloading] = useState<string>("done");
+   const [notification, setnotification] =
+      useState<{ title: string; body: string; type: string } | null>(null);
 
    const handleAvatarSelection = async (image: string) => {
-      console.log(image);
-      setSmallLoader(true);
-      //   try {
-      //      setSmallLoaderState(<SmallLoader />);
-      //      client.mutate({
-      //         mutation: UPDATE_MY_AVATAR,
-      //         variables: { avatar: image }
-      //      });
-      //      closePopUp(image);
-      //      setSmallLoaderState(false);
-      //   } catch (error: any) {
-      //      setSmallLoaderState(false);
-      //      setNotificationPopUpState(
-      //         <NotificationPopup
-      //            closeModal={() => setNotificationPopUpState(false)}
-      //            title={`You're not authorized! 👮‍♂️`}
-      //            contentString={error.graphQLErrors[0].message} //'Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!'
-      //            newClass='notification-wrapper--Error'
-      //         />
-      //      );
-      //   }
+      setloading("loading");
+      try {
+         const { data } = await handleUpdateAvater(image);
+
+         if (data) {
+            setAvatarChooserPopUpState(false);
+            setnotification({
+               title: notificationMessages.avatarSaved.title,
+               body: notificationMessages.avatarSaved.body,
+               type: "2"
+            });
+            setloading("done");
+         } else {
+            setnotification({
+               title: errorMessages.account.unableToUpdateAvatar.title,
+               body: errorMessages.account.unableToUpdateAvatar.body,
+               type: "4"
+            });
+            setloading("done");
+         }
+      } catch (error: any) {
+         setnotification({
+            title: errorMessages.account.unableToUpdateAvatar.title,
+            body: errorMessages.account.unableToUpdateAvatar.body,
+            type: "4"
+         });
+         setloading("done");
+
+         console.error(error);
+      }
    };
 
    return (
@@ -224,12 +240,12 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
             <Portal>
                <PrimaryMenuBkg
                   customColors={{
-                     light: "#F1EAFF",
-                     dark: "#ff89a9"
+                     light: SECONDARY_COLOR,
+                     dark: THIRD_COLOR
                   }}
                   cta={{ handleClose: () => setAvatarChooserPopUpState(false) }}>
                   <div className={styles.menuOption}>
-                     {!smallLoader && (
+                     {loading === "done" && (
                         <MenuPrimaryOption
                            iconType='icon'
                            textType='text'
@@ -238,14 +254,19 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                                  handleAvatarSelection(avatarChooserPopUpState)
                            }}
                            optionProperties={{
-                              icon: <Icon name='checkmark' color='#f1eaff' />,
+                              icon: <Icon name='checkmark' color={FONT_COLOR} />,
                               text: "Set as avatar",
-                              iconShadow: "#f1eaff"
+                              iconShadow: FONT_COLOR
                            }}
                         />
                      )}
-                     {smallLoader && (
-                        <SmallLoader inline customColors={["#F1EAFF", "#F1EAFF", "#F1EAFF"]} />
+                     {loading === "loading" && (
+                        <div className={styles.loader}>
+                           <SmallLoader
+                              inline
+                              customColors={[FONT_COLOR, FONT_COLOR, FONT_COLOR]}
+                           />
+                        </div>
                      )}
                   </div>
                   <div className={styles.menuOption}>
@@ -256,12 +277,22 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                         optionProperties={{
                            icon: <Icon name='close' color='#ff4d62' />,
                            text: "Cancel",
-                           descColor: "#ff4d62",
-                           iconShadow: "#ff4d62"
+                           descColor: DANGER_COLOR,
+                           iconShadow: DANGER_COLOR
                         }}
                      />
                   </div>
                </PrimaryMenuBkg>
+            </Portal>
+         )}
+         {notification && (
+            <Portal>
+               <Notification
+                  title={notification.title}
+                  type={notification.type}
+                  body={notification.body}
+                  cta={{ handleClose: () => setnotification(null) }}
+               />
             </Portal>
          )}
          <div className={styles.mainWrapper}>
@@ -306,10 +337,10 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                </div>
             )}
 
-            {/* ---------------------- MAIN FILTERS WRAPPER ----------------- */}
-            {console.log(choicesClassState)}
+            {/*  MAIN FILTERS WRAPPER  */}
+
             <div className={styles.filterWrapper}>
-               {/* ------------------------- gender options --------------------- */}
+               {/*  gender options  */}
                <Secondary
                   cta={{
                      handleClick: () =>
@@ -323,7 +354,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                   icon={currSelection.gender.avatar}
                   type={choicesClassState.gender === "" ? "1" : "2"}
                />
-               {/* ------------------------- skin options --------------------- */}
+               {/* skin options */}
 
                {currSelection.gender.val != "" && (
                   <Secondary
@@ -347,7 +378,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                   />
                )}
 
-               {/* ------------------------- accessories options --------------------- */}
+               {/*  accessories options  */}
                {currSelection.skin.val != "" && (
                   <Secondary
                      cta={{
@@ -364,7 +395,7 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                   />
                )}
 
-               {/* ------------------------- hair options --------------------- */}
+               {/*  hair options  */}
 
                {currSelection.accessories.val != null && (
                   <Secondary
@@ -389,14 +420,21 @@ const AvatarChooser = ({ closeAvatarChooser }: avatarChooserProps) => {
                )}
             </div>
 
-            {/* ================== avatars ================= */}
+            {/*  avatars  */}
             {originalAvatarArray.length > 0 && (
                <section className={styles.avatarWrapper}>
-                  {originalAvatarArray.map((avatarLink: avatarObj) => (
-                     <div onClick={() => setAvatarChooserPopUpState(avatarLink.url)}>
-                        <img className={styles.avatar} src={avatarLink.url} />
-                     </div>
-                  ))}
+                  {originalAvatarArray.map((avatarLink: avatarObj, i: number) => {
+                     return (
+                        <div
+                           className={`${selectedAvatar === i ? styles.selected : ""}`}
+                           onClick={() => {
+                              setselectedAvatar(i);
+                              setAvatarChooserPopUpState(avatarLink.url);
+                           }}>
+                           <img className={styles.avatar} src={avatarLink.url} />
+                        </div>
+                     );
+                  })}
                </section>
             )}
          </div>

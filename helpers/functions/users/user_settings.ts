@@ -1,5 +1,9 @@
 import { client } from "../../../apollo-client";
-import { GET_USER_GENERAL_SETTINGS, UPDATE_GENERAL_SETTINGS } from "../../../graphql/users/profile";
+import {
+   GET_USER_GENERAL_SETTINGS,
+   UPDATE_GENERAL_SETTINGS,
+   UPDATE_MY_AVATAR
+} from "../../../graphql/users/profile";
 
 export const getUserGeneralSettings: () => Promise<any> = async () => {
    try {
@@ -51,6 +55,24 @@ export const handleUpdateGeneralSettings: (variables: ThandleUpdateSettings) => 
       return { data: null, status: "done" };
    } catch (error) {
       console.error(error);
-      return { data: null, status: "done" };
+      return { data: null, status: "error" };
+   }
+};
+
+export const handleUpdateAvater = async (avatar: string) => {
+   try {
+      const { data } = await client.mutate({
+         mutation: UPDATE_MY_AVATAR,
+         variables: { avatar }
+      });
+
+      if (data.update_user_avatar) {
+         return { data: data.update_user_avatar, status: "done" };
+      } else {
+         return { data: null, status: "error" };
+      }
+   } catch (error) {
+      console.error(error);
+      return { data: null, status: "error" };
    }
 };

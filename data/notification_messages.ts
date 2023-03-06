@@ -55,6 +55,13 @@ export const notificationMessages = {
       type: "Success",
       description: "Notification after a post is settings are saved successfully",
       title: "Settings saved successfully!",
-      body: "Your changes have been save, now everyone can know all about you 😉"
+      body: "Your changes have been saved, now everyone can know all about you 😉"
+   },
+   avatarSaved: {
+      id: 8,
+      type: "Success",
+      description: "Notification after an avatar are saved successfully",
+      title: "Avatar saved!",
+      body: "Your avatar has been saved, you're looking great 😉"
    }
 };

@@ -112,3 +112,12 @@ export const UPDATE_GENERAL_SETTINGS = gql`
       }
    }
 `;
+
+// updates user avatar
+export const UPDATE_MY_AVATAR = gql`
+   mutation ($avatar: String) {
+      update_user_avatar(data: { avatar: $avatar }) {
+         avatar
+      }
+   }
+`;
