@@ -80,7 +80,7 @@ export const NavigationMain = ({ children }: any) => {
                         <Icon name='book' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
-                  <Link href={"/users/me"}>
+                  <Link href={"/users/@me"}>
                      <a
                         onClick={() => setcurrentPage("users")}
                         className={`${styles.profile} ${styles.menuOption} ${

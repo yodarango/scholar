@@ -16,7 +16,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // helpers / state
 import { TsermonPost } from "../../../fragments/cards/posts/sermon_note";
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 import CardsLazyLoading from "../../cards-lazy-loading";
 import SmallLoader from "../../../fragments/chunks/small_loader";
 

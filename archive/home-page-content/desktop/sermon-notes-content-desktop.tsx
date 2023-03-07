@@ -18,7 +18,7 @@ import ResourceNotFoundError from "../../../fragments/chunks/error_resource_not_
 
 // helpers
 import { TsermonPost } from "../../../fragments/cards/posts/sermon_note";
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 
 type commentaryContentDesktopProps = {
    user: Tuser;

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // graphQL
 import { client } from "../../../apollo-client";
-import { BUG_REPORT } from "../../../graphql/emails/content";
+import { BUG_REPORT } from "../../../graphql/feedback/users";
 import { PrimaryStack } from "../stacks/templates/primary_stack";
 import { Primary } from "../../fragments/buttons/primary";
 

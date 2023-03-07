@@ -4,7 +4,7 @@ import Link from "next/link";
 import quickUserInfoStyles from "../../styles/fragments/squares/QuickAccessUserInfoPopUp.module.css";
 
 // types
-import { Tuser } from "../../pages/users/[userId]";
+import { Tuser } from "../../pages/users/[signature]";
 
 // helpers
 import calulateApprovalLevel from "../../helpers/math/calculate_approval_rating";

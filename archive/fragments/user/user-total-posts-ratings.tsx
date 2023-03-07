@@ -2,7 +2,7 @@
 import userTotalPostsAndRatingsStyles from "../../../styles/fragments/chunks/users/UserTotalPostsAndRating.module.css";
 
 // helpers / types
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 
 type userTotalPostsAndRatingsProps = {
    user: Tuser;

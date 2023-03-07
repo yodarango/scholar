@@ -23,7 +23,7 @@ import { calcElapsedTime } from "../../../helpers/Time/calc_time_elapsed";
 export type TimeStampProps = {
    time: string;
    niceTime: string;
-   quiet: boolean;
+   quiet?: boolean;
    fontSize?: string;
    customColor?: string;
    shadowColor?: string;

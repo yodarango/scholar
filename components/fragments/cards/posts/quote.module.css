@@ -20,8 +20,9 @@
 
 .mainWrapper:hover {
    cursor: pointer;
-   box-shadow: none;
-   scale: 0.98;
+   cursor: pinter;
+   /* box-shadow: none;
+   scale: 0.98; */
 }
 
 .header {

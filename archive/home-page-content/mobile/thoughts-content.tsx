@@ -17,7 +17,7 @@ import homePageContentStyles from "../../../styles/layouts/home-page-content/Hom
 import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.module.css";
 
 // helpers types
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 import { Tthought } from "../../../fragments/cards/posts/thought";
 
 type thoughtContentProps = {

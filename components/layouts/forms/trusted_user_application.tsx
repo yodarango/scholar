@@ -1,9 +1,5 @@
 import { useState } from "react";
 
-// graphql
-import { NEW_TRUSTED_USER_REQUEST } from "../../../graphql/emails/content";
-import client from "../../../apollo-client";
-
 // comps
 import { InputPrimary } from "../../fragments/inputs/input_primary";
 import { RadioPrimary } from "../../fragments/inputs/radio_primary";
@@ -21,106 +17,77 @@ import { errorMessages } from "../../../data/error_messages";
 const failFormSubmission = errorMessages.forms.failToSubmitForm;
 const emptyField = errorMessages.forms.missingFormFields;
 import { notificationMessages } from "../../../data/notification_messages";
+import { handleBecomeTrusteduser, Tvariables } from "../../../helpers/functions/feedback/users";
 const formSubmitted = notificationMessages.userVerificationSubmitted;
-
-// types
-type TquestionaryProps = {
-   f_name: string;
-   l_name: string;
-   church: string;
-   age: boolean;
-   ministry: string;
-   timeInMinistry: boolean;
-   bibleEducation: boolean;
-   degree: string;
-};
 
 export const TrustedUserApplicationForm = () => {
    // state
    const [HLEducation, setHLEducation] = useState<number>(0);
-   const [smallLoader, setsmallLoader] = useState<boolean>(false);
+   const [loading, setloading] = useState<string>("done");
+   const [notification, setnotification] =
+      useState<{ title: string; body: string; type: string } | null>(null);
 
-   // notification wrapper
-   const [notification, setnotification] = useState<boolean | JSX.Element>(false);
-
-   // small loader state
-   const [smallLoaderState, setSmallLoaderState] = useState<boolean>(false);
-
-   const [formData, setformData] = useState<TquestionaryProps>({
+   const [formData, setformData] = useState<Tvariables>({
+      timeInMinistry: false,
+      bibleEducation: false,
+      ministry: "",
       f_name: "",
       l_name: "",
       church: "",
       age: false,
-      ministry: "",
-      timeInMinistry: false,
-      bibleEducation: false,
       degree: ""
    });
 
-   // handle updat notification state
-   const updateNotification = (body: string, type: string, title: string) =>
-      setnotification(
-         <Notification
-            type={type}
-            body={body}
-            title={title}
-            cta={{ handleClose: () => setnotification(false) }}
-         />
-      );
-
    //  submit the request
-   const handleFormSubmission: any = async (e: any) => {
-      e.preventDefault();
-      console.log(formData);
+   const handleFormSubmission = async () => {
+      try {
+         const { data } = await handleBecomeTrusteduser(formData);
 
-      //   const { f_name, l_name, church, age, ministry, timeInMinistry, bibleEducation, degree } =
-      //      formData;
-
-      //   if (f_name && l_name && church && ministry) {
-      //      if ((formData.bibleEducation && degree != "") || !formData.bibleEducation) {
-      //         setSmallLoaderState(true);
-      //         try {
-      //            const { data } = await client.mutate({
-      //               mutation: NEW_TRUSTED_USER_REQUEST,
-      //               variables: {
-      //                  church,
-      //                  f_name,
-      //                  l_name: l_name,
-      //                  age,
-      //                  ministry,
-      //                  timeInMinistry,
-      //                  bibleEducation,
-      //                  degree
-      //               }
-      //            });
-
-      //            if (data.trusted_user_application === true) {
-      //               setSmallLoaderState(false);
-      //               updateNotification(formSubmitted.body, "2", formSubmitted.title);
-      //            } else {
-      //               setSmallLoaderState(false);
-      //               updateNotification(failFormSubmission.body, "4", failFormSubmission.title);
-      //            }
-      //         } catch (error) {
-      //            setSmallLoaderState(false);
-      //            updateNotification(failFormSubmission.body, "4", failFormSubmission.title);
-      //         }
-      //      } else if (formData.bibleEducation && !degree) {
-      //         updateNotification(emptyField.body, "4", emptyField.title);
-      //      }
-      //   } else {
-      //      updateNotification(emptyField.body, "4", emptyField.title);
-      //   }
+         console.log(data);
+         if (data?.trusted_user_application) {
+            setnotification({
+               title: formSubmitted.title,
+               body: formSubmitted.body,
+               type: "2"
+            });
+            setformData({
+               timeInMinistry: false,
+               bibleEducation: false,
+               ministry: "",
+               f_name: "",
+               l_name: "",
+               church: "",
+               age: false,
+               degree: ""
+            });
+         } else {
+            setnotification({
+               title: failFormSubmission.title,
+               body: failFormSubmission.body,
+               type: "4"
+            });
+         }
+      } catch (error) {
+         console.error(error);
+      }
    };
-
    return (
       <div className={styles.mainWrapper}>
-         <Portal>{notification}</Portal>
+         {notification && (
+            <Portal>
+               <Notification
+                  title={notification.title}
+                  type={notification.type}
+                  body={notification.body}
+                  cta={{ handleClose: () => setnotification(null) }}
+               />
+            </Portal>
+         )}
          <form onSubmit={handleFormSubmission}>
             <div className={styles.input}>
                <InputPrimary
                   maxL={100}
-                  value=''
+                  value={formData.f_name}
                   type='text'
                   placeholder='First name'
                   cta={{
@@ -131,7 +98,7 @@ export const TrustedUserApplicationForm = () => {
             <div className={styles.input}>
                <InputPrimary
                   maxL={100}
-                  value=''
+                  value={formData.l_name}
                   type='text'
                   placeholder='Last name'
                   cta={{
@@ -142,7 +109,7 @@ export const TrustedUserApplicationForm = () => {
             <div className={styles.input}>
                <InputPrimary
                   maxL={100}
-                  value=''
+                  value={formData.church}
                   type='text'
                   placeholder='Local church'
                   cta={{
@@ -153,7 +120,7 @@ export const TrustedUserApplicationForm = () => {
             <div className={styles.input}>
                <InputPrimary
                   maxL={100}
-                  value=''
+                  value={formData.ministry}
                   type='text'
                   placeholder='Active ministry'
                   cta={{
@@ -221,7 +188,7 @@ export const TrustedUserApplicationForm = () => {
                   <InputPrimary
                      maxL={100}
                      type='text'
-                     value=''
+                     value={formData.degree}
                      placeholder='What is your highest Degree?'
                      cta={{ handleValue: (degree: string) => setformData({ ...formData, degree }) }}
                   />
@@ -230,7 +197,7 @@ export const TrustedUserApplicationForm = () => {
 
             <div className='spacer--l'></div>
 
-            {!smallLoader && (
+            {loading !== "loading" && (
                <div className={styles.button}>
                   <Primary
                      title='Submit'
@@ -240,7 +207,7 @@ export const TrustedUserApplicationForm = () => {
                   />
                </div>
             )}
-            {smallLoader && <SmallLoader />}
+            {loading === "loading" && <SmallLoader />}
          </form>
       </div>
    );

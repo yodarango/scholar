@@ -11,7 +11,7 @@ import SermonNotesContentDesktop from "./sermon-notes-content-desktop";
 import allContentDesktopStyles from "../../../styles/layouts/home-page-content/AllContentDesktop.module.css";
 
 // helpers
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 
 type allContentDesktopProps = {
    user: Tuser | null | undefined;

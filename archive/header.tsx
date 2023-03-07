@@ -22,7 +22,7 @@ import generalDropDownStyles from "../styles/buttons/GeneralDropDown.module.css"
 
 import { loggedInStatus } from "../helpers/auth/get-loggedin-user";
 // types
-import { Tuser } from "../pages/users/[userId]";
+import { Tuser } from "../pages/users/[signature]";
 import { TdropdownObjectSingleOption } from "../fragments/buttons/general-dropdown";
 
 type headerProps = {

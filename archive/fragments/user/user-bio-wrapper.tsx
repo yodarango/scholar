@@ -3,7 +3,7 @@ import userBioWrapperStyles from "../../../styles/fragments/chunks/users/UserBio
 
 // helpers / types
 import calulateApprovalLevel from "../../../helpers/math/calculate_approval_rating";
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 
 type userBioWrapperProps = {
    user: Tuser;

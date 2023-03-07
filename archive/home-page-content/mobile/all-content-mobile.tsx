@@ -11,7 +11,7 @@ import QuotesContent from "./quotes-content";
 import allContentMobileStyles from "../../../styles/layouts/home-page-content/AllContentMobile.module.css";
 
 // helpers
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 
 type allContentMobileProps = {
    user: Tuser | null | undefined;

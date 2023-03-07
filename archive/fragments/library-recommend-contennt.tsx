@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 
 // graphQl
 import client from "../../apollo-client";
-import { RECOMMNED_NEW_LIB_CONTENT } from "../../graphql/emails/content";
+import { RECOMMNED_NEW_LIB_CONTENT } from "../../graphql/feedback/users";
 
 // components
 import PopupWrapper from "../../layouts/popup-wrapper";

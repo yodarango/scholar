@@ -154,6 +154,18 @@
    --category-RD: #dd5254;
    --category-YLW: #ffed91;
 
+   /* --------------- category quote ---------- */
+   --category-YLW--card: #534d43;
+   --category-CYN--card: #365e61;
+   --category-GRN--card: #47584e;
+   --category-PNK--card: #614357;
+   --category-PPL--card: #443c6f;
+   --category-BL--card: #4a5186;
+   --category-BR--card: #604e54;
+   --category-OR--card: #563f3a;
+   --category-RD--card: #4f2935;
+   --category-BLK--card: #252525;
+
    /* --------------- content backgrounds ---------- */
    --content-bkg-1: linear-gradient(120deg, #00e8ee, #eb0202);
    --content-bkg-2: linear-gradient(120deg, #ffd002, #e043f1);
@@ -182,8 +194,8 @@
    /* --------------- spacings ---------- */
    --spacing-xxs: 0.5rem; /*-- ex: padding btw elements in small components like cards*/
    --spacing-xs: 1rem; /*--  ex: padding btw elements in small components like cards*/
-   --spacing-s: 1.5rem; /*-- ex: padding on top and bottom parent contnent like cards */
-   --spacing-m: 2rem; /*-- ex: marign between components */
+   --spacing-s: 1.5rem; /*-- ex: padding on top and bottom parent content like cards */
+   --spacing-m: 2rem; /*-- ex: margin between components */
    --spacing-ml: 2.5rem; /*-- ex: padding on some components like the bible_chapter_picker */
    --spacing-l: 3rem; /*-- ex: spacing between sections */
 
@@ -494,6 +506,48 @@ a:active {
 
 #category-YLW {
    background-color: var(--category-YLW);
+}
+
+/* background quotes */
+
+#category-BLK--card {
+   background-color: var(--category-BLK--card);
+}
+
+#category-BR--card {
+   background-color: var(--category-BR--card);
+}
+
+#category-BL--card {
+   background-color: var(--category-BL--card);
+}
+
+#category-CYN--card {
+   background-color: var(--category-CYN--card);
+}
+
+#category-GRN--card {
+   background-color: var(--category-GRN--card);
+}
+
+#category-OR--card {
+   background-color: var(--category-OR--card);
+}
+
+#category-PNK--card {
+   background-color: var(--category-PNK--card);
+}
+
+#category-PPL--card {
+   background-color: var(--category-PPL--card);
+}
+
+#category-RD--card {
+   background-color: var(--category-RD--card);
+}
+
+#category-YLW--card {
+   background-color: var(--category-YLW--card);
 }
 
 /*  --------------------- quote backgrounds -------------------- */

@@ -18,7 +18,7 @@ import cardsLazyLoadingStyles from "../../../styles/layouts/CardsLazyLoading.mod
 
 // helpers
 import { Tcommentary } from "../../../fragments/cards/posts/commentary";
-import { Tuser } from "../../../pages/users/[userId]";
+import { Tuser } from "../../../pages/users/[signature]";
 
 type commentaryContentDesktopProps = {
    user: Tuser | null | undefined;

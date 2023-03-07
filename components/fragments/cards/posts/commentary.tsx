@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,14 +13,9 @@ import styles from "./commentary.module.css";
 
 // types
 import { TCommentary } from "../../../../types/posts";
-import {
-   COM_DEFAULT_IMG_PLACEHOLDER,
-   LIGHT_COMMENT_BACKGROUNDS,
-   POST_TYPE_COMMENTARY
-} from "../../../../constants/defaults";
+import { COM_DEFAULT_IMG_PLACEHOLDER, POST_TYPE_COMMENTARY } from "../../../../constants/defaults";
 import { EnumContentType } from "../../../../types/enums";
-import { FONT_COLOR, PRIMARY_COLOR } from "../../../../constants/tokens";
-import { useState } from "react";
+
 import { deleteContent } from "../../../../helpers/functions/posts/content_delete";
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
@@ -36,9 +32,7 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
 
    // parse the raw category coming from the DB
    const categoryIdNormalized = commentary?.category_tags.split(" ")[0].replace("#", "");
-   const categoryId = `category-${categoryIdNormalized}`;
-
-   const isLightBkg = LIGHT_COMMENT_BACKGROUNDS.includes(categoryIdNormalized);
+   const categoryId = `category-${categoryIdNormalized}--card`;
 
    const handleDelete = async (id: string | number) => {
       try {
@@ -81,7 +75,6 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                      postId={commentary?.ID}
                      postType='commentary'
                      contentType={EnumContentType.commentary}
-                     fontColor={isLightBkg ? PRIMARY_COLOR : undefined}
                   />
                </div>
 
@@ -106,7 +99,6 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                            text={commentary?.verse_citation}
                            size='small'
                            lineHieght='.9em'
-                           color={isLightBkg ? PRIMARY_COLOR : FONT_COLOR}
                         />
                      </div>
                   </a>
@@ -118,7 +110,6 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                         contentType={1}
                         postId={commentary?.ID}
                         userId={commentary?.creator?.ID}
-                        iconColor={isLightBkg ? PRIMARY_COLOR : undefined}
                         totalComments={commentary?.comments?.total_count}
                         postRating={{
                            totalCount: commentary?.approvals?.total_count,
@@ -129,7 +120,6 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                   <div className={styles.timeStamp}>
                      <TimeStamp
                         colorId={categoryId}
-                        quiet={isLightBkg}
                         time={commentary?.created_date}
                         niceTime={commentary?.posted_on}
                      />
