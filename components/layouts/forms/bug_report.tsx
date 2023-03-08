@@ -55,7 +55,7 @@ export const BugReport = () => {
             setloading("loading");
 
             const { data } = await handleBugReport({ where, when, who, how });
-            setformData({ where: "", when: "", who: "", how: "" });
+
             if (data.new_bug_report) {
                setloading("done");
                setnotification({ body: submittedForm.body, title: submittedForm.title, type: "2" });
@@ -84,7 +84,10 @@ export const BugReport = () => {
                   type={notification.type}
                   body={notification.body}
                   cta={{
-                     handleClose: () => setnotification(null)
+                     handleClose: () => {
+                        setnotification(null);
+                        if (notification.type === "2") router.reload();
+                     }
                   }}
                />
             </Portal>
