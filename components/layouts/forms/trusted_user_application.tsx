@@ -13,12 +13,12 @@ import styles from "./trusted_user_application.module.css";
 import { Notification } from "../../fragments/popups/notification";
 
 // data
-import { errorMessages } from "../../../data/error_messages";
-const failFormSubmission = errorMessages.forms.failToSubmitForm;
-const emptyField = errorMessages.forms.missingFormFields;
-import { notificationMessages } from "../../../data/notification_messages";
 import { handleBecomeTrusteduser, Tvariables } from "../../../helpers/functions/feedback/users";
+import { notificationMessages } from "../../../data/notification_messages";
 const formSubmitted = notificationMessages.userVerificationSubmitted;
+const failFormSubmission = errorMessages.forms.failToSubmitForm;
+import { errorMessages } from "../../../data/error_messages";
+const emptyField = errorMessages.forms.missingFormFields;
 
 export const TrustedUserApplicationForm = () => {
    // state
@@ -42,8 +42,6 @@ export const TrustedUserApplicationForm = () => {
    const handleFormSubmission = async () => {
       try {
          const { data } = await handleBecomeTrusteduser(formData);
-
-         console.log(data);
          if (data?.trusted_user_application) {
             setnotification({
                title: formSubmitted.title,

@@ -26,14 +26,14 @@ export const notificationMessages = {
       id: 3,
       type: "success",
       description: "Lets user know their form was successfully submitted",
-      title: "Form submitted successfully ✅",
+      title: "Form submitted!",
       body: "Thank you for making scholar what it is. We are working every day to make it a better place for you! 👷‍♂️"
    },
    userVerificationSubmitted: {
       id: 4,
       type: "Success",
       description: "Notification after a user submits a form for verification",
-      title: "Form submitted successfully ✅",
+      title: "Form submitted!",
       body: "We will notify you of the final decision via the email associated with the account"
    },
    postReported: {

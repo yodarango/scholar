@@ -50,7 +50,7 @@ export const errorMessages = {
          id: 1,
          type: "error",
          description: "in case form fields are missing this will let the user know.",
-         title: "Empty fields detected 🤔",
+         title: "Fields empty 🤔",
          body: "Please make sure you have filled out all required fields!"
       },
       missingEmail: {

@@ -21,7 +21,7 @@ export const handleBecomeTrusteduser = async (variables: Tvariables) => {
       if (data.trusted_user_application) return { data, status: "done" };
       else return { data: null, status: "error" };
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return { data: null, status: "done" };
    }
 };
