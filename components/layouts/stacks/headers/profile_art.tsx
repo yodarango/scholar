@@ -18,7 +18,7 @@ import {
 } from "../../../../helpers/functions/users/get_user_summary";
 
 // data/ types
-import { TuserSummary } from "../../../../types/user";
+import { TUser } from "../../../../types/user";
 
 // styles
 import styles from "./profile_art.module.css";
@@ -36,7 +36,7 @@ export const ProfileArt = ({
    hasNotifications = false,
    userID
 }: TTeritaryStackprops) => {
-   const [data, setdata] = useState<TuserSummary>({
+   const [data, setdata] = useState<TUser>({
       ID: "0",
       signature: "",
       avatar: "default.png",

@@ -6,6 +6,7 @@ export type TAllPosts = {
 
 export type TUser = {
    my_true_color_personality_test?: string;
+   has_new_notifications?: boolean;
    all_posts_profile?: TAllPosts;
    my_favorite_color?: string;
    my_favorite_verse?: string;

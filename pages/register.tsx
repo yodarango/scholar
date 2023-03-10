@@ -6,16 +6,15 @@ import Head from "next/head";
 import HeadContent from "../SEO/head_content";
 
 // components
-import SmallLoader from "../fragments/chunks/small_loader";
-import NotificationPopup from "../fragments/popups/notification";
+import { SmallLoader } from "../components/fragments/chunks/small_loader";
+import { Notification } from "../components/fragments/popups/notification";
 
 // graphql
-import client from "../apollo-client";
+import { client } from "../apollo-client";
 import { CREATE_NEW_USER } from "../graphql/users/new_user";
-import { CHECK_IF_USER_LOGGED_IN } from "../graphql/users/profile";
 
 // styles
-import registerStyles from "../styles/pages/Register.module.css";
+// import registerStyles from "../styles/pages/Register.module.css";
 
 //helpers
 import { checkForValidSignature } from "../helpers/input/validate_signature";
@@ -26,26 +25,26 @@ export default function Register() {
 
    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-   const checkedIfUserLoggedIn = async () => {
-      try {
-         const { data } = await client.query({
-            query: CHECK_IF_USER_LOGGED_IN,
-            variables: {}
-         });
+   // const checkedIfUserLoggedIn = async () => {
+   //    try {
+   //       const { data } = await client.query({
+   //          query: CHECK_IF_USER_LOGGED_IN,
+   //          variables: {}
+   //       });
 
-         setIsLoggedIn(data.is_user_logged_in);
+   //       setIsLoggedIn(data.is_user_logged_in);
 
-         if (data.is_user_logged_in === true) {
-            router.replace("/users/me");
-         }
-      } catch (error) {
-         console.log(error);
-      }
-   };
+   //       if (data.is_user_logged_in === true) {
+   //          router.replace("/users/me");
+   //       }
+   //    } catch (error) {
+   //       console.log(error);
+   //    }
+   // };
 
-   useEffect(() => {
-      checkedIfUserLoggedIn();
-   }, []);
+   // useEffect(() => {
+   //    checkedIfUserLoggedIn();
+   // }, []);
 
    // ====================== FUNCTION: register the new user ============================ //
    const emailInput = useRef<HTMLInputElement>(null);
@@ -68,7 +67,7 @@ export default function Register() {
             const { data } = await client.mutate({
                mutation: CREATE_NEW_USER,
                variables: {
-                  signature: `#${signatureInput.current.value.toUpperCase()}`,
+                  signature: `${signatureInput.current.value.toUpperCase()}`,
                   email: `${emailInput.current.value.toLocaleLowerCase()}`,
                   password: `${passwordInput.current.value}`,
                   gender: userGenderState.gender
@@ -93,13 +92,15 @@ export default function Register() {
             } else if (data.create_new_user.message) {
                setSmallLoaderState(false);
                setNotificationpopUpState(
-                  <NotificationPopup
-                     closeModal={() => (
-                        setNotificationpopUpState(false), setSmallLoaderState(false)
-                     )}
+                  <Notification
+                     cta={{
+                        handleClose: () => (
+                           setNotificationpopUpState(false), setSmallLoaderState(false)
+                        )
+                     }}
                      title='There was a problem 😔'
-                     contentString={`${data.create_new_user.message}`}
-                     newClass='notification-wrapper--Error'
+                     body={`data.create_new_user.message`}
+                     type='1'
                   />
                );
             }
@@ -107,22 +108,28 @@ export default function Register() {
             console.log(error);
             setSmallLoaderState(false);
             setNotificationpopUpState(
-               <NotificationPopup
-                  closeModal={() => (setNotificationpopUpState(false), setSmallLoaderState(false))}
+               <Notification
+                  cta={{
+                     handleClose: () => (
+                        setNotificationpopUpState(false), setSmallLoaderState(false)
+                     )
+                  }}
                   title='There was a problem 😔'
-                  contentString={`Something has gone south ⬇️ and we are performing surgery on the issue 👨‍⚕️. Please try again later!`}
-                  newClass='notification-wrapper--Error'
+                  body={`data.create_new_user.message`}
+                  type='1'
                />
             );
             return;
          }
       } else {
          setNotificationpopUpState(
-            <NotificationPopup
-               closeModal={() => (setNotificationpopUpState(false), setSmallLoaderState(false))}
-               title='Empty fields detected ✋'
-               contentString={`Please make sure all data is entered `}
-               newClass='notification-wrapper--Error'
+            <Notification
+               cta={{
+                  handleClose: () => (setNotificationpopUpState(false), setSmallLoaderState(false))
+               }}
+               title='There was a problem 😔'
+               body={`data.create_new_user.message`}
+               type='1'
             />
          );
       }
@@ -131,11 +138,13 @@ export default function Register() {
    // ====================== FUNCTION: register the new user ============================ //
    const failValidation = () => {
       setNotificationpopUpState(
-         <NotificationPopup
-            closeModal={() => setNotificationpopUpState(false)}
+         <Notification
+            cta={{
+               handleClose: () => (setNotificationpopUpState(false), setSmallLoaderState(false))
+            }}
             title='There was a problem 😔'
-            contentString={`Sorry, signature can only contain numbers and non-special characters`}
-            newClass='notification-wrapper--Error'
+            body={`data.create_new_user.message`}
+            type='1'
          />
       );
    };
@@ -162,13 +171,11 @@ export default function Register() {
          {notificationpopUpState}
          {!isLoggedIn && (
             <div className='main-wrapper'>
-               <div className={`${registerStyles.wrapFlexRow} wrap-flex-row`}>
+               <div className={` wrap-flex-row`}>
                   {/* Left side, shows on mobile*/}
-                  <div className={registerStyles.loginLeft}>
-                     <div className={registerStyles.logo}></div>
-                     <div className={`${registerStyles.title} std-button_gradient-text`}>
-                        SHOW THYSELF APPROVED
-                     </div>
+                  <div>
+                     <div></div>
+                     <div className={`std-button_gradient-text`}>SHOW THYSELF APPROVED</div>
                      <div className='nowrap-flex-column login-left'>
                         <input
                            type='email'
@@ -217,10 +224,12 @@ export default function Register() {
                         </div> */}
 
                         {!smallLoaderState && (
-                           <div className='std-button'>
-                              <p className='std-button_gradient-text' onClick={checkValidation}>
-                                 Sign Up
-                              </p>
+                           <div style={{ cursor: "pointer" }}>
+                              <button className='std-button'>
+                                 <p className='std-button_gradient-text' onClick={checkValidation}>
+                                    Sign Up
+                                 </p>
+                              </button>
                            </div>
                         )}
                         {smallLoaderState}
