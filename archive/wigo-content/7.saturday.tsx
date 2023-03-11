@@ -88,9 +88,9 @@ const Saturday = ({ saturdayContent }: saturdayProps) => {
                button='none'
                context={
                   <p>
-                     Your enjoyment, security, and privacy are Scholar's priority. This is the
-                     reason why we limit the number of third party partners as much as we can to
-                     assure your information is secure.
+                     Your enjoyment, security, and privacy are Shrood's priority. This is the reason
+                     why we limit the number of third party partners as much as we can to assure
+                     your information is secure.
                   </p>
                }
                imgLink={`/images/wigo-placeholders/no_content_graphic_seven.png`}

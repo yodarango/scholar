@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // react
-import client from "../../apollo-client";
+import { client } from "../../apollo-client";
 import { CHECK_IF_PATRON_ACCOUNT } from "../../graphql/billing/billing";
 
 // components
 import HeadContent from "../../SEO/head_content";
-import { JoinTemplate } from "../../templates/subscription/join";
+import { JoinTemplate } from "../../components/templates/subscription/join";
 
 // style
 import styles from "../page_global.module.css";
@@ -56,6 +56,8 @@ const GoPro = () => {
          <div className={styles.mainWrapper}>
             <JoinTemplate />
          </div>
+         <div className='bottom-spacer'></div>
+         <div className='spacer-page-bottom'></div>
          {/* {loadingState === "error" && <ResourceNotFoundError />} */}
       </>
    );

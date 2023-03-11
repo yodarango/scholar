@@ -1,3 +1,7 @@
+/****************************************************************************************
+ * A <ul></ul> helper that builds a list from the items passed to it
+ *******************************************************************/
+
 import { Icon } from "../chunks/icons";
 import { Parragraph } from "../Typography/parragraph";
 
@@ -26,7 +30,7 @@ export const UlListPrimary = ({
       <div className={styles.secList}>
          <ul className={`${decorated && styles.decorated} ${!icon && styles.noIcon}`}>
             {items.map((item: string, i: number) => (
-               <li>
+               <li key={i}>
                   <div>
                      {icon && !decorated && (
                         <span className={styles.listIcon}>

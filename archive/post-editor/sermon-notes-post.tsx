@@ -170,7 +170,7 @@ const SermonNotesPost = () => {
             <NotificationPopup
                closeModal={() => setnotificationsPopupState(false)}
                title={`This Is Sad 😔`}
-               contentString={`Please consider supporting Scholar to upload your sermon notes`}
+               contentString={`Please consider supporting Shrood to upload your sermon notes`}
                newClass='notification-wrapper--Error'
             />
          );

@@ -7,13 +7,13 @@ import Head from "next/head";
 import HeadContent from "../../SEO/head_content";
 
 // graphQL
-import client from "../../apollo-client";
+import { client } from "../../apollo-client";
 import { GET_ORDER_SUCCESS_DATA } from "../../graphql/billing/billing";
 
 // styles
 import styles from "./success.module.css";
-import { SuccessTemplate } from "../../templates/subscription/success";
-import { Confetti } from "../../fragments/feedback/confetti";
+import { SuccessTemplate } from "../../components/templates/subscription/success";
+import { Confetti } from "../../components/fragments/feedback/confetti";
 
 const Success = () => {
    // router

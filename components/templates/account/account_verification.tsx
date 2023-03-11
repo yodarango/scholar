@@ -4,7 +4,7 @@ import { useState } from "react";
 // comps
 import { Parragraph } from "../../fragments/Typography/parragraph";
 import { OTCVerification } from "../../layouts/forms/otc_verification";
-import { Layer1 } from "../../styles/layouts/backgrounds/layer_1";
+import { Layer1 } from "../../layouts/backgrounds/layer_1";
 
 // styles
 import styles from "./account_verification.module.css";
@@ -20,7 +20,7 @@ export const AccountVerification = ({ email }: TAccountVerificationprops) => {
          <div className={styles.logoWrapper}>
             <div className={styles.logo}></div>
             <div className={styles.title}>
-               <Parragraph align='center' bold size='large' text='Welcome to scholar' />
+               <Parragraph align='center' bold size='large' text='Welcome to Shrood' />
             </div>
             <div className={styles.desc}>
                <Parragraph

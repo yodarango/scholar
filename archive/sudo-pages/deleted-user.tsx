@@ -10,18 +10,18 @@ const DeletedUser = () => {
          <div className={`dark-bkg `}>
             <div className={`${deletedUserStyles.contentWrapper}`}>
                <h2 className={`std-button_gradient-text ${deletedUserStyles.title}`}>
-                  SCHOLAR IS SAD TO SEE YOU GO
+                  SHROOD IS SAD TO SEE YOU GO
                </h2>
                <div className={deletedUserStyles.introLogo}>
                   <Image src={"/images/logo.png"} alt='app logo' layout='fill' />
                </div>
                <section>
                   <p>
-                     Thank you for giving Scholar a try 😔
+                     Thank you for giving Shrood a try 😔
                      <br />
                      We are deeply sorry to see you go but we understand your decision. Please
-                     contact Scholar at <span className='std-url'>hey@biblescholar.app</span> and
-                     tell us what made you go and how we can improve on it!
+                     contact Shrood at <span className='std-url'>hey@Shrood.app</span> and tell us
+                     what made you go and how we can improve on it!
                   </p>
                   {/* <ul>
                      <li>Pray for the platform 🙏🏼</li>

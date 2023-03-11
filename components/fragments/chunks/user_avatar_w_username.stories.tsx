@@ -11,7 +11,7 @@ export const General: ComponentStory<typeof UserAvatarWUsername> = () => (
    <UserAvatarWUsername
       avatarSrc=''
       userAuthority={1}
-      username={"biblescholar"}
+      username={"Shrood"}
       userId='777'
       quiet={true}
       avatarSize={"3.5rem"}

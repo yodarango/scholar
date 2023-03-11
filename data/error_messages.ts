@@ -91,7 +91,7 @@ export const errorMessages = {
          type: "error",
          description: "Users on the free tier will get this error once their max count is reached",
          title: "This is sad! 😞",
-         body: "Sorry, you have exceeded the max amount of posts. Please delete some of your posts or consider supporting Scholar to gain unlimited data"
+         body: "Sorry, you have exceeded the max amount of posts. Please delete some of your posts or consider supporting Shrood to gain unlimited data"
       },
       failToPostCommentary: {
          id: 1,

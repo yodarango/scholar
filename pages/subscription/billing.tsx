@@ -1,8 +1,8 @@
 // components
 import Head from "next/head";
 import HeadContent from "../../SEO/head_content";
-import { BillingTemplate } from "../../templates/subscription/billing";
-import { CloseContent } from "../../fragments/buttons/close_content";
+import { BillingTemplate } from "../../components/templates/subscription/billing";
+import { CloseContent } from "../../components/fragments/buttons/close_content";
 
 // comps
 import styles from "../page_global.module.css";

@@ -17,8 +17,8 @@ export const GET_ORDER_SUCCESS_DATA = gql`
 `;
 
 export const CREATE_CHECKOUT_SESSION = gql`
-   mutation ($price_id: String) {
-      create_checkout_session(price_id: $price_id)
+   mutation ($price_id: String, $payment_mode: String) {
+      create_checkout_session(price_id: $price_id, payment_mode: $payment_mode)
    }
 `;
 

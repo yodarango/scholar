@@ -5,7 +5,7 @@ const HeadContent = () => {
          <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
          <meta
             name='keywords'
-            content='web app, bible scholar, commentary, posts, social media, app, like, comment, quote, books, preaching, podcast, oneness, aljc, upci, wpf'
+            content='web app, Shrood, commentary, posts, social media, app, like, comment, quote, books, preaching, podcast, oneness, aljc, upci, wpf'
          />
          <meta
             name='description'
@@ -20,7 +20,7 @@ const HeadContent = () => {
          <meta name='coverage' content='Worldwide' />
          <meta name='rating' content='General' />
 
-         <meta name='og:title' content='Bible Scholar | Show Thyself Approved' />
+         <meta name='og:title' content='Shrood | Show Thyself Approved' />
          <meta property='og:url' content='https://my.biblescholar.app' />
 
          <meta property='og:image' content='https://my.biblescholar.app/images/sm_logo.png' />
@@ -31,7 +31,7 @@ const HeadContent = () => {
             content='Learning the word one verse at a time together. Share verser by verse commentaries, thoughts, quotes, sermon notes and more. Interact with others, react to their posts, access hundreds of location info and content'
          />
          <meta property='og:locale' content='en_GB' />
-         <meta name='og:site_name' content='Bible Scholar' />
+         <meta name='og:site_name' content='Shrood' />
 
          <meta name='og:region' content='TN' />
 
@@ -41,7 +41,7 @@ const HeadContent = () => {
 
          <meta name='blogcatalog' />
 
-         <meta name='twitter:title' content='Bible Scholar | Show Thyself Approved' />
+         <meta name='twitter:title' content='Shrood | Show Thyself Approved' />
          <meta
             name='twitter:description'
             content='Learning the word one verse at a time together. Share verser by verse commentaries, thoughts, quotes, sermon notes and more. Interact with others, react to their posts, access hundreds of location info and content'
@@ -55,7 +55,7 @@ const HeadContent = () => {
 
          <meta name='viewport' content='width=device-width, initial-scale=1.0 maximum-scale=1' />
 
-         <title>Bible Scholar | Show Thyself Approved</title>
+         <title>Shrood | Show Thyself Approved</title>
 
          <link rel='icon' type='image/png' href='/images/favicon.png' />
       </>

@@ -15,13 +15,13 @@ export const WelcomeTemplate = () => {
             <div className={styles.logoWrapper}>
                <div className={styles.logo}></div>
                <div className={styles.title}>
-                  <Header type={3} align='center' size='large' text='Welcome to scholar' />
+                  <Header type={3} align='center' size='large' text='Welcome to Shrood' />
                </div>
                <div className={styles.desc}>
                   <Parragraph
                      align='center'
                      size='large'
-                     text='Thank you for registering It is the goal of Scholar to help you love, learn, and share Word of God with others. '
+                     text='Thank you for registering It is the goal of Shrood to help you love, learn, and share Word of God with others. '
                   />
                </div>
             </div>
@@ -31,7 +31,7 @@ export const WelcomeTemplate = () => {
                   <Header
                      type={4}
                      size='large'
-                     text='Here are some ways you can help scholar be a safe and Godly platform:'
+                     text='Here are some ways you can help Shrood be a safe and Godly platform:'
                   />
                </div>
                <UlListPrimary

@@ -58,7 +58,7 @@ const Welcome = ({ acceptedIntroTerms }: newuserProps) => {
          <div className={`dark-bkg `}>
             <div className={`${newUserStyles.contentWrapper}`}>
                <h2 className={`std-button_gradient-text ${newUserStyles.title}`}>
-                  WELCOME TO SCHOLAR
+                  WELCOME TO SHROOD
                </h2>
                <div className={newUserStyles.introLogo}>
                   <Image src={"/images/logo.png"} alt='app logo' layout='fill' />
@@ -67,8 +67,8 @@ const Welcome = ({ acceptedIntroTerms }: newuserProps) => {
                   <p>
                      Thank you for registering 😃
                      <br />
-                     It is the goal of <span>Scholar</span> to help you love, learn, and share the
-                     Word of God with others. Here are some ways you can help scholar be a safe and
+                     It is the goal of <span>Shrood</span> to help you love, learn, and share the
+                     Word of God with others. Here are some ways you can help Shrood be a safe and
                      Godly platform:
                   </p>
                   <ul>

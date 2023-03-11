@@ -95,18 +95,18 @@ export const BugReport = () => {
          <PrimaryStack title='Bug Report' cta={{ handleClose: () => router.back() }} icon='bug'>
             <div className={styles.mainWrapper}>
                <div className={styles.title}>
-                  <Header text='Help scholar stay great' size='main' quiet type={3} />
+                  <Header text='Help Shrood stay great' size='main' quiet type={3} />
                </div>
                <div className={styles.description}>
                   <Parragraph
                      size='small'
-                     text=' Every time you submit a bug report you help scholar to stay alive, efficient, and keep
+                     text=' Every time you submit a bug report you help shrood to stay alive, efficient, and keep
                      improving. Please give us as much details as you can on how we can reproduce this issue
                      and where did you find it.'
                   />
                </div>
                <div className={styles.bottomNote}>
-                  <Parragraph size='main' text='Thank you for making Scholar what is it' quiet />
+                  <Parragraph size='main' text='Thank you for making Shrood what is it' quiet />
                </div>
 
                {/* form fields */}

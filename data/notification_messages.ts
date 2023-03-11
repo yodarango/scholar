@@ -27,7 +27,7 @@ export const notificationMessages = {
       type: "success",
       description: "Lets user know their form was successfully submitted",
       title: "Form submitted!",
-      body: "Thank you for making scholar what it is. We are working every day to make it a better place for you! 👷‍♂️"
+      body: "Thank you for making Shrood what it is. We are working every day to make it a better place for you! 👷‍♂️"
    },
    userVerificationSubmitted: {
       id: 4,
@@ -41,7 +41,7 @@ export const notificationMessages = {
       type: "Success",
       description: "Notification after a user reports a post",
       title: "Post has been reported 👮‍♀️",
-      body: "Post is being reviewed. Thank you for making Scholar a better platform."
+      body: "Post is being reviewed. Thank you for making Shrood a better platform."
    },
    postSuccess: {
       id: 6,

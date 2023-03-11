@@ -19,7 +19,7 @@ export const GoodByeTemplate = () => {
                   <Parragraph
                      align='center'
                      size='large'
-                     text='We are deeply sorry to see you go but we understand your decision. Please contact Scholar at hey@biblescholar.app and tell us what made you go and how we can improve on it!'
+                     text='We are deeply sorry to see you go but we understand your decision. Please contact Shrood at hey@shrood.app and tell us what made you go and how we can improve on it!'
                   />
                </div>
             </div>

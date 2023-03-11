@@ -15,7 +15,7 @@ const DummyPlaceholder = ({ imgLink, button, context }: dummyPlaceholderProps) =
       useState<boolean | JSX.Element>(false);
 
    const copyCitation = () => {
-      navigator.clipboard.writeText("http://my.biblescholar.app");
+      navigator.clipboard.writeText("http://my.shrood.app");
 
       setnotificationPopUpState(
          <NotificationPopup

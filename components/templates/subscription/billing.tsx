@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // graphQL
-import client from "../../../apollo-client";
+import { client } from "../../../apollo-client";
 import { GET_USER_PORTAL_SESSION } from "../../../graphql/billing/billing";
 
 // components
@@ -58,12 +58,7 @@ export const BillingTemplate = () => {
          </div>
          <div className={styles.message}>
             <div className={styles.title}>
-               <Header
-                  type={5}
-                  text='Scholar cares bout your privacy'
-                  size='large'
-                  align='center'
-               />
+               <Header type={5} text='Shrood cares bout your privacy' size='large' align='center' />
             </div>
             <div className={styles.parragraph}>
                <Parragraph

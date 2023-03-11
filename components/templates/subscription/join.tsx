@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 // graphql
-import client from "../../../apollo-client";
+import { client } from "../../../apollo-client";
 import { CREATE_CHECKOUT_SESSION } from "../../../graphql/billing/billing";
 
 //comps
@@ -11,21 +11,24 @@ import { Parragraph } from "../../fragments/Typography/parragraph";
 
 // styles
 import styles from "./join.module.css";
-import { Icon } from "../../fragments/chunks/icons";
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { UlListPrimary } from "../../fragments/lists/ul_list_primary";
+import { CHECKOUT_MODE_PAYMENT } from "../../../constants/common";
 
 export const JoinTemplate = () => {
    // router
    const router = useRouter();
 
-   //  Create checkout Session if user does not have any
-   const productId = process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID;
-   const handleCheckout = async () => {
+   //  create a session
+   const oneTimePurchase = process.env.NEXT_PUBLIC_STRIPE_CUSTOM_ONE_TIME_ID;
+   const stdSubscription = process.env.NEXT_PUBLIC_STRIPE_SUBSCRIPTION_ID;
+
+   const handleCheckout = async (price_id: string | undefined, payment_mode: string) => {
       const { data } = await client.mutate({
          mutation: CREATE_CHECKOUT_SESSION,
          variables: {
-            price_id: `${productId}`
+            price_id: price_id || "",
+            payment_mode
          }
       });
 
@@ -43,10 +46,25 @@ export const JoinTemplate = () => {
             <div className={styles.graphics}></div>
          </div>
          <div className={styles.button}>
-            <Primary title='Join only for 3.99/mo' type='2' cta={{ handleClick: handleCheckout }} />
+            <Primary
+               title='Support with only 3.99/mo'
+               type='2'
+               cta={{ handleClick: () => handleCheckout(stdSubscription, CHECKOUT_MODE_PAYMENT) }}
+            />
+         </div>
+         <div className={`${styles.cancel} ${styles.cancelFirst}`}>
+            <Parragraph italics size='small' align='center' text='Cancel anytime!' />
+         </div>
+
+         <div className={styles.button}>
+            <Primary
+               title='One time love donation ♡'
+               type='2'
+               cta={{ handleClick: () => handleCheckout(oneTimePurchase, CHECKOUT_MODE_PAYMENT) }}
+            />
          </div>
          <div className={styles.cancel}>
-            <Parragraph italics size='small' align='center' text='Cancel anytime!' />
+            <Parragraph italics size='small' align='center' text='Thank you, in advance!' />
          </div>
 
          {/* why to be a patron list */}
@@ -55,7 +73,7 @@ export const JoinTemplate = () => {
                <Header
                   quiet
                   size='large'
-                  text='When you become a patron you help Scholar to:'
+                  text='When you become a patron you help Shrood to:'
                   type={4}
                />
             </div>
@@ -72,6 +90,7 @@ export const JoinTemplate = () => {
             </div>
          </section>
 
+         {/* Benefits of being a patron */}
          <section className={`${styles.section} ${styles.section2}`}>
             <div className={styles.secTitle}>
                <Header
@@ -94,6 +113,9 @@ export const JoinTemplate = () => {
                />
             </div>
          </section>
+         <div className={styles.button}>
+            <Primary title='Who is behind Shrood?' type='1' cta={{ handleClick: () => {} }} />
+         </div>
          <div className='spacer--page-bottom'></div>
       </div>
    );

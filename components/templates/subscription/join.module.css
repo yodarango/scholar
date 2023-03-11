@@ -44,6 +44,10 @@
    margin-bottom: var(--spacing-l);
 }
 
+.cancelFirst {
+   margin-bottom: var(--spacing-xs);
+}
+
 .section {
    width: 100%;
    margin-bottom: var(--spacing-l);
