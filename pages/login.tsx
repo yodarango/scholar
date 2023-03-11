@@ -60,7 +60,7 @@ export default function Login() {
             const { data } = await client.mutate({
                mutation: AUTHENTICATE_USER,
                variables: {
-                  signature: `#${signatureInput.current.value.toUpperCase()}`,
+                  signature: `${signatureInput.current.value.toUpperCase()}`,
                   password: `${passwordInput.current.value}`
                }
             });
@@ -139,7 +139,10 @@ export default function Login() {
                      ref={passwordInput}
                   />
                   {!smallLoaderState && (
-                     <div className='std-button' onClick={hanldeNewUserRegistration}>
+                     <div
+                        className='std-button'
+                        style={{ cursor: "pointer", height: "4rem", background: "gray" }}
+                        onClick={hanldeNewUserRegistration}>
                         <div className='std-button_gradient-text'>Login</div>
                      </div>
                   )}

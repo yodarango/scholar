@@ -1,5 +1,3 @@
 ## FROM LAST CODING SESSION
 
--  last file touched was bug_report.tsx.
-
--  seems like we can move to auth next. But set notififications as constants ofr each type
+-  All auth routes have been finished. moved on to billing next
