@@ -3,23 +3,28 @@ import Link from "next/link";
 import styles from "./internal_link.module.css";
 
 type TExternalLinkProps = {
-   href: string;
+   href?: string;
    italics?: boolean;
    children: string;
    type: string;
    align?: string;
-   size: string;
+   size?: string;
+   cta?: {
+      onClick: () => void;
+   };
 };
 export const InternalLink = ({
    href,
    children,
    italics,
    type,
-   size,
-   align
+   size = "main",
+   align = "center",
+   cta
 }: TExternalLinkProps) => {
    let fontSize: string = "";
    let fontAlign: string = "";
+   let linkType: string = "";
 
    // determine the size
    switch (size) {
@@ -61,32 +66,36 @@ export const InternalLink = ({
          fontAlign = styles.justify;
          break;
    }
+
+   switch (type) {
+      case "1":
+         linkType = styles.one;
+         break;
+      case "2":
+         linkType = styles.two;
+         break;
+      case "3":
+         linkType = styles.three;
+         break;
+   }
    return (
       <span className={styles.mainWrapper}>
-         {type === "1" && (
+         {!cta && href && (
             <Link href={href}>
-               <a className={`${styles.link} ${styles.one} ${styles.fontAlign} ${styles.fontSize}`}>
-                  {children}
-               </a>
-            </Link>
-         )}
-         {type === "2" && (
-            <Link href={href}>
-               <a className={`${styles.link} ${styles.two} ${styles.fontAlign} ${styles.fontSize}`}>
+               <a className={`${styles.link} ${linkType} ${fontAlign} ${fontSize}`}>
+                  {" "}
                   {italics && <i>{children}</i>}
                   {!italics && children}
                </a>
             </Link>
          )}
-
-         {type === "3" && (
-            <Link href={href}>
-               <a
-                  className={`${styles.link} ${styles.three} ${styles.fontAlign} ${styles.fontSize}`}>
+         {cta && !href && (
+            <div onClick={cta.onClick}>
+               <p className={`${styles.button} ${linkType} ${fontAlign} ${fontSize}`}>
                   {italics && <i>{children}</i>}
                   {!italics && children}
-               </a>
-            </Link>
+               </p>
+            </div>
          )}
       </span>
    );

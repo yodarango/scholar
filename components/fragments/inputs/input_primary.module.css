@@ -7,8 +7,17 @@
 
 .input,
 .input::placeholder,
+.input:placeholder-shown,
+.input:target,
 .input:focus,
-.input:active {
+.input:focus-visible,
+.input:focus-within,
+.input:active,
+/* auto complete */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:focus, 
+.input:-webkit-autofill:active {
    outline: none;
    border: none;
    font-family: "Open Sans", sans-serif;

@@ -14,16 +14,22 @@ import { SmallLoader } from "../components/fragments/chunks/small_loader";
 import { Notification } from "../components/fragments/popups/notification";
 
 // styles
-//import loginStyles from "../styles/pages/Login.module.css";
-import PopupWrapper from "../archive/popup-wrapper";
+import { InputPrimary } from "../components/fragments/inputs/input_primary";
+import { Primary } from "../components/fragments/buttons/primary";
+import { InternalLink } from "../components/fragments/Typography/internal_link";
+import styles from "./login.module.css";
 //import ForgotPassword from "../archive/forgot-password-modal";
 
 export default function Login() {
    // =================== Check if there is a Logged in user and fetch its data ========== /
    const router = useRouter();
 
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+   const [loading, setloading] = useState("done");
+   const [isLoggedIn, setisLoggedIn] = useState(false);
+   const [data, setdata] = useState<{ signature: string; password: string }>({
+      signature: "",
+      password: ""
+   });
    // const checkedIfUserLoggedIn = async () => {
    //    try {
    //       const { data } = await client.query({
@@ -52,7 +58,7 @@ export default function Login() {
    const [notificationpopUpState, setNotificationpopUpState] =
       useState<JSX.Element | boolean>(false);
    const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
-   const hanldeNewUserRegistration = async () => {
+   const handleLogin = async () => {
       if (signatureInput.current && passwordInput.current) {
          setSmallLoaderState(<SmallLoader />);
 
@@ -119,47 +125,56 @@ export default function Login() {
          <Head>
             <HeadContent />
          </Head>
-         {/* {forgotPasswordPopup} */}
+
          {!isLoggedIn && (
             <div className='main-wrapper'>
-               {notificationpopUpState}
-               <div></div>
-               <div>SHOW THYSELF APPROVED</div>
-               <div className='nowrap-flex-column'>
-                  <input
-                     type='text'
-                     placeholder='Your Signature'
-                     className='std-input'
-                     ref={signatureInput}
-                  />
-                  <input
-                     type='password'
-                     placeholder='Password'
-                     className='std-input'
-                     ref={passwordInput}
-                  />
-                  {!smallLoaderState && (
-                     <div
-                        className='std-button'
-                        style={{ cursor: "pointer", height: "4rem", background: "gray" }}
-                        onClick={hanldeNewUserRegistration}>
-                        <div className='std-button_gradient-text'>Login</div>
-                     </div>
-                  )}
-                  {smallLoaderState}
-                  <p className='std-text-block--info'>Don't have an account yet? </p>
-                  <Link href='/register'>
-                     <a className='std-button std-button--no-margin std-button--clear'>
-                        <div className='std-button_gradient-text'>Sign Up</div>
-                     </a>
-                  </Link>
-                  <div>
-                     <button onClick={handleForgotPassword}>Forgot Passoword</button>
-                  </div>
-                  <div className='large-spacer'></div>
+               <div className={styles.top}>
+                  <img className={styles.logo} src='/images/shrood_logo/logo_round_pow_small.png' />
                </div>
+
+               <section className={styles.inputs}>
+                  <div className={styles.btn}>
+                     <InputPrimary
+                        placeholder='Enter signature'
+                        type='text'
+                        maxL={150}
+                        cta={{ handleValue: (val) => setdata({ ...data, signature: val }) }}
+                     />
+                  </div>
+                  <div className={styles.btn}>
+                     <InputPrimary
+                        placeholder='Enter password'
+                        type='password'
+                        maxL={150}
+                        cta={{ handleValue: (val) => setdata({ ...data, password: val }) }}
+                     />
+                  </div>
+                  {loading !== "loading" && (
+                     <>
+                        <div className={styles.btn}>
+                           <Primary type='1' title='Login' cta={{ handleClick: handleLogin }} />
+                        </div>
+                        <Link href='/register'>
+                           <a className={styles.btn}>
+                              <Primary
+                                 type='2'
+                                 title='Register'
+                                 cta={{ handleClick: handleLogin }}
+                              />
+                           </a>
+                        </Link>
+                        <div className={styles.btn}>
+                           <InternalLink cta={{ onClick: () => {} }} type='2'>
+                              Forgot password
+                           </InternalLink>
+                        </div>
+                     </>
+                  )}
+                  {loading === "loading" && <SmallLoader />}
+               </section>
             </div>
          )}
+         <div className='spacer-page-bottom'></div>
       </>
    );
 }
