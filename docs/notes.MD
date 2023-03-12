@@ -1,3 +1,3 @@
 ## FROM LAST CODING SESSION
 
--  All auth routes have been finished. moved on to billing next
+-  Last page touched was the login page. Finish it and move to register
