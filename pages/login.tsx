@@ -8,28 +8,38 @@ import HeadContent from "../SEO/head_content";
 // graphQL
 import { client } from "../apollo-client";
 import { AUTHENTICATE_USER } from "../graphql/users/authenticate_user";
+import { errorMessages } from "../data/error_messages";
 
 // child comps
 import { SmallLoader } from "../components/fragments/chunks/small_loader";
 import { Notification } from "../components/fragments/popups/notification";
+import { Layer1 } from "../components/layouts/backgrounds/layer_1";
 
 // styles
 import { InputPrimary } from "../components/fragments/inputs/input_primary";
 import { Primary } from "../components/fragments/buttons/primary";
 import { InternalLink } from "../components/fragments/Typography/internal_link";
 import styles from "./login.module.css";
+import PortalSecondary from "../components/hoc/portal_secondary";
+import { ForgotPasswordTemplate } from "../components/templates/account/forgot_password";
 //import ForgotPassword from "../archive/forgot-password-modal";
 
 export default function Login() {
-   // =================== Check if there is a Logged in user and fetch its data ========== /
    const router = useRouter();
 
-   const [loading, setloading] = useState("done");
-   const [isLoggedIn, setisLoggedIn] = useState(false);
+   const [notification, setnotification] = useState<{ title: string; body: string; type: string }>({
+      title: "",
+      body: "",
+      type: ""
+   });
    const [data, setdata] = useState<{ signature: string; password: string }>({
       signature: "",
       password: ""
    });
+   const [modal, setmodal] = useState<string>("");
+   const [loading, setloading] = useState<string>("done");
+   const [isLoggedIn, setisLoggedIn] = useState(false);
+
    // const checkedIfUserLoggedIn = async () => {
    //    try {
    //       const { data } = await client.query({
@@ -51,73 +61,56 @@ export default function Login() {
       //checkedIfUserLoggedIn();
    }, []);
 
-   // ====================== FUNCTION: Login the user ============================ //
-   const signatureInput = useRef<HTMLInputElement>(null);
-   const passwordInput = useRef<HTMLInputElement>(null);
-
-   const [notificationpopUpState, setNotificationpopUpState] =
-      useState<JSX.Element | boolean>(false);
-   const [smallLoaderState, setSmallLoaderState] = useState<JSX.Element | boolean>(false);
    const handleLogin = async () => {
-      if (signatureInput.current && passwordInput.current) {
-         setSmallLoaderState(<SmallLoader />);
+      if (data.signature && data.password) {
+         setloading("loading");
 
          try {
-            const { data } = await client.mutate({
+            const login = await client.mutate({
                mutation: AUTHENTICATE_USER,
                variables: {
-                  signature: `${signatureInput.current.value.toUpperCase()}`,
-                  password: `${passwordInput.current.value}`
+                  signature: `${data.signature.toUpperCase()}`,
+                  password: `${data.password}`
                }
             });
 
-            if (data.authenticate_user.ID) {
+            if (login?.data?.authenticate_user?.ID) {
                // --------- switching to local storage because apple has a bug that expires cookies at session time
                // document.cookie = `authorization=${data.authenticate_user.token}; expires=${expTime}; domain=${window.location.hostname}; path=/`;
                const today = Date.now();
                const expTime = today + 1209600000;
 
                const jwtAuth = {
-                  auth: data.authenticate_user.token,
+                  auth: login.data.authenticate_user.token,
                   expiresIn: expTime
                };
                localStorage.setItem("auth", JSON.stringify(jwtAuth));
                location.href = "/login";
             }
-            if (data.authenticate_user.message) {
-               setSmallLoaderState(false);
-               setNotificationpopUpState(
-                  <Notification
-                     cta={{ handleClose: () => setNotificationpopUpState(false) }}
-                     title='Are you who you say you are? 🕵️‍♂️'
-                     type='2'
-                     body={`${data.authenticate_user.message}`}
-                  />
-               );
+            if (login?.data?.authenticate_user.message) {
+               setloading("done");
+               setnotification({
+                  title: errorMessages.unknown.a.title,
+                  body: login.data.authenticate_user.message,
+                  type: "3"
+               });
             }
          } catch (error) {
             console.log(error);
-            setSmallLoaderState(false);
-            setNotificationpopUpState(
-               <Notification
-                  cta={{ handleClose: () => setNotificationpopUpState(false) }}
-                  title='Are you who you say you are? 🕵️‍♂️'
-                  type='4'
-                  body={`error`}
-               />
-            );
+            setloading("error");
+            setnotification({
+               title: errorMessages.login.failToLogin.title,
+               body: errorMessages.login.failToLogin.body,
+               type: "4"
+            });
          }
       }
    };
 
-   // ==================== FUNCTION: Handle the forgot password popup ============
-   const [forgotPasswordPopup, setPorgotPasswordPopup] = useState<boolean | JSX.Element>(false);
+   //  FUNCTION: Handle the forgot password popup
+
    const handleForgotPassword = () => {
-      setPorgotPasswordPopup(false);
-      // <PopupWrapper
-      //    closeModal={() => setPorgotPasswordPopup(false)}
-      //    content={<ForgotPassword />}
-      // />
+      setmodal("forgot_password");
    };
 
    return (
@@ -126,6 +119,15 @@ export default function Login() {
             <HeadContent />
          </Head>
 
+         {modal === "forgot_password" && (
+            <PortalSecondary>
+               <ForgotPasswordTemplate
+                  cta={{
+                     handleClose: () => setmodal("none")
+                  }}
+               />
+            </PortalSecondary>
+         )}
          {!isLoggedIn && (
             <div className='main-wrapper'>
                <div className={styles.top}>
@@ -164,7 +166,9 @@ export default function Login() {
                            </a>
                         </Link>
                         <div className={styles.btn}>
-                           <InternalLink cta={{ onClick: () => {} }} type='2'>
+                           <InternalLink
+                              cta={{ onClick: () => setmodal("forgot_password") }}
+                              type='2'>
                               Forgot password
                            </InternalLink>
                         </div>

@@ -80,7 +80,8 @@
    text-align: justify;
 }
 
-.button {
+.button,
+.link {
    cursor: pointer;
    font-family: "Open Sans", sans-serif;
    font-weight: 400;

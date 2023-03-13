@@ -13,15 +13,17 @@ import { Parragraph } from "../../fragments/Typography/parragraph";
 import { Primary } from "../../fragments/buttons/primary";
 import { Confetti } from "../../fragments/feedback/confetti";
 import Portal from "../../hoc/potal";
-import { Layer1 } from "../../styles/layouts/backgrounds/layer_1";
+import { Layer1 } from "../../layouts/backgrounds/layer_1";
 
 // styles
 import styles from "./forgot_password.module.css";
+import { InternalLink } from "../../fragments/Typography/internal_link";
 
 // types
 type TForgotPasswordFormProps = {
-   cta?: {
-      handleStepProcess: (step: number) => void;
+   cta: {
+      handleStepProcess?: (step: number) => void;
+      handleClose: () => void;
    };
 };
 
@@ -76,43 +78,51 @@ export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
                <Confetti />
             </div>
          )}
-         <Layer1 />
-         <div className={styles.logoWrapper}>
-            {/* switch graphics per step completion */}
-            <div className={`${styles.graphics} ${currentStepData.graphics}`}></div>
-            <div className={styles.title}>
-               <Parragraph align='center' bold size='large' text={currentStepData.title} />
-            </div>
-            <div className={styles.desc}>
-               <Parragraph align='center' size='large' text={currentStepData.message} />
-            </div>
+         <div className={styles.layer1}>
+            <Layer1 />
          </div>
-
-         {stepProcess === 0 && (
-            <EmailVerification
-               redirect='login'
-               cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
-            />
-         )}
-         {stepProcess === 1 && (
-            <OTCVerification
-               redirect='login'
-               cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
-            />
-         )}
-
-         {stepProcess === 2 && (
-            <ChangePassword
-               USER_ID='1'
-               redirect='login'
-               cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
-            />
-         )}
-         {stepProcess === 3 && (
-            <div className={styles.redirect}>
-               <Primary type='2' title='Back to login' href='/login' />
+         <div className={styles.contentWrapper}>
+            <div className={styles.logoWrapper}>
+               {/* switch graphics per step completion */}
+               <div className={`${styles.graphics} ${currentStepData.graphics}`}></div>
+               <div className={styles.title}>
+                  <Parragraph align='center' bold size='large' text={currentStepData.title} />
+               </div>
+               <div className={styles.desc}>
+                  <Parragraph align='center' size='large' text={currentStepData.message} />
+               </div>
             </div>
-         )}
+
+            {stepProcess === 0 && (
+               <EmailVerification
+                  cta={{
+                     handleGoBack: cta.handleClose,
+                     handleResult: (result: number) => handleUpdateStep(result)
+                  }}
+               />
+            )}
+            {stepProcess === 1 && (
+               <OTCVerification
+                  redirect='login'
+                  cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
+               />
+            )}
+
+            {stepProcess === 2 && (
+               <ChangePassword
+                  USER_ID='1'
+                  redirect='login'
+                  cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
+               />
+            )}
+            {stepProcess === 3 && (
+               <div className={styles.redirect}>
+                  <InternalLink cta={{ onClick: cta.handleClose }} type='2'>
+                     Back to login
+                  </InternalLink>
+               </div>
+            )}
+         </div>
       </div>
    );
 };

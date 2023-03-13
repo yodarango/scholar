@@ -4,8 +4,8 @@
 import { useState } from "react";
 
 // graphQL
-import client from "../../apollo-client";
-import { PASSWORD_RECOVERY_NEW } from "../../graphql/users/authenticate_user";
+import { client } from "../../../apollo-client";
+import { PASSWORD_RECOVERY_NEW } from "../../../graphql/users/authenticate_user";
 
 // comps
 import { InputPrimary } from "../../fragments/inputs/input_primary";
@@ -19,7 +19,8 @@ import Portal from "../../hoc/potal";
 import styles from "./change_password.module.css";
 
 // data
-import { errorMessages } from "../../data/error_messages";
+import { errorMessages } from "../../../data/error_messages";
+
 const unableToUpdate = errorMessages.account.unableToUpdatePassword;
 const unknown = errorMessages.unknown.a;
 const emptyPassword = errorMessages.forms.missingPassword;

@@ -81,7 +81,7 @@ export const errorMessages = {
          id: 3,
          type: "error",
          description: "If the email address the user entered is not a lid format",
-         title: "Invalid email address ＠",
+         title: "Invalid email ＠",
          body: "The email you entered is not valid. Try another one!"
       }
    },
@@ -161,6 +161,15 @@ export const errorMessages = {
             "highlight verse returned null or undefined or something else that is not an array ",
          title: "No highlights",
          body: "We did not find any highlighted verses "
+      }
+   },
+   login: {
+      failToLogin: {
+         id: 0,
+         type: "error",
+         description: "if we fail to login a user but have no idea why",
+         title: "Error Logging in!",
+         body: "Sorry, we were unable to log you in. If the error persist contact us. "
       }
    },
    unknown: {
