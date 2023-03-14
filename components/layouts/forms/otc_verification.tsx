@@ -23,7 +23,7 @@ const emptyCode = errorMessages.forms.missingCode;
 type TAccountVerificationFormProps = {
    redirect?: string;
    cta?: {
-      handleResult: (result: number) => void;
+      handleResult: (result: number, userId: number) => void;
    };
 };
 
@@ -49,18 +49,18 @@ export const OTCVerification = ({ redirect = "register", cta }: TAccountVerifica
       if (code) {
          try {
             const codeIsVerified = await verificationCode(code);
-            if (codeIsVerified) cta?.handleResult(2);
+
+            if (codeIsVerified) cta?.handleResult(2, codeIsVerified);
             else updateNotification(incorrectCode.body, "4", incorrectCode.title);
             setloading("done");
          } catch (error) {
-            setloading("done");
             updateNotification(unknown.body, "4", unknown.title);
-            console.error(error);
+            setloading("done");
             return false;
          }
       } else {
-         setloading("done");
          updateNotification(emptyCode.body, "4", emptyCode.title);
+         setloading("done");
       }
    };
 

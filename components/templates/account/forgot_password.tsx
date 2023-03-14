@@ -60,11 +60,13 @@ const stepMessages = [
 export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
    // states
    const [stepProcess, setstepProcess] = useState<number>(0);
+   const [userId, setuserId] = useState<number | string>(0);
    const [currentStepData, setcurrentStepData] = useState<TStepProcess>(stepMessages[0]);
 
-   const handleUpdateStep = (step: number) => {
-      console.log("step", step);
-      step === 1 && setstepProcess((prev) => prev + 1);
+   const handleUpdateStep = (step: number, userId: number | string | null) => {
+      setstepProcess(step);
+
+      if (userId) setuserId(userId);
    };
 
    useEffect(() => {
@@ -97,22 +99,25 @@ export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
                <EmailVerification
                   cta={{
                      handleGoBack: cta.handleClose,
-                     handleResult: (result: number) => handleUpdateStep(result)
+                     handleResult: (result: number) => handleUpdateStep(result, null)
                   }}
                />
             )}
             {stepProcess === 1 && (
                <OTCVerification
                   redirect='login'
-                  cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
+                  cta={{
+                     handleResult: (result: number, userId: number | string) =>
+                        handleUpdateStep(result, userId)
+                  }}
                />
             )}
 
             {stepProcess === 2 && (
                <ChangePassword
-                  USER_ID='1'
+                  USER_ID={userId}
                   redirect='login'
-                  cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
+                  cta={{ handleResult: (result: number) => handleUpdateStep(result, null) }}
                />
             )}
             {stepProcess === 3 && (

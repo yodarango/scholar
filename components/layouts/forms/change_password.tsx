@@ -3,10 +3,6 @@
 ****************************************************************************************/
 import { useState } from "react";
 
-// graphQL
-import { client } from "../../../apollo-client";
-import { PASSWORD_RECOVERY_NEW } from "../../../graphql/users/authenticate_user";
-
 // comps
 import { InputPrimary } from "../../fragments/inputs/input_primary";
 import { Notification } from "../../fragments/popups/notification";
@@ -20,6 +16,7 @@ import styles from "./change_password.module.css";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
+import { changePassword } from "../../../helpers/functions/auth/forgot_password";
 
 const unableToUpdate = errorMessages.account.unableToUpdatePassword;
 const unknown = errorMessages.unknown.a;
@@ -27,7 +24,7 @@ const emptyPassword = errorMessages.forms.missingPassword;
 
 type TAccountVerificationFormProps = {
    redirect?: string;
-   USER_ID: string;
+   USER_ID: string | number;
    cta?: {
       handleResult: (result: number) => void;
    };
@@ -39,7 +36,7 @@ export const ChangePassword = ({
    USER_ID
 }: TAccountVerificationFormProps) => {
    const [password, setpassword] = useState<string>("");
-   const [loader, setloader] = useState<boolean>(false);
+   const [loading, setloading] = useState<string>("done");
    const [notification, setnotification] = useState<boolean | JSX.Element>(false);
 
    // handle update notification state
@@ -55,25 +52,24 @@ export const ChangePassword = ({
 
    // update password
    const updatePassword = async () => {
-      if (password) {
-         cta?.handleResult(1);
-         // try {
-         //    const { data } = await client.mutate({
-         //       mutation: PASSWORD_RECOVERY_NEW,
-         //       variables: { new_password: password, USER_ID: USER_ID }
-         //    });
+      setloading("loading");
 
-         //    if (data.recover_password === false) {
-         //       updateNotification(unableToUpdate.body, "4", unableToUpdate.title);
-         //    } else if (data.recover_password === true) {
-         //       cta?.handleResult(1);
-         //       setloader(false);
-         //    }
-         // } catch (error) {
-         //    console.log(error);
-         //    cta?.handleResult(1);
-         //    setloader(false);
-         // }
+      if (password) {
+         try {
+            const passwordSet = await changePassword(password, USER_ID);
+
+            if (passwordSet) {
+               cta?.handleResult(3);
+               setloading("done");
+            } else {
+               updateNotification(unableToUpdate.body, "4", unableToUpdate.title);
+               setloading("done");
+            }
+         } catch (error) {
+            updateNotification(unknown.body, "4", unknown.title);
+
+            setloading("done");
+         }
       } else {
          updateNotification(emptyPassword.body, "4", emptyPassword.title);
       }
@@ -94,7 +90,7 @@ export const ChangePassword = ({
                   }}
                />
             </div>
-            {!loader && (
+            {loading === "done" && (
                <div className={styles.button}>
                   <Primary
                      htmlType='button'
@@ -104,7 +100,11 @@ export const ChangePassword = ({
                   />
                </div>
             )}
-            {loader && <SmallLoader />}
+            {loading === "loading" && (
+               <div className={styles.button}>
+                  <SmallLoader />
+               </div>
+            )}
             <div className={styles.link}>
                <InternalLink type='2' size='main' href={`/${redirect}`} align='center'>
                   {`Back to ${redirect} page`}

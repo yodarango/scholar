@@ -29,14 +29,8 @@ export const VERIFY_FORGOTTEN_PASSWORD_CODE = gql`
    }
 `;
 
-export const PASSWORD_RECOVERY_NEW = gql`
+export const SET_NEW_PASSWORD = gql`
    mutation ($new_password: String, $USER_ID: Int) {
       recover_password(new_password: $new_password, USER_ID: $USER_ID)
    }
 `;
-
-// export const LOG_OUT_USER = gql`
-// mutation ($new) {
-
-// }
-// `;
