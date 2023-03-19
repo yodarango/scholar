@@ -29,16 +29,17 @@ export const NavigationMain = ({ children }: any) => {
             setcurrentPage("users");
          }
 
-         if (
-            router.asPath.includes("/commentary") ||
-            router.asPath.includes("/quote") ||
-            router.asPath.includes("/thought") ||
-            router.asPath.includes("/sermon-note") ||
-            router.asPath.includes("/commentary") ||
-            router.asPath.includes("/quote") ||
-            router.asPath.includes("/thought") ||
-            router.asPath.includes("/sermon-note")
-         ) {
+         const shouldNotRenderRouters = [
+            "/commentary",
+            "/quote",
+            "/thought",
+            "/sermon-note",
+            "/login",
+            "/register",
+            "/forgot-password",
+            "/reset-password"
+         ];
+         if (shouldNotRenderRouters.includes(router.asPath)) {
             setshouldRender(false);
          } else {
             setshouldRender(true);

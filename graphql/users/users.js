@@ -18,3 +18,9 @@ export const CHECK_IF_USER_PATRON = gql`
       }
    }
 `;
+
+export const CHECK_AUTH = gql`
+   query {
+      is_user_logged_in
+   }
+`;

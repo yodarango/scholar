@@ -168,8 +168,17 @@ export const errorMessages = {
          id: 0,
          type: "error",
          description: "if we fail to login a user but have no idea why",
-         title: "Error Logging in!",
+         title: "Login error!",
          body: "Sorry, we were unable to log you in. If the error persist contact us. "
+      }
+   },
+   register: {
+      failToRegister: {
+         id: 0,
+         type: "error",
+         description: "if we fail to register a user for a specific reason",
+         title: "Registration error! ",
+         body: "Sorry, we were unable to register your account. If the error persist contact us."
       }
    },
    unknown: {
