@@ -74,80 +74,71 @@ export default function LoginTemplate() {
 
    return (
       <>
-         {canMoveForward && (
-            <>
-               <Head>
-                  <HeadContent />
-               </Head>
-               {notification && (
-                  <Notification
-                     title={notification.title}
-                     type={notification.type}
-                     body={notification.body}
-                     cta={{ handleClose: () => setnotification(null) }}
-                  />
-               )}
-               {modal === "forgot_password" && (
-                  <PortalSecondary>
-                     <ForgotPasswordTemplate
-                        cta={{
-                           handleClose: () => setmodal("none")
-                        }}
-                     />
-                  </PortalSecondary>
-               )}
-
-               <div className='main-wrapper'>
-                  <div className={styles.top}>
-                     <img
-                        className={styles.logo}
-                        src='/images/shrood_logo/logo_round_pow_small.png'
-                     />
-                  </div>
-
-                  <section className={styles.inputs}>
-                     <div className={styles.btn}>
-                        <InputPrimary
-                           placeholder='Enter signature'
-                           type='text'
-                           maxL={150}
-                           cta={{ handleValue: (val) => setdata({ ...data, signature: val }) }}
-                        />
-                     </div>
-                     <div className={styles.btn}>
-                        <InputPrimary
-                           placeholder='Enter password'
-                           type='password'
-                           maxL={150}
-                           cta={{ handleValue: (val) => setdata({ ...data, password: val }) }}
-                        />
-                     </div>
-                     {loading !== "loading" && (
-                        <>
-                           <div className={styles.btn}>
-                              <Primary type='1' title='Login' cta={{ handleClick: handleLogin }} />
-                           </div>
-
-                           <div className={styles.btn}>
-                              <Primary type='2' title='Register' href='/register' />
-                           </div>
-
-                           <div className={styles.btn}>
-                              <InternalLink
-                                 cta={{ onClick: () => setmodal("forgot_password") }}
-                                 type='2'>
-                                 Forgot password
-                              </InternalLink>
-                           </div>
-                        </>
-                     )}
-                     {loading === "loading" && <SmallLoader />}
-                  </section>
-               </div>
-
-               <div className='spacer-page-bottom'></div>
-            </>
+         <Head>
+            <HeadContent />
+         </Head>
+         {notification && (
+            <Notification
+               title={notification.title}
+               type={notification.type}
+               body={notification.body}
+               cta={{ handleClose: () => setnotification(null) }}
+            />
          )}
+         {modal === "forgot_password" && (
+            <PortalSecondary>
+               <ForgotPasswordTemplate
+                  cta={{
+                     handleClose: () => setmodal("none")
+                  }}
+               />
+            </PortalSecondary>
+         )}
+
+         <div className='main-wrapper'>
+            <div className={styles.top}>
+               <img className={styles.logo} src='/images/shrood_logo/logo_round_pow_small.png' />
+            </div>
+
+            <section className={styles.inputs}>
+               <div className={styles.btn}>
+                  <InputPrimary
+                     placeholder='Enter signature'
+                     type='text'
+                     maxL={150}
+                     cta={{ handleValue: (val) => setdata({ ...data, signature: val }) }}
+                  />
+               </div>
+               <div className={styles.btn}>
+                  <InputPrimary
+                     placeholder='Enter password'
+                     type='password'
+                     maxL={150}
+                     cta={{ handleValue: (val) => setdata({ ...data, password: val }) }}
+                  />
+               </div>
+               {loading !== "loading" && (
+                  <>
+                     <div className={styles.btn}>
+                        <Primary type='1' title='Login' cta={{ handleClick: handleLogin }} />
+                     </div>
+
+                     <div className={styles.btn}>
+                        <Primary type='2' title='Register' href='/register' />
+                     </div>
+
+                     <div className={styles.btn}>
+                        <InternalLink cta={{ onClick: () => setmodal("forgot_password") }} type='2'>
+                           Forgot password
+                        </InternalLink>
+                     </div>
+                  </>
+               )}
+               {loading === "loading" && <SmallLoader />}
+            </section>
+         </div>
+
+         <div className='spacer-page-bottom'></div>
       </>
    );
 }

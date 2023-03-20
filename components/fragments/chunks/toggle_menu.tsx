@@ -4,6 +4,7 @@ import {
    getUserNotification,
    TgetUserNotificationVariables
 } from "../../../helpers/functions/users/get_user_notification";
+import { useLogout } from "../../../hooks/use_logout";
 
 // components
 import Portal from "../../hoc/potal";
@@ -35,6 +36,19 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
 
    const hasNotifications = profileMenuOptions?.userHasNotifications === true;
 
+   // handles the call back triggered by the menu options
+   // and decides what to due with the option selected
+   const handleOptionSelection = (option: string) => {
+      switch (option) {
+         case "notifications":
+            (option: string) => setshowModal(option);
+            break;
+         case "logout":
+            useLogout();
+            break;
+      }
+   };
+
    return (
       <>
          <Portal>
@@ -52,7 +66,7 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
                   cta={{
                      handleCloseModal: () => setshowMenu(!showMenu),
                      // this triggers the notifications modal below
-                     handleShowModal: (option: string) => setshowModal(option)
+                     handleShowModal: handleOptionSelection
                   }}
                />
             )}

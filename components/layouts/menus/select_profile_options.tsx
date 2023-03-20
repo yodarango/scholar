@@ -6,8 +6,6 @@ import { FONT_COLOR } from "../../../constants/tokens";
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
-import Portal from "../../hoc/potal";
-import { UserNotificationsWrapper } from "../scrollers/user_content/user_notifications_wrapper";
 
 // styles
 import styles from "./select_menu_global.module.css";
