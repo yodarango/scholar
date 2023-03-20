@@ -1,0 +1,38 @@
+.top {
+   position: fixed;
+   top: 6rem;
+   left: 0;
+   right: 0;
+   bottom: auto;
+   z-index: 1;
+   width: 94vw;
+   height: 94vw;
+   max-width: 35rem;
+   max-height: 35rem;
+   margin: auto;
+   background-image: url("/images/bkgs/layer_2.svg");
+   background-position: center;
+   background-size: contain;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.logo {
+   height: 10rem;
+   width: 10rem;
+   object-position: center;
+   object-fit: cover;
+}
+
+.btn {
+   margin-bottom: var(--spacing-m);
+   display: block;
+}
+
+.inputs {
+   position: relative;
+   z-index: 2;
+   width: var(--global-wrapper-width);
+   margin: 36rem auto 0;
+}

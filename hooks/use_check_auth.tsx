@@ -5,13 +5,23 @@ argument. The object has a key called check_is_auth. If the value of this key is
 the function checks if the user is logged in and if it is false it checks if the
 user is not logged in. The default is true.
 ******************************************/
+import { useEffect, useState } from "react";
 import { client } from "../apollo-client";
 import { CHECK_AUTH } from "../graphql/users/users";
 
 const defaultOptions = { check_is_auth: true };
 
-export const useCheckAuth = (redirect: string, options = defaultOptions) => {
-   let canContinue = true;
+type TUseCheckAuthProps = {
+   options?: { check_is_auth: boolean };
+   redirect: string;
+   children: any;
+};
+export const UseCheckAuth = ({
+   redirect,
+   options = defaultOptions,
+   children
+}: TUseCheckAuthProps) => {
+   const [canContinue, setCanContinue] = useState(false);
    const check = async () => {
       try {
          const { data } = await client.query({
@@ -21,14 +31,18 @@ export const useCheckAuth = (redirect: string, options = defaultOptions) => {
 
          if (options.check_is_auth !== data.is_user_logged_in) {
             location.href = redirect;
+         } else {
+            setCanContinue(true);
          }
-
-         canContinue = options.check_is_auth === data.is_user_logged_in;
       } catch (error) {
-         console.log(error);
+         console.error(error);
+         setCanContinue(true);
       }
    };
 
-   check();
-   return { canContinue };
+   useEffect(() => {
+      check();
+   }, []);
+
+   return <> {canContinue && children}</>;
 };
