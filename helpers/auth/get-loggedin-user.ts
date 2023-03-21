@@ -1,6 +1,7 @@
+import { TUser } from "../../types/user";
 import { parseJwt } from "./decodeJWT";
 
-export const loggedInUser = () => {
+export const loggedInUser: () => TUser | null = () => {
    const user: string | null = localStorage.getItem("auth");
    if (user) {
       const jwt = JSON.parse(user).auth;

@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { WithTextContentStack } from "../../../components/layouts/stacks/with_text_content_stack";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import {
    getUserAboutMePage,
    TgetUserAboutMeVariables
 } from "../../../helpers/functions/users/get_user_about_me";
+import { TUser } from "../../../types/user";
 
 // styles
 import styles from "./about_me.module.css";
@@ -19,7 +21,8 @@ type TAboutMe = {
 export const AboutMeTemplate = () => {
    const router = useRouter();
    const [data, setdata] = useState<TAboutMe | null>(null);
-   const [userId, setUserId] = useState<string | null>(null);
+   const [routerId, setrouterId] = useState<string | null>(null);
+   const [loggedIn, setloggedIn] = useState<boolean>(false);
 
    // handle post
    const handleBodyValue = (value: string) => {};
@@ -28,9 +31,12 @@ export const AboutMeTemplate = () => {
    const getData = async (variables: TgetUserAboutMeVariables) => {
       try {
          const { data } = await getUserAboutMePage(variables);
-         console.log(data);
+
          if (data) {
             setdata(data);
+            let user: any = loggedInUser()?.ID;
+            user = user && parseInt(user);
+            setloggedIn(parseInt(data.ID) === user);
          } else {
             setdata(null);
          }
@@ -41,26 +47,26 @@ export const AboutMeTemplate = () => {
    };
 
    useEffect(() => {
-      if (typeof router?.query?.id === "string") setUserId(router?.query?.id);
+      if (typeof router?.query?.id === "string") setrouterId(router?.query?.id);
    }, [router.isReady]);
 
    useEffect(() => {
-      if (userId) {
-         if (userId === "@me") {
+      if (routerId) {
+         if (routerId === "@me") {
             getData({ isSelf: true });
-         } else if (typeof userId === "string") {
-            getData({ ID: userId });
+         } else {
+            getData({ ID: routerId });
          }
       }
-   }, [userId]);
+   }, [routerId]);
 
    return (
       <div className={styles.mainWrapper}>
          {data && (
             <WithTextContentStack
-               withEdit
+               withEdit={loggedIn}
                noResize
-               closeHref={`/users/${userId}`}
+               closeHref={`/users/${routerId}`}
                title='Get to know me'
                body={data.about_me}
                cta={{
