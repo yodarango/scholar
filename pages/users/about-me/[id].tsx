@@ -5,7 +5,6 @@ import { AboutMeTemplate } from "../../../components/templates/users/about_me";
 import styles from "./index.module.css";
 
 const AboutMe = () => {
-   const handleBodyValue = (value: string) => {};
    return (
       <div className={styles.mainWrapper}>
          <AboutMeTemplate />

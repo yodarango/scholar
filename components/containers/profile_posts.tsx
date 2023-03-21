@@ -16,7 +16,7 @@ const ProfilePosts = ({ type, cta }: TProfilePostsProps) => {
          {type === 1 && <CommentariesWFilter cta={{ handleClose: cta.handleClose }} />}
          {type === 2 && <QuotesWFilter cta={{ handleClose: cta.handleClose }} />}
          {type === 3 && <ThoughtsWFilter cta={{ handleClose: cta.handleClose }} />}
-         {type === 4 && <SermonNotesWFilter cta={{ handleClose: cta.handleClose }} />}
+         {/* {type === 4 && <SermonNotesWFilter cta={{ handleClose: cta.handleClose }} />} */}
       </>
    );
 };

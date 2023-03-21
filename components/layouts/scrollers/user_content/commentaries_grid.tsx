@@ -155,13 +155,7 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
                <GridPrimary>
                   {commentaries.map((commentary: TCommentary, index: number) => (
                      <div key={index} className={styles.child}>
-                        <Commentary
-                           customWidth={true}
-                           cta={{
-                              handleDelete: () => console.log("handle show post")
-                           }}
-                           commentary={commentary}
-                        />
+                        <Commentary customWidth={true} commentary={commentary} />
                      </div>
                   ))}
                </GridPrimary>

@@ -46,7 +46,11 @@ export const GET_USER_ABOUT_ME = gql`
 export const GET_USER_ABOUT_ME_PAGE = gql`
    query ($isSelf: Boolean, $ID: ID) {
       get_user_about_me_page(isSelf: $isSelf, ID: $ID) {
+         authority_level
+         signature
          about_me
+         avatar
+         ID
       }
    }
 `;

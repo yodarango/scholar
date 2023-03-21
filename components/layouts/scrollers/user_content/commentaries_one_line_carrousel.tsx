@@ -85,11 +85,14 @@ export const CommentaryOneLineCarrousel = ({
       }
    };
 
+   const handleDelete = (id: string) => {
+      console.log(id);
+   };
+
    // only call on query params change and not on first load
    // make sure it does not get called on first load
    const isFirstLoad = useRef(1);
    useEffect(() => {
-      console.log("mount");
       if (!commentaries) {
          if (router.isReady && isFirstLoad.current >= 3)
             fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
@@ -118,19 +121,13 @@ export const CommentaryOneLineCarrousel = ({
       }
    }, [loadingState, router.isReady]);
 
-   // handle delete
-   const handleDelete = (id: string) => {
-      const updatedArr = commentariesArr?.filter((thought) => thought.ID !== id);
-      setcommentariesArr(updatedArr);
-   };
-
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <div className={styles.carrousel}>
                {commentariesArr?.map((commentary: TCommentary, index: number) => (
                   <div className={styles.commentary} key={index}>
-                     <Commentary commentary={commentary} cta={{ handleDelete }} />
+                     <Commentary commentary={commentary} />
                   </div>
                ))}
 

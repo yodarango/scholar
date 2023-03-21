@@ -8,10 +8,10 @@ import styles from "./user_stats.module.css";
 
 // helpers
 import { calculateApprovalLevel } from "../../../../helpers/math/calculate_approval_rating";
-import { TuserSummary } from "../../../../types/user";
+import { TUser } from "../../../../types/user";
 
 export type TUserStatsProps = {
-   user_summary: TuserSummary;
+   user_summary: TUser;
 };
 
 export const UserStats = ({
@@ -20,7 +20,7 @@ export const UserStats = ({
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.avatar}>
-            <UserAvatar src={avatar} userAuthority={authority_level} />
+            <UserAvatar src={avatar} userAuthority={authority_level || 1} />
          </div>
          <div className={styles.rating}>
             <StatsCount

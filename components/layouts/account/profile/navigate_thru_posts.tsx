@@ -77,7 +77,7 @@ export const NavigateThruPosts = () => {
             {postType === 1 && <CommentaryOneLineCarrousel />}
             {postType === 2 && <QuoteOneLineCarrousel />}
             {postType === 3 && <ThoughtsOneLineCarrousel />}
-            {postType === 4 && <SermonNoteOneLineCarrousel />}
+            {/* {postType === 4 && <SermonNoteOneLineCarrousel />} */}
          </div>
          <ProfilePosts type={currentView} cta={{ handleClose: handleLayerClose }} />
       </div>

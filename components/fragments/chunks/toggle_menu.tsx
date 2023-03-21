@@ -1,16 +1,11 @@
-import { useState } from "react";
+import { UserNotificationsWrapper } from "../../layouts/scrollers/user_content/user_notifications_wrapper";
+import { SelectProfileOptions } from "../../layouts/menus/select_profile_options";
 import { FONT_COLOR } from "../../../constants/tokens";
-import {
-   getUserNotification,
-   TgetUserNotificationVariables
-} from "../../../helpers/functions/users/get_user_notification";
 import { useLogout } from "../../../hooks/use_logout";
+import { useState } from "react";
 
 // components
 import Portal from "../../hoc/potal";
-import { SelectLibraryContent } from "../../layouts/menus/select_libarary_content";
-import { SelectProfileOptions } from "../../layouts/menus/select_profile_options";
-import { UserNotificationsWrapper } from "../../layouts/scrollers/user_content/user_notifications_wrapper";
 import { Icon } from "./icons";
 
 // styles
@@ -41,7 +36,7 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
    const handleOptionSelection = (option: string) => {
       switch (option) {
          case "notifications":
-            (option: string) => setshowModal(option);
+            setshowModal(option);
             break;
          case "logout":
             useLogout();

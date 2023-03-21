@@ -91,12 +91,7 @@ export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
             </div>
          </div>
          <section className={styles.posts}>
-            <CommentariesGrid
-               filters={{
-                  tag: tagFilter,
-                  folder: currentView
-               }}
-            />
+            <CommentariesGrid />
          </section>
       </PrimaryStack>
    );

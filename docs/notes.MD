@@ -1,5 +1,4 @@
-## FROM LAST CODING SESSION
+-  last files touched were me.tsx and about me.tsx.
+-  about_me.tsx is working as it is supposed to. The [id] file should be dynamic. if the router.query.id === @me send the itsSelf argument to the db and if not send the ID (update: fixed this but not working)
 
--  the last pages touched were register.tsx and login.tsx. I am now handling authentication and redirection based on login status, however, before it redirects, for a quick second, you are able to see the form before it redirects, fix this.
-
--  Move everything to a child component, as the @me component.
+also user stats is not working. make sure everything as a whole works

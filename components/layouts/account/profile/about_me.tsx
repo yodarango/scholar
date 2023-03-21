@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 // comps
 import { AboutMeItem } from "../../../fragments/cards/about_me_item";
@@ -14,14 +13,14 @@ import styles from "./about_me.module.css";
 
 // helpers / types
 import { Header } from "../../../fragments/Typography/header";
-import { TuserAboutMe } from "../../../../types/user";
+import { TUser } from "../../../../types/user";
 
 type TAboutMeProps = {
    userID?: string;
 };
 
 export const AboutMe = ({ userID }: TAboutMeProps) => {
-   const [data, setData] = useState<TuserAboutMe | any>({
+   const [data, setData] = useState<TUser | any>({
       my_church: "",
       my_favorite_color: "",
       my_job: "",
@@ -37,9 +36,11 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
       my_favorite_verse,
       my_ministry
    } = data;
+
    const getData = async (variables: TgetUserAboutMeVariables) => {
       try {
          const { data } = await getUserAboutMe(variables);
+
          setData(data);
       } catch (error) {
          console.error(error);
@@ -47,12 +48,13 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
    };
 
    useEffect(() => {
-      if (userID) {
-         getData({ ID: userID });
-      } else {
+      if (userID === "@me") {
          getData({ isSelf: true });
+      } else {
+         getData({ ID: userID });
       }
    }, []);
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.title}>

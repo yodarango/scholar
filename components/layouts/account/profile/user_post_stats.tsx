@@ -9,7 +9,7 @@ import {
    getPostsSummary,
    TgetPostsSummaryVariables
 } from "../../../../helpers/functions/users/profile_get_posts_summary";
-import { TpostSummary, TuserSummary } from "../../../../types/user";
+import { TpostSummary } from "../../../../types/user";
 
 // comps
 import { ProfileStatsGraph } from "../../../fragments/chunks/profile_stats_graph";
@@ -25,6 +25,7 @@ type TUserPostStatsProps = {
 };
 
 export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
+   console.log(userID);
    const contentStats = [
       {
          icon: "comment",
@@ -72,10 +73,10 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
    };
 
    useEffect(() => {
-      if (userID) {
-         getData({ ID: userID });
-      } else {
+      if (userID === "@me") {
          getData({ isSelf: true });
+      } else {
+         getData({ ID: userID });
       }
    }, []);
 

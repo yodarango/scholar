@@ -54,7 +54,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
                color={hoverState === 3 || activeState === 3 ? "#F1EAFF" : "#5C5470"}
             />
          </div>
-         <div
+         {/* <div
             className={styles.tab}
             onMouseEnter={() => sethoverState(4)}
             onMouseLeave={() => sethoverState(0)}
@@ -64,7 +64,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
                size='2rem'
                color={hoverState === 4 || activeState === 4 ? "#F1EAFF" : "#5C5470"}
             />
-         </div>
+         </div> */}
       </div>
    );
 };
