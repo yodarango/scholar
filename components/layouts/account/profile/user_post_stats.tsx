@@ -44,13 +44,13 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
          iconColor: FONT_COLOR,
          totalPosts: "quote_count",
          contentType: "quote"
-      },
-      {
-         icon: "folder",
-         iconColor: GRADIENT_1__DARK,
-         totalPosts: "sermon_count",
-         contentType: "sermon notes"
       }
+      // {
+      //    icon: "folder",
+      //    iconColor: GRADIENT_1__DARK,
+      //    totalPosts: "sermon_count",
+      //    contentType: "sermon notes"
+      // }
    ];
 
    // get data
@@ -83,9 +83,7 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.graph}>
-            <ProfileStatsGraph
-               content={{ commentary_count, thought_count, quote_count, sermon_count }}
-            />
+            <ProfileStatsGraph content={{ commentary_count, thought_count, quote_count }} />
          </div>
          <div className={styles.stats}>
             {contentStats.map((item, index) => (

@@ -6,7 +6,6 @@ import {
    getUserAboutMePage,
    TgetUserAboutMeVariables
 } from "../../../helpers/functions/users/get_user_about_me";
-import { TUser } from "../../../types/user";
 
 // styles
 import styles from "./about_me.module.css";

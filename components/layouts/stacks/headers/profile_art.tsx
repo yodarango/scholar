@@ -39,7 +39,7 @@ export const ProfileArt = ({
    const [data, setdata] = useState<TUser>({
       ID: "0",
       signature: "",
-      avatar: "default.png",
+      avatar: "",
       authority_level: 1,
       total_ratings: 0,
       approval_rating: 101,
@@ -57,10 +57,10 @@ export const ProfileArt = ({
    };
 
    useEffect(() => {
-      if (userID) {
-         getData({ ID: userID });
-      } else {
+      if (userID === "@me") {
          getData({ isSelf: true });
+      } else {
+         getData({ ID: userID });
       }
    }, []);
 

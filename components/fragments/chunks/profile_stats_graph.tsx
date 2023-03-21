@@ -6,33 +6,38 @@ type TProfileStatsGraphProps = {
       commentary_count: number;
       thought_count: number;
       quote_count: number;
-      sermon_count: number;
+      // sermon_count: number;
    };
 };
 export const ProfileStatsGraph = ({ content }: TProfileStatsGraphProps) => {
    // ref
    const canvas = useRef<HTMLCanvasElement>(null);
-   const { commentary_count, thought_count, quote_count, sermon_count } = content;
+
+   let { commentary_count, thought_count, quote_count } = content;
+
+   let data = [commentary_count, thought_count, quote_count];
+
+   let colors = ["#B293FE", "#533CA3", "#F1EAFF"];
+
+   let total = 0;
+
+   if (commentary_count === 0 && thought_count === 0 && quote_count === 0) {
+      data = [1];
+      colors = ["#7350EC"];
+   }
 
    // plot the graph
    useEffect(() => {
       if (canvas.current) {
-         var c: any = canvas.current.getContext("2d");
-
-         var data = [commentary_count, thought_count, quote_count, sermon_count];
-
-         var colors = ["#B293FE", "#533CA3", "#F1EAFF", "#7350EC"];
-
-         var total = 0;
-
-         for (var i = 0; i < data.length; i++) {
+         let c: any = canvas.current.getContext("2d");
+         for (let i = 0; i < data.length; i++) {
             total += data[i];
          }
 
-         var prevAngle = 0;
-         for (var i = 0; i < data.length; i++) {
-            var fraction = data[i] / total;
-            var angle = prevAngle + fraction * Math.PI * 2;
+         let prevAngle = 0;
+         for (let i = 0; i < data.length; i++) {
+            let fraction = data[i] / total;
+            let angle = prevAngle + fraction * Math.PI * 2;
             c.fillStyle = colors[i];
             c.beginPath();
             c.moveTo(250, 250);

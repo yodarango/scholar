@@ -65,6 +65,7 @@ export const WithTextContentStack = ({
    noResize,
    postReferences
 }: TPrimaryStackprops) => {
+   console.log(postReferences);
    // state
    const [showVerseReferences, setshowVerseReferences] = useState(false);
    const [contentWrapperClass, setcontentWrapperClass] =
@@ -154,7 +155,7 @@ export const WithTextContentStack = ({
             )}
 
             {/* references  */}
-            {postReferences && (
+            {postReferences && postReferences.length > 0 && (
                <div className={styles.referencesWrapper}>
                   <div>
                      <BringUpHiddenBottom

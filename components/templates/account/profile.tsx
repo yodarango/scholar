@@ -13,13 +13,14 @@ type TProfileProps = {
    username: string;
 };
 export const Profile = ({ username }: TProfileProps) => {
-   const [userId, setUserId] = useState<string | undefined>(undefined);
+   const [userId, setUserId] = useState<string | null>(null);
    const router = useRouter();
 
    useEffect(() => {
       if (typeof router?.query?.signature === "string") setUserId(router?.query?.signature);
    }, [router.isReady]);
 
+   console.log(userId);
    return (
       <div className={styles.mainWrapper}>
          {userId && (
