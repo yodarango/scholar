@@ -11,6 +11,7 @@ export type TgetcommentariesVariables = {
    body?: string;
    category_tags?: string;
    last_id?: string | number;
+   isSelf?: boolean;
 };
 
 // fetch data

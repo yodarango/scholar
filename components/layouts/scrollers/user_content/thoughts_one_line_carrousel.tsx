@@ -28,11 +28,13 @@ type TThoughtsOneLineCarrouselProps = {
    loadingState?: string;
    userID?: string | number;
    thoughts?: TThought[];
+   isSelf: boolean;
 };
 
 export const ThoughtsOneLineCarrousel = ({
    thoughts,
    userID,
+   isSelf,
    loadingState = "loading"
 }: TThoughtsOneLineCarrouselProps) => {
    // state
@@ -40,7 +42,7 @@ export const ThoughtsOneLineCarrousel = ({
    const [loading, setloading] = useState<string>(loadingState);
 
    // will only run if the post was deleted successfully
-   const handleDelete = (id: string) => {
+   const handleDelete = (id: string | number) => {
       const updatedArr = thoughtsArr?.filter((thought) => thought.ID !== id);
       setThoughtsArr(updatedArr);
    };
@@ -49,6 +51,7 @@ export const ThoughtsOneLineCarrousel = ({
    const fetchData = async (variables: TgetThoughtsVariables) => {
       try {
          const { data, status } = await handleGetThoughts(variables);
+
          data && setThoughtsArr(data);
          setloading(status);
       } catch (error) {
@@ -60,7 +63,7 @@ export const ThoughtsOneLineCarrousel = ({
 
    useEffect(() => {
       if (!thoughts) {
-         fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
+         fetchData({ isSelf: isSelf, USER_ID: userID, last_id: CONTENT_LAST_ID });
       } else {
          setThoughtsArr(thoughts);
          setloading(loadingState);
@@ -82,11 +85,7 @@ export const ThoughtsOneLineCarrousel = ({
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
       </div>
    );
 };

@@ -27,9 +27,12 @@ import { errorMessages } from "../../../../data/error_messages";
 
 type TThoughtProps = {
    thought: TThought;
+   cta: {
+      handleDelete: (id: string | number) => void;
+   };
 };
 
-export const Thought = ({ thought }: TThoughtProps) => {
+export const Thought = ({ cta, thought }: TThoughtProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
 
@@ -42,6 +45,7 @@ export const Thought = ({ thought }: TThoughtProps) => {
 
          if (isDeleted && isDeleted.ID) {
             setisDeleted(true);
+            cta.handleDelete(id);
          } else {
             setNotification(true);
          }

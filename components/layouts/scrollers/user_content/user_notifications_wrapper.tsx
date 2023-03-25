@@ -17,6 +17,7 @@ import {
 } from "../../../../helpers/functions/users/get_user_notification";
 import { NOTIFICATIONS_LAST_ID } from "../../../../constants/defaults";
 import { Primary } from "../../../fragments/buttons/primary";
+import { Parragraph } from "../../../fragments/Typography/parragraph";
 
 type TUserNotificationsWrapperProps = {
    title: string;
@@ -50,13 +51,14 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
    };
 
    useEffect(() => {
-      getNotifications({ isSelf: true, last_id: NOTIFICATIONS_LAST_ID });
+      getNotifications({ last_id: NOTIFICATIONS_LAST_ID });
    }, []);
 
    return (
       <PrimaryStack title={title} cta={{ handleClose: cta.handleClose }}>
          <div className={styles.mainWrapper}>
             {loading === "done" &&
+               notifications.length !== 0 &&
                notifications.map((notification: TUserNotification, index: number) => (
                   <div key={index} className={styles.notification}>
                      <UserNotifications
@@ -67,6 +69,15 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
                      />
                   </div>
                ))}
+
+            {notifications.length === 0 && (
+               <>
+                  <div className={styles.noNotifications}>{/* #NEEDS GRAPHICS */}</div>
+                  <div className={styles.noNotificationsText}>
+                     <Parragraph quiet text='Nothing here yet!' size='xlarge' bold />
+                  </div>
+               </>
+            )}
             {canLoadMore === "done" && (
                <div className={styles.loadMore}>
                   <Primary
@@ -95,11 +106,7 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
                </div>
             )}
             {/* error */}
-            {loading === "error" && (
-               <div className={styles.error}>
-                  <ResourceNotFoundError />
-               </div>
-            )}
+            {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
          </div>
       </PrimaryStack>
    );

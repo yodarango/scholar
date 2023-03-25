@@ -20,7 +20,6 @@ export const Profile = ({ username }: TProfileProps) => {
       if (typeof router?.query?.signature === "string") setUserId(router?.query?.signature);
    }, [router.isReady]);
 
-   console.log(userId);
    return (
       <div className={styles.mainWrapper}>
          {userId && (

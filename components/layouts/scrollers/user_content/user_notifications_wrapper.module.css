@@ -11,6 +11,22 @@
    margin-bottom: var(--spacing-xxs);
 }
 
+.noNotifications {
+   background-image: url("/images/empty.svg");
+   background-color: var(--font-color);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain;
+   margin-top: 20rem;
+   height: 30rem;
+   width: 30rem;
+}
+
+.noNotificationsText {
+   width: 100%;
+   text-align: center;
+   margin-top: var(--spacing-m);
+}
 .loader,
 .error,
 .loadMore {

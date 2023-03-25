@@ -25,7 +25,6 @@ type TUserPostStatsProps = {
 };
 
 export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
-   console.log(userID);
    const contentStats = [
       {
          icon: "comment",

@@ -1,11 +1,12 @@
 .mainWrapper {
    width: 100%;
+   min-height: 35rem;
 }
 
 .carrousel {
    width: 100%;
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    justify-content: flex-start;
    flex-wrap: nowrap;
    overflow-x: scroll;

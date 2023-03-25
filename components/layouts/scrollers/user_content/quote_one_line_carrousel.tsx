@@ -25,17 +25,19 @@ type TQuoteOneLineCarrouselProps = {
    loadingState?: string;
    quotes?: TQuote[];
    userID?: string | number;
+   isSelf?: boolean;
 };
 export const QuoteOneLineCarrousel = ({
    quotes,
    userID,
-   loadingState = "done"
+   loadingState = "loading",
+   isSelf
 }: TQuoteOneLineCarrouselProps) => {
    // state
    const [quotesArr, setquotesArr] = useState<TQuote[] | undefined>(quotes);
    const [loading, setloading] = useState<string>(loadingState);
 
-   const handleDelete = (id: string) => {
+   const handleDelete = (id: string | number) => {
       const updatedArr = quotesArr?.filter((quote) => quote.ID !== id);
       setquotesArr(updatedArr);
    };
@@ -44,7 +46,7 @@ export const QuoteOneLineCarrousel = ({
    const fetchData = async (variables: TgetQuoteVariables) => {
       try {
          const { data, status } = await handleGetQuote(variables);
-         data && setquotesArr(data.quote);
+         data && setquotesArr(data);
          setloading(status);
       } catch (error) {
          console.error(error);
@@ -55,7 +57,7 @@ export const QuoteOneLineCarrousel = ({
 
    useEffect(() => {
       if (!quotes) {
-         fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
+         fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID, isSelf: isSelf });
       } else {
          setquotesArr(quotes);
          setloading(loadingState);
@@ -78,11 +80,7 @@ export const QuoteOneLineCarrousel = ({
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
       </div>
    );
 };

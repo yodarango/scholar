@@ -1,4 +1,4 @@
-/**************************************************************************************** 
+/***************************************************************************************** 
 This function checks if a user is logged in or not. If the user is logged in, it redirects
 to the redirect url passed in as a parameter. THe function takes in an object as a second
 argument. The object has a key called check_is_auth. If the value of this key is true,

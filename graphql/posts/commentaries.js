@@ -10,6 +10,7 @@ export const GET_COMMENTARIES = gql`
       $body: String
       $category_tags: String
       $last_id: ID
+      $isSelf: Boolean
    ) {
       commentary(
          ID: $ID
@@ -19,6 +20,7 @@ export const GET_COMMENTARIES = gql`
          body: $body
          category_tags: $category_tags
          last_id: $last_id
+         isSelf: $isSelf
       ) {
          ID
          VERSE_ID

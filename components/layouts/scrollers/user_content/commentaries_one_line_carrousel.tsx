@@ -26,11 +26,13 @@ import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TCommentaryOneLineCarrouselProps = {
+   isSef?: boolean;
    userID?: string;
    loadingState?: string;
    commentaries?: TCommentary[];
 };
 export const CommentaryOneLineCarrousel = ({
+   isSef,
    commentaries,
    loadingState = "loading"
 }: TCommentaryOneLineCarrouselProps) => {
@@ -43,7 +45,8 @@ export const CommentaryOneLineCarrousel = ({
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       AUTHORITY_LEVEL: 0,
-      last_id: CONTENT_LAST_ID
+      last_id: CONTENT_LAST_ID,
+      isSelf: isSef
    });
 
    // fetch data on first time loading. Only runs on first load
@@ -85,10 +88,6 @@ export const CommentaryOneLineCarrousel = ({
       }
    };
 
-   const handleDelete = (id: string) => {
-      console.log(id);
-   };
-
    // only call on query params change and not on first load
    // make sure it does not get called on first load
    const isFirstLoad = useRef(1);
@@ -99,7 +98,6 @@ export const CommentaryOneLineCarrousel = ({
       }
 
       return () => {
-         console.log("unmounted");
          isFirstLoad.current = isFirstLoad.current + 1;
       };
    }, [router.query]);
@@ -143,11 +141,7 @@ export const CommentaryOneLineCarrousel = ({
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && (
-            <div className={styles.error}>
-               <ResourceNotFoundError />
-            </div>
-         )}
+         {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
       </div>
    );
 };

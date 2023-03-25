@@ -1,11 +1,12 @@
 .mainWrapper {
    width: 100%;
+   min-height: 35rem;
 }
 
 .carrousel {
    width: 100%;
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    justify-content: flex-start;
    flex-wrap: nowrap;
    overflow-x: scroll;
@@ -13,8 +14,8 @@
 }
 
 .quote {
-   width: 13rem;
-   height: 25rem;
+   width: 30rem;
+   height: 30rem;
    flex-grow: 0;
    flex-shrink: 0;
    margin-left: var(--spacing-xs);

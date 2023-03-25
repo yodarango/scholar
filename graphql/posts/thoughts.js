@@ -1,13 +1,21 @@
 import { gql } from "@apollo/client";
 
 export const GET_THOUGHTS = gql`
-   query ($ID: ID, $USER_ID: ID, $category_tags: String, $body: String, $last_id: ID) {
+   query (
+      $ID: ID
+      $USER_ID: ID
+      $category_tags: String
+      $body: String
+      $last_id: ID
+      $isSelf: Boolean
+   ) {
       thought(
          ID: $ID
          USER_ID: $USER_ID
          category_tags: $category_tags
          body: $body
          last_id: $last_id
+         isSelf: $isSelf
       ) {
          ID
          body
