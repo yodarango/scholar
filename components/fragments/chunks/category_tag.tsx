@@ -53,7 +53,6 @@ export const CategoryTag = ({
    const handleShowCategoryMeta = () => {
       const category = categoryMeta.filter((item: TcategoryMeta) => item.tag === `#${id}`);
 
-      console.log(category);
       const cardTitle = category[0]?.title;
       const cardBody = category[0]?.subjects.toString().split(",").join(", ");
       const cardColor = category[0]?.color;
@@ -93,11 +92,7 @@ export const CategoryTag = ({
          </Portal>
          <div
             onClick={
-               informativeOnly
-                  ? () => handleShowCategoryMeta()
-                  : // : id
-                    // ? () => handleShowCategoryMeta() might be able to delete this
-                    () => setIsCategoryMenuOpen(true)
+               informativeOnly ? () => handleShowCategoryMeta() : () => setIsCategoryMenuOpen(true)
             }
             className={customSize ? styles.mainWrapperCustomSize : styles.mainWrapper}>
             {!currentCategory && (

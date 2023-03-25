@@ -27,6 +27,7 @@ import {
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { console_log } from "../../../../utilities/console_log";
 
 type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
@@ -41,7 +42,6 @@ export const CommentariesGrid = ({
    verseCitation,
    verse
 }: TCommentariesGridProps) => {
-   console.log(isSelf);
    // router
    const router = useRouter();
 
@@ -52,27 +52,37 @@ export const CommentariesGrid = ({
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [isFirstLoad, setisFirstLoad] = useState(true);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
-      isSelf,
-      last_id: CONTENT_LAST_ID
+      last_id: CONTENT_LAST_ID,
+      isSelf: isSelf
    });
 
    // fetch data on first time loading. Only runs on first load
-   const fetchData = async (variables: any) => {
-      setloading("loading");
+   const fetchData = async (variables: any, isLoadMore: boolean) => {
+      console.log(variables);
+
+      if (isLoadMore) {
+         setshowloadMore(false);
+         setsmallLoader(true);
+      } else {
+         setloading("loading");
+      }
 
       if (verseId) variables.VERSE_ID = verseId;
+      if (variables?.category) variables.category_tags = variables.category;
 
       try {
          const { data, status } = await handleGetCommentaries(variables);
          if (data) {
-            setcommentaries(data);
+            if (isLoadMore) setcommentaries((prev) => [...prev, ...data]);
+            else setcommentaries(data);
             data.length > 0 &&
-               setqueryVariables({ ...queryVariables, last_id: data[data.length - 1].ID });
+               setqueryVariables({ last_id: data[data.length - 1].ID, isSelf: isSelf });
 
             data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
-         setisFirstLoad(false);
+         //setisFirstLoad(false);
          setloading(status);
+         setsmallLoader(false);
       } catch (error) {
          console.error(error);
          setcommentaries([]);
@@ -80,69 +90,12 @@ export const CommentariesGrid = ({
       }
    };
 
-   //fetch data any time any of the query params change.
-   // const fetchOnQueryChange = async (variables: TgetcommentariesVariables) => {
-   //    setshowloadMore(false);
-   //    setloading("loading");
-
-   //    if (verseId) variables.VERSE_ID = verseId;
-
-   //    try {
-   //       const { data, status } = await handleGetCommentaries(variables);
-   //       if (data) {
-   //          setcommentaries(data);
-   //          data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-   //          setloading(status);
-   //          setisFirstLoad(false);
-   //       }
-   //    } catch (error) {
-   //       setcommentaries([]);
-   //       setloading("error");
-   //       console.error(error);
-   //    }
-   // };
-
-   // only fetches more posts with whatever params are there in the router
-   // const fetchMore = async (variables: TgetcommentariesVariables) => {
-   //    setshowloadMore(false);
-   //    setsmallLoader(true);
-
-   //    if (verseId) variables.VERSE_ID = verseId;
-
-   //    try {
-   //       const { data, status } = await handleGetCommentaries(variables);
-   //       if (data) {
-   //          // filter tags
-   //          let moreCommentaries = data;
-
-   //          // update query variables
-   //          moreCommentaries.length > 0 &&
-   //             setqueryVariables({
-   //                ...queryVariables,
-   //                last_id: moreCommentaries[moreCommentaries.length - 1].ID
-   //             });
-
-   //          setcommentaries((prev) => [...prev, ...moreCommentaries]);
-   //          moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-   //          setsmallLoader(false);
-   //          setisFirstLoad(false);
-   //       }
-   //    } catch (error) {
-   //       setcommentaries([]);
-   //       console.error(error);
-   //    }
-   // };
-
    // calls fetchData only on initial load
    useEffect(() => {
-      if (router.isReady) fetchData({ ...queryVariables, ...router.query });
-   }, [router.isReady]);
-
-   // //call on query params change only. Avoid calling on first oad
-   // useEffect(() => {
-   //    if (router.isReady && !isFirstLoad)
-   //       fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
-   // }, [router.query]);
+      console_log(queryVariables);
+      console_log(router.query);
+      if (router.isReady) fetchData({ ...queryVariables, ...router.query }, false);
+   }, [router.isReady, router.query]);
 
    return (
       <div className={styles.mainWrapper}>
@@ -173,10 +126,14 @@ export const CommentariesGrid = ({
                         type='1'
                         cta={{
                            handleClick: () =>
-                              fetchMore({
-                                 ...router.query,
-                                 last_id: commentaries[commentaries.length - 1].ID
-                              })
+                              fetchData(
+                                 // {
+                                 //    ...router.query,
+                                 //    last_id: commentaries[commentaries.length - 1].ID
+                                 // },
+                                 queryVariables,
+                                 true
+                              )
                         }}
                      />
                   </div>
