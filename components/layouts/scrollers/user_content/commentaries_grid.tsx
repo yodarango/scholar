@@ -90,11 +90,13 @@ export const CommentariesGrid = ({
       }
    };
 
-   // calls fetchData only on initial load
+   // since this renders only when the router changes or on initial render,
+   // we want to always fetch the initial CONTENT_LAST_ID
    useEffect(() => {
       console_log(queryVariables);
       console_log(router.query);
-      if (router.isReady) fetchData({ ...queryVariables, ...router.query }, false);
+      if (router.isReady)
+         fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
    }, [router.isReady, router.query]);
 
    return (
@@ -125,15 +127,7 @@ export const CommentariesGrid = ({
                         title='Load more'
                         type='1'
                         cta={{
-                           handleClick: () =>
-                              fetchData(
-                                 // {
-                                 //    ...router.query,
-                                 //    last_id: commentaries[commentaries.length - 1].ID
-                                 // },
-                                 queryVariables,
-                                 true
-                              )
+                           handleClick: () => fetchData(queryVariables, true)
                         }}
                      />
                   </div>
