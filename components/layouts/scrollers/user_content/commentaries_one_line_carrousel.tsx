@@ -26,13 +26,13 @@ import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TCommentaryOneLineCarrouselProps = {
-   isSef?: boolean;
+   isSelf?: boolean;
    userID?: string;
    loadingState?: string;
    commentaries?: TCommentary[];
 };
 export const CommentaryOneLineCarrousel = ({
-   isSef,
+   isSelf,
    commentaries,
    loadingState = "loading"
 }: TCommentaryOneLineCarrouselProps) => {
@@ -46,7 +46,7 @@ export const CommentaryOneLineCarrousel = ({
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       AUTHORITY_LEVEL: 0,
       last_id: CONTENT_LAST_ID,
-      isSelf: isSef
+      isSelf: isSelf
    });
 
    // fetch data on first time loading. Only runs on first load
@@ -92,11 +92,12 @@ export const CommentaryOneLineCarrousel = ({
    // make sure it does not get called on first load
    const isFirstLoad = useRef(1);
    useEffect(() => {
-      if (!commentaries) {
-         if (router.isReady && isFirstLoad.current >= 3)
-            fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+      if (!router?.query?.view) {
+         if (!commentaries) {
+            if (router.isReady && isFirstLoad.current >= 3)
+               fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+         }
       }
-
       return () => {
          isFirstLoad.current = isFirstLoad.current + 1;
       };
@@ -104,18 +105,21 @@ export const CommentaryOneLineCarrousel = ({
 
    // only call fetch data on initial load
    useEffect(() => {
-      if (!commentaries) {
-         if (router.isReady)
-            if (router.query.AUTHORITY_LEVEL)
-               router.query.last_id
-                  ? fetchData({ ...router.query })
-                  : fetchData({ ...queryVariables, ...router.query });
-            else if (!router.query.AUTHORITY_LEVEL)
-               router.query.last_id
-                  ? fetchData({ ...router.query })
-                  : fetchData({ ...queryVariables, ...router.query });
-      } else {
-         setcommentariesArr(commentaries), setloading(loadingState);
+      if (router.isReady) {
+         if (!router?.query?.view) {
+            if (!commentaries) {
+               if (router.query.AUTHORITY_LEVEL)
+                  router.query.last_id
+                     ? fetchData({ ...router.query })
+                     : fetchData({ ...queryVariables, ...router.query });
+               else if (!router.query.AUTHORITY_LEVEL)
+                  router.query.last_id
+                     ? fetchData({ ...router.query })
+                     : fetchData({ ...queryVariables, ...router.query });
+            }
+         } else {
+            setcommentariesArr(commentaries), setloading(loadingState);
+         }
       }
    }, [loadingState, router.isReady]);
 

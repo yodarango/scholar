@@ -59,7 +59,6 @@ export const handleGetCommentaries = async (variables: TgetcommentariesVariables
    if (variables.AUTHORITY_LEVEL && typeof variables.AUTHORITY_LEVEL === "string") {
       variables.AUTHORITY_LEVEL = parseInt(variables.AUTHORITY_LEVEL);
    }
-
    try {
       const { data } = await client.query({
          query: GET_COMMENTARIES,

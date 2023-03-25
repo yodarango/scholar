@@ -15,11 +15,12 @@ import styles from "./thoughts_w_filter.module.css";
 import { ThoughtsGrid } from "../scrollers/user_content/thoughts_grid";
 
 type TCommentariesByBookProps = {
+   isSelf: boolean;
    cta: {
       handleClose: () => void;
    };
 };
-export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
+export const ThoughtsWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
 
@@ -69,7 +70,7 @@ export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
             </div>
          </div>
          <section className={styles.posts}>
-            <ThoughtsGrid filters={{ tag: tagFilter }} />
+            <ThoughtsGrid isSelf={isSelf} />
          </section>
       </PrimaryStack>
    );

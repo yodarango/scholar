@@ -32,9 +32,16 @@ type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
    verseCitation?: string;
    verse?: string;
+   isSelf?: boolean;
 };
 
-export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentariesGridProps) => {
+export const CommentariesGrid = ({
+   isSelf,
+   verseId,
+   verseCitation,
+   verse
+}: TCommentariesGridProps) => {
+   console.log(isSelf);
    // router
    const router = useRouter();
 
@@ -45,6 +52,7 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [isFirstLoad, setisFirstLoad] = useState(true);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
+      isSelf,
       last_id: CONTENT_LAST_ID
    });
 
@@ -58,7 +66,8 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
          const { data, status } = await handleGetCommentaries(variables);
          if (data) {
             setcommentaries(data);
-            data.length > 0 && setqueryVariables({ last_id: data[data.length - 1].ID });
+            data.length > 0 &&
+               setqueryVariables({ ...queryVariables, last_id: data[data.length - 1].ID });
 
             data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
@@ -72,71 +81,68 @@ export const CommentariesGrid = ({ verseId, verseCitation, verse }: TCommentarie
    };
 
    //fetch data any time any of the query params change.
-   const fetchOnQueryChange = async (variables: TgetcommentariesVariables) => {
-      setshowloadMore(false);
-      setloading("loading");
+   // const fetchOnQueryChange = async (variables: TgetcommentariesVariables) => {
+   //    setshowloadMore(false);
+   //    setloading("loading");
 
-      if (verseId) variables.VERSE_ID = verseId;
+   //    if (verseId) variables.VERSE_ID = verseId;
 
-      try {
-         const { data, status } = await handleGetCommentaries(variables);
-         if (data) {
-            setcommentaries(data);
-            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setloading(status);
-            setisFirstLoad(false);
-         }
-      } catch (error) {
-         setcommentaries([]);
-         setloading("error");
-         console.error(error);
-      }
-   };
+   //    try {
+   //       const { data, status } = await handleGetCommentaries(variables);
+   //       if (data) {
+   //          setcommentaries(data);
+   //          data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+   //          setloading(status);
+   //          setisFirstLoad(false);
+   //       }
+   //    } catch (error) {
+   //       setcommentaries([]);
+   //       setloading("error");
+   //       console.error(error);
+   //    }
+   // };
 
-   // only fetches more with whatever params are there in the router posts
-   const fetchMore = async (variables: TgetcommentariesVariables) => {
-      setshowloadMore(false);
-      setsmallLoader(true);
+   // only fetches more posts with whatever params are there in the router
+   // const fetchMore = async (variables: TgetcommentariesVariables) => {
+   //    setshowloadMore(false);
+   //    setsmallLoader(true);
 
-      if (verseId) variables.VERSE_ID = verseId;
+   //    if (verseId) variables.VERSE_ID = verseId;
 
-      try {
-         const { data, status } = await handleGetCommentaries(variables);
-         if (data) {
-            // filter tags
-            let moreCommentaries = data;
+   //    try {
+   //       const { data, status } = await handleGetCommentaries(variables);
+   //       if (data) {
+   //          // filter tags
+   //          let moreCommentaries = data;
 
-            // update query variables
-            moreCommentaries.length > 0 &&
-               setqueryVariables({
-                  ...queryVariables,
-                  last_id: moreCommentaries[moreCommentaries.length - 1].ID
-               });
+   //          // update query variables
+   //          moreCommentaries.length > 0 &&
+   //             setqueryVariables({
+   //                ...queryVariables,
+   //                last_id: moreCommentaries[moreCommentaries.length - 1].ID
+   //             });
 
-            setcommentaries((prev) => [...prev, ...moreCommentaries]);
-            moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setsmallLoader(false);
-            setisFirstLoad(false);
-         }
-      } catch (error) {
-         setcommentaries([]);
-         console.error(error);
-      }
-   };
+   //          setcommentaries((prev) => [...prev, ...moreCommentaries]);
+   //          moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+   //          setsmallLoader(false);
+   //          setisFirstLoad(false);
+   //       }
+   //    } catch (error) {
+   //       setcommentaries([]);
+   //       console.error(error);
+   //    }
+   // };
 
-   // only call fetch data on initial load
+   // calls fetchData only on initial load
    useEffect(() => {
-      if (router.isReady)
-         router.query.last_id
-            ? fetchData({ ...router.query })
-            : fetchData({ ...queryVariables, ...router.query });
+      if (router.isReady) fetchData({ ...queryVariables, ...router.query });
    }, [router.isReady]);
 
-   //call on query params change only, Avoid calling on first oad
-   useEffect(() => {
-      if (router.isReady && !isFirstLoad)
-         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
-   }, [router.query]);
+   // //call on query params change only. Avoid calling on first oad
+   // useEffect(() => {
+   //    if (router.isReady && !isFirstLoad)
+   //       fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+   // }, [router.query]);
 
    return (
       <div className={styles.mainWrapper}>

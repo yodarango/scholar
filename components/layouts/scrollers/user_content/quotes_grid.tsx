@@ -20,7 +20,10 @@ import styles from "./quotes_grid.module.css";
 import { TQuote } from "../../../../types/posts";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
-export const QuotesGrid = () => {
+type TQuotesGrid = {
+   isSelf?: boolean;
+};
+export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
    // router
    const router = useRouter();
 
@@ -29,23 +32,30 @@ export const QuotesGrid = () => {
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
+
    const [queryVariables, setqueryVariables] = useState<TgetQuoteVariables>({
-      last_id: CONTENT_LAST_ID
+      last_id: CONTENT_LAST_ID,
+      isSelf: isSelf
    });
+   const [isFirstLoad, setisFirstLoad] = useState(true);
 
    // fetch data on first time loading. Only runs on first load
    const fetchData = async (variables: TgetQuoteVariables) => {
       setloading("loading");
       try {
          const { data, status } = await handleGetQuote(variables);
-         if (data && data.quote) {
-            setquotes(data.quote);
-            data.quote.length > 0 &&
-               setqueryVariables({ last_id: data.quote[data.quote.length - 1].ID });
+         if (data) {
+            setquotes(data);
+            data.length > 0 &&
+               setqueryVariables({
+                  ...queryVariables,
+                  last_id: data[data.length - 1].ID
+               });
          }
 
-         data.quote.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          setloading(status);
+         setisFirstLoad(false);
       } catch (error) {
          console.error(error);
          setquotes([]);
@@ -59,14 +69,10 @@ export const QuotesGrid = () => {
       setloading("loading");
 
       try {
-         const {
-            data,
-            data: { quote },
-            status
-         } = await handleGetQuote(variables);
-         if (data && quote) {
-            setquotes(data.quote);
-            quote.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         const { data, status } = await handleGetQuote(variables);
+         if (data) {
+            setquotes(data);
+            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setloading(status);
          }
       } catch (error) {
@@ -83,9 +89,9 @@ export const QuotesGrid = () => {
 
       try {
          const { data, status } = await handleGetQuote(variables);
-         if (data && data.quote) {
+         if (data) {
             // filter tags
-            let moreQuotes = data.quote;
+            let moreQuotes = data;
 
             // update query variables
             moreQuotes.length > 0 &&
@@ -108,13 +114,14 @@ export const QuotesGrid = () => {
    useEffect(() => {
       if (router.isReady)
          router.query.last_id
-            ? fetchData({ ...router.query })
+            ? fetchData({ isSelf: isSelf, ...router.query })
             : fetchData({ ...queryVariables, ...router.query });
    }, [router.isReady]);
 
    // call on query params change
    useEffect(() => {
-      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+      if (router.isReady && !isFirstLoad)
+         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID, isSelf: isSelf });
    }, [router.query]);
 
    return (
@@ -127,9 +134,7 @@ export const QuotesGrid = () => {
                         <Quote
                            type={1}
                            cta={{
-                              handleDelete(id: string) {
-                                 console.log(id);
-                              }
+                              handleDelete: () => {}
                            }}
                            quote={quote}
                         />

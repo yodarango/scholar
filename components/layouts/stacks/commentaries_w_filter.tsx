@@ -19,11 +19,12 @@ import { Secondary } from "../../fragments/buttons/secondary";
 import styles from "./commentaries_w_filter.module.css";
 
 type TCommentariesByBookProps = {
+   isSelf?: boolean;
    cta: {
       handleClose: () => void;
    };
 };
-export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
+export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
 
@@ -91,7 +92,7 @@ export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
             </div>
          </div>
          <section className={styles.posts}>
-            <CommentariesGrid />
+            <CommentariesGrid isSelf={isSelf} />
          </section>
       </PrimaryStack>
    );

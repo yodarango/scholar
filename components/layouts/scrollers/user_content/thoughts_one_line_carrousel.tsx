@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // comps
 import { Thought } from "../../../fragments/cards/posts/thought";
@@ -37,6 +38,7 @@ export const ThoughtsOneLineCarrousel = ({
    isSelf,
    loadingState = "loading"
 }: TThoughtsOneLineCarrouselProps) => {
+   const router = useRouter();
    // state
    const [thoughtsArr, setThoughtsArr] = useState<TThought[] | undefined>(thoughts);
    const [loading, setloading] = useState<string>(loadingState);
@@ -49,9 +51,9 @@ export const ThoughtsOneLineCarrousel = ({
 
    // fetch data
    const fetchData = async (variables: TgetThoughtsVariables) => {
+      console.log(router);
       try {
          const { data, status } = await handleGetThoughts(variables);
-
          data && setThoughtsArr(data);
          setloading(status);
       } catch (error) {
@@ -62,13 +64,18 @@ export const ThoughtsOneLineCarrousel = ({
    };
 
    useEffect(() => {
-      if (!thoughts) {
-         fetchData({ isSelf: isSelf, USER_ID: userID, last_id: CONTENT_LAST_ID });
-      } else {
-         setThoughtsArr(thoughts);
-         setloading(loadingState);
+      if (router.isReady) {
+         if (!router?.query?.view) {
+            if (!thoughts) {
+               fetchData({ isSelf: isSelf, USER_ID: userID, last_id: CONTENT_LAST_ID });
+            } else {
+               setThoughtsArr(thoughts);
+               setloading(loadingState);
+            }
+         }
       }
-   }, [loadingState]);
+   }, [router.isReady, loadingState]);
+
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && (

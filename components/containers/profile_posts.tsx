@@ -13,9 +13,9 @@ type TProfilePostsProps = {
 const ProfilePosts = ({ type, cta }: TProfilePostsProps) => {
    return (
       <>
-         {type === 1 && <CommentariesWFilter cta={{ handleClose: cta.handleClose }} />}
-         {type === 2 && <QuotesWFilter cta={{ handleClose: cta.handleClose }} />}
-         {type === 3 && <ThoughtsWFilter cta={{ handleClose: cta.handleClose }} />}
+         {type === 1 && <CommentariesWFilter cta={{ handleClose: cta.handleClose }} isSelf />}
+         {type === 2 && <QuotesWFilter cta={{ handleClose: cta.handleClose }} isSelf />}
+         {type === 3 && <ThoughtsWFilter cta={{ handleClose: cta.handleClose }} isSelf />}
          {/* {type === 4 && <SermonNotesWFilter cta={{ handleClose: cta.handleClose }} />} */}
       </>
    );

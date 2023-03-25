@@ -25,7 +25,10 @@ import {
 } from "../../../../helpers/functions/posts/thought_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
-export const ThoughtsGrid = () => {
+type ThoughtsGridProps = {
+   isSelf?: boolean;
+};
+export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
    // router
    const router = useRouter();
 
@@ -34,7 +37,9 @@ export const ThoughtsGrid = () => {
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
+   const [isFirstLoad, setisFirstLoad] = useState(true);
    const [queryVariables, setqueryVariables] = useState<TgetThoughtsVariables>({
+      isSelf: isSelf,
       last_id: CONTENT_LAST_ID
    });
 
@@ -43,14 +48,14 @@ export const ThoughtsGrid = () => {
       setloading("loading");
       try {
          const { data, status } = await handleGetThoughts(variables);
-         if (data && data.thought) {
-            setthougts(data.thought);
-            data.thought.length > 0 &&
-               setqueryVariables({ last_id: data.thought[data.thought.length - 1].ID });
+         if (data) {
+            setthougts(data);
+            data.length > 0 && setqueryVariables({ last_id: data[data.length - 1].ID });
 
-            data.thought.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
          setloading(status);
+         setisFirstLoad(false);
       } catch (error) {
          console.error(error);
          setthougts([]);
@@ -65,9 +70,9 @@ export const ThoughtsGrid = () => {
 
       try {
          const { data, status } = await handleGetThoughts(variables);
-         if (data && data.thought) {
-            setthougts(data.thought);
-            data.thought.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+         if (data) {
+            setthougts(data);
+            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setloading(status);
          }
       } catch (error) {
@@ -84,19 +89,19 @@ export const ThoughtsGrid = () => {
 
       try {
          const { data, status } = await handleGetThoughts(variables);
-         if (data && data.thought) {
+         if (data) {
             // filter tags
-            let moreCommentaries = data.thought;
+            let moreThoughts = data;
 
             // update query variables
-            moreCommentaries.length > 0 &&
+            moreThoughts.length > 0 &&
                setqueryVariables({
                   ...queryVariables,
-                  last_id: moreCommentaries[moreCommentaries.length - 1].ID
+                  last_id: moreThoughts[moreThoughts.length - 1].ID
                });
 
-            setthougts((prev) => [...prev, ...moreCommentaries]);
-            moreCommentaries.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
+            setthougts((prev) => [...prev, ...moreThoughts]);
+            moreThoughts.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
             setsmallLoader(false);
          }
       } catch (error) {
@@ -109,13 +114,14 @@ export const ThoughtsGrid = () => {
    useEffect(() => {
       if (router.isReady)
          router.query.last_id
-            ? fetchData({ ...router.query })
+            ? fetchData({ ...router.query, isSelf: isSelf })
             : fetchData({ ...queryVariables, ...router.query });
    }, [router.isReady]);
 
    //call on query params change
    useEffect(() => {
-      if (router.isReady) fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
+      if (router.isReady && !isFirstLoad)
+         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID, isSelf: isSelf });
    }, [router.query]);
 
    return (

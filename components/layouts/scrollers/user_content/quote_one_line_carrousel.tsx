@@ -7,6 +7,7 @@
 ****************************************************************************************/
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // comps
 import { Quote } from "../../../fragments/cards/posts/quote";
@@ -33,6 +34,7 @@ export const QuoteOneLineCarrousel = ({
    loadingState = "loading",
    isSelf
 }: TQuoteOneLineCarrouselProps) => {
+   const router = useRouter();
    // state
    const [quotesArr, setquotesArr] = useState<TQuote[] | undefined>(quotes);
    const [loading, setloading] = useState<string>(loadingState);
@@ -56,13 +58,17 @@ export const QuoteOneLineCarrousel = ({
    };
 
    useEffect(() => {
-      if (!quotes) {
-         fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID, isSelf: isSelf });
-      } else {
-         setquotesArr(quotes);
-         setloading(loadingState);
+      if (router.isReady) {
+         if (!router?.query?.view) {
+            if (!quotes) {
+               fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID, isSelf: isSelf });
+            } else {
+               setquotesArr(quotes);
+               setloading(loadingState);
+            }
+         }
       }
-   }, [loadingState]);
+   }, [loadingState, router.isReady]);
 
    return (
       <div className={styles.mainWrapper}>

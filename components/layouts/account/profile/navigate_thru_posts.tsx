@@ -48,9 +48,10 @@ export const NavigateThruPosts = () => {
    // close posts layer
    const handleLayerClose = () => {
       router.push({
-         pathname: router.pathname,
-         query: { view: 0 }
+         pathname: router.asPath.split("?")[0]
       });
+
+      setcurrentView(0);
    };
 
    return (
@@ -70,11 +71,11 @@ export const NavigateThruPosts = () => {
                <div>
                   <LinkWithArrow
                      title='See all'
-                     link={`${router.pathname}?view=${headerLinks[postType - 1]}`}
+                     link={`${router.asPath}?view=${headerLinks[postType - 1]}`}
                   />
                </div>
             </div>
-            {postType === 1 && <CommentaryOneLineCarrousel isSef />}
+            {postType === 1 && <CommentaryOneLineCarrousel isSelf />}
             {postType === 2 && <QuoteOneLineCarrousel isSelf />}
             {postType === 3 && <ThoughtsOneLineCarrousel isSelf />}
             {/* {postType === 4 && <SermonNoteOneLineCarrousel />} */}
