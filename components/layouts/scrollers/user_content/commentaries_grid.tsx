@@ -27,7 +27,7 @@ import {
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
-import { console_log } from "../../../../utilities/console_log";
+import { getFolderPostCount } from "../../../../helpers/functions/posts/get_folders";
 
 type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
@@ -50,7 +50,6 @@ export const CommentariesGrid = ({
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
-   const [isFirstLoad, setisFirstLoad] = useState(true);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       last_id: CONTENT_LAST_ID,
       isSelf: isSelf
@@ -58,8 +57,6 @@ export const CommentariesGrid = ({
 
    // fetch data on first time loading. Only runs on first load
    const fetchData = async (variables: any, isLoadMore: boolean) => {
-      console.log(variables);
-
       if (isLoadMore) {
          setshowloadMore(false);
          setsmallLoader(true);
@@ -67,11 +64,24 @@ export const CommentariesGrid = ({
          setloading("loading");
       }
 
+      // rename the query variables to match the API
       if (verseId) variables.VERSE_ID = verseId;
       if (variables?.category) variables.category_tags = variables.category;
+      if (variables?.folder) variables.name = variables.folder;
 
       try {
-         const { data, status } = await handleGetCommentaries(variables);
+         let data: any, status: any;
+
+         if (variables?.folder) {
+            const res = await getFolderPostCount(variables);
+            data = res.data;
+            status = res.status;
+         } else {
+            const res = await handleGetCommentaries(variables);
+            data = res.data;
+            status = res.status;
+         }
+
          if (data) {
             if (isLoadMore) setcommentaries((prev) => [...prev, ...data]);
             else setcommentaries(data);
@@ -80,7 +90,7 @@ export const CommentariesGrid = ({
 
             data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
-         //setisFirstLoad(false);
+
          setloading(status);
          setsmallLoader(false);
       } catch (error) {
@@ -93,8 +103,6 @@ export const CommentariesGrid = ({
    // since this renders only when the router changes or on initial render,
    // we want to always fetch the initial CONTENT_LAST_ID
    useEffect(() => {
-      console_log(queryVariables);
-      console_log(router.query);
       if (router.isReady)
          fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
    }, [router.isReady, router.query]);

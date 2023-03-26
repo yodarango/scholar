@@ -24,6 +24,7 @@ type TCommentariesByBookProps = {
       handleClose: () => void;
    };
 };
+
 export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
@@ -36,12 +37,28 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 
    // push new category tag to the router
    const handleCategorySelecion = (tag: string) => {
+      // parse the pathname
+      const parsedRouter = parseRouter(router.pathname, router);
+
+      delete router.query.signature;
+
       router.push({
-         pathname: router.pathname,
-         query: { ...router.query, category: tag }
+         pathname: parsedRouter.pathname,
+         query: { ...parsedRouter.query, category: tag }
       });
    };
 
+   const handleBookSelection = (type: number) => {
+      type === 1 ? setcurrentView("1") : setcurrentView("2");
+
+      // parse the pathname
+      const parsedRouter = parseRouter(router.pathname, router);
+
+      router.push({
+         pathname: parsedRouter.pathname,
+         query: { ...parsedRouter.query, folder: type === 1 ? "*" : "by-book" }
+      });
+   };
    // handle show header
    const handleHeader = (e: any) => {
       const distance = e.target.scrollTop;
@@ -71,7 +88,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
                   icon='📚'
                   type={currentView === "1" ? "2" : "1"}
                   title='All'
-                  cta={{ handleClick: () => setcurrentView("1") }}
+                  cta={{ handleClick: () => handleBookSelection(1) }}
                />
             </div>
             <div className={styles.button}>
@@ -80,7 +97,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
                   icon='📖'
                   type={currentView === "2" ? "2" : "1"}
                   title='By book'
-                  cta={{ handleClick: () => setcurrentView("2") }}
+                  cta={{ handleClick: () => handleBookSelection(2) }}
                />
             </div>
             <div className={styles.tag}>
@@ -97,3 +114,18 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
       </PrimaryStack>
    );
 };
+
+function parseRouter(pathname: string, router: any) {
+   let path: string = "";
+   if (
+      pathname.includes("[signature") &&
+      router?.query?.signature &&
+      typeof router?.query?.signature === "string"
+   )
+      path = router.pathname.replace("[signature]", router.query.signature);
+
+   delete router.query.signature;
+   router.pathname = path;
+
+   return router;
+}
