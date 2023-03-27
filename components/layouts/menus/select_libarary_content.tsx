@@ -64,7 +64,7 @@ export const SelectLibraryContent = ({ cta }: TSelectpostOptionsProps) => {
       <>
          <PrimaryMenuBkg
             color='1'
-            cta={cta.handleCloseModal}
+            cta={{ handleClose: () => cta.handleCloseModal }}
             content={menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   <Link href={`/library/${option.url}`}>

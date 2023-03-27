@@ -70,17 +70,7 @@ export const CommentariesGrid = ({
       if (variables?.folder) variables.name = variables.folder;
 
       try {
-         let data: any, status: any;
-
-         if (variables?.folder) {
-            const res = await getFolderPostCount(variables);
-            data = res.data;
-            status = res.status;
-         } else {
-            const res = await handleGetCommentaries(variables);
-            data = res.data;
-            status = res.status;
-         }
+         const { data, status } = await handleGetCommentaries(variables);
 
          if (data) {
             if (isLoadMore) setcommentaries((prev) => [...prev, ...data]);

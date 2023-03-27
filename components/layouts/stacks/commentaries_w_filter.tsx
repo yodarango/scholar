@@ -13,10 +13,11 @@ import { useRouter } from "next/router";
 import { PrimaryStack } from "./templates/primary_stack";
 import { CategoryTag } from "../../fragments/chunks/category_tag";
 import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
-import { Secondary } from "../../fragments/buttons/secondary";
 
 // styles
 import styles from "./commentaries_w_filter.module.css";
+import { Dropdown } from "../../fragments/inputs/dropdown";
+import { SelectCommentaryGroups } from "../menus/select_commentary_groups";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -30,10 +31,15 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    const router = useRouter();
 
    // states
-   const [currentView, setcurrentView] = useState<string>("1"); // all or book by book. Eventually folder id
    const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
    const [scrollingDir, setscrollingDir] = useState<string>("none"); //scrolling direction to know how to move header
+
+   // category filter
    const [tagFilter, settagFilter] = useState<any>(null); // category
+
+   // folder filter
+   const [currentFolderValue, setcurrentFolderValue] = useState<string>("Show Groups");
+   const [showFolderOptions, setshowFolderOptions] = useState<boolean>(false);
 
    // push new category tag to the router
    const handleCategorySelecion = (tag: string) => {
@@ -48,17 +54,11 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
       });
    };
 
-   const handleBookSelection = (type: number) => {
-      type === 1 ? setcurrentView("1") : setcurrentView("2");
-
-      // parse the pathname
-      const parsedRouter = parseRouter(router.pathname, router);
-
-      router.push({
-         pathname: parsedRouter.pathname,
-         query: { ...parsedRouter.query, folder: type === 1 ? "*" : "by-book" }
-      });
+   const handleFolderSelection = ({ value, label }: { label: string; value: string }) => {
+      setcurrentFolderValue(label);
+      setshowFolderOptions(!showFolderOptions);
    };
+
    // handle show header
    const handleHeader = (e: any) => {
       const distance = e.target.scrollTop;
@@ -82,24 +82,23 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
             className={`${styles.filters} ${scrollingDir === "up" && styles.scrollingUp} ${
                scrollingDir === "down" && styles.scrollingDown
             }`}>
-            <div className={styles.button}>
-               <Secondary
-                  fullWidth
-                  icon='📚'
-                  type={currentView === "1" ? "2" : "1"}
-                  title='All'
-                  cta={{ handleClick: () => handleBookSelection(1) }}
-               />
+            {/* dropdown filter */}
+            <div className={styles.dropdown}>
+               <Dropdown
+                  initialValue={currentFolderValue}
+                  showOptions={showFolderOptions}
+                  setshowOptions={setshowFolderOptions}>
+                  <SelectCommentaryGroups
+                     cta={{
+                        handleSelection: ({ label, value }) =>
+                           handleFolderSelection({ label, value }),
+                        handleCloseModal: () => setshowFolderOptions(false)
+                     }}
+                  />
+               </Dropdown>
             </div>
-            <div className={styles.button}>
-               <Secondary
-                  fullWidth
-                  icon='📖'
-                  type={currentView === "2" ? "2" : "1"}
-                  title='By book'
-                  cta={{ handleClick: () => handleBookSelection(2) }}
-               />
-            </div>
+
+            {/* categories filter */}
             <div className={styles.tag}>
                <CategoryTag
                   initiaValue={tagFilter}
