@@ -60,7 +60,6 @@ export const handleGetCommentaries = async (variables: TgetcommentariesVariables
       variables.AUTHORITY_LEVEL = parseInt(variables.AUTHORITY_LEVEL);
    }
 
-   console.log(variables);
    try {
       const { data } = await client.query({
          query: GET_COMMENTARIES,

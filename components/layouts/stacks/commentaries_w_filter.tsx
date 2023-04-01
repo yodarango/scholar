@@ -18,6 +18,7 @@ import { CommentariesGrid } from "../scrollers/user_content/commentaries_grid";
 import styles from "./commentaries_w_filter.module.css";
 import { Dropdown } from "../../fragments/inputs/dropdown";
 import { SelectCommentaryGroups } from "../menus/select_commentary_groups";
+import { CommentariesByFolder } from "../scrollers/user_content/commentaries_by_folder";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -26,9 +27,16 @@ type TCommentariesByBookProps = {
    };
 };
 
+const CURRENT_VIEW_BOOK_BY_FOLDER = "my-folders";
+const CURRENT_VIEW_BOOK_BY_BOOK = "by-book";
+const CURRENT_VIEW_COMMENTARIES = "all" || "";
+
 export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
+
+   // modal
+   const [currentModal, setcurrentModal] = useState<string>("none");
 
    // states
    const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
@@ -46,7 +54,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
       // parse the pathname
       const parsedRouter = parseRouter(router.pathname, router);
 
-      delete router.query.signature;
+      delete router.query.folder;
 
       router.push({
          pathname: parsedRouter.pathname,
@@ -55,6 +63,11 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    };
 
    const handleFolderSelection = ({ value, label }: { label: string; value: string }) => {
+      const parsedRouter = parseRouter(router.pathname, router);
+      router.push({
+         pathname: parsedRouter.pathname,
+         query: { view: 1, folder: value }
+      });
       setcurrentFolderValue(label);
       setshowFolderOptions(!showFolderOptions);
    };
@@ -71,6 +84,12 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    useEffect(() => {
       if (router.query.category) {
          settagFilter(router.query.category);
+      }
+
+      if (typeof router.query.folder === "string") {
+         setcurrentModal(router.query.folder);
+      } else if (!router.query.folder) {
+         setcurrentModal(CURRENT_VIEW_COMMENTARIES);
       }
    }, [router.isReady, router.query]);
 
@@ -108,7 +127,11 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
             </div>
          </div>
          <section className={styles.posts}>
-            <CommentariesGrid isSelf={isSelf} />
+            {currentModal === CURRENT_VIEW_COMMENTARIES && <CommentariesGrid isSelf={isSelf} />}
+            {(currentModal === CURRENT_VIEW_BOOK_BY_BOOK ||
+               currentModal == CURRENT_VIEW_BOOK_BY_FOLDER) && (
+               <CommentariesByFolder isSelf={isSelf} folder_name={currentModal} />
+            )}
          </section>
       </PrimaryStack>
    );
@@ -117,7 +140,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 function parseRouter(pathname: string, router: any) {
    let path: string = "";
    if (
-      pathname.includes("[signature") &&
+      pathname.includes("[signature]") &&
       router?.query?.signature &&
       typeof router?.query?.signature === "string"
    )

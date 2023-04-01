@@ -27,7 +27,6 @@ import {
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
-import { getFolderPostCount } from "../../../../helpers/functions/posts/get_folders";
 
 type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
