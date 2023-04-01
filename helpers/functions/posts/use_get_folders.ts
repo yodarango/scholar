@@ -5,7 +5,7 @@ import { GET_FOLDER_POST_COUNT } from "../../../graphql/posts/folders";
 type TgetfoldersVariables = {
    ID?: string | number;
    USER_ID?: string;
-   name: string;
+
    isSelf?: boolean;
    query_type?: string;
 };
@@ -35,7 +35,7 @@ export const useGetFolders = (variables: TgetfoldersVariables) => {
 
    useEffect(() => {
       getData();
-   }, [variables.name]);
+   }, [variables.query_type]);
 
    return {
       data,

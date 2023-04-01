@@ -7,10 +7,10 @@ import styles from "./commentaries_by_folder.module.css";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
-   folder_name: string;
+   query_type: string;
 };
-export const CommentariesByFolder = ({ isSelf, folder_name }: TCommentariesByBookProps) => {
-   const { data, status } = useGetFolders({ isSelf, name: folder_name });
+export const CommentariesByFolder = ({ isSelf, query_type }: TCommentariesByBookProps) => {
+   const { data, status } = useGetFolders({ isSelf, query_type });
 
    return (
       <div className={styles.mainWrapper}>
