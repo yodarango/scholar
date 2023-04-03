@@ -8,8 +8,11 @@ import styles from "./commentaries_by_folder.module.css";
 type TCommentariesByBookProps = {
    isSelf?: boolean;
    query_type: string;
+   cta: {
+      handleSelection: (id: string | number) => void;
+   };
 };
-export const CommentariesByFolder = ({ isSelf, query_type }: TCommentariesByBookProps) => {
+export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesByBookProps) => {
    const { data, status } = useGetFolders({ isSelf, query_type });
 
    return (
@@ -23,13 +26,14 @@ export const CommentariesByFolder = ({ isSelf, query_type }: TCommentariesByBook
             data &&
             data.length > 0 &&
             data.map((folder, i) => (
-               <FolderCard
-                  key={i}
-                  ID={folder.ID}
-                  folderName={folder.name}
-                  postCount={folder.post_count}
-                  thumbnail={folder.image}
-               />
+               <div key={i} onClick={() => cta.handleSelection(folder.ID)}>
+                  <FolderCard
+                     ID={folder.ID}
+                     folderName={folder.name}
+                     postCount={folder.post_count}
+                     thumbnail={folder.image}
+                  />
+               </div>
             ))}
       </div>
    );

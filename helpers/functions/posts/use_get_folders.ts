@@ -5,12 +5,10 @@ import { GET_FOLDER_POST_COUNT } from "../../../graphql/posts/folders";
 type TgetfoldersVariables = {
    ID?: string | number;
    USER_ID?: string;
-
    isSelf?: boolean;
    query_type?: string;
 };
 export const useGetFolders = (variables: TgetfoldersVariables) => {
-   console.log("useGetFolders", variables);
    const [data, setdata] = useState<null | any[]>([]);
    const [status, setstatus] = useState("loading");
    const getData = async () => {

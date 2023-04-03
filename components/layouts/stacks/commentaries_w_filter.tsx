@@ -19,6 +19,7 @@ import styles from "./commentaries_w_filter.module.css";
 import { Dropdown } from "../../fragments/inputs/dropdown";
 import { SelectCommentaryGroups } from "../menus/select_commentary_groups";
 import { CommentariesByFolder } from "../scrollers/user_content/commentaries_by_folder";
+import { BackLink } from "../../fragments/buttons/back_link";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -29,16 +30,17 @@ type TCommentariesByBookProps = {
 
 const CURRENT_VIEW_BOOK_BY_FOLDER = "my-folders";
 const CURRENT_VIEW_BOOK_BY_BOOK = "by-book";
-const CURRENT_VIEW_COMMENTARIES = "all" || "";
+const CURRENT_VIEW_COMMENTARIES = "";
 
 export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
 
-   // modal
+   // modal and view
    const [currentModal, setcurrentModal] = useState<string>("none");
+   const [currentView, setcurrentView] = useState("");
 
-   // states
+   // header
    const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
    const [scrollingDir, setscrollingDir] = useState<string>("none"); //scrolling direction to know how to move header
 
@@ -49,27 +51,47 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    const [currentFolderValue, setcurrentFolderValue] = useState<string>("Show Groups");
    const [showFolderOptions, setshowFolderOptions] = useState<boolean>(false);
 
-   // push new category tag to the router
-   const handleCategorySelecion = (tag: string) => {
+   // when the user clicks folder or tag: push new category tag to the router
+   const handleFilterSelection = (query: any) => {
       // parse the pathname
       const parsedRouter = parseRouter(router.pathname, router);
+      const variables = { ...parsedRouter.query, ...query };
 
-      delete router.query.folder;
+      /****************************************************************************
+       * since the 'folder-id' for commentaries is actually VERSE_ID I to swap the
+       * query names folder for VERSE_ID 🌼
+       * *********************************
+       * */
+      delete variables.group;
+      if (router.query.group === CURRENT_VIEW_BOOK_BY_BOOK) {
+         variables["VERSE_ID"] = variables.folder;
+         setcurrentView(CURRENT_VIEW_BOOK_BY_BOOK);
+         delete variables.folder;
+      } else {
+         setcurrentView(CURRENT_VIEW_BOOK_BY_FOLDER);
+      }
 
       router.push({
          pathname: parsedRouter.pathname,
-         query: { ...parsedRouter.query, category: tag }
+         query: { ...variables }
       });
    };
 
-   const handleFolderSelection = ({ value, label }: { label: string; value: string }) => {
+   //when the user clicks the group type: erase all current query params and push the folders query param
+   const handleGroupSelection = ({ value, label }: { label: string; value: string }) => {
+      const query: { view: number; group?: string } = { view: 1 };
+
+      if (value !== "all") query["group"] = value;
+
       const parsedRouter = parseRouter(router.pathname, router);
+
+      settagFilter("*");
       router.push({
          pathname: parsedRouter.pathname,
-         query: { view: 1, folder: value }
+         query
       });
       setcurrentFolderValue(label);
-      setshowFolderOptions(!showFolderOptions);
+      setshowFolderOptions(false);
    };
 
    // handle show header
@@ -80,15 +102,15 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
       setscrollingDir(isScrollingDown ? "down" : "up");
    };
 
-   // check if there is a query on the initial load
+   // check for query changes
    useEffect(() => {
       if (router.query.category) {
          settagFilter(router.query.category);
       }
 
-      if (typeof router.query.folder === "string") {
-         setcurrentModal(router.query.folder);
-      } else if (!router.query.folder) {
+      if (typeof router.query.group === "string") {
+         setcurrentModal(router.query.group);
+      } else {
          setcurrentModal(CURRENT_VIEW_COMMENTARIES);
       }
    }, [router.isReady, router.query]);
@@ -102,35 +124,73 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
                scrollingDir === "down" && styles.scrollingDown
             }`}>
             {/* dropdown filter */}
-            <div className={styles.dropdown}>
-               <Dropdown
-                  initialValue={currentFolderValue}
-                  showOptions={showFolderOptions}
-                  setshowOptions={setshowFolderOptions}>
-                  <SelectCommentaryGroups
-                     cta={{
-                        handleSelection: ({ label, value }) =>
-                           handleFolderSelection({ label, value }),
-                        handleCloseModal: () => setshowFolderOptions(false)
-                     }}
-                  />
-               </Dropdown>
-            </div>
-
-            {/* categories filter */}
-            <div className={styles.tag}>
-               <CategoryTag
-                  initiaValue={tagFilter}
-                  cta={{ handleSelection: handleCategorySelecion }}
-                  informativeOnly={false}
-               />
-            </div>
-         </div>
-         <section className={styles.posts}>
-            {currentModal === CURRENT_VIEW_COMMENTARIES && <CommentariesGrid isSelf={isSelf} />}
             {(currentModal === CURRENT_VIEW_BOOK_BY_BOOK ||
                currentModal == CURRENT_VIEW_BOOK_BY_FOLDER) && (
-               <CommentariesByFolder isSelf={isSelf} folder_name={currentModal} />
+               <div className={styles.dropdown}>
+                  <Dropdown
+                     initialValue={currentFolderValue}
+                     showOptions={showFolderOptions}
+                     setshowOptions={setshowFolderOptions}>
+                     <SelectCommentaryGroups
+                        cta={{
+                           handleSelection: ({ label, value }) => {
+                              handleGroupSelection({ label, value });
+                              setshowFolderOptions(false);
+                           },
+                           handleCloseModal: () => setshowFolderOptions(false)
+                        }}
+                     />
+                  </Dropdown>
+               </div>
+            )}
+
+            {/* categories filter */}
+            {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
+               currentModal !== CURRENT_VIEW_BOOK_BY_FOLDER && (
+                  <>
+                     <div className={styles.backLink}>
+                        <BackLink
+                           quiet
+                           title={
+                              currentView === CURRENT_VIEW_BOOK_BY_BOOK
+                                 ? "Back to books"
+                                 : "Back to folders"
+                           }
+                           cta={{
+                              handleClick: () => {
+                                 handleGroupSelection(
+                                    currentView === CURRENT_VIEW_BOOK_BY_BOOK
+                                       ? { label: "By book", value: "by-book" }
+                                       : { label: "My folders", value: "my-folders" }
+                                 );
+                              }
+                           }}
+                        />
+                     </div>
+
+                     <div className={styles.tag}>
+                        <CategoryTag
+                           initiaValue={tagFilter}
+                           cta={{
+                              handleSelection: (val) => handleFilterSelection({ category: val })
+                           }}
+                           informativeOnly={false}
+                        />
+                     </div>
+                  </>
+               )}
+         </div>
+
+         <section className={styles.posts}>
+            {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
+               currentModal !== CURRENT_VIEW_BOOK_BY_FOLDER && <CommentariesGrid isSelf={isSelf} />}
+            {(currentModal === CURRENT_VIEW_BOOK_BY_BOOK ||
+               currentModal == CURRENT_VIEW_BOOK_BY_FOLDER) && (
+               <CommentariesByFolder
+                  isSelf={isSelf}
+                  query_type={currentModal}
+                  cta={{ handleSelection: (val) => handleFilterSelection({ folder: val }) }}
+               />
             )}
          </section>
       </PrimaryStack>

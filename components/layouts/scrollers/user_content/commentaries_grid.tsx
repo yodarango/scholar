@@ -64,9 +64,9 @@ export const CommentariesGrid = ({
       }
 
       // rename the query variables to match the API
-      if (verseId) variables.VERSE_ID = verseId;
+      if (verseId) variables.VERSE_ID = verseId; // not being used at the time
       if (variables?.category) variables.category_tags = variables.category;
-      if (variables?.folder) variables.name = variables.folder;
+      if (variables?.folder) variables.FOLDER_ID = variables.folder;
 
       try {
          const { data, status } = await handleGetCommentaries(variables);

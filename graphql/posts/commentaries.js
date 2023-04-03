@@ -11,6 +11,7 @@ export const GET_COMMENTARIES = gql`
       $category_tags: String
       $last_id: ID
       $isSelf: Boolean
+      $FOLDER_ID: String
    ) {
       commentary(
          ID: $ID
@@ -21,6 +22,7 @@ export const GET_COMMENTARIES = gql`
          category_tags: $category_tags
          last_id: $last_id
          isSelf: $isSelf
+         FOLDER_ID: $FOLDER_ID
       ) {
          ID
          VERSE_ID

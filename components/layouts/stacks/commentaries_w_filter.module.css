@@ -16,6 +16,14 @@
    box-shadow: 0 0.5rem 0.5rem 0.1rem var(--shadow-color);
 }
 
+.backLink {
+   position: relative;
+   z-index: 5;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
 .scrollingUp {
    transform: translateY(-10rem);
    animation: scrollUp 200ms linear;
@@ -49,7 +57,7 @@
 
 .posts {
    width: 100%;
-   padding-top: calc(var(--spacing-l) * 3);
+   padding-top: calc(var(--spacing-l) * 2.5);
 }
 
 .button {

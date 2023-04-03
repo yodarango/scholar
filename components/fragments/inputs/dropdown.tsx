@@ -35,12 +35,17 @@ export const Dropdown = ({
       light: GRADIENT_1__LIGHT
    });
 
+   const [open, setopen] = useState(showOptions);
+
    useEffect(() => {
       if (type === 1) setcolors({ dark: GRADIENT_1__DARK, light: GRADIENT_1__LIGHT });
       else if (type === 2) setcolors({ dark: GRADIENT_2__DARK, light: GRADIENT_2__LIGHT });
       else if (type !== 1 && type !== 2 && customColors) setcolors(customColors);
    }, []);
 
+   useEffect(() => {
+      setopen(showOptions);
+   });
    return (
       <div className={styles.mainWrapper}>
          {/* initial value text */}
@@ -66,7 +71,7 @@ export const Dropdown = ({
          </div>
 
          {/*  options */}
-         {showOptions && <Portal>{children}</Portal>}
+         {open && <Portal>{children}</Portal>}
       </div>
    );
 };

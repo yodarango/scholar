@@ -5,7 +5,7 @@
 }
 
 .icon {
-   margin-right: var(--spacing-xs);
+   margin-right: var(--spacing-xxs);
 }
 .mainWrapper:hover {
    cursor: pointer;
