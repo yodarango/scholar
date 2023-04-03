@@ -12,31 +12,18 @@ type TBackLinkProps = {
    title: string;
    link?: string;
    quiet?: boolean;
+   arrowLeft?: boolean;
+   arrowRight?: boolean;
    cta?: {
       handleClick: () => void;
    };
 };
-export const BackLink = ({ title, link, cta, quiet }: TBackLinkProps) => {
+export const BackLink = ({ arrowLeft, arrowRight, title, link, cta, quiet }: TBackLinkProps) => {
    return (
       <>
          {cta && !link && (
             <div className={styles.mainWrapper} onClick={cta?.handleClick}>
-               <div className={styles.icon}>
-                  <Icon
-                     name='arrowBack'
-                     size='2rem'
-                     color={quiet ? THIRD_COLOR : FONT_COLOR}
-                     strokeWidth='64'
-                  />
-               </div>
-               <div className={styles.text}>
-                  <Parragraph text={title} size='main' quiet={quiet} />
-               </div>
-            </div>
-         )}
-         {link && !cta && (
-            <Link href={link}>
-               <a className={styles.mainWrapper}>
+               {arrowLeft && (
                   <div className={styles.icon}>
                      <Icon
                         name='arrowBack'
@@ -45,9 +32,49 @@ export const BackLink = ({ title, link, cta, quiet }: TBackLinkProps) => {
                         strokeWidth='64'
                      />
                   </div>
+               )}
+               <div className={styles.text}>
+                  <Parragraph text={title} size='main' quiet={quiet} />
+               </div>
+               {arrowRight && (
+                  <div className={styles.icon}>
+                     <Icon
+                        name='arrowForth'
+                        size='2rem'
+                        color={quiet ? THIRD_COLOR : FONT_COLOR}
+                        strokeWidth='64'
+                     />
+                  </div>
+               )}
+            </div>
+         )}
+         {link && !cta && (
+            <Link href={link}>
+               <a className={styles.mainWrapper}>
+                  {arrowLeft && (
+                     <div className={styles.icon}>
+                        <Icon
+                           name='arrowBack'
+                           size='2rem'
+                           color={quiet ? THIRD_COLOR : FONT_COLOR}
+                           strokeWidth='64'
+                        />
+                     </div>
+                  )}
                   <div className={styles.text}>
                      <Parragraph text={title} size='main' quiet={quiet} />
                   </div>
+
+                  {arrowRight && (
+                     <div className={styles.icon}>
+                        <Icon
+                           name='arrowForth'
+                           size='2rem'
+                           color={quiet ? THIRD_COLOR : FONT_COLOR}
+                           strokeWidth='64'
+                        />
+                     </div>
+                  )}
                </a>
             </Link>
          )}

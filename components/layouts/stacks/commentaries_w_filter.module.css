@@ -30,6 +30,18 @@
    opacity: 0;
 }
 
+.dropdown {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.dropdown .icon {
+   cursor: pointer;
+   margin: 0 0 0 auto;
+}
+
 @keyframes scrollUp {
    0% {
       transform: translateY(-3rem);

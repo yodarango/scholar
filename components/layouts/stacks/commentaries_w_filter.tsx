@@ -20,6 +20,8 @@ import { Dropdown } from "../../fragments/inputs/dropdown";
 import { SelectCommentaryGroups } from "../menus/select_commentary_groups";
 import { CommentariesByFolder } from "../scrollers/user_content/commentaries_by_folder";
 import { BackLink } from "../../fragments/buttons/back_link";
+import { FONT_COLOR } from "../../../constants/tokens";
+import { Icon } from "../../fragments/chunks/icons";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -124,25 +126,29 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
                scrollingDir === "down" && styles.scrollingDown
             }`}>
             {/* dropdown filter */}
-            {(currentModal === CURRENT_VIEW_BOOK_BY_BOOK ||
-               currentModal == CURRENT_VIEW_BOOK_BY_FOLDER) && (
-               <div className={styles.dropdown}>
-                  <Dropdown
-                     initialValue={currentFolderValue}
-                     showOptions={showFolderOptions}
-                     setshowOptions={setshowFolderOptions}>
-                     <SelectCommentaryGroups
-                        cta={{
-                           handleSelection: ({ label, value }) => {
-                              handleGroupSelection({ label, value });
-                              setshowFolderOptions(false);
-                           },
-                           handleCloseModal: () => setshowFolderOptions(false)
-                        }}
-                     />
-                  </Dropdown>
-               </div>
-            )}
+            {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
+               currentModal !== CURRENT_VIEW_BOOK_BY_FOLDER && (
+                  <div className={styles.dropdown}>
+                     <Dropdown
+                        initialValue={currentFolderValue}
+                        showOptions={showFolderOptions}
+                        setshowOptions={setshowFolderOptions}>
+                        <SelectCommentaryGroups
+                           cta={{
+                              handleSelection: ({ label, value }) => {
+                                 handleGroupSelection({ label, value });
+                                 setshowFolderOptions(false);
+                              },
+                              handleCloseModal: () => setshowFolderOptions(false)
+                           }}
+                        />
+                     </Dropdown>
+
+                     <div className={styles.icon}>
+                        <BackLink arrowRight quiet title='Manage folders' link='/users/folders' />
+                     </div>
+                  </div>
+               )}
 
             {/* categories filter */}
             {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
