@@ -1,7 +1,8 @@
 /**************************************************************************************** 
 -  renders a list of quote posts width a filter on the top that passes down the 
-   filters to the post wrapper
-****************************************************************************************/
+   filters to the post wrapper 🌺
+*********************************
+*/
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -53,7 +54,7 @@ export const QuotesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    }, [router.isReady, router.query]);
    return (
       <PrimaryStack
-         title='Commentaries'
+         title='Quotes'
          cta={{ handleClose: cta.handleClose, handleScroll: handleHeader }}>
          <div
             className={`${styles.filters} ${scrollingDir === "up" && styles.scrollingUp} ${

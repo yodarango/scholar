@@ -1,7 +1,8 @@
 /**************************************************************************************** 
 -  renders a list of commentary posts width a filter on the top that passes down the 
-   filters to the post wrapper
-****************************************************************************************/
+   filters to the post wrapper 🔥
+**********************************
+*/
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -55,7 +56,7 @@ export const ThoughtsWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
 
    return (
       <PrimaryStack
-         title='Commentaries'
+         title='Thoughts'
          cta={{ handleClose: cta.handleClose, handleScroll: handleHeader }}>
          <div
             className={`${styles.filters} ${scrollingDir === "up" && styles.scrollingUp} ${

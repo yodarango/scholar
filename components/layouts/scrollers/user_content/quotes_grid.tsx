@@ -37,11 +37,17 @@ export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
       last_id: CONTENT_LAST_ID,
       isSelf: isSelf
    });
-   const [isFirstLoad, setisFirstLoad] = useState(true);
 
    // fetch data on first time loading. Only runs on first load
-   const fetchData = async (variables: TgetQuoteVariables) => {
-      setloading("loading");
+   const fetchData = async (variables: any, isLoadMore: boolean) => {
+      if (isLoadMore) {
+         setshowloadMore(false);
+         setsmallLoader(true);
+      } else {
+         setloading("loading");
+      }
+
+      if (variables?.category) variables.category_tags = variables.category;
       try {
          const { data, status } = await handleGetQuote(variables);
          if (data) {
@@ -51,78 +57,29 @@ export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
                   ...queryVariables,
                   last_id: data[data.length - 1].ID
                });
-         }
 
-         data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-         setloading(status);
-         setisFirstLoad(false);
-      } catch (error) {
-         console.error(error);
-         setquotes([]);
-         setloading("error");
-      }
-   };
-
-   // fetch data any time any of the query params change.
-   const fetchOnQueryChange = async (variables: TgetQuoteVariables) => {
-      setshowloadMore(false);
-      setloading("loading");
-
-      try {
-         const { data, status } = await handleGetQuote(variables);
-         if (data) {
-            setquotes(data);
             data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setloading(status);
          }
+
+         setloading(status);
+         setsmallLoader(false);
       } catch (error) {
+         console.error(error);
          setquotes([]);
          setloading("error");
-         console.error(error);
       }
    };
 
-   // only fetches more with whatever params are there in the router posts
-   const fetchMore = async (variables: TgetQuoteVariables) => {
-      setshowloadMore(false);
-      setsmallLoader(true);
+   /***********************************************************************
+    * since this renders only when the router changes or on initial render,
+    * we want to always fetch the initial CONTENT_LAST_ID 🕊
+    * ******************************************************
+    * */
 
-      try {
-         const { data, status } = await handleGetQuote(variables);
-         if (data) {
-            // filter tags
-            let moreQuotes = data;
-
-            // update query variables
-            moreQuotes.length > 0 &&
-               setqueryVariables({
-                  ...queryVariables,
-                  last_id: moreQuotes[moreQuotes.length - 1].ID
-               });
-
-            setquotes((prev) => [...prev, ...moreQuotes]);
-            moreQuotes.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setsmallLoader(false);
-         }
-      } catch (error) {
-         setquotes([]);
-         console.error(error);
-      }
-   };
-
-   // only call fetch data on initial load
    useEffect(() => {
       if (router.isReady)
-         router.query.last_id
-            ? fetchData({ isSelf: isSelf, ...router.query })
-            : fetchData({ ...queryVariables, ...router.query });
-   }, [router.isReady]);
-
-   // call on query params change
-   useEffect(() => {
-      if (router.isReady && !isFirstLoad)
-         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID, isSelf: isSelf });
-   }, [router.query]);
+         fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+   }, [router.isReady, router.query]);
 
    return (
       <div className={styles.mainWrapper}>
@@ -148,8 +105,7 @@ export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
                         title='Load more'
                         type='1'
                         cta={{
-                           handleClick: () =>
-                              fetchMore({ ...router.query, last_id: quotes[quotes.length - 1].ID })
+                           handleClick: () => fetchData(queryVariables, true)
                         }}
                      />
                   </div>

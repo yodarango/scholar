@@ -89,8 +89,11 @@ export const CommentariesGrid = ({
       }
    };
 
-   // since this renders only when the router changes or on initial render,
-   // we want to always fetch the initial CONTENT_LAST_ID
+   /***********************************************************************
+    * since this renders only when the router changes or on initial render,
+    *  we want to always fetch the initial CONTENT_LAST_ID 🌙
+    * *******************************************************
+    */
    useEffect(() => {
       if (router.isReady)
          fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);

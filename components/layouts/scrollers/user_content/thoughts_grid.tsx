@@ -37,15 +37,21 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
-   const [isFirstLoad, setisFirstLoad] = useState(true);
    const [queryVariables, setqueryVariables] = useState<TgetThoughtsVariables>({
       isSelf: isSelf,
       last_id: CONTENT_LAST_ID
    });
 
    // fetch data on first time loading. Only runs on first load
-   const fetchData = async (variables: TgetThoughtsVariables) => {
-      setloading("loading");
+   const fetchData = async (variables: any, isLoadMore: boolean) => {
+      if (isLoadMore) {
+         setshowloadMore(false);
+         setsmallLoader(true);
+      } else {
+         setloading("loading");
+      }
+
+      if (variables?.category) variables.category_tags = variables.category;
       try {
          const { data, status } = await handleGetThoughts(variables);
          if (data) {
@@ -55,7 +61,7 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
             data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
          setloading(status);
-         setisFirstLoad(false);
+         setsmallLoader(false);
       } catch (error) {
          console.error(error);
          setthougts([]);
@@ -63,66 +69,15 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
       }
    };
 
-   //fetch data any time any of the query params change.
-   const fetchOnQueryChange = async (variables: TgetThoughtsVariables) => {
-      setshowloadMore(false);
-      setloading("loading");
-
-      try {
-         const { data, status } = await handleGetThoughts(variables);
-         if (data) {
-            setthougts(data);
-            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setloading(status);
-         }
-      } catch (error) {
-         setthougts([]);
-         setloading("error");
-         console.error(error);
-      }
-   };
-
-   // only fetches more with whatever params are there in the router posts
-   const fetchMore = async (variables: TgetThoughtsVariables) => {
-      setshowloadMore(false);
-      setsmallLoader(true);
-
-      try {
-         const { data, status } = await handleGetThoughts(variables);
-         if (data) {
-            // filter tags
-            let moreThoughts = data;
-
-            // update query variables
-            moreThoughts.length > 0 &&
-               setqueryVariables({
-                  ...queryVariables,
-                  last_id: moreThoughts[moreThoughts.length - 1].ID
-               });
-
-            setthougts((prev) => [...prev, ...moreThoughts]);
-            moreThoughts.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
-            setsmallLoader(false);
-         }
-      } catch (error) {
-         setthougts([]);
-         console.error(error);
-      }
-   };
-
-   // only call fetch data on initial load
+   /***********************************************************************
+    * since this renders only when the router changes or on initial render,
+    *  we want to always fetch the initial CONTENT_LAST_ID 🌎
+    * *******************************************************
+    */
    useEffect(() => {
       if (router.isReady)
-         router.query.last_id
-            ? fetchData({ ...router.query, isSelf: isSelf })
-            : fetchData({ ...queryVariables, ...router.query });
-   }, [router.isReady]);
-
-   //call on query params change
-   useEffect(() => {
-      if (router.isReady && !isFirstLoad)
-         fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID, isSelf: isSelf });
-   }, [router.query]);
+         fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+   }, [router.isReady, router.query]);
 
    return (
       <div className={styles.mainWrapper}>
@@ -131,12 +86,7 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
                <GridPrimary>
                   {thoughts.map((thought: TThought, index: number) => (
                      <div key={index} className={styles.child}>
-                        <Thought
-                           cta={{
-                              handleDelete: () => console.log("handle show post")
-                           }}
-                           thought={thought}
-                        />
+                        <Thought thought={thought} />
                      </div>
                   ))}
                </GridPrimary>
@@ -146,11 +96,7 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
                         title='Load more'
                         type='1'
                         cta={{
-                           handleClick: () =>
-                              fetchMore({
-                                 ...router.query,
-                                 last_id: thoughts[thoughts.length - 1].ID
-                              })
+                           handleClick: () => fetchData(queryVariables, true)
                         }}
                      />
                   </div>
