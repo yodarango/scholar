@@ -12,21 +12,30 @@ type TBackLinkProps = {
    title: string;
    link?: string;
    quiet?: boolean;
-   arrowLeft?: boolean;
-   arrowRight?: boolean;
+   iconLeft?: boolean;
+   iconRight?: boolean;
+   icon?: string;
    cta?: {
       handleClick: () => void;
    };
 };
-export const BackLink = ({ arrowLeft, arrowRight, title, link, cta, quiet }: TBackLinkProps) => {
+export const BackLink = ({
+   icon,
+   iconLeft,
+   iconRight,
+   title,
+   link,
+   cta,
+   quiet
+}: TBackLinkProps) => {
    return (
       <>
          {cta && !link && (
             <div className={styles.mainWrapper} onClick={cta?.handleClick}>
-               {arrowLeft && (
+               {(iconLeft || !iconRight) && (
                   <div className={styles.icon}>
                      <Icon
-                        name='arrowBack'
+                        name={icon ? icon : "arrowBack"}
                         size='2rem'
                         color={quiet ? THIRD_COLOR : FONT_COLOR}
                         strokeWidth='64'
@@ -36,10 +45,10 @@ export const BackLink = ({ arrowLeft, arrowRight, title, link, cta, quiet }: TBa
                <div className={styles.text}>
                   <Parragraph text={title} size='main' quiet={quiet} />
                </div>
-               {arrowRight && (
+               {iconRight && (
                   <div className={styles.icon}>
                      <Icon
-                        name='arrowForth'
+                        name={icon ? icon : "arrowForth"}
                         size='2rem'
                         color={quiet ? THIRD_COLOR : FONT_COLOR}
                         strokeWidth='64'
@@ -51,10 +60,10 @@ export const BackLink = ({ arrowLeft, arrowRight, title, link, cta, quiet }: TBa
          {link && !cta && (
             <Link href={link}>
                <a className={styles.mainWrapper}>
-                  {arrowLeft && (
+                  {(iconLeft || !iconRight) && (
                      <div className={styles.icon}>
                         <Icon
-                           name='arrowBack'
+                           name={icon ? icon : "arrowBack"}
                            size='2rem'
                            color={quiet ? THIRD_COLOR : FONT_COLOR}
                            strokeWidth='64'
@@ -65,10 +74,10 @@ export const BackLink = ({ arrowLeft, arrowRight, title, link, cta, quiet }: TBa
                      <Parragraph text={title} size='main' quiet={quiet} />
                   </div>
 
-                  {arrowRight && (
+                  {iconRight && (
                      <div className={styles.icon}>
                         <Icon
-                           name='arrowForth'
+                           name={icon ? icon : "arrowForth"}
                            size='2rem'
                            color={quiet ? THIRD_COLOR : FONT_COLOR}
                            strokeWidth='64'

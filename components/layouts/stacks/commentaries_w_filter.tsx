@@ -20,8 +20,6 @@ import { Dropdown } from "../../fragments/inputs/dropdown";
 import { SelectCommentaryGroups } from "../menus/select_commentary_groups";
 import { CommentariesByFolder } from "../scrollers/user_content/commentaries_by_folder";
 import { BackLink } from "../../fragments/buttons/back_link";
-import { FONT_COLOR } from "../../../constants/tokens";
-import { Icon } from "../../fragments/chunks/icons";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -30,6 +28,7 @@ type TCommentariesByBookProps = {
    };
 };
 
+const CURRENT_VIEW_COMMENTARIES_BY_GROUP = "by-group";
 const CURRENT_VIEW_BOOK_BY_FOLDER = "my-folders";
 const CURRENT_VIEW_BOOK_BY_BOOK = "by-book";
 const CURRENT_VIEW_COMMENTARIES = "";
@@ -40,7 +39,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 
    // modal and view
    const [currentModal, setcurrentModal] = useState<string>("none");
-   const [currentView, setcurrentView] = useState("");
+   const [currentView, setcurrentView] = useState(CURRENT_VIEW_COMMENTARIES);
 
    // header
    const [scrollYDis, setscrollYDis] = useState<number>(0); // header styles
@@ -52,6 +51,11 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    // folder filter
    const [currentFolderValue, setcurrentFolderValue] = useState<string>("Show Groups");
    const [showFolderOptions, setshowFolderOptions] = useState<boolean>(false);
+
+   const renderFolderView =
+      currentModal === CURRENT_VIEW_BOOK_BY_BOOK || currentModal === CURRENT_VIEW_BOOK_BY_FOLDER;
+   const renderCommentariesView = currentModal === CURRENT_VIEW_COMMENTARIES;
+   const renderCommentariesByGroupView = currentModal === CURRENT_VIEW_COMMENTARIES_BY_GROUP;
 
    // when the user clicks folder or tag: push new category tag to the router
    const handleFilterSelection = (query: any) => {
@@ -112,6 +116,14 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 
       if (typeof router.query.group === "string") {
          setcurrentModal(router.query.group);
+      } else if (
+         typeof router.query.VERSE_ID === "string" ||
+         typeof router.query.folder === "string"
+      ) {
+         setcurrentModal(CURRENT_VIEW_COMMENTARIES_BY_GROUP);
+         typeof router.query.folder === "string"
+            ? setcurrentView(CURRENT_VIEW_BOOK_BY_FOLDER)
+            : setcurrentView(CURRENT_VIEW_BOOK_BY_BOOK);
       } else {
          setcurrentModal(CURRENT_VIEW_COMMENTARIES);
       }
@@ -126,72 +138,83 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
                scrollingDir === "down" && styles.scrollingDown
             }`}>
             {/* dropdown filter */}
-            {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
-               currentModal !== CURRENT_VIEW_BOOK_BY_FOLDER && (
-                  <div className={styles.dropdown}>
-                     <Dropdown
-                        initialValue={currentFolderValue}
-                        showOptions={showFolderOptions}
-                        setshowOptions={setshowFolderOptions}>
-                        <SelectCommentaryGroups
-                           cta={{
-                              handleSelection: ({ label, value }) => {
-                                 handleGroupSelection({ label, value });
-                                 setshowFolderOptions(false);
-                              },
-                              handleCloseModal: () => setshowFolderOptions(false)
-                           }}
-                        />
-                     </Dropdown>
+            {(renderFolderView || renderCommentariesView) && (
+               <div className={styles.dropdown}>
+                  <Dropdown
+                     initialValue={currentFolderValue}
+                     showOptions={showFolderOptions}
+                     setshowOptions={setshowFolderOptions}>
+                     <SelectCommentaryGroups
+                        cta={{
+                           handleSelection: ({ label, value }) => {
+                              handleGroupSelection({ label, value });
+                              setshowFolderOptions(false);
+                           },
+                           handleCloseModal: () => setshowFolderOptions(false)
+                        }}
+                     />
+                  </Dropdown>
 
+                  {renderFolderView && (
                      <div className={styles.icon}>
-                        <BackLink arrowRight quiet title='Manage folders' link='/users/folders' />
+                        <BackLink
+                           icon='folder'
+                           iconLeft
+                           quiet
+                           title='My folders'
+                           link='/users/folders'
+                        />
                      </div>
-                  </div>
-               )}
+                  )}
+               </div>
+            )}
 
             {/* categories filter */}
-            {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
-               currentModal !== CURRENT_VIEW_BOOK_BY_FOLDER && (
-                  <>
-                     <div className={styles.backLink}>
-                        <BackLink
-                           quiet
-                           title={
-                              currentView === CURRENT_VIEW_BOOK_BY_BOOK
-                                 ? "Back to books"
-                                 : "Back to folders"
-                           }
-                           cta={{
-                              handleClick: () => {
-                                 handleGroupSelection(
-                                    currentView === CURRENT_VIEW_BOOK_BY_BOOK
-                                       ? { label: "By book", value: "by-book" }
-                                       : { label: "My folders", value: "my-folders" }
-                                 );
-                              }
-                           }}
-                        />
-                     </div>
 
-                     <div className={styles.tag}>
-                        <CategoryTag
-                           initiaValue={tagFilter}
-                           cta={{
-                              handleSelection: (val) => handleFilterSelection({ category: val })
-                           }}
-                           informativeOnly={false}
-                        />
-                     </div>
-                  </>
-               )}
+            {renderCommentariesByGroupView && (
+               <div className={styles.backLink}>
+                  <BackLink
+                     quiet
+                     title={
+                        currentView === CURRENT_VIEW_BOOK_BY_BOOK
+                           ? "Back to books"
+                           : currentView === CURRENT_VIEW_BOOK_BY_FOLDER
+                           ? "Back to folders"
+                           : ""
+                     }
+                     cta={{
+                        handleClick: () => {
+                           handleGroupSelection(
+                              currentView === CURRENT_VIEW_BOOK_BY_BOOK
+                                 ? { label: "By book", value: "by-book" }
+                                 : currentView === CURRENT_VIEW_BOOK_BY_FOLDER
+                                 ? { label: "My folders", value: "my-folders" }
+                                 : { label: "All", value: "*" }
+                           );
+                        }
+                     }}
+                  />
+               </div>
+            )}
+
+            {(renderCommentariesView || renderCommentariesByGroupView) && (
+               <div className={styles.tag}>
+                  <CategoryTag
+                     initiaValue={tagFilter}
+                     cta={{
+                        handleSelection: (val) => handleFilterSelection({ category: val })
+                     }}
+                     informativeOnly={false}
+                  />
+               </div>
+            )}
          </div>
 
          <section className={styles.posts}>
-            {currentModal !== CURRENT_VIEW_BOOK_BY_BOOK &&
-               currentModal !== CURRENT_VIEW_BOOK_BY_FOLDER && <CommentariesGrid isSelf={isSelf} />}
-            {(currentModal === CURRENT_VIEW_BOOK_BY_BOOK ||
-               currentModal == CURRENT_VIEW_BOOK_BY_FOLDER) && (
+            {(renderCommentariesView || renderCommentariesByGroupView) && (
+               <CommentariesGrid isSelf={isSelf} />
+            )}
+            {renderFolderView && (
                <CommentariesByFolder
                   isSelf={isSelf}
                   query_type={currentModal}
