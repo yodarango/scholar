@@ -16,12 +16,19 @@ type TSearchInputProps = {
    placeholder: string;
    maxL: number;
    initialValue?: string;
+   bounceTime?: number;
    cta: {
       handleOnChange?: (value: string) => void;
       handleSearchGo?: (value: string) => void;
    };
 };
-export const SearchInput = ({ placeholder, initialValue = "", maxL, cta }: TSearchInputProps) => {
+export const SearchInput = ({
+   placeholder,
+   initialValue = "",
+   maxL,
+   cta,
+   bounceTime = 1000
+}: TSearchInputProps) => {
    // references
    const input = useRef<HTMLInputElement>(null);
    let lastinput: number;
@@ -35,10 +42,10 @@ export const SearchInput = ({ placeholder, initialValue = "", maxL, cta }: TSear
          let currTime = Date.now();
 
          // if more than 1000 milliseconda have ellapsed since last time call the callback
-         if (cta.handleOnChange && currTime - lastinput > 1000) {
+         if (cta.handleOnChange && currTime - lastinput > bounceTime) {
             cta.handleOnChange(e.target.value);
          }
-      }, 1000);
+      }, bounceTime);
    };
 
    // handle the search on button click

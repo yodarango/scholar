@@ -1,0 +1,7 @@
+.foldersWrapper {
+   margin-top: var(--spacing-ml);
+}
+
+.folder {
+   margin-bottom: var(--spacing-xs);
+}
