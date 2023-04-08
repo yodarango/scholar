@@ -149,8 +149,15 @@ export const errorMessages = {
          id: 8,
          type: "error",
          description: "when a posts fails to delete",
-         title: "Deletion failed 👎",
-         body: "Sorry, e were unable to delete this post. Please try again later!"
+         title: "Deletion failed ",
+         body: "Sorry, we were unable to delete this post. Please try again later!"
+      },
+      failedToDeleteFolder: {
+         id: 9,
+         type: "error",
+         description: "when a folder fails to delete",
+         title: "Deletion failed ",
+         body: "Sorry, we were unable to delete this folder. Please try again later!"
       }
    },
    read: {

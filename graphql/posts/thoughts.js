@@ -168,7 +168,7 @@ export const EDIT_THOUGHT = gql`
    }
 `;
 
-// ==================== DELETING ROUTES =================
+//  DELETING ROUTES
 export const DELETE_ONE_THOUGHT = gql`
    mutation ($ID: ID) {
       delete_one_thought(ID: $ID) {

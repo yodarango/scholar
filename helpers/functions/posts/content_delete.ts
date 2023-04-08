@@ -1,34 +1,58 @@
+import { useState } from "react";
 import { client } from "../../../apollo-client";
 import {
+   CONTENT_TYPE_FOLDER,
    POST_TYPE_COMMENTARY,
    POST_TYPE_QUOTE,
    POST_TYPE_THOUGHT
 } from "../../../constants/defaults";
 import { DELETE_ONE_COMMENTARY } from "../../../graphql/posts/commentaries";
+import { DELETE_FOLDER } from "../../../graphql/posts/folders";
 import { DELETE_ONE_QUOTE } from "../../../graphql/posts/quotes";
 import { DELETE_ONE_THOUGHT } from "../../../graphql/posts/thoughts";
 import { EnumContentType } from "../../../types/enums";
 
-export const deleteContent = async (id: string | number, type: EnumContentType) => {
-   const CTYPE =
-      type === POST_TYPE_COMMENTARY
-         ? DELETE_ONE_COMMENTARY
-         : type === POST_TYPE_QUOTE
-         ? DELETE_ONE_QUOTE
-         : DELETE_ONE_THOUGHT;
-   try {
-      const { data } = await client.mutate({
-         mutation: CTYPE,
-         variables: { ID: id }
-      });
+export const useDeleteContent = () => {
+   const [data, setData] = useState<any>({ ID: null, error: null });
 
-      if (data.delete_one_commentary) return data.delete_one_commentary;
-      else if (data.delete_one_quote) return data.delete_one_quote;
-      else if (data.delete_one_thought) return data.delete_one_thought;
+   const handleDelete = async (id: string | number, type: EnumContentType) => {
+      console.log(id, type);
 
-      return "something went wrong";
-   } catch (error) {
-      console.log(error);
-      return "Error";
-   }
+      let CTYPE;
+      switch (type) {
+         case POST_TYPE_COMMENTARY:
+            CTYPE = DELETE_ONE_COMMENTARY;
+            break;
+         case POST_TYPE_QUOTE:
+            CTYPE = DELETE_ONE_QUOTE;
+            break;
+         case POST_TYPE_THOUGHT:
+            CTYPE = DELETE_ONE_THOUGHT;
+            break;
+         case CONTENT_TYPE_FOLDER:
+            CTYPE = DELETE_FOLDER;
+            break;
+         default:
+            CTYPE = DELETE_ONE_COMMENTARY;
+      }
+
+      try {
+         const { data } = await client.mutate({
+            mutation: CTYPE,
+            variables: { ID: id }
+         });
+
+         if (data.delete_one_commentary) setData(data.delete_one_commentary);
+         else if (data.delete_one_quote) setData(data.delete_one_quote);
+         else if (data.delete_one_thought) setData(data.delete_one_thought);
+         else if (data.delete_folder) setData(data.delete_folder);
+
+         setData({ ID: null, error: "something went wrong" });
+      } catch (error) {
+         console.error(error);
+         setData({ ID: null, error: "something went wrong" });
+      }
+   };
+
+   return { data, handleDelete };
 };

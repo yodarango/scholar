@@ -1,8 +1,17 @@
+import {
+   CONTENT_TYPE_FOLDER,
+   POST_TYPE_COMMENTARY,
+   POST_TYPE_QUOTE,
+   POST_TYPE_SERMON_NOTE,
+   POST_TYPE_THOUGHT
+} from "../constants/defaults";
+
 export enum EnumContentType {
-   commentary = 1,
-   quote = 2,
-   thought = 3,
-   sermonNote = 4
+   commentary = POST_TYPE_COMMENTARY,
+   quote = POST_TYPE_QUOTE,
+   thought = POST_TYPE_THOUGHT,
+   sermonNote = POST_TYPE_SERMON_NOTE,
+   folder = CONTENT_TYPE_FOLDER
 }
 
 export enum EPollType {

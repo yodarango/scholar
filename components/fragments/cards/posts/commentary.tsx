@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ import { TCommentary } from "../../../../types/posts";
 import { COM_DEFAULT_IMG_PLACEHOLDER, POST_TYPE_COMMENTARY } from "../../../../constants/defaults";
 import { EnumContentType } from "../../../../types/enums";
 
-import { deleteContent } from "../../../../helpers/functions/posts/content_delete";
+import { useDeleteContent } from "../../../../helpers/functions/posts/content_delete";
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
@@ -34,19 +34,15 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
    const categoryIdNormalized = commentary?.category_tags.split(" ")[0].replace("#", "");
    const categoryId = `category-${categoryIdNormalized}--card`;
 
-   const handleDelete = async (id: string | number) => {
-      try {
-         const isDeleted = await deleteContent(id, POST_TYPE_COMMENTARY);
+   const { handleDelete, data } = useDeleteContent();
 
-         if (isDeleted && isDeleted.ID) {
-            setisDeleted(true);
-         } else {
-            setNotification(true);
-         }
-      } catch (error) {
-         console.error(error);
+   useEffect(() => {
+      if (data && data.ID) {
+         setisDeleted(true);
+      } else {
+         setNotification(false);
       }
-   };
+   }, [data]);
 
    return (
       <>
@@ -67,7 +63,10 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                {/* ---------------- header -------------- */}
                <div className={styles.header}>
                   <PostCardHeader
-                     cta={{ handleDelete }}
+                     cta={{
+                        handleDelete: (id: string | number) =>
+                           handleDelete(id, POST_TYPE_COMMENTARY)
+                     }}
                      userAuthority={commentary?.creator?.authority_level}
                      username={commentary?.creator?.signature}
                      avatar={commentary?.creator?.avatar}

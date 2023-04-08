@@ -17,3 +17,11 @@ export const GET_FOLDER_POST_COUNT = gql`
       }
    }
 `;
+
+export const DELETE_FOLDER = gql`
+   mutation ($ID: ID) {
+      delete_folder(ID: $ID) {
+         ID
+      }
+   }
+`;

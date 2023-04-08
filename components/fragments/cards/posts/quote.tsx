@@ -13,8 +13,8 @@ import styles from "./quote.module.css";
 import { TQuote } from "../../../../types/posts";
 import { EnumContentType } from "../../../../types/enums";
 import { LIGHT_QUOTE_BACKGROUNDS, POST_TYPE_QUOTE } from "../../../../constants/defaults";
-import { deleteContent } from "../../../../helpers/functions/posts/content_delete";
-import { useState } from "react";
+import { useDeleteContent } from "../../../../helpers/functions/posts/content_delete";
+import { useEffect, useState } from "react";
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
@@ -36,19 +36,15 @@ export const Quote = ({ cta, quote, type = 0 }: TQuoteProps) => {
 
    const actionsColor = darkContext ? PRIMARY_COLOR : FONT_COLOR;
 
-   const handleDelete = async (id: string | number) => {
-      try {
-         const isDeleted = await deleteContent(id, POST_TYPE_QUOTE);
-         if (isDeleted && isDeleted.ID) {
-            cta.handleDelete(id);
-            setisDeleted(true);
-         } else {
-            setNotification(true);
-         }
-      } catch (error) {
-         console.error(error);
+   const { handleDelete, data } = useDeleteContent();
+
+   useEffect(() => {
+      if (data && data.ID) {
+         setisDeleted(true);
+      } else {
+         setNotification(false);
       }
-   };
+   }, [data]);
 
    return (
       <>
@@ -74,7 +70,9 @@ export const Quote = ({ cta, quote, type = 0 }: TQuoteProps) => {
                   <QuoteCardHeader
                      dark={darkContext}
                      contentType={EnumContentType.quote}
-                     cta={{ handleDelete }}
+                     cta={{
+                        handleDelete: (id: string | number) => handleDelete(id, POST_TYPE_QUOTE)
+                     }}
                      postId={quote?.ID}
                      userId={quote?.creator?.ID}
                      userAuthority={quote?.creator?.authority_level}

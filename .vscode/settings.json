@@ -10,7 +10,7 @@
       "navs": "fastlane",
       "scrollers": "gradle",
       "user_content": "content"
-   }
+   },
    "material-icon-theme.folders.color": "#7156c7",
    "peacock.color": "#7350ec",
    "workbench.colorCustomizations": {

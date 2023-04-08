@@ -4,7 +4,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // components
 import { PostReactions } from "../../post_reactions";
@@ -20,7 +20,7 @@ import styles from "./thought.module.css";
 import { TThought } from "../../../../types/posts";
 import { POST_TYPE_THOUGHT, THO_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
 import { EnumContentType } from "../../../../types/enums";
-import { deleteContent } from "../../../../helpers/functions/posts/content_delete";
+import { useDeleteContent } from "../../../../helpers/functions/posts/content_delete";
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
@@ -39,20 +39,15 @@ export const Thought = ({ cta, thought }: TThoughtProps) => {
    // parse the Category ID
    const categoryId = thought?.category_tags.split(" ")[0].replace("#", "");
 
-   const handleDelete = async (id: string | number) => {
-      try {
-         const isDeleted = await deleteContent(id, POST_TYPE_THOUGHT);
+   const { handleDelete, data } = useDeleteContent();
 
-         if (isDeleted && isDeleted.ID) {
-            setisDeleted(true);
-            cta?.handleDelete(id);
-         } else {
-            setNotification(true);
-         }
-      } catch (error) {
-         console.error(error);
+   useEffect(() => {
+      if (data && data.ID) {
+         setisDeleted(true);
+      } else {
+         setNotification(false);
       }
-   };
+   }, [data]);
 
    return (
       <>
@@ -71,7 +66,9 @@ export const Thought = ({ cta, thought }: TThoughtProps) => {
                {/* -------------------- post header ------------ */}
                <div className={styles.header}>
                   <PostCardHeader
-                     cta={{ handleDelete }}
+                     cta={{
+                        handleDelete: (id: number | string) => handleDelete(id, POST_TYPE_THOUGHT)
+                     }}
                      postType='thought'
                      contentType={EnumContentType.thought}
                      username={thought?.creator?.signature}

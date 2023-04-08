@@ -102,6 +102,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                />
             </PrimaryStack>
          )}
+
          {showStackModal === 2 && (
             // render the commentary Text Editor
             <div className={stylesLocal.newCommentStack}>
