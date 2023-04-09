@@ -13,7 +13,7 @@ export type TIconButtonProps = {
    iconSize?: string;
    iconColor?: string;
    icon: string;
-   backgroundColor: string;
+   backgroundColor?: string;
    custombuttonSize?: boolean;
    link?: string;
    isDownload?: boolean;

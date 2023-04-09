@@ -10,6 +10,7 @@ import { useDeleteContent } from "../../../helpers/functions/posts/content_delet
 import { Notification } from "../popups/notification";
 import { errorMessages } from "../../../data/error_messages";
 import { CONTENT_TYPE_FOLDER } from "../../../constants/defaults";
+import { useRouter } from "next/router";
 
 type FolderCardProps = {
    className?: string;
@@ -25,6 +26,7 @@ export const FolderCard = ({
    postCount,
    ID
 }: FolderCardProps) => {
+   const router = useRouter();
    const [showModal, setShowModal] = useState<boolean>(false);
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
@@ -38,10 +40,6 @@ export const FolderCard = ({
          setNotification(false);
       }
    }, [data]);
-
-   const handleEdit = (id: string | number) => {
-      setShowModal(false);
-   };
 
    return (
       <>
@@ -60,7 +58,7 @@ export const FolderCard = ({
                   cta={{
                      handleCloseModal: () => setShowModal(!showModal),
                      handleDelete: (id) => handleDelete(id, CONTENT_TYPE_FOLDER),
-                     handleEdit: handleEdit
+                     handleEdit: () => router.push(`/users/folders/edit/${ID}`)
                   }}
                   folderId={ID}
                />

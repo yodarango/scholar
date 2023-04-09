@@ -6,6 +6,8 @@ import { PrimaryStack } from "./templates/primary_stack";
 import styles from "./folders_list.module.css";
 import React, { useEffect, useState } from "react";
 import { useSwipeLeft } from "../../../hooks/use_swipe_left";
+import { AddContent } from "../../fragments/buttons/add_content";
+import { IconButton } from "../../fragments/buttons/icon_button";
 
 type TFolderListProps = {
    isSelf?: boolean;
@@ -35,6 +37,8 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
    return (
       <PrimaryStack title='My folders' icon='folder' cta={{ handleClose: () => {} }}>
          <>
+            <IconButton icon='add' type='2' link='/users/folders/new' />
+
             <SearchInput
                placeholder='Search folder'
                bounceTime={500}
@@ -44,8 +48,9 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
             {status === "done" && (
                <div className={styles.foldersWrapper}>
                   {folders &&
-                     folders.map((folder) => (
+                     folders.map((folder, i: number) => (
                         <div
+                           key={i}
                            className={styles.folder}
                            onTouchStart={(e) => useSwipeLeft(e, handleSwipeLeft, handleSwipeRight)}>
                            <FolderCard
