@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { client } from "../../../apollo-client";
 import { GET_FOLDER } from "../../../graphql/posts/folders";
 export type TFolderData = {
-   image?: string;
+   ID: number | string;
+   image: string;
    name: string;
    description: string;
    is_private: boolean;
+   color: string;
 };
 
 export const useGetFolder = (ID: string | number | null) => {

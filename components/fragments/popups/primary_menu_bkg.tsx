@@ -1,4 +1,5 @@
 // components
+import { PRIMARY_COLOR, SECONDARY_COLOR, THIRD_COLOR } from "../../../constants/tokens";
 import { CloseContent } from "../buttons/close_content";
 import { Header } from "../Typography/header";
 
@@ -43,13 +44,25 @@ export const PrimaryMenuBkg = ({
          bkgColor = "linear-gradient(-10deg, #5C5470,  #38304B)";
          break;
 
+      case "primary":
+         bkgColor = PRIMARY_COLOR;
+         break;
+
+      case "secondary":
+         bkgColor = SECONDARY_COLOR;
+         break;
+
+      case "ternary":
+         bkgColor = THIRD_COLOR;
+         break;
+
       default:
          bkgColor = `linear-gradient(-10deg, ${customColors?.light}, ${customColors?.dark})`;
          break;
    }
 
    return (
-      <div className={`${styles.mainWrapper} ${className}`} style={{ backgroundImage: bkgColor }}>
+      <div className={`${styles.mainWrapper} ${className}`} style={{ background: bkgColor }}>
          <div className={styles.close}>
             <CloseContent cta={{ handleClick: cta.handleClose }} size='2.5rem' />
          </div>

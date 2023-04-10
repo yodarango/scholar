@@ -158,6 +158,13 @@ export const errorMessages = {
          description: "when a folder fails to delete",
          title: "Deletion failed ",
          body: "Sorry, we were unable to delete this folder. Please try again later!"
+      },
+      failedToSaveFolder: {
+         id: 10,
+         type: "error",
+         description: "when a folder fails to save",
+         title: "Folder not saved",
+         body: "Sorry, the folder was not able to be saved, try again!"
       }
    },
    read: {

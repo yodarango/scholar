@@ -9,15 +9,19 @@ import { ColorPickerOptions } from "../../fragments/color_picker_options";
 import { PrimaryMenuBkg } from "../../fragments/popups/primary_menu_bkg";
 
 type TSelectHighlightColorProps = {
+   theme?: number;
    cta: {
       handleClose: () => void;
       handleColorSelection: (color: string | { light: string; dark: string }, ID: number) => void;
    };
 };
-export const SelectHighlightColor = ({ cta }: TSelectHighlightColorProps) => {
+export const SelectHighlightColor = ({ cta, theme = 1 }: TSelectHighlightColorProps) => {
    return (
-      <PrimaryMenuBkg cta={{ handleClose: cta.handleClose }} color='1' title='Select color'>
-         <ColorPickerOptions cta={{ handleColorSelection: cta.handleColorSelection }} />
+      <PrimaryMenuBkg cta={{ handleClose: cta.handleClose }} color='secondary' title='Select color'>
+         <ColorPickerOptions
+            theme={theme}
+            cta={{ handleColorSelection: cta.handleColorSelection }}
+         />
       </PrimaryMenuBkg>
    );
 };

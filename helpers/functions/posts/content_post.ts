@@ -69,7 +69,6 @@ export const handlePostContent = async (
    type: string,
    requestType: string
 ) => {
-   console.log(variables);
    let QUERY;
    variables.category_tags = variables
       ? variables.category_tags?.toString().replaceAll(", ", "")

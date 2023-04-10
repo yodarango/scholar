@@ -131,3 +131,76 @@ export const higlighterColorPicker: TbkgColorPicker[] = [
       color: "#2A2438"
    }
 ];
+
+export const folderColors: TbkgColorPicker[] = [
+   {
+      ID: 0,
+      bkgColor: "#cdb4db",
+      color: "#2A2438"
+   },
+   {
+      ID: 2,
+      bkgColor: "#ffc8dd",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 3,
+      bkgColor: "#ffafcc",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 4,
+      bkgColor: "#bde0fe",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 5,
+      bkgColor: "#a2d2ff",
+      color: "#2A2438"
+   },
+   {
+      ID: 6,
+      bkgColor: "#eae4e9",
+      color: "#2A2438"
+   },
+   {
+      ID: 7,
+      bkgColor: "#fff1e6",
+      color: "#2A2438"
+   },
+   {
+      ID: 8,
+      bkgColor: "#fde2e4",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 9,
+      bkgColor: "#fad2e1",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 10,
+      bkgColor: "#e2ece9",
+      color: "#2A2438"
+   },
+   {
+      ID: 11,
+      bkgColor: "#bee1e6",
+      color: "#2A2438"
+   },
+   {
+      ID: 12,
+      bkgColor: "#f0efeb",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 13,
+      bkgColor: "#dfe7fd",
+      color: "#F1EAFF"
+   },
+   {
+      ID: 14,
+      bkgColor: "#cddafd",
+      color: "#2A2438"
+   }
+];

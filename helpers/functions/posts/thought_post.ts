@@ -32,7 +32,6 @@ export const dataHandler = async (post: THandlePostThought) => {
          }
       });
 
-      console.log(data);
       if (data.thought.__typename === "Thought") {
          return { success: notificationMessages.postSuccess };
       } else if (data.thought.__typename === "ExceedsPostCount") {

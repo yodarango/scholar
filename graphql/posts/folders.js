@@ -26,6 +26,7 @@ export const GET_FOLDER = gql`
          name
          image
          is_private
+         color
       }
    }
 `;
@@ -39,9 +40,23 @@ export const DELETE_FOLDER = gql`
 `;
 
 export const EDIT_FOLDER = gql`
-   mutation ($name: String, $description: String, $image: String, $is_private: Boolean) {
+   mutation (
+      $ID: ID
+      $name: String
+      $description: String
+      $image: String
+      $is_private: Boolean
+      $color: String
+   ) {
       edit_folder(
-         data: { name: $name, description: $description, image: $image, is_private: $is_private }
+         data: {
+            ID: $ID
+            name: $name
+            description: $description
+            image: $image
+            is_private: $is_private
+            color: $color
+         }
       ) {
          ID
       }
@@ -49,9 +64,21 @@ export const EDIT_FOLDER = gql`
 `;
 
 export const NEW_FOLDER = gql`
-   mutation ($name: String, $description: String, $image: String, $is_private: Boolean) {
+   mutation (
+      $name: String
+      $description: String
+      $image: String
+      $is_private: Boolean
+      $color: String
+   ) {
       new_folder(
-         data: { name: $name, description: $description, image: $image, is_private: $is_private }
+         data: {
+            name: $name
+            description: $description
+            image: $image
+            is_private: $is_private
+            color: $color
+         }
       ) {
          ID
       }

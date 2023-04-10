@@ -25,6 +25,10 @@ export const getUserGeneralSettings: () => Promise<any> = async () => {
          };
    } catch (error) {
       console.error(error);
+      return {
+         data: null,
+         status: "error"
+      };
    }
 };
 

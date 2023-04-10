@@ -70,5 +70,12 @@ export const notificationMessages = {
       description: "Notification after a signature are saved successfully",
       title: "Signature changed!",
       body: "Your signature has been saved, go show off your new you ✍️"
+   },
+   folderSaved: {
+      id: 9,
+      type: "Success",
+      description: "A folder was saved successfully",
+      title: "Folder saved!",
+      body: "Your folder has been saved, start saving posts to it now!"
    }
 };

@@ -34,7 +34,7 @@ export const postContentComment = async (
       else if (data && data.thought_comment) return data.thought_comment;
       else if (data && data.quote_comment) return data.quote_comment;
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Error";
    }
 };
