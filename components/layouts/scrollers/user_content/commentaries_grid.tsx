@@ -95,8 +95,13 @@ export const CommentariesGrid = ({
     * *******************************************************
     */
    useEffect(() => {
-      if (router.isReady)
+      let isMounted = false;
+
+      if (router.isReady && !isMounted)
          fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+      return () => {
+         isMounted = true;
+      };
    }, [router.isReady, router.query]);
 
    return (

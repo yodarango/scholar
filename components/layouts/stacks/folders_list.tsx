@@ -43,7 +43,7 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
 
             <SearchInput
                placeholder='Search folder'
-               bounceTime={500}
+               bounceTime={100}
                maxL={100}
                cta={{ handleOnChange: handleFilterFolders }}
             />

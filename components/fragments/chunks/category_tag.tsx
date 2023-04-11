@@ -46,7 +46,7 @@ export const CategoryTag = ({
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
    const [currentCategory, setcurrentCategory] = useState<string | undefined>(
-      id ? id : initiaValue
+      id ? id : initiaValue ? initiaValue : undefined
    );
 
    //  open the category popup
@@ -76,6 +76,10 @@ export const CategoryTag = ({
       id === "*" ? setcurrentCategory(undefined) : setcurrentCategory(id);
       cta?.handleSelection(id);
    };
+
+   useEffect(() => {
+      handleSelection(id || "");
+   }, []);
 
    return (
       <>

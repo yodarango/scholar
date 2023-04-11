@@ -14,26 +14,33 @@ type TCommentariesByBookProps = {
    };
 };
 export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesByBookProps) => {
-   const [folders, setFolders] = useState<any[] | null>([]);
    const { data, status } = useGetFolders({ isSelf, query_type });
-   console.log("data", data);
+   const [filter, setFilter] = useState("");
+   const [folders, setFolders] = useState<any>([]);
 
-   const handleFilterFolders = (val: string) => {
-      const filteredFolders =
-         data &&
-         data.filter((folder: any) => folder.name.toLowerCase().includes(val.toLowerCase()));
+   useEffect(() => {
+      let filteredFolders;
+      if (data) {
+         if (filter !== "") {
+            filteredFolders = data.filter((folder: any) =>
+               folder.name.toLowerCase().includes(filter.toLowerCase())
+            );
+         } else {
+            filteredFolders = data;
+         }
+      }
 
       setFolders(filteredFolders);
-   };
+   }, [filter, data]);
 
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.input}>
             <SearchInput
                placeholder='Search folder'
-               bounceTime={500}
+               bounceTime={100}
                maxL={100}
-               cta={{ handleOnChange: handleFilterFolders }}
+               cta={{ handleOnChange: (val) => setFilter(val) }}
             />
          </div>
 
@@ -45,7 +52,7 @@ export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesB
          {status === "done" &&
             folders &&
             folders.length > 0 &&
-            folders.map((folder, i) => (
+            folders.map((folder: any, i: number) => (
                <div key={i} onClick={() => cta.handleSelection(folder.ID)}>
                   <FolderCard
                      ID={folder.ID}

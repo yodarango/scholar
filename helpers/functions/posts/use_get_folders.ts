@@ -11,6 +11,7 @@ type TgetfoldersVariables = {
 export const useGetFolders = (variables: TgetfoldersVariables) => {
    const [data, setdata] = useState<null | any[]>([]);
    const [status, setstatus] = useState("loading");
+
    const getData = async () => {
       try {
          const { data } = await client.query({
