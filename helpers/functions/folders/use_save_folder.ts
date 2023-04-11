@@ -17,6 +17,18 @@ export const useSaveFolder = (isEdit: boolean) => {
    const QUERY = isEdit ? EDIT_FOLDER : NEW_FOLDER;
 
    const save = async (variables: TFolderData) => {
+      console.log(variables);
+      // validate input
+      if (!variables.name || variables.is_private === undefined || variables.is_private === null) {
+         setstatus({
+            title: errorMessages.forms.missingFormFields.title,
+            body: errorMessages.forms.missingFormFields.body,
+            type: "4",
+            status: errorMessages.forms.missingFormFields.type
+         });
+         setdata(null);
+         return;
+      }
       setstatus({ status: "loading" });
       try {
          const { data } = await client.mutate({
@@ -24,8 +36,8 @@ export const useSaveFolder = (isEdit: boolean) => {
             variables
          });
 
-         if (data.save_folder) {
-            setdata(data.save_folder);
+         if (data.new_folder || data.edit_folder) {
+            setdata(data.save_folder || data.edit_folder);
             setstatus({
                title: notificationMessages.folderSaved.title,
                body: notificationMessages.folderSaved.body,

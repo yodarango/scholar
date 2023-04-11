@@ -1,6 +1,7 @@
-last files touched were folder_editor.tsx, use_save_folder.ts, user_get_folder.ts, /folders/new/[id].tsx and /folders/edit/index.tsx .
-attempting to setup new folder and edit folder components. Edit folder seems to be working, but the "change folder color" button is not working. The bkg color is not taking the color from . See why.
+last files touches were the profile_posts.tsx, commentaries_with_filter.tsx and commentaries_by_folder.tsx
 
-after fixing edit make sure creating a new one works and then folders will be set. Also add a "is_private" prop.
+I am getting an error that ` Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.`
+
+Might be being caused by the hook. look into it!
 
 Also might want to restructure the routes. Maybe remove /users and do /@me instead. Example /@me/folders, /@me/settings, /@me/about etc

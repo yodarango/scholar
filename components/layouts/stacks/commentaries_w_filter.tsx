@@ -214,6 +214,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
             {(renderCommentariesView || renderCommentariesByGroupView) && (
                <CommentariesGrid isSelf={isSelf} />
             )}
+
             {renderFolderView && (
                <CommentariesByFolder
                   isSelf={isSelf}

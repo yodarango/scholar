@@ -16,6 +16,7 @@ type TCommentariesByBookProps = {
 export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesByBookProps) => {
    const [folders, setFolders] = useState<any[] | null>([]);
    const { data, status } = useGetFolders({ isSelf, query_type });
+   console.log("data", data);
 
    const handleFilterFolders = (val: string) => {
       const filteredFolders =

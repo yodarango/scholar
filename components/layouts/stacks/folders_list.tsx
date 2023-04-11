@@ -37,7 +37,9 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
    return (
       <PrimaryStack title='My folders' icon='folder' cta={{ handleClose: () => {} }}>
          <>
-            <IconButton icon='add' type='2' link='/users/folders/new' />
+            <div className={styles.add}>
+               <IconButton icon='add' backgroundColor='2' link='/users/folders/new' />
+            </div>
 
             <SearchInput
                placeholder='Search folder'

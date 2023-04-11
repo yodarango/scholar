@@ -167,38 +167,25 @@ export const TextEditorActions = ({
 
             {includeIsPrivate && (
                <div className={styles.privacy}>
-                  {postIsPrivate && (
-                     <>
-                        <div className={styles.sideText}>
-                           <Parragraph text='Private' quiet={true} size='xsmall' bold={true} />
-                        </div>
-                        <IconButton
-                           icon='lockClosed'
-                           backgroundColor='2'
-                           cta={{
-                              handleClick: () => (
-                                 setpostIsPrivate(false), cta.handlePrivacySelection(false)
-                              )
-                           }}
+                  <>
+                     <div className={styles.sideText}>
+                        <Parragraph
+                           text={postIsPrivate ? "Private" : "Public"}
+                           quiet={true}
+                           size='xsmall'
+                           bold={true}
                         />
-                     </>
-                  )}
-                  {!postIsPrivate && (
-                     <>
-                        <div className={styles.sideText}>
-                           <Parragraph text='Public' quiet={true} size='xsmall' bold={true} />
-                        </div>
-                        <IconButton
-                           icon='lockOpen'
-                           backgroundColor='1'
-                           cta={{
-                              handleClick: () => (
-                                 setpostIsPrivate(true), cta.handlePrivacySelection(true)
-                              )
-                           }}
-                        />
-                     </>
-                  )}
+                     </div>
+                     <IconButton
+                        icon={postIsPrivate ? "lockClosed" : "lockOpen"}
+                        backgroundColor={postIsPrivate ? "2" : "1"}
+                        cta={{
+                           handleClick: () => (
+                              setpostIsPrivate(false), cta.handlePrivacySelection(!postIsPrivate)
+                           )
+                        }}
+                     />
+                  </>
                </div>
             )}
 

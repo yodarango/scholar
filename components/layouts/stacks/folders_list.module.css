@@ -5,3 +5,11 @@
 .folder {
    margin-bottom: var(--spacing-xs);
 }
+
+.add {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   margin-bottom: var(--spacing-m);
+   padding-right: var(--spacing-xxs);
+}
