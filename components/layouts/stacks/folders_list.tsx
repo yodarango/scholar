@@ -5,17 +5,16 @@ import { FolderCard } from "../../fragments/cards/folder_card";
 import { PrimaryStack } from "./templates/primary_stack";
 import styles from "./folders_list.module.css";
 import React, { useEffect, useState } from "react";
-import { useSwipeLeft } from "../../../hooks/use_swipe_left";
-import { AddContent } from "../../fragments/buttons/add_content";
 import { IconButton } from "../../fragments/buttons/icon_button";
+import { useRouter } from "next/router";
 
 type TFolderListProps = {
    isSelf?: boolean;
 };
 
 export const FolderList = ({ isSelf }: TFolderListProps) => {
+   const router = useRouter();
    const { data, status } = useGetFolders({ isSelf, query_type: "my-folders" });
-   const [openOptions, setopenOptions] = useState(false);
    const [folders, setFolders] = useState<any[] | null>([]);
 
    useEffect(() => {
@@ -30,12 +29,8 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
       setFolders(filteredFolders);
    };
 
-   const handleSwipeLeft = (delta: any) => setopenOptions(delta);
-
-   const handleSwipeRight = () => setopenOptions(false);
-
    return (
-      <PrimaryStack title='My folders' icon='folder' cta={{ handleClose: () => {} }}>
+      <PrimaryStack title='My folders' icon='folder' cta={{ handleClose: () => router.back() }}>
          <>
             <div className={styles.add}>
                <IconButton icon='add' backgroundColor='2' link='/users/folders/new' />
@@ -51,10 +46,7 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
                <div className={styles.foldersWrapper}>
                   {folders &&
                      folders.map((folder, i: number) => (
-                        <div
-                           key={i}
-                           className={styles.folder}
-                           onTouchStart={(e) => useSwipeLeft(e, handleSwipeLeft, handleSwipeRight)}>
+                        <div key={i} className={styles.folder}>
                            <FolderCard
                               thumbnail={folder.image}
                               folderName={folder.name}

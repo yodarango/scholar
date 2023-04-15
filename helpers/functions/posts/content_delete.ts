@@ -16,8 +16,6 @@ export const useDeleteContent = () => {
    const [data, setData] = useState<any>({ ID: null, error: null });
 
    const handleDelete = async (id: string | number, type: EnumContentType) => {
-      console.log(id, type);
-
       let CTYPE;
       switch (type) {
          case POST_TYPE_COMMENTARY:

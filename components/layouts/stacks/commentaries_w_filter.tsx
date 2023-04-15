@@ -28,10 +28,10 @@ type TCommentariesByBookProps = {
    };
 };
 
-const CURRENT_VIEW_COMMENTARIES_BY_GROUP = "by-group";
-const CURRENT_VIEW_BOOK_BY_FOLDER = "my-folders";
-const CURRENT_VIEW_BOOK_BY_BOOK = "by-book";
-const CURRENT_VIEW_COMMENTARIES = "";
+export const CURRENT_VIEW_COMMENTARIES_BY_GROUP = "by-group";
+export const CURRENT_VIEW_BOOK_BY_FOLDER = "my-folders";
+export const CURRENT_VIEW_BOOK_BY_BOOK = "by-book";
+export const CURRENT_VIEW_COMMENTARIES = "";
 
 export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
    // router

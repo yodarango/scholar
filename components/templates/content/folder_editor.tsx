@@ -83,7 +83,7 @@ export const FolderEditor = ({ isEdit = false }: TFolderProps) => {
                </PortalSecondary>
             )}
          </>
-         <PrimaryStack icon='folder' title='Edit folder' link='/users/folders'>
+         <PrimaryStack icon='folder' title='Edit folder' cta={{ handleClose: () => router.back() }}>
             <>
                {(status === "done" || !isEdit) && (
                   <>
@@ -92,8 +92,10 @@ export const FolderEditor = ({ isEdit = false }: TFolderProps) => {
                            <UnsplasImgPicker
                               cta={{
                                  handleCloseModal: () => setMenu(0),
-                                 handleImgSelection: (image) =>
-                                    setformData((prev) => prev && { ...prev, image })
+                                 handleImgSelection: (image) => {
+                                    setMenu(0);
+                                    setformData((prev) => prev && { ...prev, image });
+                                 }
                               }}
                            />
                         </div>

@@ -77,5 +77,12 @@ export const notificationMessages = {
       description: "A folder was saved successfully",
       title: "Folder saved!",
       body: "Your folder has been saved, start saving posts to it now!"
+   },
+   folderDeleted: {
+      id: 10,
+      type: "Success",
+      description: "A folder was deleted successfully",
+      title: "Content deleted!",
+      body: "Your folder and all posts that were in it were deleted"
    }
 };

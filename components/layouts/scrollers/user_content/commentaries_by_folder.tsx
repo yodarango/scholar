@@ -5,6 +5,7 @@ import { RoundLoader } from "../../../fragments/chunks/round_loader";
 
 import styles from "./commentaries_by_folder.module.css";
 import { SearchInput } from "../../../fragments/inputs/search_input";
+import { CURRENT_VIEW_BOOK_BY_BOOK } from "../../stacks/commentaries_w_filter";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -13,6 +14,7 @@ type TCommentariesByBookProps = {
       handleSelection: (id: string | number) => void;
    };
 };
+
 export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesByBookProps) => {
    const { data, status } = useGetFolders({ isSelf, query_type });
    const [filter, setFilter] = useState("");
@@ -53,12 +55,16 @@ export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesB
             folders &&
             folders.length > 0 &&
             folders.map((folder: any, i: number) => (
-               <div key={i} onClick={() => cta.handleSelection(folder.ID)}>
+               <div key={i}>
                   <FolderCard
                      ID={folder.ID}
                      folderName={folder.name}
                      postCount={folder.post_count}
                      thumbnail={folder.image}
+                     showEdit={query_type !== CURRENT_VIEW_BOOK_BY_BOOK}
+                     cta={{
+                        handleClick: () => cta.handleSelection(folder.ID)
+                     }}
                   />
                </div>
             ))}

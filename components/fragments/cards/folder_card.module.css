@@ -1,4 +1,9 @@
 .mainWrapper {
+   position: relative;
+}
+
+.cardWrapper {
+   position: relative;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -9,14 +14,13 @@
    margin-bottom: var(--spacing-xs);
 }
 
-.mainWrapper:hover {
-   cursor: pointer;
+.cardWrapper:hover {
    transition: transform 0.2s ease-in-out;
    transform: scale(0.99);
    box-shadow: none;
 }
 
-.mainWrapper > div:not(.postCount) {
+.cardWrapper > div:not(.postCount) {
    display: flex;
    align-items: center;
    justify-content: center;
@@ -31,12 +35,14 @@
    border-radius: 2rem;
    overflow: hidden;
    flex-shrink: 0;
+   cursor: pointer;
 }
 
 .folderName {
    height: 100%;
    width: 100%;
    padding: 0 var(--spacing-xs) 0 0;
+   cursor: pointer;
 }
 
 .folderName * {
@@ -47,24 +53,26 @@
    background-color: var(--third-color);
    display: flex;
    justify-content: center;
-   align-items: flex-start;
+   align-items: center;
    width: 5rem;
    height: 5rem;
    height: 100%;
    flex-shrink: 0;
    flex-wrap: wrap;
-   padding-bottom: 2rem;
 }
 
 .icon {
+   position: absolute;
    display: flex;
    align-items: center;
-   justify-content: center;
+   justify-content: flex-end;
    width: 100%;
    margin: 0;
+   padding-right: 1.5rem;
+   top: var(--spacing-xxs);
+   cursor: pointer;
 }
 
 .countInt {
    height: 2rem;
-   margin: 0 auto auto;
 }
