@@ -17,8 +17,6 @@ export const ChangeAvatar = ({ avatar, userAuthority = 1 }: TChangeAvatarProps) 
    const [avtr, setavtr] = useState<string>(avatar);
    const [showModal, setshowModal] = useState<boolean>(false);
 
-   console.log(avatar, userAuthority);
-
    return (
       <div className={styles.mainWrapper}>
          {showModal && (

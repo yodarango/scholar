@@ -11,8 +11,6 @@ export const getAllPolls = async () => {
          variables: {}
       });
 
-      console.log(data);
-
       if (all_polls) {
          all_polls.map((poll: any, index: number) => {
             // parse thumbs up polls

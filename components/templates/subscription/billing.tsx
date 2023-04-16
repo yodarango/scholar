@@ -41,7 +41,7 @@ export const BillingTemplate = () => {
       } catch (error) {
          setuserData(null);
          setloading("error");
-         console.log(error);
+         console.error(error);
       }
    };
 

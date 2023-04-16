@@ -26,7 +26,7 @@ export const deleteContentComment = async (id: string | number, type: EnumConten
       else if (data.delete_thought_comment) return data.delete_thought_comment;
       return "something went wrong";
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Error";
    }
 };

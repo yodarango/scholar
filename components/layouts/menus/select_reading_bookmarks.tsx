@@ -62,7 +62,7 @@ export const SelectReadingBookmarks = ({
       } catch (error) {
          setBookmarks([]);
          setloading("done");
-         console.log(error);
+         console.error(error);
       }
    };
 

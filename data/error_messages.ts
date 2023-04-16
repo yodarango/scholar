@@ -165,6 +165,13 @@ export const errorMessages = {
          description: "when a folder fails to save",
          title: "Folder not saved",
          body: "Sorry, the folder was not able to be saved, try again!"
+      },
+      failedToSaveToFolder: {
+         id: 11,
+         type: "error",
+         description: "when a post fails to be added to folder",
+         title: "Could not add post",
+         body: "Sorry, this post was not able to be added to the folder, try again later!"
       }
    },
    read: {

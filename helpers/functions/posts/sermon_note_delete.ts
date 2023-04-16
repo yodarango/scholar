@@ -14,7 +14,7 @@ export const handleDeleteSermonNote = async (id: string) => {
 
       return "Something went wrong!";
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Error";
    }
 };
@@ -35,7 +35,7 @@ export const handleDeleteSermonNoteFromDropBox = async (id: string, DROPBOX_ID: 
 
       return "Something went wrong";
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Error";
    }
 };

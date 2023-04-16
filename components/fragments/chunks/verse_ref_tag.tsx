@@ -52,7 +52,7 @@ export const VerseRefTag = ({ reference, versionId, showRemoveoption, cta }: TVe
             setshowNotificationCard("error");
          }
       } catch (error) {
-         console.log(error);
+         console.error(error);
          setLoading(false);
          setshowNotificationCard("error");
       }

@@ -41,7 +41,6 @@ export const TimeStamp = ({
    colorId,
    customFontColor
 }: TimeStampProps) => {
-   //console.log(niceTime, time);
    const formatedTime = calcElapsedTime(time);
 
    const [isOpenTimeStamp, setisOpenTimeStamp] = useState<boolean>(false);

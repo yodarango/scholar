@@ -44,7 +44,6 @@ export const TextEditorVerseSelection = ({
    renderButton,
    verseID
 }: TTextEditorVerseSelectionProps) => {
-   console.log(verseID);
    const [buttonTitle, setbuttonTitle] = useState<string>("");
    const [verseData, setverseData] = useState<null | TBibleVerse>(null);
    const [loading, setLoading] = useState<string>("loading");

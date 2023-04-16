@@ -11,7 +11,7 @@ export const useSwipeLeft: any = ({ e, handleSwipeLeft, handleSwipeRight }: Tuse
    function handleTouchMove(e: any) {
       touchMoveX = e.changedTouches[0].pageX;
       const deltaX = touchMoveX - touchStartX;
-      console.log(deltaX);
+
       if (deltaX < -50) {
          handleSwipeLeft(deltaX);
       } else if (deltaX > 50) {

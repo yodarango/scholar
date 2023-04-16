@@ -46,7 +46,7 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
       } catch (error) {
          setnotifications([]);
          setcanLoadMore("error");
-         console.log(error);
+         console.error(error);
       }
    };
 

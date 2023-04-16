@@ -28,7 +28,7 @@ export const handleEditThought = async (
          return errorMessages.posts.failToPostCommentary;
       }
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return errorMessages.posts.failToPostCommentary;
    }
 };

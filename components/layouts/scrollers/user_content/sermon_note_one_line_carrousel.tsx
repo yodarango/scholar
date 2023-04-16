@@ -42,7 +42,7 @@ export const SermonNoteOneLineCarrousel = ({
       try {
          const { data, status } = await handleGetSermonNotes(variables);
          data && setsermonNotesArr(data.sermon_note);
-         console.log(data);
+
          setloading(status);
       } catch (error) {
          console.error(error);

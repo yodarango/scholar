@@ -18,7 +18,7 @@ export const verifyEmail = async (email: string) => {
          return true;
       }
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return false;
    }
 };
@@ -38,7 +38,7 @@ export const verificationCode = async (code: string) => {
          return false;
       }
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return false;
    }
 };
@@ -59,7 +59,7 @@ export const changePassword = async (new_password: string, USER_ID: string | num
          return false;
       }
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return false;
    }
 };

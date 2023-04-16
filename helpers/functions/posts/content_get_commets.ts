@@ -41,7 +41,7 @@ export const getPostComments = async (
       else if (data.thought_comments) return { data: data.thought_comments, status: "done" };
       return { data: null, status: "error" };
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return { data: null, status: "error" };
    }
 };

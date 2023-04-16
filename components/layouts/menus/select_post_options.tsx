@@ -35,6 +35,9 @@ export type TSelectpostOptionsProps = {
    editOptionUrl?: string;
    showDeleteOption?: boolean;
    showReportOption?: boolean;
+   showSavetoFolderOption?: boolean;
+   folderId?: string;
+   folderName?: string;
    postid: string;
    postType: string;
    userId: string;
@@ -43,6 +46,7 @@ export type TSelectpostOptionsProps = {
       handleCloseModal: () => void;
       handleDelete: (id: string) => void;
       handleEdit?: (id: string) => void;
+      handleSaveToFolder: () => void;
    };
 };
 
@@ -53,10 +57,13 @@ export const SelectpostOptions = ({
    editOptionUrl,
    contentType,
    userId,
+   folderId,
+   folderName,
    showShareopton = true,
    showEditOption = true,
    showDeleteOption = true,
-   showReportOption = true
+   showReportOption = true,
+   showSavetoFolderOption = true
 }: TSelectpostOptionsProps) => {
    const [showNotification, setshowNotification] = useState<string>("none");
 
@@ -99,6 +106,7 @@ export const SelectpostOptions = ({
                cta={{ handleClose: () => setshowNotification("none") }}
             />
          )}
+
          <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
             <>
                {/* ------------- Report the post ------------ */}
@@ -108,7 +116,11 @@ export const SelectpostOptions = ({
                         type='1'
                         textType='text'
                         iconType='icon'
-                        cta={{ handleSelection: handleReport }}
+                        cta={{
+                           handleSelection: () => {
+                              handleReport();
+                           }
+                        }}
                         optionProperties={{
                            icon: <Icon name='warning' color='#F1EAFF' size='2rem' />,
                            iconShadow: "#F1EAFF",
@@ -129,7 +141,11 @@ export const SelectpostOptions = ({
                            iconShadow: FONT_COLOR,
                            text: "Share"
                         }}
-                        cta={{ handleOptionClick: handleSharePost }}
+                        cta={{
+                           handleOptionClick: () => {
+                              handleSharePost();
+                           }
+                        }}
                      />
                   </div>
                )}
@@ -169,9 +185,27 @@ export const SelectpostOptions = ({
                      )}
                   </div>
                )}
+               {/* save to folder */}
+               {showSavetoFolderOption && (
+                  <div className={styles.menuOption} key={4}>
+                     <MenuPrimaryOption
+                        textType='text'
+                        iconType='icon'
+                        optionProperties={{
+                           icon: <Icon name='folder' color={FONT_COLOR} size='2rem' />,
+                           iconShadow: FONT_COLOR,
+                           text: folderName ? `Saved in ${folderName}` : "Save to folder"
+                        }}
+                        cta={{
+                           handleOptionClick: cta.handleSaveToFolder
+                        }}
+                     />
+                  </div>
+               )}
+
                {/* ------------- delete the post ------------ */}
                {showDeleteOption && (
-                  <div className={styles.menuOption} key={4}>
+                  <div className={styles.menuOption} key={5}>
                      <MenuPrimaryOptionWithSubSelection
                         type='1'
                         textType='text'

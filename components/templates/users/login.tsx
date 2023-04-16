@@ -24,8 +24,11 @@ import { Notification } from "../../../components/fragments/popups/notification"
 import { useUserAuth } from "../../../hooks/use_user_auth";
 
 export default function LoginTemplate() {
-   const [notification, setnotification] =
-      useState<{ title: string; body: string; type: string } | null>(null);
+   const [notification, setnotification] = useState<{
+      title: string;
+      body: string;
+      type: string;
+   } | null>(null);
 
    const [data, setdata] = useState<{ signature: string; password: string }>({
       signature: "",
@@ -61,7 +64,7 @@ export default function LoginTemplate() {
                });
             }
          } catch (error) {
-            console.log(error);
+            console.error(error);
             setloading("error");
             setnotification({
                title: errorMessages.login.failToLogin.title,

@@ -12,7 +12,7 @@ const handleDeleteThought = async (id: string) => {
       }
       return "Something went wrong";
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Error";
    }
 };

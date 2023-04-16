@@ -84,3 +84,11 @@ export const NEW_FOLDER = gql`
       }
    }
 `;
+
+export const SAVE_TO_FOLDER = gql`
+   mutation ($folder_id: ID, $post_id: ID) {
+      save_to_folder(data: { folder_id: $folder_id, post_id: $post_id }) {
+         ID
+      }
+   }
+`;

@@ -10,9 +10,13 @@ import { useRouter } from "next/router";
 
 type TFolderListProps = {
    isSelf?: boolean;
+   cta?: {
+      handleFolderSelection?: (id: string | number) => void;
+      handleClose?: () => void;
+   };
 };
 
-export const FolderList = ({ isSelf }: TFolderListProps) => {
+export const FolderList = ({ isSelf, cta }: TFolderListProps) => {
    const router = useRouter();
    const { data, status } = useGetFolders({ isSelf, query_type: "my-folders" });
    const [folders, setFolders] = useState<any[] | null>([]);
@@ -30,7 +34,10 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
    };
 
    return (
-      <PrimaryStack title='My folders' icon='folder' cta={{ handleClose: () => router.back() }}>
+      <PrimaryStack
+         title='My folders'
+         icon='folder'
+         cta={{ handleClose: cta?.handleClose ? cta?.handleClose : () => router.back() }}>
          <>
             <div className={styles.add}>
                <IconButton icon='add' backgroundColor='2' link='/users/folders/new' />
@@ -48,6 +55,7 @@ export const FolderList = ({ isSelf }: TFolderListProps) => {
                      folders.map((folder, i: number) => (
                         <div key={i} className={styles.folder}>
                            <FolderCard
+                              cta={{ handleClick: cta?.handleFolderSelection }}
                               thumbnail={folder.image}
                               folderName={folder.name}
                               postCount={folder.post_count}

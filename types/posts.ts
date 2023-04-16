@@ -14,6 +14,8 @@ export type TCommentary = {
    post_image: string;
    is_private: boolean;
    authority_level: string;
+   folder_id: string;
+   folder_name: string;
    creator: {
       ID: string;
       signature: string;

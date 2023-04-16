@@ -4,7 +4,7 @@
    not by passign the withCategoryTag prop
 ***************************************************************************************************/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // comps
 import { Icon } from "./icons";
@@ -20,6 +20,9 @@ import styles from "./post_card_header.module.css";
 // type
 import { EnumContentType } from "../../../types/enums";
 import { FONT_COLOR } from "../../../constants/tokens";
+import { FolderList } from "../../layouts/stacks/folders_list";
+import { useSaveToFolders } from "../../../helpers/functions/folders/use_save_to_folder";
+import { Notification } from "../popups/notification";
 
 export type TCommentaryCardHeaderProps = {
    username: string;
@@ -28,6 +31,8 @@ export type TCommentaryCardHeaderProps = {
    postId: string;
    userAuthority: number;
    withCategoryTag?: string;
+   folderName?: string;
+   folderId?: string;
    postType: string;
    contentType: EnumContentType;
    fontColor?: string;
@@ -42,6 +47,9 @@ export type TCommentaryCardHeaderProps = {
       handleDelete: (id: string | number) => Promise<void>;
    };
 };
+
+const COMMENTARY_FOLDERS = 1;
+
 export const PostCardHeader = ({
    username,
    avatar,
@@ -49,6 +57,8 @@ export const PostCardHeader = ({
    postId,
    userAuthority,
    withCategoryTag,
+   folderId,
+   folderName,
    postType,
    contentType,
    fontColor,
@@ -58,6 +68,13 @@ export const PostCardHeader = ({
 }: TCommentaryCardHeaderProps) => {
    // state
    const [showPostOptions, setshowPostOptions] = useState<boolean>(false);
+   const { status, data, save } = useSaveToFolders();
+   const [showModal, setshowModal] = useState<number>(0);
+   const [notification, setnotification] = useState<{
+      type: string;
+      title: string;
+      body: string;
+   } | null>(null);
 
    // handle action: pass ID to parent and hide menu
    const handleDelete = (id: string) => {
@@ -65,74 +82,115 @@ export const PostCardHeader = ({
       cta.handleDelete(id);
    };
 
+   const handleSaveToFolder = (id: string | number) => {
+      setshowModal(0);
+      save({ folder_id: id, post_id: postId });
+   };
+
+   useEffect(() => {
+      if (status)
+         setnotification({
+            type: status.type || "",
+            title: status.title || "",
+            body: status.body || ""
+         });
+   }, [status, data]);
+
    return (
-      <div className={styles.mainWrapper}>
-         <Portal>
-            {showPostOptions && (
-               <SelectpostOptions
-                  postid={postId}
-                  postType={postType}
-                  userId={userId}
-                  contentType={contentType}
-                  showShareopton={postSettingsOptions?.showShareopton}
-                  showEditOption={postSettingsOptions?.showEditOption}
-                  showDeleteOption={postSettingsOptions?.showDeleteOption}
-                  showReportOption={postSettingsOptions?.showReportOption}
-                  cta={{
-                     handleCloseModal: () => setshowPostOptions(false),
-                     handleDelete
-                  }}
-               />
+      <>
+         {showModal === COMMENTARY_FOLDERS && (
+            <FolderList
+               isSelf
+               cta={{
+                  handleFolderSelection: handleSaveToFolder
+               }}
+            />
+         )}
+
+         <div className={styles.mainWrapper}>
+            <Portal>
+               {notification && (
+                  <Notification
+                     type={notification.type}
+                     title={notification.title}
+                     body={notification.body}
+                     cta={{
+                        handleClose: () => setnotification(null)
+                     }}
+                  />
+               )}
+               {showPostOptions && (
+                  <SelectpostOptions
+                     postid={postId}
+                     postType={postType}
+                     userId={userId}
+                     contentType={contentType}
+                     folderName={folderName}
+                     folderId={folderId}
+                     showShareopton={postSettingsOptions?.showShareopton}
+                     showEditOption={postSettingsOptions?.showEditOption}
+                     showDeleteOption={postSettingsOptions?.showDeleteOption}
+                     showReportOption={postSettingsOptions?.showReportOption}
+                     cta={{
+                        handleSaveToFolder: () => {
+                           setshowModal(COMMENTARY_FOLDERS);
+                           setshowPostOptions(false);
+                        },
+                        handleCloseModal: () => setshowPostOptions(false),
+                        handleDelete
+                     }}
+                  />
+               )}
+            </Portal>
+            <div className={styles.user}>
+               {fontColor && (
+                  <UserAvatarWUsername
+                     username={username}
+                     userId={userId}
+                     avatarSrc={avatar}
+                     quiet={false}
+                     userAuthority={userAuthority}
+                     avatarSize='2rem'
+                     fontColor={fontColor}
+                  />
+               )}
+               {!fontColor && (
+                  <UserAvatarWUsername
+                     username={username}
+                     userId={userId}
+                     avatarSrc={avatar}
+                     quiet={false}
+                     userAuthority={userAuthority}
+                     avatarSize='2rem'
+                  />
+               )}
+            </div>
+
+            <div className={styles.icon} onClick={() => setshowPostOptions(!showPostOptions)}>
+               <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : FONT_COLOR} />
+            </div>
+
+            {/*  include / exclude category tag   */}
+            {withCategoryTag && (
+               <div className={styles.category}>
+                  <CategoryTag
+                     id={withCategoryTag}
+                     informativeOnly={true}
+                     customSize={true}
+                     customBorderRadius='.5em'
+                  />
+               </div>
             )}
-         </Portal>
-         <div className={styles.user}>
-            {fontColor && (
-               <UserAvatarWUsername
-                  username={username}
-                  userId={userId}
-                  avatarSrc={avatar}
-                  quiet={false}
-                  userAuthority={userAuthority}
-                  avatarSize='2rem'
-                  fontColor={fontColor}
-               />
-            )}
-            {!fontColor && (
-               <UserAvatarWUsername
-                  username={username}
-                  userId={userId}
-                  avatarSrc={avatar}
-                  quiet={false}
-                  userAuthority={userAuthority}
-                  avatarSize='2rem'
-               />
+            {widthTimeStamp && (
+               <div className={styles.timeStamp}>
+                  <TimeStamp
+                     time={widthTimeStamp.time}
+                     niceTime={widthTimeStamp.niceTime}
+                     quiet={widthTimeStamp.quiet}
+                  />
+               </div>
             )}
          </div>
-
-         <div className={styles.icon} onClick={() => setshowPostOptions(true)}>
-            <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : FONT_COLOR} />
-         </div>
-
-         {/*  include / exclude category tag   */}
-         {withCategoryTag && (
-            <div className={styles.category}>
-               <CategoryTag
-                  id={withCategoryTag}
-                  informativeOnly={true}
-                  customSize={true}
-                  customBorderRadius='.5em'
-               />
-            </div>
-         )}
-         {widthTimeStamp && (
-            <div className={styles.timeStamp}>
-               <TimeStamp
-                  time={widthTimeStamp.time}
-                  niceTime={widthTimeStamp.niceTime}
-                  quiet={widthTimeStamp.quiet}
-               />
-            </div>
-         )}
-      </div>
+      </>
    );
 };

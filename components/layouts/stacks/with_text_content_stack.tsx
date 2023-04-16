@@ -65,7 +65,6 @@ export const WithTextContentStack = ({
    noResize,
    postReferences
 }: TPrimaryStackprops) => {
-   console.log(postReferences);
    // state
    const [showVerseReferences, setshowVerseReferences] = useState(false);
    const [contentWrapperClass, setcontentWrapperClass] =

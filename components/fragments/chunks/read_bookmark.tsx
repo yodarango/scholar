@@ -61,7 +61,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
             setbookMarked(data.bookmarks.length > 0);
          }
       } catch (error) {
-         console.log(error);
+         console.error(error);
       }
    };
 

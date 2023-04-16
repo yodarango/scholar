@@ -56,6 +56,7 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                />
             </Portal>
          )}
+
          {!isDeleted && (
             <div
                className={`${styles.mainWrapper} ${customWidth && styles.mainWrapperCustomWidth}`}
@@ -74,6 +75,8 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                      postId={commentary?.ID}
                      postType='commentary'
                      contentType={EnumContentType.commentary}
+                     folderId={commentary?.folder_id}
+                     folderName={commentary?.folder_name}
                   />
                </div>
 

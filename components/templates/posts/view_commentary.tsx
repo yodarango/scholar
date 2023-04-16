@@ -25,7 +25,6 @@ export const ViewCommentary = () => {
          const { data, status } = await handleGetCommentaries(variables);
          if (data) setcommentary(data[0]);
 
-         console.log(data);
          setloading(status);
       } catch (error) {
          setloading("error");

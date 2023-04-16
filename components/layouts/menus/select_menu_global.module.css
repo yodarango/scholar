@@ -19,3 +19,8 @@
 .bookmarkMainWrapper {
    min-height: 22rem;
 }
+
+.folderWrapper {
+   position: relative;
+   z-index: 17;
+}

@@ -33,7 +33,7 @@ export const reportCommentary = async (variables: TreportCommentary, type: EnumC
 
       return false;
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Error";
    }
 };

@@ -20,7 +20,7 @@ export const fetchBibleChapter = async (
          const response = await request.json();
          return response.data;
       } catch (error) {
-         console.log(error);
+         console.error(error);
          return undefined;
       }
    }

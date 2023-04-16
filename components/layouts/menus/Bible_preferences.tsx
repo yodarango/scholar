@@ -22,9 +22,6 @@ export const BiblePreferences = () => {
       if (localStorage && localStorage.getItem("reading-preferences")) {
          // const prefs = localStorage.getitem("reading-preferences");
          // let parsedPrefs: TBiblePreferences = JSON.parse(prefs);
-
-         console.log(localStorage);
-
          // set the new values
          //setBiblePreferences(parsedPrefs);
       } else {

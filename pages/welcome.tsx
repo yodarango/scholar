@@ -16,8 +16,9 @@ type newuserProps = {
 };
 
 const Welcome = ({ acceptedIntroTerms }: newuserProps) => {
-   const [notificationPopUpState, setNotificationPopUpState] =
-      useState<boolean | JSX.Element>(false);
+   const [notificationPopUpState, setNotificationPopUpState] = useState<boolean | JSX.Element>(
+      false
+   );
 
    //============= FUNCTION: handle the acceptrance of intro terms
    const acceptIntroInstructions = async () => {
@@ -39,7 +40,7 @@ const Welcome = ({ acceptedIntroTerms }: newuserProps) => {
             );
          }
       } catch (error) {
-         console.log(error);
+         console.error(error);
          setNotificationPopUpState(
             <NotificationPopup
                closeModal={() => setNotificationPopUpState(false)}

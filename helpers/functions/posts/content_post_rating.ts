@@ -23,7 +23,7 @@ export const rateContent = async (variables: TrateContent, contentType: EnumCont
       }
       return { data: null, status: "error" };
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return { data: null, status: "error" };
    }
 };

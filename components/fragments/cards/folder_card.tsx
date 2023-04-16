@@ -20,7 +20,7 @@ type FolderCardProps = {
    postCount: number | string;
    showEdit?: boolean;
    cta?: {
-      handleClick: () => void;
+      handleClick?: (id: string | number) => void;
    };
    ID: string | number;
 };
@@ -46,7 +46,6 @@ export const FolderCard = ({
 
    const isFirstLoad = useRef(1);
    useEffect(() => {
-      console.log(isFirstLoad.current, data);
       if (isFirstLoad.current >= 2) {
          if (data && data.ID) {
             setisDeleted(true);
@@ -101,7 +100,10 @@ export const FolderCard = ({
                <div className={`shadow-s ${style.cardWrapper} ${className}`}>
                   <div
                      className={style.imageWrapper}
-                     onClick={cta ? cta.handleClick : () => router.push(`/users/folders/${ID}`)}>
+                     onClick={() => {
+                        if (cta?.handleClick) cta.handleClick(ID);
+                        else router.push(`/users/folders/${ID}`);
+                     }}>
                      {thumbnail && (
                         <Image
                            src={thumbnail}
@@ -113,7 +115,10 @@ export const FolderCard = ({
                   </div>
                   <div
                      className={style.folderName}
-                     onClick={cta ? cta.handleClick : () => router.push(`/users/folders/${ID}`)}>
+                     onClick={() => {
+                        if (cta?.handleClick) cta.handleClick(ID);
+                        else router.push(`/users/folders/${ID}`);
+                     }}>
                      <Parragraph text={folderName} size='main' />
                   </div>
 

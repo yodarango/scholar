@@ -23,8 +23,6 @@ export const CommentaryFilter = () => {
       }
    }, [router.isReady, router.query]);
 
-   //   console.log(buttonActive);
-
    const handleFilter = (AUTHORITY_LEVEL: number) => {
       router.push({
          pathname: router.pathname,

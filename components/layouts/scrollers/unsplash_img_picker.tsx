@@ -60,7 +60,7 @@ export const UnsplasImgPicker = ({ cta }: TUnsplasImgPickerProps) => {
          // reset loaders
          setloading("error");
          setloadingAfterFetch("");
-         console.log(error);
+         console.error(error);
       }
    };
 

@@ -28,7 +28,6 @@ const GoPro = () => {
             query: CHECK_IF_PATRON_ACCOUNT
          });
 
-         console.log(data);
          if (data.user_has_stripe_account > 0) {
             router.replace("/subscription/billing");
          } else if (data.user_has_stripe_account === 0) {
@@ -39,7 +38,7 @@ const GoPro = () => {
             setLoadingState("error");
          }
       } catch (error) {
-         console.log(error);
+         console.error(error);
          setLoadingState("error");
       }
    };

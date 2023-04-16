@@ -23,7 +23,7 @@ export const fetchBibleVerse = async (
          }
          return null;
       } catch (error) {
-         console.log(error);
+         console.error(error);
          return null;
       }
    }

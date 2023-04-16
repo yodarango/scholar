@@ -51,7 +51,6 @@ export const ThoughtsOneLineCarrousel = ({
 
    // fetch data
    const fetchData = async (variables: TgetThoughtsVariables) => {
-      console.log(router);
       try {
          const { data, status } = await handleGetThoughts(variables);
          data && setThoughtsArr(data);

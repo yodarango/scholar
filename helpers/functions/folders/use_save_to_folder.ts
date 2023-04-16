@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { TFolderData } from "./use_get_folder";
 import { client } from "../../../apollo-client";
-import { EDIT_FOLDER, NEW_FOLDER } from "../../../graphql/posts/folders";
+import { EDIT_FOLDER, NEW_FOLDER, SAVE_TO_FOLDER } from "../../../graphql/posts/folders";
 import { errorMessages } from "../../../data/error_messages";
 import { notificationMessages } from "../../../data/notification_messages";
 
-export const useSaveFolder = (isEdit: boolean) => {
+type TSaveToFolder = { folder_id: string | number; post_id: string | number };
+export const useSaveToFolders = () => {
    const [data, setdata] = useState(null);
    const [status, setstatus] = useState<{
       title?: string;
@@ -14,34 +15,22 @@ export const useSaveFolder = (isEdit: boolean) => {
       status: string;
    }>({ status: "none" });
 
-   const QUERY = isEdit ? EDIT_FOLDER : NEW_FOLDER;
-
-   const save = async (variables: TFolderData) => {
+   const save = async (variables: TSaveToFolder) => {
       // validate input
-      if (!variables.name || variables.is_private === undefined || variables.is_private === null) {
-         setstatus({
-            title: errorMessages.forms.missingFormFields.title,
-            body: errorMessages.forms.missingFormFields.body,
-            type: "4",
-            status: errorMessages.forms.missingFormFields.type
-         });
-         setdata(null);
-         return;
-      }
       setstatus({ status: "loading" });
       try {
          const { data } = await client.mutate({
-            mutation: QUERY,
+            mutation: SAVE_TO_FOLDER,
             variables
          });
 
-         if (data.new_folder || data.edit_folder) {
+         if (data.save_to_folder) {
             setdata(data.save_folder || data.edit_folder);
             setstatus({
-               title: notificationMessages.folderSaved.title,
-               body: notificationMessages.folderSaved.body,
+               title: notificationMessages.savedToFolder.title,
+               body: notificationMessages.savedToFolder.body,
                type: "2",
-               status: notificationMessages.folderSaved.type
+               status: notificationMessages.savedToFolder.type
             });
          } else {
             setstatus({

@@ -44,7 +44,7 @@ export const VideoThumbnailPrimary = ({ content }: TVideoThumbnailPrimaryProps) 
             setloading("error");
          }
       } catch (error) {
-         console.log(error);
+         console.error(error);
          setloading("error");
       }
    };

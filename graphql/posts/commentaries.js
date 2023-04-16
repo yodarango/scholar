@@ -39,6 +39,8 @@ export const GET_COMMENTARIES = gql`
          approval_rating
          authority_level
          avatar
+         folder_id
+         folder_name
          total_comment_count
          average_rating_count
          total_rating_count
