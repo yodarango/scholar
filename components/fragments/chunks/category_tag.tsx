@@ -77,9 +77,10 @@ export const CategoryTag = ({
       cta?.handleSelection(id);
    };
 
-   useEffect(() => {
-      handleSelection(id || "");
-   }, []);
+   // i disabled this, check why i wrote this in the first place
+   // useEffect(() => {
+   //    handleSelection(id || "");
+   // }, []);
 
    return (
       <>

@@ -20,6 +20,7 @@ import { Dropdown } from "../../fragments/inputs/dropdown";
 import { SelectCommentaryGroups } from "../menus/select_commentary_groups";
 import { CommentariesByFolder } from "../scrollers/user_content/commentaries_by_folder";
 import { BackLink } from "../../fragments/buttons/back_link";
+import { parseRouter } from "../../../helpers/utils/parse_next_router";
 
 type TCommentariesByBookProps = {
    isSelf?: boolean;
@@ -60,7 +61,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    // when the user clicks folder or tag: push new category tag to the router
    const handleFilterSelection = (query: any) => {
       // parse the pathname
-      const parsedRouter = parseRouter(router.pathname, router);
+      const parsedRouter = parseRouter(router.pathname, router, "signature");
       const variables = { ...parsedRouter.query, ...query };
 
       /****************************************************************************
@@ -89,7 +90,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 
       if (value !== "all") query["group"] = value;
 
-      const parsedRouter = parseRouter(router.pathname, router);
+      const parsedRouter = parseRouter(router.pathname, router, "signature");
 
       settagFilter("*");
       router.push({
@@ -226,24 +227,3 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
       </PrimaryStack>
    );
 };
-
-function parseRouter(pathname: string, router: any) {
-   let path: string = "";
-   if (
-      pathname.includes("[signature]") &&
-      router?.query?.signature &&
-      typeof router?.query?.signature === "string"
-   ) {
-      path = router.pathname.replace("[signature]", router.query.signature);
-
-      delete router.query.signature;
-      router.pathname = path;
-
-      return router;
-   } else {
-      path = router.pathname.replace("[id]", "id");
-      delete router.query.id;
-      router.pathname = path;
-      return router;
-   }
-}

@@ -33,13 +33,15 @@ type TCommentariesGridProps = {
    verseCitation?: string;
    verse?: string;
    isSelf?: boolean;
+   folderId?: string;
 };
 
 export const CommentariesGrid = ({
    isSelf,
    verseId,
    verseCitation,
-   verse
+   verse,
+   folderId
 }: TCommentariesGridProps) => {
    // router
    const router = useRouter();
@@ -51,7 +53,8 @@ export const CommentariesGrid = ({
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       last_id: CONTENT_LAST_ID,
-      isSelf: isSelf
+      isSelf: isSelf,
+      FOLDER_ID: folderId
    });
 
    // fetch data on first time loading. Only runs on first load
@@ -74,8 +77,10 @@ export const CommentariesGrid = ({
          if (data) {
             if (isLoadMore) setcommentaries((prev) => [...prev, ...data]);
             else setcommentaries(data);
+
+            // if there were commentaries returned, update the last_id
             data.length > 0 &&
-               setqueryVariables({ last_id: data[data.length - 1].ID, isSelf: isSelf });
+               setqueryVariables((prev) => ({ ...prev, last_id: data[data.length - 1].ID }));
 
             data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
@@ -100,7 +105,12 @@ export const CommentariesGrid = ({
       // since the folder's view changes the router prevent it from fetching commentaries
       const isFoldersView = router?.query["group"] ? true : false;
       if (router.isReady && !isMounted && !isFoldersView) {
-         fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+         const vars: any = { last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query };
+
+         // if the folderId is passed from the parent comp rather than from the query
+         if (folderId) vars["folder"] = folderId;
+
+         fetchData(vars, false);
       }
       return () => {
          isMounted = true;
