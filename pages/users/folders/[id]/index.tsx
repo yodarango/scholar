@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
-import { CommentariesWFilter } from "../../../../components/layouts/stacks/commentaries_w_filter";
 import { useRouter } from "next/router";
 import { CommentariesGrid } from "../../../../components/layouts/scrollers/user_content/commentaries_grid";
 import { CategoryTag } from "../../../../components/fragments/chunks/category_tag";
-import { parseRouter } from "../../../../helpers/utils/parse_next_router";
 
 const Index = () => {
    const router = useRouter();
