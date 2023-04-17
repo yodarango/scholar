@@ -228,16 +228,23 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 };
 
 function parseRouter(pathname: string, router: any) {
+   console.log(pathname, router);
    let path: string = "";
    if (
       pathname.includes("[signature]") &&
       router?.query?.signature &&
       typeof router?.query?.signature === "string"
-   )
+   ) {
       path = router.pathname.replace("[signature]", router.query.signature);
 
-   delete router.query.signature;
-   router.pathname = path;
+      delete router.query.signature;
+      router.pathname = path;
 
-   return router;
+      return router;
+   } else {
+      path = router.pathname.replace("[id]", "id");
+      delete router.query.id;
+      router.pathname = path;
+      return router;
+   }
 }
