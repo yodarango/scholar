@@ -55,44 +55,51 @@ export const handleGetCommentariesIn24 = async () => {
    }
 };
 
-export const handleGetCommentaries = async (variables: TgetcommentariesVariables) => {
+// prevents useEffect from making multiple calls
+let preventMultipleCall = false;
+export const handleGetCommentaries: any = async (variables: TgetcommentariesVariables) => {
    if (variables.AUTHORITY_LEVEL && typeof variables.AUTHORITY_LEVEL === "string") {
       variables.AUTHORITY_LEVEL = parseInt(variables.AUTHORITY_LEVEL);
    }
 
    try {
-      const { data } = await client.query({
-         query: GET_COMMENTARIES,
-         variables
-      });
+      if (!preventMultipleCall) {
+         preventMultipleCall = true;
+         const { data } = await client.query({
+            query: GET_COMMENTARIES,
+            variables
+         });
 
-      if (!data.commentary) {
-         return { data: null, status: "error" };
-      }
+         if (!data.commentary) {
+            preventMultipleCall = false;
+            return { data: null, status: "error" };
+         } else {
+            //  format the data into commentary: { user:{}}
+            const commentaries = data.commentary.map((c: any) => ({
+               ...c,
+               creator: {
+                  ID: c.USER_ID,
+                  signature: c.signature,
+                  authority_level: c.authority_level,
+                  approval_rating: c.approval_rating,
+                  first_name: c.first_name,
+                  last_name: c.last_name,
+                  my_church: c.my_church,
+                  avatar: c.avatar
+               },
+               comments: {
+                  total_count: c.total_comment_count
+               },
+               approvals: {
+                  average_count: c.average_rating_count,
+                  total_count: c.total_rating_count
+               }
+            }));
 
-      //  format the data into commentary: { user:{}}
-      const commentaries = data.commentary.map((c: any) => ({
-         ...c,
-         creator: {
-            ID: c.USER_ID,
-            signature: c.signature,
-            authority_level: c.authority_level,
-            approval_rating: c.approval_rating,
-            first_name: c.first_name,
-            last_name: c.last_name,
-            my_church: c.my_church,
-            avatar: c.avatar
-         },
-         comments: {
-            total_count: c.total_comment_count
-         },
-         approvals: {
-            average_count: c.average_rating_count,
-            total_count: c.total_rating_count
+            preventMultipleCall = false;
+            return { data: commentaries, status: "done" };
          }
-      }));
-
-      return { data: commentaries, status: "done" };
+      }
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

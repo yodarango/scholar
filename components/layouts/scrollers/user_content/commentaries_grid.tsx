@@ -97,8 +97,11 @@ export const CommentariesGrid = ({
    useEffect(() => {
       let isMounted = false;
 
-      if (router.isReady && !isMounted)
+      // since the folder's view changes the router prevent it from fetching commentaries
+      const isFoldersView = router?.query["group"] ? true : false;
+      if (router.isReady && !isMounted && !isFoldersView) {
          fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+      }
       return () => {
          isMounted = true;
       };

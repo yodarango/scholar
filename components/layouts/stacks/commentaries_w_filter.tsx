@@ -228,7 +228,6 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
 };
 
 function parseRouter(pathname: string, router: any) {
-   console.log(pathname, router);
    let path: string = "";
    if (
       pathname.includes("[signature]") &&
