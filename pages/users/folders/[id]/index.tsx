@@ -3,6 +3,11 @@ import styles from "./index.module.css";
 import { useRouter } from "next/router";
 import { CommentariesGrid } from "../../../../components/layouts/scrollers/user_content/commentaries_grid";
 import { CategoryTag } from "../../../../components/fragments/chunks/category_tag";
+import { PrimaryStack } from "../../../../components/layouts/stacks/templates/primary_stack";
+import { SecondaryStack } from "../../../../components/layouts/stacks/templates/secondary_stack";
+import { TeritaryStack } from "../../../../components/layouts/stacks/templates/teritary_stack";
+import { FourthStack } from "../../../../components/layouts/stacks/templates/fourth_stack";
+import { HeaderWithImgBkg } from "../../../../components/layouts/stacks/templates/header_with_img_bkg";
 
 const Index = () => {
    const router = useRouter();
@@ -34,18 +39,20 @@ const Index = () => {
    }, [router.isReady, router.query]);
 
    return (
-      <div className={styles.mainWrapper}>
-         <div className={styles.tag}>
-            <CategoryTag
-               initiaValue={tagFilter}
-               cta={{
-                  handleSelection: (val) => handleFilterSelection({ category: val })
-               }}
-               informativeOnly={false}
-            />
+      <HeaderWithImgBkg image='' title=''>
+         <div className={styles.mainWrapper}>
+            <div className={styles.tag}>
+               <CategoryTag
+                  initiaValue={tagFilter}
+                  cta={{
+                     handleSelection: (val) => handleFilterSelection({ category: val })
+                  }}
+                  informativeOnly={false}
+               />
+            </div>
+            <CommentariesGrid isSelf={isSelf} folderId={folderId} />
          </div>
-         <CommentariesGrid isSelf={isSelf} folderId={folderId} />
-      </div>
+      </HeaderWithImgBkg>
    );
 };
 

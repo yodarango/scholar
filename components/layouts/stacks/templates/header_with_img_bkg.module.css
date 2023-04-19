@@ -1,0 +1,47 @@
+.mainWrapper {
+   width: 100%;
+   background-color: var(--primary-color);
+}
+
+.imgBkg {
+   position: fixed;
+   top: 0;
+   right: 0;
+   z-index: 3;
+   height: 19rem;
+   width: 100%;
+   background-position: center;
+   background-size: cover;
+   padding: var(--spacing-l) var(--spacing-l) 0;
+}
+
+.info {
+   position: relative;
+   z-index: 1;
+}
+
+.subWrapper {
+   width: 100%;
+   z-index: 2;
+   position: relative;
+   top: 16.5rem;
+   border-top-left-radius: 2.5em;
+   border-top-right-radius: 2.5em;
+   background-color: var(--primary-color);
+}
+
+.close {
+   z-index: 2;
+   position: fixed;
+   top: var(--spacing-ml);
+   right: var(--spacing-ml);
+}
+
+.menu {
+   z-index: 2;
+   width: 3.5rem;
+   height: 3.5rem;
+   position: fixed;
+   top: calc(var(--spacing-ml) + 3.5rem);
+   right: var(--spacing-ml);
+}

@@ -36,6 +36,10 @@ export const IconButton = ({
    cta,
    shadowColor = "1"
 }: TIconButtonProps) => {
+   const addStyles: any = {};
+
+   if (shadowColor && shadowColor !== "1" && shadowColor !== "2")
+      addStyles.boxShadow = `.2rem .2rem .2rem ${shadowColor}`;
    return (
       <>
          {backgroundColor === "1" &&
@@ -66,6 +70,7 @@ export const IconButton = ({
          {backgroundColor === "2" &&
             (!link ? (
                <button
+                  style={addStyles}
                   type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
@@ -78,6 +83,7 @@ export const IconButton = ({
             ) : (
                <Link href={link ? link : "#"}>
                   <a
+                     style={addStyles}
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.secondary} ${
@@ -96,7 +102,7 @@ export const IconButton = ({
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                  style={{ backgroundColor }}
+                  style={{ backgroundColor, ...addStyles }}
                   onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
@@ -106,7 +112,7 @@ export const IconButton = ({
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                     style={{ backgroundColor }}>
+                     style={{ backgroundColor, ...addStyles }}>
                      <Icon name={icon} color={iconColor} size={iconSize} />
                   </a>
                </Link>
