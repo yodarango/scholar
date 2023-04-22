@@ -15,6 +15,8 @@ type TParragraphProps = {
    lineHieght?: string;
    quiet?: boolean;
    href?: string;
+   className?: string;
+   style?: any;
 };
 
 export const Parragraph = ({
@@ -27,6 +29,8 @@ export const Parragraph = ({
    italics,
    bold,
    lineHieght,
+   className,
+   style,
    href
 }: TParragraphProps) => {
    // states
@@ -77,7 +81,9 @@ export const Parragraph = ({
    }
 
    return (
-      <div style={{ color: color }} className={inline ? styles.inline : ""}>
+      <div
+         style={{ color: color, ...style }}
+         className={`${className} ${inline ? styles.inline : ""}`}>
          {!inline &&
             !italics &&
             !bold &&

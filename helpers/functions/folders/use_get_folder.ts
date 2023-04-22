@@ -10,7 +10,7 @@ export type TFolderData = {
    color: string;
 };
 
-export const useGetFolder = (ID: string | number | null) => {
+export const useGetFolder = (ID: string | number | undefined) => {
    const [status, setStatus] = useState("loading");
    const [data, setdata] = useState<TFolderData | null>(null);
 

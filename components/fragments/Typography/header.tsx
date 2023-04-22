@@ -8,6 +8,8 @@ type THeaderProps = {
    size: string;
    type: number;
    text: string | number | JSX.Element;
+   className?: string;
+   style?: any;
    weight?: number;
 };
 
@@ -19,6 +21,8 @@ export const Header = ({
    color,
    align,
    text,
+   style,
+   className,
    lineHieght
 }: THeaderProps) => {
    // defaults
@@ -86,7 +90,7 @@ export const Header = ({
    }
 
    return (
-      <div style={{ color: color }}>
+      <div style={{ color: color, ...style }} className={className}>
          {type === 1 && (
             <h1
                className={`${styles.header} ${fontAlign} ${fontSize} ${fontWeight} ${fontColor}`}

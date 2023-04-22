@@ -21,9 +21,10 @@
       "**/*.tsx",
       "graphql/GetSermonNotes.js",
       "graphql/home/commentaries.js",
-      "hoc/potal.js", //"stories/fragments/chunks/card_timer.stories.mdx"
+      "hoc/portal.js", //"stories/fragments/chunks/card_timer.stories.mdx"
       "fragments/feedback/confetti.jsx",
-      "fragments/feedback/confetti.js"
+      "fragments/feedback/confetti.js",
+      "components/hoc/portal_ternary.js"
    ],
    "exclude": ["node_modules"]
 }

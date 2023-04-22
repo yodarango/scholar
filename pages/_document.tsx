@@ -10,6 +10,8 @@ export default class MyDocument extends Document {
                <div id='myportal' style={{ position: "relative", zIndex: 10 }} />
                {/* this is for modals where absolute position is needed */}
                <div id='myportal_secondary' style={{ position: "fixed", zIndex: 13, top: 0 }} />
+               {/* reserved for navigation only */}
+               <div id='myportal_ternary' style={{ position: "fixed", zIndex: 16, top: 0 }} />
                <NextScript />
             </body>
          </Html>

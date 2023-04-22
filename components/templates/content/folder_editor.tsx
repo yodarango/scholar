@@ -27,7 +27,7 @@ const MENU_IMAGE_PICKER = 1;
 const MENU_COLOR_PICKER = 2;
 
 export const FolderEditor = ({ isEdit = false }: TFolderProps) => {
-   const [ID, setID] = useState<null | string>(null);
+   const [ID, setID] = useState<undefined | string>(undefined);
    const [notification, setnotification] = useState<{
       title?: string;
       body?: string;

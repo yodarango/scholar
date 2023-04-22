@@ -3,45 +3,86 @@
    background-color: var(--primary-color);
 }
 
-.imgBkg {
-   position: fixed;
+.imgBkgWrapper {
+   position: relative;
    top: 0;
    right: 0;
    z-index: 3;
    height: 19rem;
    width: 100%;
-   background-position: center;
-   background-size: cover;
+   background-color: var(--primary-color);
    padding: var(--spacing-l) var(--spacing-l) 0;
 }
 
-.info {
+.imgBkg {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   z-index: 0;
+   background-position: center;
+   background-size: cover;
+}
+
+.bottomTrim {
+   width: 100%;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   border-top-right-radius: 3em;
+   border-top-left-radius: 3rem;
+   height: 5rem;
+   z-index: 4;
+   background-color: var(--primary-color);
+}
+
+.headerInfo {
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.title {
    position: relative;
    z-index: 1;
+   margin-bottom: var(--spacing-xs);
+}
+
+.headerText {
+   width: 100%;
 }
 
 .subWrapper {
    width: 100%;
    z-index: 2;
    position: relative;
-   top: 16.5rem;
+   top: calc(17rem + var(--spacing-ml));
    border-top-left-radius: 2.5em;
    border-top-right-radius: 2.5em;
    background-color: var(--primary-color);
+   transition: top 500ms ease-out;
 }
 
 .close {
    z-index: 2;
-   position: fixed;
+   position: relative;
    top: var(--spacing-ml);
    right: var(--spacing-ml);
 }
 
-.menu {
+.options {
+   margin-left: var(--spacing-s);
+   flex-shrink: 0;
+}
+
+.options > div {
+   position: relative;
    z-index: 2;
-   width: 3.5rem;
-   height: 3.5rem;
-   position: fixed;
-   top: calc(var(--spacing-ml) + 3.5rem);
-   right: var(--spacing-ml);
+   margin-bottom: var(--spacing-xs);
+}
+
+.moveUp {
+   top: 5rem;
+   transition: top 500ms ease-out;
 }

@@ -1,0 +1,13 @@
+.commentariesGrid {
+   width: 90%;
+   margin: auto;
+   max-width: var(--main-wrapper-max-width);
+}
+
+.description {
+   margin-bottom: var(--spacing-s);
+}
+
+.title .header {
+   padding-left: var(--spacing-ml);
+}
