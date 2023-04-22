@@ -8,7 +8,7 @@
  /****************************************************************************************/
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -22,24 +22,40 @@ import styles from "./select_menu_global.module.css";
 
 import { EnumContentType } from "../../../types/enums";
 import { DANGER_COLOR_SECONDARY, FONT_COLOR } from "../../../constants/tokens";
+import { useDeleteContent } from "../../../helpers/functions/posts/content_delete";
+import { CONTENT_TYPE_FOLDER } from "../../../constants/defaults";
 
 export type TSelectpostOptionsProps = {
    folderId: string | number;
    cta: {
       handleCloseModal: () => void;
-      handleDelete: (id: string | number) => void;
+      handleDelete?: (id: string | number) => void;
       handleEdit?: (id: string | number) => void;
+      handleAfterDeletion?: () => void;
    };
 };
 
 export const SelectFolderOptions = ({ cta, folderId }: TSelectpostOptionsProps) => {
-   const [showNotification, setshowNotification] = useState<string>("none");
+   const { handleDelete, data } = useDeleteContent();
 
-   // handle delete the post and send ID to the parent
    const handleSelection = () => {
-      // handle deletion
-      cta.handleDelete(folderId);
+      /// if there is a delete callback use that, otherwise delete it here
+      if (cta.handleDelete) cta.handleDelete(folderId);
+      else handleDelete(folderId, CONTENT_TYPE_FOLDER);
    };
+
+   const isFirstLoad = useRef(1);
+   useEffect(() => {
+      if (isFirstLoad.current >= 2) {
+         if (data && data.ID && cta.handleAfterDeletion) {
+            // callback to execute after the folder is deleted
+            cta.handleAfterDeletion();
+         }
+      }
+      return () => {
+         isFirstLoad.current = isFirstLoad.current + 1;
+      };
+   }, [data]);
 
    return (
       <>
@@ -70,6 +86,7 @@ export const SelectFolderOptions = ({ cta, folderId }: TSelectpostOptionsProps) 
                      type='1'
                      textType='text'
                      iconType='icon'
+                     confirmationText='Deleting this folder will delete all posts in it, do you want to proceed?'
                      cta={{ handleSelection }}
                      optionProperties={{
                         icon: <Icon name='delete' color={DANGER_COLOR_SECONDARY} size='2rem' />,

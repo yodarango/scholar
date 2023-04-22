@@ -1,48 +1,56 @@
-
-.mainWrapper{
-    width: 100%;
-    overflow: hidden;
-    padding: .4rem 0 .4rem .2rem;
+.mainWrapper {
+   width: 100%;
+   overflow: hidden;
+   padding: 0.4rem 0 0.4rem 0.2rem;
 }
 
-.subOptionsWrapper, .subOptionsWrapperCustom {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin: var(--spacing-s) var(--spacing-m) 0 var(--spacing-l)
+.subOptionsWrapper,
+.subOptionsWrapperCustom {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   margin: var(--spacing-s) var(--spacing-m) 0 var(--spacing-l);
+}
+
+.confirmation {
+   width: 100%;
+}
+
+.ctasWrapper {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   cursor: pointer;
+}
+
+.ctasWrapper > div:nth-child(1) {
+   margin-right: var(--spacing-s);
 }
 
 .subOptionsWrapperCustom {
-    overflow-x: scroll;
+   overflow-x: scroll;
 }
 
-.subOptionsWrapper > div:nth-child(2) {
-    margin-left: var(--spacing-s);
+.subOptionsWrapperCustom > div {
+   margin-right: var(--spacing-m);
 }
 
-.subOptionsWrapper > div:nth-child(3) {
-    margin-left: var(--spacing-m);
+.subOptionsWrapperCustom > div:hover {
+   cursor: pointer;
+   text-decoration: underline;
+   transform: scale(1.1);
 }
 
-.subOptionsWrapperCustom > div{
-    margin-right: var(--spacing-m);
-
-}
-
-.subOptionsWrapperCustom > div:hover, .subOptionsWrapper > div:nth-child(2):hover, .subOptionsWrapper > div:nth-child(3):hover {
-    cursor: pointer;
-    text-decoration: underline;
-    transform: scale(1.1);
-}
-
- .customOptionFilled{
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: .7em;
+.customOptionFilled {
+   width: 2.5rem;
+   height: 2.5rem;
+   border-radius: 0.7em;
 }
 
 .subOptionsWrapperCustom .customOptionFilled:hover {
-    box-shadow: .2rem .2rem .3rem currentColor;
-    transform: scale(.8);
+   box-shadow: 0.2rem 0.2rem 0.3rem currentColor;
+   transform: scale(0.8);
 }

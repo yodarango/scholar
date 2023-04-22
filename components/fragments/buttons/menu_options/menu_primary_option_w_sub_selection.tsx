@@ -26,6 +26,7 @@ type TMenuPrimaryOptionWithSubSelectionProps = {
       iconShadow?: string;
       descColor?: string;
    };
+   confirmationText?: string;
    cta: { handleSelection: (selection: string) => void };
 };
 
@@ -35,6 +36,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
    iconType,
    textType,
    optionProperties,
+   confirmationText = "Are you sure?",
    cta
 }: TMenuPrimaryOptionWithSubSelectionProps) => {
    const [showSubSelectionOptions, setshowSubSelectionOptions] = useState<boolean>(false);
@@ -56,15 +58,22 @@ export const MenuPrimaryOptionWithSubSelection = ({
          {showSubSelectionOptions && type === "1" && (
             <div className={styles.subOptionsWrapper}>
                <div>
-                  <Parragraph text={"Are you sure?"} size='main' />
+                  <Parragraph text={confirmationText} size='main' className={styles.confirmation} />
                </div>
 
-               <div onClick={() => setshowSubSelectionOptions(false)}>
-                  <Parragraph text={"NO"} size='main' bold={true} />
-               </div>
+               <div className={styles.ctasWrapper}>
+                  <div onClick={() => setshowSubSelectionOptions(false)}>
+                     <Parragraph text={"NO"} size='main' bold={true} />
+                  </div>
 
-               <div onClick={() => cta.handleSelection("delete")}>
-                  <Parragraph text={"YES"} size='main' bold={true} color={DANGER_COLOR_SECONDARY} />
+                  <div onClick={() => cta.handleSelection("delete")}>
+                     <Parragraph
+                        text={"YES"}
+                        size='main'
+                        bold={true}
+                        color={DANGER_COLOR_SECONDARY}
+                     />
+                  </div>
                </div>
             </div>
          )}

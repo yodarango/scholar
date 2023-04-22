@@ -19,6 +19,7 @@ type THeaderWithImgBkgProps = {
    children: JSX.Element | JSX.Element[];
    cta?: {
       handleClose?: () => void;
+      handleOpenOptions?: () => void;
    };
 };
 
@@ -57,7 +58,11 @@ export const HeaderWithImgBkg = ({
                               shadowColor={GRADIENT_1__DARK}
                               backgroundColor='1'
                               icon='menu'
-                              cta={{ handleClick: () => {} }}
+                              cta={{
+                                 handleClick: cta?.handleOpenOptions
+                                    ? cta.handleOpenOptions
+                                    : () => {}
+                              }}
                            />
                         </div>
                         {options}

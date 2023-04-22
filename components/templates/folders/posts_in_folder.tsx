@@ -3,15 +3,12 @@ import styles from "./posts_in_folder.module.css";
 import { useRouter } from "next/router";
 import { CommentariesGrid } from "../../../components/layouts/scrollers/user_content/commentaries_grid";
 import { CategoryTag } from "../../../components/fragments/chunks/category_tag";
-import { PrimaryStack } from "../../../components/layouts/stacks/templates/primary_stack";
-import { SecondaryStack } from "../../../components/layouts/stacks/templates/secondary_stack";
-import { TeritaryStack } from "../../../components/layouts/stacks/templates/teritary_stack";
-import { FourthStack } from "../../../components/layouts/stacks/templates/fourth_stack";
 import { HeaderWithImgBkg } from "../../../components/layouts/stacks/templates/header_with_img_bkg";
 import { TFolderData, useGetFolder } from "../../../helpers/functions/folders/use_get_folder";
 import { Parragraph } from "../../../components/fragments/Typography/parragraph";
 import { Header } from "../../../components/fragments/Typography/header";
 import { BackLink } from "../../../components/fragments/buttons/back_link";
+import { SelectFolderOptions } from "../../layouts/menus/select_folder_options";
 
 export const PostsInFolder = () => {
    const router = useRouter();
@@ -22,6 +19,7 @@ export const PostsInFolder = () => {
    const [tagFilter, settagFilter] = useState<any>(null); // category
    const [folderId, setFolderId] = useState<string | undefined>(undefined);
    const [folder, setFolder] = useState<null | TFolderData>(null);
+   const [showMenu, setShowMenu] = useState(false);
 
    // when the user clicks folder or tag: push new category tag to the router
    const handleFilterSelection = (query: any) => {
@@ -50,29 +48,45 @@ export const PostsInFolder = () => {
    }, [data]);
 
    return (
-      <HeaderWithImgBkg
-         image={folder?.image}
-         title={<Title title={folder?.name || ""} />}
-         description={folder?.description}
-         options={
-            <div className={styles.tag}>
-               <CategoryTag
-                  initiaValue={tagFilter}
-                  cta={{
-                     handleSelection: (val) => handleFilterSelection({ category: val })
-                  }}
-                  informativeOnly={false}
-               />
+      <>
+         {showMenu && folderId && (
+            <SelectFolderOptions
+               folderId={folderId}
+               cta={{
+                  handleCloseModal: () => setShowMenu(false),
+                  handleAfterDeletion: () => router.push("/users/folders")
+               }}
+            />
+         )}
+         <HeaderWithImgBkg
+            image={folder?.image}
+            title={<Title title={folder?.name || ""} />}
+            description={folder?.description}
+            cta={{ handleOpenOptions: () => setShowMenu(!showMenu) }}
+            options={
+               <div className={styles.tag}>
+                  <CategoryTag
+                     initiaValue={tagFilter}
+                     cta={{
+                        handleSelection: (val) => handleFilterSelection({ category: val })
+                     }}
+                     informativeOnly={false}
+                  />
+               </div>
+            }>
+            <div className={styles.commentariesGrid}>
+               {folder?.description && (
+                  <Parragraph
+                     text={folder.description}
+                     size='main'
+                     className={styles.description}
+                  />
+               )}
+               {folderId && <CommentariesGrid isSelf={isSelf} folderId={folderId} />}
             </div>
-         }>
-         <div className={styles.commentariesGrid}>
-            {folder?.description && (
-               <Parragraph text={folder.description} size='main' className={styles.description} />
-            )}
-            {folderId && <CommentariesGrid isSelf={isSelf} folderId={folderId} />}
-         </div>
-         <div className='spacer-page-bottom'></div>
-      </HeaderWithImgBkg>
+            <div className='spacer-page-bottom'></div>
+         </HeaderWithImgBkg>
+      </>
    );
 };
 
