@@ -26,6 +26,7 @@ export type THandlePostContent = {
    referenced_verses?: string[] | string;
    post_image?: string;
    VERSE_ID?: string;
+   FOLDER_ID?: string | number;
    is_private?: boolean;
    verse_citation?: string;
    author?: String;

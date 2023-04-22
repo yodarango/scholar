@@ -64,7 +64,8 @@ export const Notification = ({
       <>
          {/* The default card that gets passed rendered  */}
          {!customColor && body && (
-            <div className={`${styles.mainWrapper}`}>
+            <div
+               className={`${styles.mainWrapper} ${notificationType ? styles.isNotification : ""}`}>
                <div className={styles.close}>
                   <CloseContent cta={{ handleClick: cta.handleClose }} color={FONT_COLOR} />
                </div>

@@ -39,7 +39,15 @@ export const NavigationMain = ({ children }: any) => {
             "/forgot-password",
             "/reset-password"
          ];
-         if (shouldNotRenderRouters.includes(router.asPath)) {
+
+         let renderIt;
+
+         shouldNotRenderRouters.forEach((item) => {
+            const cantRender = router.asPath.includes(item);
+            if (cantRender) renderIt = false;
+         });
+
+         if (renderIt === false) {
             setshouldRender(false);
          } else {
             setshouldRender(true);

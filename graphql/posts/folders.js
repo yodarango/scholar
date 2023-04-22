@@ -12,6 +12,7 @@ export const GET_FOLDER_POST_COUNT = gql`
       ) {
          ID
          post_count
+         is_private
          name
          image
       }

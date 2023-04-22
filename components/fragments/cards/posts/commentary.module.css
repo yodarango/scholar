@@ -32,6 +32,20 @@
    background-color: #ffffff60;
    overflow: hidden;
 }
+
+.imageIcon {
+   height: 3rem;
+   width: 3rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   margin: 0 0 0 auto;
+   right: 0;
+   top: 0;
+   border-bottom-left-radius: 1em;
+}
+
 .image img {
    object-fit: cover;
    object-position: center;

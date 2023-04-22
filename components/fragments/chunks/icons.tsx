@@ -1,4 +1,5 @@
-// revamp 2.0
+import styles from "./icons.module.css";
+
 type TiconsProps = {
    name: string;
    strokeWidth?: string;
@@ -1465,7 +1466,7 @@ export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) =
    }
 
    return (
-      <div style={{ width: size, height: size }} className='flex-row'>
+      <div style={{ width: size, height: size }} className={`${styles.iconWrapper} flex-row`}>
          {icon}
       </div>
    );

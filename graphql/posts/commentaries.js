@@ -137,6 +137,7 @@ export const GET_EDIT_COMMENTARY = gql`
 export const CREATE_NEW_COMMENTARY = gql`
    mutation (
       $VERSE_ID: String
+      $FOLDER_ID: ID
       $body: String
       $category_tags: String
       $referenced_verses: String
@@ -147,6 +148,7 @@ export const CREATE_NEW_COMMENTARY = gql`
       commentary(
          data: {
             VERSE_ID: $VERSE_ID
+            FOLDER_ID: $FOLDER_ID
             body: $body
             category_tags: $category_tags
             referenced_verses: $referenced_verses

@@ -17,7 +17,12 @@
    display: flex;
    align-items: flex-start;
    justify-content: flex-start;
+   flex-wrap: wrap;
    animation: fromTopDown 500ms ease-in;
+}
+
+.isNotification {
+   flex-wrap: nowrap;
 }
 
 @keyframes fromTopDown {

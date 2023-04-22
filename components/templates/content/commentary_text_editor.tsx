@@ -29,6 +29,7 @@ type TCommentaryTextEditorProps = {
    verseCitation?: string;
    verseContent?: string;
    body?: string;
+   folderId?: string | number;
    postImage?: string;
    postPostedOnDate?: string;
    postCreatedDate?: string;
@@ -56,6 +57,7 @@ export const CommentaryTextEditor = ({
    verseId = "",
    verseCitation = "",
    verseContent = "",
+   folderId = "",
    body = "",
    postImage = "",
    postPostedOnDate = "",
@@ -72,8 +74,11 @@ export const CommentaryTextEditor = ({
    const router = useRouter();
 
    // state
-   const [notification, setnotification] =
-      useState<null | { title: string; body: string; type: string }>(null);
+   const [notification, setnotification] = useState<null | {
+      title: string;
+      body: string;
+      type: string;
+   }>(null);
    const [loading, setloading] = useState("done");
 
    const post: THandlePostContent = {
@@ -83,12 +88,14 @@ export const CommentaryTextEditor = ({
       referenced_verses: postReferences,
       is_private: postPrivacy,
       VERSE_ID: verseId,
+      FOLDER_ID: folderId,
       verse_citation: verseCitation,
       post_image: postImage
    };
 
    // reducer
    function reducer(state: any, action: any) {
+      console.log(action);
       switch (action.type) {
          case "category":
             return { ...state, category_tags: action.payload };
@@ -107,6 +114,9 @@ export const CommentaryTextEditor = ({
 
          case "postImage":
             return { ...state, post_image: action.payload };
+
+         case "folder":
+            return { ...state, FOLDER_ID: action.payload };
 
          // why am I returning the data from a nested child rather than from the bottom "handlePost' function below?
          // Because why waste more network when the data is already in the client
@@ -150,7 +160,7 @@ export const CommentaryTextEditor = ({
       <>
          {includeClose && (
             <div className={styles.close}>
-               <CloseContent href='/' />
+               <CloseContent cta={{ handleClick: () => router.back() }} />
             </div>
          )}
          <Portal>
@@ -161,9 +171,7 @@ export const CommentaryTextEditor = ({
                   type={notification.type}
                   cta={{
                      handleClose: () =>
-                        notification.type === "2"
-                           ? (window.location.href = "/")
-                           : setnotification(null)
+                        notification.type === "2" ? router.push("/") : setnotification(null)
                   }}
                />
             )}
@@ -193,6 +201,7 @@ export const CommentaryTextEditor = ({
                   postReferences={state.referenced_verses}
                   postPrivacy={postPrivacy}
                   requestStatus={loading}
+                  includeFolder={true}
                   cta={{
                      handleCategorySelection: (category) =>
                         dispatch({ type: "category", payload: category }),
@@ -203,6 +212,7 @@ export const CommentaryTextEditor = ({
                         dispatch({ type: "referencedVersesRemove", payload: verses }),
                      handleRefVerseSelection: (verse) =>
                         dispatch({ type: "referencedVerses", payload: verse }),
+                     handleFolderSelection: (id) => dispatch({ type: "folder", payload: id }),
                      handleCloseModal: cta?.handleCloseModal,
                      handlePost
                   }}

@@ -53,6 +53,7 @@ export const PostsInFolder = () => {
             <SelectFolderOptions
                folderId={folderId}
                cta={{
+                  handleEdit: () => router.push(`/users/folders/edit/${folderId}`),
                   handleCloseModal: () => setShowMenu(false),
                   handleAfterDeletion: () => router.push("/users/folders")
                }}

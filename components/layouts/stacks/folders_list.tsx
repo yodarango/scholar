@@ -59,6 +59,7 @@ export const FolderList = ({ isSelf, cta }: TFolderListProps) => {
                               thumbnail={folder.image}
                               folderName={folder.name}
                               postCount={folder.post_count}
+                              isPrivate={folder.is_private}
                               ID={folder.ID}
                            />
                         </div>

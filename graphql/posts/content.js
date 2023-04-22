@@ -8,6 +8,8 @@ export const GET_ALL_POSTS = gql`
          VERSE_ID
          AUTHORITY_LEVEL
          body
+         folder_id
+         folder_name
          category_tags
          post_image
          referenced_verses

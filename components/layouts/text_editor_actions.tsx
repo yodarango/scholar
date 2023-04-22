@@ -32,6 +32,7 @@ import Portal from "../hoc/potal";
 import { notificationMessages } from "../../data/notification_messages";
 import { WithTextContentStack } from "./stacks/with_text_content_stack";
 import { SmallLoader } from "../fragments/chunks/small_loader";
+import { FolderList } from "./stacks/folders_list";
 
 type TTextEditorFormatterActionsProps = {
    title: string;
@@ -49,10 +50,12 @@ type TTextEditorFormatterActionsProps = {
    postButtonTitle?: string;
    requestStatus?: string;
    includeIsPrivate?: boolean;
+   includeFolder?: boolean;
    cta: {
       handleRefVerseSelection: (id: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
       handleCategorySelection: (id: string) => void;
+      handleFolderSelection?: (id: string | number) => void;
       handlePost: (post?: any) => void;
    };
 };
@@ -70,6 +73,7 @@ export const TextEditorActions = ({
    postCreatedDate,
    postCategory,
    postReferences,
+   includeFolder,
    postPrivacy,
    includeIsPrivate = true,
    requestStatus = "done",
@@ -80,6 +84,7 @@ export const TextEditorActions = ({
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
    const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
+   const [showFoldersList, setShowFoldersList] = useState<boolean>(false);
    const [loading, setloading] = useState<string>(requestStatus);
 
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
@@ -142,13 +147,39 @@ export const TextEditorActions = ({
                   postCategory={postCategory}
                />
             )}
+
+            {showFoldersList && (
+               <FolderList
+                  isSelf
+                  cta={{
+                     handleClose: () => setShowFoldersList(false),
+                     handleFolderSelection: (id: string | number) => {
+                        cta.handleFolderSelection && cta.handleFolderSelection(id);
+                        setShowFoldersList(false);
+                     }
+                  }}
+               />
+            )}
          </Portal>
 
          {/* content  rendered on load*/}
          <div className={styles.mainWrapper}>
-            <div className={styles.textEditorFormatter}>
+            <div
+               className={`${styles.textEditorFormatter} ${
+                  includeFolder ? styles.formattingWithFolder : ""
+               }`}>
                <TextEditorFormating />
             </div>
+
+            {includeFolder && (
+               <div className={styles.folder}>
+                  <IconButton
+                     backgroundColor='1'
+                     icon='folder'
+                     cta={{ handleClick: () => setShowFoldersList(true) }}
+                  />
+               </div>
+            )}
 
             <div className={styles.preview}>
                <IconButton icon='eye' backgroundColor='1' cta={{ handleClick: handlePreview }} />

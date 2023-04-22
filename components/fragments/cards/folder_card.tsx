@@ -18,6 +18,7 @@ type FolderCardProps = {
    thumbnail: string;
    folderName: string;
    postCount: number | string;
+   isPrivate: boolean;
    showEdit?: boolean;
    cta?: {
       handleClick?: (id: string | number) => void;
@@ -29,6 +30,7 @@ export const FolderCard = ({
    thumbnail,
    folderName,
    postCount,
+   isPrivate,
    showEdit = true,
    cta,
    ID
@@ -128,11 +130,20 @@ export const FolderCard = ({
                      </div>
                   </div>
                </div>
-               {showEdit && (
-                  <div className={style.icon} onClick={() => setShowModal(!showModal)}>
-                     <Icon name='ellipsisH' color={FONT_COLOR} />
-                  </div>
-               )}
+               <div className={`${style.iconsWrapper}`}>
+                  {isPrivate && (
+                     <div
+                        className={`${style.icon}  ${style.lockIcon}`}
+                        onClick={() => setShowModal(!showModal)}>
+                        <Icon name='lockOpen' color={FONT_COLOR} size='15px' />
+                     </div>
+                  )}
+                  {showEdit && (
+                     <div className={`${style.icon}`} onClick={() => setShowModal(!showModal)}>
+                        <Icon name='ellipsisH' color={FONT_COLOR} />
+                     </div>
+                  )}
+               </div>
             </div>
          )}
       </>

@@ -38,10 +38,12 @@ type TTextEditorProps = {
    titlePlaceHolder?: string;
    includeIsPrivate?: boolean;
    requestStatus?: string;
+   includeFolder?: boolean;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
       handleRefVerseSelection: (verse: string) => void;
+      handleFolderSelection?: (id: string | number) => void;
       handlePost: (body?: any) => void;
       handleBody: (body: string) => void;
       handleReferencedVerses: (verses: string[]) => void;
@@ -69,6 +71,7 @@ export const TextEditor = ({
    titlePlaceHolder,
    requestStatus,
    includeIsPrivate,
+   includeFolder,
    cta
 }: TTextEditorProps) => {
    // router
@@ -129,10 +132,12 @@ export const TextEditor = ({
                postReferences={postReferences}
                postPrivacy={postPrivacy}
                requestStatus={requestStatus}
+               includeFolder={includeFolder}
                cta={{
                   handleCategorySelection: cta.handleCategorySelection,
                   handlePrivacySelection: cta.handlePrivacySelection,
                   handleRefVerseSelection: cta.handleRefVerseSelection,
+                  handleFolderSelection: cta.handleFolderSelection,
                   handlePost: cta.handlePost
                }}
             />

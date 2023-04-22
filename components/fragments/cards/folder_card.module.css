@@ -66,16 +66,26 @@
    flex-wrap: wrap;
 }
 
-.icon {
+.iconsWrapper {
    position: absolute;
    display: flex;
    align-items: center;
-   justify-content: flex-end;
-   width: 100%;
-   margin: 0;
+   justify-content: flex-start;
+   flex-direction: column;
+   margin: 0 0 0 auto;
    padding-right: 1.5rem;
    top: var(--spacing-xxs);
+   left: auto;
+   right: 0;
+   bottom: auto;
    cursor: pointer;
+}
+
+.icon {
+   flex-shrink: 0;
+}
+
+.lockIcon {
 }
 
 .countInt {

@@ -20,6 +20,8 @@ import { useDeleteContent } from "../../../../helpers/functions/posts/content_de
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
+import { Icon } from "../../chunks/icons";
+import { FONT_COLOR } from "../../../../constants/tokens";
 
 type TCommentaryProps = {
    customWidth?: boolean;
@@ -93,6 +95,11 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                            layout='fill'
                            alt='background cover for a book of the bible'
                         />
+                        {commentary.is_private && (
+                           <div className={styles.imageIcon} id={categoryId}>
+                              <Icon name='lockClosed' color={FONT_COLOR} size='15px' />
+                           </div>
+                        )}
                      </div>
 
                      {/* ----------------- verse reference ---------------- */}
