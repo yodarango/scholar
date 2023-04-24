@@ -43,7 +43,6 @@ export const CommentariesGrid = ({
    verse,
    folderId
 }: TCommentariesGridProps) => {
-   console.log(folderId);
    // router
    const router = useRouter();
 

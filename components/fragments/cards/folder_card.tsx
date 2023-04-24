@@ -35,6 +35,7 @@ export const FolderCard = ({
    cta,
    ID
 }: FolderCardProps) => {
+   console.log(cta);
    const router = useRouter();
    const [showModal, setShowModal] = useState<boolean>(false);
    const [isDeleted, setisDeleted] = useState<boolean>(false);
