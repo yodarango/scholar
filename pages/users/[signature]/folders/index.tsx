@@ -5,19 +5,20 @@ import { useRouter } from "next/router";
 const Index = () => {
    const router = useRouter();
 
-   const [id, setId] = useState<string>("");
+   const [userSignature, setuserSignature] = useState<string>("");
 
    useEffect(() => {
       if (router.isReady && typeof router.query.signature === "string")
-         if (router.query.signature === "@me") setId("self");
-         else setId("notSelf");
+         if (router.query.signature === "@me") setuserSignature("self");
+         else setuserSignature("notSelf");
    }, [router.query, router.isReady]);
 
    return (
       <div>
-         {id && (
+         {userSignature && (
             <FolderList
-               isSelf={id === "self"}
+               isSelf={userSignature === "self"}
+               userSignature={userSignature}
                cta={{ handleFolderSelection: (id) => router.push(`/users/${id}/folders/${id}`) }}
             />
          )}

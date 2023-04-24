@@ -53,6 +53,9 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
    const [currentFolderValue, setcurrentFolderValue] = useState<string>("Show Groups");
    const [showFolderOptions, setshowFolderOptions] = useState<boolean>(false);
 
+   // userSignature
+   const [userSignature, setuserSignature] = useState<string>("");
+
    const renderFolderView =
       currentModal === CURRENT_VIEW_BOOK_BY_BOOK || currentModal === CURRENT_VIEW_BOOK_BY_FOLDER;
    const renderCommentariesView = currentModal === CURRENT_VIEW_COMMENTARIES;
@@ -115,6 +118,10 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
          settagFilter(router.query.category);
       }
 
+      if (typeof router.query.signature === "string") {
+         setuserSignature(router.query.signature);
+      }
+
       if (typeof router.query.group === "string") {
          setcurrentModal(router.query.group);
       } else if (
@@ -163,7 +170,7 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
                            iconLeft
                            quiet
                            title='My folders'
-                           link='/users/folders'
+                           link={`/users/${userSignature}/folders`}
                         />
                      </div>
                   )}

@@ -18,6 +18,7 @@ export const PostsInFolder = () => {
    // category filter
    const [tagFilter, settagFilter] = useState<any>(null); // category
    const [folderId, setFolderId] = useState<string | undefined>(undefined);
+   const [userId, setuserId] = useState<string>("");
    const [folder, setFolder] = useState<null | TFolderData>(null);
    const [showMenu, setShowMenu] = useState(false);
 
@@ -35,8 +36,13 @@ export const PostsInFolder = () => {
             // set it in the router because the commentaryWrapper needs it
             router.query["folder"] = router.query.id;
          }
+
          if (router.query.category) {
             settagFilter(router.query.category);
+         }
+
+         if (typeof router.query.signature === "string") {
+            setuserId(router.query.signature);
          }
       }
    }, [router.isReady, router.query]);
@@ -53,15 +59,15 @@ export const PostsInFolder = () => {
             <SelectFolderOptions
                folderId={folderId}
                cta={{
-                  handleEdit: () => router.push(`/users/folders/edit/${folderId}`),
+                  handleEdit: () => router.push(`/users/${userId}/folders/edit/${folderId}`),
                   handleCloseModal: () => setShowMenu(false),
-                  handleAfterDeletion: () => router.push("/users/folders")
+                  handleAfterDeletion: () => router.push(`/users/${userId}/folders`)
                }}
             />
          )}
          <HeaderWithImgBkg
             image={folder?.image}
-            title={<Title title={folder?.name || ""} />}
+            title={<Title title={folder?.name || ""} userId={userId} />}
             description={folder?.description}
             cta={{ handleOpenOptions: () => setShowMenu(!showMenu) }}
             options={
@@ -91,10 +97,10 @@ export const PostsInFolder = () => {
    );
 };
 
-function Title({ title }: { title: string }) {
+function Title({ title, userId }: { title: string; userId: string }) {
    return (
       <div className={styles.title}>
-         <BackLink title='Folders' link='/users/folders' />
+         <BackLink title='Folders' link={`/users/${userId}/folders`} />
          <Header text={title} type={2} size='xlarge' className={styles.header} />
       </div>
    );

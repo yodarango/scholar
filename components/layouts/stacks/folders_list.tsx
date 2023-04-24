@@ -11,6 +11,7 @@ import { Secondary } from "../../fragments/buttons/secondary";
 
 type TFolderListProps = {
    isSelf?: boolean;
+   userSignature?: string;
    cta?: {
       handleFolderSelection?: (id: string | number) => void;
       handleClose?: () => void;
@@ -19,7 +20,7 @@ type TFolderListProps = {
 
 const FOLDER_SELECT = 1;
 const FOLDER_SELECT_ALL = 2;
-export const FolderList = ({ isSelf, cta }: TFolderListProps) => {
+export const FolderList = ({ isSelf, cta, userSignature }: TFolderListProps) => {
    const router = useRouter();
    const { data, status } = useGetFolders({ isSelf, query_type: "my-folders" });
    const [folders, setFolders] = useState<any[] | null>([]);
@@ -91,7 +92,11 @@ export const FolderList = ({ isSelf, cta }: TFolderListProps) => {
                   cta={{ handleOnChange: handleFilterFolders }}
                />
                <div className={styles.add}>
-                  <IconButton icon='add' backgroundColor='2' link='/users/folders/new' />
+                  <IconButton
+                     icon='add'
+                     backgroundColor='2'
+                     link={`/users/${userSignature}/folders/new`}
+                  />
                </div>
             </div>
 
@@ -125,6 +130,7 @@ export const FolderList = ({ isSelf, cta }: TFolderListProps) => {
                                          cta.handleFolderSelection &&
                                          cta?.handleFolderSelection(folder.ID)
                               }}
+                              userSignature={userSignature}
                               thumbnail={folder.image}
                               folderName={folder.name}
                               postCount={folder.post_count}

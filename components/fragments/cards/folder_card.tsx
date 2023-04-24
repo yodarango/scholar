@@ -20,6 +20,7 @@ type FolderCardProps = {
    postCount: number | string;
    isPrivate: boolean;
    showEdit?: boolean;
+   userSignature?: string;
    cta?: {
       handleClick?: (id: string | number) => void;
    };
@@ -31,6 +32,7 @@ export const FolderCard = ({
    folderName,
    postCount,
    isPrivate,
+   userSignature = "@me",
    showEdit = true,
    cta,
    ID
@@ -91,7 +93,7 @@ export const FolderCard = ({
                         setShowModal(false);
                         handleDelete(id, CONTENT_TYPE_FOLDER);
                      },
-                     handleEdit: () => router.push(`/users/folders/edit/${ID}`)
+                     handleEdit: () => router.push(`/users/${userSignature}folders/edit/${ID}`)
                   }}
                   folderId={ID}
                />
@@ -105,7 +107,7 @@ export const FolderCard = ({
                      className={style.imageWrapper}
                      onClick={() => {
                         if (cta?.handleClick) cta.handleClick(ID);
-                        else router.push(`/users/folders/${ID}`);
+                        else router.push(`/users/${userSignature}/folders/${ID}`);
                      }}>
                      {thumbnail && (
                         <Image
@@ -120,7 +122,7 @@ export const FolderCard = ({
                      className={style.folderName}
                      onClick={() => {
                         if (cta?.handleClick) cta.handleClick(ID);
-                        else router.push(`/users/folders/${ID}`);
+                        else router.push(`/users/${userSignature}/folders/${ID}`);
                      }}>
                      <Parragraph text={folderName} size='main' />
                   </div>
