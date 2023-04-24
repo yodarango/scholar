@@ -20,22 +20,24 @@ type contentType =
    | typeof POST_TYPE_QUOTE
    | typeof POST_TYPE_THOUGHT;
 
-type TUseBulkAction = {
+type TUseBulkActionVariables = {
    action: string;
-   content: contentType;
+   contentType: contentType;
    IDs: string[];
+   USER_ID?: string;
+   isSelf?: boolean;
 };
 
-export const useBulkAction = ({ action, content }: TUseBulkAction) => {
+export const useBulkAction = () => {
    const [data, setData] = useState<any>(null);
    const [status, setStatus] = useState<string>("idle");
 
-   const goDo = async (IDs: TUseBulkAction["IDs"]) => {
+   const goDo = async (variables: TUseBulkActionVariables) => {
       setStatus("loading");
       try {
          const { data } = await client.query({
             query: CHECK_AUTH,
-            variables: { IDs, action }
+            variables
          });
 
          if (data.bulk_action) {
@@ -50,5 +52,5 @@ export const useBulkAction = ({ action, content }: TUseBulkAction) => {
       }
    };
 
-   return { goDo, status };
+   return { goDo, data, status };
 };

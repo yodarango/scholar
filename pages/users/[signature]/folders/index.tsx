@@ -19,6 +19,7 @@ const Index = () => {
             <FolderList
                isSelf={userSignature === "self"}
                userSignature={userSignature}
+               includeBulkAction={true}
                cta={{ handleFolderSelection: (id) => router.push(`/users/${id}/folders/${id}`) }}
             />
          )}

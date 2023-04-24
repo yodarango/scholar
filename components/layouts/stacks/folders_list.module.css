@@ -2,6 +2,10 @@
    margin-top: var(--spacing-ml);
 }
 
+.foldersWrapper.bulkActive {
+   margin-top: var(--spacing-xs);
+}
+
 .folder {
    margin-bottom: var(--spacing-xs);
 }
@@ -14,6 +18,9 @@
    margin-bottom: var(--spacing-m);
 }
 
+.selectButtons {
+   margin-bottom: var(--spacing-xs);
+}
 .selectButtons div:first-of-type {
    margin-right: var(--spacing-xs);
 }
@@ -44,4 +51,21 @@
 .selectedFolder > div > div {
    margin: 0;
    box-shadow: none;
+}
+
+.actionsToPerform {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.actionBtns {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   flex-wrap: nowrap;
+}
+
+.actionBtns > button {
+   margin-left: var(--spacing-xs);
 }

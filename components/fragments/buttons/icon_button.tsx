@@ -14,7 +14,8 @@ export type TIconButtonProps = {
    iconColor?: string;
    icon: string;
    backgroundColor?: string;
-   custombuttonSize?: boolean;
+   background?: string;
+   custombuttonSize?: any;
    link?: string;
    isDownload?: boolean;
    type?: any;
@@ -30,6 +31,7 @@ export const IconButton = ({
    iconColor = "#F1EAFF",
    custombuttonSize,
    backgroundColor,
+   background,
    link,
    isDownload = false,
    type = "button",
@@ -46,6 +48,7 @@ export const IconButton = ({
             (!link ? (
                <button
                   type={type}
+                  style={custombuttonSize}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${styles.primary} ${
@@ -70,7 +73,7 @@ export const IconButton = ({
          {backgroundColor === "2" &&
             (!link ? (
                <button
-                  style={addStyles}
+                  style={{ ...custombuttonSize, ...addStyles }}
                   type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
@@ -83,7 +86,7 @@ export const IconButton = ({
             ) : (
                <Link href={link ? link : "#"}>
                   <a
-                     style={addStyles}
+                     style={{ ...custombuttonSize, ...addStyles }}
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.secondary} ${
@@ -102,7 +105,7 @@ export const IconButton = ({
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                  style={{ backgroundColor, ...addStyles }}
+                  style={{ ...custombuttonSize, background, ...addStyles }}
                   onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>
@@ -112,7 +115,7 @@ export const IconButton = ({
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                     style={{ backgroundColor, ...addStyles }}>
+                     style={{ ...custombuttonSize, background, ...addStyles }}>
                      <Icon name={icon} color={iconColor} size={iconSize} />
                   </a>
                </Link>

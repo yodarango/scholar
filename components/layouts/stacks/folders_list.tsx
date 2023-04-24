@@ -8,10 +8,20 @@ import React, { useEffect, useState } from "react";
 import { IconButton } from "../../fragments/buttons/icon_button";
 import { useRouter } from "next/router";
 import { Secondary } from "../../fragments/buttons/secondary";
+import { Parragraph } from "../../fragments/Typography/parragraph";
+import {
+   DANGER_COLOR,
+   FONT_COLOR,
+   PRIMARY_COLOR,
+   SAFE_COLOR,
+   WARNING_COLOR
+} from "../../../constants/tokens";
+import { useBulkAction } from "../../../hooks/use_bulk_action";
 
 type TFolderListProps = {
    isSelf?: boolean;
    userSignature?: string;
+   includeBulkAction?: boolean;
    cta?: {
       handleFolderSelection?: (id: string | number) => void;
       handleClose?: () => void;
@@ -20,11 +30,12 @@ type TFolderListProps = {
 
 const FOLDER_SELECT = 1;
 const FOLDER_SELECT_ALL = 2;
-export const FolderList = ({ isSelf, cta, userSignature }: TFolderListProps) => {
+export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TFolderListProps) => {
    const router = useRouter();
    const { data, status } = useGetFolders({ isSelf, query_type: "my-folders" });
    const [folders, setFolders] = useState<any[] | null>([]);
    const [selectFolderActive, setSelectFolderActive] = useState<number | boolean>(false);
+   const [showBulkBtns, setShowBulkBtns] = useState<boolean>(false);
 
    useEffect(() => {
       setFolders(data);
@@ -43,7 +54,7 @@ export const FolderList = ({ isSelf, cta, userSignature }: TFolderListProps) => 
          setSelectFolderActive(FOLDER_SELECT_ALL);
          if (data) setFolders(data.map((folder: any) => ({ ...folder, selected: true })));
       } else {
-         setSelectFolderActive(false);
+         setSelectFolderActive(0);
          if (data) setFolders(data.map((folder: any) => ({ ...folder, selected: false })));
       }
    };
@@ -78,6 +89,28 @@ export const FolderList = ({ isSelf, cta, userSignature }: TFolderListProps) => 
       }
    };
 
+   const bulkAction = useBulkAction();
+
+   const handleExecuteBulk = (action: string) => {
+      let selectedFolders = folders?.filter((folder: any) => folder?.selected === true);
+      selectedFolders = selectedFolders?.map((folder: any) => folder?.ID);
+
+      console.log(selectedFolders);
+      if (selectedFolders) {
+         // bulkAction(action, selectedFolders);
+         // setFolders(data);
+         // setSelectFolderActive(false);
+      }
+   };
+
+   useEffect(() => {
+      if (folders && folders.length > 0) {
+         const selectedFolders = folders?.filter((folder: any) => folder?.selected === true);
+         if (selectedFolders && selectedFolders.length > 0) setShowBulkBtns(true);
+         else setShowBulkBtns(false);
+      } else setShowBulkBtns(false);
+   }, [folders]);
+
    return (
       <PrimaryStack
          title='My folders'
@@ -100,20 +133,63 @@ export const FolderList = ({ isSelf, cta, userSignature }: TFolderListProps) => 
                </div>
             </div>
 
-            <div className={styles.selectButtons}>
-               <Secondary
-                  title='Select'
-                  type={selectFolderActive === 1 ? "2" : "1"}
-                  cta={{ handleClick: () => handleSelect(undefined, FOLDER_SELECT) }}
-               />
-               <Secondary
-                  title='Select all'
-                  type={selectFolderActive === 2 ? "2" : "1"}
-                  cta={{ handleClick: handleSelectAll }}
-               />
-            </div>
+            {/* bulk options: optional */}
+            {includeBulkAction && (
+               <div className={styles.bulkActions}>
+                  <div className={styles.selectButtons}>
+                     <Secondary
+                        title='Select'
+                        type={selectFolderActive === 1 ? "2" : "1"}
+                        cta={{ handleClick: () => handleSelect(undefined, FOLDER_SELECT) }}
+                     />
+                     <Secondary
+                        title='Select all'
+                        type={selectFolderActive === 2 ? "2" : "1"}
+                        cta={{ handleClick: handleSelectAll }}
+                     />
+                  </div>
+
+                  {showBulkBtns && (
+                     <div className={styles.actionBtns}>
+                        <IconButton
+                           icon='delete'
+                           iconColor={PRIMARY_COLOR}
+                           background={`linear-gradient(180deg, ${DANGER_COLOR}, ${FONT_COLOR})`}
+                           custombuttonSize={{
+                              width: "3rem",
+                              height: "3rem",
+                              borderRadius: ".8em"
+                           }}
+                           cta={{ handleClick: () => handleExecuteBulk("delete") }}
+                        />
+                        <IconButton
+                           icon='lockClosed'
+                           iconColor={PRIMARY_COLOR}
+                           background={`linear-gradient(180deg, ${SAFE_COLOR}, ${FONT_COLOR})`}
+                           custombuttonSize={{
+                              width: "3rem",
+                              height: "3rem",
+                              borderRadius: ".8em"
+                           }}
+                           cta={{ handleClick: () => handleExecuteBulk("private") }}
+                        />
+                        <IconButton
+                           icon='lockOpen'
+                           iconColor={PRIMARY_COLOR}
+                           background={`linear-gradient(180deg, ${WARNING_COLOR}, ${FONT_COLOR})`}
+                           custombuttonSize={{
+                              width: "3rem",
+                              height: "3rem",
+                              borderRadius: ".8em"
+                           }}
+                           cta={{ handleClick: () => handleExecuteBulk("public") }}
+                        />
+                     </div>
+                  )}
+               </div>
+            )}
             {status === "done" && (
-               <div className={styles.foldersWrapper}>
+               <div className={`${styles.foldersWrapper} ${showBulkBtns ? styles.bulkActive : ""}`}>
                   {folders &&
                      folders.map((folder, i: number) => (
                         <div
