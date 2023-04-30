@@ -19,6 +19,8 @@ import {
 import { useBulkAction } from "../../../hooks/use_bulk_action";
 import { BULK_ACTION_DELETE, CONTENT_TYPE_FOLDER } from "../../../constants/defaults";
 import { Notification } from "../../fragments/popups/notification";
+import { notificationMessages } from "../../../data/notification_messages";
+import { errorMessages } from "../../../data/error_messages";
 
 type TFolderListProps = {
    isSelf?: boolean;
@@ -113,7 +115,15 @@ export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TF
 
          if (bulkAction.status === "success") {
             setNotification({
-               title: "Success"
+               title: notificationMessages.foldersDeleted.title,
+               type: "2",
+               body: notificationMessages.foldersDeleted.body
+            });
+         } else if (bulkAction.status === "error") {
+            setNotification({
+               title: errorMessages.posts.failToDeleteFolders.title,
+               type: "4",
+               body: errorMessages.posts.failToDeleteFolders.body
             });
          }
       }
@@ -128,121 +138,131 @@ export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TF
    }, [folders]);
 
    return (
-      <PrimaryStack
-         title='My folders'
-         icon='folder'
-         cta={{ handleClose: cta?.handleClose ? cta?.handleClose : () => router.back() }}>
-         <>
-            {notification && (
-               <Notification title='title' cta={{ handleClose: () => {} }} type='1' body='test' />
-            )}
-            <div className={styles.searchAdd}>
-               <SearchInput
-                  placeholder='Search folder'
-                  bounceTime={100}
-                  maxL={100}
-                  cta={{ handleOnChange: handleFilterFolders }}
-               />
-               <div className={styles.add}>
-                  <IconButton
-                     icon='add'
-                     backgroundColor='2'
-                     link={`/users/${userSignature}/folders/new`}
+      <>
+         {notification && (
+            <Notification
+               title='title'
+               cta={{ handleClose: () => {} }}
+               type={notification.type}
+               body={notification.body}
+            />
+         )}
+         <PrimaryStack
+            title='My folders'
+            icon='folder'
+            cta={{ handleClose: cta?.handleClose ? cta?.handleClose : () => router.back() }}>
+            <>
+               <div className={styles.searchAdd}>
+                  <SearchInput
+                     placeholder='Search folder'
+                     bounceTime={100}
+                     maxL={100}
+                     cta={{ handleOnChange: handleFilterFolders }}
                   />
-               </div>
-            </div>
-
-            {/* bulk options: optional */}
-            {includeBulkAction && (
-               <div className={styles.bulkActions}>
-                  <div className={styles.selectButtons}>
-                     <Secondary
-                        title='Select'
-                        type={selectFolderActive === 1 ? "2" : "1"}
-                        cta={{ handleClick: () => handleSelect(undefined, FOLDER_SELECT) }}
-                     />
-                     <Secondary
-                        title='Select all'
-                        type={selectFolderActive === 2 ? "2" : "1"}
-                        cta={{ handleClick: handleSelectAll }}
+                  <div className={styles.add}>
+                     <IconButton
+                        icon='add'
+                        backgroundColor='2'
+                        link={`/users/${userSignature}/folders/new`}
                      />
                   </div>
+               </div>
 
-                  {showBulkBtns && (
-                     <div className={styles.actionBtns}>
-                        <IconButton
-                           icon='delete'
-                           iconColor={PRIMARY_COLOR}
-                           background={`linear-gradient(180deg, ${DANGER_COLOR}, ${FONT_COLOR})`}
-                           custombuttonSize={{
-                              width: "3rem",
-                              height: "3rem",
-                              borderRadius: ".8em"
-                           }}
-                           cta={{ handleClick: () => handleExecuteBulk("delete") }}
+               {/* bulk options: optional */}
+               {includeBulkAction && (
+                  <div className={styles.bulkActions}>
+                     <div className={styles.selectButtons}>
+                        <Secondary
+                           title='Select'
+                           type={selectFolderActive === 1 ? "2" : "1"}
+                           cta={{ handleClick: () => handleSelect(undefined, FOLDER_SELECT) }}
                         />
-                        <IconButton
-                           icon='lockClosed'
-                           iconColor={PRIMARY_COLOR}
-                           background={`linear-gradient(180deg, ${SAFE_COLOR}, ${FONT_COLOR})`}
-                           custombuttonSize={{
-                              width: "3rem",
-                              height: "3rem",
-                              borderRadius: ".8em"
-                           }}
-                           cta={{ handleClick: () => handleExecuteBulk("private") }}
-                        />
-                        <IconButton
-                           icon='lockOpen'
-                           iconColor={PRIMARY_COLOR}
-                           background={`linear-gradient(180deg, ${WARNING_COLOR}, ${FONT_COLOR})`}
-                           custombuttonSize={{
-                              width: "3rem",
-                              height: "3rem",
-                              borderRadius: ".8em"
-                           }}
-                           cta={{ handleClick: () => handleExecuteBulk("public") }}
+                        <Secondary
+                           title='Select all'
+                           type={selectFolderActive === 2 ? "2" : "1"}
+                           cta={{ handleClick: handleSelectAll }}
                         />
                      </div>
-                  )}
-               </div>
-            )}
-            {status === "done" && (
-               <div className={`${styles.foldersWrapper} ${showBulkBtns ? styles.bulkActive : ""}`}>
-                  {folders &&
-                     folders.map((folder, i: number) => (
-                        <div
-                           key={i}
-                           className={`${styles.folder} ${
-                              folder?.selected ? styles.selectedFolder : ""
-                           }`}>
-                           <FolderCard
-                              cta={{
-                                 handleClick: () =>
-                                    selectFolderActive
-                                       ? handleSelect(folder.ID, undefined)
-                                       : cta &&
-                                         cta.handleFolderSelection &&
-                                         cta?.handleFolderSelection(folder.ID)
+
+                     {showBulkBtns && (
+                        <div className={styles.actionBtns}>
+                           <IconButton
+                              icon='delete'
+                              iconColor={PRIMARY_COLOR}
+                              background={`linear-gradient(180deg, ${DANGER_COLOR}, ${FONT_COLOR})`}
+                              custombuttonSize={{
+                                 width: "3rem",
+                                 height: "3rem",
+                                 borderRadius: ".8em"
                               }}
-                              userSignature={userSignature}
-                              thumbnail={folder.image}
-                              folderName={folder.name}
-                              postCount={folder.post_count}
-                              isPrivate={folder.is_private}
-                              ID={folder.ID}
+                              cta={{ handleClick: () => handleExecuteBulk("delete") }}
+                           />
+                           <IconButton
+                              icon='lockClosed'
+                              iconColor={PRIMARY_COLOR}
+                              background={`linear-gradient(180deg, ${SAFE_COLOR}, ${FONT_COLOR})`}
+                              custombuttonSize={{
+                                 width: "3rem",
+                                 height: "3rem",
+                                 borderRadius: ".8em"
+                              }}
+                              cta={{ handleClick: () => handleExecuteBulk("private") }}
+                           />
+                           <IconButton
+                              icon='lockOpen'
+                              iconColor={PRIMARY_COLOR}
+                              background={`linear-gradient(180deg, ${WARNING_COLOR}, ${FONT_COLOR})`}
+                              custombuttonSize={{
+                                 width: "3rem",
+                                 height: "3rem",
+                                 borderRadius: ".8em"
+                              }}
+                              cta={{ handleClick: () => handleExecuteBulk("public") }}
                            />
                         </div>
-                     ))}
-               </div>
-            )}
-            {status === "error" && <div>#NEEDSGRAPHICS</div>}
-            {status === "loading" && (
-               <div className={styles.loader}>
-                  <RoundLoader />
-               </div>
-            )}
-         </>
-      </PrimaryStack>
+                     )}
+                  </div>
+               )}
+               {status === "done" && (
+                  <div
+                     className={`${styles.foldersWrapper} ${
+                        showBulkBtns ? styles.bulkActive : ""
+                     }`}>
+                     {folders &&
+                        folders.map((folder, i: number) => (
+                           <div
+                              key={i}
+                              className={`${styles.folder} ${
+                                 folder?.selected ? styles.selectedFolder : ""
+                              }`}>
+                              <FolderCard
+                                 cta={{
+                                    handleClick: () =>
+                                       selectFolderActive
+                                          ? handleSelect(folder.ID, undefined)
+                                          : cta &&
+                                            cta.handleFolderSelection &&
+                                            cta?.handleFolderSelection(folder.ID)
+                                 }}
+                                 userSignature={userSignature}
+                                 thumbnail={folder.image}
+                                 folderName={folder.name}
+                                 postCount={folder.post_count}
+                                 isPrivate={folder.is_private}
+                                 ID={folder.ID}
+                              />
+                           </div>
+                        ))}
+                  </div>
+               )}
+               {status === "error" && <div>#NEEDSGRAPHICS</div>}
+               {status === "loading" && (
+                  <div className={styles.loader}>
+                     <RoundLoader />
+                  </div>
+               )}
+            </>
+         </PrimaryStack>
+      </>
    );
 };

@@ -91,5 +91,12 @@ export const notificationMessages = {
       description: "A post was saved to folder successfully",
       title: "Post added to folder!",
       body: "your post was added to this folder successfully!"
+   },
+   foldersDeleted: {
+      id: 11,
+      type: "Success",
+      description: "Many folders were deleted successfully",
+      title: "Folders deleted!",
+      body: "The folders you selected and all posts that were in them were deleted"
    }
 };

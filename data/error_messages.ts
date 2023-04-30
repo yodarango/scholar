@@ -172,6 +172,13 @@ export const errorMessages = {
          description: "when a post fails to be added to folder",
          title: "Could not add post",
          body: "Sorry, this post was not able to be added to the folder, try again later!"
+      },
+      failToDeleteFolders: {
+         id: 12,
+         type: "error",
+         description: "when an array of folders fail to be added to folder",
+         title: "Could not delete folder",
+         body: "Sorry, the selected folders were not deleted, try again later!"
       }
    },
    read: {
