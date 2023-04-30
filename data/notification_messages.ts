@@ -82,7 +82,7 @@ export const notificationMessages = {
       id: 10,
       type: "Success",
       description: "A folder was deleted successfully",
-      title: "Content deleted!",
+      title: "Folder deleted!",
       body: "Your folder and all posts that were in it were deleted"
    },
    savedToFolder: {

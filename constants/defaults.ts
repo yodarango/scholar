@@ -33,6 +33,9 @@ export const POST_TYPE_THOUGHT = 3;
 export const POST_TYPE_SERMON_NOTE = 4;
 export const CONTENT_TYPE_FOLDER = 5;
 
+// bulk actions
+export const BULK_ACTION_DELETE = "delete";
+
 // images
 export const DEFAULT_THOUGHT_IMAGE = "/images/thoughts/default.png";
 export const DEFAULT_COMMENTARY_IMAGE = "/images/commentary/default.png";

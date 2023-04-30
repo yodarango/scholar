@@ -6,7 +6,7 @@ to execute the action upon. ⛑️
 
 import { useState } from "react";
 import { client } from "../apollo-client";
-import { CHECK_AUTH } from "../graphql/users/users";
+import { BULK_ACTION } from "../graphql/posts/bulk_actions";
 import {
    CONTENT_TYPE_FOLDER,
    POST_TYPE_COMMENTARY,
@@ -36,14 +36,14 @@ export const useBulkAction = () => {
       setStatus("loading");
       try {
          const { data } = await client.query({
-            query: CHECK_AUTH,
+            query: BULK_ACTION,
             variables
          });
 
-         if (data.bulk_action) {
-            setData(data.bulk_action);
+         if (data.bulk_actions) {
+            setData(data.bulk_actions);
             setStatus("success");
-         } else {
+         } else if (data.bulk_actions === false) {
             setStatus("error");
          }
       } catch (error) {

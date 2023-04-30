@@ -17,6 +17,8 @@ import {
    WARNING_COLOR
 } from "../../../constants/tokens";
 import { useBulkAction } from "../../../hooks/use_bulk_action";
+import { BULK_ACTION_DELETE, CONTENT_TYPE_FOLDER } from "../../../constants/defaults";
+import { Notification } from "../../fragments/popups/notification";
 
 type TFolderListProps = {
    isSelf?: boolean;
@@ -36,6 +38,11 @@ export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TF
    const [folders, setFolders] = useState<any[] | null>([]);
    const [selectFolderActive, setSelectFolderActive] = useState<number | boolean>(false);
    const [showBulkBtns, setShowBulkBtns] = useState<boolean>(false);
+   const [notification, setNotification] = useState<{
+      title: string;
+      type: string;
+      body: string;
+   } | null>(null);
 
    useEffect(() => {
       setFolders(data);
@@ -95,11 +102,20 @@ export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TF
       let selectedFolders = folders?.filter((folder: any) => folder?.selected === true);
       selectedFolders = selectedFolders?.map((folder: any) => folder?.ID);
 
-      console.log(selectedFolders);
+      //console.log(selectedFolders);
       if (selectedFolders) {
-         // bulkAction(action, selectedFolders);
-         // setFolders(data);
-         // setSelectFolderActive(false);
+         bulkAction.goDo({
+            action: BULK_ACTION_DELETE,
+            IDs: selectedFolders,
+            contentType: CONTENT_TYPE_FOLDER,
+            isSelf
+         });
+
+         if (bulkAction.status === "success") {
+            setNotification({
+               title: "Success"
+            });
+         }
       }
    };
 
@@ -117,6 +133,9 @@ export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TF
          icon='folder'
          cta={{ handleClose: cta?.handleClose ? cta?.handleClose : () => router.back() }}>
          <>
+            {notification && (
+               <Notification title='title' cta={{ handleClose: () => {} }} type='1' body='test' />
+            )}
             <div className={styles.searchAdd}>
                <SearchInput
                   placeholder='Search folder'
