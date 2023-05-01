@@ -135,9 +135,10 @@ export const FolderCard = ({
                <div className={`${style.iconsWrapper}`}>
                   {isPrivate && (
                      <div
+                        title='This folder is private. Only you can see it.'
                         className={`${style.icon}  ${style.lockIcon}`}
                         onClick={() => setShowModal(!showModal)}>
-                        <Icon name='lockOpen' color={FONT_COLOR} size='15px' />
+                        <Icon name='lockClosed' color={FONT_COLOR} size='15px' />
                      </div>
                   )}
                   {showEdit && (

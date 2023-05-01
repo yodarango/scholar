@@ -35,6 +35,8 @@ export const CONTENT_TYPE_FOLDER = 5;
 
 // bulk actions
 export const BULK_ACTION_DELETE = "delete";
+export const BULK_ACTION_PRIVATE = "private";
+export const BULK_ACTION_PUBLIC = "public";
 
 // images
 export const DEFAULT_THOUGHT_IMAGE = "/images/thoughts/default.png";

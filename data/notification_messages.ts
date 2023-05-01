@@ -98,5 +98,19 @@ export const notificationMessages = {
       description: "Many folders were deleted successfully",
       title: "Folders deleted!",
       body: "The folders you selected and all posts that were in them were deleted"
+   },
+   foldersMadePrivate: {
+      id: 12,
+      type: "Success",
+      description: "Many folders were made private and all contents in them",
+      title: "Folders are now private!",
+      body: "The folders you selected and all posts that were in them are now private. Nobody, except you, will be able to see them."
+   },
+   foldersMadePublic: {
+      id: 12,
+      type: "Success",
+      description: "Many folders were made public and all contents in them ",
+      title: "Folders are now public!",
+      body: "The folders you selected and all posts that were in them are now public. Please be aware that everyone can see them."
    }
 };
