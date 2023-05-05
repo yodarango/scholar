@@ -14,10 +14,12 @@ import Portal from "../../hoc/potal";
 import styles from "./bible_language.module.css";
 
 type TBibleLanguageProps = {
+   className?: string;
+   whiteBorder?: boolean;
    langIcon: string;
 };
 
-export const BibleLanguage = ({ langIcon }: TBibleLanguageProps) => {
+export const BibleLanguage = ({ className, whiteBorder, langIcon }: TBibleLanguageProps) => {
    // states
    const [showMenu, setshowMenu] = useState(false);
    const [currentLangIcon, setcurrentLangIcon] = useState(langIcon);
@@ -49,6 +51,7 @@ export const BibleLanguage = ({ langIcon }: TBibleLanguageProps) => {
          </Portal>
 
          <IconGhost
+            className={`${className} ${whiteBorder ? styles.whiteIconButton : ""}`}
             cta={showMenu ? () => setshowMenu(false) : () => setshowMenu(true)}
             icon={
                <Parragraph align='center' size='large' text={currentLangIcon} lineHieght='.9em' />

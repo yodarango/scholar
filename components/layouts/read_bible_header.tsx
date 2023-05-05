@@ -8,6 +8,8 @@ import { ReadSettings } from "../fragments/chunks/read_settings";
 import styles from "./read_bible_header.module.css";
 
 type TReadBibleHeaderProps = {
+   theme?: string;
+   whiteBorder?: boolean;
    versionName: string;
    versionId: string;
    scriptureRef: string;
@@ -24,15 +26,36 @@ export const ReadBibleHeader = ({
    langIcon,
    versionId,
    versionName,
-   scriptureRef
+   scriptureRef,
+   whiteBorder,
+   theme
 }: TReadBibleHeaderProps) => {
+   let themeClass = "";
+
+   switch (theme) {
+      case "1":
+         themeClass = styles.firstTheme;
+         break;
+      case "2":
+         themeClass = styles.secondTheme;
+         break;
+      case "3":
+         themeClass = styles.thirdTheme;
+         break;
+      case "4":
+         themeClass = styles.fourthTheme;
+         break;
+   }
+
    return (
       <div className={styles.mainWrpper}>
          <div className={styles.language}>
-            <BibleLanguage langIcon={langIcon} />
+            <BibleLanguage className={themeClass} whiteBorder={whiteBorder} langIcon={langIcon} />
          </div>
          <div className={styles.versionScripture}>
             <BibleVersionScripture
+               className={themeClass}
+               whiteBorder={whiteBorder}
                versionId={versionId}
                versionName={versionName}
                scriptureRef={scriptureRef}

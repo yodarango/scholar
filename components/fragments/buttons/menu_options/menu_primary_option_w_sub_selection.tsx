@@ -27,6 +27,7 @@ type TMenuPrimaryOptionWithSubSelectionProps = {
       descColor?: string;
    };
    confirmationText?: string;
+   style?: any;
    cta: { handleSelection: (selection: string) => void };
 };
 
@@ -37,6 +38,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
    textType,
    optionProperties,
    confirmationText = "Are you sure?",
+   style = {},
    cta
 }: TMenuPrimaryOptionWithSubSelectionProps) => {
    const [showSubSelectionOptions, setshowSubSelectionOptions] = useState<boolean>(false);
@@ -96,7 +98,7 @@ export const MenuPrimaryOptionWithSubSelection = ({
                   <div onClick={() => cta.handleSelection(selection.value)} key={index}>
                      <div
                         className={styles.customOptionFilled}
-                        style={{ backgroundColor: selection.title }}></div>
+                        style={{ ...style, background: selection.title }}></div>
                   </div>
                ))}
             </div>

@@ -18,3 +18,39 @@
    width: 3.5rem;
    margin-right: var(--spacing-xs);
 }
+
+.firstTheme,
+.firstTheme > div:first-child {
+   border-color: var(--reading-modal-1--light);
+}
+
+.firstTheme p {
+   color: var(--reading-modal-1--light);
+}
+
+.secondTheme,
+.secondTheme > div:first-child {
+   border-color: var(--reading-modal-2--light);
+}
+
+.secondTheme p {
+   color: var(--reading-modal-2--light);
+}
+
+.thirdTheme,
+.thirdTheme > div:first-child {
+   border-color: var(--third-color);
+}
+
+.thirdTheme p {
+   color: var(--third-color);
+}
+
+.fourthTheme,
+.fourthTheme > div:first-child {
+   border-color: var(--reading-modal-4--dark);
+}
+
+.fourthTheme p {
+   color: var(--reading-modal-4--dark);
+}

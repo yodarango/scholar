@@ -26,3 +26,23 @@
 .fourthTheme {
    background-color: var(--reading-modal-4--light);
 }
+
+.fifthTheme {
+   background-image: url("/images/reading/blue.png");
+}
+
+.sixthTheme {
+   background-image: url("/images/reading/green.png");
+}
+
+.seventhTheme {
+   background-image: url("/images/reading/orange.png");
+}
+
+.eighthTheme {
+   background-image: url("/images/reading/pink.png");
+}
+
+.ninthTheme {
+   background-image: url("/images/reading/purple.png");
+}

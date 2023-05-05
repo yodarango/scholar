@@ -1,28 +1,40 @@
 .optionsWrapper {
-    padding: var(--spacing-xs);
-    height: 3.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    border: .1rem solid var(--third-color);
-    border-radius: 1em;
+   padding: var(--spacing-xs);
+   height: 3.5rem;
+   display: inline-flex;
+   align-items: center;
+   justify-content: space-between;
+   border: 0.1rem solid var(--third-color);
+   border-radius: 1em;
 }
 
 .version {
-    padding-right: var(--spacing-xs);
-    border-right: .1rem solid var(--third-color);
+   padding-right: var(--spacing-xs);
+   border-right: 0.1rem solid var(--third-color);
 }
 
-
 .scriptureRef {
-    padding-left: var(--spacing-xs);
+   padding-left: var(--spacing-xs);
 }
 
 .optionsWrapper:hover {
-    cursor: pointer;
+   cursor: pointer;
 }
 
-.option:hover div p{
-    transition: 300ms;
-    color: var(--font-color);
+.option:hover div p {
+   transition: 300ms;
+   color: var(--font-color);
+}
+
+.version.whiteBorder {
+   border-right: 0.1rem solid var(--font-color);
+}
+
+.optionsWrapper.whiteBorder {
+   border: 0.1rem solid var(--font-color);
+}
+
+.optionsWrapper.whiteBorder p,
+.version.whiteBorder p {
+   color: var(--font-color);
 }

@@ -83,3 +83,11 @@ export const LIGHT_QUOTE_BACKGROUNDS = [
 ];
 
 export const LIGHT_COMMENT_BACKGROUNDS = ["GRN", "CYN", "YLW", "PNK"];
+
+export const READING_THEME_BACKGROUNDS = {
+   1: "/images/reading/blue.webp",
+   2: "/images/reading/green.webp",
+   3: "/images/reading/orange.webp",
+   4: "/images/reading/pink.webp",
+   5: "/images/reading/purple.webp"
+};

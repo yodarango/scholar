@@ -25,6 +25,8 @@ import { TVersion } from "../../../data/supported_bible_versions/version_type";
 import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 
 type TBiblePreferences = {
+   whiteBorder?: boolean;
+   className?: string;
    versionName: string;
    versionId: string;
    scriptureRef: string;
@@ -33,7 +35,9 @@ type TBiblePreferences = {
 export const BibleVersionScripture = ({
    versionName,
    versionId,
-   scriptureRef
+   scriptureRef,
+   className,
+   whiteBorder
 }: TBiblePreferences) => {
    // states
    const [showModal, setshowModal] = useState<number>(0);
@@ -125,9 +129,14 @@ export const BibleVersionScripture = ({
                </PrimaryStack>
             )}
          </Portal>
-         <div className={styles.optionsWrapper}>
+         <div
+            className={`${styles.optionsWrapper} ${className} ${
+               whiteBorder ? styles.whiteBorder : ""
+            }`}>
             <div
-               className={`${styles.version} ${styles.option}`}
+               className={`${styles.version} ${styles.option} ${
+                  whiteBorder ? styles.whiteBorder : ""
+               }`}
                onClick={() => setshowModal(showModal !== 0 ? 0 : 1)}>
                <Parragraph text={state.versionName} size='small' align='left' quiet={true} />
             </div>

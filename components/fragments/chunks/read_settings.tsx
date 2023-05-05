@@ -66,6 +66,7 @@ export const ReadSettings = ({ cta }: TReadSettingsProps) => {
          <Portal>
             {showtMenuModal && (
                <SelectReadingSettings
+                  themeStyle={{ width: "3rem", height: "3rem", marginBottom: ".75rem" }}
                   cta={{
                      handleThemeSelection: handleThemeSelection,
                      handleFontSelection: handleFontSelection,

@@ -32,6 +32,7 @@ export const READING_MODAL_3__DARK = "#2A2438";
 export const READING_MODAL_3__LIGHT = "#f1eAff";
 export const READING_MODAL_4__LIGHT = "#f3def0";
 export const READING_MODAL_4__DARK = "#1f021B";
+export const READING_MODAL_3__MID = "#1E1F1E";
 
 export const RATING_LEVEL_LEVEL_A = "#75d975";
 export const RATING_LEVEL_LEVEL_B = "#B3eeB3";

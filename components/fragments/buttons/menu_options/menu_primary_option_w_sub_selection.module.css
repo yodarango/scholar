@@ -48,6 +48,8 @@
    width: 2.5rem;
    height: 2.5rem;
    border-radius: 0.7em;
+   background-position: center;
+   background-size: cover;
 }
 
 .subOptionsWrapperCustom .customOptionFilled:hover {

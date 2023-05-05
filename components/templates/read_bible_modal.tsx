@@ -27,6 +27,7 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
    //state
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
+   let themeClass = "";
 
    const handleHeader = (e: any) => {
       const distance = e.target.scrollTop;
@@ -35,23 +36,46 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
       setscrollingDir(isScrollingDown ? "down" : "up");
    };
 
+   switch (readingPrefs?.theme) {
+      case "1":
+         themeClass = styles.firstTheme;
+         break;
+      case "2":
+         themeClass = styles.secondTheme;
+         break;
+      case "3":
+         themeClass = styles.thirdTheme;
+         break;
+      case "4":
+         themeClass = styles.fourthTheme;
+         break;
+      case "5":
+         themeClass = styles.fifthTheme;
+         break;
+      case "6":
+         themeClass = styles.sixthTheme;
+         break;
+      case "7":
+         themeClass = styles.seventhTheme;
+         break;
+      case "8":
+         themeClass = styles.eighthTheme;
+         break;
+      case "9":
+         themeClass = styles.ninthTheme;
+         break;
+   }
    return (
       <div className={styles.mainWrapper} onScroll={handleHeader}>
          {readingPrefs && (
             <div
                className={`${styles.header} ${scrollingDir === "up" && styles.scrollingUp} ${
                   scrollingDir === "down" && styles.scrollingDown
-               } ${
-                  readingPrefs.theme === "1"
-                     ? styles.firstTheme
-                     : readingPrefs.theme === "2"
-                     ? styles.secondTheme
-                     : readingPrefs.theme === "4"
-                     ? styles.fourthTheme
-                     : styles.thirdTheme // default one
-               }
+               } ${themeClass}
             `}>
                <ReadBibleHeader
+                  whiteBorder={readingPrefs?.theme > "4"}
+                  theme={readingPrefs?.theme}
                   versionId={readingPrefs.versionId}
                   versionName={readingPrefs.versionName}
                   scriptureRef={readingPrefs.scriptureRef}
