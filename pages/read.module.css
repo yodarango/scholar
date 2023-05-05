@@ -28,21 +28,36 @@
 }
 
 .fifthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
    background-image: url("/images/reading/blue.png");
 }
 
 .sixthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
    background-image: url("/images/reading/green.png");
 }
 
 .seventhTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
    background-image: url("/images/reading/orange.png");
 }
 
 .eighthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
    background-image: url("/images/reading/pink.png");
 }
 
 .ninthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
    background-image: url("/images/reading/purple.png");
 }

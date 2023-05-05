@@ -61,11 +61,11 @@ export const SelectReadingSettings = ({ cta, themeStyle }: TSelectReadingSetting
                      { value: "2", title: READING_MODAL_2__DARK },
                      { value: "3", title: READING_MODAL_3__MID },
                      { value: "4", title: FONT_COLOR },
-                     { value: "5", title: `url(${READING_THEME_BACKGROUNDS[1]})` },
-                     { value: "6", title: `url(${READING_THEME_BACKGROUNDS[2]})` },
-                     { value: "7", title: `url(${READING_THEME_BACKGROUNDS[3]})` },
-                     { value: "8", title: `url(${READING_THEME_BACKGROUNDS[4]})` },
-                     { value: "9", title: `url(${READING_THEME_BACKGROUNDS[5]})` }
+                     { value: "5", title: `url(${READING_THEME_BACKGROUNDS[1]}) center/cover` },
+                     { value: "6", title: `url(${READING_THEME_BACKGROUNDS[2]}) center/cover` },
+                     { value: "7", title: `url(${READING_THEME_BACKGROUNDS[3]}) center/cover` },
+                     { value: "8", title: `url(${READING_THEME_BACKGROUNDS[4]}) center/cover` },
+                     { value: "9", title: `url(${READING_THEME_BACKGROUNDS[5]}) center/cover` }
                   ]}
                   optionProperties={{
                      icon: <Icon color={FONT_COLOR} size='2rem' name='brush' />,

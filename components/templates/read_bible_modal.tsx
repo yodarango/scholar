@@ -25,16 +25,16 @@ type TReadBibleTemplateProps = {
 };
 export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) => {
    //state
-   const [scrollYDis, setscrollYDis] = useState<number>(0);
-   const [scrollingDir, setscrollingDir] = useState<string>("none");
+   // const [scrollYDis, setscrollYDis] = useState<number>(0);
+   // const [scrollingDir, setscrollingDir] = useState<string>("none");
    let themeClass = "";
 
-   const handleHeader = (e: any) => {
-      const distance = e.target.scrollTop;
-      const isScrollingDown = scrollYDis - distance > 0 ? true : false;
-      setscrollYDis(distance);
-      setscrollingDir(isScrollingDown ? "down" : "up");
-   };
+   //const handleHeader = (e: any) => {
+   //    const distance = e.target.scrollTop;
+   //    const isScrollingDown = scrollYDis - distance > 0 ? true : false;
+   //    setscrollYDis(distance);
+   //    setscrollingDir(isScrollingDown ? "down" : "up");
+   // };
 
    switch (readingPrefs?.theme) {
       case "1":
