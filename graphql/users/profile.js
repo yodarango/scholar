@@ -35,6 +35,7 @@ export const GET_USER_ABOUT_ME = gql`
          my_true_color_personality_test
          my_favorite_color
          my_favorite_verse
+         is_bible_public
          my_ministry
          my_church
          about_me

@@ -10,6 +10,11 @@
    margin-bottom: var(--spacing-s);
 }
 
-.moreButton {
+.moreButton,
+.myBibleBtn {
    width: 100%;
+}
+
+.myBibleBtn {
+   margin-top: var(--spacing-s);
 }

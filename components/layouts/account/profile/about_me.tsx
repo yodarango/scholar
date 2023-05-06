@@ -28,14 +28,18 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
       my_favorite_verse: "",
       my_ministry: ""
    });
+
    const {
       my_church,
       my_favorite_color,
       my_job,
       my_true_color_personality_test,
       my_favorite_verse,
-      my_ministry
+      my_ministry,
+      is_bible_public
    } = data;
+
+   console.log(data);
 
    const getData = async (variables: TgetUserAboutMeVariables) => {
       try {
@@ -75,6 +79,11 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
          <div className={styles.moreButton}>
             <Primary type='1' title='More about me' href={`/users/about-me/${userID}`} />
          </div>
+         {is_bible_public && (
+            <div className={styles.myBibleBtn}>
+               <Primary type='2' title="Read this user's Bible" href={`/read/${userID}`} />
+            </div>
+         )}
       </div>
    );
 };
