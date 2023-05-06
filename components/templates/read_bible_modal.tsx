@@ -24,17 +24,17 @@ type TReadBibleTemplateProps = {
    };
 };
 export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) => {
-   //state
-   // const [scrollYDis, setscrollYDis] = useState<number>(0);
-   // const [scrollingDir, setscrollingDir] = useState<string>("none");
+   // state;
+   const [scrollYDis, setscrollYDis] = useState<number>(0);
+   const [scrollingDir, setscrollingDir] = useState<string>("none");
    let themeClass = "";
 
-   //const handleHeader = (e: any) => {
-   //    const distance = e.target.scrollTop;
-   //    const isScrollingDown = scrollYDis - distance > 0 ? true : false;
-   //    setscrollYDis(distance);
-   //    setscrollingDir(isScrollingDown ? "down" : "up");
-   // };
+   const handleHeader = (e: any) => {
+      const distance = e.target.scrollTop;
+      const isScrollingDown = scrollYDis - distance > 0 ? true : false;
+      setscrollYDis(distance);
+      setscrollingDir(isScrollingDown ? "down" : "up");
+   };
 
    switch (readingPrefs?.theme) {
       case "1":
@@ -69,10 +69,9 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
       <div className={styles.mainWrapper} onScroll={handleHeader}>
          {readingPrefs && (
             <div
-               className={`${styles.header} ${scrollingDir === "up" && styles.scrollingUp} ${
-                  scrollingDir === "down" && styles.scrollingDown
-               } ${themeClass}
-            `}>
+               className={`${styles.header} ${themeClass} ${
+                  scrollingDir === "up" && styles.scrollingUp
+               } ${scrollingDir === "down" && styles.scrollingDown}`}>
                <ReadBibleHeader
                   whiteBorder={readingPrefs?.theme > "4"}
                   theme={readingPrefs?.theme}
