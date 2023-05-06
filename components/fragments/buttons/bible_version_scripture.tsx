@@ -6,7 +6,7 @@
 -  rather than sending any data to the parent, all the settings are saved in Local Storage
 ********************************************************************************************************************************/
 
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 
 // comps
 import { SelectBibleVersion } from "../../layouts/menus/select_bible_version";
@@ -23,6 +23,7 @@ import { TVersion } from "../../../data/supported_bible_versions/version_type";
 
 // helpers
 import { parseChapterId } from "../../../helpers/data/parse_bible_id";
+import { version } from "os";
 
 type TBiblePreferences = {
    whiteBorder?: boolean;
@@ -102,6 +103,19 @@ export const BibleVersionScripture = ({
       const scripture = parseChapterId(content);
       dispatch({ type: "scriptureRef", payload: { scripture, chapterId: content } });
    };
+
+   // update the state when the props change 👇
+   useEffect(() => {
+      dispatch({ type: "versionName", payload: versionName });
+   }, [versionName]);
+
+   useEffect(() => {
+      dispatch({ type: "scriptureRef", payload: scriptureRef });
+   }, [scriptureRef]);
+
+   useEffect(() => {
+      dispatch({ type: "versionId", payload: versionId });
+   }, [versionId]);
 
    return (
       <div className={styles.mainWrapper}>
