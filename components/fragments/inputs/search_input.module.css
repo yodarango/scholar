@@ -59,8 +59,10 @@
    width: 100%;
    padding-left: var(--spacing-s);
    position: relative;
+   cursor: pointer;
 }
 
 .searchButton {
    margin-left: var(--spacing-xs);
+   cursor: pointer;
 }

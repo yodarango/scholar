@@ -19,6 +19,7 @@ export type TIconButtonProps = {
    link?: string;
    isDownload?: boolean;
    type?: any;
+   style?: any;
    shadowColor?: string;
    cta?: {
       handleClick: () => void;
@@ -33,6 +34,7 @@ export const IconButton = ({
    backgroundColor,
    background,
    link,
+   style,
    isDownload = false,
    type = "button",
    cta,
@@ -42,13 +44,15 @@ export const IconButton = ({
 
    if (shadowColor && shadowColor !== "1" && shadowColor !== "2")
       addStyles.boxShadow = `.2rem .2rem .2rem ${shadowColor}`;
+   if (shadowColor === "none") addStyles.boxShadow = "none";
+
    return (
       <>
          {backgroundColor === "1" &&
             (!link ? (
                <button
                   type={type}
-                  style={custombuttonSize}
+                  style={{ ...custombuttonSize, ...style }}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${styles.primary} ${
@@ -73,7 +77,7 @@ export const IconButton = ({
          {backgroundColor === "2" &&
             (!link ? (
                <button
-                  style={{ ...custombuttonSize, ...addStyles }}
+                  style={{ ...custombuttonSize, ...addStyles, ...style }}
                   type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
@@ -86,7 +90,7 @@ export const IconButton = ({
             ) : (
                <Link href={link ? link : "#"}>
                   <a
-                     style={{ ...custombuttonSize, ...addStyles }}
+                     style={{ ...custombuttonSize, ...addStyles, ...style }}
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.secondary} ${
@@ -105,7 +109,7 @@ export const IconButton = ({
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                  style={{ ...custombuttonSize, background, ...addStyles }}
+                  style={{ ...custombuttonSize, background, ...addStyles, ...style }}
                   onClick={cta?.handleClick}>
                   <Icon name={icon} color={iconColor} size={iconSize} />
                </button>

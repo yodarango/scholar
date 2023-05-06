@@ -1,7 +1,7 @@
 .mainWrpper {
    width: 100%;
    display: flex;
-   align-items: flex-start;
+   align-items: center;
    justify-content: flex-start;
 }
 
@@ -9,9 +9,17 @@
    margin: 0 var(--spacing-xs) 0 0;
 }
 
-.bookmarks {
+.search {
+   margin: 0 var(--spacing-xs) 0 auto;
    justify-self: flex-end;
-   margin: 0 var(--spacing-m) 0 auto;
+}
+
+.searchActive {
+   width: 100%;
+}
+
+.bookmarks {
+   margin: 0 var(--spacing-m) 0 0;
 }
 
 .settings {
