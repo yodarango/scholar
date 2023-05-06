@@ -17,9 +17,12 @@ type TReadBibleHeaderProps = {
    scriptureRef: string;
    chapterId: string | string[];
    langIcon: string;
+   searchRightIcon?: string | number | JSX.Element | React.ReactNode;
    cta: {
       handleFontSelection: (value: string) => void;
       handleThemeSelection: (value: string) => void;
+      handleSearch: (value: string) => void;
+      handleSearchClose: () => void;
    };
 };
 export const ReadBibleHeader = ({
@@ -30,6 +33,7 @@ export const ReadBibleHeader = ({
    versionName,
    scriptureRef,
    whiteBorder,
+   searchRightIcon,
    theme
 }: TReadBibleHeaderProps) => {
    const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -49,10 +53,6 @@ export const ReadBibleHeader = ({
          themeClass = styles.fourthTheme;
          break;
    }
-
-   const handleSearch = (value: string) => {
-      console.log(value);
-   };
 
    return (
       <div className={styles.mainWrpper}>
@@ -78,12 +78,17 @@ export const ReadBibleHeader = ({
          )}
          <div className={`${styles.search} ${isSearchOpen ? styles.searchActive : ""}`}>
             <SearchInput
+               bounceTime={100}
                iconButton={{ shadowColor: "none" }}
                placeholder='search in chapter'
+               inputIconRight={searchRightIcon}
                maxL={50}
                cta={{
-                  handleOnChange: handleSearch,
-                  handleInputStretch: (val) => setIsSearchOpen(val)
+                  handleOnChange: cta.handleSearch,
+                  handleInputStretch: (val) => {
+                     cta.handleSearchClose();
+                     setIsSearchOpen(val);
+                  }
                }}
             />
          </div>

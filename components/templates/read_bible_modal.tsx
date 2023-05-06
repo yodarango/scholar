@@ -15,6 +15,7 @@ import styles from "./read_bible_modal.module.css";
 
 // types
 import { ReadingPreferences } from "../../types/browser/local_storage";
+import { Parragraph } from "../fragments/Typography/parragraph";
 
 type TReadBibleTemplateProps = {
    readingPrefs: ReadingPreferences | null;
@@ -28,12 +29,18 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
    const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
    let themeClass = "";
+   const [search, setsearch] = useState<string>("");
+
+   // the number of results found when searching
+   const [totalSearchResults, settotalSearchResults] = useState<number>(0);
 
    const handleHeader = (e: any) => {
-      const distance = e.target.scrollTop;
-      const isScrollingDown = scrollYDis - distance > 0 ? true : false;
-      setscrollYDis(distance);
-      setscrollingDir(isScrollingDown ? "down" : "up");
+      if (!search) {
+         const distance = e.target.scrollTop;
+         const isScrollingDown = scrollYDis - distance > 0 ? true : false;
+         setscrollYDis(distance);
+         setscrollingDir(isScrollingDown ? "down" : "up");
+      }
    };
 
    switch (readingPrefs?.theme) {
@@ -65,6 +72,12 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
          themeClass = styles.ninthTheme;
          break;
    }
+
+   const handleSearch = (val: string) => {
+      setscrollingDir("none");
+      setsearch(val);
+   };
+
    return (
       <div className={styles.mainWrapper} onScroll={handleHeader}>
          {readingPrefs && (
@@ -80,9 +93,12 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
                   scriptureRef={readingPrefs.scriptureRef}
                   langIcon={readingPrefs.langIcon}
                   chapterId={readingPrefs.chapterId}
+                  searchRightIcon={<Parragraph size='small' text={totalSearchResults} />}
                   cta={{
                      handleFontSelection: cta.handleFont,
-                     handleThemeSelection: cta.handleTheme
+                     handleThemeSelection: cta.handleTheme,
+                     handleSearch,
+                     handleSearchClose: () => setsearch("")
                   }}
                />
             </div>
@@ -90,10 +106,12 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
          <div className={styles.chapter}>
             {readingPrefs && (
                <BibleChapter
+                  searchText={search}
                   versionId={readingPrefs.versionId}
                   chapterId={readingPrefs.chapterId}
                   fontSize={readingPrefs.font}
                   theme={readingPrefs.theme}
+                  cta={{ handleUpdateTextSearchCount: (val: number) => settotalSearchResults(val) }}
                />
             )}
          </div>

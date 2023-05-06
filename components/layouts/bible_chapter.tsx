@@ -39,20 +39,27 @@ import { errorMessages } from "../../data/error_messages";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
+   searchText?: string; //finds a string within a verse
    fontSize?: string;
    versionId: string;
    theme?: string;
+   cta: {
+      handleUpdateTextSearchCount: (count: number) => void;
+   };
 };
 
 export const BibleChapter = ({
    chapterId,
    versionId,
    fontSize = "main",
-   theme = "1"
+   searchText,
+   theme = "1",
+   cta
 }: chapterProps) => {
    // states
-   const [showReadingMenu, setshowReadingMenu] =
-      useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
+   const [showReadingMenu, setshowReadingMenu] = useState<
+      undefined | { verseNumber: string; verseContent: string }
+   >(undefined);
 
    const [highlightedVerses, sethighlightedVerses] = useState<THighlightVerses[]>([]);
    const [data, setdata] = useState<any>(null);
@@ -64,6 +71,11 @@ export const BibleChapter = ({
       VERSE_ID: "",
       USER_ID: 1001
    });
+   const [versesArray, setversesArray] = useState<{ text: string; meta: any }[]>([
+      { text: "", meta: {} }
+   ]);
+   const [chapterTitle, setchapterTitle] = useState<string>("");
+
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (chapterId: string | string[], versionId: string) => {
       try {
@@ -202,8 +214,71 @@ export const BibleChapter = ({
       }
    }, [theme]);
 
-   const chapterTitle = data && data.content.split("\n")[0];
-   const versesArray = data && data.content.split(/\[[0-9]*\]/g);
+   useEffect(() => {
+      let verse = data && data.content.split(/\[[0-9]*\]/g);
+      const chapterTitle = data && data.content.split("\n")[0];
+      verse =
+         verse &&
+         verse.map((verse: string, i: number) => ({
+            text: verse.replaceAll("¶", ""),
+            meta: {
+               // random ID so we can find this verse when fileting
+               uid: i * Math.floor(Math.random() * 9000) + 100
+            }
+         }));
+
+      setchapterTitle(chapterTitle);
+      setversesArray(verse);
+   }, [data]);
+
+   // filter the verses based on the search text
+   useEffect(() => {
+      if (!searchText || searchText === "") {
+         setversesArray(
+            versesArray.map((verse) => ({
+               ...verse,
+               meta: { ...verse.meta, isSearchResult: false }
+            }))
+         );
+
+         cta.handleUpdateTextSearchCount(0);
+      } else if (searchText) {
+         // remove the previous search
+         const removePreviousSearch = versesArray.map((verse) => ({
+            ...verse,
+            meta: { ...verse.meta, isSearchResult: false }
+         }));
+
+         const search = searchText.toLowerCase();
+         const findVerse = versesArray.filter((verse) => verse.text.toLowerCase().includes(search));
+
+         let updatedVerse = versesArray;
+         let findVerseIndex: number[] = [];
+
+         findVerse.map((verse1) => {
+            let index = versesArray.findIndex((verse2) => verse1.meta.uid === verse2.meta.uid);
+            if (index > -1) findVerseIndex.push(index);
+
+            findVerseIndex.map((index) => {
+               const editVerseMeta = removePreviousSearch[index];
+               editVerseMeta.meta.isSearchResult = true;
+            });
+
+            updatedVerse = removePreviousSearch;
+         });
+
+         cta.handleUpdateTextSearchCount(findVerseIndex.length);
+         setversesArray(updatedVerse);
+
+         if (findVerse.length > 0) {
+            let verse = document.getElementById(`${findVerse[0].meta.uid}`);
+
+            verse?.scrollIntoView({
+               behavior: "smooth"
+            });
+         }
+      }
+   }, [searchText]);
 
    return (
       <>
@@ -232,7 +307,7 @@ export const BibleChapter = ({
 
                {/* loop through the data array to render the Chapter  */}
                <div className={styles.versesWrapper}>
-                  {versesArray.map((verse: string, index: number) => {
+                  {versesArray.map((verse, index: number) => {
                      // check if the verse is Highlighted
                      const isHighlighted = highlightedVerses.find(
                         (verse) => verse.VERSE_ID === `${chapterId}.${index}`
@@ -250,14 +325,19 @@ export const BibleChapter = ({
                         // exclude the chapter and the references
                         index + 1 !== versesArray.length && (
                            <div
+                              id={verse.meta.uid}
                               className={styles.verseLine}
                               key={index}
-                              style={{ backgroundColor: getHighlighMeta?.bkgColor }}>
+                              style={{
+                                 backgroundColor: verse.meta.isSearchResult
+                                    ? "rgba(255, 255, 255, 0.2)"
+                                    : getHighlighMeta?.bkgColor
+                              }}>
                               <span
                                  onClick={() =>
                                     setshowReadingMenu({
                                        verseNumber: `${index}`,
-                                       verseContent: verse
+                                       verseContent: verse.text
                                     })
                                  }
                                  className={`${styles.verseNumber} ${
@@ -269,7 +349,7 @@ export const BibleChapter = ({
                                  className={`${styles.verse} ${fntSize} ${thme}`}
                                  style={{ color: getHighlighMeta?.color }}>
                                  <span className={styles.tab}></span>
-                                 {verse}
+                                 {verse.text}
                               </p>
                            </div>
                         )

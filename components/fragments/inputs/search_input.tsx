@@ -3,7 +3,7 @@
    handleSearchGo
 *****************************************************************************************/
 
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 // components
 import { IconButton } from "../buttons/icon_button";
@@ -20,6 +20,7 @@ type TSearchInputProps = {
    initialValue?: string;
    bounceTime?: number;
    className?: string;
+   inputIconRight?: string | number | JSX.Element | React.ReactNode;
    iconButton?: {
       styles?: any;
       shadowColor?: string;
@@ -39,9 +40,9 @@ export const SearchInput = ({
    cta,
    className,
    iconButton,
-   bounceTime = 1000
+   bounceTime = 1000,
+   inputIconRight
 }: TSearchInputProps) => {
-   console.log(className);
    const showSearchInput = iconButton ? false : true;
    const [stretchSearchInput, setstretchSearchInput] = useState(showSearchInput);
 
@@ -70,6 +71,7 @@ export const SearchInput = ({
          cta.handleSearchGo(input.current.value);
       }
       setstretchSearchInput(false);
+
       cta.handleInputStretch && cta.handleInputStretch(false);
    };
 
@@ -78,6 +80,7 @@ export const SearchInput = ({
          {cta?.handleOnChange && stretchSearchInput && (
             <div className={`${styles.mainWrapper} ${className}`}>
                <input
+                  autoFocus={iconButton ? true : false}
                   type='type'
                   maxLength={maxL}
                   role='hidden'
@@ -86,6 +89,9 @@ export const SearchInput = ({
                   onChange={handleSearch}
                   defaultValue={initialValue}
                />
+
+               {/* display something on the right site of the input */}
+               <div className={styles.rightInputIcon}>{inputIconRight}</div>
 
                <div
                   className={`${styles.icon} ${iconButton ? styles.searchButton : ""}`}
@@ -106,15 +112,17 @@ export const SearchInput = ({
          {cta.handleSearchGo && stretchSearchInput && (
             <div className={`${styles.mainWrapperWBtn} ${className}`}>
                <input
+                  autoFocus={iconButton ? true : false}
                   type='type'
                   maxLength={maxL}
                   role='hidden'
-                  className={styles.inputWBtn}
+                  className={styles.inputBtn}
                   placeholder={placeholder}
                   defaultValue={initialValue}
                   ref={input}
                />
-
+               {/* display something on the right site of the input */}
+               <div className={styles.rightInputIcon}>{inputIconRight}</div>
                <div className={styles.searchButton} onClick={handleSearchGo}>
                   <IconButton backgroundColor='1' icon='search' />
                </div>

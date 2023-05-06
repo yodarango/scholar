@@ -8,7 +8,7 @@
 }
 
 .input,
-.inputWBtn {
+.inputBtn {
    background: transparent;
    border: none;
    outline: none;
@@ -29,8 +29,8 @@
 }
 
 .input::placeholder,
-.inputWBtn::placeholder {
-   color: var(--third-color);
+.inputBtn::placeholder {
+   color: var(--third-color--hc);
 }
 
 .icon {
@@ -65,4 +65,20 @@
 .searchButton {
    margin-left: var(--spacing-xs);
    cursor: pointer;
+}
+
+.rightInputIcon * {
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.rightInputIcon {
+   position: absolute;
+   top: 0;
+   bottom: auto;
+   left: auto;
+   height: 100%;
+   right: var(--spacing-s);
 }
