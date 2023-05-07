@@ -100,7 +100,7 @@ export const BibleChapter = ({
    };
 
    // fetch highlighted verses
-   const fetchHighLightedVerses = async (variables: ThighlightedVersesVariables) => {
+   const fetchReadingData = async (variables: ThighlightedVersesVariables) => {
       try {
          const { data }: any = await handleGetHighilightedVerses(variables);
          if (data?.highlighted_verses) {
@@ -126,7 +126,7 @@ export const BibleChapter = ({
    // get the highlighted verses
    useEffect(() => {
       if (hlVaraibles.VERSE_ID) {
-         fetchHighLightedVerses(hlVaraibles);
+         fetchReadingData(hlVaraibles);
       }
    }, [hlVaraibles]);
 

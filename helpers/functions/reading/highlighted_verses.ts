@@ -13,6 +13,7 @@ export type ThighlightedVersesVariables = {
    last_id: number | string;
 };
 
+//! i might be able to delete this function, check later #DELETE
 export const handleGetHighilightedVerses = async (variables: ThighlightedVersesVariables) => {
    try {
       const { data } = await client.query({

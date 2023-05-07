@@ -12,6 +12,23 @@ export const GET_HIGHILGHTED_VERSES = gql`
    }
 `;
 
+export const GET_CHAPTER_DATA = gql`
+   query ($ID: ID, $CHAPTER_ID: String) {
+      chapter_data(ID: $ID, CHAPTER_ID: $CHAPTER_ID) {
+         ... on Highlight {
+            HIGHLIGHT_ID
+            VERSE_ID
+            highlight_type
+            highlight_color
+         }
+
+         ... on Commentary {
+            ID
+         }
+      }
+   }
+`;
+
 // creates new verse highlight by VERSE_ID
 export const POST_HIGHILGHTED_VERSES = gql`
    mutation ($VERSE_ID: ID, $highlight_type: Int, $color: String) {

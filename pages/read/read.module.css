@@ -1,0 +1,63 @@
+.mainWrapper {
+   height: 100vh;
+   width: 100vw;
+   overflow-y: scroll;
+}
+
+.readBibleTemplate {
+   margin: 0 auto;
+   height: 100%;
+   width: var(--global-wrapper-width);
+   padding-top: var(--spacing-s);
+}
+
+.firstTheme {
+   background-color: var(--reading-modal-1--dark);
+}
+
+.secondTheme {
+   background-color: var(--reading-modal-2--dark);
+}
+
+.thirdTheme {
+   background-color: var(--reading-modal-3--dark);
+}
+
+.fourthTheme {
+   background-color: var(--reading-modal-4--light);
+}
+
+.fifthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-image: url("/images/reading/blue.png");
+}
+
+.sixthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-image: url("/images/reading/green.png");
+}
+
+.seventhTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-image: url("/images/reading/orange.png");
+}
+
+.eighthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-image: url("/images/reading/pink.png");
+}
+
+.ninthTheme {
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-image: url("/images/reading/purple.png");
+}

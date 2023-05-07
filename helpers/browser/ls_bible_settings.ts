@@ -1,7 +1,7 @@
 import { DEFAULT_BIBLE_SETTINGS } from "../../constants/defaults";
 
 // helpers
-import { parseChapterId } from "../data/parse_bible_id";
+import { parseChapterId, findChapterIdFromRef } from "../data/parse_bible_id";
 
 // process for getting LS items
 // 1. If item is in the router that is used else :
@@ -13,6 +13,8 @@ export const getLSBibleSettings = (router: any) => {
    const LSParsed = LSExists && JSON.parse(LSExists);
    const chapterId = router.query["chapter-id"];
 
+   let data;
+
    if (LSExists) {
       if (router.query["chapter-id"]) {
          let scriptureRef = parseChapterId(chapterId);
@@ -20,9 +22,18 @@ export const getLSBibleSettings = (router: any) => {
 
          localStorage.setItem("reading-preferences", JSON.stringify(updateScripture));
 
-         return updateScripture;
+         data = updateScripture;
+      } else if (!LSParsed.chapterId) {
+         /*********************************************************************************
+          * If we have a LS settings but no chapter ID in them that mean we need to add it,
+          * Since we have an LS obj that means we have a chapterRed there. Get teh
+          * chapterId from the LS by looking at the reference 🔥
+          * ****************************************************
+          */
+         const chapterId = findChapterIdFromRef(LSParsed.scriptureRef);
+         LSParsed.chapterId = chapterId;
+         data = LSParsed;
       }
-      return LSParsed;
    } else {
       const {
          FONT,
@@ -46,10 +57,14 @@ export const getLSBibleSettings = (router: any) => {
          chapterId: chapterId ? chapterId : CHAPTER_ID
       };
 
+      console.log("defaults", defaults);
+
       const stringifyDefaults = JSON.stringify(defaults);
 
       localStorage.setItem("reading-preferences", stringifyDefaults);
 
-      return defaults;
+      data = defaults;
    }
+
+   return data;
 };
