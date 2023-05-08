@@ -56,6 +56,17 @@
    background-image: linear-gradient(10deg, var(--gradient-1--light), var(--gradient-1--dark));
 }
 
+.commentarySticker {
+   display: inline-block;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: contain;
+   height: 1.5rem;
+   width: 1.5rem;
+   cursor: pointer;
+   background-image: url(/images/shrood_logo/logo_round_pow_small.png);
+}
+
 .bigVerseNumber {
    font-size: var(--fs-xs);
 }

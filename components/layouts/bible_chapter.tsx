@@ -36,6 +36,10 @@ import { THighlightVerses } from "../../types/read";
 import { CONTENT_LAST_ID } from "../../constants/defaults";
 import { GRADIENT_1__LIGHT } from "../../constants/tokens";
 import { errorMessages } from "../../data/error_messages";
+import {
+   handleGetChapterRefs,
+   useGetChapterData
+} from "../../helpers/functions/reading/use_chapter_data";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -43,6 +47,7 @@ type chapterProps = {
    fontSize?: string;
    versionId: string;
    theme?: string;
+   userId?: string;
    cta: {
       handleUpdateTextSearchCount: (count: number) => void;
    };
@@ -54,6 +59,7 @@ export const BibleChapter = ({
    fontSize = "main",
    searchText,
    theme = "1",
+   userId,
    cta
 }: chapterProps) => {
    // states
@@ -69,13 +75,20 @@ export const BibleChapter = ({
    const [hlVaraibles, sethlVariables] = useState<ThighlightedVersesVariables>({
       last_id: CONTENT_LAST_ID,
       VERSE_ID: "",
-      USER_ID: 1001
+      USER_ID: userId
    });
+
    const [versesArray, setversesArray] = useState<{ text: string; meta: any }[]>([
       { text: "", meta: {} }
    ]);
    const [chapterTitle, setchapterTitle] = useState<string>("");
 
+   const getChapterRefsVars = {
+      VERSE_ID: typeof chapterId === "string" ? chapterId : "",
+      USER_ID: userId,
+      last_id: CONTENT_LAST_ID
+   };
+   const [commentaries, setcommentaries] = useState([]);
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (chapterId: string | string[], versionId: string) => {
       try {
@@ -100,16 +113,27 @@ export const BibleChapter = ({
    };
 
    // fetch highlighted verses
-   const fetchReadingData = async (variables: ThighlightedVersesVariables) => {
+   const fetchChapterData = async (variables: ThighlightedVersesVariables) => {
       try {
-         const { data }: any = await handleGetHighilightedVerses(variables);
-         if (data?.highlighted_verses) {
-            sethighlightedVerses(data.highlighted_verses);
+         const highlights: any = await handleGetHighilightedVerses(variables);
+         const refs: any = await handleGetChapterRefs(getChapterRefsVars);
+         if (highlights.data?.highlighted_verses) {
+            sethighlightedVerses(highlights.data.highlighted_verses);
             setloading("done");
          } else {
             setloading("done");
             sethighlightedVerses([]);
             console.warn(errorMessages.read.noHighlightVerses.description);
+         }
+
+         // chapter comments
+         if (refs.data) {
+            setcommentaries(refs.data);
+            setloading("done");
+         } else {
+            setloading("done");
+            setcommentaries([]);
+            console.warn(errorMessages.read.noChapterRefs.description);
          }
       } catch (error) {
          setloading("done");
@@ -126,7 +150,7 @@ export const BibleChapter = ({
    // get the highlighted verses
    useEffect(() => {
       if (hlVaraibles.VERSE_ID) {
-         fetchReadingData(hlVaraibles);
+         fetchChapterData(hlVaraibles);
       }
    }, [hlVaraibles]);
 
@@ -320,6 +344,11 @@ export const BibleChapter = ({
                         (meta) => meta.ID === highlight
                      );
 
+                     // get the commentary references if any
+                     const commentary = commentaries.find(
+                        (c: any) => c.VERSE_ID === `${chapterId}.${index}`
+                     );
+
                      return (
                         index !== 0 &&
                         // exclude the chapter and the references
@@ -350,6 +379,7 @@ export const BibleChapter = ({
                                  style={{ color: getHighlighMeta?.color }}>
                                  <span className={styles.tab}></span>
                                  {verse.text}
+                                 {commentary && <span className={styles.commentarySticker} />}
                               </p>
                            </div>
                         )

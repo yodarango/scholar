@@ -189,6 +189,14 @@ export const errorMessages = {
             "highlight verse returned null or undefined or something else that is not an array ",
          title: "No highlights",
          body: "We did not find any highlighted verses "
+      },
+      noChapterRefs: {
+         id: 2,
+         type: "warning",
+         description:
+            "reference comments of chapter verse returned null or undefined or something else that is not an array ",
+         title: "No commentary refs",
+         body: "We did not find any commentary references "
       }
    },
    login: {

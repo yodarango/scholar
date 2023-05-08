@@ -11,6 +11,7 @@ export type ThighlightedVersesVariables = {
    VERSE_ID?: string;
    USER_ID?: number | string;
    last_id: number | string;
+   isSelf?: boolean;
 };
 
 //! i might be able to delete this function, check later #DELETE

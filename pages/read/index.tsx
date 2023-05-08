@@ -28,7 +28,7 @@ const Read = () => {
    useEffect(() => {
       if (router.isReady) {
          const settings = getLSBibleSettings(router);
-         console.log("settings", settings);
+
          setreadingPrefs(settings);
       }
    }, [router.query, router.isReady]);
