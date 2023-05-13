@@ -1,8 +1,8 @@
 import { english } from "../data/supported_bible_versions/english";
 
 // posts
-export const COM_DEFAULT_IMG_PLACEHOLDER = "/default.png";
-export const THO_DEFAULT_IMG_PLACEHOLDER = "/default.png";
+export const COM_DEFAULT_IMG_PLACEHOLDER = "/images/branding/logo_round_pow_small.png";
+export const THO_DEFAULT_IMG_PLACEHOLDER = "/images/branding/logo_round_pow_small.png";
 
 // BIBLE READING
 export const DEFAULT_BIBLE_SETTINGS = {

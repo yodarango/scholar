@@ -31,6 +31,9 @@ type TCommentaryProps = {
 export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
+   const [postImage, setpostImage] = useState<string>(
+      commentary?.post_image || COM_DEFAULT_IMG_PLACEHOLDER
+   );
 
    // parse the raw category coming from the DB
    const categoryIdNormalized = commentary?.category_tags.split(" ")[0].replace("#", "");
@@ -87,13 +90,10 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                   <a>
                      <div className={styles.image}>
                         <Image
-                           src={
-                              commentary?.post_image
-                                 ? commentary?.post_image
-                                 : COM_DEFAULT_IMG_PLACEHOLDER
-                           }
+                           src={postImage}
                            layout='fill'
                            alt='background cover for a book of the bible'
+                           onError={() => setpostImage(COM_DEFAULT_IMG_PLACEHOLDER)}
                         />
                         {commentary.is_private && (
                            <div className={styles.imageIcon} id={categoryId}>

@@ -102,6 +102,10 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
    useEffect(() => {
       // fetch the data
       fetchData();
+
+      return () => {
+         setpoll(null);
+      };
    }, []);
 
    return (

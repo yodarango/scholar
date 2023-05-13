@@ -12,6 +12,9 @@ import { Quote } from "../../fragments/cards/posts/quote";
 import { Thought } from "../../fragments/cards/posts/thought";
 import { TCommentary } from "../../../types/posts";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
+import { Primary } from "../../fragments/buttons/primary";
+import { MAX_CONTENT_LOAD_WIGO } from "../../../constants/common";
+import { get } from "http";
 
 export const WigoFeed = () => {
    const [posts, setposts] = useState<any[]>([]);
@@ -21,6 +24,7 @@ export const WigoFeed = () => {
       qID: CONTENT_LAST_ID,
       tID: CONTENT_LAST_ID
    });
+   const [showLoadMore, setshowLoadMore] = useState<boolean>(false);
 
    const wrapper = useRef<HTMLDivElement>(null);
 
@@ -34,31 +38,31 @@ export const WigoFeed = () => {
          (c: TCommentary) => c.POST_TYPE === POST_TYPE_THOUGHT.toString()
       );
 
-      const vars = {
-         cID: variables.cID,
-         qID: variables.qID,
-         tID: variables.tID
-      };
-
-      if (commentaries.length > 0) variables.cID = commentaries.at(-1).ID;
-      if (quotes.length > 0) variables.qID = quotes.at(-1).ID;
-      if (thoughts.length > 0) variables.tID = thoughts.at(-1).ID;
-
-      return vars;
+      if (commentaries.length > 0)
+         setvariables((prev) => ({ ...prev, cID: commentaries.at(-1).ID }));
+      if (quotes.length > 0) setvariables((prev) => ({ ...prev, qID: quotes.at(-1).ID }));
+      if (thoughts.length > 0) setvariables((prev) => ({ ...prev, tID: thoughts.at(-1).ID }));
    };
 
    // fetch data
    const fetchData = async () => {
       try {
+         console.log(variables);
          const { data, status } = await handleGetAllPosts(variables);
          if (data) {
             setposts((prev) => [...prev, ...data]);
-            setvariables(getLastPostID(data));
+            getLastPostID(data);
 
-            window.addEventListener("scroll", fetchMoreData);
+            // if there are more posts to load
+            if (data.length === MAX_CONTENT_LOAD_WIGO) setshowLoadMore(true);
+            else setshowLoadMore(false);
+
+            //! infinite scrolling
+            // window.addEventListener("scroll", fetchMoreData);
          }
 
          setloading(status);
+         console.log(status);
       } catch (error) {
          console.error(error);
          setposts([]);
@@ -66,20 +70,24 @@ export const WigoFeed = () => {
       }
    };
 
-   const fetchMoreData = () => {
-      if (wrapper.current) {
-         const makeCall = window.scrollY / wrapper.current.clientHeight >= 0.92;
+   //! If the server sends an error and does not load any posts when scrolling to the bottom
+   //! the app is thrown into a loop of get requests. fix this. Until it is fixed infinite
+   //! scrolling is disabled
 
-         if (makeCall) {
-            // remove event so it event won't fire every time we scroll
-            window.removeEventListener("scroll", fetchMoreData);
-            setloading("loading");
+   // const fetchMoreData = () => {
+   //    if (wrapper.current) {
+   //       const makeCall = window.scrollY / wrapper.current.clientHeight >= 0.92;
 
-            // set timer to make event its called only once
-            setTimeout(fetchData, 500);
-         }
-      }
-   };
+   //       if (makeCall) {
+   //          // remove event so it event won't fire every time we scroll
+   //          window.removeEventListener("scroll", fetchMoreData);
+   //          setloading("loading");
+
+   //          // set timer to make event its called only once
+   //          setTimeout(fetchData, 500);
+   //       }
+   //    }
+   // };
 
    useEffect(() => {
       fetchData();
@@ -113,6 +121,11 @@ export const WigoFeed = () => {
          {(loading === "loading" || loading === "first_load") && (
             <div className={styles.loader}>
                <RoundLoader />
+            </div>
+         )}
+         {showLoadMore && (
+            <div className={styles.loader}>
+               <Primary cta={{ handleClick: () => fetchData() }} title='Load more' type='1' />
             </div>
          )}
       </div>

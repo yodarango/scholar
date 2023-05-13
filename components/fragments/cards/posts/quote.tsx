@@ -23,12 +23,9 @@ import { FONT_COLOR, PRIMARY_COLOR } from "../../../../constants/tokens";
 export type TQuoteProps = {
    quote: TQuote;
    type?: number;
-   cta: {
-      handleDelete: (id: string | number) => void;
-   };
 };
 
-export const Quote = ({ cta, quote, type = 0 }: TQuoteProps) => {
+export const Quote = ({ quote, type = 0 }: TQuoteProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
 

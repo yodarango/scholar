@@ -35,6 +35,7 @@ type TThoughtProps = {
 export const Thought = ({ cta, thought }: TThoughtProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
+   const [postImage, setPostImage] = useState<string>(thought.post_image);
 
    // parse the Category ID
    const categoryId = thought?.category_tags.split(" ")[0].replace("#", "");
@@ -85,13 +86,10 @@ export const Thought = ({ cta, thought }: TThoughtProps) => {
                   <a>
                      <div className={styles.image}>
                         <Image
-                           src={
-                              thought?.post_image
-                                 ? thought?.post_image
-                                 : THO_DEFAULT_IMG_PLACEHOLDER
-                           }
+                           src={postImage}
                            layout='fill'
                            alt='post thumbnail'
+                           onError={() => setPostImage(THO_DEFAULT_IMG_PLACEHOLDER)}
                         />
                      </div>
 
