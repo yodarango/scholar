@@ -12,10 +12,20 @@ import { TCommentary } from "../../../types/posts";
 
 // styles
 import styles from "./view_commentary.module.css";
+type TViewCommentary = {
+   commentaryID?: string;
+   withEdit?: boolean;
+   cta?: {
+      handleClose: () => void;
+      handleEdit?: () => void;
+   };
+};
 
-export const ViewCommentary = () => {
+export const ViewCommentary = ({ cta, withEdit, commentaryID }: TViewCommentary) => {
    const router = useRouter();
-   const ID = router?.query && router?.query.id ? router?.query.id : "1";
+   const ID = router?.query && router?.query.id ? router?.query.id : commentaryID;
+
+   const handleCloseModal = cta?.handleClose ? cta.handleClose : () => router.back();
 
    const [commentary, setcommentary] = useState<TCommentary | null>(null);
    const [loading, setloading] = useState<string>("loading");
@@ -50,7 +60,7 @@ export const ViewCommentary = () => {
                   title={commentary.verse_citation}
                   postReferences={postReferneces}
                   body={commentary.body}
-                  cta={{ handleCloseModal: () => router.back() }}
+                  cta={{ handleCloseModal: handleCloseModal, handleEdit: cta?.handleEdit }}
                   postImage={commentary.post_image}
                   userAuthority={commentary.creator.authority_level}
                   userId={commentary.creator.ID}
@@ -59,6 +69,7 @@ export const ViewCommentary = () => {
                   postPostedOnDate={commentary.posted_on}
                   postCreatedDate={commentary.created_date}
                   postCategory={commentary.category_tags}
+                  withEdit={withEdit}
                />
             </div>
          )}

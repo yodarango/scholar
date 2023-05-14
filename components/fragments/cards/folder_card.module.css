@@ -48,6 +48,9 @@
    width: 100%;
    padding: 0 var(--spacing-xs) 0 0;
    cursor: pointer;
+   flex-wrap: wrap;
+   justify-content: flex-start;
+   flex-flow: column;
 }
 
 .folderName * {
@@ -83,9 +86,6 @@
 
 .icon {
    flex-shrink: 0;
-}
-
-.lockIcon {
 }
 
 .countInt {

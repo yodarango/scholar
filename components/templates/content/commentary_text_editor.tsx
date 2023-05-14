@@ -38,6 +38,7 @@ type TCommentaryTextEditorProps = {
    postPrivacy?: boolean;
    requestType: string;
    includeClose?: boolean;
+   withSticker?: boolean;
    readyData?: {
       verseId: string;
       reference: string;
@@ -68,6 +69,7 @@ export const CommentaryTextEditor = ({
    readyData,
    includeClose,
    cta,
+   withSticker,
    requestType
 }: TCommentaryTextEditorProps) => {
    // router
@@ -95,7 +97,6 @@ export const CommentaryTextEditor = ({
 
    // reducer
    function reducer(state: any, action: any) {
-      console.log(action);
       switch (action.type) {
          case "category":
             return { ...state, category_tags: action.payload };
@@ -170,8 +171,7 @@ export const CommentaryTextEditor = ({
                   body={notification.body}
                   type={notification.type}
                   cta={{
-                     handleClose: () =>
-                        notification.type === "2" ? router.push("/") : setnotification(null)
+                     handleClose: () => setnotification(null)
                   }}
                />
             )}
@@ -202,6 +202,8 @@ export const CommentaryTextEditor = ({
                   postPrivacy={postPrivacy}
                   requestStatus={loading}
                   includeFolder={true}
+                  folderId={folderId}
+                  withSticker={withSticker}
                   cta={{
                      handleCategorySelection: (category) =>
                         dispatch({ type: "category", payload: category }),

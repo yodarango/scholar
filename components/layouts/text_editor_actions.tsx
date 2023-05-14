@@ -51,6 +51,7 @@ type TTextEditorFormatterActionsProps = {
    requestStatus?: string;
    includeIsPrivate?: boolean;
    includeFolder?: boolean;
+   folderId?: string | number;
    cta: {
       handleRefVerseSelection: (id: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -75,6 +76,7 @@ export const TextEditorActions = ({
    postReferences,
    includeFolder,
    postPrivacy,
+   folderId,
    includeIsPrivate = true,
    requestStatus = "done",
    postButtonTitle = "Post"
@@ -84,7 +86,7 @@ export const TextEditorActions = ({
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
    const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
-   const [showFoldersList, setShowFoldersList] = useState<boolean>(false);
+   const [showFoldersList, setShowFoldersList] = useState<string | number | undefined>(undefined);
    const [loading, setloading] = useState<string>(requestStatus);
 
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
@@ -151,11 +153,12 @@ export const TextEditorActions = ({
             {showFoldersList && (
                <FolderList
                   isSelf
+                  isPlacingPostInFolder={showFoldersList}
                   cta={{
-                     handleClose: () => setShowFoldersList(false),
+                     handleClose: () => setShowFoldersList(undefined),
                      handleFolderSelection: (id: string | number) => {
                         cta.handleFolderSelection && cta.handleFolderSelection(id);
-                        setShowFoldersList(false);
+                        setShowFoldersList(undefined);
                      }
                   }}
                />
@@ -174,9 +177,9 @@ export const TextEditorActions = ({
             {includeFolder && (
                <div className={styles.folder}>
                   <IconButton
-                     backgroundColor='1'
+                     backgroundColor={folderId ? "2" : "1"}
                      icon='folder'
-                     cta={{ handleClick: () => setShowFoldersList(true) }}
+                     cta={{ handleClick: () => setShowFoldersList(folderId) }}
                   />
                </div>
             )}

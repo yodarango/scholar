@@ -16,6 +16,7 @@ import styles from "./read_bible_modal.module.css";
 // types
 import { ReadingPreferences } from "../../types/browser/local_storage";
 import { Parragraph } from "../fragments/Typography/parragraph";
+import { console_log } from "../../utilities/console_log";
 
 type TReadBibleTemplateProps = {
    readingPrefs: ReadingPreferences | null;

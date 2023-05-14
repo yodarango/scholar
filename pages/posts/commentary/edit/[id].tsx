@@ -63,10 +63,10 @@ const EditCommentary = () => {
                postCategory={commentary?.category_tags}
                postReferences={postReferneces}
                postPrivacy={commentary?.is_private}
+               folderId={commentary?.folder_id}
+               withSticker={true}
                cta={{
-                  handleCloseModal: () => {
-                     router.push("/");
-                  }
+                  handleCloseModal: () => router.back()
                }}
             />
          )}

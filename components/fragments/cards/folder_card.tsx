@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Parragraph } from "../Typography/parragraph";
 import style from "./folder_card.module.css";
 import { Icon } from "../chunks/icons";
-import { FONT_COLOR } from "../../../constants/tokens";
+import { FONT_COLOR, GRADIENT_1__LIGHT } from "../../../constants/tokens";
 import Portal from "../../hoc/potal";
 import { SelectFolderOptions } from "../../layouts/menus/select_folder_options";
 import { useDeleteContent } from "../../../helpers/functions/posts/content_delete";
@@ -21,6 +21,7 @@ type FolderCardProps = {
    isPrivate: boolean;
    showEdit?: boolean;
    userSignature?: string;
+   smallDescription?: string;
    cta?: {
       handleClick?: (id: string | number) => void;
    };
@@ -33,6 +34,7 @@ export const FolderCard = ({
    postCount,
    isPrivate,
    userSignature = "@me",
+   smallDescription,
    showEdit = true,
    cta,
    ID
@@ -124,6 +126,13 @@ export const FolderCard = ({
                         else router.push(`/users/${userSignature}/folders/${ID}`);
                      }}>
                      <Parragraph text={folderName} size='main' />
+                     {smallDescription && (
+                        <Parragraph
+                           text={smallDescription}
+                           size='small'
+                           color={GRADIENT_1__LIGHT}
+                        />
+                     )}
                   </div>
 
                   <div className={style.postCount}>

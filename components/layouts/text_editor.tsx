@@ -6,7 +6,7 @@
 ****************************************************************************************/
 
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // components
 import { TextEditorTextArea } from "../fragments/inputs/text_editor_text_area";
@@ -39,6 +39,8 @@ type TTextEditorProps = {
    includeIsPrivate?: boolean;
    requestStatus?: string;
    includeFolder?: boolean;
+   folderId?: string | number;
+   withSticker?: boolean;
    cta: {
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
@@ -71,7 +73,9 @@ export const TextEditor = ({
    titlePlaceHolder,
    requestStatus,
    includeIsPrivate,
+   withSticker,
    includeFolder,
+   folderId,
    cta
 }: TTextEditorProps) => {
    // router
@@ -95,6 +99,7 @@ export const TextEditor = ({
          </div>
          <div className={styles.textArea}>
             <TextEditorTextArea
+               withSticker={withSticker}
                withTitle={withTitle}
                titleMaxL={titleMaxL}
                titleDefaultValue={titleDefaultValue}
@@ -133,6 +138,7 @@ export const TextEditor = ({
                postPrivacy={postPrivacy}
                requestStatus={requestStatus}
                includeFolder={includeFolder}
+               folderId={folderId}
                cta={{
                   handleCategorySelection: cta.handleCategorySelection,
                   handlePrivacySelection: cta.handlePrivacySelection,

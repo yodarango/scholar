@@ -1,13 +1,13 @@
-type Toptions = string[];
-
-export const console_log = (data: any, options?: Toptions) => {
-   const colors = ["#48cae4", "#fb5607", "#390099", "#a7c957", "#f07167", "#a98467", "#7678ed"];
+export const console_log = (data: any, color?: number, fontSize?: number) => {
+   const colors = ["#8ac926", "#ff595e", "#ffca3a", "#1982c4", "#6a4c93"];
    const index = Math.floor(Math.random() * colors.length);
 
-   let opts = ["14px"];
-   if (options) opts = options.map((o, i) => (opts[i] = o || opts[i]));
+   let font = "16px";
+   let col = colors[index];
+   if (fontSize) font = `${fontSize}px`;
+   if (color) col = colors[color];
 
-   const style = `font-size: ${opts[0]}; color: ${colors[index]}; background-color: white;`;
+   const style = `font-size: ${font}; color: ${col};`;
 
    if (typeof data === "object") {
       console.log(`%c${JSON.stringify(data)}`, style);

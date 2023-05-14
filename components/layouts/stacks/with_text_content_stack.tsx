@@ -42,6 +42,7 @@ type TPrimaryStackprops = {
       handleSubmit?: () => any;
       handleBodyValue?: (value: string) => void;
       handleClickOnAvatar?: (id: string) => void;
+      handleEdit?: () => void;
    };
 };
 
@@ -102,7 +103,12 @@ export const WithTextContentStack = ({
                <div className={styles.edit}>
                   <IconButton
                      icon='edit'
-                     cta={{ handleClick: () => setIsEditable(!isEditable) }}
+                     cta={{
+                        handleClick: () => {
+                           if (cta.handleEdit) cta.handleEdit();
+                           else setIsEditable(!isEditable);
+                        }
+                     }}
                      backgroundColor={isEditable ? "2" : "1"}
                      iconColor='#F1EAFF'
                   />

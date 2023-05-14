@@ -33,6 +33,7 @@ type TFolderListProps = {
    isSelf?: boolean;
    userSignature?: string;
    includeBulkAction?: boolean;
+   isPlacingPostInFolder?: string | number;
    cta?: {
       handleFolderSelection?: (id: string | number) => void;
       handleClose?: () => void;
@@ -41,7 +42,13 @@ type TFolderListProps = {
 
 const FOLDER_SELECT = 1;
 const FOLDER_SELECT_ALL = 2;
-export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TFolderListProps) => {
+export const FolderList = ({
+   includeBulkAction,
+   isSelf,
+   cta,
+   userSignature,
+   isPlacingPostInFolder
+}: TFolderListProps) => {
    const router = useRouter();
    const { data, status } = useGetFolders({ isSelf, query_type: "my-folders" });
    const [folders, setFolders] = useState<any[] | null>([]);
@@ -284,18 +291,29 @@ export const FolderList = ({ includeBulkAction, isSelf, cta, userSignature }: TF
                         folders.map((folder, i: number) => (
                            <div
                               key={i}
-                              className={`${styles.folder} ${
-                                 folder?.selected ? styles.selectedFolder : ""
-                              }`}>
+                              className={`${styles.folder} 
+                              ${folder?.selected ? styles.selectedFolder : ""}
+                              ${
+                                 isPlacingPostInFolder === parseInt(folder.ID)
+                                    ? styles.postInFolder
+                                    : ""
+                              }
+                              `}>
                               <FolderCard
                                  cta={{
-                                    handleClick: () =>
+                                    handleClick: () => {
                                        selectFolderActive
                                           ? handleSelect(i, folder.ID, undefined)
                                           : cta &&
-                                            cta.handleFolderSelection &&
-                                            cta?.handleFolderSelection(folder.ID)
+                                            cta?.handleFolderSelection &&
+                                            cta?.handleFolderSelection(folder.ID);
+                                    }
                                  }}
+                                 smallDescription={
+                                    isPlacingPostInFolder === parseInt(folder.ID)
+                                       ? "currently in this folder"
+                                       : undefined
+                                 }
                                  userSignature={userSignature}
                                  thumbnail={folder.image}
                                  folderName={folder.name}

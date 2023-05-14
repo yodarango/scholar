@@ -1,4 +1,5 @@
 .mainWrapper {
+   position: relative;
    width: 100%;
    height: 100%;
    border-top: 0.3rem solid var(--third-color);
@@ -40,8 +41,34 @@
    border: none;
    outline: none;
    padding: var(--spacing-s);
+   padding-top: calc(var(--spacing-l) + var(--spacing-xs));
 }
 
 .textArea::placeholder {
    color: var(--third-color);
+}
+
+.stickerWrapper {
+   position: absolute;
+   right: var(--spacing-s);
+   top: var(--spacing-s);
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   width: 10rem;
+   cursor: pointer;
+}
+
+.stickerText {
+   margin-right: var(--spacing-xs);
+}
+
+.sticker {
+   width: 2rem;
+   height: 2rem;
+   background-color: var(--third-color);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }

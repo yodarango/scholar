@@ -40,6 +40,8 @@ import {
    handleGetChapterRefs,
    useGetChapterData
 } from "../../helpers/functions/reading/use_chapter_data";
+import { ViewCommentary } from "../templates/posts/view_commentary";
+import PortalTernary from "../hoc/portal_ternary";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -62,6 +64,8 @@ export const BibleChapter = ({
    userId,
    cta
 }: chapterProps) => {
+   const router = useRouter();
+
    // states
    const [showReadingMenu, setshowReadingMenu] = useState<
       undefined | { verseNumber: string; verseContent: string }
@@ -89,6 +93,8 @@ export const BibleChapter = ({
       last_id: CONTENT_LAST_ID
    };
    const [commentaries, setcommentaries] = useState([]);
+   const [commentaryModal, setcommentaryModal] = useState<string>("none");
+
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (chapterId: string | string[], versionId: string) => {
       try {
@@ -345,7 +351,7 @@ export const BibleChapter = ({
                      );
 
                      // get the commentary references if any
-                     const commentary = commentaries.find(
+                     const commentary: any = commentaries.find(
                         (c: any) => c.VERSE_ID === `${chapterId}.${index}`
                      );
 
@@ -379,7 +385,12 @@ export const BibleChapter = ({
                                  style={{ color: getHighlighMeta?.color }}>
                                  <span className={styles.tab}></span>
                                  {verse.text}
-                                 {commentary && <span className={styles.commentarySticker} />}
+                                 {commentary && (
+                                    <span
+                                       className={styles.commentarySticker}
+                                       onClick={() => setcommentaryModal(commentary.ID)}
+                                    />
+                                 )}
                               </p>
                            </div>
                         )
@@ -389,6 +400,18 @@ export const BibleChapter = ({
             </div>
          )}
 
+         {commentaryModal !== "none" && (
+            <PortalTernary>
+               <ViewCommentary
+                  commentaryID={commentaryModal}
+                  cta={{
+                     handleClose: () => setcommentaryModal("none"),
+                     handleEdit: () => router.push(`/posts/commentary/edit/${commentaryModal}`)
+                  }}
+                  withEdit
+               />
+            </PortalTernary>
+         )}
          {loading === "loading" && (
             <div className={styles.loader}>
                <RoundLoader />

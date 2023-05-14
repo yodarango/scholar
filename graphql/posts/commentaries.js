@@ -175,6 +175,7 @@ export const EDIT_COMMENTARY = gql`
       $body: String
       $category_tags: String
       $referenced_verses: String
+      $FOLDER_ID: ID
       $ID: ID
       $is_private: Boolean
    ) {
@@ -184,6 +185,7 @@ export const EDIT_COMMENTARY = gql`
             category_tags: $category_tags
             referenced_verses: $referenced_verses
             is_private: $is_private
+            FOLDER_ID: $FOLDER_ID
             ID: $ID
          }
       ) {

@@ -16,6 +16,11 @@ export const getLSBibleSettings = (router: any) => {
    let data;
 
    if (LSExists) {
+      /****************************************************************************************
+       * if there is a chapter ID in the router we want to give precedence to the router over their
+       * local storage 💦
+       *******************
+       */
       if (router.query["chapter-id"]) {
          let scriptureRef = parseChapterId(chapterId);
          const updateScripture = { ...LSParsed, chapterId, scriptureRef };
@@ -23,15 +28,17 @@ export const getLSBibleSettings = (router: any) => {
          localStorage.setItem("reading-preferences", JSON.stringify(updateScripture));
 
          data = updateScripture;
-      } else if (!LSParsed.chapterId) {
+      } else if (!LSParsed.chapterId && !router.query["chapter-id"]) {
          /*********************************************************************************
           * If we have a LS settings but no chapter ID in them that mean we need to add it,
-          * Since we have an LS obj that means we have a chapterRed there. Get teh
+          * Since we have an LS obj that means we have a chapter reference  there. Get the
           * chapterId from the LS by looking at the reference 🔥
           * ****************************************************
           */
          const chapterId = findChapterIdFromRef(LSParsed.scriptureRef);
          LSParsed.chapterId = chapterId;
+         data = LSParsed;
+      } else {
          data = LSParsed;
       }
    } else {
@@ -56,8 +63,6 @@ export const getLSBibleSettings = (router: any) => {
          versionName: VERSION_NAME,
          chapterId: chapterId ? chapterId : CHAPTER_ID
       };
-
-      console.log("defaults", defaults);
 
       const stringifyDefaults = JSON.stringify(defaults);
 
