@@ -25,7 +25,7 @@ import { TVersion } from "../../../data/supported_bible_versions/version_type";
 import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 import { version } from "os";
 
-type TBiblePreferences = {
+export type TBiblePreferences = {
    whiteBorder?: boolean;
    className?: string;
    versionName: string;

@@ -41,7 +41,9 @@ type TTextEditorProps = {
    includeFolder?: boolean;
    folderId?: string | number;
    withSticker?: boolean;
+   sticker?: string | undefined;
    cta: {
+      handleStickerChoice?: (sticker: { id: string; path: string }) => void;
       handleCategorySelection: (category: string) => void;
       handlePrivacySelection: (privacy: boolean) => void;
       handleRefVerseSelection: (verse: string) => void;
@@ -74,6 +76,7 @@ export const TextEditor = ({
    requestStatus,
    includeIsPrivate,
    withSticker,
+   sticker,
    includeFolder,
    folderId,
    cta
@@ -100,6 +103,7 @@ export const TextEditor = ({
          <div className={styles.textArea}>
             <TextEditorTextArea
                withSticker={withSticker}
+               sticker={sticker}
                withTitle={withTitle}
                titleMaxL={titleMaxL}
                titleDefaultValue={titleDefaultValue}
@@ -107,7 +111,11 @@ export const TextEditor = ({
                defaultValue={postbody}
                placeHolder='Commentary...'
                maxLength={2500}
-               cta={{ handleBodyValue: handleUpdateBody, handleTitleValue: cta.handleTitleValue }}
+               cta={{
+                  handleBodyValue: handleUpdateBody,
+                  handleTitleValue: cta.handleTitleValue,
+                  handleStickerChoice: cta.handleStickerChoice
+               }}
             />
          </div>
 

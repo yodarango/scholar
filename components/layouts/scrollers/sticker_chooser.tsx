@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./sticker_chooser.module.css";
-import { SearchInput } from "../inputs/search_input";
-import { CloseContent } from "../buttons/close_content";
 import PortalSecondary from "../../hoc/portal_secondary";
+import { CloseContent } from "../../fragments/buttons/close_content";
+import { SearchInput } from "../../fragments/inputs/search_input";
+import Image from "next/image";
 
 type TStickerChooserProps = {
    cta: {
       handleClose: () => void;
+      handleChoice: (sticker: { id: string; path: string }) => void;
    };
 };
 
@@ -15,8 +17,10 @@ export const StickerChooser = ({ cta }: TStickerChooserProps) => {
 
    const s = [
       {
-         id: 123,
+         id: "123",
          name: "add",
+         path: "/images/bible_books/1.png",
+         description: "description",
          categories: [
             "love",
             "happy",
@@ -43,14 +47,20 @@ export const StickerChooser = ({ cta }: TStickerChooserProps) => {
    ];
 
    const filterStickers = (value: string) => {
-      let filteredStickers = stickers.filter((s: any) => s.categories.includes(value));
+      const stkrz: any = [...Array(20)].map((_, i) => s[0]);
+      let filteredStickers = stkrz.filter((s: any) => {
+         const categories = s.categories.join(" ");
+         if (categories.includes(value)) {
+            return s;
+         }
+      });
       filteredStickers = filterStickers.length === 0 || !filterStickers ? [] : filteredStickers;
-      console.log(filteredStickers);
+      filteredStickers = !value || value === "" ? stkrz : filteredStickers;
       setSticker(filteredStickers);
    };
 
    useEffect(() => {
-      const stkrz: any = [...Array(20)].map((_, i) => s);
+      const stkrz: any = [...Array(20)].map((_, i) => s[0]);
       setSticker(stkrz);
    }, []);
 
@@ -62,17 +72,26 @@ export const StickerChooser = ({ cta }: TStickerChooserProps) => {
             </div>
             <div className={styles.search}>
                <SearchInput
-                  maxL={50}
-                  cta={{ handleOnChange: filterStickers }}
-                  placeholder='search by topic...'
+                  placeholder='Search by topic...'
+                  maxL={30}
                   bounceTime={100}
+                  cta={{ handleOnChange: filterStickers }}
                />
             </div>
-            <div className={styles.stickerWrapper}>
-               {stickers.map((sticker, i) => (
-                  <div className={styles.sticker} key={i} />
+
+            <section className={styles.stickerWrapper}>
+               {stickers.map((sticker: any, index: number) => (
+                  <div
+                     className={styles.sticker}
+                     key={index}
+                     onClick={() => {
+                        cta.handleChoice({ id: sticker.id, path: sticker.name });
+                        cta.handleClose();
+                     }}>
+                     <Image src={sticker.path} alt={sticker.description} layout='fill' />
+                  </div>
                ))}
-            </div>
+            </section>
          </div>
       </PortalSecondary>
    );

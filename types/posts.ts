@@ -16,6 +16,7 @@ export type TCommentary = {
    authority_level: string;
    folder_id: string;
    folder_name: string;
+   sticker: string;
    creator: {
       ID: string;
       signature: string;

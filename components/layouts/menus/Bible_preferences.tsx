@@ -1,4 +1,4 @@
-//! #COMEBACK Component not able to be tested in stories since it includes router and having trouble setting it up with Storybook
+//! #COMEBACK Component throwing out TS
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -16,7 +16,7 @@ export const BiblePreferences = () => {
    // router
    const router = useRouter();
    // states
-   const [BiblePreferences, setBiblePreferences] = useState<TBiblePreferences | null>(null);
+   const [BiblePreferences, setBiblePreferences] = useState<any>(null); //<TBiblePreferences | null>(null);
 
    const getLocalStorage = () => {
       if (localStorage && localStorage.getItem("reading-preferences")) {
@@ -25,7 +25,9 @@ export const BiblePreferences = () => {
          // set the new values
          //setBiblePreferences(parsedPrefs);
       } else {
-         const newBibleprefs: TBiblePreferences = {
+         const newBibleprefs: any = {
+            //! this is throwing TS error because the type is wrong, find out why!
+            // TBiblePreferences = {
             versionId: "english",
             versionName: "KJV",
             bibleLanguage: "english",
@@ -47,15 +49,13 @@ export const BiblePreferences = () => {
          {BiblePreferences && (
             <>
                <div>
-                  <BibleLanguage
-                     cta={(lang: string) => console.log(lang)}
-                     language={BiblePreferences.bibleLanguage}
-                  />
+                  <BibleLanguage langIcon={BiblePreferences.bibleLanguage} />
                </div>
                <div>
                   <BibleVersionScripture
-                     cta={{ handleSelection: (content) => console.log(content) }}
-                     BiblePreferences={BiblePreferences}
+                     scriptureRef=''
+                     versionName={BiblePreferences.versionId}
+                     versionId={BiblePreferences.id}
                   />
                </div>
             </>

@@ -1,0 +1,62 @@
+.mainWrapper {
+   position: fixed;
+   width: 100%;
+   height: 80vh;
+   max-height: 70rem;
+   padding: var(--spacing-s) var(--spacing-ml) var(--spacing-l);
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-direction: column;
+   border-radius: 3em;
+   box-shadow: 0 -4px 4px var(--shadow-color);
+   overflow: hidden;
+   background-color: var(--primary-color);
+   bottom: 0;
+}
+
+.close {
+   position: absolute;
+   top: var(--spacing-s);
+   right: var(--spacing-s);
+}
+
+.search {
+   max-width: 45rem;
+   width: 100%;
+   margin: calc(var(--spacing-s) + var(--spacing-l)) auto var(--spacing-ml);
+   height: 5rem;
+}
+
+.search input {
+   height: 100%;
+}
+
+.stickerWrapper {
+   max-width: 45rem;
+   width: 100%;
+   overflow-y: scroll;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   align-self: flex-end;
+   margin: 0 auto var(--spacing-ml);
+}
+
+.mainWrapper .stickerWrapper > .sticker {
+   position: relative;
+   width: 4rem;
+   height: 4rem;
+   background-color: royalblue;
+   margin: 0;
+   margin-bottom: var(--spacing-xs);
+   margin-right: var(--spacing-xs);
+   cursor: pointer;
+   overflow: hidden;
+}
+
+.sticker img {
+   object-fit: contain;
+   object-position: center;
+}

@@ -44,6 +44,7 @@ export const GET_COMMENTARIES = gql`
          total_comment_count
          average_rating_count
          total_rating_count
+         sticker
       }
    }
 `;
@@ -127,6 +128,7 @@ export const GET_EDIT_COMMENTARY = gql`
          verse_citation
          posted_on
          is_private
+         sticker
          creator {
             ID
          }
@@ -178,6 +180,7 @@ export const EDIT_COMMENTARY = gql`
       $FOLDER_ID: ID
       $ID: ID
       $is_private: Boolean
+      $sticker: ID
    ) {
       edit_commentary(
          data: {
@@ -186,6 +189,7 @@ export const EDIT_COMMENTARY = gql`
             referenced_verses: $referenced_verses
             is_private: $is_private
             FOLDER_ID: $FOLDER_ID
+            sticker: $sticker
             ID: $ID
          }
       ) {

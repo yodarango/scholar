@@ -64,7 +64,8 @@ const EditCommentary = () => {
                postReferences={postReferneces}
                postPrivacy={commentary?.is_private}
                folderId={commentary?.folder_id}
-               withSticker={true}
+               withSticker
+               sticker={commentary?.sticker}
                cta={{
                   handleCloseModal: () => router.back()
                }}

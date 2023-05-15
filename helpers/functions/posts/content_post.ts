@@ -31,6 +31,7 @@ export type THandlePostContent = {
    verse_citation?: string;
    author?: String;
    background?: String;
+   sticker?: String;
 };
 
 export const dataHandler = async (

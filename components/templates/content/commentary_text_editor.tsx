@@ -39,6 +39,7 @@ type TCommentaryTextEditorProps = {
    requestType: string;
    includeClose?: boolean;
    withSticker?: boolean;
+   sticker?: string;
    readyData?: {
       verseId: string;
       reference: string;
@@ -68,6 +69,7 @@ export const CommentaryTextEditor = ({
    postPrivacy = false,
    readyData,
    includeClose,
+   sticker,
    cta,
    withSticker,
    requestType
@@ -92,7 +94,8 @@ export const CommentaryTextEditor = ({
       VERSE_ID: verseId,
       FOLDER_ID: folderId,
       verse_citation: verseCitation,
-      post_image: postImage
+      post_image: postImage,
+      sticker: sticker
    };
 
    // reducer
@@ -118,6 +121,9 @@ export const CommentaryTextEditor = ({
 
          case "folder":
             return { ...state, FOLDER_ID: action.payload };
+
+         case "sticker":
+            return { ...state, sticker: action.payload.id };
 
          // why am I returning the data from a nested child rather than from the bottom "handlePost' function below?
          // Because why waste more network when the data is already in the client
@@ -204,6 +210,7 @@ export const CommentaryTextEditor = ({
                   includeFolder={true}
                   folderId={folderId}
                   withSticker={withSticker}
+                  sticker={sticker}
                   cta={{
                      handleCategorySelection: (category) =>
                         dispatch({ type: "category", payload: category }),
@@ -215,6 +222,8 @@ export const CommentaryTextEditor = ({
                      handleRefVerseSelection: (verse) =>
                         dispatch({ type: "referencedVerses", payload: verse }),
                      handleFolderSelection: (id) => dispatch({ type: "folder", payload: id }),
+                     handleStickerChoice: (sticker) =>
+                        dispatch({ type: "sticker", payload: sticker }),
                      handleCloseModal: cta?.handleCloseModal,
                      handlePost
                   }}
