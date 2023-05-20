@@ -14,7 +14,9 @@ const NewCommentary = () => {
       <div className={styles.mainWrapper}>
          <CommentaryTextEditor
             includeClose
+            closePath='/'
             verseId=''
+            withSticker={true}
             requestType={REQUEST_TYPE_IS_NEW_COMMENTARY}
          />
       </div>

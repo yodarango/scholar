@@ -146,6 +146,7 @@ export const CREATE_NEW_COMMENTARY = gql`
       $verse_citation: String
       $is_private: Boolean
       $post_image: String
+      $sticker: String
    ) {
       commentary(
          data: {
@@ -157,6 +158,7 @@ export const CREATE_NEW_COMMENTARY = gql`
             verse_citation: $verse_citation
             is_private: $is_private
             post_image: $post_image
+            sticker: $sticker
          }
       ) {
          ... on Commentary {
@@ -180,7 +182,7 @@ export const EDIT_COMMENTARY = gql`
       $FOLDER_ID: ID
       $ID: ID
       $is_private: Boolean
-      $sticker: ID
+      $sticker: String
    ) {
       edit_commentary(
          data: {

@@ -39,6 +39,7 @@ type TCommentaryTextEditorProps = {
    requestType: string;
    includeClose?: boolean;
    withSticker?: boolean;
+   closePath?: string;
    sticker?: string;
    readyData?: {
       verseId: string;
@@ -69,6 +70,7 @@ export const CommentaryTextEditor = ({
    postPrivacy = false,
    readyData,
    includeClose,
+   closePath,
    sticker,
    cta,
    withSticker,
@@ -95,7 +97,7 @@ export const CommentaryTextEditor = ({
       FOLDER_ID: folderId,
       verse_citation: verseCitation,
       post_image: postImage,
-      sticker: sticker
+      sticker
    };
 
    // reducer
@@ -165,9 +167,14 @@ export const CommentaryTextEditor = ({
 
    return (
       <>
-         {includeClose && (
+         {includeClose && !closePath && (
             <div className={styles.close}>
                <CloseContent cta={{ handleClick: () => router.back() }} />
+            </div>
+         )}
+         {includeClose && closePath && (
+            <div className={styles.close}>
+               <CloseContent href={closePath} />
             </div>
          )}
          <Portal>
@@ -196,7 +203,7 @@ export const CommentaryTextEditor = ({
             <div className={styles.textEditor}>
                <TextEditor
                   body={body}
-                  postImage={postImage}
+                  postImage={state.post_image}
                   userAuthority={userAuthority}
                   userId={userId}
                   username={username}
@@ -210,7 +217,7 @@ export const CommentaryTextEditor = ({
                   includeFolder={true}
                   folderId={folderId}
                   withSticker={withSticker}
-                  sticker={sticker}
+                  sticker={state.sticker}
                   cta={{
                      handleCategorySelection: (category) =>
                         dispatch({ type: "category", payload: category }),

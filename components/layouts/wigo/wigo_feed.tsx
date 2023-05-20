@@ -47,7 +47,6 @@ export const WigoFeed = () => {
    // fetch data
    const fetchData = async () => {
       try {
-         console.log(variables);
          const { data, status } = await handleGetAllPosts(variables);
          if (data) {
             setposts((prev) => [...prev, ...data]);
@@ -62,7 +61,6 @@ export const WigoFeed = () => {
          }
 
          setloading(status);
-         console.log(status);
       } catch (error) {
          console.error(error);
          setposts([]);

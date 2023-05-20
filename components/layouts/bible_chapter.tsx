@@ -387,6 +387,7 @@ export const BibleChapter = ({
                                  {verse.text}
                                  {commentary && (
                                     <span
+                                       style={{ backgroundImage: `url(${""})` }}
                                        className={styles.commentarySticker}
                                        onClick={() => setcommentaryModal(commentary.ID)}
                                     />

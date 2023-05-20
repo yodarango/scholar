@@ -86,8 +86,9 @@ export const TextEditorActions = ({
    const [showNotificationFadePopUp, setshowNotificationFadePopUp] = useState<number>(0);
    const [showChooseScriptureModal, setshowChooseScriptureModal] = useState<boolean>(false);
    const [showPostPreview, setshowPostPreview] = useState<boolean>(false);
-   const [showFoldersList, setShowFoldersList] = useState<string | number | undefined>(undefined);
+   const [showFoldersList, setShowFoldersList] = useState<boolean>(false);
    const [loading, setloading] = useState<string>(requestStatus);
+   const [currentFolderId, setCurrentFolderId] = useState<string | number | undefined>(folderId);
 
    // handle the referenced verse selection by clossing modal and calling cta.handleRefVerseSelection
    const handlerefVerseSelection = (id: string) => {
@@ -153,12 +154,14 @@ export const TextEditorActions = ({
             {showFoldersList && (
                <FolderList
                   isSelf
-                  isPlacingPostInFolder={showFoldersList}
+                  isPlacingPostInFolder={currentFolderId}
                   cta={{
-                     handleClose: () => setShowFoldersList(undefined),
+                     handleClose: () => setShowFoldersList(false),
                      handleFolderSelection: (id: string | number) => {
                         cta.handleFolderSelection && cta.handleFolderSelection(id);
-                        setShowFoldersList(undefined);
+                        console.log(id);
+                        setCurrentFolderId(id);
+                        setShowFoldersList(false);
                      }
                   }}
                />
@@ -177,9 +180,14 @@ export const TextEditorActions = ({
             {includeFolder && (
                <div className={styles.folder}>
                   <IconButton
-                     backgroundColor={folderId ? "2" : "1"}
+                     backgroundColor={currentFolderId ? "2" : "1"}
                      icon='folder'
-                     cta={{ handleClick: () => setShowFoldersList(folderId) }}
+                     cta={{
+                        handleClick: () => {
+                           setShowFoldersList(true);
+                           setCurrentFolderId(folderId);
+                        }
+                     }}
                   />
                </div>
             )}
@@ -215,7 +223,8 @@ export const TextEditorActions = ({
                         backgroundColor={postIsPrivate ? "2" : "1"}
                         cta={{
                            handleClick: () => (
-                              setpostIsPrivate(false), cta.handlePrivacySelection(!postIsPrivate)
+                              setpostIsPrivate(!postIsPrivate),
+                              cta.handlePrivacySelection(!postIsPrivate)
                            )
                         }}
                      />
