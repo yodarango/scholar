@@ -225,5 +225,14 @@ export const errorMessages = {
          title: "Oops 🙈",
          body: "Something has gone south and we're at it, please try again later!"
       }
+   },
+   auth: {
+      pleaseLogin: {
+         id: 1,
+         type: "error",
+         description: "user needs to login before they can execute a particular action",
+         title: "You're not logged in",
+         body: "You must be logged in to perform this action! Please login and try again!"
+      }
    }
 };

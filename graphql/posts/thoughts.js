@@ -139,6 +139,10 @@ export const CREATE_NEW_THOUGHT = gql`
          ... on ExceedsPostCount {
             message
          }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

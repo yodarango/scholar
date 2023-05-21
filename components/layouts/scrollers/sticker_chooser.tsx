@@ -85,7 +85,7 @@ export const StickerChooser = ({ cta }: TStickerChooserProps) => {
                      className={styles.sticker}
                      key={index}
                      onClick={() => {
-                        cta.handleChoice({ id: sticker.id, path: sticker.name });
+                        cta.handleChoice({ id: sticker.id, path: sticker.path });
                         cta.handleClose();
                      }}>
                      <Image src={sticker.path} alt={sticker.description} layout='fill' />

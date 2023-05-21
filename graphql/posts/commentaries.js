@@ -169,6 +169,10 @@ export const CREATE_NEW_COMMENTARY = gql`
          ... on ExceedsPostCount {
             message
          }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

@@ -108,6 +108,10 @@ export const CREATE_NEW_QUOTE = gql`
          ... on ExceedsPostCount {
             message
          }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

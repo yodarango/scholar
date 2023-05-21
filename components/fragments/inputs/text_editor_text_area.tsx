@@ -79,7 +79,7 @@ export const TextEditorTextArea = ({
                   handleClose: () => setShowStickers(false),
                   handleChoice: (sticker) => {
                      cta?.handleStickerChoice && cta.handleStickerChoice(sticker);
-                     setcurrentSticker(sticker.id);
+                     setcurrentSticker(sticker.path);
                   }
                }}
             />
