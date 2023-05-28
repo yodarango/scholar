@@ -81,7 +81,17 @@ export const NEW_FOLDER = gql`
             color: $color
          }
       ) {
-         ID
+         ... on Folder {
+            ID
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

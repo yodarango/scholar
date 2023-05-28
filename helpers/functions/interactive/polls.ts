@@ -1,4 +1,5 @@
 import { client } from "../../../apollo-client";
+import { errorMessages } from "../../../data/error_messages";
 import { CREATE_POLL_VOTE, GET_ALL_POLLS } from "../../../graphql/interactive/polls";
 
 export const getAllPolls = async () => {
@@ -89,7 +90,7 @@ type TcreatePollVoteVariables = {
 };
 
 /**************************************************************************************** 
-Creates votes for the thumbsupdown poll, THe vote data comes in the form 'up:down'
+Creates votes for the thumbs up down poll, THe vote data comes in the form 'up:down'
 ****************************************************************************************/
 export const createPollVote = async (variables: TcreatePollVoteVariables) => {
    try {
@@ -97,7 +98,13 @@ export const createPollVote = async (variables: TcreatePollVoteVariables) => {
          mutation: CREATE_POLL_VOTE,
          variables
       });
-      if (data && data.poll_vote) return data.poll_vote;
+      if (data) {
+         if (data.poll_vote.__typename === "NotAuthorized") {
+            return { error: errorMessages.auth.pleaseLogin };
+         } else if (data.poll_vote.__typename === "PollVote") {
+            return true;
+         }
+      }
    } catch (error) {
       console.error(error);
    }

@@ -7,8 +7,8 @@ import styles from "./login.module.css";
 
 export default function Login() {
    return (
-      <UseCheckAuth redirect='/users/@me' options={{ check_is_auth: false }}>
-         <LoginTemplate />
-      </UseCheckAuth>
+      // <UseCheckAuth redirect='/users/@me' options={{ check_is_auth: false }}>
+      <LoginTemplate />
+      // </UseCheckAuth>
    );
 }

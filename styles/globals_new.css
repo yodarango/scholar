@@ -104,13 +104,19 @@
 
    /* --------------- dark mode colors ---------- */
    --primary-color: #2a2438;
+   --primary-color: #170a3a; /* OPTION C*/
+   --primary-color: #150826; /* OPTION D */
    --primary-color: #1e1a29; /* OPTION B */
+   --primary-color: #130e21; /* OPTION E */
    --secondary-color: #38304b;
+   --secondary-color: #1f174c; /* OPTION C*/
    --secondary-color: #2f293f; /*OPTION B */
+   --secondary-color: #201a30; /* OPTION E */
    --third-color: #5c5470;
-   --third-color--hc: #8d82a8;
    --third-color: #685795; /* OPTION B */
    --third-color: #574c6d; /* OPTION C */
+   --third-color: #45306f; /* OPTION D */
+   --third-color--hc: #8d82a8;
    --gradient-1--dark: #7350ec;
    --gradient-1--light: #b293fe;
    --gradient-2--dark: #ff3269;

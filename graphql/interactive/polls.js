@@ -19,6 +19,14 @@ export const GET_ALL_POLLS = gql`
 
 export const CREATE_POLL_VOTE = gql`
    mutation ($POLL_ID: ID, $type: Int, $vote: String) {
-      poll_vote(data: { POLL_ID: $POLL_ID, type: $type, vote: $vote })
+      poll_vote(data: { POLL_ID: $POLL_ID, type: $type, vote: $vote }) {
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on PollVote {
+            ID
+         }
+      }
    }
 `;

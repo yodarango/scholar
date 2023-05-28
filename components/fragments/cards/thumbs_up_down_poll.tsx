@@ -28,6 +28,8 @@ import { getCookie } from "../../../helpers/get-cookie";
 import { getThumbsUpPollIn24 } from "../../../helpers/functions/interactive/thumbs_up_down_voting";
 import { WinningPoll } from "./winning_poll";
 import { createPollVote } from "../../../helpers/functions/interactive/polls";
+import Portal from "../../hoc/potal";
+import { Notification } from "../popups/notification";
 
 type TThumbsUpDownPollProps = {
    dataFromParent?: boolean;
@@ -41,6 +43,11 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
    const [poll, setpoll] = useState<TThumbsUpDownPoll | null>(null);
    const [loading, setloading] = useState<string>("loading");
    const [isTimeUp, setisTimeUp] = useState<boolean>(false);
+   const [notification, setnotification] = useState<null | {
+      title: string;
+      body: string;
+      type: number;
+   }>(null);
 
    // get poll data
    const fetchData = async () => {
@@ -88,10 +95,12 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
          const vote = `${up}:${down}`;
          const voteIt: any = await createPollVote({ POLL_ID: id, type, vote });
 
-         if (voteIt?.poll_vote) {
+         if (voteIt === true) {
             document.cookie = `thumbsUpDown${poll?.ID}=${cookieVal}; expires=${cookieExpiration}; path=/`;
             setvotedFor(cookieVal);
             sethasVoted(true);
+         } else if (voteIt?.error) {
+            setnotification(voteIt?.error);
          }
       } catch (error) {
          console.error(error);
@@ -106,6 +115,16 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
 
    return (
       <>
+         {notification && (
+            <Portal>
+               <Notification
+                  cta={{ handleClose: () => setnotification(null) }}
+                  type='4'
+                  title={notification.title}
+                  body={notification.body}
+               />
+            </Portal>
+         )}
          {loading === "done" && poll && (
             <div className={styles.mainWrapper}>
                <div className={styles.countdown}>

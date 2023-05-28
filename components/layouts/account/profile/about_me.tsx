@@ -39,8 +39,6 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
       is_bible_public
    } = data;
 
-   console.log(data);
-
    const getData = async (variables: TgetUserAboutMeVariables) => {
       try {
          const { data } = await getUserAboutMe(variables);

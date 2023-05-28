@@ -26,6 +26,8 @@ import { RoundLoader } from "../chunks/round_loader";
 import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
 import { WinningPoll } from "./winning_poll";
 import { createPollVote } from "../../../helpers/functions/interactive/polls";
+import { Notification } from "../popups/notification";
+import Portal from "../../hoc/potal";
 
 type TMultipleChoicePollCardProps = {
    dataFromParent?: boolean;
@@ -39,6 +41,11 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
    const [poll, setpoll] = useState<TMultipleChicePoll | null>(null);
    const [loading, setloading] = useState<string>("loading");
    const [isTimeUp, setisTimeUp] = useState<boolean>(false);
+   const [notification, setnotification] = useState<null | {
+      title: string;
+      body: string;
+      type: number;
+   }>(null);
 
    // get poll data
    const fetchData = async () => {
@@ -88,10 +95,13 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
          let vote = setAllVotesToZero.join(":");
 
          const voteIt: any = await createPollVote({ POLL_ID: id, type, vote });
-         if (voteIt) {
+         console.log(voteIt);
+         if (voteIt === true) {
             document.cookie = `multChoice${poll?.ID}=${selection}; expires=${cookieExpiration}; path=/`;
             setvotedFor(selection);
             sethasVoted(true);
+         } else if (voteIt?.error) {
+            setnotification(voteIt.error);
          }
       } catch (error) {
          console.error(error);
@@ -110,6 +120,16 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
 
    return (
       <>
+         {notification && (
+            <Portal>
+               <Notification
+                  cta={{ handleClose: () => setnotification(null) }}
+                  type='4'
+                  title={notification.title}
+                  body={notification.body}
+               />
+            </Portal>
+         )}
          {loading === "done" && poll && (
             <div className={styles.mainWrapper}>
                <div className={styles.timer}>

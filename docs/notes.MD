@@ -2,7 +2,6 @@
 
 Also might want to restructure the routes. Maybe remove /users and do /@me instead. Example /@me/folders, /@me/settings, /@me/about etc
 
-👉 Left off in the reading page. I am now pulling stickers for all commentaries. Set a folder for sticker folders and make the stickers.
-👉 I am currently Print stickers and their edit commentary component. The back end and the front end seem to be working check that they create a new commentary Model is also working.
-
-📖 For that the stickers work in the read page also since I made changes
+I have fixed the middleware and I have set it up for all routes that need it.
+👉 I am currently creating unions for each query so that all routes that need authentication display the modal.
+👉 left off in the poll votes. those are set up! move to others
