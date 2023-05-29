@@ -74,16 +74,22 @@ export const GET_QUOTE_IN_24 = gql`
 
 export const GET_EDIT_QUOTE = gql`
    query ($ID: ID) {
-      quote(ID: $ID) {
+      edit_quote(ID: $ID) {
          ID
-         USER_ID
          body
          category_tags
          author
          background
-         creator {
-            ID
-         }
+         created_date
+         posted_on
+         USER_ID
+         signature
+         approval_rating
+         authority_level
+         avatar
+         total_comment_count
+         average_rating_count
+         total_rating_count
       }
    }
 `;

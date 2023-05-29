@@ -2,19 +2,43 @@ import { gql } from "@apollo/client";
 
 export const REPORT_COMMENTARY = gql`
    mutation ($POST_ID: ID, $USER_ID: ID) {
-      report_commentary(data: { POST_ID: $POST_ID, USER_ID: $USER_ID })
+      report_commentary(data: { POST_ID: $POST_ID, USER_ID: $USER_ID }) {
+         ... on Commentary_Report {
+            ID
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+      }
    }
 `;
 
 export const REPORT_QUOTE = gql`
    mutation ($POST_ID: ID, $USER_ID: ID) {
-      report_quote(data: { POST_ID: $POST_ID, USER_ID: $USER_ID })
+      report_quote(data: { POST_ID: $POST_ID, USER_ID: $USER_ID }) {
+         ... on Quote_Report {
+            ID
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+      }
    }
 `;
 
 export const REPORT_THOUGHT = gql`
    mutation ($POST_ID: ID, $USER_ID: ID) {
-      report_thought(data: { POST_ID: $POST_ID, USER_ID: $USER_ID })
+      report_thought(data: { POST_ID: $POST_ID, USER_ID: $USER_ID }) {
+         ... on Thought_Report {
+            ID
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+      }
    }
 `;
 

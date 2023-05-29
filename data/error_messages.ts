@@ -44,7 +44,7 @@ export const errorMessages = {
          type: "error",
          description: "Bug Report form could not be sent for some reason.",
          title: "Unable to send form 📤",
-         body: "We were unable to send your form. Please try again later. If the problem persists consider submitting a <a href='/bug-report'>bug report</a>!"
+         body: "We were unable to send your form. Please try again later. If the problem persists consider submitting a bug report!"
       },
       missingFormFields: {
          id: 1,
@@ -99,7 +99,7 @@ export const errorMessages = {
          description:
             "A post failed to post for unknown reasons to the client. Message will be returned from the 'catch' block of a function ",
          title: "Could not post ⬆️",
-         body: "Your post could not be uploaded, please try again later! If the problem persists please consider submitting a <a href='/bug-report'>bug report</a>!"
+         body: "Your post could not be uploaded, please try again later! If the problem persists please consider submitting a bug report!"
       },
       fileTooBig: {
          id: 2,

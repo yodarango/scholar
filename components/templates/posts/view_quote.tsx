@@ -30,7 +30,7 @@ export const ViewQuote = () => {
 
    const getData = async (variables: any) => {
       try {
-         const { data, status } = await handleGetQuote(variables);
+         const { data, status } = await handleGetQuote(variables, true);
          if (data) setquote(data[0]);
          setloading(status);
       } catch (error) {

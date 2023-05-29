@@ -20,7 +20,7 @@ const Index = () => {
 
    const getData = async () => {
       try {
-         const { data, status } = await handleGetQuote({ ID });
+         const { data, status } = await handleGetQuote({ ID }, true);
          if (data) setquote(data[0]);
 
          setloading(status);

@@ -1,4 +1,5 @@
 import { client } from "../../../apollo-client";
+import { errorMessages } from "../../../data/error_messages";
 import {
    REPORT_COMMENTARY,
    REPORT_QUOTE,
@@ -11,7 +12,10 @@ export type TreportCommentary = {
    USER_ID: string;
    POST_ID: string;
 };
-export const reportCommentary = async (variables: TreportCommentary, type: EnumContentType) => {
+export const reportCommentary: any = async (
+   variables: TreportCommentary,
+   type: EnumContentType
+) => {
    const CONTENT =
       type === 1
          ? REPORT_COMMENTARY
@@ -25,13 +29,19 @@ export const reportCommentary = async (variables: TreportCommentary, type: EnumC
          mutation: CONTENT,
          variables
       });
+      const key = Object.keys(data)[0];
 
-      if (data.report_commentary) return data.report_commentary;
-      else if (data.report_quote) return data.report_quote;
-      else if (data.report_thought) return data.report_thought;
-      else if (data.report_sermon_note) return data.report_sermon_note;
+      if (data) {
+         if (data[key].__typename === "NotAuthorized") {
+            return { error: { ...errorMessages.auth.pleaseLogin, type: "4" } };
+         } else {
+            return true;
+         }
+      } else {
+         return false;
+      }
 
-      return false;
+      // TODO: fix this to return proper data when data is null
    } catch (error) {
       console.error(error);
       return "Error";

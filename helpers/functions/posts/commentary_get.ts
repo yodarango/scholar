@@ -1,5 +1,6 @@
 // graphQl
 import { client } from "../../../apollo-client";
+import { GET_EDIT_COMMENTARY } from "../../../graphql/posts/commentaries";
 import { GET_COMMENTARIES_IN_24, GET_COMMENTARIES } from "../../../graphql/posts/commentaries";
 
 // field types
@@ -58,16 +59,20 @@ export const handleGetCommentariesIn24 = async () => {
 
 // prevents useEffect from making multiple calls
 let preventMultipleCall = false;
-export const handleGetCommentaries: any = async (variables: TgetcommentariesVariables) => {
+export const handleGetCommentaries: any = async (
+   variables: TgetcommentariesVariables,
+   isEdit: boolean
+) => {
    if (variables.AUTHORITY_LEVEL && typeof variables.AUTHORITY_LEVEL === "string") {
       variables.AUTHORITY_LEVEL = parseInt(variables.AUTHORITY_LEVEL);
    }
 
+   const QUERY = isEdit ? GET_EDIT_COMMENTARY : GET_COMMENTARIES;
    try {
       if (!preventMultipleCall) {
          preventMultipleCall = true;
          const { data } = await client.query({
-            query: GET_COMMENTARIES,
+            query: QUERY,
             variables
          });
 

@@ -65,13 +65,25 @@ export const SelectpostOptions = ({
    showReportOption = true,
    showSavetoFolderOption = true
 }: TSelectpostOptionsProps) => {
-   const [showNotification, setshowNotification] = useState<string>("none");
+   const [showNotification, setshowNotification] = useState<{
+      title: string;
+      body: string;
+      type: string;
+   } | null>();
 
    // handle reporting the post
    const handleReport = async () => {
       try {
          const data = await reportCommentary({ POST_ID: postid, USER_ID: userId }, contentType);
-         if (data) setshowNotification("report");
+         if (data === true) {
+            setshowNotification({
+               title: notificationMessages.postReported.title,
+               body: notificationMessages.postReported.body,
+               type: "2"
+            });
+         } else if (data?.error) {
+            setshowNotification(data["error"]);
+         }
       } catch (error) {
          console.error(error);
       }
@@ -79,7 +91,13 @@ export const SelectpostOptions = ({
 
    // handle the copy to the clipboard
    const handleSharePost = () => {
-      copyToClipboard(`/posts/${postType}/edit/${postid}`, () => setshowNotification("share"));
+      copyToClipboard(`/posts/${postType}/edit/${postid}`, () =>
+         setshowNotification({
+            title: notificationMessages.urlCopied.title,
+            body: notificationMessages.urlCopied.body,
+            type: "2"
+         })
+      );
    };
 
    // handle delete the post and send ID to the parent
@@ -90,20 +108,12 @@ export const SelectpostOptions = ({
 
    return (
       <>
-         {showNotification === "share" && (
+         {showNotification && (
             <Notification
-               title={notificationMessages.urlCopied.title}
-               body={notificationMessages.urlCopied.body}
-               type='2'
-               cta={{ handleClose: () => setshowNotification("none") }}
-            />
-         )}
-         {showNotification === "report" && (
-            <Notification
-               title={notificationMessages.postReported.title}
-               body={notificationMessages.postReported.body}
-               type='2'
-               cta={{ handleClose: () => setshowNotification("none") }}
+               title={showNotification.title}
+               body={showNotification.body}
+               type={showNotification.type}
+               cta={{ handleClose: () => setshowNotification(null) }}
             />
          )}
 

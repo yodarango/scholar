@@ -1,6 +1,6 @@
 // graphQl
 import { client } from "../../../apollo-client";
-import { GET_QUOTE, GET_QUOTE_IN_24 } from "../../../graphql/posts/quotes";
+import { GET_EDIT_QUOTE, GET_QUOTE, GET_QUOTE_IN_24 } from "../../../graphql/posts/quotes";
 
 // field types
 export type TgetQuoteVariables = {
@@ -53,10 +53,12 @@ export const handleGetQuotesIn24 = async () => {
    }
 };
 
-export const handleGetQuote = async (variables: TgetQuoteVariables) => {
+export const handleGetQuote = async (variables: TgetQuoteVariables, isEdit?: boolean) => {
+   const QUERY = isEdit ? GET_EDIT_QUOTE : GET_QUOTE;
+
    try {
       const { data } = await client.query({
-         query: GET_QUOTE,
+         query: QUERY,
          variables
       });
 

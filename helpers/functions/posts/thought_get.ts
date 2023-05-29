@@ -1,6 +1,10 @@
 // graphQl
 import { client } from "../../../apollo-client";
-import { GET_THOUGHTS, GET_THOUGHT_IN_24 } from "../../../graphql/posts/thoughts";
+import {
+   GET_EDIT_THOUGHTS,
+   GET_THOUGHTS,
+   GET_THOUGHT_IN_24
+} from "../../../graphql/posts/thoughts";
 
 // fetch data
 export const handleGetThoughtIn24 = async () => {
@@ -52,10 +56,11 @@ export type TgetThoughtsVariables = {
    isSelf?: boolean;
 };
 
-export const handleGetThoughts = async (variables: TgetThoughtsVariables) => {
+export const handleGetThoughts = async (variables: TgetThoughtsVariables, isEdit?: boolean) => {
+   const QUERY = isEdit ? GET_EDIT_THOUGHTS : GET_THOUGHTS;
    try {
       const { data } = await client.query({
-         query: GET_THOUGHTS,
+         query: QUERY,
          variables
       });
 

@@ -118,23 +118,32 @@ export const GET_COMMENTARIES_BY_BOOK = gql`
 
 export const GET_EDIT_COMMENTARY = gql`
    query ($ID: ID) {
-      commentary(ID: $ID) {
+      edit_commentary(ID: $ID) {
          ID
          VERSE_ID
-         USER_ID #needed to fetch child graphQL "parent.creator"
+         USER_ID
          body
          category_tags
          referenced_verses
          verse_citation
+         created_date
          posted_on
+         post_image
          is_private
+         signature
+         approval_rating
+         authority_level
+         avatar
+         folder_id
+         folder_name
+         total_comment_count
+         average_rating_count
+         total_rating_count
          sticker
-         creator {
-            ID
-         }
       }
    }
 `;
+
 //================== POST ================== //
 export const CREATE_NEW_COMMENTARY = gql`
    mutation (

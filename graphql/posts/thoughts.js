@@ -37,6 +37,29 @@ export const GET_THOUGHTS = gql`
    }
 `;
 
+export const GET_EDIT_THOUGHTS = gql`
+   query ($ID: ID) {
+      edit_thought(ID: $ID) {
+         ID
+         body
+         title
+         USER_ID
+         category_tags
+         posted_on
+         created_date
+         referenced_verses
+         post_image
+         signature
+         approval_rating
+         authority_level
+         avatar
+         total_comment_count
+         average_rating_count
+         total_rating_count
+      }
+   }
+`;
+
 export const GET_THOUGHT_IN_24 = gql`
    query {
       thought_in_24 {
