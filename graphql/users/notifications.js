@@ -1,17 +1,18 @@
 import { gql } from "@apollo/client";
 
-export const GET_MY_NOTIFICATIONS = gql`
-   query ($last_id: Int) {
-      notifications(last_id: $last_id) {
-         ID
-         USER_ID
-         POST_ID
-         CONTENT_TYPE
-         posted_on
-         body
-      }
-   }
-`;
+//! might be able to #DELETE
+// export const GET_MY_NOTIFICATIONS = gql`
+//    query ($last_id: Int) {
+//       notifications(last_id: $last_id) {
+//          ID
+//          USER_ID
+//          POST_ID
+//          CONTENT_TYPE
+//          posted_on
+//          body
+//       }
+//    }
+// `;
 
 export const NEW_NOTIFICATION = gql`
    mutation ($CONTENT_TYPE: Int, $body: String, $USER_ID: ID, $POST_ID: ID) {

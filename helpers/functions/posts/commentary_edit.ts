@@ -1,4 +1,4 @@
-import client from "../../../apollo-client";
+import { client } from "../../../apollo-client";
 import { EDIT_COMMENTARY } from "../../../graphql/posts/commentaries";
 
 // data

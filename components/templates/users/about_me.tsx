@@ -9,6 +9,7 @@ import {
 
 // styles
 import styles from "./about_me.module.css";
+import { useAboutMe } from "../../../helpers/functions/posts/about_me";
 
 type TAboutMe = {
    authority_level: number;
@@ -22,9 +23,13 @@ export const AboutMeTemplate = () => {
    const [data, setdata] = useState<TAboutMe | null>(null);
    const [routerId, setrouterId] = useState<string | null>(null);
    const [loggedIn, setloggedIn] = useState<boolean>(false);
+   const [body, setbody] = useState<string>("");
+   const { save } = useAboutMe();
 
    // handle post
-   const handleBodyValue = (value: string) => {};
+   const handleBodyValue = (value: string) => {
+      setbody(value);
+   };
 
    // fetch Data
    const getData = async (variables: TgetUserAboutMeVariables) => {
@@ -69,8 +74,10 @@ export const AboutMeTemplate = () => {
                title='Get to know me'
                body={data.about_me}
                cta={{
-                  handleSubmit() {},
-                  handleBodyValue(value) {}
+                  handleSubmit() {
+                     save(body);
+                  },
+                  handleBodyValue
                }}
                postImage='/images/bible_books/1.png'
                textAreaHeight='50rem'

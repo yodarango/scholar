@@ -3,5 +3,6 @@
 Also might want to restructure the routes. Maybe remove /users and do /@me instead. Example /@me/folders, /@me/settings, /@me/about etc
 
 I have fixed the middleware and I have set it up for all routes that need it.
-👉 I am currently creating unions for each query so that all routes that need authentication display the modal.
-👉 left off in the poll votes. those are set up! move to others
+👉 I have basically finished all auth.
+👉 next, make sure that getting the data is correct (i. e. isSelf vs user_id etc)
+Also finish about_me page which is not handling posts req right now and pull posts for a user in the profile
