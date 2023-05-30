@@ -217,7 +217,12 @@ export const EDIT_COMMENTARY = gql`
 export const DELETE_ONE_COMMENTARY = gql`
    mutation ($ID: ID) {
       delete_one_commentary(ID: $ID) {
-         ID
+         ... on Commentary {
+            ID
+         }
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

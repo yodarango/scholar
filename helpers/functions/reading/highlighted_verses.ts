@@ -1,5 +1,6 @@
 // graphQl
 import { client } from "../../../apollo-client";
+import { errorMessages } from "../../../data/error_messages";
 import {
    GET_HIGHILGHTED_VERSES,
    POST_HIGHILGHTED_VERSES,
@@ -46,14 +47,22 @@ export const handlePostHighlight = async (variables: ThandlePostHighlight) => {
          variables
       });
 
-      if (!data.new_highlighted_verse) {
-         return { data: null, status: "error" };
+      if (data) {
+         if (data.new_highlighted_verse.__typename === "Highlight") {
+            return { data: data.new_highlighted_verse, error: null, status: "done" };
+         } else if (data.new_highlighted_verse.__typename === "NotAuthorized") {
+            return {
+               error: { ...errorMessages.auth.pleaseLogin, type: "4" },
+               data: null,
+               status: "not_auth"
+            };
+         }
+      } else {
+         return { data: null, error: null, status: "error" };
       }
-
-      return { data: data.new_highlighted_verse, status: "done" };
    } catch (error) {
       console.error(error);
-      return { data: null, status: "error" };
+      return { data: null, status: "error", error: error };
    }
 };
 
@@ -64,13 +73,21 @@ export const handleRemoveHighlight = async (VERSE_ID: string | number) => {
          variables: { VERSE_ID }
       });
 
-      if (!data.remove_highlighted_verse) {
-         return { data: null, status: "error" };
+      if (data) {
+         if (data.remove_highlighted_verse.__typename === "Highlight") {
+            return { data: data.remove_highlighted_verse, error: null, status: "done" };
+         } else if (data.remove_highlighted_verse.__typename === "NotAuthorized") {
+            return {
+               error: { ...errorMessages.auth.pleaseLogin, type: "4" },
+               data: null,
+               status: "not_auth"
+            };
+         }
+      } else {
+         return { data: null, error: null, status: "error" };
       }
-
-      return { data: data.remove_highlighted_verse, status: "done" };
    } catch (error) {
       console.error(error);
-      return { data: null, status: "error" };
+      return { data: null, status: "error", error: error };
    }
 };

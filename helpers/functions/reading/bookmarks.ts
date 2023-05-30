@@ -1,5 +1,6 @@
 // graphQl
 import { client } from "../../../apollo-client";
+import { errorMessages } from "../../../data/error_messages";
 import { GET_BOOKMARKS, POST_BOOKMARK, REMOVE_BOOKMARK } from "../../../graphql/reading/read";
 
 /**************************************************************************************** 
@@ -40,11 +41,15 @@ export const handlePostBookMark = async (CHAPTER_ID: string | number) => {
          variables: { CHAPTER_ID }
       });
 
-      if (!data.new_bookmark) {
-         return { data: null, status: "error" };
+      if (data.new_bookmark.__typename === "Bookmark") {
+         return { data: null, status: "error", error: null };
+      } else if (data.new_bookmark.__typename === "NotAuthorized") {
+         return { error: { ...errorMessages.auth.pleaseLogin, type: "4" }, status: "not_auth" };
       }
-      return { data, status: "done" };
-   } catch (error) {}
+      return { data: null, error: null, status: "error" };
+   } catch (error) {
+      return { data: null, status: "error", error };
+   }
 };
 
 /**************************************************************************************** 
@@ -57,10 +62,13 @@ export const handleRemoveBookMark = async (CHAPTER_ID: string | number) => {
          query: REMOVE_BOOKMARK,
          variables: { CHAPTER_ID }
       });
-
-      if (!data.new_bookmark) {
-         return { data: null, status: "error" };
+      if (data.new_bookmark.__typename === "Bookmark") {
+         return { data: null, status: "error", error: null };
+      } else if (data.new_bookmark.__typename === "NotAuthorized") {
+         return { error: { ...errorMessages.auth.pleaseLogin, type: "4" }, status: "not_auth" };
       }
-      return { data, status: "done" };
-   } catch (error) {}
+      return { data: null, error: null, status: "error" };
+   } catch (error) {
+      return { data: null, status: "error", error };
+   }
 };

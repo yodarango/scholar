@@ -34,9 +34,15 @@ export const POST_HIGHILGHTED_VERSES = gql`
       new_highlighted_verse(
          data: { VERSE_ID: $VERSE_ID, highlight_type: $highlight_type, color: $color }
       ) {
-         VERSE_ID
-         highlight_type
-         color
+         ... on Highlight {
+            VERSE_ID
+            highlight_type
+            color
+         }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;
@@ -45,7 +51,13 @@ export const POST_HIGHILGHTED_VERSES = gql`
 export const REMOVE_HIGHILGHTED_VERSE = gql`
    mutation ($VERSE_ID: ID) {
       remove_highlighted_verse(VERSE_ID: $VERSE_ID) {
-         VERSE_ID
+         ... on Highlight {
+            VERSE_ID
+         }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;
@@ -65,7 +77,13 @@ export const GET_BOOKMARKS = gql`
 export const POST_BOOKMARK = gql`
    mutation ($CHAPTER_ID: String) {
       new_bookmark(CHAPTER_ID: $CHAPTER_ID) {
-         CHAPTER_ID
+         ... on Bookmark {
+            ID
+         }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

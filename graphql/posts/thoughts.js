@@ -199,7 +199,12 @@ export const EDIT_THOUGHT = gql`
 export const DELETE_ONE_THOUGHT = gql`
    mutation ($ID: ID) {
       delete_one_thought(ID: $ID) {
-         ID
+         ... on Thought {
+            ID
+         }
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

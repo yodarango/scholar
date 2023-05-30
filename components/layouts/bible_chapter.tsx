@@ -42,6 +42,7 @@ import {
 } from "../../helpers/functions/reading/use_chapter_data";
 import { ViewCommentary } from "../templates/posts/view_commentary";
 import PortalTernary from "../hoc/portal_ternary";
+import { Notification } from "../fragments/popups/notification";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -94,6 +95,11 @@ export const BibleChapter = ({
    };
    const [commentaries, setcommentaries] = useState([]);
    const [commentaryModal, setcommentaryModal] = useState<string>("none");
+   const [notification, setnotification] = useState<null | {
+      title: string;
+      body: string;
+      type: string;
+   }>(null);
 
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (chapterId: string | string[], versionId: string) => {
@@ -169,27 +175,31 @@ export const BibleChapter = ({
       // check if the color is transparent with ID of -1 which means the user is removing the highlight
       if (highlight_type === -1) {
          try {
-            const { data } = await handleRemoveHighlight(VERSE_ID);
-            if (data) {
+            const data: any = await handleRemoveHighlight(VERSE_ID);
+            if (data.status === "done") {
                // if the verse is removed remove the verse from the array
                const findVerse = highlightedVerses.filter(
                   (highlight) => highlight.VERSE_ID !== VERSE_ID
                );
 
                sethighlightedVerses(findVerse);
+            } else if (data.status === "not_auth") {
+               setnotification(data.error);
             }
          } catch (error) {
             console.error(error);
          }
       } else {
          try {
-            const { data } = await handlePostHighlight({
+            const data: any = await handlePostHighlight({
                VERSE_ID,
                highlight_type,
                color
             });
 
-            if (data.VERSE_ID) {
+            console.log(data);
+
+            if (data.status === "done") {
                // exclude the verse being highlighted from the saved verses in case it already exists
                const findVerse: THighlightVerses[] = highlightedVerses.filter(
                   (highlight) => highlight.VERSE_ID !== VERSE_ID
@@ -198,6 +208,8 @@ export const BibleChapter = ({
                   ...findVerse,
                   { ID: 2, USER_ID: "1", VERSE_ID, highlight_type }
                ]);
+            } else if (data.status === "not_auth") {
+               setnotification(data.error);
             }
          } catch (error) {
             console.error(error);
@@ -316,6 +328,14 @@ export const BibleChapter = ({
             <div className={styles.mainWrapper}>
                {/* Portals */}
                <Portal>
+                  {notification && (
+                     <Notification
+                        title={notification.title}
+                        body={notification.body}
+                        type={notification.type}
+                        cta={{ handleClose: () => setnotification(null) }}
+                     />
+                  )}
                   {showReadingMenu && (
                      <SelectReadingActions
                         data={{ ...data, ...showReadingMenu }}

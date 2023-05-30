@@ -19,6 +19,7 @@ import {
 
 // data
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
+import { Notification } from "../popups/notification";
 
 type TReadBookmarkProps = {
    chapterId: any;
@@ -29,24 +30,39 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
    // state
    const [bookMarked, setbookMarked] = useState<boolean>(false);
    const [showBookmarks, setshowBookmarks] = useState<boolean>(false);
+   const [notification, setnotification] = useState<null | {
+      title: string;
+      body: string;
+      type: string;
+   }>(null);
 
    //
    const handleSetBookMark = async (value: boolean) => {
       try {
          // if  the value is TRUE the user is highlighting
          if (value) {
-            const data = await handlePostBookMark(chapterId);
+            const data: any = await handlePostBookMark(chapterId);
 
             if (data) {
-               setbookMarked(value);
-               setshowBookmarks(false);
+               if (data.status === "done") {
+                  setbookMarked(value);
+                  setshowBookmarks(false);
+               } else if (data.status === "not_auth") {
+                  setshowBookmarks(false);
+                  setnotification(data.error);
+               }
             }
          } else {
-            const data = await handleRemoveBookMark(chapterId);
+            const data: any = await handleRemoveBookMark(chapterId);
 
             if (data) {
-               setbookMarked(value);
-               setshowBookmarks(false);
+               if (data.status === "done") {
+                  setbookMarked(value);
+                  setshowBookmarks(false);
+               } else if (data.status === "not_auth") {
+                  setshowBookmarks(false);
+                  setnotification(data.error);
+               }
             }
          }
       } catch (error) {
@@ -74,6 +90,14 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
       <div className={styles.mainWrapper} style={{ width: size, height: size }}>
          {/* menu that allows selecting bookmarks, bookmarking and de-bookmarking 🔖 */}
          <Portal>
+            {notification && (
+               <Notification
+                  title={notification.title}
+                  body={notification.body}
+                  type={notification.type}
+                  cta={{ handleClose: () => setnotification(null) }}
+               />
+            )}
             {showBookmarks && (
                <SelectReadingBookmarks
                   isModalOpen={showBookmarks}
