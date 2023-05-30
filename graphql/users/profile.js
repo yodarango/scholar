@@ -139,6 +139,6 @@ export const UPDATE_MY_SIGNATURE = gql`
 // updates user signature
 export const UPDATE_ABOUT_ME = gql`
    mutation ($body: String) {
-      update_about_me(data: { body: $body })
+      update_about_me(body: $body)
    }
 `;

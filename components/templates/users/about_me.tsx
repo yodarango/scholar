@@ -28,6 +28,7 @@ export const AboutMeTemplate = () => {
 
    // handle post
    const handleBodyValue = (value: string) => {
+      console.log(value);
       setbody(value);
    };
 

@@ -8,6 +8,7 @@ export const useAboutMe = () => {
    const [error, seterror] = useState<any>(null);
 
    const save = async (body: string) => {
+      console.log(body);
       setloading(true);
       try {
          const { data } = await client.mutate({

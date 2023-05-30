@@ -94,9 +94,9 @@ export const TextAreaPrimary = ({
       border === "top" ? styles.borderTop : border === "bottom" ? styles.borderBottom : "";
    // resize text area & callback to send onChange event so parent has access to text area body
    const resizeTextArea = (e: any) => {
+      cta.handleCurrentValue(e.target.value);
       if (noResize) return;
 
-      cta.handleCurrentValue(e.target.value);
       setscrollableHeight(e.target.scrollHeight / 10);
       const textAreaHeight = currTextAreaHeight.replace("rem", "");
       let heightInt = parseInt(textAreaHeight);
