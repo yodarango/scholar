@@ -6,6 +6,7 @@ import {
    getUserAboutMePage,
    TgetUserAboutMeVariables
 } from "../../../helpers/functions/users/get_user_about_me";
+import { Notification } from "../../fragments/popups/notification";
 
 // styles
 import styles from "./about_me.module.css";
@@ -20,16 +21,16 @@ type TAboutMe = {
 };
 export const AboutMeTemplate = () => {
    const router = useRouter();
-   const [data, setdata] = useState<TAboutMe | null>(null);
+   const [data, setdata] = useState<any>(null);
    const [routerId, setrouterId] = useState<string | null>(null);
    const [loggedIn, setloggedIn] = useState<boolean>(false);
    const [body, setbody] = useState<string>("");
-   const { save } = useAboutMe();
+   const save = useAboutMe();
 
    // handle post
    const handleBodyValue = (value: string) => {
-      console.log(value);
       setbody(value);
+      setdata((prev: any) => ({ ...prev, about_me: value }));
    };
 
    // fetch Data
@@ -67,6 +68,14 @@ export const AboutMeTemplate = () => {
 
    return (
       <div className={styles.mainWrapper}>
+         {save.data && (
+            <Notification
+               title={save.data.title}
+               type={save.data.type}
+               body={save.data.body}
+               cta={{ handleClose: () => save.setdata(null) }}
+            />
+         )}
          {data && (
             <WithTextContentStack
                withEdit={loggedIn}
@@ -76,7 +85,7 @@ export const AboutMeTemplate = () => {
                body={data.about_me}
                cta={{
                   handleSubmit() {
-                     save(body);
+                     save.save(body);
                   },
                   handleBodyValue
                }}

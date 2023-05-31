@@ -112,5 +112,12 @@ export const notificationMessages = {
       description: "Many folders were made public and all contents in them ",
       title: "Folders are now public!",
       body: "The folders you selected and all posts that were in them are now public. Please be aware that everyone can see them."
+   },
+   aboutMeSaved: {
+      id: 13,
+      type: "Success",
+      description: "A user's about me was saved successfully",
+      title: "Greaattt!",
+      body: "Your description has been saved, now everyone can know all about you"
    }
 };

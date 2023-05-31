@@ -34,8 +34,15 @@ export const errorMessages = {
          type: "error",
          description:
             "if the avatar is unable to update their signature either because it has already been taken or because something went wrong",
-         title: "Oh rats! 🐀",
+         title: "Oh no! 🐀",
          body: "We were unable to update your signature, please try again later!"
+      },
+      unableToUpdateAboutMe: {
+         id: 5,
+         type: "error",
+         description: "could not update about me page",
+         title: "Well this is sad!",
+         body: "We were unable to update your description, please try again later! if the problem persists please submit a bug report"
       }
    },
    forms: {

@@ -30,11 +30,13 @@ type TCommentaryOneLineCarrouselProps = {
    userID?: string;
    loadingState?: string;
    commentaries?: TCommentary[];
+   authorityLevel?: string;
 };
 export const CommentaryOneLineCarrousel = ({
    isSelf,
    commentaries,
-   loadingState = "loading"
+   loadingState = "loading",
+   authorityLevel
 }: TCommentaryOneLineCarrouselProps) => {
    // router
    const router = useRouter();
@@ -44,7 +46,7 @@ export const CommentaryOneLineCarrousel = ({
    const [loading, setloading] = useState<string>(loadingState);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
-      AUTHORITY_LEVEL: 0,
+      AUTHORITY_LEVEL: authorityLevel,
       last_id: CONTENT_LAST_ID,
       isSelf: isSelf
    });
