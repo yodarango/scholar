@@ -47,7 +47,7 @@ export const ProfileArt = ({
       has_new_notifications: false
    });
 
-   const getData = async (variables: TgetUserSummaryVariables) => {
+   const getData = async (variables?: TgetUserSummaryVariables) => {
       try {
          const { data } = await getUserSummary(variables);
          setdata(data);
@@ -58,7 +58,7 @@ export const ProfileArt = ({
 
    useEffect(() => {
       if (userID === "@me") {
-         getData({ isSelf: true });
+         getData();
       } else {
          getData({ ID: userID });
       }

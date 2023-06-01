@@ -34,7 +34,7 @@ export const AboutMeTemplate = () => {
    };
 
    // fetch Data
-   const getData = async (variables: TgetUserAboutMeVariables) => {
+   const getData = async (variables?: TgetUserAboutMeVariables) => {
       try {
          const { data } = await getUserAboutMePage(variables);
 
@@ -59,7 +59,7 @@ export const AboutMeTemplate = () => {
    useEffect(() => {
       if (routerId) {
          if (routerId === "@me") {
-            getData({ isSelf: true });
+            getData();
          } else {
             getData({ ID: routerId });
          }

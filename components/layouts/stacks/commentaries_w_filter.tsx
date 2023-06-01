@@ -23,7 +23,6 @@ import { BackLink } from "../../fragments/buttons/back_link";
 import { parseRouter } from "../../../helpers/utils/parse_next_router";
 
 type TCommentariesByBookProps = {
-   isSelf?: boolean;
    cta: {
       handleClose: () => void;
    };
@@ -34,7 +33,7 @@ export const CURRENT_VIEW_BOOK_BY_FOLDER = "my-folders";
 export const CURRENT_VIEW_BOOK_BY_BOOK = "by-book";
 export const CURRENT_VIEW_COMMENTARIES = "";
 
-export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
+export const CommentariesWFilter = ({ cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
 
@@ -219,13 +218,10 @@ export const CommentariesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) =
          </div>
 
          <section className={styles.posts}>
-            {(renderCommentariesView || renderCommentariesByGroupView) && (
-               <CommentariesGrid isSelf={isSelf} />
-            )}
+            {(renderCommentariesView || renderCommentariesByGroupView) && <CommentariesGrid />}
 
             {renderFolderView && (
                <CommentariesByFolder
-                  isSelf={isSelf}
                   query_type={currentModal}
                   cta={{ handleSelection: (val) => handleFilterSelection({ folder: val }) }}
                />

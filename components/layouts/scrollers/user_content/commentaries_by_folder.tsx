@@ -8,15 +8,14 @@ import { SearchInput } from "../../../fragments/inputs/search_input";
 import { CURRENT_VIEW_BOOK_BY_BOOK } from "../../stacks/commentaries_w_filter";
 
 type TCommentariesByBookProps = {
-   isSelf?: boolean;
    query_type: string;
    cta: {
       handleSelection: (id: string | number) => void;
    };
 };
 
-export const CommentariesByFolder = ({ isSelf, query_type, cta }: TCommentariesByBookProps) => {
-   const { data, status } = useGetFolders({ isSelf, query_type });
+export const CommentariesByFolder = ({ query_type, cta }: TCommentariesByBookProps) => {
+   const { data, status } = useGetFolders({ query_type });
    const [filter, setFilter] = useState("");
    const [folders, setFolders] = useState<any>([]);
 

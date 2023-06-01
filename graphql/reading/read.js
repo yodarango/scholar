@@ -13,14 +13,8 @@ export const GET_HIGHILGHTED_VERSES = gql`
 `;
 
 export const GET_CHAPTER_COMMENTARIES_REFS = gql`
-   query ($ID: ID, $VERSE_ID: ID, $USER_ID: ID, $last_id: ID, $isSelf: Boolean) {
-      chapter_commentary_refs(
-         ID: $ID
-         VERSE_ID: $VERSE_ID
-         USER_ID: $USER_ID
-         last_id: $last_id
-         isSelf: $isSelf
-      ) {
+   query ($ID: ID, $VERSE_ID: ID, $USER_ID: ID, $last_id: ID) {
+      chapter_commentary_refs(ID: $ID, VERSE_ID: $VERSE_ID, USER_ID: $USER_ID, last_id: $last_id) {
          ID
          VERSE_ID
          sticker

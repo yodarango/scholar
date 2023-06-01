@@ -25,10 +25,7 @@ import {
 } from "../../../../helpers/functions/posts/thought_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
-type ThoughtsGridProps = {
-   isSelf?: boolean;
-};
-export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
+export const ThoughtsGrid = () => {
    // router
    const router = useRouter();
 
@@ -38,7 +35,6 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetThoughtsVariables>({
-      isSelf: isSelf,
       last_id: CONTENT_LAST_ID
    });
 
@@ -75,8 +71,7 @@ export const ThoughtsGrid = ({ isSelf }: ThoughtsGridProps) => {
     * *******************************************************
     */
    useEffect(() => {
-      if (router.isReady)
-         fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+      if (router.isReady) fetchData({ last_id: CONTENT_LAST_ID, ...router.query }, false);
    }, [router.isReady, router.query]);
 
    return (

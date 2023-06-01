@@ -30,7 +30,6 @@ import { SmallLoader } from "../../fragments/chunks/small_loader";
 const errorMessage = errorMessages.posts.failToPerformBulkActionOnFolders;
 
 type TFolderListProps = {
-   isSelf?: boolean;
    userSignature?: string;
    includeBulkAction?: boolean;
    isPlacingPostInFolder?: string | number;
@@ -44,13 +43,13 @@ const FOLDER_SELECT = 1;
 const FOLDER_SELECT_ALL = 2;
 export const FolderList = ({
    includeBulkAction,
-   isSelf,
+
    cta,
    userSignature,
    isPlacingPostInFolder
 }: TFolderListProps) => {
    const router = useRouter();
-   const { data, status } = useGetFolders({ isSelf, query_type: "my-folders" });
+   const { data, status } = useGetFolders({ query_type: "my-folders" });
    const [folders, setFolders] = useState<any[] | null>([]);
    const [selectFolderActive, setSelectFolderActive] = useState<number | boolean>(false);
    const [showBulkBtns, setShowBulkBtns] = useState<boolean>(false);
@@ -129,8 +128,7 @@ export const FolderList = ({
          bulkAction.goDo({
             action: action,
             IDs: selectedFolders,
-            contentType: CONTENT_TYPE_FOLDER,
-            isSelf
+            contentType: CONTENT_TYPE_FOLDER
          });
       }
    };

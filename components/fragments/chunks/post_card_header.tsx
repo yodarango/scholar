@@ -100,7 +100,6 @@ export const PostCardHeader = ({
       <>
          {showModal === COMMENTARY_FOLDERS && (
             <FolderList
-               isSelf
                cta={{
                   handleFolderSelection: handleSaveToFolder
                }}

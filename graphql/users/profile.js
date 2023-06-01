@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 // user summary the show in the profile
 export const GET_MY_USER_SUMMARY = gql`
-   query ($isSelf: Boolean, $ID: ID) {
-      user_summary(isSelf: $isSelf, ID: $ID) {
+   query ($ID: ID) {
+      user_summary(ID: $ID) {
          has_new_notifications
          authority_level
          approval_rating
@@ -18,8 +18,8 @@ export const GET_MY_USER_SUMMARY = gql`
 
 // data fro the stats in the profile
 export const GET_POSTS_SUMMARY = gql`
-   query ($isSelf: Boolean, $ID: ID) {
-      get_posts_summary(isSelf: $isSelf, ID: $ID) {
+   query ($ID: ID) {
+      get_posts_summary(ID: $ID) {
          commentary_count
          thought_count
          sermon_count
@@ -30,8 +30,8 @@ export const GET_POSTS_SUMMARY = gql`
 
 // settings that appear in the profile
 export const GET_USER_ABOUT_ME = gql`
-   query ($isSelf: Boolean, $ID: ID) {
-      get_user_about_me(isSelf: $isSelf, ID: $ID) {
+   query ($ID: ID) {
+      get_user_about_me(ID: $ID) {
          my_true_color_personality_test
          my_favorite_color
          my_favorite_verse
@@ -45,8 +45,8 @@ export const GET_USER_ABOUT_ME = gql`
 `;
 
 export const GET_USER_ABOUT_ME_PAGE = gql`
-   query ($isSelf: Boolean, $ID: ID) {
-      get_user_about_me_page(isSelf: $isSelf, ID: $ID) {
+   query ($ID: ID) {
+      get_user_about_me_page(ID: $ID) {
          authority_level
          signature
          about_me

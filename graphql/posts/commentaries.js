@@ -10,7 +10,6 @@ export const GET_COMMENTARIES = gql`
       $body: String
       $category_tags: String
       $last_id: ID
-      $isSelf: Boolean
       $FOLDER_ID: String
    ) {
       commentary(
@@ -21,7 +20,7 @@ export const GET_COMMENTARIES = gql`
          body: $body
          category_tags: $category_tags
          last_id: $last_id
-         isSelf: $isSelf
+
          FOLDER_ID: $FOLDER_ID
       ) {
          ID
@@ -144,7 +143,7 @@ export const GET_EDIT_COMMENTARY = gql`
    }
 `;
 
-//================== POST ================== //
+// POST
 export const CREATE_NEW_COMMENTARY = gql`
    mutation (
       $VERSE_ID: String
@@ -213,7 +212,7 @@ export const EDIT_COMMENTARY = gql`
    }
 `;
 
-//================== DELETE ================== //
+// DELETE
 export const DELETE_ONE_COMMENTARY = gql`
    mutation ($ID: ID) {
       delete_one_commentary(ID: $ID) {

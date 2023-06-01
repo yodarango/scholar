@@ -25,7 +25,6 @@ type TUseBulkActionVariables = {
    contentType: contentType;
    IDs: string[];
    USER_ID?: string;
-   isSelf?: boolean;
 };
 
 export const useBulkAction = () => {

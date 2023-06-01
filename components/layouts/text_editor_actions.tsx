@@ -153,7 +153,6 @@ export const TextEditorActions = ({
 
             {showFoldersList && (
                <FolderList
-                  isSelf
                   isPlacingPostInFolder={currentFolderId}
                   cta={{
                      handleClose: () => setShowFoldersList(false),

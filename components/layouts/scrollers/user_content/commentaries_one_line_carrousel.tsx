@@ -26,14 +26,12 @@ import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TCommentaryOneLineCarrouselProps = {
-   isSelf?: boolean;
    userID?: string;
    loadingState?: string;
    commentaries?: TCommentary[];
    authorityLevel?: string;
 };
 export const CommentaryOneLineCarrousel = ({
-   isSelf,
    commentaries,
    loadingState = "loading",
    authorityLevel
@@ -47,8 +45,7 @@ export const CommentaryOneLineCarrousel = ({
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       AUTHORITY_LEVEL: authorityLevel,
-      last_id: CONTENT_LAST_ID,
-      isSelf: isSelf
+      last_id: CONTENT_LAST_ID
    });
 
    // fetch data on first time loading. Only runs on first load

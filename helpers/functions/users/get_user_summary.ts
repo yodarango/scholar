@@ -3,10 +3,9 @@ import { GET_MY_USER_SUMMARY } from "../../../graphql/users/profile";
 
 export type TgetUserSummaryVariables = {
    ID?: string;
-   isSelf?: boolean;
 };
 
-export const getUserSummary = async (variables: TgetUserSummaryVariables) => {
+export const getUserSummary = async (variables?: TgetUserSummaryVariables) => {
    try {
       const { data } = await client.query({
          query: GET_MY_USER_SUMMARY,

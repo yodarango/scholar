@@ -29,13 +29,11 @@ type TThoughtsOneLineCarrouselProps = {
    loadingState?: string;
    userID?: string | number;
    thoughts?: TThought[];
-   isSelf: boolean;
 };
 
 export const ThoughtsOneLineCarrousel = ({
    thoughts,
    userID,
-   isSelf,
    loadingState = "loading"
 }: TThoughtsOneLineCarrouselProps) => {
    const router = useRouter();
@@ -66,7 +64,7 @@ export const ThoughtsOneLineCarrousel = ({
       if (router.isReady) {
          if (!router?.query?.view) {
             if (!thoughts) {
-               fetchData({ isSelf: isSelf, USER_ID: userID, last_id: CONTENT_LAST_ID });
+               fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
             } else {
                setThoughtsArr(thoughts);
                setloading(loadingState);

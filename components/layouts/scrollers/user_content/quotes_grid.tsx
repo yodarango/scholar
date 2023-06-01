@@ -20,10 +20,7 @@ import styles from "./quotes_grid.module.css";
 import { TQuote } from "../../../../types/posts";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
-type TQuotesGrid = {
-   isSelf?: boolean;
-};
-export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
+export const QuotesGrid = () => {
    // router
    const router = useRouter();
 
@@ -34,8 +31,7 @@ export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
 
    const [queryVariables, setqueryVariables] = useState<TgetQuoteVariables>({
-      last_id: CONTENT_LAST_ID,
-      isSelf: isSelf
+      last_id: CONTENT_LAST_ID
    });
 
    // fetch data on first time loading. Only runs on first load
@@ -77,8 +73,7 @@ export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
     * */
 
    useEffect(() => {
-      if (router.isReady)
-         fetchData({ last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query }, false);
+      if (router.isReady) fetchData({ last_id: CONTENT_LAST_ID, ...router.query }, false);
    }, [router.isReady, router.query]);
 
    return (
@@ -88,13 +83,7 @@ export const QuotesGrid = ({ isSelf }: TQuotesGrid) => {
                <GridPrimary>
                   {quotes?.map((quote: TQuote, index: number) => (
                      <div data-test={quote.ID} key={index} className={styles.child}>
-                        <Quote
-                           type={1}
-                           cta={{
-                              handleDelete: () => {}
-                           }}
-                           quote={quote}
-                        />
+                        <Quote type={1} quote={quote} />
                      </div>
                   ))}
                </GridPrimary>

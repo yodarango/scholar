@@ -18,7 +18,7 @@ type FolderCardProps = {
    thumbnail: string;
    folderName: string;
    postCount: number | string;
-   isPrivate: boolean;
+   isPrivate?: boolean;
    showEdit?: boolean;
    userSignature?: string;
    smallDescription?: string;

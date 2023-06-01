@@ -26,13 +26,11 @@ type TQuoteOneLineCarrouselProps = {
    loadingState?: string;
    quotes?: TQuote[];
    userID?: string | number;
-   isSelf?: boolean;
 };
 export const QuoteOneLineCarrousel = ({
    quotes,
    userID,
-   loadingState = "loading",
-   isSelf
+   loadingState = "loading"
 }: TQuoteOneLineCarrouselProps) => {
    const router = useRouter();
    // state
@@ -61,7 +59,7 @@ export const QuoteOneLineCarrousel = ({
       if (router.isReady) {
          if (!router?.query?.view) {
             if (!quotes) {
-               fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID, isSelf: isSelf });
+               fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
             } else {
                setquotesArr(quotes);
                setloading(loadingState);
@@ -76,7 +74,7 @@ export const QuoteOneLineCarrousel = ({
             <div className={styles.carrousel}>
                {quotesArr?.map((quote: TQuote, index: number) => (
                   <div className={styles.quote} key={index}>
-                     <Quote quote={quote} cta={{ handleDelete }} />
+                     <Quote quote={quote} />
                   </div>
                ))}
             </div>

@@ -53,7 +53,6 @@ export type TgetThoughtsVariables = {
    category_tags?: string;
    body?: string;
    last_id?: number | string;
-   isSelf?: boolean;
 };
 
 export const handleGetThoughts = async (variables: TgetThoughtsVariables, isEdit?: boolean) => {

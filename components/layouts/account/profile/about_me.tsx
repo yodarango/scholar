@@ -39,7 +39,7 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
       is_bible_public
    } = data;
 
-   const getData = async (variables: TgetUserAboutMeVariables) => {
+   const getData = async (variables?: TgetUserAboutMeVariables) => {
       try {
          const { data } = await getUserAboutMe(variables);
 
@@ -51,7 +51,7 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
 
    useEffect(() => {
       if (userID === "@me") {
-         getData({ isSelf: true });
+         getData();
       } else {
          getData({ ID: userID });
       }

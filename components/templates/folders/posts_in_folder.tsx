@@ -13,8 +13,6 @@ import { SelectFolderOptions } from "../../layouts/menus/select_folder_options";
 export const PostsInFolder = () => {
    const router = useRouter();
 
-   const isSelf = true;
-
    // category filter
    const [tagFilter, settagFilter] = useState<any>(null); // category
    const [folderId, setFolderId] = useState<string | undefined>(undefined);
@@ -89,7 +87,7 @@ export const PostsInFolder = () => {
                      className={styles.description}
                   />
                )}
-               {folderId && <CommentariesGrid isSelf={isSelf} folderId={folderId} />}
+               {folderId && <CommentariesGrid folderId={folderId} />}
             </div>
             <div className='spacer-page-bottom'></div>
          </HeaderWithImgBkg>

@@ -1,21 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const GET_THOUGHTS = gql`
-   query (
-      $ID: ID
-      $USER_ID: ID
-      $category_tags: String
-      $body: String
-      $last_id: ID
-      $isSelf: Boolean
-   ) {
+   query ($ID: ID, $USER_ID: ID, $category_tags: String, $body: String, $last_id: ID) {
       thought(
          ID: $ID
          USER_ID: $USER_ID
          category_tags: $category_tags
          body: $body
          last_id: $last_id
-         isSelf: $isSelf
       ) {
          ID
          body
@@ -170,7 +162,7 @@ export const CREATE_NEW_THOUGHT = gql`
    }
 `;
 
-//
+// EDIT
 export const EDIT_THOUGHT = gql`
    mutation (
       $body: String

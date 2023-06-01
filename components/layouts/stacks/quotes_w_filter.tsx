@@ -16,12 +16,11 @@ import { QuotesGrid } from "../scrollers/user_content/quotes_grid";
 import styles from "./quotes_w_filter.module.css";
 
 type TCommentariesByBookProps = {
-   isSelf?: boolean;
    cta: {
       handleClose: () => void;
    };
 };
-export const QuotesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
+export const QuotesWFilter = ({ cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
 
@@ -70,7 +69,7 @@ export const QuotesWFilter = ({ isSelf, cta }: TCommentariesByBookProps) => {
          </div>
          <section className={styles.posts}>
             {/* <CommentariesGrid filters={{ tag: commentaryTagFilter }} /> */}
-            <QuotesGrid isSelf={isSelf} />
+            <QuotesGrid />
          </section>
       </PrimaryStack>
    );

@@ -32,12 +32,11 @@ type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
    verseCitation?: string;
    verse?: string;
-   isSelf?: boolean;
+
    folderId?: string;
 };
 
 export const CommentariesGrid = ({
-   isSelf,
    verseId,
    verseCitation,
    verse,
@@ -53,7 +52,6 @@ export const CommentariesGrid = ({
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
       last_id: CONTENT_LAST_ID,
-      isSelf: isSelf,
       FOLDER_ID: folderId
    });
 
@@ -105,7 +103,7 @@ export const CommentariesGrid = ({
       // since the folder's view changes the router prevent it from fetching commentaries
       const isFoldersView = router?.query["group"] ? true : false;
       if (router.isReady && !isMounted && !isFoldersView) {
-         const vars: any = { last_id: CONTENT_LAST_ID, isSelf: isSelf, ...router.query };
+         const vars: any = { last_id: CONTENT_LAST_ID, ...router.query };
 
          // if the folderId is passed from the parent comp rather than from the query
          if (folderId) vars["folder"] = folderId;

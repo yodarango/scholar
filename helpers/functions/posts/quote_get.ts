@@ -9,7 +9,6 @@ export type TgetQuoteVariables = {
    body?: string;
    category_tags?: string;
    last_id?: string | number;
-   isSelf?: boolean;
 };
 
 // fetch data
@@ -54,6 +53,7 @@ export const handleGetQuotesIn24 = async () => {
 };
 
 export const handleGetQuote = async (variables: TgetQuoteVariables, isEdit?: boolean) => {
+   console.log("variables", variables);
    const QUERY = isEdit ? GET_EDIT_QUOTE : GET_QUOTE;
 
    try {

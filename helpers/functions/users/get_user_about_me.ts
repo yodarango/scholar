@@ -1,8 +1,8 @@
 import { client } from "../../../apollo-client";
 import { GET_USER_ABOUT_ME, GET_USER_ABOUT_ME_PAGE } from "../../../graphql/users/profile";
 
-export type TgetUserAboutMeVariables = { isSelf?: boolean; ID?: string };
-export const getUserAboutMe = async (variables: TgetUserAboutMeVariables) => {
+export type TgetUserAboutMeVariables = { ID?: string };
+export const getUserAboutMe = async (variables?: TgetUserAboutMeVariables) => {
    try {
       const { data } = await client.query({
          query: GET_USER_ABOUT_ME,
@@ -28,8 +28,8 @@ export const getUserAboutMe = async (variables: TgetUserAboutMeVariables) => {
    }
 };
 
-export type TgetUserAboutMePageVariables = { isSelf?: boolean; ID?: string };
-export const getUserAboutMePage = async (variables: TgetUserAboutMePageVariables) => {
+export type TgetUserAboutMePageVariables = { ID?: string };
+export const getUserAboutMePage = async (variables?: TgetUserAboutMePageVariables) => {
    try {
       const { data } = await client.query({
          query: GET_USER_ABOUT_ME_PAGE,

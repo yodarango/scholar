@@ -62,7 +62,7 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
 
    const { commentary_count, thought_count, quote_count, sermon_count } = data;
 
-   const getData = async (variables: TgetPostsSummaryVariables) => {
+   const getData = async (variables?: TgetPostsSummaryVariables) => {
       try {
          const { data, status } = await getPostsSummary(variables);
          setdata(data);
@@ -73,7 +73,7 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
 
    useEffect(() => {
       if (userID === "@me") {
-         getData({ isSelf: true });
+         getData();
       } else {
          getData({ ID: userID });
       }

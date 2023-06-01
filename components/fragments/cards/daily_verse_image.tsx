@@ -59,18 +59,22 @@ export const DailyVerseImage = ({
       fontClass === 0 ? styles.fontOne : fontClass === 1 ? styles.fontTwo : styles.fontThree;
 
    return (
-      <div className={`${styles.mainWrapper}`}>
-         <div className={styles.textContainer}>
-            <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1>
-            <p className={styles.reference}>{verse && verse.reference}</p>
-         </div>
-         <div className={styles.img}>
-            <div className={styles.imgBgOverlay}></div>
-            <img
-               src={`/images/daily_verse_backgrounds/${randomImg}.jpeg`}
-               alt='bible verse with background'
-            />
-         </div>
-      </div>
+      <>
+         {fontStyles && (
+            <div className={`${styles.mainWrapper}`}>
+               <div className={styles.textContainer}>
+                  <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1>
+                  <p className={styles.reference}>{verse && verse.reference}</p>
+               </div>
+               <div className={styles.img}>
+                  <div className={styles.imgBgOverlay}></div>
+                  <img
+                     src={`/images/daily_verse_backgrounds/${randomImg}.jpeg`}
+                     alt='bible verse with background'
+                  />
+               </div>
+            </div>
+         )}
+      </>
    );
 };
