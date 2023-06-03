@@ -28,7 +28,7 @@ type TPostCommentsWrapperProps = {
    contentType: EnumContentType;
    isEditPost: number;
    cta: {
-      handleEdit: (id: string, comment: string) => void;
+      // handleEdit: (id: string, comment: string) => void;
       handleDelete: () => void;
    };
 };
@@ -117,8 +117,8 @@ export const PostCommentsWrapper = ({
                         }}
                         comment={comment?.body}
                         cta={{
-                           handleDelete: () => handleDelete(comment?.ID, contentType),
-                           handleEdit: () => cta.handleEdit(comment?.ID, comment?.body)
+                           handleDelete: () => handleDelete(comment?.ID, contentType)
+                           // handleEdit: () => cta.handleEdit(comment?.ID, comment?.body)
                         }}
                      />
                   </div>

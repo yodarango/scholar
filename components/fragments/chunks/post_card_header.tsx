@@ -42,9 +42,10 @@ export type TCommentaryCardHeaderProps = {
       showEditOption?: boolean;
       showDeleteOption?: boolean;
       showReportOption?: boolean;
+      showSavetoFolderOption: boolean;
    };
    cta: {
-      handleDelete: (id: string | number) => Promise<void>;
+      handleDelete: (id: string) => void;
    };
 };
 
@@ -130,6 +131,7 @@ export const PostCardHeader = ({
                      showEditOption={postSettingsOptions?.showEditOption}
                      showDeleteOption={postSettingsOptions?.showDeleteOption}
                      showReportOption={postSettingsOptions?.showReportOption}
+                     showSavetoFolderOption={postSettingsOptions?.showSavetoFolderOption}
                      cta={{
                         handleSaveToFolder: () => {
                            setshowModal(COMMENTARY_FOLDERS);

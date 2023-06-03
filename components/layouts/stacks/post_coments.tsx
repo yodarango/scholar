@@ -43,9 +43,10 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
    const [editPost, seteditPost] = useState<{ ID: string; body: string } | null>(null);
 
    // pass the body down to text area body once edit option has been clicked
-   const handleEdit = (ID: string, body: string) => {
-      seteditPost({ ID, body });
-   };
+   //no allowing edits for now 👍
+   // const handleEdit = (ID: string, body: string) => {
+   //    seteditPost({ ID, body });
+   // };
 
    // reset everything once the comment has been edited
    const finishEdit = () => {
@@ -58,7 +59,7 @@ export const PostComments = ({ postId, userId, contentType, cta }: TPostComments
          <div className={styles.mainWrapper}>
             <div className={styles.postComments}>
                <PostCommentsWrapper
-                  cta={{ handleDelete: cta.handleDelete, handleEdit }}
+                  cta={{ handleDelete: cta.handleDelete /*handleEdit*/ }}
                   postId={postId}
                   contentType={contentType}
                   newPost={post}

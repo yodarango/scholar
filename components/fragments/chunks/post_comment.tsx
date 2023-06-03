@@ -51,6 +51,7 @@ export const PostComment = ({
                />
             )}
          </Portal>
+
          <div className={`${styles.mainWrapper}`} onClick={() => setshowCommentariesOfPost(true)}>
             {/* -------------- comment count ------------ */}
             {!iconColor && <Parragraph text={totalComments} size='small' inline={true} />}

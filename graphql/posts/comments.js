@@ -68,6 +68,7 @@ export const CREATE_COMMENTARY_COMMENT = gql`
             creator_approval_rate
             creator_authority_level
             creator_id
+            posted_on
          }
          ... on ExceedsPostCount {
             message
@@ -87,6 +88,7 @@ export const CREATE_QUOTE_COMMENT = gql`
             creator_approval_rate
             creator_authority_level
             creator_id
+            posted_on
          }
          ... on ExceedsPostCount {
             message
@@ -106,6 +108,7 @@ export const CREATE_THOUGHT_COMMENT = gql`
             creator_approval_rate
             creator_authority_level
             creator_id
+            posted_on
          }
 
          ... on ExceedsPostCount {

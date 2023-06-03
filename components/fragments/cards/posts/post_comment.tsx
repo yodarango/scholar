@@ -7,6 +7,7 @@ import { Parragraph } from "../../Typography/parragraph";
 
 // styles
 import styles from "./post_comment.module.css";
+import { CONTENT_TYPE_CONTENT_COMMENT } from "../../../../constants/defaults";
 
 type TPostCommentProps = {
    postHeader: {
@@ -20,25 +21,14 @@ type TPostCommentProps = {
       fontColor?: string;
       widthTimeStamp?: TimeStampProps;
    };
-   postSettingsOptions?: {
-      showShareopton?: boolean;
-      showEditOption?: boolean;
-      showDeleteOption?: boolean;
-      showReportOption?: boolean;
-   };
    comment: string;
    cta: {
-      handleEdit: (id: string) => void;
+      // handleEdit: (id: string) => void;
       handleDelete: (id: string) => void;
    };
 };
 
-export const PostComment = ({
-   postHeader,
-   comment,
-   cta,
-   postSettingsOptions
-}: TPostCommentProps) => {
+export const PostComment = ({ postHeader, comment, cta }: TPostCommentProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.postHeader}>
@@ -48,16 +38,23 @@ export const PostComment = ({
                userId={postHeader.userId}
                postId={postHeader.postId}
                userAuthority={postHeader.userAuthority}
-               postType='post_comment'
+               postType='post_comment' // this is not used for anything for now
+               contentType={CONTENT_TYPE_CONTENT_COMMENT} // this is not used for anything for now
+               postSettingsOptions={{
+                  showShareopton: false,
+                  showEditOption: false,
+                  showDeleteOption: true,
+                  showReportOption: false,
+                  showSavetoFolderOption: false
+               }}
                widthTimeStamp={
                   postHeader.widthTimeStamp && {
-                     time: postHeader.widthTimeStamp.time,
                      niceTime: postHeader.widthTimeStamp.niceTime,
-                     quiet: postHeader.widthTimeStamp.quiet
+                     quiet: postHeader.widthTimeStamp.quiet,
+                     time: postHeader.widthTimeStamp.time
                   }
                }
-               postSettingsOptions={postSettingsOptions}
-               cta={{ handleDelete: cta.handleDelete, handleEdit: cta.handleEdit }}
+               cta={{ handleDelete: cta.handleDelete }}
             />
          </div>
          <div className={styles.comment}>

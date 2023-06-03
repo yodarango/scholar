@@ -33,6 +33,7 @@ export const POST_TYPE_QUOTE = 2;
 export const POST_TYPE_THOUGHT = 3;
 export const POST_TYPE_SERMON_NOTE = 4;
 export const CONTENT_TYPE_FOLDER = 5;
+export const CONTENT_TYPE_CONTENT_COMMENT = 6;
 
 // bulk actions
 export const BULK_ACTION_DELETE = "delete";

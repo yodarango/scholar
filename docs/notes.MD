@@ -6,3 +6,4 @@ Also might want to restructure the routes. Maybe remove /users and do /@me inste
 ⛔️❓😬 I got rid of all the isSelfs. Make sure everything is working
 👉 remove them in the BE too
 👉 In the Back end check commentary folder and make sure it is not returning private folders
+👉 the back end is assigning the user signature as MYUSER? check why
