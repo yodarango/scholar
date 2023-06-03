@@ -30,14 +30,14 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
    });
 
    const {
-      my_church,
-      my_favorite_color,
-      my_job,
-      my_true_color_personality_test,
-      my_favorite_verse,
-      my_ministry,
-      is_bible_public
-   } = data;
+      my_church = "",
+      my_favorite_color = "",
+      my_job = "",
+      my_true_color_personality_test = "",
+      my_favorite_verse = "",
+      my_ministry = "",
+      is_bible_public = ""
+   } = data || {};
 
    const getData = async (variables?: TgetUserAboutMeVariables) => {
       try {

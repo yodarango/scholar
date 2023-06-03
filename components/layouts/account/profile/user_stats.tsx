@@ -14,9 +14,17 @@ export type TUserStatsProps = {
    user_summary: TUser;
 };
 
-export const UserStats = ({
-   user_summary: { signature, avatar, authority_level, approval_rating, total_posts, total_ratings }
-}: TUserStatsProps) => {
+export const UserStats = ({ user_summary }: TUserStatsProps) => {
+   //console.log(user_summary);
+   const {
+      signature = "",
+      avatar = "",
+      authority_level = 0,
+      approval_rating = 0,
+      total_posts = 0,
+      total_ratings = 0
+   } = user_summary || {};
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.avatar}>

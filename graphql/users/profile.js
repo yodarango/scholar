@@ -58,8 +58,8 @@ export const GET_USER_ABOUT_ME_PAGE = gql`
 
 // all notifications
 export const GET_USER_NOTIFICATIONS = gql`
-   query ($ID: ID, $last_id: ID) {
-      notifications(ID: $ID, last_id: $last_id) {
+   query ($last_id: ID) {
+      notifications(last_id: $last_id) {
          CONTENT_TYPE
          CREATED_BY
          posted_on

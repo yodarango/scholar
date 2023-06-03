@@ -50,6 +50,7 @@ export const ProfileArt = ({
    const getData = async (variables?: TgetUserSummaryVariables) => {
       try {
          const { data } = await getUserSummary(variables);
+
          setdata(data);
       } catch (error) {
          console.error(error);

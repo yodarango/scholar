@@ -71,7 +71,6 @@ export const SelectpostOptions = ({
       type: string;
    } | null>();
 
-   console.log(showSavetoFolderOption);
    // handle reporting the post
    const handleReport = async () => {
       try {

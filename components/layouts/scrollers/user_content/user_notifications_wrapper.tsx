@@ -39,6 +39,7 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
       setcanLoadMore("loading");
       try {
          const { data, status } = await getUserNotification(variables);
+         console.log(data);
          const isloadMore = data && data.length === 25 && status === "done" ? "done" : "none";
          isFetchMore ? setnotifications((prev) => [...prev, ...data]) : setnotifications(data);
          setloading(status);
