@@ -53,7 +53,12 @@ export const QuoteCardHeader = ({
                   postType='quote'
                   userId={userId}
                   showEditOption
-                  cta={{ handleCloseModal: () => setshowPostOptions(false), handleDelete }}
+                  showSavetoFolderOption={false}
+                  cta={{
+                     handleCloseModal: () => setshowPostOptions(false),
+                     handleReport: () => setshowPostOptions(false),
+                     handleDelete
+                  }}
                />
             )}
          </Portal>

@@ -46,7 +46,8 @@ export type TSelectpostOptionsProps = {
       handleCloseModal: () => void;
       handleDelete: (id: string) => void;
       handleEdit?: (id: string) => void;
-      handleSaveToFolder: () => void;
+      handleSaveToFolder?: () => void;
+      handleReport: () => void;
    };
 };
 
@@ -106,6 +107,7 @@ export const SelectpostOptions = ({
       cta.handleDelete(postid);
    };
 
+   console.log("postType", postType, postid);
    return (
       <>
          {showNotification && (
@@ -113,7 +115,12 @@ export const SelectpostOptions = ({
                title={showNotification.title}
                body={showNotification.body}
                type={showNotification.type}
-               cta={{ handleClose: () => setshowNotification(null) }}
+               cta={{
+                  handleClose: () => {
+                     cta.handleReport();
+                     setshowNotification(null);
+                  }
+               }}
             />
          )}
 
@@ -196,7 +203,7 @@ export const SelectpostOptions = ({
                   </div>
                )}
                {/* save to folder */}
-               {showSavetoFolderOption && (
+               {showSavetoFolderOption && cta.handleSaveToFolder && (
                   <div className={styles.menuOption} key={4}>
                      <MenuPrimaryOption
                         textType='text'

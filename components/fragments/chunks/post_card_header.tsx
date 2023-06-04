@@ -138,6 +138,7 @@ export const PostCardHeader = ({
                            setshowPostOptions(false);
                         },
                         handleCloseModal: () => setshowPostOptions(false),
+                        handleReport: () => setshowPostOptions(false),
                         handleDelete
                      }}
                   />
