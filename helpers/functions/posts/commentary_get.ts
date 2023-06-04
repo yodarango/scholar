@@ -56,6 +56,34 @@ export const handleGetCommentariesIn24 = async () => {
    }
 };
 
+/**********************************************************************************
+ * the data that comes from the DB does not match the naming convention of the client
+ * so I need to map over italian. Fix it 🦍
+ ******************************************
+ */
+
+const mapTheUser = (c: any) => {
+   return {
+      ...c,
+      creator: {
+         ID: c.USER_ID,
+         signature: c.signature,
+         authority_level: c.authority_level,
+         approval_rating: c.approval_rating,
+         first_name: c.first_name,
+         last_name: c.last_name,
+         my_church: c.my_church,
+         avatar: c.avatar
+      },
+      comments: {
+         total_count: c.total_comment_count
+      },
+      approvals: {
+         average_count: c.average_rating_count,
+         total_count: c.total_rating_count
+      }
+   };
+};
 // prevents useEffect from making multiple calls
 let preventMultipleCall = false;
 export const handleGetCommentaries: any = async (
@@ -69,37 +97,24 @@ export const handleGetCommentaries: any = async (
    const QUERY = isEdit ? GET_EDIT_COMMENTARY : GET_COMMENTARIES;
    try {
       if (!preventMultipleCall) {
-         preventMultipleCall = true;
+         preventMultipleCall = true; //TODO: Fix this nonsense why am I even doing this? lol
          const { data } = await client.query({
             query: QUERY,
             variables
          });
 
-         if (!data.commentary) {
+         if (!data.commentary && !data.edit_commentary) {
             preventMultipleCall = false;
             return { data: null, status: "error" };
          } else {
-            //  format the data into commentary: { user:{}}
-            const commentaries = data.commentary.map((c: any) => ({
-               ...c,
-               creator: {
-                  ID: c.USER_ID,
-                  signature: c.signature,
-                  authority_level: c.authority_level,
-                  approval_rating: c.approval_rating,
-                  first_name: c.first_name,
-                  last_name: c.last_name,
-                  my_church: c.my_church,
-                  avatar: c.avatar
-               },
-               comments: {
-                  total_count: c.total_comment_count
-               },
-               approvals: {
-                  average_count: c.average_rating_count,
-                  total_count: c.total_rating_count
-               }
-            }));
+            let commentaries: any = [];
+
+            console.log("data", data);
+            if (isEdit) {
+               commentaries = mapTheUser(data.edit_commentary);
+            } else {
+               commentaries = data.commentary.map(mapTheUser);
+            }
 
             preventMultipleCall = false;
             return { data: commentaries, status: "done" };

@@ -23,6 +23,7 @@ const EditCommentary = () => {
    const getData = async () => {
       try {
          const { data, status } = await handleGetCommentaries({ ID }, true);
+         console.log(data);
 
          if (data) setcommentary(data[0]);
 
