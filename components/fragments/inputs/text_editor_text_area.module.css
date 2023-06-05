@@ -30,7 +30,7 @@
 
 .textArea {
    display: block;
-   height: 100%;
+   height: calc(100% - 40px); /* 40px to account for the  title */
    width: 100%;
    resize: none;
    background-color: var(--primary-color);
@@ -42,6 +42,10 @@
    outline: none;
    padding: var(--spacing-s);
    padding-top: calc(var(--spacing-l) + var(--spacing-xs));
+}
+
+.textAreaThought {
+   padding-top: 0;
 }
 
 .textArea::placeholder {

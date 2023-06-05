@@ -55,6 +55,24 @@ export type TgetThoughtsVariables = {
    last_id?: number | string;
 };
 
+const mapTheUser = (c: any) => {
+   return {
+      ...c,
+      creator: {
+         ID: c.USER_ID,
+         signature: c.signature,
+         authority_level: c.authority_level,
+         approval_rating: c.approval_rating,
+         first_name: c.first_name,
+         last_name: c.last_name,
+         my_church: c.my_church,
+         avatar: c.avatar
+      },
+      comments: {
+         total_count: c.total_comment_count
+      }
+   };
+};
 export const handleGetThoughts = async (variables: TgetThoughtsVariables, isEdit?: boolean) => {
    const QUERY = isEdit ? GET_EDIT_THOUGHTS : GET_THOUGHTS;
    try {
@@ -63,29 +81,19 @@ export const handleGetThoughts = async (variables: TgetThoughtsVariables, isEdit
          variables
       });
 
-      if (!data.thought) {
+      if (!data.thought && !data.edit_thought) {
          return { data: null, status: "error" };
-      }
+      } else {
+         let thought: any = [];
 
-      //  format the data into commentary: { user:{}}
-      const thought = data.thought.map((c: any) => ({
-         ...c,
-         creator: {
-            ID: c.USER_ID,
-            signature: c.signature,
-            authority_level: c.authority_level,
-            approval_rating: c.approval_rating,
-            first_name: c.first_name,
-            last_name: c.last_name,
-            my_church: c.my_church,
-            avatar: c.avatar
-         },
-         comments: {
-            total_count: c.total_comment_count
+         if (isEdit) {
+            thought = mapTheUser(data.edit_thought);
+         } else {
+            thought = data.thought.map(mapTheUser);
          }
-      }));
 
-      return { data: thought, status: "done" };
+         return { data: thought, status: "done" };
+      }
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

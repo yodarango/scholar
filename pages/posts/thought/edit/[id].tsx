@@ -24,7 +24,7 @@ const EditThought = () => {
    const getData = async () => {
       try {
          const { data, status } = await handleGetThoughts({ ID }, true);
-         if (data) setthought(data[0]);
+         if (data) setthought(data);
 
          setloading(status);
       } catch (error) {

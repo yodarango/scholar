@@ -35,6 +35,7 @@ type TTextEditorProps = {
    withTitle?: boolean;
    titleMaxL?: number;
    titleDefaultValue?: string;
+   bodyPlaceHolder: string;
    titlePlaceHolder?: string;
    includeIsPrivate?: boolean;
    requestStatus?: string;
@@ -42,6 +43,7 @@ type TTextEditorProps = {
    folderId?: string | number;
    withSticker?: boolean;
    sticker?: string | undefined;
+   contentType?: number;
    cta: {
       handleStickerChoice?: (sticker: { id: string; path: string }) => void;
       handleCategorySelection: (category: string) => void;
@@ -78,6 +80,8 @@ export const TextEditor = ({
    withSticker,
    sticker,
    includeFolder,
+   bodyPlaceHolder,
+   contentType,
    folderId,
    cta
 }: TTextEditorProps) => {
@@ -109,7 +113,8 @@ export const TextEditor = ({
                titleDefaultValue={titleDefaultValue}
                titlePlaceHolder={titlePlaceHolder}
                defaultValue={postbody}
-               placeHolder='Commentary...'
+               placeHolder={bodyPlaceHolder}
+               contentType={contentType}
                maxLength={2500}
                cta={{
                   handleBodyValue: handleUpdateBody,

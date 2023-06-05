@@ -23,9 +23,8 @@ const EditCommentary = () => {
    const getData = async () => {
       try {
          const { data, status } = await handleGetCommentaries({ ID }, true);
-         console.log(data);
 
-         if (data) setcommentary(data[0]);
+         if (data) setcommentary(data);
 
          setloading(status);
       } catch (error) {
@@ -37,6 +36,18 @@ const EditCommentary = () => {
    useEffect(() => {
       if (router.isReady) getData();
    }, [router.isReady]);
+
+   useEffect(() => {
+      const beforeUnloadEvt = (e: any) => {
+         e.preventDefault();
+         e.returnValue = "";
+      };
+      window.addEventListener("beforeunload", beforeUnloadEvt);
+
+      return () => {
+         window.removeEventListener("beforeunload", beforeUnloadEvt);
+      };
+   }, []);
 
    // post references
    const postReferneces: any =

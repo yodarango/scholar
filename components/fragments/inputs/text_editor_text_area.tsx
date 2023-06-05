@@ -6,7 +6,7 @@ import { Icon } from "../chunks/icons";
 import styles from "./text_editor_text_area.module.css";
 import { StickerChooser } from "../../layouts/scrollers/sticker_chooser";
 import Image from "next/image";
-import { COMMENTARY_STICKER_DEFAULT } from "../../../constants/defaults";
+import { COMMENTARY_STICKER_DEFAULT, POST_TYPE_THOUGHT } from "../../../constants/defaults";
 
 type TTextEditorTextAreaProps = {
    withTitle?: boolean;
@@ -18,6 +18,7 @@ type TTextEditorTextAreaProps = {
    sticker?: string | undefined;
    placeHolder: string;
    maxLength: number;
+   contentType?: number;
    cta: {
       handleBodyValue: (body: string) => void;
       handleTitleValue?: (title: string) => void;
@@ -35,6 +36,7 @@ export const TextEditorTextArea = ({
    placeHolder,
    maxLength,
    sticker,
+   contentType,
    cta
 }: TTextEditorTextAreaProps) => {
    const [showStickers, setShowStickers] = useState(false);
@@ -113,10 +115,10 @@ export const TextEditorTextArea = ({
                   <div className={styles.sticker}>
                      <Image
                         src={
-                           s.find((s) => s.id === currentSticker)?.path ||
+                           s.find((s) => s.path === currentSticker)?.path ||
                            COMMENTARY_STICKER_DEFAULT
                         }
-                        alt={s.find((s) => s.id === currentSticker)?.path || ""}
+                        alt={s.find((s) => s.path === currentSticker)?.path || ""}
                         layout='fill'
                      />
                   </div>
@@ -125,7 +127,9 @@ export const TextEditorTextArea = ({
          )}
          <textarea
             maxLength={maxLength}
-            className={styles.textArea}
+            className={`${styles.textArea} ${
+               contentType === POST_TYPE_THOUGHT ? styles.textAreaThought : ""
+            }`}
             defaultValue={defaultValue ? defaultValue : ""}
             placeholder={placeHolder}
             onChange={(e) => cta.handleBodyValue(e.target.value)}></textarea>

@@ -109,7 +109,6 @@ export const handleGetCommentaries: any = async (
          } else {
             let commentaries: any = [];
 
-            console.log("data", data);
             if (isEdit) {
                commentaries = mapTheUser(data.edit_commentary);
             } else {

@@ -15,9 +15,11 @@ import {
    handlePostContent,
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
+import { getWritingQuote } from "../../../helpers/get_writing_quote";
 
 // helpers
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
+import { POST_TYPE_THOUGHT } from "../../../constants/defaults";
 
 type TThoughtTextEditorProps = {
    ID?: string; // if the id is not passed the the editor will create new post
@@ -53,8 +55,11 @@ export const ThoughtTextEditor = ({
 }: TThoughtTextEditorProps) => {
    // state
    // postReferencedVerses do not update on reducer changing
-   const [notification, setnotification] =
-      useState<null | { title: string; body: string; type: string }>(null);
+   const [notification, setnotification] = useState<null | {
+      title: string;
+      body: string;
+      type: string;
+   }>(null);
    const [loading, setloading] = useState("done");
    const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
@@ -163,6 +168,7 @@ export const ThoughtTextEditor = ({
             <div className={styles.textEditor}>
                <TextEditor
                   includeIsPrivate={false}
+                  bodyPlaceHolder={getWritingQuote()}
                   withTitle={true}
                   titleMaxL={150}
                   titleDefaultValue={state.title}
@@ -173,6 +179,7 @@ export const ThoughtTextEditor = ({
                   userId={userId}
                   username={username}
                   avatar={avatar}
+                  contentType={POST_TYPE_THOUGHT}
                   postPostedOnDate={postPostedOnDate || postDate.posted}
                   postCreatedDate={postCreatedDate || postDate.created}
                   postCategory={postCategory || state.category_tags}
