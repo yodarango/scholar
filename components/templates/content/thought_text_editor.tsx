@@ -15,7 +15,7 @@ import {
    handlePostContent,
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
-import { getWritingQuote } from "../../../helpers/get_writing_quote";
+import { getRandomQuote } from "../../../helpers/get_random_quote";
 
 // helpers
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
@@ -168,7 +168,7 @@ export const ThoughtTextEditor = ({
             <div className={styles.textEditor}>
                <TextEditor
                   includeIsPrivate={false}
-                  bodyPlaceHolder={getWritingQuote()}
+                  bodyPlaceHolder={getRandomQuote(1)}
                   withTitle={true}
                   titleMaxL={150}
                   titleDefaultValue={state.title}

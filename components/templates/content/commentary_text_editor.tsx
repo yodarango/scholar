@@ -18,6 +18,8 @@ import {
    THandlePostContent
 } from "../../../helpers/functions/posts/content_post";
 import { CloseContent } from "../../fragments/buttons/close_content";
+import { POST_TYPE_COMMENTARY } from "../../../constants/defaults";
+import { getRandomQuote } from "../../../helpers/get_random_quote";
 
 type TCommentaryTextEditorProps = {
    ID?: string;
@@ -202,6 +204,8 @@ export const CommentaryTextEditor = ({
             </div>
             <div className={styles.textEditor}>
                <TextEditor
+                  bodyPlaceHolder={getRandomQuote(2)}
+                  contentType={POST_TYPE_COMMENTARY}
                   body={body}
                   postImage={state.post_image}
                   userAuthority={userAuthority}
