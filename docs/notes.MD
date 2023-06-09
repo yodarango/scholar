@@ -5,4 +5,3 @@ Also might want to restructure the routes. Maybe remove /users and do /@me inste
 👉 In the Back end check commentary folder and make sure it is not returning private folders
 👉 Left off in the POST EDIT THOUGHT. Check all data gets updated properly.
 👉 move to QUOTE next
-❌ unsplash_image_picker is not really working, check why!

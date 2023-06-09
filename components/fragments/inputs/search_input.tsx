@@ -110,7 +110,7 @@ export const SearchInput = ({
             </div>
          )}
          {cta.handleSearchGo && stretchSearchInput && (
-            <div className={`${styles.mainWrapperWBtn} ${className}`}>
+            <div className={`${styles.mainWrapper} ${styles.mainWrapperWBtn} ${className}`}>
                <input
                   autoFocus={iconButton ? true : false}
                   type='type'

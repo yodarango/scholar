@@ -85,9 +85,6 @@ export const TextEditor = ({
    folderId,
    cta
 }: TTextEditorProps) => {
-   // router
-   const router = useRouter();
-
    //state
    const [postbody, setpostBody] = useState(body);
    // pas the body down to the preview component and to the parent component for posting

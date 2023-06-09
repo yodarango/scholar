@@ -65,6 +65,8 @@
 .searchButton {
    margin-left: var(--spacing-xs);
    cursor: pointer;
+   position: absolute;
+   z-index: 3;
 }
 
 .rightInputIcon * {

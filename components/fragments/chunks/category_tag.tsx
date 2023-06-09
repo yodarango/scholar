@@ -45,9 +45,7 @@ export const CategoryTag = ({
    // state
    const [isPopupOpen, setisPopupOpen] = useState<boolean | JSX.Element>(false);
    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean | JSX.Element>(false);
-   const [currentCategory, setcurrentCategory] = useState<string | undefined>(
-      id ? id : initiaValue ? initiaValue : undefined
-   );
+   const [currentCategory, setcurrentCategory] = useState<string | undefined>(undefined);
 
    //  open the category popup
    const handleShowCategoryMeta = () => {
@@ -77,10 +75,11 @@ export const CategoryTag = ({
       cta?.handleSelection(id);
    };
 
-   // i disabled this, check why i wrote this in the first place
-   // useEffect(() => {
-   //    handleSelection(id || "");
-   // }, []);
+   useEffect(() => {
+      setcurrentCategory(id ? id : initiaValue);
+   }, [id]);
+
+   console.log("currentCategory", currentCategory);
 
    return (
       <>
