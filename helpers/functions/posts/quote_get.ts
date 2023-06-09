@@ -52,8 +52,30 @@ export const handleGetQuotesIn24 = async () => {
    }
 };
 
+const mapTheUser = (c: any) => {
+   return {
+      ...c,
+      creator: {
+         ID: c.USER_ID,
+         signature: c.signature,
+         authority_level: c.authority_level,
+         approval_rating: c.approval_rating,
+         first_name: c.first_name,
+         last_name: c.last_name,
+         my_church: c.my_church,
+         avatar: c.avatar
+      },
+      comments: {
+         total_count: c.total_comment_count
+      },
+      approvals: {
+         average_count: c.average_rating_count,
+         total_count: c.total_rating_count
+      }
+   };
+};
+
 export const handleGetQuote = async (variables: TgetQuoteVariables, isEdit?: boolean) => {
-   console.log("variables", variables);
    const QUERY = isEdit ? GET_EDIT_QUOTE : GET_QUOTE;
 
    try {
@@ -62,33 +84,19 @@ export const handleGetQuote = async (variables: TgetQuoteVariables, isEdit?: boo
          variables
       });
 
-      if (!data.quote) {
+      if (!data.quote && !data.edit_quote) {
          return { data: null, status: "error" };
-      }
+      } else {
+         let quote: any = [];
 
-      // format the data into commentary: { user:{}}
-      const quote = data.quote.map((c: any) => ({
-         ...c,
-         creator: {
-            ID: c.USER_ID,
-            signature: c.signature,
-            authority_level: c.authority_level,
-            approval_rating: c.approval_rating,
-            first_name: c.first_name,
-            last_name: c.last_name,
-            my_church: c.my_church,
-            avatar: c.avatar
-         },
-         comments: {
-            total_count: c.total_comment_count
-         },
-         approvals: {
-            average_count: c.average_rating_count,
-            total_count: c.total_rating_count
+         if (isEdit) {
+            quote = mapTheUser(data.edit_quote);
+         } else {
+            quote = data.thought.map(mapTheUser);
          }
-      }));
 
-      return { data: quote, status: "done" };
+         return { data: quote, status: "done" };
+      }
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
