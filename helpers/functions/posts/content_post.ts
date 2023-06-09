@@ -46,8 +46,6 @@ export const dataHandler = async (
          variables
       });
 
-      console.log("data", data);
-
       if (data[requestType.toLowerCase()].__typename === type) {
          return { success: notificationMessages.postSuccess };
       } else if (data[requestType.toLowerCase()].__typename === "ExceedsPostCount") {

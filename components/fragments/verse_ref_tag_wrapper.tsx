@@ -24,7 +24,6 @@ type TVerseRefTagWrapperProps = {
 };
 
 export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTagWrapperProps) => {
-   //console.log("refs", refs);
    // states
    const [versionId, setVersionId] = useState<null | string>(null);
    const [allTags, setallTags] = useState<string[]>(refs);
@@ -42,6 +41,7 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
    };
 
    useEffect(() => {
+      // this is how the categories come from the db
       if (typeof refs === "string") {
          refs = refs.split(",");
          setallTags(refs);
@@ -50,11 +50,13 @@ export const VerseRefTagWrapper = ({ refs, showRemoveoption, cta }: TVerseRefTag
          refs = refs.split(",");
          setallTags(refs);
       }
-
-      getLS();
    }, [refs]);
 
-   // ------------------- remove the tags
+   useEffect(() => {
+      getLS();
+   }, []);
+
+   // remove the tags
    const handleRemoveTag = (tagId: string) => {
       const removedtag: string[] = allTags?.filter((tag) => tag !== tagId);
       setallTags(removedtag);

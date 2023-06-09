@@ -43,6 +43,7 @@ export const TextEditorTopInfo = ({
       cta.handleImageBkgSelection(url);
       setImgBkg(url);
    };
+
    return (
       <>
          <Portal>

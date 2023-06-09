@@ -63,12 +63,12 @@ export const ThoughtTextEditor = ({
    const [loading, setloading] = useState("done");
    const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
-   const post: THandlePostContent = {
+   const post: any = {
       ID: ID,
       category_tags: postCategory,
       body,
       title: titleDefaultValue,
-      referenced_verses: postReferences,
+      referenced_verses: [postReferences],
       post_image: postImage
    };
 

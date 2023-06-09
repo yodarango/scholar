@@ -43,9 +43,6 @@ const EditThought = () => {
          ? thought.referenced_verses
          : [];
 
-   useEffect(() => {
-      // get the user data
-   }, []);
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && (

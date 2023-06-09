@@ -79,8 +79,6 @@ export const CategoryTag = ({
       setcurrentCategory(id ? id : initiaValue);
    }, [id]);
 
-   console.log("currentCategory", currentCategory);
-
    return (
       <>
          <Portal>
