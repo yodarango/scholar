@@ -33,7 +33,6 @@ import { SmallLoader } from "../../fragments/chunks/small_loader";
 const errorMessage = errorMessages.posts.failToPerformBulkActionOnFolders;
 
 type TFolderListProps = {
-   userSignature?: string;
    includeBulkAction?: boolean;
    isPlacingPostInFolder?: string | number;
    cta?: {
@@ -44,16 +43,12 @@ type TFolderListProps = {
 
 const FOLDER_SELECT = 1;
 const FOLDER_SELECT_ALL = 2;
-export const FolderList = ({
-   includeBulkAction,
-   cta,
-   userSignature,
-   isPlacingPostInFolder
-}: TFolderListProps) => {
+export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TFolderListProps) => {
    const router = useRouter();
+   const userSignature = router?.query?.signature as string;
 
-   // get the folder for the correct user
-
+   // original list of folders
+   const [foldersNoMut, setFoldersNoMut] = useState<any[] | null>([]);
    const [folders, setFolders] = useState<any[] | null>([]);
    const [status, setStatus] = useState<string>("");
    const [selectFolderActive, setSelectFolderActive] = useState<number | boolean>(false);
@@ -75,6 +70,7 @@ export const FolderList = ({
             query_type: "my-folders"
          });
          setFolders(data);
+         setFoldersNoMut(data);
          setStatus(status);
       } else {
          const { data, status } = await useGetFoldersUnHooked({
@@ -88,8 +84,10 @@ export const FolderList = ({
 
    const handleFilterFolders = (val: string) => {
       const filteredFolders =
-         folders &&
-         folders.filter((folder: any) => folder.name.toLowerCase().includes(val.toLowerCase()));
+         foldersNoMut &&
+         foldersNoMut.filter((folder: any) =>
+            folder.name.toLowerCase().includes(val.toLowerCase())
+         );
 
       setFolders(filteredFolders);
    };
@@ -106,8 +104,15 @@ export const FolderList = ({
 
    const handleSelect = (index: number, id?: number | string, type?: number) => {
       if (type === FOLDER_SELECT) {
+         // this means the folder is selected
          if (selectFolderActive === FOLDER_SELECT) {
-            setFolders(folders);
+            const removeSelection = folders?.map((folder: any) => ({
+               ...folder,
+               selected: false
+            }));
+
+            setFolders(removeSelection || folders);
+
             setSelectFolderActive(false);
          } else setSelectFolderActive(FOLDER_SELECT);
       } else if (folders && id) {
@@ -235,11 +240,7 @@ export const FolderList = ({
                      cta={{ handleOnChange: handleFilterFolders }}
                   />
                   <div className={styles.add}>
-                     <IconButton
-                        icon='add'
-                        backgroundColor='2'
-                        link={`/users/${userSignature}/folders/new`}
-                     />
+                     <IconButton icon='add' backgroundColor='2' link={`/users/@me/folders/new`} />
                   </div>
                </div>
 
@@ -326,9 +327,9 @@ export const FolderList = ({
                                     handleClick: () => {
                                        selectFolderActive
                                           ? handleSelect(i, folder.ID, undefined)
-                                          : cta &&
-                                            cta?.handleFolderSelection &&
-                                            cta?.handleFolderSelection(folder.ID);
+                                          : router.push(
+                                               `/users/${userSignature}/folders/${folder.ID}`
+                                            );
                                     }
                                  }}
                                  smallDescription={
