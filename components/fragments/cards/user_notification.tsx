@@ -8,9 +8,8 @@ import { Icon } from "../chunks/icons";
 import styles from "./user_notification.module.css";
 
 // types
-import { TUserNotification } from "../../types/account";
 
-export const UserNotifications = ({ body, postType, postId }: TUserNotification) => {
+export const UserNotifications = ({ body, postType, postId, isOpen }: any) => {
    const type =
       postType === 0
          ? "commentary"
@@ -45,6 +44,7 @@ export const UserNotifications = ({ body, postType, postId }: TUserNotification)
                   </div>
                )}
                <Parragraph text={body} size='xsmall' />
+               {!isOpen && <span className={styles.unreadTag}></span>}
             </div>
          </a>
       </Link>

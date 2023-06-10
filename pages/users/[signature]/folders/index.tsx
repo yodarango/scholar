@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { FolderList } from "../../../../components/layouts/stacks/folders_list";
 
 const Index = () => {

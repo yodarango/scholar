@@ -39,7 +39,11 @@ const settingsDefaults: ThandleUpdateSettings = {
    my_job: ""
 };
 
-export const GeneralSettings = () => {
+type TGeneralSettings = {
+   onGoBack: () => void;
+};
+
+export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
    const [notification, setnotification] = useState<string | null>(null);
    // state
    const [generalSettings, setgeneralSettings] = useState<ThandleUpdateSettings>(settingsDefaults);
@@ -85,7 +89,7 @@ export const GeneralSettings = () => {
                />
             </Portal>
          )}
-         <FourthStackHeader title='Settings' actionName='Back' link='/users/@me' />
+         <FourthStackHeader title='General' actionName='Back' cta={{ handleClose: onGoBack }} />
          {loading === "done" && (
             <>
                <div className={styles.avatar}>

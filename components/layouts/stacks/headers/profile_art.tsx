@@ -77,6 +77,7 @@ export const ProfileArt = ({
             <ToggleMenu
                type={2}
                profileMenuOptions={{ userHasNotifications: data?.has_new_notifications }}
+               onOpen={() => setdata((prev) => ({ ...prev, has_new_notifications: false }))}
             />
          </div>
          <div className={styles.subWrapper}></div>

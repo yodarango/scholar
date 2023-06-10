@@ -62,6 +62,7 @@ export const GET_USER_NOTIFICATIONS = gql`
       notifications(last_id: $last_id) {
          CONTENT_TYPE
          CREATED_BY
+         read_date
          posted_on
          USER_ID
          POST_ID

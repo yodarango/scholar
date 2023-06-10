@@ -22,9 +22,15 @@ type TToggleMenuProps = {
    };
    iconSize?: string;
    type: menuTypes; // library menu
+   onOpen?: () => void;
 };
 
-export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TToggleMenuProps) => {
+export const ToggleMenu = ({
+   iconSize = "3rem",
+   type,
+   profileMenuOptions,
+   onOpen
+}: TToggleMenuProps) => {
    // state
    const [showMenu, setshowMenu] = useState(false);
    const [showModal, setshowModal] = useState<string | null>(null);
@@ -70,7 +76,13 @@ export const ToggleMenu = ({ iconSize = "3rem", type, profileMenuOptions }: TTog
             {showModal === "notifications" && (
                <UserNotificationsWrapper
                   title='Notifications'
-                  cta={{ handleClose: () => (setshowModal(null), setshowMenu(false)) }}
+                  cta={{
+                     handleClose: () => {
+                        setshowModal(null);
+                        setshowMenu(false);
+                        onOpen && onOpen();
+                     }
+                  }}
                />
             )}
          </Portal>

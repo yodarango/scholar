@@ -2,3 +2,11 @@
    width: var(--global-wrapper-width);
    margin: 0 auto calc(6rem + var(--spacing-m)); /* navigation height + spacing*/
 }
+
+.sectionsWrapper {
+   margin-top: var(--spacing-m);
+}
+
+.title {
+   margin-top: var(--spacing-s);
+}

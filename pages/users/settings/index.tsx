@@ -1,10 +1,28 @@
+import { useState } from "react";
 import { GeneralSettings } from "../../../components/templates/account/general_settings";
+import { GENERAL_SECTION, SettingsSections } from "./components/settings_sections";
 import styles from "./index.module.css";
+import { Header } from "../../../components/fragments/Typography/header";
 
+const NO_SECTION_SELECTED = 0;
 const Index = () => {
+   const [currentSection, setCurrentSection] = useState<number>(NO_SECTION_SELECTED);
+
    return (
       <div className={styles.mainWrapper}>
-         <GeneralSettings />
+         <Header type={2} text='Settings' size='large' className={styles.title} quiet />
+         {currentSection === GENERAL_SECTION && (
+            <GeneralSettings onGoBack={() => setCurrentSection(NO_SECTION_SELECTED)} />
+         )}
+         {currentSection === NO_SECTION_SELECTED && (
+            <SettingsSections
+               className={styles.sectionsWrapper}
+               onSectionChoice={(section: number) => {
+                  console.log(section);
+                  setCurrentSection(section);
+               }}
+            />
+         )}
       </div>
    );
 };

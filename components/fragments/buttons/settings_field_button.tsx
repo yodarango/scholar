@@ -1,4 +1,4 @@
-import { link } from "fs";
+// TODO: Add an optional Icon before the label
 import Link from "next/link";
 import { Icon } from "../chunks/icons";
 
@@ -10,13 +10,21 @@ import styles from "./settings_field_button.module.css";
 
 type TSettingsFieldButtonprops = {
    label: string;
-   value: string;
+   value?: string;
    link?: string;
-   cta?: { handleClick: React.MouseEventHandler<HTMLDivElement> };
+   className?: string;
+   cta?: { handleClick: React.MouseEventHandler<HTMLDivElement> | (() => void) };
 };
-export const SettingsFieldButton = ({ label, value, cta, link }: TSettingsFieldButtonprops) => {
+
+export const SettingsFieldButton = ({
+   label,
+   value,
+   cta,
+   link,
+   className = ""
+}: TSettingsFieldButtonprops) => {
    return (
-      <div className={styles.mainWrapper}>
+      <div className={`${styles.mainWrapper} ${className}`}>
          {link && (
             <Link href={link}>
                <a className={styles.button}>
@@ -24,7 +32,7 @@ export const SettingsFieldButton = ({ label, value, cta, link }: TSettingsFieldB
                      <Parragraph text={label} size='small' />
                   </div>
                   <div className={styles.value}>
-                     <Parragraph text={value} size='small' />
+                     {value && <Parragraph text={value} size='small' />}
                      <div className={styles.icon}>
                         <Icon name='arrowForth' color='#F1EAFF' size='2rem' strokeWidth='64' />
                      </div>
@@ -39,7 +47,7 @@ export const SettingsFieldButton = ({ label, value, cta, link }: TSettingsFieldB
                   <Parragraph text={label} size='small' />
                </div>
                <div className={styles.value}>
-                  <Parragraph text={value} size='small' />
+                  {value && <Parragraph text={value} size='small' />}
                   <div className={styles.icon}>
                      <Icon name='arrowForth' color='#F1EAFF' size='2rem' strokeWidth='64' />
                   </div>

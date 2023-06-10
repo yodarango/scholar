@@ -16,8 +16,6 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
    const [userID, setuserID] = useState<string>("");
    const router = useRouter();
 
-   console.log(userID);
-
    // state
    const [hoverState, sethoverState] = useState<number>(0);
    const [activeState, setactiveState] = useState<number>(0);
