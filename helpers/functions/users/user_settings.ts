@@ -1,6 +1,7 @@
 import { client } from "../../../apollo-client";
 import {
    GET_USER_GENERAL_SETTINGS,
+   GET_USER_PRIVACY_SETTINGS,
    UPDATE_GENERAL_SETTINGS,
    UPDATE_MY_AVATAR,
    UPDATE_MY_SIGNATURE
@@ -94,6 +95,52 @@ export const handleUpdateSignature = async (signature: string) => {
       } else {
          return { data: null, status: "error" };
       }
+   } catch (error) {
+      console.error(error);
+      return { data: null, status: "error" };
+   }
+};
+
+export const getUserPrivacySettings: () => Promise<any> = async () => {
+   try {
+      const { data } = await client.query({
+         query: GET_USER_PRIVACY_SETTINGS,
+         variables: {}
+      });
+
+      if (data && data.get_user_privacy_settings)
+         return {
+            data: data.get_user_privacy_settings,
+            status: "done"
+         };
+      else
+         return {
+            data: null,
+            status: "error"
+         };
+   } catch (error) {
+      console.error(error);
+      return {
+         data: null,
+         status: "error"
+      };
+   }
+};
+
+export const handleUpdatePrivacySettings: (variables: ThandleUpdateSettings) => Promise<{
+   data: any;
+   status: string;
+}> = async (variables: ThandleUpdateSettings) => {
+   try {
+      const { data } = await client.mutate({
+         mutation: UPDATE_GENERAL_SETTINGS,
+         variables
+      });
+
+      if (data.update_general_settings) {
+         return { data: data.update_general_settings, status: "done" };
+      }
+      return { data: null, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

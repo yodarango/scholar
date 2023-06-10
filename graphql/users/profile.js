@@ -89,6 +89,18 @@ export const GET_USER_GENERAL_SETTINGS = gql`
    }
 `;
 
+export const GET_USER_PRIVACY_SETTINGS = gql`
+   query {
+      get_user_privacy_settings {
+         first_name
+         birth_date
+         last_name
+         email
+         gender
+      }
+   }
+`;
+
 // updates user settings
 export const UPDATE_GENERAL_SETTINGS = gql`
    mutation (
