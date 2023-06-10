@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../../fragments/chunks/icons";
 import styles from "./posts_navigation.module.css";
 import Link from "next/link";
 import { FONT_COLOR } from "../../../constants/tokens";
 import { THIRD_COLOR } from "../../../constants/tokens";
+import { useRouter } from "next/router";
 
 type TPostsNavigationProps = {
    cta: {
@@ -12,6 +13,11 @@ type TPostsNavigationProps = {
 };
 
 export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
+   const [userID, setuserID] = useState<string>("");
+   const router = useRouter();
+
+   console.log(userID);
+
    // state
    const [hoverState, sethoverState] = useState<number>(0);
    const [activeState, setactiveState] = useState<number>(0);
@@ -21,6 +27,12 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
       setactiveState(postType);
       cta.handleClick(postType);
    };
+
+   useEffect(() => {
+      if (router.query.signature && router.isReady) {
+         setuserID(`/${router.query.signature}`);
+      }
+   }, [router.isReady, router.query]);
 
    return (
       <div className={styles.mainWrapper}>
@@ -57,7 +69,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
                color={hoverState === 3 || activeState === 3 ? FONT_COLOR : THIRD_COLOR}
             />
          </div>
-         <Link href='/users/@me/folders'>
+         <Link href={`/users${userID}/folders`}>
             <a
                className={styles.tab}
                onMouseEnter={() => sethoverState(4)}

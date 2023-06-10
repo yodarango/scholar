@@ -70,7 +70,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
       }
    };
 
-   const handlegetchBookmarks = async (variables: TBookmarksVariables) => {
+   const handlefetchBookmarks = async (variables: TBookmarksVariables) => {
       try {
          const { data }: any = await handleGetBookmarks(variables);
          if (data?.bookmarks) {
@@ -83,7 +83,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
 
    // get the bookmarks
    useEffect(() => {
-      handlegetchBookmarks({ USER_ID: 1001, CHAPTER_ID: chapterId, last_id: CONTENT_LAST_ID });
+      handlefetchBookmarks({ CHAPTER_ID: chapterId, last_id: CONTENT_LAST_ID });
    }, [chapterId]);
 
    return (

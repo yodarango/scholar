@@ -1,5 +1,3 @@
-import Head from "next/head";
-import HeadContent from "../../../SEO/head_content";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -14,7 +12,6 @@ import { getLSBibleSettings } from "../../../helpers/browser/ls_bible_settings";
 
 // types
 import { ReadingPreferences } from "../../../types/browser/local_storage";
-import { console_log } from "../../../utilities/console_log";
 
 const Read = () => {
    // router

@@ -80,7 +80,7 @@ export const NavigationMain = ({ children }: any) => {
                         <Icon name='chat' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
-                  <Link href={"/read"}>
+                  <Link href={"/read/@me"}>
                      <a
                         onClick={() => setcurrentPage("read")}
                         className={`${styles.read} ${styles.menuOption} ${

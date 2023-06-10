@@ -92,7 +92,7 @@ export const handleGetQuote = async (variables: TgetQuoteVariables, isEdit?: boo
          if (isEdit) {
             quote = mapTheUser(data.edit_quote);
          } else {
-            quote = data.thought.map(mapTheUser);
+            quote = data.quote.map(mapTheUser);
          }
 
          return { data: quote, status: "done" };

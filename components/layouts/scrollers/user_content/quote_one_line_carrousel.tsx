@@ -19,7 +19,6 @@ import styles from "./quote_one_line_carrousel.module.css";
 import { TQuote } from "../../../../types/posts";
 import { handleGetQuote, TgetQuoteVariables } from "../../../../helpers/functions/posts/quote_get";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 
 type TQuoteOneLineCarrouselProps = {
@@ -37,15 +36,11 @@ export const QuoteOneLineCarrousel = ({
    const [quotesArr, setquotesArr] = useState<TQuote[] | undefined>(quotes);
    const [loading, setloading] = useState<string>(loadingState);
 
-   const handleDelete = (id: string | number) => {
-      const updatedArr = quotesArr?.filter((quote) => quote.ID !== id);
-      setquotesArr(updatedArr);
-   };
-
    // fetch data
    const fetchData = async (variables: TgetQuoteVariables) => {
       try {
          const { data, status } = await handleGetQuote(variables);
+         console.log(data);
          data && setquotesArr(data);
          setloading(status);
       } catch (error) {
@@ -73,9 +68,9 @@ export const QuoteOneLineCarrousel = ({
          {
             <div className={styles.carrousel}>
                {quotesArr?.map((quote: TQuote, index: number) => (
-                  <div className={styles.quote} key={index}>
-                     <Quote quote={quote} />
-                  </div>
+                  // <div className={styles.quote} key={index}>
+                  <Quote quote={quote} key={index} className={styles.quote} />
+                  // </div>
                ))}
             </div>
          }

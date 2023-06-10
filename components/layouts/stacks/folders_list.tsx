@@ -1,4 +1,7 @@
-import { useGetFolders } from "../../../helpers/functions/posts/use_get_folders";
+import {
+   useGetFolders,
+   useGetFoldersUnHooked
+} from "../../../helpers/functions/posts/use_get_folders";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { SearchInput } from "../../fragments/inputs/search_input";
 import { FolderCard } from "../../fragments/cards/folder_card";
@@ -43,14 +46,16 @@ const FOLDER_SELECT = 1;
 const FOLDER_SELECT_ALL = 2;
 export const FolderList = ({
    includeBulkAction,
-
    cta,
    userSignature,
    isPlacingPostInFolder
 }: TFolderListProps) => {
    const router = useRouter();
-   const { data, status } = useGetFolders({ query_type: "my-folders" });
+
+   // get the folder for the correct user
+
    const [folders, setFolders] = useState<any[] | null>([]);
+   const [status, setStatus] = useState<string>("");
    const [selectFolderActive, setSelectFolderActive] = useState<number | boolean>(false);
    const [showBulkBtns, setShowBulkBtns] = useState<boolean>(false);
    const [bulkActionLoading, setBulkActionLoading] = useState<boolean>(false);
@@ -64,14 +69,27 @@ export const FolderList = ({
    // returned from the BE 🤦‍♂️
    const [selectedBulkAction, setSelectedBulkAction] = useState<string | null>(null);
 
-   useEffect(() => {
-      setFolders(data);
-   }, [data, status]);
+   const handleGetData = async (variables: any) => {
+      if (!variables.USER_ID || variables.USER_ID === "@me") {
+         const { data, status } = await useGetFoldersUnHooked({
+            query_type: "my-folders"
+         });
+         setFolders(data);
+         setStatus(status);
+      } else {
+         const { data, status } = await useGetFoldersUnHooked({
+            USER_ID: router.query.signature as string,
+            query_type: "my-folders"
+         });
+         setFolders(data);
+         setStatus(status);
+      }
+   };
 
    const handleFilterFolders = (val: string) => {
       const filteredFolders =
-         data &&
-         data.filter((folder: any) => folder.name.toLowerCase().includes(val.toLowerCase()));
+         folders &&
+         folders.filter((folder: any) => folder.name.toLowerCase().includes(val.toLowerCase()));
 
       setFolders(filteredFolders);
    };
@@ -79,20 +97,20 @@ export const FolderList = ({
    const handleSelectAll = () => {
       if (selectFolderActive !== FOLDER_SELECT_ALL) {
          setSelectFolderActive(FOLDER_SELECT_ALL);
-         if (data) setFolders(data.map((folder: any) => ({ ...folder, selected: true })));
+         if (folders) setFolders(folders.map((folder: any) => ({ ...folder, selected: true })));
       } else {
          setSelectFolderActive(0);
-         if (data) setFolders(data.map((folder: any) => ({ ...folder, selected: false })));
+         if (folders) setFolders(folders.map((folder: any) => ({ ...folder, selected: false })));
       }
    };
 
    const handleSelect = (index: number, id?: number | string, type?: number) => {
       if (type === FOLDER_SELECT) {
          if (selectFolderActive === FOLDER_SELECT) {
-            setFolders(data);
+            setFolders(folders);
             setSelectFolderActive(false);
          } else setSelectFolderActive(FOLDER_SELECT);
-      } else if (data && id) {
+      } else if (folders && id) {
          // find this post
          let selection = folders?.find((folder: any) => folder.ID === id);
 
@@ -111,7 +129,7 @@ export const FolderList = ({
 
       // fr when a user moves directly from 'select all' to 'select'
       if (selectFolderActive === FOLDER_SELECT_ALL && !id) {
-         setFolders(data);
+         setFolders(folders);
       }
    };
 
@@ -187,6 +205,12 @@ export const FolderList = ({
          else setShowBulkBtns(false);
       } else setShowBulkBtns(false);
    }, [folders]);
+
+   useEffect(() => {
+      if (router.isReady && router.query) {
+         handleGetData({ USER_ID: router.query.signature as string, query_type: "my-folders" });
+      }
+   }, [router.isReady, router.query]);
 
    return (
       <>

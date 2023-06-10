@@ -12,7 +12,7 @@ export const CommentaryFilter = () => {
    const router = useRouter();
 
    // state
-   const [buttonActive, setbuttonActive] = useState<string | string[] | null>("0");
+   const [buttonActive, setbuttonActive] = useState<string | string[] | null>("1");
 
    ///get router info
    useEffect(() => {
@@ -37,7 +37,7 @@ export const CommentaryFilter = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.all}>
             <Secondary
-               type={buttonActive === "0" ? "2" : "1"}
+               type={buttonActive === "1" ? "3" : "2"}
                title='General'
                icon='🌎'
                fullWidth
@@ -46,7 +46,7 @@ export const CommentaryFilter = () => {
          </div>
          <div className={styles.trusted}>
             <Secondary
-               type={buttonActive === "1" ? "2" : "1"}
+               type={buttonActive === "2" ? "3" : "2"}
                title='Trusted'
                icon='⭐️'
                fullWidth
@@ -55,7 +55,7 @@ export const CommentaryFilter = () => {
          </div>
          <div className={styles.classic}>
             <Secondary
-               type={buttonActive === "2" ? "2" : "1"}
+               type={buttonActive === "3" ? "3" : "2"}
                title='Classic'
                icon='🎩'
                fullWidth

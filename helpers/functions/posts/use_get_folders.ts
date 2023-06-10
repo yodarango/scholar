@@ -5,7 +5,6 @@ import { GET_FOLDER_POST_COUNT } from "../../../graphql/posts/folders";
 type TgetfoldersVariables = {
    ID?: string | number;
    USER_ID?: string;
-
    query_type?: string;
 };
 export const useGetFolders = (variables: TgetfoldersVariables) => {
@@ -40,4 +39,33 @@ export const useGetFolders = (variables: TgetfoldersVariables) => {
       data,
       status
    };
+};
+
+//TODO: I was having hard time making the hooked version wait for the router.signature
+// So i just went ahead and made the unhooked version that does not have the useEffect
+export const useGetFoldersUnHooked = async (variables: TgetfoldersVariables) => {
+   try {
+      const { data } = await client.query({
+         query: GET_FOLDER_POST_COUNT,
+         variables
+      });
+
+      if (data.get_commentary_folder) {
+         return {
+            data: data.get_commentary_folder,
+            status: "done"
+         };
+      } else {
+         return {
+            data: null,
+            status: "error"
+         };
+      }
+   } catch (error) {
+      console.error(error);
+      return {
+         data: null,
+         status: "error"
+      };
+   }
 };

@@ -9,7 +9,7 @@ Gets bookmarks for a user.
 export type TBookmarksVariables = {
    ID?: string;
    CHAPTER_ID?: string;
-   USER_ID: number | string;
+   USER_ID?: number | string;
    last_id: number | string;
 };
 

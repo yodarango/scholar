@@ -23,9 +23,10 @@ import { FONT_COLOR, PRIMARY_COLOR } from "../../../../constants/tokens";
 export type TQuoteProps = {
    quote: TQuote;
    type?: number;
+   className?: string;
 };
 
-export const Quote = ({ quote, type = 0 }: TQuoteProps) => {
+export const Quote = ({ quote, type = 0, className = "" }: TQuoteProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
 
@@ -57,7 +58,9 @@ export const Quote = ({ quote, type = 0 }: TQuoteProps) => {
          )}
          {!isDeleted && (
             <div
-               className={`${styles.mainWrapper} ${type === 1 && styles.mainWrapperWide}`}
+               className={`${styles.mainWrapper} ${
+                  type === 1 && styles.mainWrapperWide
+               } ${className}`}
                id={quote?.background}>
                <Link href={`/posts/quote/${quote.ID}`}>
                   <a className={styles.clickableArea}></a>

@@ -68,7 +68,7 @@ export const SelectReadingBookmarks = ({
 
    // get the bookmarks
    useEffect(() => {
-      handleGetData({ USER_ID: 1001, last_id: CONTENT_LAST_ID });
+      handleGetData({ last_id: CONTENT_LAST_ID });
    }, [chapterId]);
 
    const handleBookMark = () => {

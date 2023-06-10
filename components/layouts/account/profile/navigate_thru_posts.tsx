@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
 import { PostsNavigation } from "../../navs/posts_navigation";
 import { CommentaryOneLineCarrousel } from "../../scrollers/user_content/commentaries_one_line_carrousel";
 import { QuoteOneLineCarrousel } from "../../scrollers/user_content/quote_one_line_carrousel";
-import { SermonNoteOneLineCarrousel } from "../../scrollers/user_content/sermon_note_one_line_carrousel";
 import { ThoughtsOneLineCarrousel } from "../../scrollers/user_content/thoughts_one_line_carrousel";
 import { LinkWithArrow } from "../../../fragments/buttons/link_with_arrow";
 import { Header } from "../../../fragments/Typography/header";

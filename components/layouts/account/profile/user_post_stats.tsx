@@ -42,7 +42,7 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
          icon: "quote",
          iconColor: FONT_COLOR,
          totalPosts: "quote_count",
-         contentType: "quote"
+         contentType: "quotes"
       }
       // {
       //    icon: "folder",
