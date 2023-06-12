@@ -1,10 +1,14 @@
 import { client } from "../../../apollo-client";
+import { errorMessages } from "../../../data/error_messages";
+import { notificationMessages } from "../../../data/notification_messages";
 import {
    GET_USER_GENERAL_SETTINGS,
    GET_USER_PRIVACY_SETTINGS,
    UPDATE_GENERAL_SETTINGS,
    UPDATE_MY_AVATAR,
-   UPDATE_MY_SIGNATURE
+   UPDATE_MY_EMAIL,
+   UPDATE_MY_SIGNATURE,
+   UPDATE_PRIVACY_SETTINGS
 } from "../../../graphql/users/profile";
 
 export const getUserGeneralSettings: () => Promise<any> = async () => {
@@ -83,21 +87,39 @@ export const handleUpdateAvater = async (avatar: string) => {
    }
 };
 
-export const handleUpdateSignature = async (signature: string) => {
+export const handleUpdateSignature = async (signature: string): Promise<any> => {
    try {
       const { data } = await client.mutate({
          mutation: UPDATE_MY_SIGNATURE,
          variables: { signature }
       });
 
-      if (data.update_signature) {
-         return { data: data.update_signature, status: "done" };
-      } else {
-         return { data: null, status: "error" };
+      if (data.update_signature?.__typename === "User") {
+         return {
+            data: data.update_signature,
+            status: "done",
+            title: notificationMessages.signatureSaved.title,
+            body: notificationMessages.signatureSaved.body,
+            type: "2"
+         };
+      } else if (data.update_signature?.__typename === "SignatureAlreadyTaken") {
+         return {
+            data: null,
+            status: "error",
+            title: errorMessages.account.signatureAlreadyExists.title,
+            body: errorMessages.account.signatureAlreadyExists.body,
+            type: "4"
+         };
       }
    } catch (error) {
       console.error(error);
-      return { data: null, status: "error" };
+      return {
+         data: null,
+         status: "error",
+         title: errorMessages.account.unableToUpdateSignature.title,
+         body: errorMessages.account.unableToUpdateSignature.body,
+         type: "4"
+      };
    }
 };
 
@@ -127,22 +149,61 @@ export const getUserPrivacySettings: () => Promise<any> = async () => {
    }
 };
 
-export const handleUpdatePrivacySettings: (variables: ThandleUpdateSettings) => Promise<{
-   data: any;
-   status: string;
-}> = async (variables: ThandleUpdateSettings) => {
+type ThandleUpdatePrivacySettings = {
+   birth_date: string;
+   first_name: string;
+   last_name: string;
+   gender: boolean;
+};
+export const handleUpdatePrivacySettings = async (variables: ThandleUpdatePrivacySettings) => {
    try {
       const { data } = await client.mutate({
-         mutation: UPDATE_GENERAL_SETTINGS,
+         mutation: UPDATE_PRIVACY_SETTINGS,
          variables
       });
 
-      if (data.update_general_settings) {
-         return { data: data.update_general_settings, status: "done" };
+      if (data.update_privacy_settings) {
+         return { data: data.update_privacy_settings, status: "done" };
       }
       return { data: null, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
+   }
+};
+
+export const handleUpdateEmail = async (email: string): Promise<any> => {
+   try {
+      const { data } = await client.mutate({
+         mutation: UPDATE_MY_EMAIL,
+         variables: { email }
+      });
+
+      if (data.update_email?.__typename === "User") {
+         return {
+            data: data.update_email,
+            status: "done",
+            title: notificationMessages.emailSaved.title,
+            body: notificationMessages.emailSaved.body,
+            type: "2"
+         };
+      } else if (data.update_email?.__typename === "EmailExists") {
+         return {
+            data: null,
+            status: "error",
+            title: errorMessages.account.emailAlreadyExists.title,
+            body: errorMessages.account.emailAlreadyExists.body,
+            type: "4"
+         };
+      }
+   } catch (error) {
+      console.error(error);
+      return {
+         data: null,
+         status: "error",
+         title: errorMessages.account.unableToUpdateSignature.title,
+         body: errorMessages.account.unableToUpdateSignature.body,
+         type: "4"
+      };
    }
 };

@@ -23,7 +23,6 @@ const Index = () => {
             <SettingsSections
                className={styles.sectionsWrapper}
                onSectionChoice={(section: number) => {
-                  console.log(section);
                   setCurrentSection(section);
                }}
             />

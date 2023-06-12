@@ -14,6 +14,7 @@ import {
    getUserPrivacySettings,
    handleUpdatePrivacySettings
 } from "../../../helpers/functions/users/user_settings";
+import { ChangeEmail } from "../../layouts/account/settings/change_email";
 
 type PrivacySettingsProps = {
    onGoBack: () => void;
@@ -23,8 +24,8 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
    const [privacySettings, setPrivacySettings] = useState<any>({
       first_name: "",
       last_name: "",
-      birt_hdate: "",
-      gender: ""
+      birth_date: "",
+      gender: null
    });
    const [notification, setnotification] = useState<string | null>(null);
    const [loading, setloaading] = useState<string>("loading");
@@ -32,8 +33,17 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
    const getData = async () => {
       try {
          const { data, status } = await getUserPrivacySettings();
-         console.log(data);
-         setPrivacySettings(data);
+         if (data) {
+            const date = new Date(parseInt(data?.birth_date));
+            // Extract the components of the date
+            const year = date.getFullYear();
+            const month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+            const day = ("0" + date.getDate()).slice(-2);
+            const formattedDate = `${year}-${month}-${day}`;
+
+            data.birth_date = formattedDate;
+            setPrivacySettings(data);
+         }
          setloaading(status);
       } catch (error) {
          console.error(error);
@@ -47,7 +57,8 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
    // handle the saving
    const handleSave = async () => {
       try {
-         const { data } = await handleUpdatePrivacySettings(generalSettings);
+         const { data } = await handleUpdatePrivacySettings(privacySettings);
+
          if (data) {
             setnotification("2");
          } else {
@@ -71,7 +82,7 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
             </Portal>
          )}
 
-         <FourthStackHeader title='General' actionName='Back' cta={{ handleClose: onGoBack }} />
+         <FourthStackHeader title='Privacy' actionName='Back' cta={{ handleClose: onGoBack }} />
          {loading === "done" && (
             <>
                <div className={styles.field}>
@@ -102,7 +113,7 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
                   <InputPrimary
                      cta={{
                         handleValue: (value: string) =>
-                           setPrivacySettings({ ...privacySettings, birth: value })
+                           setPrivacySettings({ ...privacySettings, birth_date: value })
                      }}
                      maxL={150}
                      placeholder='Birth date'
@@ -114,20 +125,25 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
                   <RadioPrimary
                      icon={{ primary: "male", secondary: "female" }}
                      text={{ primary: "Male", secondary: "Female" }}
+                     type={{
+                        first: privacySettings?.gender === 0 ? "1" : "2",
+                        second: privacySettings?.gender === 0 ? "2" : "1"
+                     }}
                      cta={{
                         handleOptionSelection: (gender: number) =>
                            setPrivacySettings({
                               ...privacySettings,
-                              gender: gender === 0 ? false : true
+                              gender: gender === 0 ? 1 : 0
                            })
                      }}
                   />
                </div>
                <div className={styles.field}>
-                  <ChangeSignature
-                     signature={privacySettings.signature}
+                  <ChangeEmail
+                     signature={privacySettings.email}
                      cta={{
-                        updateSignature: (email) => {}
+                        updateSignature: (email) =>
+                           setPrivacySettings({ ...privacySettings, email })
                      }}
                   />
                </div>

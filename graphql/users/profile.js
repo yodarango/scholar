@@ -131,6 +131,32 @@ export const UPDATE_GENERAL_SETTINGS = gql`
    }
 `;
 
+export const UPDATE_PRIVACY_SETTINGS = gql`
+   mutation (
+      $first_name: String
+      $birth_date: String
+      $last_name: String
+      $email: String
+      $gender: Int
+   ) {
+      update_privacy_settings(
+         data: {
+            first_name: $first_name
+            birth_date: $birth_date
+            last_name: $last_name
+            email: $email
+            gender: $gender
+         }
+      ) {
+         first_name
+         birth_date
+         last_name
+         email
+         gender
+      }
+   }
+`;
+
 // updates user avatar
 export const UPDATE_MY_AVATAR = gql`
    mutation ($avatar: String) {
@@ -144,7 +170,28 @@ export const UPDATE_MY_AVATAR = gql`
 export const UPDATE_MY_SIGNATURE = gql`
    mutation ($signature: String) {
       update_signature(data: { signature: $signature }) {
-         signature
+         ... on User {
+            signature
+         }
+
+         ... on SignatureAlreadyTaken {
+            message
+         }
+      }
+   }
+`;
+
+// updates user signature
+export const UPDATE_MY_EMAIL = gql`
+   mutation ($email: String) {
+      update_email(data: { email: $email }) {
+         ... on User {
+            email
+         }
+
+         ... on EmailExists {
+            message
+         }
       }
    }
 `;

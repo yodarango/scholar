@@ -71,50 +71,58 @@ export const notificationMessages = {
       title: "Signature changed!",
       body: "Your signature has been saved, go show off your new you ✍️"
    },
+   emailSaved: {
+      id: 10,
+      type: "Success",
+      description: "Notification after a silver are saved successfully",
+      title: "Email saved!",
+      body: "Your email has been saved, go show off your new you ✨"
+   },
+
    folderSaved: {
-      id: 9,
+      id: 11,
       type: "Success",
       description: "A folder was saved successfully",
       title: "Folder saved!",
       body: "Your folder has been saved, start saving posts to it now!"
    },
    folderDeleted: {
-      id: 10,
+      id: 12,
       type: "Success",
       description: "A folder was deleted successfully",
       title: "Folder deleted!",
       body: "Your folder and all posts that were in it were deleted"
    },
    savedToFolder: {
-      id: 11,
+      id: 13,
       type: "Success",
       description: "A post was saved to folder successfully",
       title: "Post added to folder!",
       body: "your post was added to this folder successfully!"
    },
    foldersDeleted: {
-      id: 11,
+      id: 14,
       type: "Success",
       description: "Many folders were deleted successfully",
       title: "Folders deleted!",
       body: "The folders you selected and all posts that were in them were deleted"
    },
    foldersMadePrivate: {
-      id: 12,
+      id: 15,
       type: "Success",
       description: "Many folders were made private and all contents in them",
       title: "Folders are now private!",
       body: "The folders you selected and all posts that were in them are now private. Nobody, except you, will be able to see them."
    },
    foldersMadePublic: {
-      id: 12,
+      id: 16,
       type: "Success",
       description: "Many folders were made public and all contents in them ",
       title: "Folders are now public!",
       body: "The folders you selected and all posts that were in them are now public. Please be aware that everyone can see them."
    },
    aboutMeSaved: {
-      id: 13,
+      id: 17,
       type: "Success",
       description: "A user's about me was saved successfully",
       title: "Greaattt!",

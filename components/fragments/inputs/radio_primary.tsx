@@ -12,17 +12,22 @@ type TRadioPrimaryProps = {
       primary: string;
       secondary: string;
    };
+   type?: {
+      first: string;
+      second: string;
+   };
    displayV?: boolean;
-   type?: string;
+   // type?: string;
    cta: {
       handleOptionSelection: (option: number) => void;
    };
 };
 export const RadioPrimary = ({ icon, text, cta, displayV, type }: TRadioPrimaryProps) => {
    const [currSelection, setcurrSelection] = useState<{ prim: string; sec: string }>({
-      prim: "1",
-      sec: "1"
+      prim: type?.first || "1",
+      sec: type?.second || "1"
    });
+
    return (
       <div className={styles.mainWrapper}>
          {/* primary option */}

@@ -37,12 +37,34 @@ export const errorMessages = {
          title: "Oh no! 🐀",
          body: "We were unable to update your signature, please try again later!"
       },
-      unableToUpdateAboutMe: {
+      unableToUpdateEmail: {
          id: 5,
+         type: "error",
+         description:
+            "if the email is unable to update their email either because it has already been taken or because something went wrong",
+         title: "Oh no! 🐀",
+         body: "We were unable to update your email, please try again later!"
+      },
+      unableToUpdateAboutMe: {
+         id: 6,
          type: "error",
          description: "could not update about me page",
          title: "Well this is sad!",
          body: "We were unable to update your description, please try again later! if the problem persists please submit a bug report"
+      },
+      emailAlreadyExists: {
+         id: 7,
+         type: "error",
+         description: "if the email address the user is trying to register already exists",
+         title: "Email already exists",
+         body: "The email you entered is already in use. Please try another one!"
+      },
+      signatureAlreadyExists: {
+         id: 8,
+         type: "error",
+         description: "if the signature the user is trying to register already exists",
+         title: "Signature already exists",
+         body: "The signature you entered is already in use. Please try another one!"
       }
    },
    forms: {

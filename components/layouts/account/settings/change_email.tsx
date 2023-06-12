@@ -1,10 +1,11 @@
+// TODO: This and change password and change signature are basically the same thing.
+// Refactor them into one component
 /**************************************************************************************** 
 -   Updates the user's signature
 ****************************************************************************************/
 import { useState } from "react";
 import { errorMessages } from "../../../../data/error_messages";
-import { notificationMessages } from "../../../../data/notification_messages";
-import { handleUpdateSignature } from "../../../../helpers/functions/users/user_settings";
+import { handleUpdateEmail } from "../../../../helpers/functions/users/user_settings";
 import { Primary } from "../../../fragments/buttons/primary";
 
 // components
@@ -24,10 +25,10 @@ type TChangeUsernameProps = {
    };
 };
 
-export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
+export const ChangeEmail = ({ signature, cta }: TChangeUsernameProps) => {
    // state
    const [showModal, setshowModal] = useState<boolean>(false);
-   const [currSignature, setcurrSignature] = useState<string>("");
+   const [currEmail, setCurrEmail] = useState<string>("");
    const [loading, setloading] = useState<string>("done");
    const [notification, setnotification] = useState<{
       title: string;
@@ -36,12 +37,11 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
    } | null>(null);
 
    // update the signature
-   const handeUpdateSignature = async () => {
+   const handeUpdateEmail = async () => {
       setloading("loading");
       try {
-         const { data, title, body, type } = await handleUpdateSignature(currSignature);
+         const { data, title, body, type } = await handleUpdateEmail(currEmail);
 
-         console.log(data);
          setnotification({
             title: title,
             body: body,
@@ -86,16 +86,16 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
             {showModal && (
                <FourthStack
                   actionName='Back'
-                  title='Change signature'
+                  title='Change Email'
                   cta={{ handleClose: () => setshowModal(false) }}>
                   <div className={styles.mainWrapper}>
                      <div className={styles.input}>
                         <InputPrimary
                            maxL={80}
-                           placeholder='signature'
+                           placeholder='email'
                            value={signature}
                            type='text'
-                           cta={{ handleValue: (value: string) => setcurrSignature(value) }}
+                           cta={{ handleValue: (value: string) => setCurrEmail(value) }}
                         />
                      </div>
 
@@ -104,7 +104,7 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
                            type='1'
                            title='Update'
                            disabled={loading === "loading"}
-                           cta={{ handleClick: handeUpdateSignature }}
+                           cta={{ handleClick: handeUpdateEmail }}
                         />
                      </div>
                   </div>
@@ -112,7 +112,7 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
             )}
          </Portal>
          <SettingsFieldButton
-            label='Signature'
+            label='Email'
             value={signature}
             cta={{ handleClick: () => setshowModal(true) }}
          />
