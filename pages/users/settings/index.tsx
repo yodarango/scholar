@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 import { Header } from "../../../components/fragments/Typography/header";
 import Privacy from "../../privacy";
 import { PrivacySettings } from "../../../components/templates/account/privacy_settings";
+import { BackLink } from "../../../components/fragments/buttons/back_link";
 
 const NO_SECTION_SELECTED = 0;
 const Index = () => {
@@ -12,7 +13,10 @@ const Index = () => {
 
    return (
       <div className={styles.mainWrapper}>
-         <Header type={2} text='Settings' size='large' className={styles.title} quiet />
+         <div className={styles.header}>
+            <Header type={2} text='Settings' size='large' className={styles.title} quiet />
+            <BackLink link='/users/@me' iconLeft title='Back' />
+         </div>
          {currentSection === GENERAL_SECTION && (
             <GeneralSettings onGoBack={() => setCurrentSection(NO_SECTION_SELECTED)} />
          )}

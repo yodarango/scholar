@@ -15,6 +15,8 @@ import {
    handleUpdatePrivacySettings
 } from "../../../helpers/functions/users/user_settings";
 import { ChangeEmail } from "../../layouts/account/settings/change_email";
+import { ChangePassword } from "../../layouts/forms/change_password";
+import { ChangePasswordFromLogin } from "../../layouts/account/settings/change_password";
 
 type PrivacySettingsProps = {
    onGoBack: () => void;
@@ -148,12 +150,7 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
                   />
                </div>
                <div className={styles.field}>
-                  <ChangeSignature
-                     signature={privacySettings.signature}
-                     cta={{
-                        updateSignature: (password) => {}
-                     }}
-                  />
+                  <ChangePasswordFromLogin />
                </div>
                <div className={styles.button}>
                   <Primary type='1' title='Save' cta={{ handleClick: handleSave }} />

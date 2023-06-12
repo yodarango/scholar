@@ -74,11 +74,10 @@ export const notificationMessages = {
    emailSaved: {
       id: 10,
       type: "Success",
-      description: "Notification after a silver are saved successfully",
+      description: "Notification after a email are saved successfully",
       title: "Email saved!",
       body: "Your email has been saved, go show off your new you ✨"
    },
-
    folderSaved: {
       id: 11,
       type: "Success",
@@ -127,5 +126,12 @@ export const notificationMessages = {
       description: "A user's about me was saved successfully",
       title: "Greaattt!",
       body: "Your description has been saved, now everyone can know all about you"
+   },
+   passwordSaved: {
+      id: 18,
+      type: "Success",
+      description: "Notification after a password is changed successfully",
+      title: "Password changed!",
+      body: "Your password has been changed. Please save it in a secure place."
    }
 };

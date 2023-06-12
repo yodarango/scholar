@@ -43,19 +43,24 @@ export const verificationCode = async (code: string) => {
    }
 };
 
-export const changePassword = async (new_password: string, USER_ID: string | number) => {
+export const changePassword = async (
+   new_password: string,
+   USER_ID?: string | number,
+   current_password?: string
+) => {
    try {
       const { data } = await client.mutate({
          mutation: SET_NEW_PASSWORD,
          variables: {
             new_password,
+            current_password,
             USER_ID
          }
       });
 
-      if (data.recover_password > 0) {
+      if (data.new_password?.__typename === "UserUpdated") {
          return true;
-      } else {
+      } else if (data.new_password?.__typename === "IncorrecctCredentials") {
          return false;
       }
    } catch (error) {

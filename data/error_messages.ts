@@ -22,6 +22,7 @@ export const errorMessages = {
          title: "Oh no! 😔",
          body: "We were unable to update your password, please try again later!"
       },
+
       unableToUpdateAvatar: {
          id: 3,
          type: "error",
@@ -65,6 +66,14 @@ export const errorMessages = {
          description: "if the signature the user is trying to register already exists",
          title: "Signature already exists",
          body: "The signature you entered is already in use. Please try another one!"
+      },
+      passwordIsIncorrect: {
+         id: 9,
+         type: "error",
+         description:
+            "When a user attempts to change their password but the current password they entered is incorrect",
+         title: "Hmm!",
+         body: "The password you entered does not match the current password. Please try again!"
       }
    },
    forms: {
