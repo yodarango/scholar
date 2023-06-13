@@ -1,0 +1,47 @@
+.mainWrapper {
+   width: 100%;
+   margin-top: calc(6rem + var(--spacing-l));
+}
+
+.avatar {
+   width: 15rem;
+   margin: 0 auto var(--spacing-m);
+}
+
+.signature {
+   width: 100%;
+   margin-bottom: var(--spacing-m);
+}
+
+.field {
+   width: 100%;
+   margin-bottom: var(--spacing-xs);
+}
+
+/* .field:nth-child(6) {
+   margin-bottom: var(--spacing-m);
+} */
+
+.colorPersonality {
+   margin-bottom: var(--spacing-l);
+}
+
+.loader {
+   width: 5rem;
+   margin: auto;
+}
+
+.error {
+   margin: auto;
+}
+
+.fieldRadio {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin: var(--spacing-m) 0;
+}
+
+.button {
+   margin: var(--spacing-l) 0 0;
+}

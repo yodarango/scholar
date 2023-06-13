@@ -35,7 +35,7 @@ export const GET_USER_ABOUT_ME = gql`
          my_true_color_personality_test
          my_favorite_color
          my_favorite_verse
-         is_bible_public
+         is_Bible_public
          my_ministry
          my_church
          about_me
@@ -100,6 +100,13 @@ export const GET_USER_PRIVACY_SETTINGS = gql`
       }
    }
 `;
+export const GET_USER_PREFERENCE_SETTINGS = gql`
+   query {
+      get_user_preference_settings {
+         is_Bible_public
+      }
+   }
+`;
 
 // updates user settings
 export const UPDATE_GENERAL_SETTINGS = gql`
@@ -148,11 +155,27 @@ export const UPDATE_PRIVACY_SETTINGS = gql`
             gender: $gender
          }
       ) {
-         first_name
-         birth_date
-         last_name
-         email
-         gender
+         ... on UserUpdated {
+            update_successful
+         }
+
+         ... on DatabaseError {
+            message
+         }
+      }
+   }
+`;
+
+export const UPDATE_PREFERENCE_SETTINGS = gql`
+   mutation ($is_Bible_public: Boolean) {
+      update_preference_settings(data: { is_Bible_public: $is_Bible_public }) {
+         ... on UserUpdated {
+            update_successful
+         }
+
+         ... on DatabaseError {
+            message
+         }
       }
    }
 `;

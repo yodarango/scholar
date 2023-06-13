@@ -3,11 +3,13 @@ import { errorMessages } from "../../../data/error_messages";
 import { notificationMessages } from "../../../data/notification_messages";
 import {
    GET_USER_GENERAL_SETTINGS,
+   GET_USER_PREFERENCE_SETTINGS,
    GET_USER_PRIVACY_SETTINGS,
    UPDATE_GENERAL_SETTINGS,
    UPDATE_MY_AVATAR,
    UPDATE_MY_EMAIL,
    UPDATE_MY_SIGNATURE,
+   UPDATE_PREFERENCE_SETTINGS,
    UPDATE_PRIVACY_SETTINGS
 } from "../../../graphql/users/profile";
 
@@ -148,6 +150,31 @@ export const getUserPrivacySettings: () => Promise<any> = async () => {
       };
    }
 };
+export const getUserPreferenceSettings: () => Promise<any> = async () => {
+   try {
+      const { data } = await client.query({
+         query: GET_USER_PREFERENCE_SETTINGS,
+         variables: {}
+      });
+
+      if (data && data.get_user_preference_settings)
+         return {
+            data: data.get_user_preference_settings,
+            status: "done"
+         };
+      else
+         return {
+            data: null,
+            status: "error"
+         };
+   } catch (error) {
+      console.error(error);
+      return {
+         data: null,
+         status: "error"
+      };
+   }
+};
 
 type ThandleUpdatePrivacySettings = {
    birth_date: string;
@@ -162,10 +189,33 @@ export const handleUpdatePrivacySettings = async (variables: ThandleUpdatePrivac
          variables
       });
 
-      if (data.update_privacy_settings) {
-         return { data: data.update_privacy_settings, status: "done" };
+      if (data.update_privacy_settings.update_successful) {
+         return { data: data.update_privacy_settings.update_successful, status: "done" };
       }
       return { data: null, status: "done" };
+   } catch (error) {
+      console.error(error);
+      return { data: null, status: "error" };
+   }
+};
+
+type ThandleUpdatePreferencesSettings = {
+   is_Bible_public: boolean;
+};
+export const handleUpdatePreferencesSettings = async (
+   variables: ThandleUpdatePreferencesSettings
+) => {
+   try {
+      const { data } = await client.mutate({
+         mutation: UPDATE_PREFERENCE_SETTINGS,
+         variables
+      });
+      {
+         if (data.update_preference_settings.update_successful) {
+            return { data: data.update_preference_settings.update_successful, status: "done" };
+         }
+      }
+      return { data: false, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
