@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // comps
 import { AboutMeItem } from "../../../fragments/cards/about_me_item";
@@ -14,12 +14,18 @@ import styles from "./about_me.module.css";
 // helpers / types
 import { Header } from "../../../fragments/Typography/header";
 import { TUser } from "../../../../types/user";
+import { UserContext } from "../../../../context";
 
 type TAboutMeProps = {
    userID?: string;
 };
 
 export const AboutMe = ({ userID }: TAboutMeProps) => {
+   console.log(userID);
+   const userCtx = useContext(UserContext);
+   const { user } = userCtx;
+
+   const shouldRenderReadBible = userID === "@me" || user.ID === userID ? false : true;
    const [data, setData] = useState<TUser | any>({
       my_church: "",
       my_favorite_color: "",
@@ -77,7 +83,7 @@ export const AboutMe = ({ userID }: TAboutMeProps) => {
          <div className={styles.moreButton}>
             <Primary type='1' title='More about me' href={`/users/about-me/${userID}`} />
          </div>
-         {is_Bible_public && (
+         {is_Bible_public && shouldRenderReadBible && (
             <div className={styles.myBibleBtn}>
                <Primary type='2' title="Read this user's Bible" href={`/read/${userID}`} />
             </div>

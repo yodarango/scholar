@@ -11,6 +11,16 @@ export const GET_USER_STORY = gql`
    }
 `;
 
+export const GET_CURRENT_USER = gql`
+   query {
+      get_current_user {
+         is_patron
+         signature
+         ID
+      }
+   }
+`;
+
 export const CHECK_IF_USER_PATRON = gql`
    query {
       is_user_patron {

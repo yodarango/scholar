@@ -1,5 +1,4 @@
 // comps
-import { useEffect, useState } from "react";
 import { Profile } from "../../../components/templates/account/profile";
 import { UseCheckAuth } from "../../../hooks/use_check_auth";
 
