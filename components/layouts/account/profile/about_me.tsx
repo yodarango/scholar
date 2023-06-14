@@ -21,7 +21,6 @@ type TAboutMeProps = {
 };
 
 export const AboutMe = ({ userID }: TAboutMeProps) => {
-   console.log(userID);
    const userCtx = useContext(UserContext);
    const { user } = userCtx;
 

@@ -28,6 +28,8 @@ import { copyToClipboard } from "../../../helpers/copy_text_to_clipboard";
 import { reportCommentary } from "../../../helpers/functions/posts/content_report";
 import { EnumContentType } from "../../../types/enums";
 import { DANGER_COLOR_SECONDARY, FONT_COLOR } from "../../../constants/tokens";
+import { UserContext } from "../../../context";
+import { useShouldRender } from "../../../hooks/should_render_component";
 
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;
@@ -66,6 +68,7 @@ export const SelectpostOptions = ({
    showReportOption = true,
    showSavetoFolderOption = true
 }: TSelectpostOptionsProps) => {
+   const { shouldRender } = useShouldRender(parseInt(userId));
    const [showNotification, setshowNotification] = useState<{
       title: string;
       body: string;
@@ -107,7 +110,6 @@ export const SelectpostOptions = ({
       cta.handleDelete(postid);
    };
 
-   console.log("postType", postType, postid);
    return (
       <>
          {showNotification && (
@@ -127,7 +129,7 @@ export const SelectpostOptions = ({
          <PrimaryMenuBkg color='1' cta={{ handleClose: cta.handleCloseModal }}>
             <>
                {/* ------------- Report the post ------------ */}
-               {showReportOption && (
+               {showReportOption && !shouldRender && (
                   <div className={styles.menuOption} key={1}>
                      <MenuPrimaryOptionWithSubSelection
                         type='1'
@@ -167,7 +169,7 @@ export const SelectpostOptions = ({
                   </div>
                )}
                {/* ------------- Redirect to the edit page ------------ */}
-               {showEditOption && (
+               {showEditOption && shouldRender && (
                   <div className={styles.menuOption} key={3}>
                      {postType && !cta.handleEdit && (
                         <Link href={`/posts/${postType}/edit/${postid}`}>
@@ -221,7 +223,7 @@ export const SelectpostOptions = ({
                )}
 
                {/* ------------- delete the post ------------ */}
-               {showDeleteOption && (
+               {showDeleteOption && shouldRender && (
                   <div className={styles.menuOption} key={5}>
                      <MenuPrimaryOptionWithSubSelection
                         type='1'

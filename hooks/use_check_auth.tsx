@@ -8,20 +8,19 @@ user is not logged in. The default is true.
 import { useEffect, useState } from "react";
 import { client } from "../apollo-client";
 import { CHECK_AUTH } from "../graphql/users/users";
-
-const defaultOptions = { check_is_auth: true };
+import { useLogout } from "./use_logout";
 
 type TUseCheckAuthProps = {
-   options?: { check_is_auth: boolean };
    redirect: string;
    children: any;
 };
-export const UseCheckAuth = ({
+
+export const UseIsAuth = ({
    redirect,
-   options = defaultOptions,
+
    children
 }: TUseCheckAuthProps) => {
-   const [canContinue, setCanContinue] = useState(false);
+   const [render, setRender] = useState(false);
    const check = async () => {
       try {
          const { data } = await client.query({
@@ -29,14 +28,14 @@ export const UseCheckAuth = ({
             variables: {}
          });
 
-         if (options.check_is_auth !== data.is_user_logged_in) {
+         if (!data.is_user_logged_in) {
+            useLogout();
             location.href = redirect;
          } else {
-            setCanContinue(true);
+            setRender(true);
          }
       } catch (error) {
          console.error(error);
-         setCanContinue(true);
       }
    };
 
@@ -44,5 +43,31 @@ export const UseCheckAuth = ({
       check();
    }, []);
 
-   return <> {canContinue && children}</>;
+   return <> {render && children}</>;
+};
+
+export const UseIsNotAuth = ({ redirect, children }: TUseCheckAuthProps) => {
+   const [render, setRender] = useState(false);
+   const check = async () => {
+      try {
+         const { data } = await client.query({
+            query: CHECK_AUTH,
+            variables: {}
+         });
+
+         if (data.is_user_logged_in === true) {
+            location.href = redirect;
+         } else {
+            setRender(true);
+         }
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
+   useEffect(() => {
+      check();
+   }, []);
+
+   return <> {render && children}</>;
 };

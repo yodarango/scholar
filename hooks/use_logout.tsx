@@ -1,4 +1,4 @@
-export const useLogout = () => {
+export const useLogout = (redirect?: string) => {
    localStorage.removeItem("auth");
-   location.href = "/login";
+   location.href = redirect || "/login";
 };
