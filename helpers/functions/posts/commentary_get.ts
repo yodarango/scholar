@@ -10,6 +10,7 @@ export type TgetcommentariesVariables = {
    VERSE_ID?: string;
    FOLDER_ID?: string;
    AUTHORITY_LEVEL?: string | number;
+   getAll?: boolean;
    body?: string;
    category_tags?: string;
    last_id?: string | number;

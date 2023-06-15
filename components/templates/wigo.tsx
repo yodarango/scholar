@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useShouldRender } from "../../hooks/should_render_component";
+import { useShouldRender } from "../../hooks/use_should_render";
 import { AddContent } from "../fragments/buttons/add_content";
 import { PostFilter } from "../fragments/posts_filter";
 import { CastYourVote } from "../layouts/wigo/cast_your_vote";

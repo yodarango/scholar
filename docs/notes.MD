@@ -8,3 +8,4 @@ Also might want to restructure the routes. Maybe remove /users and do /@me inste
 
 -  ✅ I created the **shouldRender** Hook
 -  ✅ Wrapped up home page
+-  ✅ Wrapped up the discover page

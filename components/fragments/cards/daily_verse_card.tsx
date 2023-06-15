@@ -7,7 +7,7 @@
 *********************************************************************************************/
 
 // core
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -26,37 +26,50 @@ import { RoundLoader } from "../chunks/round_loader";
 
 type TypeDailyVerseCardProps = {
    withOutActions?: boolean;
+   canComment?: boolean;
 };
 
-export const DailyVerseCard = ({ withOutActions }: TypeDailyVerseCardProps) => {
+export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVerseCardProps) => {
    //  hooks
    const [verseContent, setverseContent] = useState<any>(null);
    const [loading, setloading] = useState<string>("loading");
 
    //  make the call to the API on useEffect and router.isReady
-   const getVerseDate = async (version?: string) => {
-      const verseId = router.query["VERSE_ID"];
+   const getVerseDate = async (verseId: string, version?: string) => {
+      try {
+         const verse = await fetchBibleVerseWDefault(verseId, version);
 
-      const verseContent = await fetchBibleVerseWDefault(verseId, version);
+         if (!verse) {
+            setverseContent(null);
+            setloading("error");
+         } else {
+            setverseContent(verse);
 
-      if (!verseContent) {
-         setverseContent(null);
-         setloading("error");
-      } else {
-         setverseContent(verseContent);
-         setloading("done");
+            setloading("done");
+         }
+      } catch (error) {
+         console.log(error);
       }
    };
 
    // get the data
    const router = useRouter();
    useEffect(() => {
-      const LSExists = localStorage.getItem("reading-preferences");
-      if (LSExists) {
-         const LSParsed = JSON.parse(LSExists);
+      const hasPreferences = localStorage.getItem("reading-preferences");
+      const hasPreferencesObj = JSON.parse(hasPreferences || "{}");
+      const personalVerse = localStorage.getItem("todays-verse");
+      const personalVerseObj = JSON.parse(personalVerse || "{}");
 
-         if (router.isReady) {
-            getVerseDate(LSParsed.vesionId);
+      if (router.isReady) {
+         const verseId = router.query["VERSE_ID"] as string;
+         if (verseId) {
+            getVerseDate(verseId, hasPreferencesObj?.vesionId);
+         } else if (!verseId && personalVerse) {
+            setverseContent(personalVerseObj.data);
+
+            setloading("done");
+         } else {
+            getVerseDate(hasPreferencesObj?.vesionId);
          }
       }
    }, [router.isReady, router.query]);
@@ -107,11 +120,13 @@ export const DailyVerseCard = ({ withOutActions }: TypeDailyVerseCardProps) => {
                         </a>
                      </Link>
 
-                     <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
-                        <a>
-                           <Icon name='comment' size='2rem' color='#F1EAFF' />
-                        </a>
-                     </Link>
+                     {canComment && (
+                        <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
+                           <a>
+                              <Icon name='comment' size='2rem' color='#F1EAFF' />
+                           </a>
+                        </Link>
+                     )}
 
                      <Link href={`/verse-by-verse?VERSE_ID=${verseContent.next.id}`}>
                         <a>
@@ -140,4 +155,4 @@ export const DailyVerseCard = ({ withOutActions }: TypeDailyVerseCardProps) => {
          )}
       </div>
    );
-};
+});

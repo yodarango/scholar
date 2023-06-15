@@ -29,7 +29,7 @@ import { reportCommentary } from "../../../helpers/functions/posts/content_repor
 import { EnumContentType } from "../../../types/enums";
 import { DANGER_COLOR_SECONDARY, FONT_COLOR } from "../../../constants/tokens";
 import { UserContext } from "../../../context";
-import { useShouldRender } from "../../../hooks/should_render_component";
+import { useShouldRender } from "../../../hooks/use_should_render";
 
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;

@@ -12,14 +12,12 @@ export const CommentaryFilter = () => {
    const router = useRouter();
 
    // state
-   const [buttonActive, setbuttonActive] = useState<string | string[] | null>("1");
+   const [buttonActive, setbuttonActive] = useState<string | string[] | null>(null);
 
    ///get router info
    useEffect(() => {
       if (router.isReady) {
-         if (router.query["AUTHORITY_LEVEL"]) {
-            setbuttonActive(router.query["AUTHORITY_LEVEL"]);
-         }
+         setbuttonActive(router.query["AUTHORITY_LEVEL"] || "1");
       }
    }, [router.isReady, router.query]);
 
@@ -37,29 +35,29 @@ export const CommentaryFilter = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.all}>
             <Secondary
-               type={buttonActive === "1" ? "3" : "2"}
+               type={buttonActive === "1" ? "2" : "1"}
                title='General'
                icon='🌎'
-               fullWidth
-               cta={{ handleClick: () => handleFilter(0) }}
-            />
-         </div>
-         <div className={styles.trusted}>
-            <Secondary
-               type={buttonActive === "2" ? "3" : "2"}
-               title='Trusted'
-               icon='⭐️'
                fullWidth
                cta={{ handleClick: () => handleFilter(1) }}
             />
          </div>
+         <div className={styles.trusted}>
+            <Secondary
+               type={buttonActive === "2" ? "2" : "1"}
+               title='Trusted'
+               icon='⭐️'
+               fullWidth
+               cta={{ handleClick: () => handleFilter(2) }}
+            />
+         </div>
          <div className={styles.classic}>
             <Secondary
-               type={buttonActive === "3" ? "3" : "2"}
+               type={buttonActive === "3" ? "2" : "1"}
                title='Classic'
                icon='🎩'
                fullWidth
-               cta={{ handleClick: () => handleFilter(2) }}
+               cta={{ handleClick: () => handleFilter(3) }}
             />
          </div>
       </div>

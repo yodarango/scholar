@@ -11,6 +11,7 @@ export const GET_COMMENTARIES = gql`
       $category_tags: String
       $last_id: ID
       $FOLDER_ID: String
+      $getAll: Boolean
    ) {
       commentary(
          ID: $ID
@@ -20,7 +21,7 @@ export const GET_COMMENTARIES = gql`
          body: $body
          category_tags: $category_tags
          last_id: $last_id
-
+         getAll: $getAll
          FOLDER_ID: $FOLDER_ID
       ) {
          ID

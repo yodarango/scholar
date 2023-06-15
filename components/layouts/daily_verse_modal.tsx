@@ -12,9 +12,10 @@ import styles from "./daily_verse_modal.module.css";
 
 type TDailyVerseModalProps = {
    versecardOnly?: boolean;
+   canComment?: boolean;
 };
 
-export const DailyVerseModal = ({ versecardOnly }: TDailyVerseModalProps) => {
+export const DailyVerseModal = ({ versecardOnly, canComment }: TDailyVerseModalProps) => {
    const [showModal, setshowModal] = useState<number>(0);
 
    return (
@@ -41,7 +42,7 @@ export const DailyVerseModal = ({ versecardOnly }: TDailyVerseModalProps) => {
          {!versecardOnly && (
             <>
                <div className={styles.dailyVerseCard}>
-                  <DailyVerseCard />
+                  <DailyVerseCard canComment={canComment} />
                </div>
                <div className={styles.button}>
                   <Primary

@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 export const useShouldRender = (userId: number) => {
-   console.log(userId);
    const [shouldRender, setShouldRender] = useState(false);
 
    useEffect(() => {
