@@ -114,7 +114,7 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
                {/* --------------------- card actions ----------------- */}
                {!withOutActions && (
                   <div className={styles.actions}>
-                     <Link href={`/verse-by-verse?VERSE_ID=${verseContent.previous.id}`}>
+                     <Link href={`/explore?VERSE_ID=${verseContent.previous.id}`}>
                         <a>
                            <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
                         </a>
@@ -128,7 +128,7 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
                         </Link>
                      )}
 
-                     <Link href={`/verse-by-verse?VERSE_ID=${verseContent.next.id}`}>
+                     <Link href={`/explore?VERSE_ID=${verseContent.next.id}`}>
                         <a>
                            <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
                         </a>

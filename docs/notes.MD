@@ -6,6 +6,7 @@ Also might want to restructure the routes. Maybe remove /users and do /@me inste
 
 👉 Now move onto frontend login validation so "Edit", "Delete", "Read my bible" etc, shows only for the current logged in user
 
--  ✅ I created the **shouldRender** Hook
--  ✅ Wrapped up home page
--  ✅ Wrapped up the discover page
+-  Made the login model component
+-  finish reading page making sure that modal shows if user is not logged in
+
+Explore page is not working on chrome incognito. figure it out

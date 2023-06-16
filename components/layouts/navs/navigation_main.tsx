@@ -21,7 +21,7 @@ export const NavigationMain = ({ children }: any) => {
       if (router.isReady) {
          if (router.asPath === "/") {
             setcurrentPage("home");
-         } else if (router.asPath.includes("/verse-by-verse")) {
+         } else if (router.asPath.includes("/explore")) {
             setcurrentPage("commentary");
          } else if (router.asPath.includes("/read")) {
             setcurrentPage("read");
@@ -71,13 +71,13 @@ export const NavigationMain = ({ children }: any) => {
                      </a>
                   </Link>
 
-                  <Link href={"/verse-by-verse"}>
+                  <Link href={"/explore"}>
                      <a
                         onClick={() => setcurrentPage("commentary")}
                         className={`${styles.feed} ${styles.menuOption} ${
                            currentPage === "commentary" && styles.active
                         }`}>
-                        <Icon name='chat' size='2rem' color='#F1EAFF' />
+                        <Icon name='sparkles' size='2rem' color='#F1EAFF' />
                      </a>
                   </Link>
                   <Link href={"/read/@me"}>

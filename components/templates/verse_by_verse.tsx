@@ -53,7 +53,7 @@ export const VerseByVerse = () => {
                <IconButton
                   backgroundColor='2'
                   icon='add'
-                  link='/posts/commentary/new?close=verse-by-verse'
+                  link='/posts/commentary/new?close=explore'
                />
             </div>
          )}

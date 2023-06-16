@@ -20,6 +20,8 @@ import {
 // data
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
 import { Notification } from "../popups/notification";
+import { PopupModal } from "../../common/popup_modal";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 type TReadBookmarkProps = {
    chapterId: any;
@@ -35,6 +37,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
       body: string;
       type: string;
    }>(null);
+   const [loginModal, setLoginModal] = useState<boolean>(false);
 
    //
    const handleSetBookMark = async (value: boolean) => {
@@ -81,6 +84,16 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
       }
    };
 
+   const handleClick = () => {
+      const user = loggedInUser();
+      if (user) {
+         setshowBookmarks(!showBookmarks);
+      } else {
+         console.log("not logged in");
+         setLoginModal(true);
+      }
+   };
+
    // get the bookmarks
    useEffect(() => {
       handlefetchBookmarks({ CHAPTER_ID: chapterId, last_id: CONTENT_LAST_ID });
@@ -110,9 +123,16 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
                />
             )}
          </Portal>
-
+         <PopupModal
+            title='You are not login'
+            image='/images/bible_books/1.png'
+            imageAlt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
+            description='Please login before you can bookmark a chapter.'
+            open={loginModal}
+            onClose={() => setLoginModal(false)}
+         />
          {/* bookmark icon: filled if bookmarked and empty if not 🔖 */}
-         <div className={styles.icon} onClick={() => setshowBookmarks(!showBookmarks)}>
+         <div className={styles.icon} onClick={handleClick}>
             <Icon
                name={bookMarked ? "bookmarkFilled" : "bookmarkOutline"}
                size={size}

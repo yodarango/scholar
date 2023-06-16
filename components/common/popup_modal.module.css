@@ -1,0 +1,73 @@
+.mainWrapper {
+   position: fixed;
+   top: 50vh;
+   transform: translateY(-100%);
+   left: 0;
+   right: 0;
+   bottom: auto;
+   width: 90%;
+   max-width: 50rem;
+   min-height: 25rem;
+   height: auto;
+   background-color: var(--secondary-color);
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
+   z-index: 2;
+   border-radius: 2em;
+   margin: auto;
+   padding: 0.2rem;
+}
+
+.container {
+   position: relative;
+   background-color: var(--secondary-color);
+   border-radius: 2em;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   margin: auto;
+   padding: var(--spacing-s);
+}
+
+.backDrop {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   cursor: pointer;
+   background-color: var(--primary-color);
+   opacity: 0.5;
+   z-index: 1;
+}
+
+.title,
+.description {
+   width: 100%;
+   margin: 0 0 var(--spacing-s) 0;
+}
+
+.image {
+   margin: 0 auto var(--spacing-s);
+   display: block;
+   width: 10rem;
+   height: 10rem;
+   object-position: center;
+   object-fit: cover;
+}
+
+.buttonWrapper {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   margin: var(--spacing-s) auto;
+}
+
+.buttonWrapper div:first-child {
+   margin-right: var(--spacing-xs);
+}
+
+.buttonWrapper div:last-child {
+   margin-left: var(--spacing-xs);
+}

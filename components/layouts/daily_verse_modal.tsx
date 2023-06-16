@@ -32,7 +32,7 @@ export const DailyVerseModal = ({ versecardOnly, canComment }: TDailyVerseModalP
                         stopAtChapterId={false}
                         cta={{
                            handleChoice: (choice: string) =>
-                              (location.href = `/verse-by-verse/?VERSE_ID=${choice}`)
+                              (location.href = `/explore/?VERSE_ID=${choice}`)
                         }}
                      />
                   </PrimaryStack>

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { client } from "../apollo-client";
 import { CHECK_AUTH } from "../graphql/users/users";
 import { useLogout } from "./use_logout";
+import { loggedInUser } from "../helpers/auth/get-loggedin-user";
 
 type TUseCheckAuthProps = {
    redirect: string;

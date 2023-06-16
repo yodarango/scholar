@@ -18,7 +18,7 @@ import selectNewScriptureStyles from "../../styles/layouts/selectNewScriptureErr
 
 // helpers: types
 import { TnewChapter } from "../get-new-scriptures/get-new-chapter";
-import { TverseContent } from "../../pages/verse-by-verse";
+import { TverseContent } from "../../pages/explore";
 import { TnewVerse } from "../get-new-scriptures/get-new-verse-text-editor";
 import { chosenKey } from "../../helpers/APIs/select-random-api-key";
 
@@ -95,8 +95,9 @@ const CommentEditor = ({ versionId }: commentEditorProps) => {
    };
 
    /// 4. Open the new verse and close the Book and Chapter popups and show the selected verse
-   const [openCommentaryEditorState, setopenCommentaryEditorState] =
-      useState<boolean | JSX.Element>(false);
+   const [openCommentaryEditorState, setopenCommentaryEditorState] = useState<
+      boolean | JSX.Element
+   >(false);
    const [verseError, setVerseError] = useState<boolean>(false);
    const [verseContentState, setVerseContentState] = useState<TverseActualContent>({
       bibleId: "",
