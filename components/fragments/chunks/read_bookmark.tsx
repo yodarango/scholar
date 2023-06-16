@@ -22,6 +22,7 @@ import { CONTENT_LAST_ID } from "../../../constants/defaults";
 import { Notification } from "../popups/notification";
 import { PopupModal } from "../../common/popup_modal";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
+import { Parragraph } from "../Typography/parragraph";
 
 type TReadBookmarkProps = {
    chapterId: any;
@@ -125,12 +126,19 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
          </Portal>
          <PopupModal
             title='You are not login'
-            image='/images/bible_books/1.png'
-            imageAlt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
-            description='Please login before you can bookmark a chapter.'
             open={loginModal}
-            onClose={() => setLoginModal(false)}
-         />
+            onClose={() => setLoginModal(false)}>
+            <img
+               src='/images/bible_books/1.png'
+               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
+               className={styles.image}
+            />
+            <Parragraph
+               size='main'
+               text='Please login before you can bookmark a chapter.'
+               align='center'
+            />
+         </PopupModal>
          {/* bookmark icon: filled if bookmarked and empty if not 🔖 */}
          <div className={styles.icon} onClick={handleClick}>
             <Icon

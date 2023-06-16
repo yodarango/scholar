@@ -30,6 +30,9 @@ import { EnumContentType } from "../../../types/enums";
 import { DANGER_COLOR_SECONDARY, FONT_COLOR } from "../../../constants/tokens";
 import { UserContext } from "../../../context";
 import { useShouldRender } from "../../../hooks/use_should_render";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
+import { Parragraph } from "../../fragments/Typography/parragraph";
+import { PopupModal } from "../../common/popup_modal";
 
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;
@@ -68,6 +71,7 @@ export const SelectpostOptions = ({
    showReportOption = true,
    showSavetoFolderOption = true
 }: TSelectpostOptionsProps) => {
+   const [openModal, setOpenModal] = useState(false);
    const { shouldRender } = useShouldRender(parseInt(userId));
    const [showNotification, setshowNotification] = useState<{
       title: string;
@@ -76,7 +80,7 @@ export const SelectpostOptions = ({
    } | null>();
 
    // handle reporting the post
-   const handleReport = async () => {
+   const reportPost = async () => {
       try {
          const data = await reportCommentary({ POST_ID: postid, USER_ID: userId }, contentType);
          if (data === true) {
@@ -110,8 +114,32 @@ export const SelectpostOptions = ({
       cta.handleDelete(postid);
    };
 
+   const handleSaveToFolder = () => {
+      const user = loggedInUser();
+      if (!user) setOpenModal(true);
+      else if (user && cta.handleSaveToFolder) cta.handleSaveToFolder();
+   };
+
+   const handleReport = () => {
+      const user = loggedInUser();
+      if (!user) setOpenModal(true);
+      else if (user && cta.handleSaveToFolder) reportPost();
+   };
+
    return (
       <>
+         <PopupModal title='You are not login' open={openModal} onClose={() => setOpenModal(false)}>
+            <img
+               src='/images/bible_books/1.png'
+               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
+               className={styles.modalImage}
+            />
+            <Parragraph
+               size='main'
+               text='Please login before you can bookmark a chapter.'
+               align='center'
+            />
+         </PopupModal>
          {showNotification && (
             <Notification
                title={showNotification.title}
@@ -216,7 +244,7 @@ export const SelectpostOptions = ({
                            text: folderName ? `Saved in ${folderName}` : "Save to folder"
                         }}
                         cta={{
-                           handleOptionClick: cta.handleSaveToFolder
+                           handleOptionClick: handleSaveToFolder
                         }}
                      />
                   </div>

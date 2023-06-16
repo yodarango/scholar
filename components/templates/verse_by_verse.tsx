@@ -6,12 +6,14 @@ import { CommentariesGrid } from "../layouts/scrollers/user_content/commentaries
 import { useEffect, useRef, useState, useMemo, useContext } from "react";
 import { UserContext } from "../../context";
 import { useShouldRender } from "../../hooks/use_should_render";
+import { useRouter } from "next/router";
+import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
+import { PopupModal } from "../common/popup_modal";
+import { Parragraph } from "../fragments/Typography/parragraph";
 
 export const VerseByVerse = () => {
-   const userCtx = useContext(UserContext);
-   const { user } = userCtx;
-   const userId = parseInt(user?.ID) || 0;
-   const { shouldRender } = useShouldRender(userId);
+   const router = useRouter();
+   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
    const scrollTarget = useRef<any>(null);
 
@@ -37,6 +39,12 @@ export const VerseByVerse = () => {
       changeDir = isScrollingDown;
    };
 
+   const handleClick = () => {
+      const isLoggedIn = loggedInUser();
+      if (!isLoggedIn) setModalOpen(true);
+      else router.push("/posts/commentary/new?close=explore");
+   };
+
    useEffect(() => {
       if (typeof window !== "undefined") {
          window.addEventListener("scroll", handleHeader);
@@ -48,19 +56,26 @@ export const VerseByVerse = () => {
 
    return (
       <div className={styles.mainWrapper} ref={scrollTarget}>
-         {shouldRender && (
-            <div className={styles.addBtn}>
-               <IconButton
-                  backgroundColor='2'
-                  icon='add'
-                  link='/posts/commentary/new?close=explore'
-               />
-            </div>
-         )}
+         <PopupModal title='You are not login' open={modalOpen} onClose={() => setModalOpen(false)}>
+            <img
+               src='/images/bible_books/1.png'
+               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
+               className={styles.image}
+            />
+            <Parragraph
+               size='main'
+               text='Please login before you can bookmark a chapter.'
+               align='center'
+            />
+         </PopupModal>
+         <div className={styles.addBtn}>
+            <IconButton backgroundColor='2' icon='add' cta={{ handleClick: handleClick }} />
+         </div>
+
          <div className={`${styles.top} ${triggerEffect ? styles.topScrolling : ""}`}>
             <div className={styles.verseFilter}>
                <div className={styles.verse}>
-                  <DailyVerseModal versecardOnly={triggerEffect} canComment={shouldRender} />
+                  <DailyVerseModal versecardOnly={triggerEffect} />
                </div>
                {!triggerEffect && (
                   <div className={styles.filter}>

@@ -23,6 +23,8 @@ import styles from "./daily_verse_card.module.css";
 // helpers: types
 import { fetchBibleVerseWDefault } from "../../../helpers/APIs/fetch_bible_verse_with_default";
 import { RoundLoader } from "../chunks/round_loader";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
+import { PopupModal } from "../../common/popup_modal";
 
 type TypeDailyVerseCardProps = {
    withOutActions?: boolean;
@@ -30,12 +32,17 @@ type TypeDailyVerseCardProps = {
 };
 
 export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVerseCardProps) => {
+   // get the data
+   const router = useRouter();
+
    //  hooks
    const [verseContent, setverseContent] = useState<any>(null);
+   const [openModal, setOpenModal] = useState(false);
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
    const [loading, setloading] = useState<string>("loading");
 
    //  make the call to the API on useEffect and router.isReady
-   const getVerseDate = async (verseId: string, version?: string) => {
+   const getVerseDate = async (verseId?: string, version?: string) => {
       try {
          const verse = await fetchBibleVerseWDefault(verseId, version);
 
@@ -52,31 +59,47 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
       }
    };
 
-   // get the data
-   const router = useRouter();
    useEffect(() => {
       const hasPreferences = localStorage.getItem("reading-preferences");
       const hasPreferencesObj = JSON.parse(hasPreferences || "{}");
       const personalVerse = localStorage.getItem("todays-verse");
       const personalVerseObj = JSON.parse(personalVerse || "{}");
 
+      console.log(personalVerseObj.data, hasPreferencesObj);
       if (router.isReady) {
          const verseId = router.query["VERSE_ID"] as string;
+
          if (verseId) {
             getVerseDate(verseId, hasPreferencesObj?.vesionId);
-         } else if (!verseId && personalVerse) {
+         } else if (!verseId && personalVerseObj.data) {
             setverseContent(personalVerseObj.data);
-
             setloading("done");
          } else {
-            getVerseDate(hasPreferencesObj?.vesionId);
+            getVerseDate(undefined, hasPreferencesObj?.vesionId);
          }
       }
    }, [router.isReady, router.query]);
 
+   useEffect(() => {
+      const user = loggedInUser();
+
+      setIsLoggedIn(user ? true : false);
+   }, []);
    return (
       //  loading state
       <div className={styles.mainWrapper}>
+         <PopupModal title='You are not login' open={openModal} onClose={() => setOpenModal(false)}>
+            <img
+               src='/images/bible_books/1.png'
+               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
+               className={styles.image}
+            />
+            <Parragraph
+               size='main'
+               text='Please login before you can bookmark a chapter.'
+               align='center'
+            />
+         </PopupModal>
          {loading === "loading" && (
             <div className={`${styles.card} ${styles.loadinCard}`}>
                <div className={styles.title}>
@@ -114,21 +137,26 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
                {/* --------------------- card actions ----------------- */}
                {!withOutActions && (
                   <div className={styles.actions}>
-                     <Link href={`/explore?VERSE_ID=${verseContent.previous.id}`}>
+                     <Link href={`/explore?VERSE_ID=${verseContent?.previous?.id}`}>
                         <a>
                            <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
                         </a>
                      </Link>
 
-                     {canComment && (
+                     {isLoggedIn && (
                         <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
                            <a>
                               <Icon name='comment' size='2rem' color='#F1EAFF' />
                            </a>
                         </Link>
                      )}
+                     {!isLoggedIn && (
+                        <button className={styles.buttonLink} onClick={() => setOpenModal(true)}>
+                           <Icon name='comment' size='2rem' color='#F1EAFF' />
+                        </button>
+                     )}
 
-                     <Link href={`/explore?VERSE_ID=${verseContent.next.id}`}>
+                     <Link href={`/explore?VERSE_ID=${verseContent?.next?.id}`}>
                         <a>
                            <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
                         </a>

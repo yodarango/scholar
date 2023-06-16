@@ -134,6 +134,7 @@ export const PostCardHeader = ({
                      showSavetoFolderOption={postSettingsOptions?.showSavetoFolderOption}
                      cta={{
                         handleSaveToFolder: () => {
+                           console.log("test");
                            setshowModal(COMMENTARY_FOLDERS);
                            setshowPostOptions(false);
                         },

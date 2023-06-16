@@ -1,5 +1,3 @@
-import { useContext, useEffect, useState } from "react";
-import { useShouldRender } from "../../hooks/use_should_render";
 import { AddContent } from "../fragments/buttons/add_content";
 import { PostFilter } from "../fragments/posts_filter";
 import { CastYourVote } from "../layouts/wigo/cast_your_vote";
@@ -9,17 +7,13 @@ import { WigoFeed } from "../layouts/wigo/wigo_feed";
 
 // styles
 import styles from "./wigo.module.css";
-import { UserContext } from "../../context";
 
 export const Wigo = () => {
-   const userCtx = useContext(UserContext);
-   const { user } = userCtx;
-   const userId = parseInt(user?.ID) || 0;
-   const { shouldRender } = useShouldRender(userId);
-
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.addButton}>{shouldRender && <AddContent />}</div>
+         <div className={styles.addButton}>
+            <AddContent />
+         </div>
          <div className={styles.fastFacts}>
             <FastFacts />
          </div>

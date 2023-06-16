@@ -3,3 +3,12 @@
    transform: scale(1.1);
    transition: transform 300ms ease-in;
 }
+
+.image {
+   margin: 0 auto var(--spacing-s);
+   display: block;
+   width: 10rem;
+   height: 10rem;
+   object-position: center;
+   object-fit: cover;
+}

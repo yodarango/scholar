@@ -69,3 +69,12 @@
    left: 0;
    background-image: linear-gradient(-180deg, var(--primary-color), transparent);
 }
+
+.image {
+   margin: 0 auto var(--spacing-s);
+   display: block;
+   width: 10rem;
+   height: 10rem;
+   object-position: center;
+   object-fit: cover;
+}

@@ -59,3 +59,17 @@
 .loadinCard .error {
    margin-top: var(--spacing-m);
 }
+
+.buttonLink {
+   background-color: transparent;
+   border: none;
+}
+
+.image {
+   margin: 0 auto var(--spacing-s);
+   display: block;
+   width: 10rem;
+   height: 10rem;
+   object-position: center;
+   object-fit: cover;
+}
