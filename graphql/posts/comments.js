@@ -73,6 +73,10 @@ export const CREATE_COMMENTARY_COMMENT = gql`
          ... on ExceedsPostCount {
             message
          }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;
@@ -91,6 +95,10 @@ export const CREATE_QUOTE_COMMENT = gql`
             posted_on
          }
          ... on ExceedsPostCount {
+            message
+         }
+
+         ... on NotAuthorized {
             message
          }
       }
@@ -112,6 +120,10 @@ export const CREATE_THOUGHT_COMMENT = gql`
          }
 
          ... on ExceedsPostCount {
+            message
+         }
+
+         ... on NotAuthorized {
             message
          }
       }

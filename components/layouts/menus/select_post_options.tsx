@@ -33,6 +33,7 @@ import { useShouldRender } from "../../../hooks/use_should_render";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import { Parragraph } from "../../fragments/Typography/parragraph";
 import { PopupModal } from "../../common/popup_modal";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 
 export type TSelectpostOptionsProps = {
    showShareopton?: boolean;
@@ -128,18 +129,7 @@ export const SelectpostOptions = ({
 
    return (
       <>
-         <PopupModal title='You are not login' open={openModal} onClose={() => setOpenModal(false)}>
-            <img
-               src='/images/bible_books/1.png'
-               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
-               className={styles.modalImage}
-            />
-            <Parragraph
-               size='main'
-               text='Please login before you can bookmark a chapter.'
-               align='center'
-            />
-         </PopupModal>
+         <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          {showNotification && (
             <Notification
                title={showNotification.title}

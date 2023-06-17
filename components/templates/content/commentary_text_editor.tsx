@@ -20,6 +20,7 @@ import {
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { POST_TYPE_COMMENTARY } from "../../../constants/defaults";
 import { getRandomQuote } from "../../../helpers/get_random_quote";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 
 type TCommentaryTextEditorProps = {
    ID?: string;
@@ -88,6 +89,7 @@ export const CommentaryTextEditor = ({
       type: string;
    }>(null);
    const [loading, setloading] = useState("done");
+   const [openModal, setOpenModal] = useState(false);
 
    const post: THandlePostContent = {
       ID,
@@ -148,7 +150,10 @@ export const CommentaryTextEditor = ({
 
       const post = await handlePostContent(state, "Commentary", requestType);
 
-      if (post?.error) {
+      if (post?.error && post.error.type === "not_auth") {
+         setOpenModal(true);
+         setloading("done");
+      } else if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
          setloading("done");
       } else if (post?.success) {
@@ -191,6 +196,7 @@ export const CommentaryTextEditor = ({
                />
             )}
          </Portal>
+         <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          <div className={styles.mainWrapper}>
             <div className={styles.verseSelection}>
                <TextEditorVerseSelection

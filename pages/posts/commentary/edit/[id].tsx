@@ -12,6 +12,7 @@ import styles from "./index.module.css";
 
 // type
 import { REQUEST_TYPE_IS_EDIT_COMMENTARY } from "../../../../helpers/functions/posts/content_post";
+import { UseIsAuth } from "../../../../hooks/use_check_auth";
 
 const EditCommentary = () => {
    const router = useRouter();
@@ -56,39 +57,41 @@ const EditCommentary = () => {
          : [];
 
    return (
-      <div className={styles.mainWrapper}>
-         {loading === "done" && (
-            <CommentaryTextEditor
-               requestType={REQUEST_TYPE_IS_EDIT_COMMENTARY}
-               ID={commentary?.ID}
-               verseId={commentary?.VERSE_ID}
-               body={commentary?.body}
-               postImage={commentary?.post_image}
-               userAuthority={
-                  commentary?.creator?.authority_level ? commentary?.creator?.authority_level : 1
-               }
-               userId={commentary?.creator?.ID ? commentary?.creator?.ID : "0"}
-               username={commentary?.creator?.signature ? commentary?.creator?.signature : ""}
-               avatar={commentary?.creator?.avatar ? commentary?.creator?.avatar : ""}
-               postPostedOnDate={commentary?.posted_on}
-               postCreatedDate={commentary?.created_date}
-               postCategory={commentary?.category_tags}
-               postReferences={postReferneces}
-               postPrivacy={commentary?.is_private}
-               folderId={commentary?.folder_id}
-               withSticker
-               sticker={commentary?.sticker}
-               cta={{
-                  handleCloseModal: () => router.back()
-               }}
-            />
-         )}
-         {loading === "done" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-      </div>
+      <UseIsAuth redirect='/login'>
+         <div className={styles.mainWrapper}>
+            {loading === "done" && (
+               <CommentaryTextEditor
+                  requestType={REQUEST_TYPE_IS_EDIT_COMMENTARY}
+                  ID={commentary?.ID}
+                  verseId={commentary?.VERSE_ID}
+                  body={commentary?.body}
+                  postImage={commentary?.post_image}
+                  userAuthority={
+                     commentary?.creator?.authority_level ? commentary?.creator?.authority_level : 1
+                  }
+                  userId={commentary?.creator?.ID ? commentary?.creator?.ID : "0"}
+                  username={commentary?.creator?.signature ? commentary?.creator?.signature : ""}
+                  avatar={commentary?.creator?.avatar ? commentary?.creator?.avatar : ""}
+                  postPostedOnDate={commentary?.posted_on}
+                  postCreatedDate={commentary?.created_date}
+                  postCategory={commentary?.category_tags}
+                  postReferences={postReferneces}
+                  postPrivacy={commentary?.is_private}
+                  folderId={commentary?.folder_id}
+                  withSticker
+                  sticker={commentary?.sticker}
+                  cta={{
+                     handleCloseModal: () => router.back()
+                  }}
+               />
+            )}
+            {loading === "done" && (
+               <div className={styles.loader}>
+                  <RoundLoader />
+               </div>
+            )}
+         </div>
+      </UseIsAuth>
    );
 };
 

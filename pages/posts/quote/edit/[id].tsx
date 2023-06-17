@@ -10,6 +10,7 @@ import { handleGetQuote } from "../../../../helpers/functions/posts/quote_get";
 import { TQuote } from "../../../../types/posts";
 import { RoundLoader } from "../../../../components/fragments/chunks/round_loader";
 import { REQUEST_TYPE_IS_EDIT_QUOTE } from "../../../../helpers/functions/posts/content_post";
+import { UseIsAuth } from "../../../../hooks/use_check_auth";
 
 const Index = () => {
    const router = useRouter();
@@ -35,24 +36,26 @@ const Index = () => {
    }, [router.isReady]);
 
    return (
-      <div className={styles.mainWrapper}>
-         {loading === "done" && (
-            <QuoteEditor
-               requestType={REQUEST_TYPE_IS_EDIT_QUOTE}
-               ID={quote?.ID}
-               categoryId={quote?.category_tags}
-               background={quote?.background}
-               quote={quote?.body}
-               author={quote?.author}
-               renderClose={true}
-            />
-         )}
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-      </div>
+      <UseIsAuth redirect='/login'>
+         <div className={styles.mainWrapper}>
+            {loading === "done" && (
+               <QuoteEditor
+                  requestType={REQUEST_TYPE_IS_EDIT_QUOTE}
+                  ID={quote?.ID}
+                  categoryId={quote?.category_tags}
+                  background={quote?.background}
+                  quote={quote?.body}
+                  author={quote?.author}
+                  renderClose={true}
+               />
+            )}
+            {loading === "loading" && (
+               <div className={styles.loader}>
+                  <RoundLoader />
+               </div>
+            )}
+         </div>
+      </UseIsAuth>
    );
 };
 

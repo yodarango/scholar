@@ -13,6 +13,7 @@ import styles from "./index.module.css";
 // types
 import { TThought } from "../../../../types/posts";
 import { REQUEST_TYPE_IS_EDIT_THOUGHT } from "../../../../helpers/functions/posts/content_post";
+import { UseIsAuth } from "../../../../hooks/use_check_auth";
 
 const EditThought = () => {
    const router = useRouter();
@@ -44,32 +45,34 @@ const EditThought = () => {
          : [];
 
    return (
-      <div className={styles.mainWrapper}>
-         {loading === "done" && (
-            <ThoughtTextEditor
-               requestType={REQUEST_TYPE_IS_EDIT_THOUGHT}
-               ID={thought?.ID}
-               body={thought?.body}
-               titleDefaultValue={thought?.title}
-               postImage={thought?.post_image}
-               userAuthority={
-                  thought?.creator?.authority_level ? thought?.creator?.authority_level : 1
-               }
-               userId={thought?.creator?.ID ? thought?.creator?.ID : "0"}
-               username={thought?.creator?.signature ? thought.creator?.signature : ""}
-               avatar={thought?.creator?.avatar ? thought?.creator?.avatar : ""}
-               postPostedOnDate={thought?.posted_on}
-               postCreatedDate={thought?.created_date}
-               postCategory={thought?.category_tags}
-               postReferences={postReferneces}
-            />
-         )}
-         {loading === "loading" && (
-            <div className={styles.loader}>
-               <RoundLoader />
-            </div>
-         )}
-      </div>
+      <UseIsAuth redirect='/login'>
+         <div className={styles.mainWrapper}>
+            {loading === "done" && (
+               <ThoughtTextEditor
+                  requestType={REQUEST_TYPE_IS_EDIT_THOUGHT}
+                  ID={thought?.ID}
+                  body={thought?.body}
+                  titleDefaultValue={thought?.title}
+                  postImage={thought?.post_image}
+                  userAuthority={
+                     thought?.creator?.authority_level ? thought?.creator?.authority_level : 1
+                  }
+                  userId={thought?.creator?.ID ? thought?.creator?.ID : "0"}
+                  username={thought?.creator?.signature ? thought.creator?.signature : ""}
+                  avatar={thought?.creator?.avatar ? thought?.creator?.avatar : ""}
+                  postPostedOnDate={thought?.posted_on}
+                  postCreatedDate={thought?.created_date}
+                  postCategory={thought?.category_tags}
+                  postReferences={postReferneces}
+               />
+            )}
+            {loading === "loading" && (
+               <div className={styles.loader}>
+                  <RoundLoader />
+               </div>
+            )}
+         </div>
+      </UseIsAuth>
    );
 };
 

@@ -6,6 +6,7 @@ import { REQUEST_TYPE_IS_NEW_THOUGHT } from "../../../../helpers/functions/posts
 
 // styles
 import styles from "./index.module.css";
+import { UseIsAuth } from "../../../../hooks/use_check_auth";
 
 const NewThought = () => {
    useEffect(() => {
@@ -13,15 +14,17 @@ const NewThought = () => {
    }, []);
 
    return (
-      <div className={styles.mainWrapper}>
-         <ThoughtTextEditor
-            requestType={REQUEST_TYPE_IS_NEW_THOUGHT}
-            avatar='/images/user_avatar'
-            username='Username'
-            userAuthority={1}
-            userId='123'
-         />
-      </div>
+      <UseIsAuth redirect='/login'>
+         <div className={styles.mainWrapper}>
+            <ThoughtTextEditor
+               requestType={REQUEST_TYPE_IS_NEW_THOUGHT}
+               avatar='/images/user_avatar'
+               username='Username'
+               userAuthority={1}
+               userId='123'
+            />
+         </div>
+      </UseIsAuth>
    );
 };
 

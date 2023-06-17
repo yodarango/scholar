@@ -3,7 +3,17 @@ import { gql } from "@apollo/client";
 export const RATE_COMMENT = gql`
    mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
       rate_commentary(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
-         status
+         ... on Commentary_Rating {
+            status
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;
@@ -11,7 +21,16 @@ export const RATE_COMMENT = gql`
 export const RATE_THOUGHT = gql`
    mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
       rate_thought(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
-         status
+         ... on Thought_Approval {
+            status
+         }
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;
@@ -19,7 +38,17 @@ export const RATE_THOUGHT = gql`
 export const RATE_QUOTE = gql`
    mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
       rate_quote(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
-         status
+         ... on Quote_Approval {
+            status
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;

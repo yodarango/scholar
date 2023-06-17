@@ -9,6 +9,8 @@ export type TrateContent = {
    USER_ID: number | string;
    rating: number;
 };
+
+// TODO: The union for approvals is not working. Fix it.
 export const rateContent = async (variables: TrateContent, contentType: EnumContentType) => {
    const RATE_CONTENT =
       contentType === 1 ? RATE_COMMENT : contentType === 2 ? RATE_QUOTE : RATE_THOUGHT;

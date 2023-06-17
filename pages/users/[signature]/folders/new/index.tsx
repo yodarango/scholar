@@ -1,11 +1,12 @@
 import React from "react";
 import { FolderEditor } from "../../../../../components/templates/content/folder_editor";
+import { UseIsAuth } from "../../../../../hooks/use_check_auth";
 
 const New = () => {
    return (
-      <div>
+      <UseIsAuth redirect='/login'>
          <FolderEditor />
-      </div>
+      </UseIsAuth>
    );
 };
 

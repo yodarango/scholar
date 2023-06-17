@@ -25,6 +25,7 @@ import { fetchBibleVerseWDefault } from "../../../helpers/APIs/fetch_bible_verse
 import { RoundLoader } from "../chunks/round_loader";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import { PopupModal } from "../../common/popup_modal";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 
 type TypeDailyVerseCardProps = {
    withOutActions?: boolean;
@@ -65,7 +66,6 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
       const personalVerse = localStorage.getItem("todays-verse");
       const personalVerseObj = JSON.parse(personalVerse || "{}");
 
-      console.log(personalVerseObj.data, hasPreferencesObj);
       if (router.isReady) {
          const verseId = router.query["VERSE_ID"] as string;
 
@@ -88,18 +88,7 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
    return (
       //  loading state
       <div className={styles.mainWrapper}>
-         <PopupModal title='You are not login' open={openModal} onClose={() => setOpenModal(false)}>
-            <img
-               src='/images/bible_books/1.png'
-               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
-               className={styles.image}
-            />
-            <Parragraph
-               size='main'
-               text='Please login before you can bookmark a chapter.'
-               align='center'
-            />
-         </PopupModal>
+         <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          {loading === "loading" && (
             <div className={`${styles.card} ${styles.loadinCard}`}>
                <div className={styles.title}>

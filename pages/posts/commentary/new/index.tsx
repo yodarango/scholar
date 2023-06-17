@@ -5,21 +5,24 @@ import { CommentaryTextEditor } from "../../../../components/templates/content/c
 import { REQUEST_TYPE_IS_NEW_COMMENTARY } from "../../../../helpers/functions/posts/content_post";
 
 import styles from "./index.module.css";
+import { UseIsAuth } from "../../../../hooks/use_check_auth";
 
 const NewCommentary = () => {
    useEffect(() => {
       // get the user data
    }, []);
    return (
-      <div className={styles.mainWrapper}>
-         <CommentaryTextEditor
-            includeClose
-            closePath='/'
-            verseId=''
-            withSticker={true}
-            requestType={REQUEST_TYPE_IS_NEW_COMMENTARY}
-         />
-      </div>
+      <UseIsAuth redirect='/login'>
+         <div className={styles.mainWrapper}>
+            <CommentaryTextEditor
+               includeClose
+               closePath='/'
+               verseId=''
+               withSticker={true}
+               requestType={REQUEST_TYPE_IS_NEW_COMMENTARY}
+            />
+         </div>
+      </UseIsAuth>
    );
 };
 

@@ -14,6 +14,8 @@ import { calculateApprovalLevel } from "../../../helpers/math/calculate_approval
 // constants
 import { QUERY_WAS_INSERT } from "../../../constants/defaults";
 import { EnumContentType } from "../../../types/enums";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 
 export type Trating = {
    totalCount: number;
@@ -38,6 +40,7 @@ export const PostRating = ({
    userId,
    contentType
 }: TPostRatingProps) => {
+   const [openModal, setOpenModal] = useState<boolean>(false);
    // state
    const [showPostRating, setshowPostRating] = useState<boolean>(false);
    const [totalRatingCount, setTotalRatingCount] = useState<any>(
@@ -64,6 +67,15 @@ export const PostRating = ({
       }
    };
 
+   // TODO: I am checking the auth from a token rather than a call because the Union type is not working for rating
+   // TODO so i never know what error is coming back. Fix it.
+   const handleClick = () => {
+      const user = loggedInUser();
+
+      if (!user) setOpenModal(true);
+      else setshowPostRating(true);
+   };
+
    return (
       <>
          <Portal>
@@ -76,7 +88,8 @@ export const PostRating = ({
                />
             )}
          </Portal>
-         <div className={`${styles.mainWrapper}`} onClick={() => setshowPostRating(true)}>
+         <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
+         <div className={`${styles.mainWrapper}`} onClick={handleClick}>
             {/*  ratings count  */}
             {!iconColor && <Parragraph text={totalRatingCount} size='small' color={iconColor} />}
             {iconColor && <Parragraph text={totalRatingCount} size='small' color={iconColor} />}

@@ -29,6 +29,9 @@ import { Notification } from "../../fragments/popups/notification";
 import { notificationMessages } from "../../../data/notification_messages";
 import { errorMessages } from "../../../data/error_messages";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
+import { log } from "console";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 
 const errorMessage = errorMessages.posts.failToPerformBulkActionOnFolders;
 
@@ -54,6 +57,7 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
    const [selectFolderActive, setSelectFolderActive] = useState<number | boolean>(false);
    const [showBulkBtns, setShowBulkBtns] = useState<boolean>(false);
    const [bulkActionLoading, setBulkActionLoading] = useState<boolean>(false);
+   const [openModal, setOpenModal] = useState<boolean>(false);
    const [notification, setNotification] = useState<{
       title: string;
       type: string;
@@ -217,6 +221,13 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
       }
    }, [router.isReady, router.query]);
 
+   const handleAddNewFolder = () => {
+      const user = loggedInUser();
+
+      if (!user) setOpenModal(true);
+      else router.push(`/users/@me/folders/new`);
+   };
+
    return (
       <>
          {notification && (
@@ -227,6 +238,7 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
                body={notification.body}
             />
          )}
+         <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          <PrimaryStack
             title='My folders'
             icon='folder'
@@ -240,7 +252,11 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
                      cta={{ handleOnChange: handleFilterFolders }}
                   />
                   <div className={styles.add}>
-                     <IconButton icon='add' backgroundColor='2' link={`/users/@me/folders/new`} />
+                     <IconButton
+                        icon='add'
+                        backgroundColor='2'
+                        cta={{ handleClick: handleAddNewFolder }}
+                     />
                   </div>
                </div>
 

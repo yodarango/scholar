@@ -51,7 +51,7 @@ export const dataHandler = async (
       } else if (data[requestType.toLowerCase()].__typename === "ExceedsPostCount") {
          return { error: errorMessages.posts.maxPostCount };
       } else if (data[requestType.toLowerCase()].__typename === "NotAuthorized") {
-         return { error: errorMessages.auth.pleaseLogin };
+         return { error: { ...errorMessages.auth.pleaseLogin, type: "not_auth" } };
       } else {
          return { error: errorMessages.posts.failToPostCommentary };
       }

@@ -43,6 +43,7 @@ import {
 import { ViewCommentary } from "../templates/posts/view_commentary";
 import PortalTernary from "../hoc/portal_ternary";
 import { Notification } from "../fragments/popups/notification";
+import { YouNeedToLoginModal } from "../common/modals/you_need_to_login_modal";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -100,6 +101,7 @@ export const BibleChapter = ({
       body: string;
       type: string;
    }>(null);
+   const [openModal, setOpenModal] = useState<boolean>(false);
 
    // fetch the Bible API Data along with the highlighted verses by the user
    const fetchData = async (chapterId: string | string[], versionId: string) => {
@@ -197,8 +199,6 @@ export const BibleChapter = ({
                color
             });
 
-            console.log(data);
-
             if (data.status === "done") {
                // exclude the verse being highlighted from the saved verses in case it already exists
                const findVerse: THighlightVerses[] = highlightedVerses.filter(
@@ -209,7 +209,7 @@ export const BibleChapter = ({
                   { ID: 2, USER_ID: "1", VERSE_ID, highlight_type }
                ]);
             } else if (data.status === "not_auth") {
-               setnotification(data.error);
+               setOpenModal(true);
             }
          } catch (error) {
             console.error(error);
@@ -346,6 +346,7 @@ export const BibleChapter = ({
                      />
                   )}
                </Portal>
+               <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
                <div className={styles.chapter}>
                   <Header
                      text={`Chapter ${chapterTitle} `}

@@ -4,16 +4,13 @@ import styles from "./verse_by_verse.module.css";
 import { DailyVerseModal } from "../layouts/daily_verse_modal";
 import { CommentariesGrid } from "../layouts/scrollers/user_content/commentaries_grid";
 import { useEffect, useRef, useState, useMemo, useContext } from "react";
-import { UserContext } from "../../context";
-import { useShouldRender } from "../../hooks/use_should_render";
 import { useRouter } from "next/router";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
-import { PopupModal } from "../common/popup_modal";
-import { Parragraph } from "../fragments/Typography/parragraph";
+import { YouNeedToLoginModal } from "../common/modals/you_need_to_login_modal";
 
 export const VerseByVerse = () => {
    const router = useRouter();
-   const [modalOpen, setModalOpen] = useState<boolean>(false);
+   const [openModal, setOpenModal] = useState<boolean>(false);
 
    const scrollTarget = useRef<any>(null);
 
@@ -41,7 +38,7 @@ export const VerseByVerse = () => {
 
    const handleClick = () => {
       const isLoggedIn = loggedInUser();
-      if (!isLoggedIn) setModalOpen(true);
+      if (!isLoggedIn) setOpenModal(true);
       else router.push("/posts/commentary/new?close=explore");
    };
 
@@ -56,18 +53,7 @@ export const VerseByVerse = () => {
 
    return (
       <div className={styles.mainWrapper} ref={scrollTarget}>
-         <PopupModal title='You are not login' open={modalOpen} onClose={() => setModalOpen(false)}>
-            <img
-               src='/images/bible_books/1.png'
-               alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
-               className={styles.image}
-            />
-            <Parragraph
-               size='main'
-               text='Please login before you can bookmark a chapter.'
-               align='center'
-            />
-         </PopupModal>
+         <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          <div className={styles.addBtn}>
             <IconButton backgroundColor='2' icon='add' cta={{ handleClick: handleClick }} />
          </div>

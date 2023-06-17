@@ -19,6 +19,8 @@ import { postContentComment } from "../../../helpers/functions/posts/content_pos
 
 // types
 import { EnumContentType } from "../../../types/enums";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
+import { POST_TYPE_QUOTE, POST_TYPE_COMMENTARY } from "../../../constants/defaults";
 
 type TPostCommentTextAreaProps = {
    postId: string | number;
@@ -42,10 +44,18 @@ export const PostCommentTextArea = ({
    canCancel = false,
    contentType
 }: TPostCommentTextAreaProps) => {
+   const [openModal, setOpenModal] = useState<boolean>(false);
    const [currentInputValue, setcurrentInputValue] = useState<string>("");
    const [resetInput, setresetInput] = useState<number>(0);
    const [displayInput, setdisplayInput] = useState(true);
    const [loading, setloading] = useState("done");
+
+   const dataType =
+      contentType === POST_TYPE_COMMENTARY
+         ? "Commentary_Comment"
+         : contentType === POST_TYPE_QUOTE
+         ? "Quote_Comment"
+         : "Thought_Comment";
 
    const handlePostComment = async () => {
       setloading("loading");
@@ -60,9 +70,14 @@ export const PostCommentTextArea = ({
          },
          contentType
       );
+
       if (data) {
-         cta.handleValue(data);
          setloading("done");
+         if (data.__typename === dataType) {
+            cta.handleValue(data);
+         } else if ((data.__typename = "NotAuthorized")) {
+            setOpenModal(true);
+         }
       }
 
       // send post to parent array
@@ -86,6 +101,7 @@ export const PostCommentTextArea = ({
       <>
          {displayInput && (
             <div className={styles.mainWrapper}>
+               <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
                <div className={styles.textArea}>
                   <TextAreaPrimary
                      height='5rem'
