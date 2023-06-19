@@ -10,12 +10,13 @@ import {
 export type ThighlightedVersesVariables = {
    ID?: string;
    VERSE_ID?: string;
-   USER_ID?: number | string;
+   USER_ID?: number | string | null;
    last_id: number | string;
 };
 
 //! i might be able to delete this function, check later #DELETE
 export const handleGetHighilightedVerses = async (variables: ThighlightedVersesVariables) => {
+   console.log("handleGetHighilightedVerses", variables);
    try {
       const { data } = await client.query({
          query: GET_HIGHILGHTED_VERSES,

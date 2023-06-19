@@ -44,6 +44,7 @@ import { ViewCommentary } from "../templates/posts/view_commentary";
 import PortalTernary from "../hoc/portal_ternary";
 import { Notification } from "../fragments/popups/notification";
 import { YouNeedToLoginModal } from "../common/modals/you_need_to_login_modal";
+import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -68,6 +69,9 @@ export const BibleChapter = ({
 }: chapterProps) => {
    const router = useRouter();
 
+   const { signature } = router.query;
+   console.log("chapterId", chapterId);
+
    // states
    const [showReadingMenu, setshowReadingMenu] = useState<
       undefined | { verseNumber: string; verseContent: string }
@@ -78,22 +82,13 @@ export const BibleChapter = ({
    const [loading, setloading] = useState("loading");
    const [fntSize, setfntSize] = useState<string | undefined>(fontSize);
    const [thme, setthme] = useState<string | undefined>(fontSize);
-   const [hlVaraibles, sethlVariables] = useState<ThighlightedVersesVariables>({
-      last_id: CONTENT_LAST_ID,
-      VERSE_ID: "",
-      USER_ID: userId
-   });
 
    const [versesArray, setversesArray] = useState<{ text: string; meta: any }[]>([
       { text: "", meta: {} }
    ]);
    const [chapterTitle, setchapterTitle] = useState<string>("");
 
-   const getChapterRefsVars = {
-      VERSE_ID: typeof chapterId === "string" ? chapterId : "",
-      USER_ID: userId,
-      last_id: CONTENT_LAST_ID
-   };
+   const [chapterRefVars, setchapterRefVars] = useState<any>(null);
    const [commentaries, setcommentaries] = useState([]);
    const [commentaryModal, setcommentaryModal] = useState<string>("none");
    const [notification, setnotification] = useState<null | {
@@ -115,7 +110,6 @@ export const BibleChapter = ({
          } else {
             // call "done" in the highlighted verses call since it is the last step to run
             setdata(chapter);
-            sethlVariables({ ...hlVaraibles, VERSE_ID: chapter.id });
             sethighlightedVerses([]);
          }
       } catch (error) {
@@ -129,8 +123,8 @@ export const BibleChapter = ({
    // fetch highlighted verses
    const fetchChapterData = async (variables: ThighlightedVersesVariables) => {
       try {
-         const highlights: any = await handleGetHighilightedVerses(variables);
-         const refs: any = await handleGetChapterRefs(getChapterRefsVars);
+         const highlights: any = await handleGetHighilightedVerses(chapterRefVars);
+         const refs: any = await handleGetChapterRefs(chapterRefVars);
          if (highlights.data?.highlighted_verses) {
             sethighlightedVerses(highlights.data.highlighted_verses);
             setloading("done");
@@ -163,10 +157,10 @@ export const BibleChapter = ({
 
    // get the highlighted verses
    useEffect(() => {
-      if (hlVaraibles.VERSE_ID) {
-         fetchChapterData(hlVaraibles);
+      if (chapterRefVars) {
+         fetchChapterData(chapterRefVars);
       }
-   }, [hlVaraibles]);
+   }, [chapterRefVars]);
 
    // highlight the verse
    const handleHighlightVerse = async ({
@@ -321,6 +315,23 @@ export const BibleChapter = ({
          }
       }
    }, [searchText]);
+
+   useEffect(() => {
+      const user = loggedInUser();
+      const vars = {
+         VERSE_ID: typeof chapterId === "string" ? chapterId : "",
+         USER_ID: userId,
+         last_id: CONTENT_LAST_ID
+      };
+
+      if (!userId && signature !== "@me" && signature !== user?.ID) {
+         setchapterRefVars({ ...vars, USER_ID: signature as string });
+      } else if ((!userId && signature === "@me") || signature === user?.ID) {
+         setchapterRefVars({ ...vars, USER_ID: null });
+      } else {
+         setchapterRefVars(vars);
+      }
+   }, [chapterId, signature]);
 
    return (
       <>

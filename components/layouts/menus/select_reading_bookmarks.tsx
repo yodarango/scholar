@@ -27,6 +27,7 @@ import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
 import { DANGER_COLOR_SECONDARY, SAFE_COLOR } from "../../../constants/tokens";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 type TSelectReadingBookmarksProps = {
    chapterId: string | string[];
@@ -44,7 +45,12 @@ export const SelectReadingBookmarks = ({
    isModalOpen,
    chapterId
 }: TSelectReadingBookmarksProps) => {
+   const router = useRouter();
+   const { signature } = router.query;
+   console.log("signature", signature);
+
    // state
+   const [userId, setUserId] = useState<{ USER_ID: string | null } | null>(null);
    const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
    const [loading, setloading] = useState("loading");
 
@@ -68,8 +74,9 @@ export const SelectReadingBookmarks = ({
 
    // get the bookmarks
    useEffect(() => {
-      handleGetData({ last_id: CONTENT_LAST_ID });
-   }, [chapterId]);
+      if (!userId) return;
+      handleGetData({ ...userId, last_id: CONTENT_LAST_ID });
+   }, [userId, chapterId]);
 
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
@@ -82,6 +89,16 @@ export const SelectReadingBookmarks = ({
       color: !isChapterBookmarked ? SAFE_COLOR : DANGER_COLOR_SECONDARY,
       text: !isChapterBookmarked ? "Bookmark this chapter" : "Remove this bookmark"
    };
+
+   useEffect(() => {
+      const user = loggedInUser();
+
+      if (signature !== "@me" && user?.ID !== signature) {
+         setUserId({ USER_ID: signature as string });
+      } else {
+         setUserId({ USER_ID: null });
+      }
+   }, [signature]);
 
    return (
       <PrimaryMenuBkg
@@ -114,7 +131,7 @@ export const SelectReadingBookmarks = ({
                            ? parseChapterId(bookmark.CHAPTER_ID)
                            : "Error loading bookmark"
                      }}
-                     href={`/read?chapter-id=${bookmark.CHAPTER_ID}`}
+                     href={`/read/${userId}?chapter-id=${bookmark.CHAPTER_ID}`}
                   />
                </div>
             ))}

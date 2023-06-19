@@ -86,12 +86,11 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
       }
    };
 
-   const handleClick = () => {
+   const handleBookMark = (value: boolean) => {
       const user = loggedInUser();
       if (user) {
-         setshowBookmarks(!showBookmarks);
+         handleSetBookMark(value);
       } else {
-         console.log("not logged in");
          setOpenModal(true);
       }
    };
@@ -120,14 +119,14 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
                   isChapterBookmarked={bookMarked}
                   cta={{
                      handleCloseModal: () => setshowBookmarks(!showBookmarks),
-                     handleBookMark: (value: boolean) => handleSetBookMark(value)
+                     handleBookMark
                   }}
                />
             )}
          </Portal>
          <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          {/* bookmark icon: filled if bookmarked and empty if not 🔖 */}
-         <div className={styles.icon} onClick={handleClick}>
+         <div className={styles.icon} onClick={() => setshowBookmarks(true)}>
             <Icon
                name={bookMarked ? "bookmarkFilled" : "bookmarkOutline"}
                size={size}

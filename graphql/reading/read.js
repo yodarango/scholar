@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 // requests highlights by CHAPTER_ID
 export const GET_HIGHILGHTED_VERSES = gql`
-   query ($ID: ID, $VERSE_ID: String, $last_id: ID) {
-      highlighted_verses(ID: $ID, VERSE_ID: $VERSE_ID, last_id: $last_id) {
+   query ($ID: ID, $VERSE_ID: String, $last_id: ID, $USER_ID: ID) {
+      highlighted_verses(ID: $ID, VERSE_ID: $VERSE_ID, last_id: $last_id, USER_ID: $USER_ID) {
          ID
          VERSE_ID
          highlight_type
