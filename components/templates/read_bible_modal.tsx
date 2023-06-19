@@ -18,7 +18,7 @@ import { ReadingPreferences } from "../../types/browser/local_storage";
 import { Parragraph } from "../fragments/Typography/parragraph";
 
 type TReadBibleTemplateProps = {
-   readingPrefs: ReadingPreferences | null;
+   readingPrefs: ReadingPreferences;
    cta: {
       handleFont: (font: string) => void;
       handleTheme: (theme: string) => void;

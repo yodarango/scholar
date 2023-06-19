@@ -86,7 +86,13 @@ export const POST_BOOKMARK = gql`
 export const REMOVE_BOOKMARK = gql`
    mutation ($CHAPTER_ID: String) {
       remove_bookmark(CHAPTER_ID: $CHAPTER_ID) {
-         CHAPTER_ID
+         ... on Bookmark {
+            ID
+         }
+
+         ... on NotAuthorized {
+            message
+         }
       }
    }
 `;

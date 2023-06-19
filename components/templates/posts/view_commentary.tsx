@@ -13,6 +13,7 @@ import { TCommentary } from "../../../types/posts";
 // styles
 import styles from "./view_commentary.module.css";
 type TViewCommentary = {
+   userId?: string;
    commentaryID?: string;
    withEdit?: boolean;
    cta?: {
@@ -21,7 +22,7 @@ type TViewCommentary = {
    };
 };
 
-export const ViewCommentary = ({ cta, withEdit, commentaryID }: TViewCommentary) => {
+export const ViewCommentary = ({ cta, withEdit, commentaryID, userId }: TViewCommentary) => {
    const router = useRouter();
    const ID = router?.query && router?.query.id ? router?.query.id : commentaryID;
 
@@ -43,7 +44,7 @@ export const ViewCommentary = ({ cta, withEdit, commentaryID }: TViewCommentary)
    };
 
    useEffect(() => {
-      if (router.isReady) getData({ ID });
+      if (router.isReady) getData({ USER_ID: userId, ID });
    }, [router.isReady]);
 
    // post references

@@ -24,6 +24,7 @@ import { TVersion } from "../../../data/supported_bible_versions/version_type";
 // helpers
 import { parseChapterId } from "../../../helpers/data/parse_bible_id";
 import { version } from "os";
+import { useRouter } from "next/router";
 
 export type TBiblePreferences = {
    whiteBorder?: boolean;
@@ -40,8 +41,11 @@ export const BibleVersionScripture = ({
    className,
    whiteBorder
 }: TBiblePreferences) => {
+   const router = useRouter();
+   const { signature } = router.query;
    // states
    const [showModal, setshowModal] = useState<number>(0);
+   const [userSignature, setuserSignature] = useState<string>("");
 
    const readingPrefs: TBiblePreferences = {
       versionName,
@@ -95,7 +99,7 @@ export const BibleVersionScripture = ({
 
    // handle the chapter selection: close the modal, update the state, and push to the router
    const handleChapterSelection = (content: any) => {
-      location.href = `/read?chapter-id=${content}`;
+      location.href = `/read/${userSignature}?chapter-id=${content}`;
 
       setshowModal(0);
 
@@ -116,6 +120,10 @@ export const BibleVersionScripture = ({
    useEffect(() => {
       dispatch({ type: "versionId", payload: versionId });
    }, [versionId]);
+
+   useEffect(() => {
+      setuserSignature(signature as string);
+   }, [signature]);
 
    return (
       <div className={styles.mainWrapper}>

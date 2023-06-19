@@ -28,6 +28,7 @@ import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
 import { DANGER_COLOR_SECONDARY, SAFE_COLOR } from "../../../constants/tokens";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
+import { SmallLoader } from "../../fragments/chunks/small_loader";
 
 type TSelectReadingBookmarksProps = {
    chapterId: string | string[];
@@ -47,12 +48,13 @@ export const SelectReadingBookmarks = ({
 }: TSelectReadingBookmarksProps) => {
    const router = useRouter();
    const { signature } = router.query;
-   console.log("signature", signature);
 
    // state
    const [userId, setUserId] = useState<{ USER_ID: string | null } | null>(null);
+   const [userSignature, setUserSignature] = useState<string>("");
    const [bookmarks, setBookmarks] = useState<TBookmarksVariables[]>([]);
    const [loading, setloading] = useState("loading");
+   const [btnLoader, setBtnLoader] = useState(false);
 
    // fetch bookmark
    const handleGetData = async (variables: TBookmarksVariables) => {
@@ -80,6 +82,7 @@ export const SelectReadingBookmarks = ({
 
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
+      setBtnLoader(true);
       cta.handleBookMark(!isChapterBookmarked);
    };
 
@@ -98,6 +101,9 @@ export const SelectReadingBookmarks = ({
       } else {
          setUserId({ USER_ID: null });
       }
+      if (signature) {
+         setUserSignature(signature as string);
+      }
    }, [signature]);
 
    return (
@@ -106,17 +112,20 @@ export const SelectReadingBookmarks = ({
          color='1'
          cta={{ handleClose: () => cta.handleCloseModal(!isModalOpen) }}>
          <div className={styles.menuOption}>
-            <MenuPrimaryOption
-               textType='text'
-               iconType='icon'
-               optionProperties={{
-                  icon: <Icon name={status.icon} size='2rem' color={status.color} />,
-                  iconShadow: status.color,
-                  text: status.text,
-                  descColor: status.color
-               }}
-               cta={{ handleOptionClick: handleBookMark }}
-            />
+            {!btnLoader && (
+               <MenuPrimaryOption
+                  textType='text'
+                  iconType='icon'
+                  optionProperties={{
+                     icon: <Icon name={status.icon} size='2rem' color={status.color} />,
+                     iconShadow: status.color,
+                     text: status.text,
+                     descColor: status.color
+                  }}
+                  cta={{ handleOptionClick: handleBookMark }}
+               />
+            )}
+            {btnLoader && <SmallLoader />}
          </div>
          {loading === "done" &&
             bookmarks.map((bookmark, index) => (
@@ -131,7 +140,7 @@ export const SelectReadingBookmarks = ({
                            ? parseChapterId(bookmark.CHAPTER_ID)
                            : "Error loading bookmark"
                      }}
-                     href={`/read/${userId}?chapter-id=${bookmark.CHAPTER_ID}`}
+                     href={`/read/${userSignature}?chapter-id=${bookmark.CHAPTER_ID}`}
                   />
                </div>
             ))}

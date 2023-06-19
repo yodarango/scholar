@@ -12,6 +12,7 @@ import { getLSBibleSettings } from "../../../helpers/browser/ls_bible_settings";
 
 // types
 import { ReadingPreferences } from "../../../types/browser/local_storage";
+import { UseIsAuth } from "../../../hooks/use_check_auth";
 
 const Read = () => {
    // router

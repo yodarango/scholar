@@ -7,6 +7,7 @@ export const fetchBibleChapter = async (
 ) => {
    if (chapter) {
       // content-types: text, html, json
+
       try {
          const request = await fetch(
             `https://api.scripture.api.bible/v1/bibles/${versionId}/chapters/${chapter}?content-type=text&include-notes=true&include-chapter-numbers=true&include-verse-spans=false&include-titles=true`,

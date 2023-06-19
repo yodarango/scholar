@@ -5,4 +5,6 @@ export type THighlightVerses = {
    highlight_type: string | number;
    created_date?: string;
    posted_on?: string;
+   bkgColor?: string;
+   color?: string;
 };

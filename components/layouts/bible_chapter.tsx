@@ -27,7 +27,6 @@ import {
    handleGetHighilightedVerses,
    ThandlePostHighlight,
    handlePostHighlight,
-   ThighlightedVersesVariables,
    handleRemoveHighlight
 } from "../../helpers/functions/reading/highlighted_verses";
 
@@ -38,7 +37,7 @@ import { GRADIENT_1__LIGHT } from "../../constants/tokens";
 import { errorMessages } from "../../data/error_messages";
 import {
    handleGetChapterRefs,
-   useGetChapterData
+   useGetChapterData // not used for now
 } from "../../helpers/functions/reading/use_chapter_data";
 import { ViewCommentary } from "../templates/posts/view_commentary";
 import PortalTernary from "../hoc/portal_ternary";
@@ -70,7 +69,6 @@ export const BibleChapter = ({
    const router = useRouter();
 
    const { signature } = router.query;
-   console.log("chapterId", chapterId);
 
    // states
    const [showReadingMenu, setshowReadingMenu] = useState<
@@ -82,6 +80,7 @@ export const BibleChapter = ({
    const [loading, setloading] = useState("loading");
    const [fntSize, setfntSize] = useState<string | undefined>(fontSize);
    const [thme, setthme] = useState<string | undefined>(fontSize);
+   const [currentUser, setCurrentUser] = useState<any>(null);
 
    const [versesArray, setversesArray] = useState<{ text: string; meta: any }[]>([
       { text: "", meta: {} }
@@ -98,7 +97,7 @@ export const BibleChapter = ({
    }>(null);
    const [openModal, setOpenModal] = useState<boolean>(false);
 
-   // fetch the Bible API Data along with the highlighted verses by the user
+   // fetch the Bible API Data
    const fetchData = async (chapterId: string | string[], versionId: string) => {
       try {
          const chapter = await fetchBibleChapter(chapterId, versionId);
@@ -110,7 +109,6 @@ export const BibleChapter = ({
          } else {
             // call "done" in the highlighted verses call since it is the last step to run
             setdata(chapter);
-            sethighlightedVerses([]);
          }
       } catch (error) {
          console.error(error);
@@ -121,10 +119,11 @@ export const BibleChapter = ({
    };
 
    // fetch highlighted verses
-   const fetchChapterData = async (variables: ThighlightedVersesVariables) => {
+   const fetchChapterData = async (variables: any) => {
       try {
-         const highlights: any = await handleGetHighilightedVerses(chapterRefVars);
-         const refs: any = await handleGetChapterRefs(chapterRefVars);
+         const highlights: any = await handleGetHighilightedVerses(variables);
+         const refs: any = await handleGetChapterRefs(variables);
+
          if (highlights.data?.highlighted_verses) {
             sethighlightedVerses(highlights.data.highlighted_verses);
             setloading("done");
@@ -155,10 +154,12 @@ export const BibleChapter = ({
       fetchData(chapterId, versionId);
    }, [chapterId]);
 
-   // get the highlighted verses
+   // get the highlighted verses once the variables are not null
    useEffect(() => {
       if (chapterRefVars) {
          fetchChapterData(chapterRefVars);
+      } else {
+         setloading("done");
       }
    }, [chapterRefVars]);
 
@@ -250,6 +251,7 @@ export const BibleChapter = ({
       }
    }, [theme]);
 
+   // extract the chapter title
    useEffect(() => {
       let verse = data && data.content.split(/\[[0-9]*\]/g);
       const chapterTitle = data && data.content.split("\n")[0];
@@ -318,15 +320,17 @@ export const BibleChapter = ({
 
    useEffect(() => {
       const user = loggedInUser();
+      setCurrentUser(user);
+
       const vars = {
          VERSE_ID: typeof chapterId === "string" ? chapterId : "",
-         USER_ID: userId,
+         USER_ID: userId || 0,
          last_id: CONTENT_LAST_ID
       };
 
       if (!userId && signature !== "@me" && signature !== user?.ID) {
          setchapterRefVars({ ...vars, USER_ID: signature as string });
-      } else if ((!userId && signature === "@me") || signature === user?.ID) {
+      } else if (((!userId && signature === "@me") || signature === user?.ID) && user) {
          setchapterRefVars({ ...vars, USER_ID: null });
       } else {
          setchapterRefVars(vars);
@@ -375,11 +379,10 @@ export const BibleChapter = ({
                         (verse) => verse.VERSE_ID === `${chapterId}.${index}`
                      );
 
-                     const highlight = isHighlighted ? isHighlighted.highlight_type : "";
-
-                     // get the metadata for the highlighted color if found
                      const getHighlighMeta = higlighterColorPicker.find(
-                        (meta) => meta.ID === highlight
+                        (meta) =>
+                           meta.bkgColor.toLocaleLowerCase() ===
+                           isHighlighted?.color?.toLocaleLowerCase()
                      );
 
                      // get the commentary references if any
@@ -436,12 +439,13 @@ export const BibleChapter = ({
          {commentaryModal !== "none" && (
             <PortalTernary>
                <ViewCommentary
+                  userId={signature as string}
                   commentaryID={commentaryModal}
                   cta={{
                      handleClose: () => setcommentaryModal("none"),
                      handleEdit: () => router.push(`/posts/commentary/edit/${commentaryModal}`)
                   }}
-                  withEdit
+                  withEdit={!!currentUser}
                />
             </PortalTernary>
          )}

@@ -16,7 +16,6 @@ export type ThighlightedVersesVariables = {
 
 //! i might be able to delete this function, check later #DELETE
 export const handleGetHighilightedVerses = async (variables: ThighlightedVersesVariables) => {
-   console.log("handleGetHighilightedVerses", variables);
    try {
       const { data } = await client.query({
          query: GET_HIGHILGHTED_VERSES,

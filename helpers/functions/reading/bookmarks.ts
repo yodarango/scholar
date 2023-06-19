@@ -42,7 +42,7 @@ export const handlePostBookMark = async (CHAPTER_ID: string | number) => {
       });
 
       if (data.new_bookmark.__typename === "Bookmark") {
-         return { data: null, status: "error", error: null };
+         return { data, status: "done", error: null };
       } else if (data.new_bookmark.__typename === "NotAuthorized") {
          return { error: { ...errorMessages.auth.pleaseLogin, type: "4" }, status: "not_auth" };
       }
@@ -62,8 +62,9 @@ export const handleRemoveBookMark = async (CHAPTER_ID: string | number) => {
          query: REMOVE_BOOKMARK,
          variables: { CHAPTER_ID }
       });
-      if (data.new_bookmark.__typename === "Bookmark") {
-         return { data: null, status: "error", error: null };
+      console.log(data);
+      if (data.remove_bookmark.__typename === "Bookmark") {
+         return { data, status: "done", error: null };
       } else if (data.new_bookmark.__typename === "NotAuthorized") {
          return { error: { ...errorMessages.auth.pleaseLogin, type: "4" }, status: "not_auth" };
       }

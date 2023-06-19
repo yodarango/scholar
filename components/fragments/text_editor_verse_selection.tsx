@@ -102,7 +102,7 @@ export const TextEditorVerseSelection = ({
       setshowChooseScriptureModal(false);
 
       const queryID = router.query.id ? router.query.id : "";
-      router.push(`${router.pathname.replace("[id]", "")}${queryID}?VERSE_ID=${id}`);
+      router.push(`${router.pathname.replace("[signature]", "")}${queryID}?VERSE_ID=${id}`);
    };
 
    return (

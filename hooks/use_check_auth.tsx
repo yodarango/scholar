@@ -16,11 +16,7 @@ type TUseCheckAuthProps = {
    children: any;
 };
 
-export const UseIsAuth = ({
-   redirect,
-
-   children
-}: TUseCheckAuthProps) => {
+export const UseIsAuth = ({ redirect, children }: TUseCheckAuthProps) => {
    const [render, setRender] = useState(false);
    const check = async () => {
       try {
