@@ -16,9 +16,9 @@ export const YouNeedToLoginModal = ({
    message = "please login to perform this action"
 }: TLoginModalProps) => {
    return (
-      <PopupModal title='You are not login' open={open} onClose={onClose}>
+      <PopupModal maxWidth={38} title='You are not logged-in' open={open} onClose={onClose}>
          <img
-            src='/images/bible_books/1.png'
+            src='/images/mascot/min/passcode.webp'
             alt='Shroody, the mascot of the app is letting the user know that is not authenticated.'
             className={styles.image}
          />

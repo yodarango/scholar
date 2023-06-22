@@ -29,6 +29,7 @@ import { CONTENT_LAST_ID } from "../../../constants/defaults";
 import { DANGER_COLOR_SECONDARY, SAFE_COLOR } from "../../../constants/tokens";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
+import { FeedBackMascot } from "../../common/feedback/feedback_mascot";
 
 type TSelectReadingBookmarksProps = {
    chapterId: string | string[];
@@ -82,7 +83,8 @@ export const SelectReadingBookmarks = ({
 
    const handleBookMark = () => {
       // handle the bookmark to db via helper function
-      setBtnLoader(true);
+      const user = loggedInUser();
+      user && setBtnLoader(true);
       cta.handleBookMark(!isChapterBookmarked);
    };
 
@@ -111,7 +113,10 @@ export const SelectReadingBookmarks = ({
          className={styles.bookmarkMainWrapper}
          color='1'
          cta={{ handleClose: () => cta.handleCloseModal(!isModalOpen) }}>
-         <div className={styles.menuOption}>
+         <div
+            className={`${styles.menuOption} ${
+               bookmarks.length === 0 ? styles.menuOptionNoContent : ""
+            }`}>
             {!btnLoader && (
                <MenuPrimaryOption
                   textType='text'
@@ -128,6 +133,7 @@ export const SelectReadingBookmarks = ({
             {btnLoader && <SmallLoader />}
          </div>
          {loading === "done" &&
+            bookmarks.length > 0 &&
             bookmarks.map((bookmark, index) => (
                <div className={styles.menuOption} key={index}>
                   <MenuPrimaryOption
@@ -144,6 +150,10 @@ export const SelectReadingBookmarks = ({
                   />
                </div>
             ))}
+
+         {bookmarks.length === 0 && (
+            <FeedBackMascot type='empty' className={styles.mascotFeedback} />
+         )}
          {loading === "loading" && (
             <div className={styles.loading}>
                <RoundLoader />

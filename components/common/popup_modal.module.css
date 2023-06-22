@@ -6,8 +6,6 @@
    right: 0;
    bottom: auto;
    width: 90%;
-   max-width: 50rem;
-   min-height: 25rem;
    height: auto;
    background-color: var(--secondary-color);
    background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
@@ -54,10 +52,12 @@
    margin: var(--spacing-s) auto;
 }
 
-.buttonWrapper div:first-child {
-   margin-right: var(--spacing-xs);
+.buttonWrapper > div:first-child {
+   margin-right: var(--spacing-m);
+   width: 10rem;
 }
 
-.buttonWrapper div:last-child {
-   margin-left: var(--spacing-xs);
+.buttonWrapper > div:last-child {
+   margin-left: var(--spacing-m);
+   width: 10rem;
 }

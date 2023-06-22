@@ -69,7 +69,7 @@ export const VerseByVerse = () => {
                   </div>
                )}
             </div>
-            <div className={styles.shadow}></div>
+            <div className={`${styles.shadow} ${triggerEffect ? "" : styles.hiddenShadow}`}></div>
          </div>
 
          <div

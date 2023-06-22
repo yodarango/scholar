@@ -1,0 +1,23 @@
+.imgWrapper {
+   margin: auto;
+}
+.imgWrapper img {
+   width: 100%;
+   display: block;
+   margin: auto;
+}
+
+.sizeSmall {
+   width: 10rem;
+   height: 10rem;
+}
+
+.sizeMedium {
+   width: 15rem;
+   height: 15rem;
+}
+
+.sizeLarge {
+   width: 20rem;
+   height: 20rem;
+}

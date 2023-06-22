@@ -33,3 +33,10 @@
    object-position: center;
    object-fit: cover;
 }
+
+.menuOptionNoContent {
+   margin-bottom: 0;
+}
+.mascotFeedback {
+   padding-bottom: var(--spacing-m);
+}

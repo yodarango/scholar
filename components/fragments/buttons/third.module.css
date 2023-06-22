@@ -2,7 +2,8 @@
    width: auto;
 }
 
-.mainWrapper button {
+.mainWrapper .primary,
+.mainWrapper .secondary {
    padding: var(--spacing-xs) calc(var(--spacing-l) + var(--spacing-l)) var(--spacing-xs)
       var(--spacing-s);
    border-radius: 2em;
@@ -10,6 +11,11 @@
    align-items: center;
    justify-content: flex-start;
    background-color: transparent;
+}
+
+.mainWrapper.noIcon .primary,
+.mainWrapper.noIcon .secondary {
+   padding: var(--spacing-xs) var(--spacing-l);
 }
 
 .icon {

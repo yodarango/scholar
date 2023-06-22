@@ -17,10 +17,10 @@ export const Third = ({ title, cta, type, icon, htmlType = "button", link }: TPr
    return (
       <>
          {type === "1" && (
-            <div className={` ${styles.mainWrapper}`}>
+            <div className={` ${styles.mainWrapper} ${!icon ? styles.noIcon : ""}`}>
                {cta && !link && (
                   <button className={`${styles.primary}`} type={htmlType} onClick={cta.handleClick}>
-                     <span className={styles.icon}>{icon}</span>
+                     {icon && <span className={styles.icon}>{icon}</span>}
                      <Parragraph
                         text={title}
                         size='main'
@@ -47,13 +47,13 @@ export const Third = ({ title, cta, type, icon, htmlType = "button", link }: TPr
             </div>
          )}
          {type === "2" && (
-            <div className={`${styles.mainWrapper}`}>
+            <div className={`${styles.mainWrapper} ${!icon ? styles.noIcon : ""}`}>
                {cta && !link && (
                   <button
                      className={`${styles.secondary}`}
                      type={htmlType}
                      onClick={cta.handleClick}>
-                     <span className={styles.icon}>{icon}</span>
+                     {icon && <span className={styles.icon}>{icon}</span>}
                      <Parragraph
                         text={title}
                         size='main'
