@@ -52,6 +52,10 @@ export const REMOVE_HIGHILGHTED_VERSE = gql`
          ... on NotAuthorized {
             message
          }
+
+         ... on ServerError {
+            message
+         }
       }
    }
 `;

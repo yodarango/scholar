@@ -29,9 +29,11 @@ import { Notification } from "../../fragments/popups/notification";
 import { notificationMessages } from "../../../data/notification_messages";
 import { errorMessages } from "../../../data/error_messages";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
-import { log } from "console";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
+import { Error } from "../../common/feedback/error";
+import { Empty } from "../../common/feedback/empty";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 const errorMessage = errorMessages.posts.failToPerformBulkActionOnFolders;
 
@@ -63,6 +65,7 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
       type: string;
       body: string;
    } | null>(null);
+   const [filter, setFilter] = useState<string>("");
 
    // strictly to update the items once the action has been executed because the updated data is not
    // returned from the BE 🤦‍♂️
@@ -93,6 +96,7 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
             folder.name.toLowerCase().includes(val.toLowerCase())
          );
 
+      setFilter(val);
       setFolders(filteredFolders);
    };
 
@@ -364,7 +368,21 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
                         ))}
                   </div>
                )}
-               {status === "error" && <div>#NEEDSGRAPHICS</div>}
+               {status === "done" && folders?.length === 0 && filter !== "" && (
+                  <div className={styles.feedback}>
+                     <ResourceNotFound />
+                  </div>
+               )}
+               {status === "done" && folders?.length === 0 && filter === "" && (
+                  <div className={styles.feedback}>
+                     <Empty />
+                  </div>
+               )}
+               {status === "error" && (
+                  <div className={styles.feedback}>
+                     <Error />
+                  </div>
+               )}
                {status === "loading" && (
                   <div className={styles.loader}>
                      <RoundLoader />

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // components
 import { UserNotifications } from "../../../fragments/cards/user_notification";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./user_notifications_wrapper.module.css";

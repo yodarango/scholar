@@ -7,7 +7,7 @@ import { PostReactions } from "../../fragments/post_reactions";
 import { Parragraph } from "../../fragments/Typography/parragraph";
 import { Header } from "../../fragments/Typography/header";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./view_quote.module.css";
@@ -116,7 +116,7 @@ export const ViewQuote = () => {
          {/* error */}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </>

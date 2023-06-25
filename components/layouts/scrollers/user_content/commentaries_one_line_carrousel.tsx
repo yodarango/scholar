@@ -21,9 +21,11 @@ import {
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { Error } from "../../../common/feedback/error";
+import { Empty } from "../../../common/feedback/empty";
 
 type TCommentaryOneLineCarrouselProps = {
    userID?: string;
@@ -144,7 +146,16 @@ export const CommentaryOneLineCarrousel = ({
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
+         {loading === "done" && commentariesArr?.length === 0 && (
+            <div className={styles.error}>
+               <Empty />
+            </div>
+         )}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <Error />
+            </div>
+         )}
       </div>
    );
 };

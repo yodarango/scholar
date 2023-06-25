@@ -7,7 +7,7 @@ import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
 import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./sermon_notes_grid.module.css";
@@ -162,7 +162,7 @@ export const SermonNotesGrid = () => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

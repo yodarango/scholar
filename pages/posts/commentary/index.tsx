@@ -15,7 +15,7 @@ const Index = () => {
          <PrimaryStackHeader
             title='Commentaries'
             icon='comment'
-            cta={{ handleClose: () => router.back() }}
+            cta={{ handleClose: () => router.push("/") }}
          />
          <div className={styles.posts}>
             <CommentariesAll />

@@ -13,7 +13,7 @@ import CommentariesProfileMenu from "../../../../../fragments/buttons/commentari
 import PopupWrapper from "../../../../../layouts/popup-wrapper";
 import CommentariesByChapterTemp from "../../../../../fragments/popups/commentaries-by-book-chapter";
 import CardsLazyLoading from "../../../../../layouts/cards-lazy-loading";
-import ResourceNotFoundError from "../../../../components/fragments/chunks/error_resource_not_found";
+import ResourceNotFoundError from "../../../../components/common/feedback/resource_not_found";
 
 //styles
 import commentariesByBookStyles from "../../../../../styles/templates/users/userId/commentaries-by-book/commentaries-by-book.module.css";

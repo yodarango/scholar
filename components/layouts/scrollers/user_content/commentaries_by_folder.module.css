@@ -1,9 +1,10 @@
-.loader {
+.loader,
+.feedback {
    width: 100%;
    display: flex;
    align-items: center;
    justify-content: center;
-   margin-top: 20vh;
+   margin-top: 10rem;
 }
 
 .input {

@@ -6,7 +6,7 @@ import Portal from "../../hoc/potal";
 import { notificationMessages } from "../../../data/notification_messages";
 import { FourthStackHeader } from "../../layouts/stacks/headers/fourth_stack_header";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import {
    getUserPreferenceSettings,
    handleUpdatePreferencesSettings,
@@ -114,7 +114,7 @@ export const PreferenceSettings = ({ onGoBack }: PrivacySettingsProps) => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

@@ -10,7 +10,7 @@ import { QuoteOneLineCarrousel } from "../scrollers/user_content/quote_one_line_
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../fragments/chunks/error_resource_not_found";
 
 // style
 import styles from "./wigo_quotes.module.css";

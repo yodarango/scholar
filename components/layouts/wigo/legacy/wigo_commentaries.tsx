@@ -5,7 +5,7 @@ import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { CommentaryOneLineCarrousel } from "../scrollers/user_content/commentaries_one_line_carrousel";
 import { Header } from "../../fragments/Typography/header";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../fragments/chunks/error_resource_not_found";
 
 // styles
 import styles from "./wigo_commentaries.module.css";

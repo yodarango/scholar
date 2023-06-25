@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { Primary } from "../../fragments/buttons/primary";
 import { UnsplashImageThumbnail } from "../../fragments/cards/unsplash_image_thumbnail";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { SearchInput } from "../../fragments/inputs/search_input";
 
@@ -118,7 +118,7 @@ export const UnsplasImgPicker = ({ cta }: TUnsplasImgPickerProps) => {
          {/* Bottom loader. It gets called only from the "Search" button on the initial search for a specific string */}
          {loading === "error" && (
             <div className={styles.errorFetching}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
 

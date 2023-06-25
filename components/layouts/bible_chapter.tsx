@@ -16,13 +16,12 @@ import styles from "./bible_chapter.module.css";
 // components
 import { fetchBibleChapter } from "../../helpers/APIs/fetch_bible_chapter";
 import { RoundLoader } from "../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../common/feedback/resource_not_found";
 import { Header } from "../fragments/Typography/header";
 import { SelectReadingActions } from "./menus/select_reading_actions";
 import Portal from "../hoc/potal";
 
 // helpers
-import { higlighterColorPicker } from "../../data/color_picker";
 import {
    handleGetHighilightedVerses,
    ThandlePostHighlight,
@@ -33,7 +32,7 @@ import {
 // types
 import { THighlightVerses } from "../../types/read";
 import { CONTENT_LAST_ID } from "../../constants/defaults";
-import { GRADIENT_1__LIGHT } from "../../constants/tokens";
+import { FONT_COLOR, GRADIENT_1__LIGHT, PRIMARY_COLOR } from "../../constants/tokens";
 import { errorMessages } from "../../data/error_messages";
 import {
    handleGetChapterRefs,
@@ -44,6 +43,7 @@ import PortalTernary from "../hoc/portal_ternary";
 import { Notification } from "../fragments/popups/notification";
 import { YouNeedToLoginModal } from "../common/modals/you_need_to_login_modal";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
+import { getColorContrast } from "../../helpers/getColorContrast";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -379,11 +379,16 @@ export const BibleChapter = ({
                         (verse) => verse.VERSE_ID === `${chapterId}.${index}`
                      );
 
-                     const getHighlighMeta = higlighterColorPicker.find(
-                        (meta) =>
-                           meta.bkgColor.toLocaleLowerCase() ===
-                           isHighlighted?.color?.toLocaleLowerCase()
-                     );
+                     let highlight = { color: FONT_COLOR, bkgColor: "transparent" };
+
+                     if (isHighlighted) {
+                        if (isHighlighted.color) highlight.bkgColor = isHighlighted.color;
+
+                        highlight.color =
+                           getColorContrast(isHighlighted?.color || "") === 0
+                              ? PRIMARY_COLOR
+                              : FONT_COLOR;
+                     }
 
                      // get the commentary references if any
                      const commentary: any = commentaries.find(
@@ -401,7 +406,7 @@ export const BibleChapter = ({
                               style={{
                                  backgroundColor: verse.meta.isSearchResult
                                     ? "rgba(255, 255, 255, 0.2)"
-                                    : getHighlighMeta?.bkgColor
+                                    : highlight.bkgColor
                               }}>
                               <span
                                  onClick={() =>
@@ -417,7 +422,7 @@ export const BibleChapter = ({
                               </span>
                               <p
                                  className={`${styles.verse} ${fntSize} ${thme}`}
-                                 style={{ color: getHighlighMeta?.color }}>
+                                 style={{ color: highlight?.color }}>
                                  <span className={styles.tab}></span>
                                  {verse.text}
                                  {commentary && (
@@ -459,7 +464,7 @@ export const BibleChapter = ({
          )}
          {loading == "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </>

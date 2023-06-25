@@ -23,7 +23,7 @@ import { getMultipleOptionsPollIn24 } from "../../../helpers/functions/interacti
 // types
 import { TMultipleChicePoll } from "../../../types/interactive";
 import { RoundLoader } from "../chunks/round_loader";
-import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { WinningPoll } from "./winning_poll";
 import { createPollVote } from "../../../helpers/functions/interactive/polls";
 import { Notification } from "../popups/notification";

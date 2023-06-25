@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // comps
 import { SermonNote } from "../../../fragments/cards/posts/sermon_note";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./sermon_note_one_line_carrousel.module.css";
@@ -78,7 +78,7 @@ export const SermonNoteOneLineCarrousel = ({
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

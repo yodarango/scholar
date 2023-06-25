@@ -12,7 +12,7 @@ import { Parragraph } from "../../fragments/Typography/parragraph";
 
 // styles
 import styles from "./billing.module.css";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 export const BillingTemplate = () => {
    // state

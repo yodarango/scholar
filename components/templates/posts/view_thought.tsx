@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // comps
 import { WithTextContentStack } from "../../layouts/stacks/with_text_content_stack";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // types
 import { TThought } from "../../../types/posts";
@@ -71,7 +71,7 @@ export const ViewThought = () => {
          {/* error */}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </>

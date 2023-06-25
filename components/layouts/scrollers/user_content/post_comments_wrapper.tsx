@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { PostComment } from "../../../fragments/cards/posts/post_comment";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 import { Primary } from "../../../fragments/buttons/primary";
 
 // styles
@@ -145,7 +145,7 @@ export const PostCommentsWrapper = ({
          {/* #NEEDS GRAPHICS */}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

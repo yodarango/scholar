@@ -1,6 +1,6 @@
 // components
 import { Parragraph } from "../Typography/parragraph";
-// import { ResourceNotFoundError } from "./error_resource_not_found";
+// import { ResourceNotFound } from "./error_resource_not_found";
 // import { RoundLoader } from "./round_loader";
 
 //styles
@@ -32,7 +32,7 @@ export const VideoModalContent = ({ description, videoHtml }: TVideoModalContent
          )}
          {loading == "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )} */
    }

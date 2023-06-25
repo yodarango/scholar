@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { InputPrimary } from "../../fragments/inputs/input_primary";
 import { SelectTrueColorPersonality } from "../../fragments/inputs/select_true_color_personality";
 import { Primary } from "../../fragments/buttons/primary";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ChangeAvatar } from "../../layouts/account/settings/change_avatar";
 import { ChangeSignature } from "../../layouts/account/settings/change_signature";
@@ -26,6 +26,7 @@ import {
 import Portal from "../../hoc/potal";
 import { Notification } from "../../fragments/popups/notification";
 import { notificationMessages } from "../../../data/notification_messages";
+import { Error } from "../../common/feedback/error";
 
 const settingsDefaults: ThandleUpdateSettings = {
    my_true_color_personality_test: "",
@@ -194,7 +195,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <Error />
             </div>
          )}
       </div>

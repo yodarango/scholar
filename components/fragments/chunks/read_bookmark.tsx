@@ -126,7 +126,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
          </Portal>
          <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          {/* bookmark icon: filled if bookmarked and empty if not 🔖 */}
-         <div className={styles.icon} onClick={() => setshowBookmarks(true)}>
+         <div className={styles.icon} onClick={() => setshowBookmarks(!showBookmarks)}>
             <Icon
                name={bookMarked ? "bookmarkFilled" : "bookmarkOutline"}
                size={size}

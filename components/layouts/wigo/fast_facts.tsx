@@ -11,7 +11,7 @@ import styles from "./fast_facts.module.css";
 import { TFastFacts } from "../../../types/interactive";
 import { getFastFactsIn24 } from "../../../helpers/functions/interactive/fast_facts";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 export const FastFacts = () => {
    const [images, setimages] = useState<TFastFacts | null>();

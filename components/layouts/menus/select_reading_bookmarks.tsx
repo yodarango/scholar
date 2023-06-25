@@ -24,7 +24,7 @@ import {
    TBookmarksVariables
 } from "../../../helpers/functions/reading/bookmarks";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
 import { DANGER_COLOR_SECONDARY, SAFE_COLOR } from "../../../constants/tokens";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
@@ -162,7 +162,7 @@ export const SelectReadingBookmarks = ({
          {/* #NEEDS GRAPHICS */}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </PrimaryMenuBkg>

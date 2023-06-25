@@ -22,7 +22,7 @@ import { fetchBibleVerse } from "../../helpers/APIs/fetch_bible_verse";
 // types
 import { TBibleVerse } from "../../types/bible_api";
 import { RoundLoader } from "./chunks/round_loader";
-import { ResourceNotFoundError } from "./chunks/error_resource_not_found";
+import { ResourceNotFound } from "../common/feedback/resource_not_found";
 import { PrimaryStack } from "../layouts/stacks/templates/primary_stack";
 import { BibleBooksWrapper } from "../layouts/scrollers/bible_books_wrapper";
 
@@ -147,7 +147,7 @@ export const TextEditorVerseSelection = ({
             {/* error */}
             {loading === "error" && (
                <div className={styles.error}>
-                  <ResourceNotFoundError />
+                  <ResourceNotFound />
                </div>
             )}
             {renderButton && (

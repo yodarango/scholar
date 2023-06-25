@@ -10,7 +10,7 @@ import { Quote } from "../../../fragments/cards/posts/quote";
 import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 import { handleGetQuote, TgetQuoteVariables } from "../../../../helpers/functions/posts/quote_get";
 
 // styles
@@ -29,7 +29,7 @@ export const QuotesGrid = () => {
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
-
+   const [routerSearchKeys, setRouterSearchKeys] = useState<string[]>([]);
    const [queryVariables, setqueryVariables] = useState<TgetQuoteVariables>({
       last_id: CONTENT_LAST_ID
    });
@@ -76,6 +76,13 @@ export const QuotesGrid = () => {
       if (router.isReady) fetchData({ last_id: CONTENT_LAST_ID, ...router.query }, false);
    }, [router.isReady, router.query]);
 
+   useEffect(() => {
+      if (router.isReady) {
+         const keys = Object.keys(router.query);
+         setRouterSearchKeys(keys);
+      }
+   }, [router.query]);
+
    return (
       <div className={styles.mainWrapper}>
          {loading === "done" && quotes && (
@@ -107,6 +114,12 @@ export const QuotesGrid = () => {
                )}
             </div>
          )}
+
+         {routerSearchKeys.length > 0 && quotes.length === 0 && loading === "done" && (
+            <div className={styles.error}>
+               <ResourceNotFound />
+            </div>
+         )}
          {loading === "loading" && (
             <div className={styles.loader}>
                <RoundLoader />
@@ -114,7 +127,7 @@ export const QuotesGrid = () => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

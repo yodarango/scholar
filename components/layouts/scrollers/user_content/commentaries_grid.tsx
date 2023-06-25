@@ -13,7 +13,7 @@ import { Parragraph } from "../../../fragments/Typography/parragraph";
 import { GridPrimary } from "../grid_primary";
 import { Commentary } from "../../../fragments/cards/posts/commentary";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
@@ -27,6 +27,7 @@ import {
    TgetcommentariesVariables
 } from "../../../../helpers/functions/posts/commentary_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { Empty } from "../../../common/feedback/empty";
 
 type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
@@ -56,6 +57,7 @@ export const CommentariesGrid = ({
       getAll: getAll,
       FOLDER_ID: folderId
    });
+   const [routerSearchKeys, setRouterSearchKeys] = useState<string[]>([]);
 
    // fetch data on first time loading. Only runs on first load
    const fetchData = async (variables: any, isLoadMore: boolean) => {
@@ -117,6 +119,17 @@ export const CommentariesGrid = ({
       };
    }, [router.isReady, router.query]);
 
+   // this is to check wheat status mascot to show
+   useEffect(() => {
+      if (router.isReady) {
+         let keys = Object.keys(router.query);
+         keys = keys.filter(
+            (key) => !["view", "folder", "folder", "signature", "id"].includes(key)
+         );
+         setRouterSearchKeys(keys);
+      }
+   }, [router.query]);
+
    return (
       <div className={styles.mainWrapper}>
          {verseCitation && verse && (
@@ -158,6 +171,17 @@ export const CommentariesGrid = ({
                )}
             </div>
          )}
+
+         {routerSearchKeys.length > 0 && commentaries.length === 0 && loading === "done" && (
+            <div className={styles.error}>
+               <ResourceNotFound />
+            </div>
+         )}
+         {routerSearchKeys.length === 0 && commentaries.length === 0 && loading === "done" && (
+            <div className={styles.error}>
+               <Empty />
+            </div>
+         )}
          {loading === "loading" && (
             <div className={styles.loader}>
                <RoundLoader />
@@ -165,7 +189,7 @@ export const CommentariesGrid = ({
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

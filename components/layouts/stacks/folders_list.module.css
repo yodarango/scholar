@@ -84,3 +84,7 @@
    padding-right: var(--spacing-m);
    padding-bottom: var(--spacing-xxs);
 }
+
+.feedback {
+   margin: 5rem auto;
+}

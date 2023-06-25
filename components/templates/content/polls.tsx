@@ -6,13 +6,14 @@ import { MultipleChoicePollCard } from "../../../components/fragments/cards/mult
 import { ThumbsUpDownPoll } from "../../../components/fragments/cards/thumbs_up_down_poll";
 import { SecondaryStack } from "../../layouts/stacks/templates/secondary_stack";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./polls.module.css";
 
 // helpers
 import { getAllPolls } from "../../../helpers/functions/interactive/polls";
+import { Empty } from "../../common/feedback/empty";
 
 export const PollsTemplate = () => {
    // router
@@ -50,6 +51,12 @@ export const PollsTemplate = () => {
                   );
                })}
 
+            {polls.length === 0 && loading === "done" && (
+               <div className={styles.error}>
+                  <Empty />
+               </div>
+            )}
+
             {loading === "loading" && (
                <div className={styles.loader}>
                   <RoundLoader />
@@ -57,7 +64,7 @@ export const PollsTemplate = () => {
             )}
             {loading === "error" && (
                <div className={styles.error}>
-                  <ResourceNotFoundError />
+                  <ResourceNotFound />
                </div>
             )}
          </>

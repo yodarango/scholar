@@ -38,9 +38,8 @@
 .loader,
 .error {
    position: absolute;
-   width: 100%;
    display: flex;
    align-items: center;
    justify-content: center;
-   margin: 35vh 0;
+   margin: 10rem 0 0;
 }

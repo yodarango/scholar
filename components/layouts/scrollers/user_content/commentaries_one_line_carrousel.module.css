@@ -26,6 +26,7 @@
    align-items: center;
    justify-content: center;
    height: 12rem;
+   margin: 5rem auto 0;
 }
 
 .loadMore {

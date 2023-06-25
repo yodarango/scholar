@@ -17,7 +17,7 @@ import { PostCommentsWrapper } from "../scrollers/user_content/post_comments_wra
 import { PrimaryStack } from "./templates/primary_stack";
 import { PostCommentTextArea } from "../../fragments/inputs/post_comment_text_area";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./post_coments.module.css";

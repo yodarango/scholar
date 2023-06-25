@@ -9,7 +9,7 @@ import { InputPrimary } from "../../fragments/inputs/input_primary";
 import { ChangeSignature } from "../../layouts/account/settings/change_signature";
 import { Primary } from "../../fragments/buttons/primary";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import {
    getUserPrivacySettings,
    handleUpdatePrivacySettings
@@ -164,7 +164,7 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </div>

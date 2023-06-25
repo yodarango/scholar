@@ -57,7 +57,7 @@ const GoPro = () => {
          </div>
          <div className='bottom-spacer'></div>
          <div className='spacer-page-bottom'></div>
-         {/* {loadingState === "error" && <ResourceNotFoundError />} */}
+         {/* {loadingState === "error" && <ResourceNotFound />} */}
       </>
    );
 };

@@ -6,6 +6,8 @@ import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import styles from "./commentaries_by_folder.module.css";
 import { SearchInput } from "../../../fragments/inputs/search_input";
 import { CURRENT_VIEW_BOOK_BY_BOOK } from "../../stacks/commentaries_w_filter";
+import { Empty } from "../../../common/feedback/empty";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 
 type TCommentariesByBookProps = {
    query_type: string;
@@ -50,6 +52,19 @@ export const CommentariesByFolder = ({ query_type, cta }: TCommentariesByBookPro
                <RoundLoader />
             </div>
          )}
+
+         {status === "done" && folders.length === 0 && filter === "" && (
+            <div className={styles.feedback}>
+               <Empty />
+            </div>
+         )}
+
+         {status === "done" && folders.length === 0 && filter !== "" && (
+            <div className={styles.feedback}>
+               <ResourceNotFound />
+            </div>
+         )}
+
          {status === "done" &&
             folders &&
             folders.length > 0 &&

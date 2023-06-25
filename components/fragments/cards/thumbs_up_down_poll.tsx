@@ -14,7 +14,7 @@ import { Parragraph } from "../Typography/parragraph";
 import { Third } from "../buttons/third";
 import { NotificationSticker } from "./notification_sticker";
 import { RoundLoader } from "../chunks/round_loader";
-import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 //styles
 import styles from "./thumbs_up_down_poll.module.css";

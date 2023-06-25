@@ -15,7 +15,7 @@ import Link from "next/link";
 import { Icon } from "../chunks/icons";
 import { Header } from "../Typography/header";
 import { Parragraph } from "../Typography/parragraph";
-import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./daily_verse_card.module.css";
@@ -166,7 +166,7 @@ export const DailyVerseCard = memo(({ withOutActions, canComment }: TypeDailyVer
                   />
                </div>
                <div className={styles.error}>
-                  <ResourceNotFoundError />
+                  <ResourceNotFound />
                </div>
             </div>
          )}

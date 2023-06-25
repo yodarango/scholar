@@ -14,16 +14,18 @@ export const ScrollableHeader = ({ children, height, cta }: TScrollableHeader) =
    const [visible, setVisible] = useState(true);
 
    const handleScroll = () => {
-      let moving = window.pageYOffset;
+      let moving = window.scrollY;
 
-      setVisible(position > moving);
-      setPosition(moving);
+      if (position > 20) {
+         console.log(position, moving);
+
+         setVisible(position > moving);
+         setPosition(moving);
+      }
    };
 
    useEffect(() => {
       window.addEventListener("scroll", handleScroll);
-
-      setPosition(window.pageYOffset);
 
       return () => {
          window.removeEventListener("scroll", handleScroll);

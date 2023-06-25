@@ -10,7 +10,7 @@ import Image from "next/image";
 // child Comps
 import TextEditor from "../../../components/layouts/text_editor";
 import FormattingRules from "../../../components/fragments/text_editor_formating";
-import ResourceNotFoundError from "../../../components/fragments/chunks/error_resource_not_found";
+import ResourceNotFoundError from "../../../components/common/feedback/resource_not_found";
 
 // styes
 import editCommentaryStyles from "../../styles/posts/edit-posts/EditCommentary.module.css";

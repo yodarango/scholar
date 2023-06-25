@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // components
 import { SecondaryStack } from "../../layouts/stacks/templates/secondary_stack";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { ContentGraphicsPost } from "../../fragments/cards/content_graphics_post";
 
 // styles
@@ -20,6 +20,7 @@ import { CONTENT_LAST_ID, FAST_FACTS_PER_QUERY } from "../../../constants/defaul
 import { TFastFacts } from "../../../types/interactive";
 import { Primary } from "../../fragments/buttons/primary";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
+import { Empty } from "../../common/feedback/empty";
 
 export const AllFastFacts = () => {
    /// state
@@ -102,7 +103,12 @@ export const AllFastFacts = () => {
             )}
             {loading === "error" && (
                <div className={styles.error}>
-                  <ResourceNotFoundError />
+                  <ResourceNotFound />
+               </div>
+            )}
+            {fasfacts?.length === 0 && loading === "done" && (
+               <div className={styles.error}>
+                  <Empty />
                </div>
             )}
          </>

@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 // comps
 import { Thought } from "../../../fragments/cards/posts/thought";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 
 // styles
 import styles from "./thoughts_one_line_carrouse.module.css";
@@ -24,6 +24,8 @@ import {
    TgetThoughtsVariables
 } from "../../../../helpers/functions/posts/thought_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { Error } from "../../../common/feedback/error";
+import { Empty } from "../../../common/feedback/empty";
 
 type TThoughtsOneLineCarrouselProps = {
    loadingState?: string;
@@ -89,7 +91,17 @@ export const ThoughtsOneLineCarrousel = ({
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
+
+         {loading === "done" && thoughtsArr?.length === 0 && (
+            <div className={styles.error}>
+               <Empty />
+            </div>
+         )}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <Error />
+            </div>
+         )}
       </div>
    );
 };

@@ -40,7 +40,7 @@ export const PostsInFolder = () => {
          }
 
          if (typeof router.query.signature === "string") {
-            setuserId(router.query.signature);
+            setuserId(router.query.signature.replaceAll("[", "").replaceAll("]", ""));
          }
       }
    }, [router.isReady, router.query]);

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { WithTextContentStack } from "../../layouts/stacks/with_text_content_stack";
 import { handleGetCommentaries } from "../../../helpers/functions/posts/commentary_get";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
-import { ResourceNotFoundError } from "../../fragments/chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // types
 import { TCommentary } from "../../../types/posts";
@@ -83,7 +83,7 @@ export const ViewCommentary = ({ cta, withEdit, commentaryID, userId }: TViewCom
          {/* error */}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </>

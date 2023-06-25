@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 
 // components
 import Portal from "../../hoc/potal";
-import { ResourceNotFoundError } from "../chunks/error_resource_not_found";
+import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { IconButton } from "../buttons/icon_button";
 import { PrimaryStack } from "../../layouts/stacks/templates/primary_stack";
 import { VideoModalContent } from "../chunks/video_modal_content";
@@ -89,7 +89,7 @@ export const VideoThumbnailPrimary = ({ content }: TVideoThumbnailPrimaryProps) 
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFoundError />
+               <ResourceNotFound />
             </div>
          )}
       </>

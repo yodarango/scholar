@@ -20,6 +20,8 @@ import { TQuote } from "../../../../types/posts";
 import { handleGetQuote, TgetQuoteVariables } from "../../../../helpers/functions/posts/quote_get";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { Empty } from "../../../common/feedback/empty";
+import { Error } from "../../../common/feedback/error";
 
 type TQuoteOneLineCarrouselProps = {
    loadingState?: string;
@@ -65,7 +67,7 @@ export const QuoteOneLineCarrousel = ({
 
    return (
       <div className={styles.mainWrapper}>
-         {
+         {loading === "done" && (
             <div className={styles.carrousel}>
                {quotesArr?.map((quote: TQuote, index: number) => (
                   // <div className={styles.quote} key={index}>
@@ -73,13 +75,22 @@ export const QuoteOneLineCarrousel = ({
                   // </div>
                ))}
             </div>
-         }
+         )}
+         {loading == "done" && quotesArr?.length === 0 && (
+            <div className={styles.loader}>
+               <Empty />
+            </div>
+         )}
          {loading === "loading" && (
             <div className={styles.loader}>
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <Error />
+            </div>
+         )}
       </div>
    );
 };
