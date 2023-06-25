@@ -13,7 +13,7 @@ import { DELETE_ONE_THOUGHT } from "../../../graphql/posts/thoughts";
 import { EnumContentType } from "../../../types/enums";
 
 export const useDeleteContent = () => {
-   const [data, setData] = useState<any>({ ID: null, error: null });
+   const [data, setData] = useState<any>({ ID: null, error: null, status: "loading" });
 
    const handleDelete = async (id: string | number, type: EnumContentType) => {
       let CTYPE;
@@ -40,15 +40,17 @@ export const useDeleteContent = () => {
             variables: { ID: id }
          });
 
-         if (data.delete_one_commentary) setData(data.delete_one_commentary);
-         else if (data.delete_one_quote) setData(data.delete_one_quote);
-         else if (data.delete_one_thought) setData(data.delete_one_thought);
-         else if (data.delete_folder) setData(data.delete_folder);
+         if (data.delete_one_commentary)
+            setData({ ...data.delete_one_commentary, status: "success" });
+         else if (data.delete_one_quote) setData({ ...data.delete_one_quote, status: "success" });
+         else if (data.delete_one_thought)
+            setData({ ...data.delete_one_thought, status: "success" });
+         else if (data.delete_folder) setData({ ...data.delete_folder, status: "success" });
 
-         setData({ ID: null, error: "something went wrong" });
+         setData({ ID: null, error: "something went wrong", status: "error" });
       } catch (error) {
          console.error(error);
-         setData({ ID: null, error: "something went wrong" });
+         setData({ ID: null, error: "something went wrong", status: "error" });
       }
    };
 

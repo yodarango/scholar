@@ -24,6 +24,7 @@ import {
    TgetThoughtsVariables
 } from "../../../../helpers/functions/posts/thought_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { Error } from "../../../common/feedback/error";
 
 export const ThoughtsGrid = () => {
    // router
@@ -125,7 +126,7 @@ export const ThoughtsGrid = () => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFound />
+               <Error />
             </div>
          )}
       </div>

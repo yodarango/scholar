@@ -1,5 +1,6 @@
 // comps
 import { FONT_COLOR, PRIMARY_COLOR } from "../../../constants/tokens";
+import PortalSecondary from "../../hoc/portal_secondary";
 import { CloseContent } from "../buttons/close_content";
 import { Icon } from "../chunks/icons";
 import { Header } from "../Typography/header";
@@ -61,8 +62,10 @@ export const Notification = ({
    }
 
    return (
-      <>
-         {/* The default card that gets passed rendered  */}
+      <PortalSecondary>
+         {/* TODO: the backdrop gets rendered even if the parent component is not rendering the notification component if the 'body' conditional is removed. check why*/}
+
+         {(body || jsxContent) && <div className={styles.backdrop}></div>}
          {!customColor && body && (
             <div
                className={`${styles.mainWrapper} ${notificationType ? styles.isNotification : ""}`}>
@@ -133,6 +136,6 @@ export const Notification = ({
                <div>{jsxContent}</div>
             </div>
          )}
-      </>
+      </PortalSecondary>
    );
 };

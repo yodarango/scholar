@@ -21,6 +21,7 @@ import { TFastFacts } from "../../../types/interactive";
 import { Primary } from "../../fragments/buttons/primary";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
 import { Empty } from "../../common/feedback/empty";
+import { Error } from "../../common/feedback/error";
 
 export const AllFastFacts = () => {
    /// state
@@ -103,7 +104,7 @@ export const AllFastFacts = () => {
             )}
             {loading === "error" && (
                <div className={styles.error}>
-                  <ResourceNotFound />
+                  <Error />
                </div>
             )}
             {fasfacts?.length === 0 && loading === "done" && (

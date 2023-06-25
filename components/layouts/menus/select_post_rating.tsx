@@ -116,11 +116,14 @@ export const SelectPostRatingMenu = ({
    const handleRating = async (variables: TrateContent) => {
       cta.handleCloseModal();
       try {
-         const { data } = await rateContent(variables, contentType);
-         if (data && data[dataType]) {
+         const { data, status } = await rateContent(variables, contentType);
+         if (status === "done") {
             cta.handleRating(variables.rating, data[dataType].status);
+         } else if (status === "error") {
+            cta.handleRating(-1, -1);
          }
       } catch (error) {
+         cta.handleRating(-1, -1);
          console.error(error);
       }
    };

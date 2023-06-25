@@ -7,7 +7,7 @@ import { CommentaryOneLineCarrousel } from "../scrollers/user_content/commentari
 import styles from "./fast_facts.module.css";
 
 // types
-import { TCommentary } from "../../types/posts";
+import { TCommentary } from "../../../types/posts";
 
 type TCommentariesDisplayProps = {
    commentaries: TCommentary[];

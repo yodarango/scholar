@@ -30,6 +30,7 @@ import { WinningPoll } from "./winning_poll";
 import { createPollVote } from "../../../helpers/functions/interactive/polls";
 import Portal from "../../hoc/potal";
 import { Notification } from "../popups/notification";
+import { Error } from "../../common/feedback/error";
 
 type TThumbsUpDownPollProps = {
    dataFromParent?: boolean;
@@ -187,7 +188,11 @@ export const ThumbsUpDownPoll = ({ dataFromParent, data }: TThumbsUpDownPollProp
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && <div className={styles.error}>#needsgraphics</div>}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <Error />
+            </div>
+         )}
       </>
    );
 };

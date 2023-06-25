@@ -37,9 +37,9 @@
 
 .loader,
 .error {
-   position: absolute;
+   position: relative;
    display: flex;
    align-items: center;
    justify-content: center;
-   margin: 10rem 0 0;
+   margin: 10rem auto 0;
 }

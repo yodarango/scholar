@@ -10,20 +10,28 @@ export type TrateContent = {
    rating: number;
 };
 
-// TODO: The union for approvals is not working. Fix it.
 export const rateContent = async (variables: TrateContent, contentType: EnumContentType) => {
    const RATE_CONTENT =
       contentType === 1 ? RATE_COMMENT : contentType === 2 ? RATE_QUOTE : RATE_THOUGHT;
+   const queryName =
+      contentType === 1 ? "rate_comment" : contentType === 2 ? "rate_quote" : "rate_thought";
+   const responseName =
+      contentType === 1
+         ? "Commentary_Rating"
+         : contentType === 2
+         ? "Quote_Approval"
+         : "Thought_Approval";
    try {
       const { data } = await client.mutate({
          mutation: RATE_CONTENT,
          variables
       });
 
-      if (data) {
+      if (data[queryName].__typename === responseName) {
          return { data, status: "done" };
-      }
-      return { data: null, status: "error" };
+      } else if (data[queryName].__typename === "ServerError") {
+         return { data: null, status: "error" };
+      } else return { data: null, status: "error" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

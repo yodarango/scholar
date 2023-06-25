@@ -15,6 +15,7 @@ import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { Primary } from "../../fragments/buttons/primary";
 import { MAX_CONTENT_LOAD_WIGO } from "../../../constants/common";
 import { get } from "http";
+import { Error } from "../../common/feedback/error";
 
 export const WigoFeed = () => {
    const [posts, setposts] = useState<any[]>([]);
@@ -68,9 +69,9 @@ export const WigoFeed = () => {
       }
    };
 
-   //! If the server sends an error and does not load any posts when scrolling to the bottom
-   //! the app is thrown into a loop of get requests. fix this. Until it is fixed infinite
-   //! scrolling is disabled
+   //TODO: If the server sends an error and does not load any posts when scrolling to the bottom
+   //TODO: the app is thrown into a loop of get requests. fix this. Until it is fixed infinite
+   //TODO: scrolling is disabled
 
    // const fetchMoreData = () => {
    //    if (wrapper.current) {
@@ -94,6 +95,8 @@ export const WigoFeed = () => {
    return (
       <div className={styles.mainWrapper} ref={wrapper}>
          {loading !== "first_load" &&
+            loading !== "loading" &&
+            loading !== "error" &&
             posts.map((post, index) => {
                if (post.POST_TYPE === POST_TYPE_COMMENTARY?.toString())
                   return (
@@ -115,15 +118,23 @@ export const WigoFeed = () => {
                   );
             })}
 
+         {showLoadMore && loading !== "error" && (
+            <div className={styles.loader}>
+               <Primary cta={{ handleClick: () => fetchData() }} title='Load more' type='1' />
+            </div>
+         )}
+
          {/* loader */}
          {(loading === "loading" || loading === "first_load") && (
             <div className={styles.loader}>
                <RoundLoader />
             </div>
          )}
-         {showLoadMore && (
+
+         {/* error */}
+         {loading === "error" && (
             <div className={styles.loader}>
-               <Primary cta={{ handleClick: () => fetchData() }} title='Load more' type='1' />
+               <Error />
             </div>
          )}
       </div>

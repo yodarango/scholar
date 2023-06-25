@@ -14,6 +14,7 @@ import styles from "./polls.module.css";
 // helpers
 import { getAllPolls } from "../../../helpers/functions/interactive/polls";
 import { Empty } from "../../common/feedback/empty";
+import { Error } from "../../common/feedback/error";
 
 export const PollsTemplate = () => {
    // router
@@ -64,7 +65,7 @@ export const PollsTemplate = () => {
             )}
             {loading === "error" && (
                <div className={styles.error}>
-                  <ResourceNotFound />
+                  <Error />
                </div>
             )}
          </>

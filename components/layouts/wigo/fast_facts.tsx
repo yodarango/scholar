@@ -12,6 +12,7 @@ import { TFastFacts } from "../../../types/interactive";
 import { getFastFactsIn24 } from "../../../helpers/functions/interactive/fast_facts";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ResourceNotFound } from "../../common/feedback/resource_not_found";
+import { Error } from "../../common/feedback/error";
 
 export const FastFacts = () => {
    const [images, setimages] = useState<TFastFacts | null>();
@@ -53,7 +54,7 @@ export const FastFacts = () => {
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && <div className={styles.error}>#needsgraphics</div>}
+         {loading === "error" && <div className={styles.error}>{<Error />}</div>}
       </div>
    );
 };

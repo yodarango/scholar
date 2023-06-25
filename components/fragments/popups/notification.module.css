@@ -86,3 +86,14 @@
    color: var(--primary-color);
    fill: var(--primary-color);
 }
+
+.backdrop {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: var(--primary-color);
+   opacity: 0.5;
+   animation: fadeIn 500ms ease-in;
+}

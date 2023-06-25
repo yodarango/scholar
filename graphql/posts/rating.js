@@ -14,6 +14,10 @@ export const RATE_COMMENT = gql`
          ... on ExceedsPostCount {
             message
          }
+
+         ... on ServerError {
+            message
+         }
       }
    }
 `;
@@ -29,6 +33,9 @@ export const RATE_THOUGHT = gql`
          }
 
          ... on ExceedsPostCount {
+            message
+         }
+         ... on ServerError {
             message
          }
       }
@@ -47,6 +54,9 @@ export const RATE_QUOTE = gql`
          }
 
          ... on ExceedsPostCount {
+            message
+         }
+         ... on ServerError {
             message
          }
       }

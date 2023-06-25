@@ -217,6 +217,20 @@ export const errorMessages = {
          description: "when an array of folders fail to perform a certain bulk action",
          title: "Could not perform operation",
          body: "Sorry, the selected folders were not updated, try again later!"
+      },
+      pollVoting: {
+         id: 13,
+         type: "error",
+         description: "when a user fails to vote on a poll",
+         title: "Could not vote",
+         body: "Sorry, we were unable to register your vote, try again later!"
+      },
+      ratingContent: {
+         id: 14,
+         type: "error",
+         description: "when a user fails to rate a post",
+         title: "Could not rate post",
+         body: "Sorry, we were unable to register your rating, try again later!"
       }
    },
    read: {

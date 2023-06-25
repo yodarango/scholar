@@ -29,7 +29,7 @@ export const Error = ({ size = "medium" }: TEmptyProps) => {
          <Parragraph
             align='center'
             size='small'
-            text='Sorry something went wrong, please try again later!'
+            text="Sorry something went wrong, I'm working on it."
          />
       </div>
    );

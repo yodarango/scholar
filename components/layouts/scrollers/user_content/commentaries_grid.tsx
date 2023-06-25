@@ -28,6 +28,7 @@ import {
 } from "../../../../helpers/functions/posts/commentary_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 import { Empty } from "../../../common/feedback/empty";
+import { Error } from "../../../common/feedback/error";
 
 type TCommentariesGridProps = {
    verseId?: string; // not used by any comps at the moment
@@ -189,7 +190,7 @@ export const CommentariesGrid = ({
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFound />
+               <Error />
             </div>
          )}
       </div>

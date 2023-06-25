@@ -46,8 +46,8 @@ export const Thought = ({ cta, thought }: TThoughtProps) => {
    useEffect(() => {
       if (data && data.ID) {
          setisDeleted(true);
-      } else {
-         setNotification(false);
+      } else if (data && data.error) {
+         setNotification(true);
       }
    }, [data]);
 

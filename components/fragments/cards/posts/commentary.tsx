@@ -44,14 +44,14 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
    useEffect(() => {
       if (data && data.ID) {
          setisDeleted(true);
-      } else {
-         setNotification(false);
+      } else if (data && data.error) {
+         setNotification(true);
       }
    }, [data]);
 
    return (
       <>
-         {notification && (
+         {notification === true && (
             <Portal>
                <Notification
                   cta={{ handleClose: () => setNotification(false) }}

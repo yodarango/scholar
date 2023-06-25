@@ -98,14 +98,20 @@ export const createPollVote = async (variables: TcreatePollVoteVariables) => {
          mutation: CREATE_POLL_VOTE,
          variables
       });
+
       if (data) {
          if (data.poll_vote.__typename === "NotAuthorized") {
             return { error: errorMessages.auth.pleaseLogin };
          } else if (data.poll_vote.__typename === "PollVote") {
             return true;
+         } else {
+            return { error: errorMessages.posts.pollVoting };
          }
+      } else {
+         return { error: errorMessages.posts.pollVoting };
       }
    } catch (error) {
+      return { error: errorMessages.posts.pollVoting };
       console.error(error);
    }
 };

@@ -28,6 +28,7 @@ import { WinningPoll } from "./winning_poll";
 import { createPollVote } from "../../../helpers/functions/interactive/polls";
 import { Notification } from "../popups/notification";
 import Portal from "../../hoc/potal";
+import { Error } from "../../common/feedback/error";
 
 type TMultipleChoicePollCardProps = {
    dataFromParent?: boolean;
@@ -95,7 +96,7 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
          let vote = setAllVotesToZero.join(":");
 
          const voteIt: any = await createPollVote({ POLL_ID: id, type, vote });
-         console.log(voteIt);
+
          if (voteIt === true) {
             document.cookie = `multChoice${poll?.ID}=${selection}; expires=${cookieExpiration}; path=/`;
             setvotedFor(selection);
@@ -186,7 +187,11 @@ export const MultipleChoicePollCard = ({ dataFromParent, data }: TMultipleChoice
                <RoundLoader />
             </div>
          )}
-         {loading === "error" && <div className={styles.error}>#needsgraphics</div>}
+         {loading === "error" && (
+            <div className={styles.error}>
+               <Error />
+            </div>
+         )}
       </>
    );
 };

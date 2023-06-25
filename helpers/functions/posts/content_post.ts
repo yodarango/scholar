@@ -32,6 +32,7 @@ export type THandlePostContent = {
    author?: String;
    background?: String;
    sticker?: String;
+   type: number;
 };
 
 export const dataHandler = async (
@@ -40,6 +41,7 @@ export const dataHandler = async (
    type: string,
    requestType: string
 ) => {
+   variables.type = type === "Commentary" ? 1 : type === "Quote" ? 2 : 3;
    try {
       const { data } = await client.mutate({
          mutation: QUERY,

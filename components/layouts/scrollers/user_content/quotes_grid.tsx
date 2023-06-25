@@ -19,6 +19,7 @@ import styles from "./quotes_grid.module.css";
 // types
 import { TQuote } from "../../../../types/posts";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
+import { Error } from "../../../common/feedback/error";
 
 export const QuotesGrid = () => {
    // router
@@ -127,7 +128,7 @@ export const QuotesGrid = () => {
          )}
          {loading === "error" && (
             <div className={styles.error}>
-               <ResourceNotFound />
+               <Error />
             </div>
          )}
       </div>

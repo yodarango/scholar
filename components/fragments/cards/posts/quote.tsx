@@ -39,8 +39,8 @@ export const Quote = ({ quote, type = 0, className = "" }: TQuoteProps) => {
    useEffect(() => {
       if (data && data.ID) {
          setisDeleted(true);
-      } else {
-         setNotification(false);
+      } else if (data && data.error) {
+         setNotification(true);
       }
    }, [data]);
 
