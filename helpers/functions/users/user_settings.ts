@@ -61,10 +61,10 @@ export const handleUpdateGeneralSettings: (variables: ThandleUpdateSettings) => 
          variables
       });
 
-      if (data.update_general_settings) {
-         return { data: data.update_general_settings, status: "done" };
-      }
-      return { data: null, status: "done" };
+      // if (data.update_general_settings) {
+      //    return { data: data.update_general_settings, status: "done" };
+      // }
+      return { data: null, status: "error" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

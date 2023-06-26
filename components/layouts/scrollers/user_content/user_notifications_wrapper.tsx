@@ -18,6 +18,8 @@ import {
 import { NOTIFICATIONS_LAST_ID } from "../../../../constants/defaults";
 import { Primary } from "../../../fragments/buttons/primary";
 import { Parragraph } from "../../../fragments/Typography/parragraph";
+import { Error } from "../../../common/feedback/error";
+import { Empty } from "../../../common/feedback/empty";
 
 type TUserNotificationsWrapperProps = {
    title: string;
@@ -42,6 +44,7 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
 
          const isloadMore = data && data.length === 25 && status === "done" ? "done" : "none";
          isFetchMore ? setnotifications((prev) => [...prev, ...data]) : setnotifications(data);
+
          setloading(status);
          setcanLoadMore(isloadMore);
       } catch (error) {
@@ -72,15 +75,7 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
                   </div>
                ))}
 
-            {notifications.length === 0 && (
-               <>
-                  <div className={styles.noNotifications}>{/* #NEEDS GRAPHICS */}</div>
-                  <div className={styles.noNotificationsText}>
-                     <Parragraph quiet text='Nothing here yet!' size='xlarge' bold />
-                  </div>
-               </>
-            )}
-            {canLoadMore === "done" && (
+            {canLoadMore === "done" && notifications.length === 25 && (
                <div className={styles.loadMore}>
                   <Primary
                      title='Load more'
@@ -108,7 +103,12 @@ export const UserNotificationsWrapper = ({ cta, title }: TUserNotificationsWrapp
                </div>
             )}
             {/* error */}
-            {loading === "error" && <div className={styles.error}>{/* #NEEDS GRAPHICS */}</div>}
+            {loading === "error" && (
+               <div className={styles.error}>
+                  <Error />
+               </div>
+            )}
+            {loading === "done" && notifications.length === 0 && <Empty />}
          </div>
       </PrimaryStack>
    );

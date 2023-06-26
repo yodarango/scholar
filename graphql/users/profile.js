@@ -128,12 +128,18 @@ export const UPDATE_GENERAL_SETTINGS = gql`
             my_job: $my_job
          }
       ) {
-         my_true_color_personality_test
-         my_favorite_color
-         my_favorite_verse
-         my_ministry
-         my_church
-         my_job
+         ... on User {
+            my_true_color_personality_test
+            my_favorite_color
+            my_favorite_verse
+            my_ministry
+            my_church
+            my_job
+         }
+
+         ... on DatabaseError {
+            message
+         }
       }
    }
 `;

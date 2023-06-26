@@ -45,9 +45,13 @@ type TGeneralSettings = {
 };
 
 export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
-   const [notification, setnotification] = useState<string | null>(null);
    // state
    const [generalSettings, setgeneralSettings] = useState<ThandleUpdateSettings>(settingsDefaults);
+   const [notification, setnotification] = useState<{
+      title: string;
+      body: string;
+      type: string;
+   } | null>(null);
    const [loading, setloaading] = useState<string>("loading");
 
    const getData = async () => {
@@ -67,11 +71,11 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
    // handle the saving
    const handleSave = async () => {
       try {
-         const { data } = await handleUpdateGeneralSettings(generalSettings);
+         const { data, status } = await handleUpdateGeneralSettings(generalSettings);
          if (data) {
-            setnotification("2");
-         } else {
-            setnotification("4");
+            setnotification({ ...notificationMessages.settingsSaved, type: "2" });
+         } else if (status === "error") {
+            setnotification(data.error);
          }
       } catch (error) {
          console.error(error);
@@ -83,9 +87,9 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
          {notification && (
             <Portal>
                <Notification
-                  title={notificationMessages.settingsSaved.title}
-                  body={notificationMessages.settingsSaved.body}
-                  type={notification}
+                  title={notification.title}
+                  body={notification.body}
+                  type={notification.type}
                   cta={{ handleClose: () => setnotification(null) }}
                />
             </Portal>
@@ -141,7 +145,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                            setgeneralSettings({ ...generalSettings, my_favorite_verse: value })
                      }}
                      maxL={150}
-                     placeholder='Church I attend'
+                     placeholder='My favorite verse'
                      type='text'
                      value={generalSettings.my_favorite_verse}
                   />
@@ -153,7 +157,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                            setgeneralSettings({ ...generalSettings, my_job: value })
                      }}
                      maxL={150}
-                     placeholder='Church I attend'
+                     placeholder='My job'
                      type='text'
                      value={generalSettings.my_job}
                   />
@@ -165,7 +169,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                            setgeneralSettings({ ...generalSettings, my_favorite_color: value })
                      }}
                      maxL={150}
-                     placeholder='Church I attend'
+                     placeholder='My favorite color'
                      type='text'
                      value={generalSettings.my_favorite_color}
                   />
