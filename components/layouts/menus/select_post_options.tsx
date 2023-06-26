@@ -84,6 +84,7 @@ export const SelectpostOptions = ({
    const reportPost = async () => {
       try {
          const data = await reportCommentary({ POST_ID: postid, USER_ID: userId }, contentType);
+
          if (data === true) {
             setshowNotification({
                title: notificationMessages.postReported.title,
@@ -124,7 +125,7 @@ export const SelectpostOptions = ({
    const handleReport = () => {
       const user = loggedInUser();
       if (!user) setOpenModal(true);
-      else if (user && cta.handleSaveToFolder) reportPost();
+      else if (user) reportPost();
    };
 
    return (

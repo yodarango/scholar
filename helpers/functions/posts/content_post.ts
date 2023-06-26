@@ -48,7 +48,11 @@ export const dataHandler = async (
          variables
       });
 
-      if (data[requestType.toLowerCase()].__typename === type) {
+      console.log(data[requestType.toLowerCase()]);
+      if (
+         data[requestType.toLowerCase()]?.ID &&
+         data[requestType.toLowerCase()].__typename === type
+      ) {
          return { success: notificationMessages.postSuccess };
       } else if (data[requestType.toLowerCase()].__typename === "ExceedsPostCount") {
          return { error: errorMessages.posts.maxPostCount };

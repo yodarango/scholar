@@ -24,6 +24,7 @@ export const reportCommentary: any = async (
          : type === 3
          ? REPORT_THOUGHT
          : REPORT_SERMON_NOTE;
+
    try {
       const { data } = await client.mutate({
          mutation: CONTENT,
@@ -31,14 +32,18 @@ export const reportCommentary: any = async (
       });
       const key = Object.keys(data)[0];
 
+      console.log(data);
+
       if (data) {
-         if (data[key].__typename === "NotAuthorized") {
+         if (data[key]?.__typename === "NotAuthorized") {
             return { error: { ...errorMessages.auth.pleaseLogin, type: "4" } };
+         } else if (!data[key]) {
+            return { error: { ...errorMessages.posts.reportContent, type: "4" } };
          } else {
             return true;
          }
       } else {
-         return false;
+         return { error: { ...errorMessages.posts.reportContent, type: "4" } };
       }
 
       // TODO: fix this to return proper data when data is null

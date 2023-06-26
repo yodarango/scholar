@@ -40,11 +40,16 @@ export const handlePostBookMark = async (CHAPTER_ID: string | number) => {
          query: POST_BOOKMARK,
          variables: { CHAPTER_ID }
       });
-
-      if (data.new_bookmark.__typename === "Bookmark") {
+      console.log(data);
+      if (data.new_bookmark.__typename === "Bookmark" && data.new_bookmark?.ID) {
          return { data, status: "done", error: null };
       } else if (data.new_bookmark.__typename === "NotAuthorized") {
          return { error: { ...errorMessages.auth.pleaseLogin, type: "4" }, status: "not_auth" };
+      } else if (data.new_bookmark.__typename === "ServerError") {
+         return {
+            error: { ...errorMessages.posts.bookmarkChapter, type: "4" },
+            status: "server_error"
+         };
       }
       return { data: null, error: null, status: "error" };
    } catch (error) {
@@ -62,11 +67,15 @@ export const handleRemoveBookMark = async (CHAPTER_ID: string | number) => {
          query: REMOVE_BOOKMARK,
          variables: { CHAPTER_ID }
       });
-      console.log(data);
-      if (data.remove_bookmark.__typename === "Bookmark") {
+      if (data.remove_bookmark.__typename === "Bookmark" && data.remove_bookmark?.ID) {
          return { data, status: "done", error: null };
-      } else if (data.new_bookmark.__typename === "NotAuthorized") {
+      } else if (data.remove_bookmark.__typename === "NotAuthorized") {
          return { error: { ...errorMessages.auth.pleaseLogin, type: "4" }, status: "not_auth" };
+      } else if (data.remove_bookmark.__typename === "ServerError") {
+         return {
+            error: { ...errorMessages.posts.bookmarkChapter, type: "4" },
+            status: "server_error"
+         };
       }
       return { data: null, error: null, status: "error" };
    } catch (error) {

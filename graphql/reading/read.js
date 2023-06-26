@@ -82,6 +82,10 @@ export const POST_BOOKMARK = gql`
          ... on NotAuthorized {
             message
          }
+
+         ... on ServerError {
+            message
+         }
       }
    }
 `;
@@ -95,6 +99,10 @@ export const REMOVE_BOOKMARK = gql`
          }
 
          ... on NotAuthorized {
+            message
+         }
+
+         ... on ServerError {
             message
          }
       }

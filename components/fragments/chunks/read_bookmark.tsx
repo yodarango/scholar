@@ -52,7 +52,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
                if (data.status === "done") {
                   setbookMarked(value);
                   setshowBookmarks(false);
-               } else if (data.status === "not_auth") {
+               } else if (data.status === "not_auth" || data.status === "server_error") {
                   setshowBookmarks(false);
                   setnotification(data.error);
                }
@@ -64,7 +64,7 @@ export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) =
                if (data.status === "done") {
                   setbookMarked(value);
                   setshowBookmarks(false);
-               } else if (data.status === "not_auth") {
+               } else if (data.status === "not_auth" || data.status === "server_error") {
                   setshowBookmarks(false);
                   setnotification(data.error);
                }

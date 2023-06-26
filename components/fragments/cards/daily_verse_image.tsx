@@ -31,6 +31,8 @@ export const DailyVerseImage = ({
 
    //  state
    const [verse, setVerse] = useState<null | TBibleVerse>(null);
+   const [fontStyles, setFontStyles] = useState<string>("");
+   const [randomImg, setRandomImg] = useState<number>(0);
 
    // get a new verse
    const getVerse = async () => {
@@ -49,14 +51,17 @@ export const DailyVerseImage = ({
       }
    }, [router.isReady]);
 
-   // choose image based on random number
-   const randomImg = Math.floor(Math.random() * 31);
-   // Random font class
-   const fontClass = Math.floor(Math.random() * 3);
-
-   // get the right font class
-   const fontStyles =
-      fontClass === 0 ? styles.fontOne : fontClass === 1 ? styles.fontTwo : styles.fontThree;
+   useEffect(() => {
+      // choose image based on random number
+      const randomImg = Math.floor(Math.random() * 31);
+      setRandomImg(randomImg);
+      // Random font class
+      const fontClass = Math.floor(Math.random() * 3);
+      // get the right font class
+      const fontStyles =
+         fontClass === 0 ? styles.fontOne : fontClass === 1 ? styles.fontTwo : styles.fontThree;
+      setFontStyles(fontStyles);
+   }, []);
 
    return (
       <>

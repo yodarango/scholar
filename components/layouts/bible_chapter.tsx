@@ -173,6 +173,7 @@ export const BibleChapter = ({
       if (highlight_type === -1) {
          try {
             const data: any = await handleRemoveHighlight(VERSE_ID);
+
             if (data.status === "done") {
                // if the verse is removed remove the verse from the array
                const findVerse = highlightedVerses.filter(
@@ -181,9 +182,12 @@ export const BibleChapter = ({
 
                sethighlightedVerses(findVerse);
             } else if (data.status === "not_auth") {
+               setOpenModal(true);
+            } else if (data.status === "server_error") {
                setnotification(data.error);
             }
          } catch (error) {
+            setnotification(errorMessages.posts.highLightVerse);
             console.error(error);
          }
       } else {
@@ -201,12 +205,15 @@ export const BibleChapter = ({
                );
                sethighlightedVerses([
                   ...findVerse,
-                  { ID: 2, USER_ID: "1", VERSE_ID, highlight_type }
+                  { ID: 2, USER_ID: "1", VERSE_ID, highlight_type, color }
                ]);
             } else if (data.status === "not_auth") {
                setOpenModal(true);
+            } else if (data.status === "server_error") {
+               setnotification(data.error);
             }
          } catch (error) {
+            setnotification(errorMessages.posts.highLightVerse);
             console.error(error);
          }
       }

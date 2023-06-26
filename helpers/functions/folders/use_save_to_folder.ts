@@ -24,7 +24,7 @@ export const useSaveToFolders = () => {
             variables
          });
 
-         if (data.save_to_folder) {
+         if (data.save_to_folder?.ID) {
             setdata(data.save_folder || data.edit_folder);
             setstatus({
                title: notificationMessages.savedToFolder.title,

@@ -21,6 +21,11 @@ import { postContentComment } from "../../../helpers/functions/posts/content_pos
 import { EnumContentType } from "../../../types/enums";
 import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 import { POST_TYPE_QUOTE, POST_TYPE_COMMENTARY } from "../../../constants/defaults";
+import { Notification } from "../popups/notification";
+import { errorMessages } from "../../../data/error_messages";
+const {
+   posts: { contentComment }
+} = errorMessages;
 
 type TPostCommentTextAreaProps = {
    postId: string | number;
@@ -49,6 +54,11 @@ export const PostCommentTextArea = ({
    const [resetInput, setresetInput] = useState<number>(0);
    const [displayInput, setdisplayInput] = useState(true);
    const [loading, setloading] = useState("done");
+   const [notification, setnotification] = useState<{
+      title: string;
+      body: string;
+      type: string;
+   } | null>(null);
 
    const dataType =
       contentType === POST_TYPE_COMMENTARY
@@ -72,12 +82,17 @@ export const PostCommentTextArea = ({
       );
 
       if (data) {
-         setloading("done");
          if (data.__typename === dataType) {
             cta.handleValue(data);
          } else if ((data.__typename = "NotAuthorized")) {
             setOpenModal(true);
          }
+      } else {
+         setnotification({
+            ...contentComment,
+            type: "4"
+         });
+         setloading("done");
       }
 
       // send post to parent array
@@ -99,6 +114,15 @@ export const PostCommentTextArea = ({
 
    return (
       <>
+         {notification && (
+            <Notification
+               title={notification?.title || ""}
+               body={notification?.body}
+               type={notification?.type || "1"}
+               cta={{ handleClose: () => setnotification(null) }}
+            />
+         )}
+
          {displayInput && (
             <div className={styles.mainWrapper}>
                <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />

@@ -7,18 +7,17 @@ import { REQUEST_TYPE_IS_NEW_THOUGHT } from "../../../../helpers/functions/posts
 // styles
 import styles from "./index.module.css";
 import { UseIsAuth } from "../../../../hooks/use_check_auth";
+import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 
 const NewThought = () => {
-   useEffect(() => {
-      // get the user data
-   }, []);
+   const user = loggedInUser();
 
    return (
       <UseIsAuth redirect='/login'>
          <div className={styles.mainWrapper}>
             <ThoughtTextEditor
                requestType={REQUEST_TYPE_IS_NEW_THOUGHT}
-               avatar='/images/user_avatar'
+               avatar={user?.avatar || "/images/user_avatars/males/10.png"}
                username='Username'
                userAuthority={1}
                userId='123'

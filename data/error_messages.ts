@@ -231,6 +231,34 @@ export const errorMessages = {
          description: "when a user fails to rate a post",
          title: "Could not rate post",
          body: "Sorry, we were unable to register your rating, try again later!"
+      },
+      contentComment: {
+         id: 15,
+         type: "error",
+         description: "when a user fails to comment on a post",
+         title: "Could not comment",
+         body: "Sorry, we were unable to post your comment, try again later!"
+      },
+      reportContent: {
+         id: 16,
+         type: "error",
+         description: "when a user fails to report a post",
+         title: "Could not report post",
+         body: "Sorry, we were unable to report this post, try again later!"
+      },
+      bookmarkChapter: {
+         id: 17,
+         type: "error",
+         description: "when a user fails to bookmark a chapter",
+         title: "Could not bookmark chapter",
+         body: "Sorry, we were unable to bookmark this chapter, try again later!"
+      },
+      highLightVerse: {
+         id: 18,
+         type: "error",
+         description: "when a user fails to highlight a verse",
+         title: "Could not highlight verse",
+         body: "Sorry, we were unable to highlight this verse, try again later!"
       }
    },
    read: {

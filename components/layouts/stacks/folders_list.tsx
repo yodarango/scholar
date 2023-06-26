@@ -345,11 +345,15 @@ export const FolderList = ({ includeBulkAction, cta, isPlacingPostInFolder }: TF
                               <FolderCard
                                  cta={{
                                     handleClick: () => {
-                                       selectFolderActive
-                                          ? handleSelect(i, folder.ID, undefined)
-                                          : router.push(
-                                               `/users/${userSignature}/folders/${folder.ID}`
-                                            );
+                                       if (selectFolderActive) {
+                                          handleSelect(i, folder.ID, undefined);
+                                       } else if (cta?.handleFolderSelection) {
+                                          cta?.handleFolderSelection(folder.ID);
+                                       } else {
+                                          router.push(
+                                             `/users/${userSignature}/folders/${folder.ID}`
+                                          );
+                                       }
                                     }
                                  }}
                                  smallDescription={

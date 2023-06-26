@@ -46,7 +46,7 @@ export const handlePostHighlight = async (variables: ThandlePostHighlight) => {
          variables
       });
 
-      if (data) {
+      if (data?.new_highlighted_verse) {
          if (data.new_highlighted_verse.__typename === "Highlight") {
             return { data: data.new_highlighted_verse, error: null, status: "done" };
          } else if (data.new_highlighted_verse.__typename === "NotAuthorized") {
@@ -57,7 +57,11 @@ export const handlePostHighlight = async (variables: ThandlePostHighlight) => {
             };
          }
       } else {
-         return { data: null, error: null, status: "error" };
+         return {
+            data: null,
+            error: { ...errorMessages.posts.highLightVerse, type: "4" },
+            status: "server_error"
+         };
       }
    } catch (error) {
       console.error(error);
@@ -72,7 +76,7 @@ export const handleRemoveHighlight = async (VERSE_ID: string | number) => {
          variables: { VERSE_ID }
       });
 
-      if (data) {
+      if (data?.remove_highlighted_verse) {
          if (data.remove_highlighted_verse.__typename === "Highlight") {
             return { data: data.remove_highlighted_verse, error: null, status: "done" };
          } else if (data.remove_highlighted_verse.__typename === "NotAuthorized") {
@@ -83,7 +87,11 @@ export const handleRemoveHighlight = async (VERSE_ID: string | number) => {
             };
          }
       } else {
-         return { data: null, error: null, status: "error" };
+         return {
+            data: null,
+            error: { ...errorMessages.posts.highLightVerse, type: "4" },
+            status: "server_error"
+         };
       }
    } catch (error) {
       console.error(error);
