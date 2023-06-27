@@ -94,7 +94,7 @@ export const FolderCard = ({
                         setShowModal(false);
                         handleDelete(id, CONTENT_TYPE_FOLDER);
                      },
-                     handleEdit: () => router.push(`/users/${userSignature}folders/edit/${ID}`)
+                     handleEdit: () => router.push(`/users/${userSignature}/folders/edit/${ID}`)
                   }}
                   folderId={ID}
                />

@@ -29,7 +29,11 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
       birth_date: "",
       gender: null
    });
-   const [notification, setnotification] = useState<string | null>(null);
+   const [notification, setnotification] = useState<{
+      body: string;
+      title: string;
+      type: string;
+   } | null>(null);
    const [loading, setloaading] = useState<string>("loading");
 
    const getData = async () => {
@@ -59,12 +63,12 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
    // handle the saving
    const handleSave = async () => {
       try {
-         const { data } = await handleUpdatePrivacySettings(privacySettings);
+         const { data, error } = await handleUpdatePrivacySettings(privacySettings);
 
          if (data) {
-            setnotification("2");
+            setnotification({ ...notificationMessages.settingsSaved, type: "2" });
          } else {
-            setnotification("4");
+            setnotification(error);
          }
       } catch (error) {
          console.error(error);
@@ -76,9 +80,9 @@ export const PrivacySettings = ({ onGoBack }: PrivacySettingsProps) => {
          {notification && (
             <Portal>
                <Notification
-                  title={notificationMessages.settingsSaved.title}
-                  body={notificationMessages.settingsSaved.body}
-                  type={notification}
+                  title={notification.title}
+                  body={notification.body}
+                  type={notification.type}
                   cta={{ handleClose: () => setnotification(null) }}
                />
             </Portal>

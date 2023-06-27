@@ -5,21 +5,21 @@ export const errorMessages = {
          type: "error",
          description:
             "Check user's email to see if it exists. This is specially useful on password recovery.",
-         title: "Email Not Found 🔎",
+         title: "Email Not Found",
          body: "Sorry! the email address provided was not found. Please try again"
       },
       wrongVerificationCode: {
          id: 1,
          type: "error",
          description: "if the user inserts incorrect account verification code",
-         title: "Wrong code ❌",
+         title: "Wrong code",
          body: "The code you entered is incorrect or has expired, please try again!"
       },
       unableToUpdatePassword: {
          id: 2,
          type: "error",
          description: "if the user is unable to update their password",
-         title: "Oh no! 😔",
+         title: "Oh no!",
          body: "We were unable to update your password, please try again later!"
       },
 
@@ -27,7 +27,7 @@ export const errorMessages = {
          id: 3,
          type: "error",
          description: "if the avatar is unable to update their password",
-         title: "Oh no! 🙉",
+         title: "Oh no!",
          body: "We were unable to update your avatar, please try again later!"
       },
       unableToUpdateSignature: {
@@ -35,7 +35,7 @@ export const errorMessages = {
          type: "error",
          description:
             "if the avatar is unable to update their signature either because it has already been taken or because something went wrong",
-         title: "Oh no! 🐀",
+         title: "Oh no!",
          body: "We were unable to update your signature, please try again later!"
       },
       unableToUpdateEmail: {
@@ -43,7 +43,7 @@ export const errorMessages = {
          type: "error",
          description:
             "if the email is unable to update their email either because it has already been taken or because something went wrong",
-         title: "Oh no! 🐀",
+         title: "Oh no!",
          body: "We were unable to update your email, please try again later!"
       },
       unableToUpdateAboutMe: {
@@ -74,6 +74,13 @@ export const errorMessages = {
             "When a user attempts to change their password but the current password they entered is incorrect",
          title: "Hmm!",
          body: "The password you entered does not match the current password. Please try again!"
+      },
+      unableToUpdateSettings: {
+         id: 10,
+         type: "error",
+         description: "When a user attempts to change their settings but something goes wrong",
+         title: "Fail to update",
+         body: "We were unable to update your settings. Please try again later!"
       }
    },
    forms: {
@@ -128,7 +135,7 @@ export const errorMessages = {
          id: 0,
          type: "error",
          description: "Users on the free tier will get this error once their max count is reached",
-         title: "This is sad! 😞",
+         title: "This is sad!",
          body: "Sorry, you have exceeded the max amount of posts. Please delete some of your posts or consider supporting Shrood to gain unlimited data"
       },
       failToPostCommentary: {
@@ -136,14 +143,14 @@ export const errorMessages = {
          type: "error",
          description:
             "A post failed to post for unknown reasons to the client. Message will be returned from the 'catch' block of a function ",
-         title: "Could not post ⬆️",
+         title: "Could not post ",
          body: "Your post could not be uploaded, please try again later! If the problem persists please consider submitting a bug report!"
       },
       fileTooBig: {
          id: 2,
          type: "error",
          description: "Lets the user know that the file they tried to upload is too big",
-         title: "File too big 🐘",
+         title: "File too big",
          body(size: string) {
             return `Your file is too big. Max size is ${size}, please try again!`;
          }
@@ -152,35 +159,35 @@ export const errorMessages = {
          id: 3,
          type: "error",
          description: "shows if a category tag is not selected. ",
-         title: "You must select a category 🏷",
+         title: "You must select a category",
          body: "Your post does not have a category. Please select one and try again!"
       },
       missingVerse: {
          id: 4,
          type: "error",
          description: "shows if a verse to comment on is not selected. ",
-         title: "You must select a verse 📖",
+         title: "You must select a verse",
          body: "Please select the verse you would like to comment on before continuing"
       },
       emptyBody: {
          id: 5,
          type: "error",
          description: "post body cannot be empty ",
-         title: "Empty text box 📭",
-         body: "That text box looks better when it has text on it 😉"
+         title: "Empty text box",
+         body: "That text box looks better when it has text on it"
       },
       missingTitle: {
          id: 6,
          type: "error",
          description: "post title cannot be empty ",
-         title: "Title must be provided 📰",
+         title: "Title must be provided",
          body: "How about we enter a title to make your post searchable? "
       },
       missingAuthor: {
          id: 7,
          type: "error",
          description: "users must enter an author quote",
-         title: "Do you know the author? 🖋",
+         title: "Do you know the author?",
          body: "Please give the author credit or type unknown if you don't know!"
       },
       failedToDeletePost: {
@@ -302,7 +309,7 @@ export const errorMessages = {
          id: 2,
          type: "error",
          description: "if the user inserts incorrect account verification code",
-         title: "Oops 🙈",
+         title: "Oops",
          body: "Something has gone south and we're at it, please try again later!"
       }
    },

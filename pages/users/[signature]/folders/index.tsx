@@ -6,7 +6,6 @@ const Index = () => {
    const { signature } = router.query;
    let userId = signature ? signature.toString().replaceAll("[", "").replaceAll("]", "") : "@me";
 
-   console.log(signature);
    return (
       <div>
          <FolderList

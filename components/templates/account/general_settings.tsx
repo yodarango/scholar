@@ -71,11 +71,11 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
    // handle the saving
    const handleSave = async () => {
       try {
-         const { data, status } = await handleUpdateGeneralSettings(generalSettings);
+         const { data, status, error } = await handleUpdateGeneralSettings(generalSettings);
          if (data) {
             setnotification({ ...notificationMessages.settingsSaved, type: "2" });
          } else if (status === "error") {
-            setnotification(data.error);
+            setnotification(error);
          }
       } catch (error) {
          console.error(error);

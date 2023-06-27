@@ -33,6 +33,7 @@ export const useBulkAction = () => {
 
    const goDo = async (variables: TUseBulkActionVariables) => {
       setStatus("loading");
+
       try {
          const { data } = await client.query({
             query: BULK_ACTION,

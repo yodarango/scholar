@@ -54,6 +54,7 @@ export type ThandleUpdateSettings = {
 export const handleUpdateGeneralSettings: (variables: ThandleUpdateSettings) => Promise<{
    data: any;
    status: string;
+   error: any;
 }> = async (variables: ThandleUpdateSettings) => {
    try {
       const { data } = await client.mutate({
@@ -61,13 +62,20 @@ export const handleUpdateGeneralSettings: (variables: ThandleUpdateSettings) => 
          variables
       });
 
-      // if (data.update_general_settings) {
-      //    return { data: data.update_general_settings, status: "done" };
-      // }
-      return { data: null, status: "error" };
+      if (data.update_general_settings) {
+         return { data: data.update_general_settings, status: "done", error: null };
+      }
+      return {
+         data: null,
+         status: "error",
+         error: { ...errorMessages.account.unableToUpdateSettings, type: "4" }
+      };
    } catch (error) {
-      console.error(error);
-      return { data: null, status: "error" };
+      return {
+         data: null,
+         status: "error",
+         error: { ...errorMessages.account.unableToUpdateSettings, type: "4" }
+      };
    }
 };
 
@@ -81,11 +89,11 @@ export const handleUpdateAvater = async (avatar: string) => {
       if (data.update_user_avatar) {
          return { data: data.update_user_avatar, status: "done" };
       } else {
-         return { data: null, status: "error" };
+         return { data: null, status: "error", error: errorMessages.account.unableToUpdateAvatar };
       }
    } catch (error) {
       console.error(error);
-      return { data: null, status: "error" };
+      return { data: null, status: "error", error: errorMessages.account.unableToUpdateAvatar };
    }
 };
 
@@ -110,6 +118,14 @@ export const handleUpdateSignature = async (signature: string): Promise<any> => 
             status: "error",
             title: errorMessages.account.signatureAlreadyExists.title,
             body: errorMessages.account.signatureAlreadyExists.body,
+            type: "4"
+         };
+      } else {
+         return {
+            data: null,
+            status: "error",
+            title: errorMessages.account.unableToUpdateSignature.title,
+            body: errorMessages.account.unableToUpdateSignature.body,
             type: "4"
          };
       }
@@ -190,18 +206,31 @@ export const handleUpdatePrivacySettings = async (variables: ThandleUpdatePrivac
       });
 
       if (data.update_privacy_settings.update_successful) {
-         return { data: data.update_privacy_settings.update_successful, status: "done" };
+         return {
+            data: data.update_privacy_settings.update_successful,
+            status: "done",
+            error: null
+         };
       }
-      return { data: null, status: "done" };
+      return {
+         data: null,
+         status: "done",
+         error: { ...errorMessages.account.unableToUpdateSettings, type: "4" }
+      };
    } catch (error) {
       console.error(error);
-      return { data: null, status: "error" };
+      return {
+         data: null,
+         status: "error",
+         error: { ...errorMessages.account.unableToUpdateSettings, type: "4" }
+      };
    }
 };
 
 type ThandleUpdatePreferencesSettings = {
    is_Bible_public: boolean;
 };
+
 export const handleUpdatePreferencesSettings = async (
    variables: ThandleUpdatePreferencesSettings
 ) => {
@@ -215,7 +244,7 @@ export const handleUpdatePreferencesSettings = async (
             return { data: data.update_preference_settings.update_successful, status: "done" };
          }
       }
-      return { data: false, status: "done" };
+      return { data: false, status: "error" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };

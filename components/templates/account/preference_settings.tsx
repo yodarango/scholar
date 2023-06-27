@@ -79,7 +79,11 @@ export const PreferenceSettings = ({ onGoBack }: PrivacySettingsProps) => {
             </Portal>
          )}
 
-         <FourthStackHeader title='Privacy' actionName='Back' cta={{ handleClose: onGoBack }} />
+         <FourthStackHeader
+            title='App preferences'
+            actionName='Back'
+            cta={{ handleClose: onGoBack }}
+         />
          {loading === "done" && (
             <>
                <div className={`${styles.field} ${styles.fieldRadio}`}>
@@ -93,7 +97,6 @@ export const PreferenceSettings = ({ onGoBack }: PrivacySettingsProps) => {
                      }}
                      cta={{
                         handleOptionSelection: (privacy: number) => {
-                           console.log(privacy);
                            setPreferenceSettings({
                               ...preferenceSettings,
                               is_Bible_public: privacy === 0 ? false : true
