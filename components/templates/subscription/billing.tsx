@@ -34,10 +34,11 @@ export const BillingTemplate = () => {
             data.customer_portal.url
          ) {
             setuserData(data.customer_portal.url);
+            setloading("done");
          } else if (data.customer_portal.__typename === "Failed_Order") {
-            setuserData(null);
-            setloading("error");
+            router.push("/subscription/join");
          }
+         console.log(data);
       } catch (error) {
          setuserData(null);
          setloading("error");
@@ -47,35 +48,60 @@ export const BillingTemplate = () => {
 
    useEffect(() => {
       if (router.isReady) {
-         //getUserData();
+         getUserData();
       }
    }, [router.isReady]);
 
    return (
-      <div className={styles.mainWrapper}>
-         <div className={styles.layer}>
-            <div className={`${styles.graphics} ${loading === "error" && styles.error}`}></div>
-         </div>
-         <div className={styles.message}>
-            <div className={styles.title}>
-               <Header type={5} text='Shrood cares bout your privacy' size='large' align='center' />
-            </div>
-            <div className={styles.parragraph}>
-               <Parragraph
-                  text={`Stripe is used in all
+      <>
+         {loading !== "loading" && (
+            <div className={styles.mainWrapper}>
+               <div className={styles.layer}>
+                  <div
+                     className={`${styles.graphics} ${loading === "error" && styles.error}`}></div>
+               </div>
+               <div className={styles.message}>
+                  <div className={styles.title}>
+                     <Header
+                        type={5}
+                        text={
+                           loading !== "error"
+                              ? "Shrood cares bout your privacy"
+                              : "Error loading your data"
+                        }
+                        size='large'
+                        align='center'
+                     />
+                  </div>
+                  <div className={styles.parragraph}>
+                     {loading !== "error" && (
+                        <Parragraph
+                           text={`Stripe is used in all
                      transactions to keep your billing information secure and private. To access
                      your Stripe portal click the button below`}
-                  size='main'
-                  align='center'
-               />
+                           size='main'
+                           align='center'
+                        />
+                     )}
+                     {loading === "error" && (
+                        <Parragraph
+                           text={`Seems like we are having issues pulling your billing information, please try again later. If the problem persists please reach out at help@shrood.app`}
+                           size='main'
+                           align='center'
+                        />
+                     )}
+                  </div>
+                  <div className={styles.button}>
+                     {userData && loading === "done" && (
+                        <Primary title='Access dashboard' href={userData} type='2' />
+                     )}
+                     {loading === "error" && (
+                        <Primary title='Go to profile' href='/users/@me' type='2' />
+                     )}
+                  </div>
+               </div>
             </div>
-            <div className={styles.button}>
-               {userData && loading === "done" && (
-                  <Primary title='Access dashboard' href={userData} type='2' />
-               )}
-               {loading === "error" && <Primary title='Go to profile' href='/users/@me' type='2' />}
-            </div>
-         </div>
-      </div>
+         )}
+      </>
    );
 };

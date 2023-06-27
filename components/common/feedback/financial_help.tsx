@@ -29,7 +29,7 @@ export const FinancialHelp = ({ size = "medium" }: TEmptyProps) => {
          <Parragraph
             align='center'
             size='small'
-            text={`Currently Shrood is an autonomous application developed and managed by a single person. 
+            text={`Shrood is an autonomous application developed and managed by a single person. 
             Which is not cheap nor easy. If you have enjoyed this app, consider helping financially and in exchange get access to premium features `}
          />
       </div>

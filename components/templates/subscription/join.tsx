@@ -14,8 +14,13 @@ import styles from "./join.module.css";
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { UlListPrimary } from "../../fragments/lists/ul_list_primary";
 import { CHECKOUT_MODE_PAYMENT } from "../../../constants/common";
+import { useContext } from "react";
+import { UserContext } from "../../../context";
 
 export const JoinTemplate = () => {
+   const userCtx = useContext(UserContext);
+   const { user } = userCtx;
+
    // router
    const router = useRouter();
 
@@ -24,48 +29,84 @@ export const JoinTemplate = () => {
    const stdSubscription = process.env.NEXT_PUBLIC_STRIPE_SUBSCRIPTION_ID;
 
    const handleCheckout = async (price_id: string | undefined, payment_mode: string) => {
-      const { data } = await client.mutate({
-         mutation: CREATE_CHECKOUT_SESSION,
-         variables: {
-            price_id: price_id || "",
-            payment_mode
-         }
-      });
+      try {
+         const { data } = await client.mutate({
+            mutation: CREATE_CHECKOUT_SESSION,
+            variables: {
+               price_id: price_id || "",
+               payment_mode
+            }
+         });
 
-      if (data.create_checkout_session) {
-         router.replace(data.create_checkout_session);
+         console.log(data);
+         if (data.create_checkout_session) {
+            router.replace(data.create_checkout_session);
+         }
+      } catch (err) {
+         console.log(err);
       }
    };
 
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.close}>
-            <CloseContent cta={{ handleClick: () => router.back() }} />
+            <CloseContent cta={{ handleClick: () => router.push("/") }} />
          </div>
          <div className={styles.layer}>
-            <div className={styles.graphics}></div>
+            <div className={`${styles.graphics} ${user?.is_patron ? styles.isPatron : ""}`}></div>
          </div>
-         <div className={styles.button}>
-            <Primary
-               title='Support with only 3.99/mo'
-               type='2'
-               cta={{ handleClick: () => handleCheckout(stdSubscription, CHECKOUT_MODE_PAYMENT) }}
-            />
-         </div>
-         <div className={`${styles.cancel} ${styles.cancelFirst}`}>
-            <Parragraph italics size='small' align='center' text='Cancel anytime!' />
-         </div>
+         {!user?.is_patron && (
+            <>
+               <Parragraph
+                  size='main'
+                  text='Running an app requires, time, and sacrifice. If you have enjoyed this app, consider helping financially and in exchange get access to premium features '
+                  className={styles.textButtonTop}
+               />
+               <div className={styles.button}>
+                  <Primary
+                     title='Support with only 3.99/mo'
+                     type='2'
+                     cta={{
+                        handleClick: () => handleCheckout(stdSubscription, CHECKOUT_MODE_PAYMENT)
+                     }}
+                  />
+               </div>
+               <div className={`${styles.cancel} ${styles.cancelFirst}`}>
+                  <Parragraph italics size='small' align='center' text='Cancel anytime!' />
+               </div>
 
-         <div className={styles.button}>
-            <Primary
-               title='One time love donation ♡'
-               type='2'
-               cta={{ handleClick: () => handleCheckout(oneTimePurchase, CHECKOUT_MODE_PAYMENT) }}
-            />
-         </div>
-         <div className={styles.cancel}>
-            <Parragraph italics size='small' align='center' text='Thank you, in advance!' />
-         </div>
+               <div className={styles.button}>
+                  <Primary
+                     title='One time love donation ♡'
+                     type='2'
+                     cta={{
+                        handleClick: () => handleCheckout(oneTimePurchase, CHECKOUT_MODE_PAYMENT)
+                     }}
+                  />
+               </div>
+               <div className={styles.cancel}>
+                  <Parragraph italics size='small' align='center' text='Thank you, in advance!' />
+               </div>
+            </>
+         )}
+         {user?.is_patron && (
+            <>
+               <Parragraph
+                  size='main'
+                  text='Thank you for supporting Shrood. It means the world. To access your billing information, please go to billing.'
+                  className={styles.textButtonTop}
+               />
+               <div className={styles.button}>
+                  <Primary
+                     title='Go to billing'
+                     type='2'
+                     cta={{
+                        handleClick: () => handleCheckout(oneTimePurchase, CHECKOUT_MODE_PAYMENT)
+                     }}
+                  />
+               </div>
+            </>
+         )}
 
          {/* why to be a patron list */}
          <section className={`${styles.section} ${styles.section1}`}>

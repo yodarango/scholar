@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 // graphQL
-import client from "../apollo-client";
-import { ACCEPT_INTRO_INTRUCTIONS } from "../graphql/users/profile";
+import { client } from "../apollo-client";
+import { ACCEPT_INTRO_INTRUCTIONS } from "../graphql/mutations";
 
 // styles
 import newUserStyles from "../../styles/layouts/sudo-pages/NewUser.module.css";

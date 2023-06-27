@@ -17,23 +17,31 @@
    align-items: center;
    justify-content: center;
    background-repeat: no-repeat;
-   background-size: contain;
+   background-size: 80%;
    background-position: center;
    background-image: url("/images/bkgs/layer_2.svg");
 }
 
 .graphics {
-   width: 40%;
+   width: 100%;
    aspect-ratio: 30 / 30;
    background-repeat: no-repeat;
    background-size: contain;
    background-position: center;
-   background-image: url("/images/logo.png");
+   background-image: url("/images/mascot/min/financial_help.webp");
+}
+
+.isPatron {
+   background-image: url("/images/mascot/min/thank_you.webp");
 }
 
 .button {
    width: 100%;
    margin-bottom: var(--spacing-xs);
+}
+
+.textButtonTop {
+   margin-bottom: var(--spacing-s);
 }
 
 .cancel {
