@@ -7,8 +7,7 @@ type TLayer2Props = {
 export const Layer2 = ({ children }: TLayer2Props) => {
    return (
       <div className={styles.mainWrapper}>
-         <div className={styles.top}></div>
-         <div className={styles.bottom}></div>
+         <div className={styles.layer}></div>
          <div className={styles.content}>{children}</div>
       </div>
    );

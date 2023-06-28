@@ -13,13 +13,13 @@
 }
 
 .logo {
-   background-image: url("/images/logo.png");
+   background-image: url("/images/mascot/min/passcode.webp");
    background-position: center;
    background-size: contain;
    background-repeat: no-repeat;
-   width: 15rem;
-   height: 15rem;
-   margin: 0 auto var(--spacing-l);
+   width: 30rem;
+   height: 30rem;
+   margin: 0 auto var(--spacing-s);
 }
 
 .title {

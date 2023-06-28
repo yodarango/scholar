@@ -15,11 +15,10 @@ export const WelcomeTemplate = () => {
             <div className={styles.logoWrapper}>
                <div className={styles.logo}></div>
                <div className={styles.title}>
-                  <Header type={3} align='center' size='large' text='Welcome to Shrood' />
+                  <Header type={3} align='center' size='xlarge' text='Welcome to Shrood' />
                </div>
                <div className={styles.desc}>
                   <Parragraph
-                     align='center'
                      size='large'
                      text='Thank you for registering It is the goal of Shrood to help you love, learn, and share Word of God with others. '
                   />
@@ -38,11 +37,11 @@ export const WelcomeTemplate = () => {
                   icon='checkmarkFilled'
                   items={[
                      "Pray for the platform",
-                     "Be kind",
+                     "Be kind to others",
                      "Think before you post",
-                     "be honest and truthful",
+                     "Be honest and truthful",
                      "Report negative activity",
-                     "Share this app with friends and family"
+                     "Share the app with others"
                   ]}
                />
             </section>

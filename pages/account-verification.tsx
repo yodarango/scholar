@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // comps
-import { AccountVerification } from "../templates/account/account_verification";
+import { AccountVerification } from "../components/templates/account/account_verification";
 
 // styles
 import styles from "./page_global.module.css";

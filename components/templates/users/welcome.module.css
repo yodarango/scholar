@@ -3,29 +3,27 @@
 }
 
 .logoWrapper {
-   margin: 8rem auto var(--spacing-l) 0;
+   margin: var(--spacing-xs) auto var(--spacing-l) 0;
 }
 
 .logo {
-   background-image: url("/images/logo.png");
+   background-image: url("/images/mascot/min/welcome.webp");
    background-position: center;
    background-size: contain;
    background-repeat: no-repeat;
-   width: 15rem;
-   height: 15rem;
-   margin: 0 auto var(--spacing-l);
+   width: 30rem;
+   height: 30rem;
+   margin: 0 auto var(--spacing-m);
 }
 
 .logoWrapper .title {
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 90%;
-   margin: 0 auto var(--spacing-ml);
+   margin: 0 auto var(--spacing-s);
 }
 
 .desc {
-   width: 90%;
    max-width: 40rem;
    margin: auto;
 }

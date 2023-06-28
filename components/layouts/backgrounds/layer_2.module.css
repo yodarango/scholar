@@ -1,38 +1,27 @@
 .mainWrapper {
-   position: fixed;
+   position: relative;
    top: 0;
    left: 0;
    width: 100vw;
-   height: 100vw;
+   height: 100vh;
 }
 
-.top,
-.bottom {
+.layer {
    position: fixed;
-   background-size: contain;
+   background-size: cover;
    background-repeat: no-repeat;
-   aspect-ratio: 397 / 490;
-   width: 70vw;
+   width: 100vw;
+   height: 100vh;
    z-index: 0;
-}
-
-.top {
-   top: -0.5rem;
-   left: -0.5rem;
-   background-image: url("/images/bkgs/layer_3_top.svg");
-}
-
-.bottom {
-   bottom: -0.5rem;
-   right: -0.5rem;
-   background-image: url("/images/bkgs/layer_3_bottom.svg");
+   top: 0;
+   left: 0;
+   background-image: url("/images/bkgs/layer_4.svg");
 }
 
 .content {
    position: relative;
-   z-index: 1;
-   overflow-y: scroll;
+   z-index: 2;
    margin: 0 auto;
    width: 90%;
-   height: calc(100vh - 8rem);
+   overflow-x: hidden;
 }

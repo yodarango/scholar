@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { client } from "../apollo-client";
 import { CHECK_AUTH } from "../graphql/users/users";
 import { useLogout } from "./use_logout";
-import { loggedInUser } from "../helpers/auth/get-loggedin-user";
+import { getIsFirstTimeSignUp } from "../helpers/functions/users/get_is_first_time_sign_up";
 
 type TUseCheckAuthProps = {
    redirect: string;
@@ -25,11 +25,20 @@ export const UseIsAuth = ({ redirect, children }: TUseCheckAuthProps) => {
             variables: {}
          });
 
-         if (!data.is_user_logged_in) {
-            useLogout();
-            location.href = redirect;
-         } else {
-            setRender(true);
+         const firstTime = await getIsFirstTimeSignUp();
+         console.log(firstTime, data);
+
+         if (firstTime.status === "done" && data) {
+            if (firstTime.data && data.is_user_logged_in) {
+               location.href = "/account-verification";
+            } else if (!firstTime.data && data.is_user_logged_in) {
+               setRender(true);
+            } else if (!data.is_user_logged_in) {
+               useLogout();
+               location.href = redirect;
+            } else {
+               setRender(true);
+            }
          }
       } catch (error) {
          console.error(error);
