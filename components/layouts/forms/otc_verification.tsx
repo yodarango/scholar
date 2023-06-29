@@ -16,7 +16,6 @@ import styles from "./otc_verification.module.css";
 // data
 import { errorMessages } from "../../../data/error_messages";
 import { verificationCode } from "../../../helpers/functions/auth/forgot_password";
-import { useAcceptTerms } from "../../../hooks/use_accpet_terms";
 const incorrectCode = errorMessages.account.wrongVerificationCode;
 const unknown = errorMessages.unknown.a;
 const emptyCode = errorMessages.forms.missingCode;
@@ -25,7 +24,7 @@ type TAccountVerificationFormProps = {
    isForgottenPassword?: boolean;
    redirect?: string;
    cta?: {
-      handleResult: (result: number, userId: number) => void;
+      handleResult: (result: number) => void;
    };
 };
 
@@ -37,16 +36,15 @@ export const OTCVerification = ({
    const [code, setcode] = useState<string>("");
    const [loading, setloading] = useState<string>("done");
    const [notification, setnotification] = useState<boolean | JSX.Element>(false);
-   const { acceptTerms, error, data, status } = useAcceptTerms();
 
    // handle update notification state
    const updateNotification = (body: string, type: string, title: string) =>
       setnotification(
          <Notification
+            cta={{ handleClose: () => setnotification(false) }}
+            title={title}
             type={type}
             body={body}
-            title={title}
-            cta={{ handleClose: () => setnotification(false) }}
          />
       );
 
@@ -55,14 +53,11 @@ export const OTCVerification = ({
       setloading("loading");
       if (code) {
          try {
-            let codeIsVerified = false;
-            if (isForgottenPassword) {
-               codeIsVerified = await verificationCode(code);
-            } else {
-               codeIsVerified = await verifyAccount(code);
-            }
-            if (codeIsVerified) cta?.handleResult(2, codeIsVerified);
-            else updateNotification(incorrectCode.body, "4", incorrectCode.title);
+            const codeIsVerified = await verificationCode(code, isForgottenPassword);
+
+            if (codeIsVerified) {
+               cta?.handleResult(2);
+            } else updateNotification(incorrectCode.body, "4", incorrectCode.title);
             setloading("done");
          } catch (error) {
             updateNotification(unknown.body, "4", unknown.title);

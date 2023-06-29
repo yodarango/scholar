@@ -1,10 +1,10 @@
 import RegisterTemplate from "../components/templates/users/register";
-import { UseCheckAuth } from "../hooks/use_check_auth";
+import { UseIsNotAuth } from "../hooks/use_check_auth";
 
 export default function Register() {
    return (
-      <UseCheckAuth redirect='/users/@me' options={{ check_is_auth: false }}>
+      <UseIsNotAuth redirect='/users/@me'>
          <RegisterTemplate />
-      </UseCheckAuth>
+      </UseIsNotAuth>
    );
 }

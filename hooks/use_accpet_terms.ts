@@ -11,11 +11,11 @@ export const useAcceptTerms = () => {
       try {
          const { data } = await client.mutate({
             mutation: ACCEPT_TERMS,
-            variables: 
+            variables: {}
          });
 
          if (data) {
-            setData(data.accept_terms);
+            setData(data.accept_intro_terms);
             setStatus("done");
          } else {
             setData(null);

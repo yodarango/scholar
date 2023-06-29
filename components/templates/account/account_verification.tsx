@@ -10,23 +10,23 @@ import { Layer1 } from "../../layouts/backgrounds/layer_1";
 import styles from "./account_verification.module.css";
 import { UserContext } from "../../../context";
 import { getIsFirstTimeSignUp } from "../../../helpers/functions/users/get_is_first_time_sign_up";
+import { useRouter } from "next/router";
+import { isUserVerified } from "../../../helpers/functions/users/is_user_verified";
 
-type TAccountVerificationprops = {
-   email: string;
-};
-
-export const AccountVerification = ({ email }: TAccountVerificationprops) => {
+export const AccountVerification = () => {
    const [renderContent, setRenderContent] = useState(false);
+   const router = useRouter();
    const userCtx = useContext(UserContext);
    const { user } = userCtx;
 
    const getData = async () => {
       try {
-         const { data, status } = await getIsFirstTimeSignUp();
+         const { data, status } = await isUserVerified();
+
          if (status === "done") {
-            if (data && user.ID) {
+            if (data === false && user.ID) {
                setRenderContent(true);
-            } else if (!data && user?.ID) {
+            } else if (data === true && user?.ID) {
                window.location.href = "/users/@me";
             } else if (!user?.ID) {
                window.location.href = "/login";
@@ -41,6 +41,9 @@ export const AccountVerification = ({ email }: TAccountVerificationprops) => {
 
    useEffect(() => {
       if (user) getData();
+      else {
+         router.push("/login");
+      }
    }, [user]);
    return (
       <>
@@ -57,13 +60,16 @@ export const AccountVerification = ({ email }: TAccountVerificationprops) => {
                         align='center'
                         size='large'
                         text={`Thank you for registering. A verification code was sent to ${
-                           email ? email : "your email"
+                           user?.email ? user.email : "your email"
                         } Please enter it below`}
                      />
                   </div>
                </div>
                <div className={styles.form}>
-                  <OTCVerification />
+                  <OTCVerification
+                     cta={{ handleResult: () => router.push("/users/@me") }}
+                     isForgottenPassword={false}
+                  />
                </div>
             </div>
          )}

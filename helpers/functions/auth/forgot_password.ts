@@ -23,17 +23,23 @@ export const verifyEmail = async (email: string) => {
    }
 };
 
-export const verificationCode = async (code: string) => {
+export const verificationCode = async (code: string, isForgottenPassword: boolean = true) => {
+   const QUERY = isForgottenPassword ? VERIFY_FORGOTTEN_PASSWORD_CODE : VERIFY_ACCOUNT;
    try {
       const { data } = await client.mutate({
-         mutation: VERIFY_FORGOTTEN_PASSWORD_CODE,
+         mutation: QUERY,
          variables: {
             verification_code: code
          }
       });
 
-      if (data.forgotten_password_code > 0) {
-         return data.forgotten_password_code;
+      const key = Object.keys(data)[0];
+
+      if (
+         (data.verify_account || data.forgotten_password_code) &&
+         data[key].__typename === "NewSession"
+      ) {
+         return true;
       } else {
          return false;
       }

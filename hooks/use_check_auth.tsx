@@ -10,6 +10,7 @@ import { client } from "../apollo-client";
 import { CHECK_AUTH } from "../graphql/users/users";
 import { useLogout } from "./use_logout";
 import { getIsFirstTimeSignUp } from "../helpers/functions/users/get_is_first_time_sign_up";
+import { isUserVerified } from "../helpers/functions/users/is_user_verified";
 
 type TUseCheckAuthProps = {
    redirect: string;
@@ -25,14 +26,18 @@ export const UseIsAuth = ({ redirect, children }: TUseCheckAuthProps) => {
             variables: {}
          });
 
-         const firstTime = await getIsFirstTimeSignUp();
-         console.log(firstTime, data);
+         const verified = await isUserVerified();
+         const firstTimeSignUp = await getIsFirstTimeSignUp();
 
-         if (firstTime.status === "done" && data) {
-            if (firstTime.data && data.is_user_logged_in) {
-               location.href = "/account-verification";
-            } else if (!firstTime.data && data.is_user_logged_in) {
-               setRender(true);
+         if (verified.status === "done" && firstTimeSignUp.status === "done" && data) {
+            if (verified.data === false && data.is_user_logged_in) {
+               location.href = "/users/account-verification";
+            } else if (verified.data === true && data.is_user_logged_in) {
+               if (firstTimeSignUp.data === true) {
+                  location.href = "/users/welcome";
+               } else {
+                  setRender(true);
+               }
             } else if (!data.is_user_logged_in) {
                useLogout();
                location.href = redirect;

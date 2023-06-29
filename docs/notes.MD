@@ -5,4 +5,4 @@
 -  ✅ Finish all possible error images
 -  👉 Maybe explore AI stuff
 
--  I am currently working on the account verification, I think I have doen a mess. Check!
+-  I left off in forgot credentials!

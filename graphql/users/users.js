@@ -46,3 +46,9 @@ export const ACCEPT_TERMS = gql`
       accept_intro_terms
    }
 `;
+
+export const IS_USER_VERIFIED = gql`
+   query {
+      is_user_verified
+   }
+`;
