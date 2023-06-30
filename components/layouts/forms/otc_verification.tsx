@@ -24,7 +24,7 @@ type TAccountVerificationFormProps = {
    isForgottenPassword?: boolean;
    redirect?: string;
    cta?: {
-      handleResult: (result: number) => void;
+      handleResult: (result: number, code?: string) => void;
    };
 };
 
@@ -54,9 +54,8 @@ export const OTCVerification = ({
       if (code) {
          try {
             const codeIsVerified = await verificationCode(code, isForgottenPassword);
-
             if (codeIsVerified) {
-               cta?.handleResult(2);
+               cta?.handleResult(2, codeIsVerified);
             } else updateNotification(incorrectCode.body, "4", incorrectCode.title);
             setloading("done");
          } catch (error) {

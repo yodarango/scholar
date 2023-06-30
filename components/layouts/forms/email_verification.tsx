@@ -54,11 +54,13 @@ export const EmailVerification = ({ cta }: TAccountVerificationFormProps) => {
          const isValidEmail = validateEmail(email);
          if (!isValidEmail) {
             updateNotification(invalidEmailAddress.body, "4", invalidEmailAddress.title);
+            setloading("done");
             return;
          }
 
          try {
             const emailExists = await verifyEmail(email);
+
             if (emailExists) cta.handleResult(1);
             else updateNotification(emailNotFound.body, "4", emailNotFound.title);
             setloading("done");

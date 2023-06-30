@@ -60,13 +60,13 @@ const stepMessages = [
 export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
    // states
    const [stepProcess, setstepProcess] = useState<number>(0);
-   const [userId, setuserId] = useState<number | string>(0);
+   const [code, setCode] = useState<string>("");
    const [currentStepData, setcurrentStepData] = useState<TStepProcess>(stepMessages[0]);
 
-   const handleUpdateStep = (step: number, userId: number | string | null) => {
+   const handleUpdateStep = (step: number, code?: string) => {
       setstepProcess(step);
 
-      if (userId) setuserId(userId);
+      if (code) setCode(code);
    };
 
    useEffect(() => {
@@ -80,9 +80,7 @@ export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
                <Confetti />
             </div>
          )}
-         <div className={styles.layer1}>
-            <Layer1 />
-         </div>
+         <div className={styles.bkgLayer}></div>
          <div className={styles.contentWrapper}>
             <div className={styles.logoWrapper}>
                {/* switch graphics per step completion */}
@@ -96,35 +94,39 @@ export const ForgotPasswordTemplate = ({ cta }: TForgotPasswordFormProps) => {
             </div>
 
             {stepProcess === 0 && (
-               <EmailVerification
-                  cta={{
-                     handleGoBack: cta.handleClose,
-                     handleResult: (result: number) => handleUpdateStep(result, null)
-                  }}
-               />
+               <div className={styles.formData}>
+                  <EmailVerification
+                     cta={{
+                        handleGoBack: cta.handleClose,
+                        handleResult: (result: number) => handleUpdateStep(result)
+                     }}
+                  />
+               </div>
             )}
             {stepProcess === 1 && (
-               <OTCVerification
-                  redirect='login'
-                  cta={{
-                     handleResult: (result: number, userId: number | string) =>
-                        handleUpdateStep(result, userId)
-                  }}
-               />
+               <div className={styles.formData}>
+                  <OTCVerification
+                     redirect='login'
+                     cta={{
+                        handleResult: (result: number, code?: string) =>
+                           handleUpdateStep(result, code)
+                     }}
+                  />
+               </div>
             )}
 
             {stepProcess === 2 && (
-               <ChangePassword
-                  USER_ID={userId}
-                  redirect='login'
-                  cta={{ handleResult: (result: number) => handleUpdateStep(result, null) }}
-               />
+               <div className={styles.formData}>
+                  <ChangePassword
+                     code={code}
+                     redirect='login'
+                     cta={{ handleResult: (result: number) => handleUpdateStep(result) }}
+                  />
+               </div>
             )}
             {stepProcess === 3 && (
                <div className={styles.redirect}>
-                  <InternalLink cta={{ onClick: cta.handleClose }} type='2'>
-                     Back to login
-                  </InternalLink>
+                  <Primary title='Back to login' cta={{ handleClick: cta.handleClose }} type='2' />
                </div>
             )}
          </div>

@@ -30,10 +30,10 @@ export const VERIFY_FORGOTTEN_PASSWORD_CODE = gql`
 `;
 
 export const SET_NEW_PASSWORD = gql`
-   mutation ($new_password: String, $USER_ID: Int, $current_password: String) {
+   mutation ($new_password: String, $verification_code: String, $current_password: String) {
       new_password(
          new_password: $new_password
-         USER_ID: $USER_ID
+         verification_code: $verification_code
          current_password: $current_password
       ) {
          ... on IncorrecctCredentials {

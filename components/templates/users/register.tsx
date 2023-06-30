@@ -82,7 +82,7 @@ export default function RegisterTemplate() {
                      </div>
 
                      <div className={styles.btn}>
-                        <Primary type='2' title='Login' href='/login' />
+                        <Primary type='2' title='Login instead' href='/login' />
                      </div>
                   </>
                )}

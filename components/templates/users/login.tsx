@@ -127,7 +127,7 @@ export default function LoginTemplate() {
                      </div>
 
                      <div className={styles.btn}>
-                        <Primary type='2' title='Register' href='/register' />
+                        <Primary type='2' title='Register instead' href='/register' />
                      </div>
 
                      <div className={styles.btn}>

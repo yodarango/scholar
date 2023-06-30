@@ -12,6 +12,7 @@ export const verifyEmail = async (email: string) => {
          mutation: VERIFY_EMAIL_EXISTS,
          variables: { email }
       });
+
       if (data.verify_email_exists === 0) {
          return false;
       } else if (data.verify_email_exists > 0) {
@@ -36,10 +37,10 @@ export const verificationCode = async (code: string, isForgottenPassword: boolea
       const key = Object.keys(data)[0];
 
       if (
-         (data.verify_account || data.forgotten_password_code) &&
-         data[key].__typename === "NewSession"
+         (data.verify_account && data[key].__typename === "NewSession") ||
+         data.forgotten_password_code
       ) {
-         return true;
+         return data[key];
       } else {
          return false;
       }
@@ -51,7 +52,7 @@ export const verificationCode = async (code: string, isForgottenPassword: boolea
 
 export const changePassword = async (
    new_password: string,
-   USER_ID?: string | number,
+   verification_code?: string | number,
    current_password?: string
 ) => {
    try {
@@ -60,7 +61,7 @@ export const changePassword = async (
          variables: {
             new_password,
             current_password,
-            USER_ID
+            verification_code
          }
       });
 

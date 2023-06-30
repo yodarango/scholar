@@ -24,7 +24,7 @@ const emptyPassword = errorMessages.forms.missingPassword;
 
 type TAccountVerificationFormProps = {
    redirect?: string;
-   USER_ID: string | number;
+   code: string;
    cta?: {
       handleResult: (result: number) => void;
    };
@@ -33,7 +33,7 @@ type TAccountVerificationFormProps = {
 export const ChangePassword = ({
    cta,
    redirect = "register",
-   USER_ID
+   code
 }: TAccountVerificationFormProps) => {
    const [password, setpassword] = useState<string>("");
    const [loading, setloading] = useState<string>("done");
@@ -56,7 +56,7 @@ export const ChangePassword = ({
 
       if (password) {
          try {
-            const passwordSet = await changePassword(password, USER_ID);
+            const passwordSet = await changePassword(password, code);
 
             if (passwordSet) {
                cta?.handleResult(3);
