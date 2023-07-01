@@ -4,11 +4,11 @@
 import { useState } from "react";
 
 // comps
+import { InternalLink } from "../../fragments/Typography/internal_link";
 import { InputPrimary } from "../../fragments/inputs/input_primary";
 import { Notification } from "../../fragments/popups/notification";
-import { InternalLink } from "../../fragments/Typography/internal_link";
-import { Primary } from "../../fragments/buttons/primary";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
+import { Primary } from "../../fragments/buttons/primary";
 
 // styles
 import styles from "./otc_verification.module.css";
@@ -16,12 +16,17 @@ import styles from "./otc_verification.module.css";
 // data
 import { errorMessages } from "../../../data/error_messages";
 import { verificationCode } from "../../../helpers/functions/auth/forgot_password";
+import { useLogout } from "../../../hooks/use_logout";
+import { useSendNewVerificationCode } from "../../../hooks/useSendNewVerificationCode";
+import { notificationMessages } from "../../../data/notification_messages";
 const incorrectCode = errorMessages.account.wrongVerificationCode;
 const unknown = errorMessages.unknown.a;
 const emptyCode = errorMessages.forms.missingCode;
+const verificationCodeSent = notificationMessages.verificationCodeSent;
 
 type TAccountVerificationFormProps = {
    isForgottenPassword?: boolean;
+   includeStartOver?: boolean;
    redirect?: string;
    cta?: {
       handleResult: (result: number, code?: string) => void;
@@ -30,11 +35,13 @@ type TAccountVerificationFormProps = {
 
 export const OTCVerification = ({
    isForgottenPassword = true,
-   redirect = "register",
+   includeStartOver,
+   redirect,
    cta
 }: TAccountVerificationFormProps) => {
    const [code, setcode] = useState<string>("");
    const [loading, setloading] = useState<string>("done");
+   const [smallLoader, setSmallLoader] = useState<string>("");
    const [notification, setnotification] = useState<boolean | JSX.Element>(false);
 
    // handle update notification state
@@ -69,6 +76,29 @@ export const OTCVerification = ({
       }
    };
 
+   const handleStartOver = () => {
+      useLogout();
+      window.location.href = "/register";
+   };
+
+   const handleSendNewCode = async () => {
+      setSmallLoader("sendNewCode");
+      const { data, status, error } = await useSendNewVerificationCode();
+
+      try {
+         if (status === "done" && data) {
+            updateNotification(verificationCodeSent.body(data), "2", verificationCodeSent.title);
+            setSmallLoader("");
+         } else if (status === "error") {
+            updateNotification(unknown.body, "4", unknown.title);
+            setSmallLoader("");
+         }
+      } catch (error) {
+         setSmallLoader("");
+         console.log(error);
+      }
+   };
+
    return (
       <div className={styles.mainWrapper}>
          {notification}
@@ -85,6 +115,7 @@ export const OTCVerification = ({
             {loading === "done" && (
                <div className={styles.button}>
                   <Primary
+                     disabled={smallLoader === "sendNewCode"}
                      htmlType='button'
                      type='2'
                      title='Verify'
@@ -98,10 +129,36 @@ export const OTCVerification = ({
                </div>
             )}
             <div className={styles.link}>
-               <InternalLink type='2' size='main' href={`/${redirect}`} align='center'>
-                  {`Back to ${redirect}`}
-               </InternalLink>
+               {redirect && (
+                  <InternalLink type='2' size='main' href={`/${redirect}`} align='center'>
+                     {`Back to ${redirect}`}
+                  </InternalLink>
+               )}
             </div>
+            {!redirect && smallLoader !== "sendNewCode" && (
+               <Primary
+                  htmlType='button'
+                  type='1'
+                  title='Send new code'
+                  cta={{ handleClick: handleSendNewCode }}
+               />
+            )}
+            {smallLoader === "sendNewCode" && !redirect && (
+               <div className={styles.button}>
+                  <SmallLoader />
+               </div>
+            )}
+            {includeStartOver && smallLoader !== "sendNewCode" && (
+               <div className={styles.link}>
+                  <InternalLink
+                     type='2'
+                     size='main'
+                     cta={{ onClick: handleStartOver }}
+                     align='center'>
+                     Start over
+                  </InternalLink>
+               </div>
+            )}
          </form>
       </div>
    );

@@ -3,4 +3,4 @@
 
 -  👉 Maybe explore AI stuff
 
--  ⛔️ I wrapped up login make sure it is working
+-  ⛔️ I worked on the send code. is not working. check

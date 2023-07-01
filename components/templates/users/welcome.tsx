@@ -6,16 +6,21 @@ import { Header } from "../../fragments/Typography/header";
 import { InternalLink } from "../../fragments/Typography/internal_link";
 import { Parragraph } from "../../fragments/Typography/parragraph";
 import { Layer2 } from "../../layouts/backgrounds/layer_2";
+import { errorMessages } from "../../../data/error_messages";
+const unknownError = errorMessages.unknown.a;
 
 // styles
 import styles from "./welcome.module.css";
 import { useAcceptTerms } from "../../../hooks/use_accpet_terms";
 import { UserContext } from "../../../context";
+import { useRouter } from "next/router";
+import { Notification } from "../../fragments/popups/notification";
 
 export const WelcomeTemplate = () => {
    const [renderContent, setRenderContent] = useState(false);
-   const { acceptTerms, error, data, status } = useAcceptTerms();
+   const [notification, setNotification] = useState(false);
    const userCtx = useContext(UserContext);
+   const router = useRouter();
    const { user } = userCtx;
 
    const getData = async () => {
@@ -36,21 +41,41 @@ export const WelcomeTemplate = () => {
       }
    };
 
-   useEffect(() => {
-      if (user) getData();
-      else {
-         window.location.href = "/login";
+   const acceptTerms = async () => {
+      try {
+         const { data, status, error } = await useAcceptTerms();
+
+         if (status === "done") {
+            if (data) {
+               window.location.href = "/users/@me";
+            } else {
+               setNotification(true);
+            }
+         }
+      } catch (error) {
+         console.error(error);
       }
-   }, []);
+   };
 
    useEffect(() => {
-      if (status === "done" && data === true) {
-         window.location.href = "/users/@me";
+      if (user) {
+         if (user !== "none") getData();
+         else {
+            router.push("/login");
+         }
       }
-   }, [status]);
+   }, [user]);
 
    return (
       <>
+         {notification && (
+            <Notification
+               type='4'
+               body={unknownError.body}
+               title={unknownError.title}
+               cta={{ handleClose: () => setNotification(false) }}
+            />
+         )}
          {renderContent && (
             <Layer2>
                <div className={styles.mainWrapper}>
@@ -62,7 +87,7 @@ export const WelcomeTemplate = () => {
                      <div className={styles.desc}>
                         <Parragraph
                            size='large'
-                           text='Thank you for registering It is the goal of Shrood to help you love, learn, and share Word of God with others. '
+                           text='Thank you for registering It is the goal of Shrood to help you love, learn, and share the Word of God with others. '
                         />
                      </div>
                   </div>
@@ -106,11 +131,7 @@ export const WelcomeTemplate = () => {
                   </section>
 
                   <div className={styles.continue}>
-                     <Primary
-                        type='2'
-                        title='Continue'
-                        cta={{ handleClick: () => acceptTerms() }}
-                     />
+                     <Primary type='2' title='Continue' cta={{ handleClick: acceptTerms }} />
                   </div>
                </div>
             </Layer2>

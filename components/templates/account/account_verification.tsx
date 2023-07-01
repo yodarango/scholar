@@ -18,6 +18,7 @@ export const AccountVerification = () => {
    const router = useRouter();
    const userCtx = useContext(UserContext);
    const { user } = userCtx;
+   console.log("user", user);
 
    const getData = async () => {
       try {
@@ -40,9 +41,11 @@ export const AccountVerification = () => {
    };
 
    useEffect(() => {
-      if (user) getData();
-      else {
-         router.push("/login");
+      if (user) {
+         if (user !== "none") getData();
+         else {
+            router.push("/login");
+         }
       }
    }, [user]);
    return (
@@ -68,6 +71,7 @@ export const AccountVerification = () => {
                <div className={styles.form}>
                   <OTCVerification
                      cta={{ handleResult: () => router.push("/users/@me") }}
+                     includeStartOver
                      isForgottenPassword={false}
                   />
                </div>

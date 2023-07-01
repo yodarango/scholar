@@ -16,6 +16,7 @@ export const GET_CURRENT_USER = gql`
       get_current_user {
          is_patron
          signature
+         email
          ID
       }
    }
@@ -50,5 +51,11 @@ export const ACCEPT_TERMS = gql`
 export const IS_USER_VERIFIED = gql`
    query {
       is_user_verified
+   }
+`;
+
+export const NEW_VERIFICATION_CODE = gql`
+   query ($USER_ID: ID) {
+      new_verification_code(USER_ID: $USER_ID)
    }
 `;

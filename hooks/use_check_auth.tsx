@@ -21,7 +21,7 @@ export const UseIsAuth = ({ redirect, children }: TUseCheckAuthProps) => {
    const [render, setRender] = useState(false);
    const check = async () => {
       try {
-         const { data } = await client.query({
+         const isLoggedIn: any = await client.query({
             query: CHECK_AUTH,
             variables: {}
          });
@@ -29,17 +29,18 @@ export const UseIsAuth = ({ redirect, children }: TUseCheckAuthProps) => {
          const verified = await isUserVerified();
          const firstTimeSignUp = await getIsFirstTimeSignUp();
 
-         if (verified.status === "done" && firstTimeSignUp.status === "done" && data) {
-            if (verified.data === false && data.is_user_logged_in) {
+         if (verified.status === "done" && firstTimeSignUp.status === "done" && isLoggedIn?.data) {
+            if (verified.data === false && isLoggedIn.data.is_user_logged_in) {
                location.href = "/users/account-verification";
-            } else if (verified.data === true && data.is_user_logged_in) {
+            } else if (verified.data === true && isLoggedIn.data.is_user_logged_in) {
                if (firstTimeSignUp.data === true) {
                   location.href = "/users/welcome";
                } else {
                   setRender(true);
                }
-            } else if (!data.is_user_logged_in) {
-               useLogout();
+            } else if (!isLoggedIn.data.is_user_logged_in) {
+               console.log("not logged in");
+               useLogout(); //make sure to clean LS
                location.href = redirect;
             } else {
                setRender(true);
@@ -61,15 +62,26 @@ export const UseIsNotAuth = ({ redirect, children }: TUseCheckAuthProps) => {
    const [render, setRender] = useState(false);
    const check = async () => {
       try {
-         const { data } = await client.query({
+         const isLoggedIn: any = await client.query({
             query: CHECK_AUTH,
             variables: {}
          });
 
-         if (data.is_user_logged_in === true) {
-            location.href = redirect;
-         } else {
-            setRender(true);
+         const verified = await isUserVerified();
+         const firstTimeSignUp = await getIsFirstTimeSignUp();
+
+         if (verified.status === "done" && firstTimeSignUp.status === "done" && isLoggedIn?.data) {
+            if (verified.data === false && isLoggedIn.data.is_user_logged_in === true) {
+               location.href = "/users/account-verification";
+            } else if (verified.data === true && isLoggedIn.data.is_user_logged_in) {
+               if (firstTimeSignUp.data === true) {
+                  location.href = "/users/welcome";
+               } else {
+                  location.href = "/users/@me";
+               }
+            } else {
+               setRender(true);
+            }
          }
       } catch (error) {
          console.error(error);

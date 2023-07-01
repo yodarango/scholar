@@ -133,5 +133,15 @@ export const notificationMessages = {
       description: "Notification after a password is changed successfully",
       title: "Password changed!",
       body: "Your password has been changed. Please save it in a secure place."
+   },
+   verificationCodeSent: {
+      id: 19,
+      type: "Success",
+      description: "Notification after a verification code is sent successfully",
+      title: "Verification code sent!",
+      body: (email: string) =>
+         "A new verification code has been sent to " +
+         email +
+         " (don't forget to check your spam!)."
    }
 };

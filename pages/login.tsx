@@ -7,8 +7,8 @@ import styles from "./login.module.css";
 
 export default function Login() {
    return (
-      <UseIsNotAuth redirect='/users/@me'>
-         <LoginTemplate />
-      </UseIsNotAuth>
+      // <UseIsNotAuth redirect='/users/@me'>
+      <LoginTemplate />
+      // </UseIsNotAuth>
    );
 }

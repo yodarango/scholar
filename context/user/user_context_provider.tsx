@@ -17,6 +17,7 @@ const UserContextProvider = ({ children }: any) => {
          const { data } = await getCurrentUser();
 
          if (data) setUser(data);
+         else setUser("none");
       } catch (error) {
          console.error("Error fetching user data:", error);
       }
