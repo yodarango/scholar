@@ -3,4 +3,4 @@
 
 -  👉 Maybe explore AI stuff
 
--  ⛔️ I worked on the send code. is not working. check
+-  Wired up summarization of chapters in read page. Now set up the voting for whether the summary was good or not

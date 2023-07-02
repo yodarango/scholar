@@ -108,3 +108,24 @@ export const REMOVE_BOOKMARK = gql`
       }
    }
 `;
+
+export const GET_CHAPTER_SUMMARY = gql`
+   query ($CHAPTER_ID: ID) {
+      get_chapter_summary(CHAPTER_ID: $CHAPTER_ID) {
+         ... on ChapterSummary {
+            votes_up
+            votes_down
+            CHAPTER_ID
+            summary
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ServerError {
+            message
+         }
+      }
+   }
+`;

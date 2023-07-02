@@ -16,6 +16,8 @@ import styles from "./read_bible_modal.module.css";
 // types
 import { ReadingPreferences } from "../../types/browser/local_storage";
 import { Parragraph } from "../fragments/Typography/parragraph";
+import { IconButton } from "../fragments/buttons/icon_button";
+import { SummarizeBibleChapter } from "../fragments/buttons/summarize_bible_chapter";
 
 type TReadBibleTemplateProps = {
    readingPrefs: ReadingPreferences;
@@ -103,6 +105,14 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
                />
             </div>
          )}
+
+         <div
+            className={`${styles.summarizeChapter} ${scrollingDir === "up" && styles.scrollingUp} ${
+               scrollingDir === "down" && styles.scrollingDown
+            }`}>
+            <SummarizeBibleChapter chapterId={readingPrefs.chapterId} />
+         </div>
+
          <div className={styles.chapter}>
             {readingPrefs && (
                <BibleChapter

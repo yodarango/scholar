@@ -16,8 +16,15 @@
    margin-bottom: var(--spacing-m);
 }
 
+.summarizeChapter {
+   position: fixed;
+   z-index: 2;
+   margin: 0;
+   right: 2rem;
+}
+
 .chapter {
-   margin-top: calc(var(--spacing-l) + var(--spacing-ml));
+   margin-top: 8rem;
 }
 
 .scrollingUp {
@@ -37,6 +44,14 @@
 .scrollingDown {
    top: 0;
    animation: scrollDown 200ms linear;
+}
+
+.summarizeChapter.scrollingDown {
+   top: 8rem;
+}
+
+.summarizeChapter.scrollingUp {
+   top: 2rem;
 }
 
 @keyframes scrollDown {

@@ -1,0 +1,33 @@
+.mainWrapper {
+   position: relative;
+   top: 0;
+   left: 0;
+   background-color: var(--primary-color);
+   min-height: 100vh;
+   width: 100vw;
+}
+
+.title {
+   margin: var(--spacing-l) auto var(--spacing-xs);
+}
+
+.contentWrapper {
+   width: 90%;
+   margin: 0 auto;
+}
+
+.feedback {
+   position: relative;
+   margin: 10rem auto 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.backLink {
+   width: 100%;
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   padding: var(--spacing-l) 0 var(--spacing-s);
+}
