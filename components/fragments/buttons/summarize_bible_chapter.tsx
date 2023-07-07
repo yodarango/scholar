@@ -18,6 +18,7 @@ export const SummarizeBibleChapter = ({ chapterId }: TSummarizeBibleChapterProps
       if (!user) setOpenLoginModal(true);
       else setOpenModal(true);
    };
+
    return (
       <div>
          {openModal && (

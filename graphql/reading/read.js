@@ -129,3 +129,16 @@ export const GET_CHAPTER_SUMMARY = gql`
       }
    }
 `;
+
+export const HANDLE_CHAPTER_SUMMARY_VOTE = gql`
+   mutation ($CHAPTER_ID: ID, $vote: Int) {
+      handle_chapter_summary_vote(CHAPTER_ID: $CHAPTER_ID, vote: $vote) {
+         ... on ChapterSummary {
+            votes_up
+            votes_down
+            CHAPTER_ID
+            summary
+         }
+      }
+   }
+`;
