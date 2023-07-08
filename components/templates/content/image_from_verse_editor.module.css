@@ -1,0 +1,49 @@
+.mainWrapper {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   min-height: 100vh;
+   background-color: var(--primary-color);
+}
+
+.imageWrapper {
+   width: 100%;
+
+   margin: 5rem auto 0;
+   overflow: hidden;
+}
+
+.imageWrapper h2 {
+   margin-bottom: var(--spacing-m);
+}
+
+.image {
+   width: 100%;
+   object-fit: contain;
+   object-position: center;
+   border-radius: 2em;
+}
+
+.close {
+   position: fixed;
+   top: var(--spacing-s);
+   right: var(--spacing-s);
+   cursor: pointer;
+}
+
+.loader {
+   position: fixed;
+   top: 50vh;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 2;
+}
+
+.buttons {
+   margin-top: var(--spacing-m);
+}
+
+.buttons button {
+   margin-bottom: var(--spacing-s);
+}

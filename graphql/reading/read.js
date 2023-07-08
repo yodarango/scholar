@@ -130,6 +130,27 @@ export const GET_CHAPTER_SUMMARY = gql`
    }
 `;
 
+export const GET_IMAGE_FROM_BIBLE_VERSE = gql`
+   query ($VERSE_ID: ID) {
+      get_Bible_verse_image(VERSE_ID: $VERSE_ID) {
+         ... on VerseImage {
+            ID
+            VERSE_ID
+            image_url
+            verse_citation
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ServerError {
+            message
+         }
+      }
+   }
+`;
+
 export const HANDLE_CHAPTER_SUMMARY_VOTE = gql`
    mutation ($CHAPTER_ID: ID, $vote: Int) {
       handle_chapter_summary_vote(CHAPTER_ID: $CHAPTER_ID, vote: $vote) {

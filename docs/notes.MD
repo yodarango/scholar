@@ -2,5 +2,8 @@
    final css styles where needed
 
 -  👉 Maybe explore AI stuff
+-  Wired up summarization of chapters in read page. Check that I am handling all the unions correctly in the FE
 
--  Wired up summarization of chapters in read page. Now set up the voting for whether the summary was good or not
+-  Finish Text to image stuff. use chapter ids instead of whole texts
+
+-  Left off in trying to make stability work

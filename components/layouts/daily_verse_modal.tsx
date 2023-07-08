@@ -2,7 +2,7 @@ import { useState } from "react";
 
 //comps
 import { Primary } from "../fragments/buttons/primary";
-import { DailyVerseCard } from "../fragments/cards/daily_verse_card";
+import { DailyVerseCard, TContentCreationType } from "../fragments/cards/daily_verse_card";
 import { BibleBooksWrapper } from "./scrollers/bible_books_wrapper";
 import { PrimaryStack } from "./stacks/templates/primary_stack";
 import Portal from "../hoc/potal";
@@ -12,10 +12,17 @@ import styles from "./daily_verse_modal.module.css";
 
 type TDailyVerseModalProps = {
    versecardOnly?: boolean;
-   canComment?: boolean;
+   contentCreationType?: TContentCreationType;
+   onCreateImage?: (verseContent: any) => void;
+   loading?: boolean;
 };
 
-export const DailyVerseModal = ({ versecardOnly, canComment }: TDailyVerseModalProps) => {
+export const DailyVerseModal = ({
+   versecardOnly,
+   contentCreationType,
+   onCreateImage,
+   loading
+}: TDailyVerseModalProps) => {
    const [showModal, setshowModal] = useState<number>(0);
 
    return (
@@ -42,7 +49,10 @@ export const DailyVerseModal = ({ versecardOnly, canComment }: TDailyVerseModalP
          {!versecardOnly && (
             <>
                <div className={styles.dailyVerseCard}>
-                  <DailyVerseCard canComment={canComment} />
+                  <DailyVerseCard
+                     contentCreationType={contentCreationType}
+                     onCreateImage={onCreateImage}
+                  />
                </div>
                <div className={styles.button}>
                   <Primary

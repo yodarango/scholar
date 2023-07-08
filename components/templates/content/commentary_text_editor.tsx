@@ -91,7 +91,7 @@ export const CommentaryTextEditor = ({
    const [loading, setloading] = useState("done");
    const [openModal, setOpenModal] = useState(false);
 
-   const post: THandlePostContent = {
+   const post: any = {
       ID,
       category_tags: postCategory,
       body,
