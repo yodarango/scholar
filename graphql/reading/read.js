@@ -163,3 +163,9 @@ export const HANDLE_CHAPTER_SUMMARY_VOTE = gql`
       }
    }
 `;
+
+export const KEEP_VERSE_TO_IMAGE = gql`
+   mutation ($VERSE_ID: ID, $image: String) {
+      keep_verse_to_image(VERSE_ID: $VERSE_ID, image: $image)
+   }
+`;

@@ -1,20 +1,20 @@
 import { client } from "../../../apollo-client";
-import { HANDLE_CHAPTER_SUMMARY_VOTE } from "../../../graphql/reading/read";
+import { KEEP_VERSE_TO_IMAGE } from "../../../graphql/reading/read";
 
 type TChapterSummaryVote = {
-   CHAPTER_ID: string;
-   vote: number;
+   VERSE_ID: string;
+   image: string;
 };
 
-export const useChapterSummaryVote = async (variables: TChapterSummaryVote) => {
+export const useKeepImageToVerse = async (variables: TChapterSummaryVote) => {
    try {
       const { data } = await client.mutate({
-         mutation: HANDLE_CHAPTER_SUMMARY_VOTE,
+         mutation: KEEP_VERSE_TO_IMAGE,
          variables
       });
 
-      if (data?.handle_chapter_summary_vote) {
-         return { data: data?.handle_chapter_summary_vote, error: null, status: "done" };
+      if (data?.keep_verse_to_image) {
+         return { data: data?.keep_verse_to_image, error: null, status: "done" };
       } else {
          return {
             data: null,

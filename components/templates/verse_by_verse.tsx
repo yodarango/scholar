@@ -18,6 +18,7 @@ export const VerseByVerse = () => {
    const [openModal, setOpenModal] = useState<boolean>(false);
    const [currentView, setCurrentView] = useState<TContentCreationType>("comment");
    const [createImage, setCreateImage] = useState<any>(null);
+   const [verseData, setVerseData] = useState<any>(null);
    const [loading, setLoading] = useState<boolean>(false);
    const [errorGettingImage, setErrorGettingImage] = useState<boolean>(false);
 
@@ -51,20 +52,24 @@ export const VerseByVerse = () => {
       else router.push("/posts/commentary/new?close=explore");
    };
 
-   const handleCreateImage = async (VERSE_ID: string) => {
+   const handleCreateImage = async (verseData: any) => {
+      setVerseData(verseData);
       setLoading(true);
+      setErrorGettingImage(false);
       setCreateImage({});
       try {
-         const { data, error, status } = await getImageFromBibleVerse(VERSE_ID);
+         const { data, error, status } = await getImageFromBibleVerse(verseData.orgId);
          if (data && status === "done") {
             console.log(data);
             setCreateImage(data);
             setLoading(false);
+            setErrorGettingImage(false);
          } else if (error) {
             setErrorGettingImage(true);
             setLoading(false);
          }
       } catch (error) {
+         setErrorGettingImage(true);
          console.error(error);
       }
    };
@@ -91,6 +96,7 @@ export const VerseByVerse = () => {
          </div>
          {createImage && (
             <ImageFromVerseEditor
+               verseContent={verseData?.content}
                VERSE_ID={createImage?.VERSE_ID}
                onTryAgain={handleCreateImage}
                loading={loading}

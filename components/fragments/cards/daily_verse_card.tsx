@@ -69,7 +69,7 @@ export const DailyVerseCard = memo(
 
       const handleCreateImage = () => {
          if (isLoggedIn && onCreateImage) {
-            onCreateImage(verseContent.orgId);
+            onCreateImage(verseContent);
          } else {
             setOpenModal(true);
          }

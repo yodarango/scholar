@@ -14,7 +14,7 @@
    overflow: hidden;
 }
 
-.imageWrapper h2 {
+.imageWrapper p {
    margin-bottom: var(--spacing-m);
 }
 
