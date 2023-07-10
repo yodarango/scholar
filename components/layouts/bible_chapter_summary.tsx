@@ -85,37 +85,43 @@ export const BibleChapterSummary = ({ chapterId, onClose }: TChapterSummaryProps
                </div>
 
                {loading === "done" && data && (
-                  <div className={styles.text}>
-                     <Header
-                        color={GRADIENT_1__LIGHT}
-                        className={styles.title}
-                        text='Chapter summary'
-                        size='large'
-                        type={2}
-                     />
-                     <Parragraph className={styles.text} text={data?.data?.summary} size='main' />
-                  </div>
-               )}
+                  <>
+                     <div className={styles.text}>
+                        <Header
+                           color={GRADIENT_1__LIGHT}
+                           className={styles.title}
+                           text='Chapter summary'
+                           size='large'
+                           type={2}
+                        />
+                        <Parragraph
+                           className={styles.text}
+                           text={data?.data?.summary}
+                           size='main'
+                        />
+                     </div>
 
-               <Parragraph
-                  quiet
-                  size='main'
-                  text='How was this summary?'
-                  className={styles.summaryQuestion}
-                  align='center'
-               />
-               <div className={styles.buttonWrapper}>
-                  <IconButton
-                     icon='thumbsUp'
-                     backgroundColor={votingStatus === 1 ? "2" : "1"}
-                     cta={{ handleClick: () => handleVote(1) }}
-                  />
-                  <IconButton
-                     icon='thumbsDown'
-                     backgroundColor={votingStatus === 0 ? "2" : "1"}
-                     cta={{ handleClick: () => handleVote(0) }}
-                  />
-               </div>
+                     <Parragraph
+                        quiet
+                        size='main'
+                        text='How was this summary?'
+                        className={styles.summaryQuestion}
+                        align='center'
+                     />
+                     <div className={styles.buttonWrapper}>
+                        <IconButton
+                           icon='thumbsUp'
+                           backgroundColor={votingStatus === 1 ? "2" : "1"}
+                           cta={{ handleClick: () => handleVote(1) }}
+                        />
+                        <IconButton
+                           icon='thumbsDown'
+                           backgroundColor={votingStatus === 0 ? "2" : "1"}
+                           cta={{ handleClick: () => handleVote(0) }}
+                        />
+                     </div>
+                  </>
+               )}
                {loading === "error" && (
                   <div className={styles.feedback}>
                      <Error />

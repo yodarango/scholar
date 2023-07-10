@@ -147,6 +147,10 @@ export const GET_IMAGE_FROM_BIBLE_VERSE = gql`
          ... on ServerError {
             message
          }
+
+         ... on ExceedsPostCount {
+            message
+         }
       }
    }
 `;
@@ -166,6 +170,24 @@ export const HANDLE_CHAPTER_SUMMARY_VOTE = gql`
 
 export const KEEP_VERSE_TO_IMAGE = gql`
    mutation ($VERSE_ID: ID, $image: String) {
-      keep_verse_to_image(VERSE_ID: $VERSE_ID, image: $image)
+      keep_verse_to_image(VERSE_ID: $VERSE_ID, image: $image) {
+         ... on VerseImage {
+            ID
+            VERSE_ID
+            image_url
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ServerError {
+            message
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
+      }
    }
 `;

@@ -20,7 +20,7 @@ export const VerseByVerse = () => {
    const [createImage, setCreateImage] = useState<any>(null);
    const [verseData, setVerseData] = useState<any>(null);
    const [loading, setLoading] = useState<boolean>(false);
-   const [errorGettingImage, setErrorGettingImage] = useState<boolean>(false);
+   const [errorGettingImage, setErrorGettingImage] = useState<string>("");
 
    const scrollTarget = useRef<any>(null);
 
@@ -55,21 +55,20 @@ export const VerseByVerse = () => {
    const handleCreateImage = async (verseData: any) => {
       setVerseData(verseData);
       setLoading(true);
-      setErrorGettingImage(false);
+      setErrorGettingImage("");
       setCreateImage({});
       try {
          const { data, error, status } = await getImageFromBibleVerse(verseData.orgId);
          if (data && status === "done") {
-            console.log(data);
             setCreateImage(data);
             setLoading(false);
-            setErrorGettingImage(false);
+            setErrorGettingImage("");
          } else if (error) {
-            setErrorGettingImage(true);
+            setErrorGettingImage(status);
             setLoading(false);
          }
       } catch (error) {
-         setErrorGettingImage(true);
+         setErrorGettingImage("error");
          console.error(error);
       }
    };
@@ -97,7 +96,7 @@ export const VerseByVerse = () => {
          {createImage && (
             <ImageFromVerseEditor
                verseContent={verseData?.content}
-               VERSE_ID={createImage?.VERSE_ID}
+               VERSE_ID={verseData?.orgId}
                onTryAgain={handleCreateImage}
                loading={loading}
                error={errorGettingImage}

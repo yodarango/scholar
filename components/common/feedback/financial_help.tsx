@@ -24,7 +24,7 @@ export const FinancialHelp = ({ size = "medium" }: TEmptyProps) => {
    return (
       <div>
          <div className={`${styles.imgWrapper} ${s} `}>
-            <img src='/images/mascot/min/empty.webp' alt='a rooky with an empty box' />
+            <img src='/images/mascot/min/financial_help.webp' alt='a rooky with an empty box' />
          </div>
          <Parragraph
             align='center'

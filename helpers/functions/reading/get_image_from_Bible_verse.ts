@@ -12,7 +12,6 @@ export const getImageFromBibleVerse = async (VERSE_ID: string) => {
          }
       });
 
-      console.log(data?.get_Bible_verse_image);
       if (data?.get_Bible_verse_image) {
          if (data?.get_Bible_verse_image?.__typename === "VerseImage") {
             return { data: data?.get_Bible_verse_image, error: null, status: "done" };
@@ -22,6 +21,8 @@ export const getImageFromBibleVerse = async (VERSE_ID: string) => {
                error: "notAuth",
                status: "error"
             };
+         } else if (data.get_Bible_verse_image.__typename === "ExceedsPostCount") {
+            return { data: null, error: "Unable to save image", status: "exceedsPostCount" };
          }
       }
 

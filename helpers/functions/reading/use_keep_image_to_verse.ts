@@ -13,15 +13,26 @@ export const useKeepImageToVerse = async (variables: TChapterSummaryVote) => {
          variables
       });
 
-      if (data?.keep_verse_to_image) {
-         return { data: data?.keep_verse_to_image, error: null, status: "done" };
-      } else {
-         return {
-            data: null,
-            error: "Unable to get chapter summary",
-            status: "error"
-         };
+      if (data.keep_verse_to_image) {
+         if (data.keep_verse_to_image.__typename === "ExceedsPostCount") {
+            return { data: null, error: "Unable to save image", status: "exceedsPostCount" };
+         } else if (data.keep_verse_to_image.__typename === "ServerError") {
+         } else if (data?.keep_verse_to_image.__typename === "VerseImage") {
+            return { data: data?.keep_verse_to_image, error: null, status: "done" };
+         } else {
+            return {
+               data: null,
+               error: "Unable to save image",
+               status: "error"
+            };
+         }
       }
+
+      return {
+         data: null,
+         error: "Unable to save image",
+         status: "error"
+      };
    } catch (error) {
       console.error(error);
       return {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./image_from_verse_editor.module.css";
 import Portal from "../../hoc/potal";
 import { CloseContent } from "../../fragments/buttons/close_content";
@@ -9,6 +9,9 @@ import { Error } from "../../common/feedback/error";
 import { Parragraph } from "../../fragments/Typography/parragraph";
 import { FONT_COLOR, PRIMARY_COLOR } from "../../../constants/tokens";
 import { useKeepImageToVerse } from "../../../helpers/functions/reading/use_keep_image_to_verse";
+import { FinancialHelp } from "../../common/feedback/financial_help";
+import { notificationMessages } from "../../../data/notification_messages";
+import { Notification } from "../../fragments/popups/notification";
 
 type TImageFromVerseEditorProps = {
    ID: string;
@@ -17,9 +20,9 @@ type TImageFromVerseEditorProps = {
    VERSE_ID: string;
    verseContent: string;
    onClose: () => void;
-   onTryAgain: (VERSE_ID: string) => void;
+   onTryAgain: (verseData: any) => void;
    loading: boolean;
-   error: boolean;
+   error: string;
    verseCitation: string;
 };
 
@@ -35,6 +38,12 @@ export const ImageFromVerseEditor = ({
    verseContent,
    onClose
 }: TImageFromVerseEditorProps) => {
+   console.log(VERSE_ID);
+   const [currentError, setCurrentError] = useState<string>("");
+   const [notification, setNotification] =
+      useState<{ title: string; body: string; type: string } | null>(null);
+   const [imageKept, setImageKept] = useState<boolean>(false);
+
    const handleDownload = () => {
       const link = document.createElement("a");
       link.href = `data:image/png;base64, ${img_url}`;
@@ -43,20 +52,38 @@ export const ImageFromVerseEditor = ({
    };
 
    const handleTryAgain = () => {
-      onTryAgain(VERSE_ID);
+      onTryAgain({ orgId: VERSE_ID, content: verseContent, reference: verseCitation });
    };
 
-   const handleKeepImage = () => {
-      useKeepImageToVerse({ VERSE_ID, image: img_url });
+   const handleKeepImage = async () => {
+      const { data, error, status } = await useKeepImageToVerse({ VERSE_ID, image: img_url });
+      if (status === "done") {
+         setNotification(notificationMessages.AIImageCreated);
+         setImageKept(true);
+      }
+      if (error) {
+         setCurrentError(status);
+      }
    };
 
+   useEffect(() => setCurrentError(error), [error]);
+
+   console.log(currentError);
    return (
       <Portal>
+         {notification && (
+            <Notification
+               title={notification.title}
+               body={notification.body}
+               type='2'
+               cta={{ handleClose: () => setNotification(null) }}
+            />
+         )}
          <div className={styles.mainWrapper}>
             <div className={styles.close}>
                <CloseContent cta={{ handleClick: onClose }} />
             </div>
-            {!loading && !error && (
+            {!loading && !currentError && (
                <>
                   <div className={styles.imageWrapper}>
                      <Header
@@ -73,23 +100,30 @@ export const ImageFromVerseEditor = ({
                   </div>
                   <div className={styles.buttons}>
                      <Primary cta={{ handleClick: handleDownload }} title='Download' type='1' />
-                     <Primary
-                        cta={{ handleClick: handleKeepImage }}
-                        title='Keep'
-                        customColor={{ text: PRIMARY_COLOR, button: FONT_COLOR }}
-                     />
+                     {!imageKept && (
+                        <Primary
+                           cta={{ handleClick: handleKeepImage }}
+                           title='Keep'
+                           customColor={{ text: PRIMARY_COLOR, button: FONT_COLOR }}
+                        />
+                     )}
                      <Primary cta={{ handleClick: handleTryAgain }} title='Try again' type='2' />
                   </div>
                </>
             )}
-            {loading && !error && (
+            {loading && !currentError && (
                <div className={styles.loader}>
                   <RoundLoader />
                </div>
             )}
-            {error && !loading && (
+            {currentError === "error" && !loading && (
                <div className={styles.loader}>
                   <Error />
+               </div>
+            )}
+            {currentError === "exceedsPostCount" && !loading && (
+               <div className={styles.loader}>
+                  <FinancialHelp />
                </div>
             )}
          </div>

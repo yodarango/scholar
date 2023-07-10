@@ -143,5 +143,12 @@ export const notificationMessages = {
          "A new verification code has been sent to " +
          email +
          " (don't forget to check your spam!)."
+   },
+   AIImageCreated: {
+      id: 20,
+      type: "Success",
+      description: "Notification after an AI image has been created code is sent successfully",
+      title: "Woot woot! Image Saved!",
+      body: "Great, your image has been saved to your profile!"
    }
 };

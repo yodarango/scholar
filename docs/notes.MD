@@ -4,6 +4,4 @@
 -  👉 Maybe explore AI stuff
 -  Wired up summarization of chapters in read page. Check that I am handling all the unions correctly in the FE
 
--  Finish Text to image stuff. use chapter ids instead of whole texts
-
--  Left off in trying to make stability work
+-  🧠Seems like image creation and keeping is done. Now make sure you can save it to a users profile
