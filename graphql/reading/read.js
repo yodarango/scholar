@@ -174,7 +174,7 @@ export const KEEP_VERSE_TO_IMAGE = gql`
          ... on VerseImage {
             ID
             VERSE_ID
-            image_url
+            img_url
          }
 
          ... on NotAuthorized {
@@ -195,24 +195,10 @@ export const KEEP_VERSE_TO_IMAGE = gql`
 export const GET_IMAGES_FROM_VERSE = gql`
    query ($VERSE_ID: ID, $last_id: ID) {
       get_images_from_verse(VERSE_ID: $VERSE_ID, last_id: $last_id) {
-         ... on VerseImage {
-            ID
-            VERSE_ID
-            image_url
-            verse_citation
-         }
-
-         ... on NotAuthorized {
-            message
-         }
-
-         ... on ServerError {
-            message
-         }
-
-         ... on ExceedsPostCount {
-            message
-         }
+         ID
+         VERSE_ID
+         img_url
+         verse_citation
       }
    }
 `;

@@ -90,14 +90,16 @@ export const VerseByVerse = () => {
    }, []);
 
    useEffect(() => {
-      if (router.isReady && router.query?.VERSE_ID) {
-         setVerseID(router.query.VERSE_ID as string);
-      } else {
-         const verseData = localStorage.getItem("todays-verse");
+      if (router.isReady) {
+         if (router.query?.VERSE_ID) {
+            setVerseID(router.query.VERSE_ID as string);
+         } else {
+            const verseData = localStorage.getItem("todays-verse");
 
-         if (verseData) {
-            const verse = JSON.parse(verseData);
-            setVerseID(verse.data.id);
+            if (verseData) {
+               const verse = JSON.parse(verseData);
+               setVerseID(verse?.data?.id);
+            }
          }
       }
    }, [router.isReady, router.query]);

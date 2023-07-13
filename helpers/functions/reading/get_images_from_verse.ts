@@ -21,18 +21,9 @@ export const getImagesFromVerse = async (variables: TGetImagesFromVerseProps) =>
          variables
       });
 
-      if (data?.get_images_from_verses) {
-         if (data?.get_images_from_verses?.__typename === "VerseImage") {
-            return { data: data?.get_images_from_verses, error: null, status: "done" };
-         }
-      } else {
-         return {
-            data: null,
-            error: { ...unknownError, type: "4" },
-            status: "error"
-         };
+      if (data?.get_images_from_verse) {
+         return { data: data?.get_images_from_verse, error: null, status: "done" };
       }
-
       return {
          data: null,
          error: { ...unknownError, type: "4" },
