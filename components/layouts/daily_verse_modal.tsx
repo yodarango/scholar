@@ -20,8 +20,7 @@ type TDailyVerseModalProps = {
 export const DailyVerseModal = ({
    versecardOnly,
    contentCreationType,
-   onCreateImage,
-   loading
+   onCreateImage
 }: TDailyVerseModalProps) => {
    const [showModal, setshowModal] = useState<number>(0);
 

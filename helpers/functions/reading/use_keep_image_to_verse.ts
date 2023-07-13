@@ -3,7 +3,6 @@ import { KEEP_VERSE_TO_IMAGE } from "../../../graphql/reading/read";
 
 type TChapterSummaryVote = {
    VERSE_ID: string;
-   image: string;
 };
 
 export const useKeepImageToVerse = async (variables: TChapterSummaryVote) => {

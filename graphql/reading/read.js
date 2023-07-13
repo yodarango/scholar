@@ -169,12 +169,37 @@ export const HANDLE_CHAPTER_SUMMARY_VOTE = gql`
 `;
 
 export const KEEP_VERSE_TO_IMAGE = gql`
-   mutation ($VERSE_ID: ID, $image: String) {
-      keep_verse_to_image(VERSE_ID: $VERSE_ID, image: $image) {
+   mutation ($VERSE_ID: ID) {
+      keep_verse_to_image(VERSE_ID: $VERSE_ID) {
          ... on VerseImage {
             ID
             VERSE_ID
             image_url
+         }
+
+         ... on NotAuthorized {
+            message
+         }
+
+         ... on ServerError {
+            message
+         }
+
+         ... on ExceedsPostCount {
+            message
+         }
+      }
+   }
+`;
+
+export const GET_IMAGES_FROM_VERSE = gql`
+   query ($VERSE_ID: ID, $last_id: ID) {
+      get_images_from_verse(VERSE_ID: $VERSE_ID, last_id: $last_id) {
+         ... on VerseImage {
+            ID
+            VERSE_ID
+            image_url
+            verse_citation
          }
 
          ... on NotAuthorized {

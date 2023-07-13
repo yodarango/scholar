@@ -4,6 +4,7 @@ import { errorMessages } from "../../../data/error_messages";
 const unknownError = errorMessages.unknown.a;
 
 export const getImageFromBibleVerse = async (VERSE_ID: string) => {
+   if (!VERSE_ID) return { data: [], error: null, status: "done" };
    try {
       const { data } = await client.query({
          query: GET_IMAGE_FROM_BIBLE_VERSE,

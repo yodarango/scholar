@@ -1,0 +1,28 @@
+.mainWrapper {
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+   width: 100%;
+   gap: var(--spacing-s);
+}
+
+.imgWrapper {
+   width: 100%;
+   position: relative;
+   border-radius: 0.8em;
+   overflow: hidden;
+}
+
+.imgWrapper img {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   object-position: center;
+}
+
+.feedback {
+   margin: var(--spacing-m) auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}

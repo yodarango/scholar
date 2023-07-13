@@ -12,6 +12,7 @@ import { getImageFromBibleVerse } from "../../helpers/functions/reading/get_imag
 import { ExploreNavigation } from "../layouts/navs/explore_navigation";
 import { ImageFromVerseEditor } from "./content/image_from_verse_editor";
 import { Notification } from "../fragments/popups/notification";
+import { ImagesFromVerseGrid } from "../layouts/scrollers/user_content/images_from_verse_grid";
 
 export const VerseByVerse = () => {
    const router = useRouter();
@@ -21,6 +22,7 @@ export const VerseByVerse = () => {
    const [verseData, setVerseData] = useState<any>(null);
    const [loading, setLoading] = useState<boolean>(false);
    const [errorGettingImage, setErrorGettingImage] = useState<string>("");
+   const [verseID, setVerseID] = useState<string>("");
 
    const scrollTarget = useRef<any>(null);
 
@@ -87,6 +89,19 @@ export const VerseByVerse = () => {
       }
    }, []);
 
+   useEffect(() => {
+      if (router.isReady && router.query?.VERSE_ID) {
+         setVerseID(router.query.VERSE_ID as string);
+      } else {
+         const verseData = localStorage.getItem("todays-verse");
+
+         if (verseData) {
+            const verse = JSON.parse(verseData);
+            setVerseID(verse.data.id);
+         }
+      }
+   }, [router.isReady, router.query]);
+
    return (
       <div className={styles.mainWrapper} ref={scrollTarget}>
          <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
@@ -134,6 +149,7 @@ export const VerseByVerse = () => {
                triggerEffect ? styles.commentariesTopScrolling : ""
             }`}>
             {currentView === "comment" && <CommentariesGrid getAll />}
+            {currentView === "verse" && <ImagesFromVerseGrid VERSE_ID={verseID} />}
          </div>
       </div>
    );

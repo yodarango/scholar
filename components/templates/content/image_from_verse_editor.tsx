@@ -56,7 +56,7 @@ export const ImageFromVerseEditor = ({
    };
 
    const handleKeepImage = async () => {
-      const { data, error, status } = await useKeepImageToVerse({ VERSE_ID, image: img_url });
+      const { data, error, status } = await useKeepImageToVerse({ VERSE_ID });
       if (status === "done") {
          setNotification(notificationMessages.AIImageCreated);
          setImageKept(true);
