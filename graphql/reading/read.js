@@ -131,8 +131,8 @@ export const GET_CHAPTER_SUMMARY = gql`
 `;
 
 export const GET_IMAGE_FROM_BIBLE_VERSE = gql`
-   query ($VERSE_ID: ID) {
-      get_Bible_verse_image(VERSE_ID: $VERSE_ID) {
+   query ($VERSE_ID: ID, $prompt: String) {
+      get_Bible_verse_image(VERSE_ID: $VERSE_ID, prompt: $prompt) {
          ... on VerseImage {
             ID
             VERSE_ID
@@ -169,8 +169,8 @@ export const HANDLE_CHAPTER_SUMMARY_VOTE = gql`
 `;
 
 export const KEEP_VERSE_TO_IMAGE = gql`
-   mutation ($VERSE_ID: ID) {
-      keep_verse_to_image(VERSE_ID: $VERSE_ID) {
+   mutation ($ID: ID) {
+      keep_verse_to_image(ID: $ID) {
          ... on VerseImage {
             ID
             VERSE_ID

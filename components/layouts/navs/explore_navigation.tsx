@@ -7,12 +7,14 @@ import { THIRD_COLOR } from "../../../constants/tokens";
 import { useRouter } from "next/router";
 
 type TPostsNavigationProps = {
+   activateState?: number;
    cta: {
       handleClick: (postType: number) => void;
    };
 };
 
-export const ExploreNavigation = ({ cta }: TPostsNavigationProps) => {
+export const ExploreNavigation = ({ cta, activateState }: TPostsNavigationProps) => {
+   console.log("activateState", activateState);
    // state
    const [hoverState, sethoverState] = useState<number>(0);
    const [activeState, setactiveState] = useState<number>(0);
@@ -22,6 +24,10 @@ export const ExploreNavigation = ({ cta }: TPostsNavigationProps) => {
       setactiveState(postType);
       cta.handleClick(postType);
    };
+
+   useEffect(() => {
+      setactiveState(activateState || 0);
+   }, [activateState]);
 
    return (
       <div className={styles.mainWrapper}>

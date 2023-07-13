@@ -3,13 +3,15 @@ import { GET_IMAGE_FROM_BIBLE_VERSE } from "../../../graphql/reading/read";
 import { errorMessages } from "../../../data/error_messages";
 const unknownError = errorMessages.unknown.a;
 
-export const getImageFromBibleVerse = async (VERSE_ID: string) => {
+export const getImageFromBibleVerse = async (VERSE_ID: string, prompt?: string) => {
    if (!VERSE_ID) return { data: [], error: null, status: "done" };
+
    try {
       const { data } = await client.query({
          query: GET_IMAGE_FROM_BIBLE_VERSE,
          variables: {
-            VERSE_ID
+            VERSE_ID,
+            prompt: prompt || null
          }
       });
 
@@ -24,6 +26,8 @@ export const getImageFromBibleVerse = async (VERSE_ID: string) => {
             };
          } else if (data.get_Bible_verse_image.__typename === "ExceedsPostCount") {
             return { data: null, error: "Unable to save image", status: "exceedsPostCount" };
+         } else {
+            return { data: null, error: "Unable to save image", status: "error" };
          }
       }
 

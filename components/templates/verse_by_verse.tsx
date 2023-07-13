@@ -13,6 +13,7 @@ import { ExploreNavigation } from "../layouts/navs/explore_navigation";
 import { ImageFromVerseEditor } from "./content/image_from_verse_editor";
 import { Notification } from "../fragments/popups/notification";
 import { ImagesFromVerseGrid } from "../layouts/scrollers/user_content/images_from_verse_grid";
+import { Icon } from "../fragments/chunks/icons";
 
 export const VerseByVerse = () => {
    const router = useRouter();
@@ -21,27 +22,30 @@ export const VerseByVerse = () => {
    const [createImage, setCreateImage] = useState<any>(false);
    const [verseID, setVerseID] = useState<string>("");
    const scrollTarget = useRef<any>(null);
+   const [triggerNewFetch, setTriggerNewFetch] = useState<number>(0);
+   const [hiddenView, setHiddenView] = useState<boolean>(false);
 
+   // TODO: Ditching this for a button, might come back
    //state
-   const [triggerEffect, setsTriggerEffect] = useState<boolean>(false);
-   let scrollYDis = 0;
-   let changeDir = false; // kep comp from rerendering each time
+   // const [triggerEffect, setsTriggerEffect] = useState<boolean>(false);
+   // let scrollYDis = 0;
+   // let changeDir = false; // kep comp from rerendering each time
 
-   const handleHeader = () => {
-      const distance = scrollTarget?.current?.getBoundingClientRect().y;
-      const isScrollingDown = scrollYDis - distance > 0 ? true : false;
-      const innerHeight = window.innerHeight;
-      const bottom = scrollTarget?.current?.getBoundingClientRect().bottom;
+   // const handleHeader = () => {
+   //    const distance = scrollTarget?.current?.getBoundingClientRect().y;
+   //    const isScrollingDown = scrollYDis - distance > 0 ? true : false;
+   //    const innerHeight = window.innerHeight;
+   //    const bottom = scrollTarget?.current?.getBoundingClientRect().bottom;
 
-      if (innerHeight - bottom < 100 && innerHeight - bottom > -100) {
-         setsTriggerEffect(true);
-      } else if (triggerEffect !== changeDir) {
-         setsTriggerEffect(isScrollingDown);
-      }
-      scrollYDis = distance;
+   //    if (innerHeight - bottom < 100 && innerHeight - bottom > -100) {
+   //       setsTriggerEffect(true);
+   //    } else if (triggerEffect !== changeDir) {
+   //       setsTriggerEffect(isScrollingDown);
+   //    }
+   //    scrollYDis = distance;
 
-      changeDir = isScrollingDown;
-   };
+   //    changeDir = isScrollingDown;
+   // };
 
    const handleClick = () => {
       const isLoggedIn = loggedInUser();
@@ -50,21 +54,26 @@ export const VerseByVerse = () => {
    };
 
    const handleNavigation = (view: number) => {
+      const currentView = router?.query?.view;
+
+      if (Number(currentView) !== view) router.push({ query: { view: view } });
+
       if (view === 1) setCurrentView("comment");
       else if (view === 2) setCurrentView("verse");
    };
 
-   useEffect(() => {
-      if (typeof window !== "undefined") {
-         window.addEventListener("scroll", handleHeader);
-         return () => {
-            window.removeEventListener("scroll", handleHeader);
-         };
-      }
-   }, []);
+   const handleCloseEditor = () => {
+      setTriggerNewFetch(triggerNewFetch + 1);
+   };
 
    useEffect(() => {
       if (router.isReady) {
+         if (router.query?.view) {
+            const view = Number(router.query.view);
+            if (view === 1) setCurrentView("comment");
+            else if (view === 2) setCurrentView("verse");
+         }
+
          if (router.query?.VERSE_ID) {
             setVerseID(router.query.VERSE_ID as string);
          } else {
@@ -85,36 +94,48 @@ export const VerseByVerse = () => {
             <IconButton backgroundColor='2' icon='add' cta={{ handleClick: handleClick }} />
          </div>
          {createImage && (
-            <ImageFromVerseEditor verseData={createImage} onClose={() => setCreateImage(false)} />
+            <ImageFromVerseEditor verseData={createImage} onClose={handleCloseEditor} />
          )}
 
-         <div className={`${styles.top} ${triggerEffect ? styles.topScrolling : ""}`}>
-            <div className={styles.verseFilter}>
-               <div className={styles.verse}>
-                  <DailyVerseModal
-                     versecardOnly={triggerEffect}
-                     contentCreationType={currentView}
-                     onCreateImage={(content) => setCreateImage(content)}
-                  />
-               </div>
-               <div className={styles.navigation}>
-                  <ExploreNavigation cta={{ handleClick: handleNavigation }} />
-               </div>
-               {!triggerEffect && currentView === "comment" && (
-                  <div className={styles.filter}>
-                     <CommentaryFilter />
+         <div className={`${styles.top} ${styles.topScrolling}`}>
+            {!hiddenView && (
+               <>
+                  <div className={styles.verseFilter}>
+                     <div className={styles.verse}>
+                        <DailyVerseModal
+                           contentCreationType={currentView}
+                           onCreateImage={(content) => setCreateImage(content)}
+                        />
+                     </div>
+                     <div className={styles.navigation}>
+                        <ExploreNavigation
+                           activateState={currentView === "comment" ? 1 : 2}
+                           cta={{ handleClick: handleNavigation }}
+                        />
+                     </div>
+                     {currentView === "comment" && (
+                        <div className={styles.filter}>
+                           <CommentaryFilter />
+                        </div>
+                     )}
                   </div>
-               )}
+                  <div className={`${styles.shadow} ${styles.hiddenShadow}`}></div>
+               </>
+            )}
+            <div
+               className={`${styles.hideVerseView} ${hiddenView ? styles.isHidden : ""} `}
+               onClick={() => setHiddenView(!hiddenView)}>
+               <div>
+                  <Icon name='arrowTop' />
+               </div>
             </div>
-            <div className={`${styles.shadow} ${triggerEffect ? "" : styles.hiddenShadow}`}></div>
          </div>
 
-         <div
-            className={`${styles.commentaries} ${
-               triggerEffect ? styles.commentariesTopScrolling : ""
-            }`}>
+         <div className={`${styles.commentaries} ${hiddenView ? styles.isHidden : ""}`}>
             {currentView === "comment" && <CommentariesGrid getAll />}
-            {currentView === "verse" && <ImagesFromVerseGrid VERSE_ID={verseID} />}
+            {currentView === "verse" && (
+               <ImagesFromVerseGrid VERSE_ID={verseID} trigger={triggerNewFetch} />
+            )}
          </div>
       </div>
    );

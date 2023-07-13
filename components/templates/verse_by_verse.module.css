@@ -10,6 +10,7 @@
 }
 
 .top {
+   position: relative;
    background-color: var(--primary-color);
    z-index: 2;
    top: 0;
@@ -17,6 +18,7 @@
    position: fixed;
    left: calc(-50vw + 50%);
    transition: all 500ms ease;
+   padding-bottom: var(--spacing-xs);
 }
 
 .topScrolling {
@@ -49,9 +51,41 @@
    margin-bottom: var(--spacing-m);
 }
 
+.hideVerseView {
+   position: absolute;
+   bottom: 0;
+   height: 1rem;
+   width: 100%;
+   background-color: var(--third-color);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.hideVerseView div {
+   background-color: var(--third-color);
+   width: 4rem;
+   height: 2rem;
+   border-radius: 1em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+}
+
+.hideVerseView.isHidden {
+   bottom: -2rem;
+}
+
+.hideVerseView.isHidden > div {
+   height: 2.5rem;
+   rotate: 180deg;
+   transform: translateY(-0.5rem);
+}
+
 .navigation {
    width: 100%;
-   margin-bottom: var(--spacing-m);
+   margin: var(--spacing-m) 0;
 }
 .commentaries {
    z-index: 1;
@@ -61,8 +95,9 @@
    transition: all 500ms ease;
 }
 
-.commentariesTopScrolling {
-   padding-top: 0rem;
+.commentaries.isHidden {
+   margin-top: 0;
+   padding-top: 5rem;
 }
 
 .shadow {

@@ -11,9 +11,10 @@ import { SmallLoader } from "../../../fragments/chunks/small_loader";
 
 type TImageGridProps = {
    VERSE_ID: string;
+   trigger?: number; // to trigger a new fetch from parent
 };
 
-export const ImagesFromVerseGrid = ({ VERSE_ID }: TImageGridProps) => {
+export const ImagesFromVerseGrid = ({ VERSE_ID, trigger }: TImageGridProps) => {
    const [images, setImages] = React.useState<any[]>([]);
    const [lastId, setLastId] = React.useState<number>(CONTENT_LAST_ID);
    const [loading, setLoading] = React.useState<string>("loading");
@@ -30,6 +31,7 @@ export const ImagesFromVerseGrid = ({ VERSE_ID }: TImageGridProps) => {
             setLoading("done");
 
             if (data.length === 6) setCanLoadMore(true);
+            else setCanLoadMore(false);
 
             if (isLoadMore) setImages((prev) => [...prev, ...data]);
             else setImages(data);
@@ -51,7 +53,7 @@ export const ImagesFromVerseGrid = ({ VERSE_ID }: TImageGridProps) => {
 
    useEffect(() => {
       getData();
-   }, []);
+   }, [trigger]);
 
    return (
       <div className={styles.mainWrapper}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //comps
 import { Primary } from "../fragments/buttons/primary";
@@ -9,6 +9,7 @@ import Portal from "../hoc/potal";
 
 //styles
 import styles from "./daily_verse_modal.module.css";
+import { useRouter } from "next/router";
 
 type TDailyVerseModalProps = {
    versecardOnly?: boolean;
@@ -23,6 +24,14 @@ export const DailyVerseModal = ({
    onCreateImage
 }: TDailyVerseModalProps) => {
    const [showModal, setshowModal] = useState<number>(0);
+   const [chosenVerse, setChosenVerse] = useState<string>(""); // [book, chapter, verse
+   const router = useRouter();
+
+   useEffect(() => {
+      if (router.isReady && chosenVerse) {
+         router.push({ query: { ...router.query, VERSE_ID: chosenVerse } });
+      }
+   }, [chosenVerse]);
 
    return (
       <div className={styles.mainWrpaper}>
@@ -37,8 +46,11 @@ export const DailyVerseModal = ({
                         stopAtChapter={false}
                         stopAtChapterId={false}
                         cta={{
-                           handleChoice: (choice: string) =>
-                              (location.href = `/explore/?VERSE_ID=${choice}`)
+                           handleChoice: (choice: string) => {
+                              //location.href = `/explore/?VERSE_ID=${choice}`;
+                              setChosenVerse(choice);
+                              setshowModal(0);
+                           }
                         }}
                      />
                   </PrimaryStack>

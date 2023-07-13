@@ -16,6 +16,7 @@ import { getImageFromBibleVerse } from "../../../helpers/functions/reading/get_i
 import { InputPrimary } from "../../fragments/inputs/input_primary";
 import { TextAreaPrimary } from "../../fragments/inputs/text_area_primary";
 import { Icon } from "../../fragments/chunks/icons";
+import { SmallLoader } from "../../fragments/chunks/small_loader";
 
 type TImageFromVerseEditorProps = {
    verseData: any;
@@ -28,23 +29,29 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
    const [imageKept, setImageKept] = useState<boolean>(false);
    const [createImage, setCreateImage] = useState<any>(null);
    const [loading, setLoading] = useState<string>("start");
-   const [imgDescription, setImgDescription] = useState<string>("");
+   const [imgPrompt, setImgPrompt] = useState<string>("");
 
    const handleDownload = () => {
       const link = document.createElement("a");
-      link.href = `data:image/png;base64, ${verseData.img_url}`;
-      link.download = "image.png";
+      link.href = `data:image/png;base64, ${createImage.img_url}`;
+      link.download = "shrood.png";
       link.click();
    };
 
    const handleKeepImage = async () => {
-      const { data, error, status } = await useKeepImageToVerse({ VERSE_ID: verseData.orgId });
-      if (status === "done") {
-         setNotification(notificationMessages.AIImageCreated);
-         setImageKept(true);
-      }
-      if (error) {
+      try {
+         setLoading("loadingSmall");
+         const { data, error, status } = await useKeepImageToVerse({ ID: createImage?.ID });
+         console.log(data);
+         if (status === "done") {
+            setNotification(notificationMessages.AIImageCreated);
+            setImageKept(true);
+         }
+
          setLoading(status);
+      } catch (error) {
+         setLoading("error");
+         console.error(error);
       }
    };
 
@@ -52,7 +59,7 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
       setLoading("loading");
       setCreateImage({});
       try {
-         const { data, error, status } = await getImageFromBibleVerse(verseData.orgId);
+         const { data, error, status } = await getImageFromBibleVerse(verseData.orgId, imgPrompt);
          console.log(data);
          if (data && status === "done") {
             setCreateImage(data);
@@ -67,7 +74,7 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
    };
 
    const handleTryAgain = () => {
-      handleCreateImage();
+      setLoading("start");
    };
 
    return (
@@ -91,14 +98,14 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
                   <TextAreaPrimary
                      maxLength={100}
                      maxHeight={100}
-                     cta={{ handleCurrentValue: (val) => setImgDescription(val) }}
+                     cta={{ handleCurrentValue: (val) => setImgPrompt(val) }}
                      defaultValue=''
                      placeHolder='Describe your image based on the current verse (optional)'
                   />
                   <Primary cta={{ handleClick: handleCreateImage }} title='Do the magic' type='1' />
                </div>
             )}
-            {loading === "done" && (
+            {(loading === "done" || loading === "loadingSmall") && (
                <>
                   <div className={styles.imageWrapper}>
                      <Header
@@ -114,17 +121,19 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
                   </div>
                   <div className={styles.buttons}>
                      <Primary cta={{ handleClick: handleDownload }} title='Download' type='1' />
-                     {!imageKept && (
+                     {!imageKept && loading !== "loadingSmall" && (
                         <Primary
                            cta={{ handleClick: handleKeepImage }}
                            title='Keep'
                            customColor={{ text: PRIMARY_COLOR, button: FONT_COLOR }}
                         />
                      )}
+                     {loading === "loadingSmall" && <SmallLoader />}
                      <Primary cta={{ handleClick: handleTryAgain }} title='Try again' type='2' />
                   </div>
                </>
             )}
+
             {loading === "loading" && (
                <div className={styles.loader}>
                   <RoundLoader />
@@ -138,12 +147,12 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
                   </div>
                </div>
             )}
-            {loading === "error" && !loading && (
+            {loading === "error" && (
                <div className={styles.loader}>
                   <Error />
                </div>
             )}
-            {loading === "exceedsPostCount" && !loading && (
+            {loading === "exceedsPostCount" && (
                <div className={styles.loader}>
                   <FinancialHelp />
                </div>
