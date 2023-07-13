@@ -1,13 +1,14 @@
+import { FONT_COLOR } from "../../../constants/tokens";
 import styles from "./icons.module.css";
 
 type TiconsProps = {
    name: string;
    strokeWidth?: string;
-   color: string;
+   color?: string;
    size?: string;
 };
 
-export const Icon = ({ name, strokeWidth, color, size = "2rem" }: TiconsProps) => {
+export const Icon = ({ name, strokeWidth, color = FONT_COLOR, size = "2rem" }: TiconsProps) => {
    let icon: any;
 
    switch (name) {

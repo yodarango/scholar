@@ -136,7 +136,7 @@ export const GET_IMAGE_FROM_BIBLE_VERSE = gql`
          ... on VerseImage {
             ID
             VERSE_ID
-            image_url
+            img_url
             verse_citation
          }
 

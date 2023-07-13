@@ -18,12 +18,8 @@ export const VerseByVerse = () => {
    const router = useRouter();
    const [openModal, setOpenModal] = useState<boolean>(false);
    const [currentView, setCurrentView] = useState<TContentCreationType>("comment");
-   const [createImage, setCreateImage] = useState<any>(null);
-   const [verseData, setVerseData] = useState<any>(null);
-   const [loading, setLoading] = useState<boolean>(false);
-   const [errorGettingImage, setErrorGettingImage] = useState<string>("");
+   const [createImage, setCreateImage] = useState<any>(false);
    const [verseID, setVerseID] = useState<string>("");
-
    const scrollTarget = useRef<any>(null);
 
    //state
@@ -34,7 +30,6 @@ export const VerseByVerse = () => {
    const handleHeader = () => {
       const distance = scrollTarget?.current?.getBoundingClientRect().y;
       const isScrollingDown = scrollYDis - distance > 0 ? true : false;
-
       const innerHeight = window.innerHeight;
       const bottom = scrollTarget?.current?.getBoundingClientRect().bottom;
 
@@ -52,27 +47,6 @@ export const VerseByVerse = () => {
       const isLoggedIn = loggedInUser();
       if (!isLoggedIn) setOpenModal(true);
       else router.push("/posts/commentary/new?close=explore");
-   };
-
-   const handleCreateImage = async (verseData: any) => {
-      setVerseData(verseData);
-      setLoading(true);
-      setErrorGettingImage("");
-      setCreateImage({});
-      try {
-         const { data, error, status } = await getImageFromBibleVerse(verseData.orgId);
-         if (data && status === "done") {
-            setCreateImage(data);
-            setLoading(false);
-            setErrorGettingImage("");
-         } else if (error) {
-            setErrorGettingImage(status);
-            setLoading(false);
-         }
-      } catch (error) {
-         setErrorGettingImage("error");
-         console.error(error);
-      }
    };
 
    const handleNavigation = (view: number) => {
@@ -111,18 +85,7 @@ export const VerseByVerse = () => {
             <IconButton backgroundColor='2' icon='add' cta={{ handleClick: handleClick }} />
          </div>
          {createImage && (
-            <ImageFromVerseEditor
-               verseContent={verseData?.content}
-               VERSE_ID={verseData?.orgId}
-               onTryAgain={handleCreateImage}
-               loading={loading}
-               error={errorGettingImage}
-               img_url={createImage?.image_url}
-               ID={createImage?.ID}
-               prompt={createImage?.prompt}
-               onClose={() => setCreateImage(null)}
-               verseCitation={createImage?.verse_citation}
-            />
+            <ImageFromVerseEditor verseData={createImage} onClose={() => setCreateImage(false)} />
          )}
 
          <div className={`${styles.top} ${triggerEffect ? styles.topScrolling : ""}`}>
@@ -131,7 +94,7 @@ export const VerseByVerse = () => {
                   <DailyVerseModal
                      versecardOnly={triggerEffect}
                      contentCreationType={currentView}
-                     onCreateImage={handleCreateImage}
+                     onCreateImage={(content) => setCreateImage(content)}
                   />
                </div>
                <div className={styles.navigation}>
