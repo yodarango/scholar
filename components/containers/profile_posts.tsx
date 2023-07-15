@@ -1,3 +1,4 @@
+import { ImagesFromVerseGrid } from "../layouts/scrollers/user_content/images_from_verse_grid";
 import { CommentariesWFilter } from "../layouts/stacks/commentaries_w_filter";
 import { QuotesWFilter } from "../layouts/stacks/quotes_w_filter";
 import { SermonNotesWFilter } from "../layouts/stacks/sermon_notes_w_filter";
@@ -16,7 +17,7 @@ const ProfilePosts = ({ type, cta }: TProfilePostsProps) => {
          {type === 1 && <CommentariesWFilter cta={{ handleClose: cta.handleClose }} />}
          {type === 2 && <QuotesWFilter cta={{ handleClose: cta.handleClose }} />}
          {type === 3 && <ThoughtsWFilter cta={{ handleClose: cta.handleClose }} />}
-         {/* {type === 4 && <SermonNotesWFilter cta={{ handleClose: cta.handleClose }} />} */}
+         {type === 4 && <ImagesFromVerseGrid />}
       </>
    );
 };

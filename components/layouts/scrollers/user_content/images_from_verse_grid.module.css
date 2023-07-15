@@ -1,10 +1,24 @@
 .mainWrapper {
+   width: 100%;
+}
+
+.carrousel {
    display: flex;
    justify-content: flex-start;
    align-items: flex-start;
    flex-wrap: wrap;
    width: 100%;
    gap: var(--spacing-s);
+}
+
+.horizontal {
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+   flex-wrap: nowrap;
+   width: 100%;
+   gap: var(--spacing-s);
+   overflow-x: scroll;
 }
 
 .imgWrapper {
@@ -15,6 +29,12 @@
    overflow: hidden;
    flex-shrink: 0.8;
    flex-grow: 1;
+}
+
+.horizontal .imgWrapper {
+   width: 35rem;
+   height: 35rem;
+   flex-shrink: 0;
 }
 
 .imgWrapper img {
@@ -29,4 +49,8 @@
    display: flex;
    justify-content: center;
    align-items: center;
+}
+
+.btn {
+   margin-top: var(--spacing-m);
 }

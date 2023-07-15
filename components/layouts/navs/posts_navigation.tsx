@@ -67,18 +67,18 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
                color={hoverState === 3 || activeState === 3 ? FONT_COLOR : THIRD_COLOR}
             />
          </div>
-         <Link href={`/users${userID}/folders`}>
-            <a
-               className={styles.tab}
-               onMouseEnter={() => sethoverState(4)}
-               onMouseLeave={() => sethoverState(0)}>
-               <Icon
-                  name='folder'
-                  size='2rem'
-                  color={hoverState === 4 || activeState === 4 ? FONT_COLOR : THIRD_COLOR}
-               />
-            </a>
-         </Link>
+
+         <div
+            className={styles.tab}
+            onMouseEnter={() => sethoverState(4)}
+            onMouseLeave={() => sethoverState(0)}
+            onClick={() => handleClick(4)}>
+            <Icon
+               name='image'
+               size='2rem'
+               color={hoverState === 4 || activeState === 4 ? FONT_COLOR : THIRD_COLOR}
+            />
+         </div>
       </div>
    );
 };

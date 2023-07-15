@@ -8,24 +8,31 @@ import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { Error } from "../../../common/feedback/error";
 import { Primary } from "../../../fragments/buttons/primary";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
+import { useRouter } from "next/router";
 
 type TImageGridProps = {
-   VERSE_ID: string;
+   isHorizontal?: boolean;
+   VERSE_ID?: string;
    trigger?: number; // to trigger a new fetch from parent
 };
 
-export const ImagesFromVerseGrid = ({ VERSE_ID, trigger }: TImageGridProps) => {
+export const ImagesFromVerseGrid = ({ VERSE_ID, trigger, isHorizontal }: TImageGridProps) => {
    const [images, setImages] = React.useState<any[]>([]);
    const [lastId, setLastId] = React.useState<number>(CONTENT_LAST_ID);
    const [loading, setLoading] = React.useState<string>("loading");
-
    const [canLoadMore, setCanLoadMore] = React.useState<boolean>(false);
 
-   const getData = async (isLoadMore?: boolean) => {
+   const router = useRouter();
+
+   const getData = async (isLoadMore?: boolean, is_self?: boolean) => {
       if (isLoadMore) setLoading("loadingSmall");
 
       try {
-         const { data, error, status } = await getImagesFromVerse({ VERSE_ID, last_id: lastId });
+         const { data, error, status } = await getImagesFromVerse({
+            VERSE_ID,
+            last_id: lastId,
+            is_self
+         });
 
          if (status === "done") {
             setLoading("done");
@@ -51,26 +58,44 @@ export const ImagesFromVerseGrid = ({ VERSE_ID, trigger }: TImageGridProps) => {
       getData(true);
    };
 
+   const horizontalStyles = isHorizontal ? styles.horizontal : "";
+
    useEffect(() => {
-      getData();
-   }, [trigger]);
+      const is_self = router.query?.signature === "@me" ? true : false;
+      const USER_ID = router.query?.signature ? router.query?.signature : null;
+
+      if (router.isReady && router.query) {
+         if (router.query.signature) {
+            if (is_self) {
+               getData(false, is_self);
+            } else if (USER_ID) {
+               getData(false);
+            }
+         } else {
+            getData();
+         }
+      }
+   }, [trigger, router.query, router.isReady]);
 
    return (
       <div className={styles.mainWrapper}>
-         {(loading === "done" || loading === "loadingSmall") &&
-            images.length > 0 &&
-            images.map((img) => (
-               <div key={img?.ID} className={styles.imgWrapper} onClick={() => img?.ID}>
-                  <Image
-                     layout='fill'
-                     src={img?.img_url}
-                     alt='Image created by AI from a bible verse'
-                  />
-               </div>
-            ))}
-
-         {loading === "done" && canLoadMore && (
-            <Primary title='See more' cta={{ handleClick: handleGetMore }} type='1' />
+         <div className={`${styles.carrousel} ${horizontalStyles}`}>
+            {(loading === "done" || loading === "loadingSmall") &&
+               images.length > 0 &&
+               images.map((img) => (
+                  <div key={img?.ID} className={styles.imgWrapper} onClick={() => img?.ID}>
+                     <Image
+                        layout='fill'
+                        src={img?.img_url}
+                        alt='Image created by AI from a bible verse'
+                     />
+                  </div>
+               ))}
+         </div>
+         {loading === "done" && canLoadMore && !isHorizontal && (
+            <div className={styles.btn}>
+               <Primary title='See more' cta={{ handleClick: handleGetMore }} type='1' />
+            </div>
          )}
 
          {loading === "loadingSmall" && <SmallLoader />}

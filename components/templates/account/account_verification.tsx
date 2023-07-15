@@ -18,7 +18,6 @@ export const AccountVerification = () => {
    const router = useRouter();
    const userCtx = useContext(UserContext);
    const { user } = userCtx;
-   console.log("user", user);
 
    const getData = async () => {
       try {

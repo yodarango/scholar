@@ -193,8 +193,13 @@ export const KEEP_VERSE_TO_IMAGE = gql`
 `;
 
 export const GET_IMAGES_FROM_VERSE = gql`
-   query ($VERSE_ID: ID, $last_id: ID) {
-      get_images_from_verse(VERSE_ID: $VERSE_ID, last_id: $last_id) {
+   query ($VERSE_ID: ID, $last_id: ID, $USER_ID: ID, $is_self: Boolean) {
+      get_images_from_verse(
+         VERSE_ID: $VERSE_ID
+         last_id: $last_id
+         USER_ID: $USER_ID
+         is_self: $is_self
+      ) {
          ID
          VERSE_ID
          img_url

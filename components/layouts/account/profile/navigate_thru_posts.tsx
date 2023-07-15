@@ -22,6 +22,7 @@ import { Header } from "../../../fragments/Typography/header";
 // styles
 import styles from "./navigate_thru_posts.module.css";
 import ProfilePosts from "../../../containers/profile_posts";
+import { ImagesFromVerseGrid } from "../../scrollers/user_content/images_from_verse_grid";
 
 export const NavigateThruPosts = () => {
    // router
@@ -31,7 +32,7 @@ export const NavigateThruPosts = () => {
    const [postType, setpostType] = useState<number>(1); // concerned only with the OneLineScrollers
    const [currentView, setcurrentView] = useState<number>(0); // concerned only with the views
 
-   const headerTitles = ["Commentaries", "Quotes", "Thoughts", "Sermon notes"];
+   const headerTitles = ["Commentaries", "Quotes", "Thoughts", "images"];
    const headerLinks = ["1", "2", "3", "4"];
 
    // if there is a query.view that means that one of the models is open,
@@ -77,7 +78,7 @@ export const NavigateThruPosts = () => {
             {postType === 1 && <CommentaryOneLineCarrousel />}
             {postType === 2 && <QuoteOneLineCarrousel />}
             {postType === 3 && <ThoughtsOneLineCarrousel />}
-            {/* {postType === 4 && <SermonNoteOneLineCarrousel />} */}
+            {postType === 4 && <ImagesFromVerseGrid isHorizontal />}
          </div>
          <ProfilePosts type={currentView} cta={{ handleClose: handleLayerClose }} />
       </div>
