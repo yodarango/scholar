@@ -13,9 +13,6 @@ type TPostsNavigationProps = {
 };
 
 export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
-   const [userID, setuserID] = useState<string>("");
-   const router = useRouter();
-
    // state
    const [hoverState, sethoverState] = useState<number>(0);
    const [activeState, setactiveState] = useState<number>(0);
@@ -25,12 +22,6 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
       setactiveState(postType);
       cta.handleClick(postType);
    };
-
-   useEffect(() => {
-      if (router.query.signature && router.isReady) {
-         setuserID(`/${router.query.signature}`);
-      }
-   }, [router.isReady, router.query]);
 
    return (
       <div className={styles.mainWrapper}>

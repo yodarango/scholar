@@ -54,9 +54,14 @@ export const QuoteOneLineCarrousel = ({
 
    useEffect(() => {
       if (router.isReady) {
+         const USER_ID =
+            router?.query?.signature === "@me" ? undefined : (router?.query?.signature as string);
          if (!router?.query?.view) {
             if (!quotes) {
-               fetchData({ USER_ID: userID, last_id: CONTENT_LAST_ID });
+               fetchData({
+                  USER_ID: userID ? userID : USER_ID,
+                  last_id: CONTENT_LAST_ID
+               });
             } else {
                setquotesArr(quotes);
                setloading(loadingState);

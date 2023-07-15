@@ -24,13 +24,18 @@ export const ImagesFromVerseGrid = ({ VERSE_ID, trigger, isHorizontal }: TImageG
 
    const router = useRouter();
 
-   const getData = async (isLoadMore?: boolean, is_self?: boolean) => {
+   type variables = any;
+   const getData = async (
+      { USER_ID, VERSE_ID, last_id, is_self }: variables,
+      isLoadMore?: boolean
+   ) => {
       if (isLoadMore) setLoading("loadingSmall");
 
       try {
          const { data, error, status } = await getImagesFromVerse({
             VERSE_ID,
-            last_id: lastId,
+            last_id,
+            USER_ID,
             is_self
          });
 
@@ -55,7 +60,9 @@ export const ImagesFromVerseGrid = ({ VERSE_ID, trigger, isHorizontal }: TImageG
    };
 
    const handleGetMore = async () => {
-      getData(true);
+      const is_self = router.query?.signature === "@me" ? true : false;
+      const USER_ID = router.query?.signature ? router.query?.signature : null;
+      getData({ USER_ID, is_self, last_id: lastId, VERSE_ID }, true);
    };
 
    const horizontalStyles = isHorizontal ? styles.horizontal : "";
@@ -65,14 +72,8 @@ export const ImagesFromVerseGrid = ({ VERSE_ID, trigger, isHorizontal }: TImageG
       const USER_ID = router.query?.signature ? router.query?.signature : null;
 
       if (router.isReady && router.query) {
-         if (router.query.signature) {
-            if (is_self) {
-               getData(false, is_self);
-            } else if (USER_ID) {
-               getData(false);
-            }
-         } else {
-            getData();
+         if (router.query?.view === "4" || !router.query?.view) {
+            getData({ USER_ID, is_self, last_id: lastId, VERSE_ID }, false);
          }
       }
    }, [trigger, router.query, router.isReady]);

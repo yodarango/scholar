@@ -42,28 +42,28 @@ export const CommentaryOneLineCarrousel = ({
    const router = useRouter();
 
    // components
-   const [commentariesArr, setcommentariesArr] = useState<TCommentary[] | undefined>(commentaries);
-   const [loading, setloading] = useState<string>(loadingState);
+   const [commentariesArr, setcommentariesArr] = useState<TCommentary[]>(commentaries || []);
+   const [loading, setloading] = useState<string>("loading");
+   const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
-   const [queryVariables, setqueryVariables] = useState<TgetcommentariesVariables>({
-      AUTHORITY_LEVEL: authorityLevel,
-      last_id: CONTENT_LAST_ID
-   });
 
    // fetch data on first time loading. Only runs on first load
-   const fetchData = async (variables: TgetcommentariesVariables) => {
+   const fetchData = async (variables: any) => {
       setloading("loading");
+
+      if (variables?.category) variables.category_tags = variables.category;
+
       try {
          const { data, status } = await handleGetCommentaries(variables);
+
          if (data) {
             setcommentariesArr(data);
-            data.length > 0 &&
-               setqueryVariables({
-                  ...queryVariables,
-                  last_id: data[data.length - 1].ID
-               });
+
+            data.length === 20 ? setshowloadMore(true) : setshowloadMore(false);
          }
+
          setloading(status);
+         setsmallLoader(false);
       } catch (error) {
          console.error(error);
          setcommentariesArr([]);
@@ -71,58 +71,24 @@ export const CommentaryOneLineCarrousel = ({
       }
    };
 
-   //fetch data any time any of the query params change.
-   const fetchOnQueryChange = async (variables: TgetcommentariesVariables) => {
-      setloading("loading");
-
-      try {
-         const { data, status } = await handleGetCommentaries(variables);
-         if (data) {
-            setcommentariesArr(data);
-
-            setloading(status);
-         }
-      } catch (error) {
-         setcommentariesArr([]);
-         setloading("error");
-         console.error(error);
-      }
-   };
-
-   // only call on query params change and not on first load
-   // make sure it does not get called on first load
-   const isFirstLoad = useRef(1);
    useEffect(() => {
-      if (!router?.query?.view) {
-         if (!commentaries) {
-            if (router.isReady && isFirstLoad.current >= 3)
-               fetchOnQueryChange({ ...router.query, last_id: CONTENT_LAST_ID });
-         }
+      let isMounted = false;
+
+      if (router.isReady && !isMounted && !router?.query?.view) {
+         const USER_ID = router?.query?.signature === "@me" ? null : router?.query?.signature;
+         const vars: any = {
+            last_id: CONTENT_LAST_ID,
+            USER_ID
+         };
+
+         if (commentaries) {
+            setcommentariesArr(commentaries);
+         } else fetchData(vars);
       }
       return () => {
-         isFirstLoad.current = isFirstLoad.current + 1;
+         isMounted = true;
       };
-   }, [router.query]);
-
-   // only call fetch data on initial load
-   useEffect(() => {
-      if (router.isReady) {
-         if (!router?.query?.view) {
-            if (!commentaries) {
-               if (router.query.AUTHORITY_LEVEL)
-                  router.query.last_id
-                     ? fetchData({ ...router.query })
-                     : fetchData({ ...queryVariables, ...router.query });
-               else if (!router.query.AUTHORITY_LEVEL)
-                  router.query.last_id
-                     ? fetchData({ ...router.query })
-                     : fetchData({ ...queryVariables, ...router.query });
-            }
-         } else {
-            setcommentariesArr(commentaries), setloading(loadingState);
-         }
-      }
-   }, [loadingState, router.isReady]);
+   }, [router.isReady, router.query]);
 
    return (
       <div className={styles.mainWrapper}>

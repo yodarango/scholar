@@ -5,6 +5,7 @@ const unknownError = errorMessages.unknown.a;
 
 type TGetImagesFromVerseProps = {
    VERSE_ID?: string;
+   USER_ID?: string;
    last_id?: number;
    is_self?: boolean;
 };

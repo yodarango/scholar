@@ -29,7 +29,17 @@ export const DailyVerseModal = ({
 
    useEffect(() => {
       if (router.isReady && chosenVerse) {
-         router.push({ query: { ...router.query, VERSE_ID: chosenVerse } });
+         // Get the current search parameters
+         const searchParams = new URLSearchParams(window.location.search);
+
+         // Set the value for the 'tab' parameter
+         searchParams.set("VERSE_ID", String(chosenVerse));
+
+         // Update the URL with the modified search parameters
+         const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+
+         // Redirect to the modified URL
+         window.location.href = newUrl;
       }
    }, [chosenVerse]);
 

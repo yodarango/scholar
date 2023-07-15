@@ -36,8 +36,10 @@ export const AddContent = ({ href }: TAddContentProps) => {
                <SelectCreateContentType cta={{ handleCloseModal: () => setshowModal(false) }} />
             </Portal>
          )}
-         {!href && <IconButton backgroundColor='2' icon='add' cta={{ handleClick }} />}
-         {href && <IconButton backgroundColor='2' icon='add' link={href} />}
+         {!href && (
+            <IconButton iconSize='4rem' backgroundColor='2' icon='add' cta={{ handleClick }} />
+         )}
+         {href && <IconButton iconSize='4rem' backgroundColor='2' icon='add' link={href} />}
       </div>
    );
 };

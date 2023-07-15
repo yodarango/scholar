@@ -27,7 +27,7 @@ export type TIconButtonProps = {
 };
 
 export const IconButton = ({
-   iconSize = "2rem",
+   iconSize = "4rem",
    icon,
    iconColor = "#F1EAFF",
    custombuttonSize,

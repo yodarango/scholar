@@ -14,6 +14,7 @@ import { ImageFromVerseEditor } from "./content/image_from_verse_editor";
 import { Notification } from "../fragments/popups/notification";
 import { ImagesFromVerseGrid } from "../layouts/scrollers/user_content/images_from_verse_grid";
 import { Icon } from "../fragments/chunks/icons";
+import { AddContent } from "../fragments/buttons/add_content";
 
 export const VerseByVerse = () => {
    const router = useRouter();
@@ -54,22 +55,30 @@ export const VerseByVerse = () => {
    };
 
    const handleNavigation = (view: number) => {
-      const currentView = router?.query?.view;
+      // Get the current search parameters
+      const searchParams = new URLSearchParams(window.location.search);
 
-      if (Number(currentView) !== view) router.push({ query: { view: view } });
+      // Set the value for the 'tab' parameter
+      searchParams.set("tab", String(view));
 
-      if (view === 1) setCurrentView("comment");
-      else if (view === 2) setCurrentView("verse");
+      // Update the URL with the modified search parameters
+      const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+
+      if (Number(currentView) !== view) window.location.href = newUrl;
+
+      // if (view === 1) setCurrentView("comment");
+      // else if (view === 2) setCurrentView("verse");
    };
 
    const handleCloseEditor = () => {
+      setCreateImage(false);
       setTriggerNewFetch(triggerNewFetch + 1);
    };
 
    useEffect(() => {
       if (router.isReady) {
-         if (router.query?.view) {
-            const view = Number(router.query.view);
+         if (router.query?.tab) {
+            const view = Number(router.query.tab);
             if (view === 1) setCurrentView("comment");
             else if (view === 2) setCurrentView("verse");
          }
@@ -91,7 +100,12 @@ export const VerseByVerse = () => {
       <div className={styles.mainWrapper} ref={scrollTarget}>
          <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          <div className={styles.addBtn}>
-            <IconButton backgroundColor='2' icon='add' cta={{ handleClick: handleClick }} />
+            <IconButton
+               iconSize='4rem'
+               backgroundColor='2'
+               icon='add'
+               cta={{ handleClick: handleClick }}
+            />
          </div>
          {createImage && (
             <ImageFromVerseEditor verseData={createImage} onClose={handleCloseEditor} />

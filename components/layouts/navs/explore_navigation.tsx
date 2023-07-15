@@ -14,7 +14,6 @@ type TPostsNavigationProps = {
 };
 
 export const ExploreNavigation = ({ cta, activateState }: TPostsNavigationProps) => {
-   console.log("activateState", activateState);
    // state
    const [hoverState, sethoverState] = useState<number>(0);
    const [activeState, setactiveState] = useState<number>(0);

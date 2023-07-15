@@ -1,0 +1,4 @@
+.posts {
+   width: 100%;
+   padding-top: calc(var(--spacing-xs));
+}
