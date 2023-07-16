@@ -7,8 +7,8 @@
 
 .ratingIcon,
 .ratingIconCustomSize {
-   width: 2rem;
-   height: 2rem;
+   width: 3rem;
+   height: 3rem;
    border-radius: 50%;
    margin-left: calc(var(--spacing-xxs) / 1.5);
    overflow: hidden;

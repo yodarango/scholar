@@ -41,7 +41,7 @@ export const FastFacts = () => {
                <Header type={3} text='Fast Facts' size='large' quiet={true} />
             </div>
             <div>
-               <LinkWithArrow title='See all' link={"/wigo/fast-facts"} />
+               <LinkWithArrow title='See all' link={"/wigo/fast-facts"} quiet />
             </div>
          </div>
          {loading === "done" && images && (

@@ -33,11 +33,17 @@ export const WigoDailyVerseOptions = ({
          )} */}
 
          <div>
-            <IconButton icon='read' backgroundColor='1' link={`/read?chapter-id=${chapterId}`} />
+            <IconButton
+               iconSize='3rem'
+               icon='read'
+               backgroundColor='1'
+               link={`/read/@me/?chapter-id=${chapterId}`}
+            />
          </div>
 
          <div>
             <IconButton
+               iconSize='3rem'
                link={`/posts/commentary/new?VERSE_ID=${verseId}`}
                icon='comment'
                backgroundColor='1'

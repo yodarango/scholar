@@ -1,6 +1,6 @@
 .mainWrapper {
    position: relative;
-   min-height: 18rem;
+   min-height: 30rem;
    width: 100%;
    background-color: var(--third-color);
    border-radius: 2em;
@@ -75,8 +75,8 @@
    left: 0;
    right: 0;
    top: auto;
-   font-family: var(--quote-font--4);
-   font-size: 2rem;
+   /* font-family: var(--quote-font--4);
+   font-size: 2rem; */
    margin: var(--spacing-m) auto 0;
    text-align: center;
    width: 80%;

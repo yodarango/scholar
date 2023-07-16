@@ -3,7 +3,7 @@
 }
 
 .postComments {
-   height: calc(100% - 5rem); /* parent height - textArea*/
+   height: calc(100% - 13rem); /* parent height - textArea*/
    overflow-y: scroll;
 }
 
@@ -14,6 +14,7 @@
    width: 100%;
    padding: var(--spacing-s) 0 0;
    background-color: var(--primary-color);
+   padding-bottom: 8rem;
 }
 
 .loader,

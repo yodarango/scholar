@@ -27,6 +27,7 @@ import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import { PopupModal } from "../../common/popup_modal";
 import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 import { SmallLoader } from "../chunks/small_loader";
+import { FONT_COLOR } from "../../../constants/tokens";
 
 export type TContentCreationType = "verse" | "comment";
 type TypeDailyVerseCardProps = {
@@ -149,32 +150,32 @@ export const DailyVerseCard = memo(
                      <div className={styles.actions}>
                         <Link href={`/explore?VERSE_ID=${verseContent?.previous?.id}`}>
                            <a>
-                              <Icon name='arrowBack' size='2rem' color='#F1EAFF' />
+                              <Icon name='arrowBack' size='3rem' color={FONT_COLOR} />
                            </a>
                         </Link>
 
                         {isLoggedIn && contentCreationType === "comment" && (
                            <Link href={`/posts/commentary/new?VERSE_ID=${verseContent.id}`}>
                               <a>
-                                 <Icon name='comment' size='2rem' color='#F1EAFF' />
+                                 <Icon name='comment' size='3rem' color={FONT_COLOR} />
                               </a>
                            </Link>
                         )}
                         {!isLoggedIn && contentCreationType === "comment" && (
                            <button className={styles.buttonLink} onClick={() => setOpenModal(true)}>
-                              <Icon name='comment' size='2rem' color='#F1EAFF' />
+                              <Icon name='comment' size='3rem' color={FONT_COLOR} />
                            </button>
                         )}
 
                         {contentCreationType === "verse" && (
                            <button className={styles.buttonLink} onClick={handleCreateImage}>
-                              <Icon name='sparkles' size='2rem' color='#F1EAFF' />
+                              <Icon name='sparkles' size='3rem' color={FONT_COLOR} />
                            </button>
                         )}
 
                         <Link href={`/explore?VERSE_ID=${verseContent?.next?.id}`}>
                            <a>
-                              <Icon name='arrowForth' size='2rem' color='#F1EAFF' />
+                              <Icon name='arrowForth' size='3rem' color={FONT_COLOR} />
                            </a>
                         </Link>
                      </div>

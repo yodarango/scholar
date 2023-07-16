@@ -1,6 +1,6 @@
 .closed,
 .open {
-   padding: var(--spacing-xxs);
+   padding: var(--spacing-xs);
    border-radius: 3rem;
    background-color: var(--secondary-color);
    display: inline-flex;

@@ -8,7 +8,7 @@
  /****************************************************************************************/
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -74,11 +74,12 @@ export const SelectpostOptions = ({
 }: TSelectpostOptionsProps) => {
    const [openModal, setOpenModal] = useState(false);
    const { shouldRender } = useShouldRender(parseInt(userId));
-   const [showNotification, setshowNotification] = useState<{
-      title: string;
-      body: string;
-      type: string;
-   } | null>();
+   const [showNotification, setshowNotification] =
+      useState<{
+         title: string;
+         body: string;
+         type: string;
+      } | null>();
 
    // handle reporting the post
    const reportPost = async () => {
@@ -160,8 +161,8 @@ export const SelectpostOptions = ({
                            }
                         }}
                         optionProperties={{
-                           icon: <Icon name='warning' color='#F1EAFF' size='2rem' />,
-                           iconShadow: "#F1EAFF",
+                           icon: <Icon name='warning' color={FONT_COLOR} size='3rem' />,
+                           iconShadow: FONT_COLOR,
                            text: "Report"
                         }}
                      />
@@ -175,7 +176,7 @@ export const SelectpostOptions = ({
                         textType='text'
                         iconType='icon'
                         optionProperties={{
-                           icon: <Icon name='share' color={FONT_COLOR} size='2rem' />,
+                           icon: <Icon name='share' color={FONT_COLOR} size='3rem' />,
                            iconShadow: FONT_COLOR,
                            text: "Share"
                         }}
@@ -197,7 +198,7 @@ export const SelectpostOptions = ({
                                  textType='text'
                                  iconType='icon'
                                  optionProperties={{
-                                    icon: <Icon name='edit' color={FONT_COLOR} size='2rem' />,
+                                    icon: <Icon name='edit' color={FONT_COLOR} size='3rem' />,
                                     iconShadow: FONT_COLOR,
                                     text: "Edit"
                                  }}
@@ -210,7 +211,7 @@ export const SelectpostOptions = ({
                            textType='text'
                            iconType='icon'
                            optionProperties={{
-                              icon: <Icon name='edit' color={FONT_COLOR} size='2rem' />,
+                              icon: <Icon name='edit' color={FONT_COLOR} size='3rem' />,
                               iconShadow: FONT_COLOR,
                               text: "Edit"
                            }}
@@ -230,7 +231,7 @@ export const SelectpostOptions = ({
                         textType='text'
                         iconType='icon'
                         optionProperties={{
-                           icon: <Icon name='folder' color={FONT_COLOR} size='2rem' />,
+                           icon: <Icon name='folder' color={FONT_COLOR} size='3rem' />,
                            iconShadow: FONT_COLOR,
                            text: folderName ? `Saved in ${folderName}` : "Save to folder"
                         }}
@@ -250,7 +251,7 @@ export const SelectpostOptions = ({
                         iconType='icon'
                         cta={{ handleSelection }}
                         optionProperties={{
-                           icon: <Icon name='delete' color={DANGER_COLOR_SECONDARY} size='2rem' />,
+                           icon: <Icon name='delete' color={DANGER_COLOR_SECONDARY} size='3rem' />,
                            iconShadow: DANGER_COLOR_SECONDARY,
                            text: "Delete",
                            descColor: DANGER_COLOR_SECONDARY

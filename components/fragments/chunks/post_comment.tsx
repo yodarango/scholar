@@ -35,6 +35,14 @@ export const PostComment = ({
    const [showCommentariesOfPost, setshowCommentariesOfPost] = useState<boolean>(false);
    const [totalComments, settotalComments] = useState(comments && comments > 0 ? comments : 0);
 
+   const handleToggleModal = (val: boolean) => {
+      setshowCommentariesOfPost(val);
+
+      const body = document.getElementById("__next");
+      if (val && body) body.style.display = "none";
+      else if (body) body.style.display = "block";
+   };
+
    return (
       <>
          <Portal>
@@ -44,7 +52,7 @@ export const PostComment = ({
                   userId={userId}
                   contentType={contentType}
                   cta={{
-                     handleClose: () => setshowCommentariesOfPost(false),
+                     handleClose: () => handleToggleModal(false),
                      handlePost: () => settotalComments((prev) => prev + 1),
                      handleDelete: () => settotalComments((prev) => prev - 1)
                   }}
@@ -52,15 +60,15 @@ export const PostComment = ({
             )}
          </Portal>
 
-         <div className={`${styles.mainWrapper}`} onClick={() => setshowCommentariesOfPost(true)}>
+         <div className={`${styles.mainWrapper}`} onClick={() => handleToggleModal(true)}>
             {/* -------------- comment count ------------ */}
-            {!iconColor && <Parragraph text={totalComments} size='small' inline={true} />}
+            {!iconColor && <Parragraph text={totalComments} size='main' inline={true} />}
             {iconColor && (
-               <Parragraph text={totalComments} size='small' inline={true} color={iconColor} />
+               <Parragraph text={totalComments} size='main' inline={true} color={iconColor} />
             )}
 
             <div className={styles.commentIconWrapper} onClick={() => {}}>
-               <Icon name='comment' color={iconColor} size={"2rem"} />
+               <Icon name='comment' color={iconColor} size={"3rem"} />
             </div>
          </div>
       </>

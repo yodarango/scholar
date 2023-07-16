@@ -56,6 +56,7 @@ export const client = new ApolloClient({
    uri: "http://192.168.1.12:4000/api", //home
    //uri: "http://localhost:4000/api",
    //uri: "http://172.20.10.3:4000/api",
+   //uri: "http://172.20.10.3:4000/api",
    cache: new InMemoryCache(),
    defaultOptions: defaultOptions,
    //credentials: "include",

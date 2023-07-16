@@ -1,4 +1,4 @@
 -  Wired up summarization of chapters in read page. Check that I am handling all the unions correctly in the FE
 -  work on page HMTL <titles>.
--  CSS tweaks.
+-  CSS tweaks. Left off on the profile page. Next, adjust the maximum widths for screens
 -  Desktop ?

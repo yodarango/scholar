@@ -16,6 +16,7 @@ export type TIconButtonProps = {
    backgroundColor?: string;
    background?: string;
    custombuttonSize?: any;
+   strokeWidth?: string;
    link?: string;
    isDownload?: boolean;
    type?: any;
@@ -27,7 +28,7 @@ export type TIconButtonProps = {
 };
 
 export const IconButton = ({
-   iconSize = "4rem",
+   iconSize = "3rem",
    icon,
    iconColor = "#F1EAFF",
    custombuttonSize,
@@ -35,6 +36,7 @@ export const IconButton = ({
    background,
    link,
    style,
+   strokeWidth = "32",
    isDownload = false,
    type = "button",
    cta,
@@ -52,24 +54,38 @@ export const IconButton = ({
             (!link ? (
                <button
                   type={type}
-                  style={{ ...custombuttonSize, ...style }}
+                  style={{
+                     ...custombuttonSize,
+                     ...style,
+                     width: `${parseInt(iconSize.split("rem")[0]) + 1}rem`,
+                     height: `${parseInt(iconSize.split("rem")[0]) + 1}rem`
+                  }}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${styles.primary} ${
                      shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                   }`}
                   onClick={cta?.handleClick}>
-                  <Icon name={icon} color={iconColor} size={iconSize} />
+                  <Icon name={icon} color={iconColor} size={iconSize} strokeWidth={strokeWidth} />
                </button>
             ) : (
                <Link href={link ? link : "#"}>
                   <a
+                     style={{
+                        width: `${parseInt(iconSize.split("rem")[0]) + 1}rem`,
+                        height: `${parseInt(iconSize.split("rem")[0]) + 1}rem`
+                     }}
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.primary} ${
                         shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                      }`}>
-                     <Icon name={icon} color={iconColor} size={iconSize} />
+                     <Icon
+                        name={icon}
+                        color={iconColor}
+                        size={iconSize}
+                        strokeWidth={strokeWidth}
+                     />
                   </a>
                </Link>
             ))}
@@ -77,7 +93,13 @@ export const IconButton = ({
          {backgroundColor === "2" &&
             (!link ? (
                <button
-                  style={{ ...custombuttonSize, ...addStyles, ...style }}
+                  style={{
+                     ...custombuttonSize,
+                     ...addStyles,
+                     ...style,
+                     width: `${parseInt(iconSize.split("rem")[0]) + 1}rem`,
+                     height: `${parseInt(iconSize.split("rem")[0]) + 1}rem`
+                  }}
                   type={type}
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
@@ -85,18 +107,29 @@ export const IconButton = ({
                      shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                   }`}
                   onClick={cta?.handleClick}>
-                  <Icon name={icon} color={iconColor} size={iconSize} />
+                  <Icon name={icon} color={iconColor} size={iconSize} strokeWidth={strokeWidth} />
                </button>
             ) : (
                <Link href={link ? link : "#"}>
                   <a
-                     style={{ ...custombuttonSize, ...addStyles, ...style }}
+                     style={{
+                        ...custombuttonSize,
+                        ...addStyles,
+                        ...style,
+                        width: `${parseInt(iconSize.split("rem")[0]) + 1}rem`,
+                        height: `${parseInt(iconSize.split("rem")[0]) + 1}rem`
+                     }}
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${styles.secondary} ${
                         shadowColor === "1" ? styles.shadowDark : styles.shadowLight
                      }`}>
-                     <Icon name={icon} color={iconColor} size={iconSize} />
+                     <Icon
+                        name={icon}
+                        color={iconColor}
+                        size={iconSize}
+                        strokeWidth={strokeWidth}
+                     />
                   </a>
                </Link>
             ))}
@@ -109,9 +142,16 @@ export const IconButton = ({
                   className={`${styles.mainWrapper} ${
                      custombuttonSize && styles.mainWrapperCustomSize
                   } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                  style={{ ...custombuttonSize, background, ...addStyles, ...style }}
+                  style={{
+                     ...custombuttonSize,
+                     background,
+                     ...addStyles,
+                     ...style,
+                     width: `${parseInt(iconSize.split("rem")[0]) + 1}rem`,
+                     height: `${parseInt(iconSize.split("rem")[0]) + 1}rem`
+                  }}
                   onClick={cta?.handleClick}>
-                  <Icon name={icon} color={iconColor} size={iconSize} />
+                  <Icon name={icon} color={iconColor} size={iconSize} strokeWidth={strokeWidth} />
                </button>
             ) : (
                <Link href={link ? link : "#"}>
@@ -119,8 +159,19 @@ export const IconButton = ({
                      className={`${styles.mainWrapper} ${
                         custombuttonSize && styles.mainWrapperCustomSize
                      } ${shadowColor === "1" ? styles.shadowDark : styles.shadowLight}`}
-                     style={{ ...custombuttonSize, background, ...addStyles }}>
-                     <Icon name={icon} color={iconColor} size={iconSize} />
+                     style={{
+                        ...custombuttonSize,
+                        background,
+                        ...addStyles,
+                        width: `${parseInt(iconSize.split("rem")[0]) + 1}rem`,
+                        height: `${parseInt(iconSize.split("rem")[0]) + 1}rem`
+                     }}>
+                     <Icon
+                        name={icon}
+                        color={iconColor}
+                        size={iconSize}
+                        strokeWidth={strokeWidth}
+                     />
                   </a>
                </Link>
             ))}

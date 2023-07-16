@@ -83,9 +83,10 @@ export const ContentGraphicsPost = ({ content }: TContentGraphicsPostProps) => {
       <>
          {imagesArr.length > 0 && (
             <div className={styles.mainWrapper}>
-               <div className={styles.imagePosition}>
+               {/* Deactivating until I can fix */}
+               {/* <div className={styles.imagePosition}>
                   <SlideCounter currIndex={currIndex} length={imagesArr.length} />
-               </div>
+               </div> */}
                <div
                   className={`${styles.gallery} ${currClass}`}
                   onMouseDown={mouseDown}
@@ -95,6 +96,9 @@ export const ContentGraphicsPost = ({ content }: TContentGraphicsPostProps) => {
                   ref={gallery}>
                   {imagesArr.map((image: string, index: number) => (
                      <div className={styles.image} key={index}>
+                        <div className={styles.imagePosition}>
+                           <SlideCounter currIndex={index + 1} length={imagesArr.length} />
+                        </div>
                         <Image src={image} alt='image' className={styles.image} layout='fill' />
                      </div>
                   ))}

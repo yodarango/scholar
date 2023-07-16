@@ -23,6 +23,7 @@ import { FONT_COLOR } from "../../../constants/tokens";
 import { FolderList } from "../../layouts/stacks/folders_list";
 import { useSaveToFolders } from "../../../helpers/functions/folders/use_save_to_folder";
 import { Notification } from "../popups/notification";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 export type TCommentaryCardHeaderProps = {
    username: string;
@@ -71,11 +72,13 @@ export const PostCardHeader = ({
    const [showPostOptions, setshowPostOptions] = useState<boolean>(false);
    const { status, data, save } = useSaveToFolders();
    const [showModal, setshowModal] = useState<number>(0);
-   const [notification, setnotification] = useState<{
-      type: string;
-      title: string;
-      body: string;
-   } | null>(null);
+   const [notification, setnotification] =
+      useState<{
+         type: string;
+         title: string;
+         body: string;
+      } | null>(null);
+   const [isLoggedIn, setisLoggedIn] = useState<boolean>(false);
 
    // handle action: pass ID to parent and hide menu
    const handleDelete = (id: string) => {
@@ -97,6 +100,12 @@ export const PostCardHeader = ({
          });
    }, [status, data]);
 
+   useEffect(() => {
+      const user = loggedInUser();
+
+      if (user && user.ID == userId) setisLoggedIn(true);
+      else setisLoggedIn(false);
+   }, []);
    return (
       <>
          {showModal === COMMENTARY_FOLDERS && (
@@ -152,7 +161,7 @@ export const PostCardHeader = ({
                      avatarSrc={avatar}
                      quiet={false}
                      userAuthority={userAuthority}
-                     avatarSize='2rem'
+                     avatarSize='3.5rem'
                      fontColor={fontColor}
                   />
                )}
@@ -163,14 +172,16 @@ export const PostCardHeader = ({
                      avatarSrc={avatar}
                      quiet={false}
                      userAuthority={userAuthority}
-                     avatarSize='2rem'
+                     avatarSize='3.5rem'
                   />
                )}
             </div>
 
-            <div className={styles.icon} onClick={() => setshowPostOptions(!showPostOptions)}>
-               <Icon name='ellipsisH' size='2rem' color={fontColor ? fontColor : FONT_COLOR} />
-            </div>
+            {isLoggedIn && (
+               <div className={styles.icon} onClick={() => setshowPostOptions(!showPostOptions)}>
+                  <Icon name='ellipsisH' size='3rem' color={fontColor ? fontColor : FONT_COLOR} />
+               </div>
+            )}
 
             {/*  include / exclude category tag   */}
             {withCategoryTag && (

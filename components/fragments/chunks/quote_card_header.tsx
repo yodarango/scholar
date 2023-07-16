@@ -71,7 +71,7 @@ export const QuoteCardHeader = ({
                </Link>
             </div>
             <div className={styles.more} onClick={() => setshowPostOptions(true)}>
-               <Icon size='2rem' color={contextColor} name='ellipsisH' />
+               <Icon size='3rem' color={contextColor} name='ellipsisH' />
             </div>
          </div>
       </>

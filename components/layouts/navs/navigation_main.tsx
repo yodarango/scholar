@@ -67,7 +67,7 @@ export const NavigationMain = ({ children }: any) => {
                         className={`${styles.home} ${styles.menuOption} ${
                            currentPage === "home" && styles.active
                         }`}>
-                        <Icon name='home' size='2rem' color='#F1EAFF' />
+                        <Icon name='home' size='3rem' color='#F1EAFF' />
                      </a>
                   </Link>
 
@@ -77,7 +77,7 @@ export const NavigationMain = ({ children }: any) => {
                         className={`${styles.feed} ${styles.menuOption} ${
                            currentPage === "commentary" && styles.active
                         }`}>
-                        <Icon name='sparkles' size='2rem' color='#F1EAFF' />
+                        <Icon name='sparkles' size='3rem' color='#F1EAFF' />
                      </a>
                   </Link>
                   <Link href={"/read/@me"}>
@@ -86,7 +86,7 @@ export const NavigationMain = ({ children }: any) => {
                         className={`${styles.read} ${styles.menuOption} ${
                            currentPage === "read" && styles.active
                         }`}>
-                        <Icon name='book' size='2rem' color='#F1EAFF' />
+                        <Icon name='book' size='3rem' color='#F1EAFF' />
                      </a>
                   </Link>
                   <Link href={"/users/@me"}>
@@ -95,7 +95,7 @@ export const NavigationMain = ({ children }: any) => {
                         className={`${styles.profile} ${styles.menuOption} ${
                            currentPage === "users" && styles.active
                         }`}>
-                        <Icon name='profile' size='2rem' color='#F1EAFF' />
+                        <Icon name='profile' size='3rem' color='#F1EAFF' />
                      </a>
                   </Link>
                </div>

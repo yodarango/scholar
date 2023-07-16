@@ -60,6 +60,7 @@
 
 .buttons {
    margin-top: var(--spacing-m);
+   padding-bottom: 8rem;
 }
 
 .buttons button {

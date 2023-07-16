@@ -54,11 +54,12 @@ export const PostCommentTextArea = ({
    const [resetInput, setresetInput] = useState<number>(0);
    const [displayInput, setdisplayInput] = useState(true);
    const [loading, setloading] = useState("done");
-   const [notification, setnotification] = useState<{
-      title: string;
-      body: string;
-      type: string;
-   } | null>(null);
+   const [notification, setnotification] =
+      useState<{
+         title: string;
+         body: string;
+         type: string;
+      } | null>(null);
 
    const dataType =
       contentType === POST_TYPE_COMMENTARY
@@ -69,41 +70,45 @@ export const PostCommentTextArea = ({
 
    const handlePostComment = async () => {
       setloading("loading");
+      try {
+         // post to db and send the value to the parent after success to add it to the comentary array
+         const data = await postContentComment(
+            {
+               ID: editPost?.ID ? editPost?.ID : null,
+               USER_ID: userId,
+               POST_ID: postId,
+               body: currentInputValue
+            },
+            contentType
+         );
 
-      // post to db and send the value to the parent after success to add it to the comentary array
-      const data = await postContentComment(
-         {
-            ID: editPost?.ID ? editPost?.ID : null,
-            USER_ID: userId,
-            POST_ID: postId,
-            body: currentInputValue
-         },
-         contentType
-      );
-
-      if (data) {
-         if (data.__typename === dataType) {
-            cta.handleValue(data);
-         } else if ((data.__typename = "NotAuthorized")) {
-            setOpenModal(true);
+         if (data) {
+            if (data.__typename === dataType) {
+               cta.handleValue(data);
+            } else if ((data.__typename = "NotAuthorized")) {
+               setOpenModal(true);
+            }
+         } else {
+            setnotification({
+               ...contentComment,
+               type: "4"
+            });
          }
-      } else {
-         setnotification({
-            ...contentComment,
-            type: "4"
-         });
+
+         // send post to parent array
+         if (!editPost) cta.handlePost();
+         else if (editPost && cta.handleEdit) cta.handleEdit();
+
+         // hide input
+         setdisplayInput(false);
+
+         // call useEffect reset
+         setresetInput(resetInput + 1);
+      } catch (error) {
+         console.error(error);
+      } finally {
          setloading("done");
       }
-
-      // send post to parent array
-      if (!editPost) cta.handlePost();
-      else if (editPost && cta.handleEdit) cta.handleEdit();
-
-      // hide input
-      setdisplayInput(false);
-
-      // call useEffect reset
-      setresetInput(resetInput + 1);
    };
 
    // reset input
@@ -142,6 +147,8 @@ export const PostCommentTextArea = ({
                      <div className={styles.cancelButton}>
                         <IconButton
                            icon='close'
+                           iconSize='3rem'
+                           strokeWidth='64'
                            backgroundColor='2'
                            cta={{ handleClick: cta.handleCancel ? cta.handleCancel : () => {} }}
                         />
@@ -150,6 +157,8 @@ export const PostCommentTextArea = ({
                   {loading !== "loading" && (
                      <IconButton
                         icon='checkmark'
+                        strokeWidth='64'
+                        iconSize='3rem'
                         backgroundColor='1'
                         cta={{ handleClick: handlePostComment }}
                      />

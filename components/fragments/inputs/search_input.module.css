@@ -1,7 +1,7 @@
 .mainWrapper {
    position: relative;
    width: 100%;
-   height: 3.5rem;
+   height: 4rem;
    background-image: linear-gradient(-10deg, var(--third-color), var(--secondary-color));
    border-radius: 3em;
    overflow: hidden;
@@ -18,7 +18,7 @@
    height: 100%;
    width: 100%;
    z-index: 1;
-   padding: 0 var(--spacing-s) 0 calc(var(--spacing-ml) + 2rem + var(--spacing-xs));
+   padding: 0 var(--spacing-s) 0 calc(var(--spacing-ml) + 3rem + var(--spacing-xs));
    color: var(--font-color);
    font-size: var(--fs-main);
 }
@@ -35,7 +35,7 @@
 
 .icon {
    position: absolute;
-   top: 50%;
+   top: 45%;
    bottom: 0;
    left: var(--spacing-ml);
    right: auto;

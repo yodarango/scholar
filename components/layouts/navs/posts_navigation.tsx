@@ -32,7 +32,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
             onClick={() => handleClick(1)}>
             <Icon
                name='comment'
-               size='2rem'
+               size='3rem'
                color={hoverState === 1 || activeState === 1 ? FONT_COLOR : THIRD_COLOR}
             />
          </div>
@@ -43,7 +43,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
             onClick={() => handleClick(2)}>
             <Icon
                name='quote'
-               size='2rem'
+               size='3rem'
                color={hoverState === 2 || activeState === 2 ? FONT_COLOR : THIRD_COLOR}
             />
          </div>
@@ -54,7 +54,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
             onClick={() => handleClick(3)}>
             <Icon
                name='think'
-               size='2rem'
+               size='3rem'
                color={hoverState === 3 || activeState === 3 ? FONT_COLOR : THIRD_COLOR}
             />
          </div>
@@ -66,7 +66,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
             onClick={() => handleClick(4)}>
             <Icon
                name='image'
-               size='2rem'
+               size='3rem'
                color={hoverState === 4 || activeState === 4 ? FONT_COLOR : THIRD_COLOR}
             />
          </div>

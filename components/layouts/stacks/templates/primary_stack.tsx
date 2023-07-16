@@ -6,6 +6,7 @@
    as in post createion
 **********************************************************************************************************/
 // comps
+import { FONT_COLOR } from "../../../../constants/tokens";
 import { CloseContent } from "../../../fragments/buttons/close_content";
 import { Icon } from "../../../fragments/chunks/icons";
 import { Header } from "../../../fragments/Typography/header";
@@ -34,7 +35,7 @@ export const PrimaryStack = ({ title, children, cta, icon, link }: TPrimaryStack
                   <Header size='large' type={1} text={title} lineHieght='.9em' />
                   {icon && (
                      <div className={styles.icon}>
-                        <Icon size='2rem' name={icon} color='#F1EAFF' />
+                        <Icon size='2rem' name={icon} color={FONT_COLOR} />
                      </div>
                   )}
                </div>

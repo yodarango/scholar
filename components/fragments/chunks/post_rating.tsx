@@ -46,11 +46,12 @@ export const PostRating = ({
    contentType
 }: TPostRatingProps) => {
    const [openModal, setOpenModal] = useState<boolean>(false);
-   const [notification, setNotification] = useState<{
-      title: string;
-      body: string;
-      type: string;
-   } | null>();
+   const [notification, setNotification] =
+      useState<{
+         title: string;
+         body: string;
+         type: string;
+      } | null>();
    // state
    const [showPostRating, setshowPostRating] = useState<boolean>(false);
    const [totalRatingCount, setTotalRatingCount] = useState<any>(
@@ -113,13 +114,13 @@ export const PostRating = ({
          <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          <div className={`${styles.mainWrapper}`} onClick={handleClick}>
             {/*  ratings count  */}
-            {!iconColor && <Parragraph text={totalRatingCount} size='small' color={iconColor} />}
-            {iconColor && <Parragraph text={totalRatingCount} size='small' color={iconColor} />}
+            {!iconColor && <Parragraph text={totalRatingCount} size='main' color={iconColor} />}
+            {iconColor && <Parragraph text={totalRatingCount} size='main' color={iconColor} />}
 
             {/*  ratings average in grade  */}
             <div className={`${customSize ? styles.ratingIconCustomSize : styles.ratingIcon}`}>
                <div className={ratingGrade.styles}>
-                  <Parragraph size='xsmall' text={ratingGrade.grade} align='center' />
+                  <Parragraph size='small' text={ratingGrade.grade} align='center' />
                </div>
             </div>
          </div>

@@ -30,15 +30,16 @@ type TReadBookmarkProps = {
    size?: string;
 };
 
-export const ReadBookmark = ({ size = "2rem", chapterId }: TReadBookmarkProps) => {
+export const ReadBookmark = ({ size = "3rem", chapterId }: TReadBookmarkProps) => {
    // state
    const [bookMarked, setbookMarked] = useState<boolean>(false);
    const [showBookmarks, setshowBookmarks] = useState<boolean>(false);
-   const [notification, setnotification] = useState<null | {
-      title: string;
-      body: string;
-      type: string;
-   }>(null);
+   const [notification, setnotification] =
+      useState<null | {
+         title: string;
+         body: string;
+         type: string;
+      }>(null);
    const [openModal, setOpenModal] = useState<boolean>(false);
 
    //

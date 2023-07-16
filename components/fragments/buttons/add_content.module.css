@@ -28,3 +28,9 @@
    object-position: center;
    object-fit: cover;
 }
+/* 
+.button svg {
+   width: 2rem;
+   height: 2rem;
+   fill: var(--color-white);
+} */

@@ -44,6 +44,7 @@ import { Notification } from "../fragments/popups/notification";
 import { YouNeedToLoginModal } from "../common/modals/you_need_to_login_modal";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 import { getColorContrast } from "../../helpers/getColorContrast";
+import { Parragraph } from "../fragments/Typography/parragraph";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
@@ -71,9 +72,8 @@ export const BibleChapter = ({
    const { signature } = router.query;
 
    // states
-   const [showReadingMenu, setshowReadingMenu] = useState<
-      undefined | { verseNumber: string; verseContent: string }
-   >(undefined);
+   const [showReadingMenu, setshowReadingMenu] =
+      useState<undefined | { verseNumber: string; verseContent: string }>(undefined);
 
    const [highlightedVerses, sethighlightedVerses] = useState<THighlightVerses[]>([]);
    const [data, setdata] = useState<any>(null);
@@ -90,11 +90,12 @@ export const BibleChapter = ({
    const [chapterRefVars, setchapterRefVars] = useState<any>(null);
    const [commentaries, setcommentaries] = useState([]);
    const [commentaryModal, setcommentaryModal] = useState<string>("none");
-   const [notification, setnotification] = useState<null | {
-      title: string;
-      body: string;
-      type: string;
-   }>(null);
+   const [notification, setnotification] =
+      useState<null | {
+         title: string;
+         body: string;
+         type: string;
+      }>(null);
    const [openModal, setOpenModal] = useState<boolean>(false);
 
    // fetch the Bible API Data
@@ -467,7 +468,7 @@ export const BibleChapter = ({
             </div>
          )}
          {loading === "done" && data && data.copyright && (
-            <p className='scriptures-copyright'>{data.copyright}</p>
+            <Parragraph text={data.copyright} size='xsmall' className='scriptures-copyright' />
          )}
          {loading == "error" && (
             <div className={styles.error}>

@@ -13,7 +13,7 @@ export const WARNING_COLOR = "#e9d259";
 export const PRIMARY_COLOR = "#2A2438";
 export const DANGER_COLOR = "#ff4d62";
 export const SHADOW_COLOR = "#1A1723";
-export const THIRD_COLOR = "#5c5470";
+export const THIRD_COLOR = "#7148c6";
 export const FONT_COLOR = "#f1eAff";
 export const SAFE_COLOR = "#7fdc7d";
 

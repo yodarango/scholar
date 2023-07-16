@@ -34,7 +34,7 @@
    font-family: var(--primary-font);
    color: var(--font-color);
    font-size: var(--fs-small);
-   line-height: var(--line-height);
+   line-height: calc(var(--line-height) * 1.2);
    margin: 0 0 0 var(--spacing-xxs);
 }
 
@@ -44,8 +44,8 @@
    left: 0;
    position: absolute;
    margin-top: var(--spacing-xxs);
-   width: 2.5rem;
-   height: 2.5rem;
+   width: 3rem;
+   height: 3rem;
    flex-shrink: 0;
    display: flex;
    align-items: center;

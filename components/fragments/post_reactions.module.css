@@ -10,5 +10,5 @@
 }
 
 .mainWrapper > div:nth-child(2) {
-   margin-left: var(--spacing-xs);
+   margin-left: var(--spacing-s);
 }

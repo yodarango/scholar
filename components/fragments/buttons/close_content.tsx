@@ -4,6 +4,7 @@ import { Icon } from "../chunks/icons";
 
 // styles
 import styles from "./close_content.module.css";
+import { FONT_COLOR } from "../../../constants/tokens";
 
 type TCloseContentProps = {
    size?: string;
@@ -13,8 +14,8 @@ type TCloseContentProps = {
 };
 
 export const CloseContent = ({
-   size = "2.5rem",
-   color = "#F1EAFF",
+   size = "3rem",
+   color = FONT_COLOR,
    cta,
    href
 }: TCloseContentProps) => {

@@ -13,6 +13,8 @@ import styles from "./daily_verse_image.module.css";
 // helpers
 import { setDailyVerseCache } from "../../../helpers/APIs/set_daily_verse_cache";
 import { TBibleVerse } from "../../../types/bible_api";
+import { Header } from "../Typography/header";
+import { Parragraph } from "../Typography/parragraph";
 
 type TDailyVerseImageProps = {
    versionId?: string;
@@ -63,13 +65,27 @@ export const DailyVerseImage = ({
       setFontStyles(fontStyles);
    }, []);
 
+   // I was not happy with the fancy fonts so I commented them out
    return (
       <>
          {fontStyles && (
             <div className={`${styles.mainWrapper}`}>
                <div className={styles.textContainer}>
-                  <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1>
-                  <p className={styles.reference}>{verse && verse.reference}</p>
+                  {/* <h1 className={`${styles.text} ${fontStyles}`}>{verse && verse.content}</h1> */}
+                  <Header
+                     className={styles.text}
+                     type={3}
+                     size='main'
+                     text={verse?.content || ""}
+                     align='center'
+                  />
+                  {/* <p className={styles.reference}>{verse && verse.reference}</p> */}
+                  <Parragraph
+                     className={styles.reference}
+                     text={verse?.reference || ""}
+                     align='center'
+                     size='small'
+                  />
                </div>
                <div className={styles.img}>
                   <div className={styles.imgBgOverlay}></div>

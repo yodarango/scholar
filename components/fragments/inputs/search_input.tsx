@@ -99,13 +99,11 @@ export const SearchInput = ({
                      setstretchSearchInput(false);
                      cta.handleInputStretch && cta.handleInputStretch(false);
                   }}>
-                  {
-                     <Icon
-                        name={iconButton ? "close" : "search"}
-                        size='2rem'
-                        color={iconButton ? FONT_COLOR : THIRD_COLOR}
-                     />
-                  }
+                  <Icon
+                     name={iconButton ? "close" : "search"}
+                     size='3rem'
+                     color={iconButton ? FONT_COLOR : THIRD_COLOR}
+                  />
                </div>
             </div>
          )}
@@ -124,7 +122,7 @@ export const SearchInput = ({
                {/* display something on the right site of the input */}
                <div className={styles.rightInputIcon}>{inputIconRight}</div>
                <div className={styles.searchButton} onClick={handleSearchGo}>
-                  <IconButton backgroundColor='1' icon='search' />
+                  <IconButton backgroundColor='1' icon='search' iconSize='3rem' />
                </div>
             </div>
          )}
@@ -135,6 +133,7 @@ export const SearchInput = ({
                shadowColor={iconButton.shadowColor}
                type={iconButton.type}
                icon='search'
+               iconSize='3rem'
                cta={{
                   handleClick: () => {
                      setstretchSearchInput(true);

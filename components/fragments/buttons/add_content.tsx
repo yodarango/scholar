@@ -37,9 +37,23 @@ export const AddContent = ({ href }: TAddContentProps) => {
             </Portal>
          )}
          {!href && (
-            <IconButton iconSize='4rem' backgroundColor='2' icon='add' cta={{ handleClick }} />
+            <IconButton
+               iconSize='3rem'
+               strokeWidth='64'
+               backgroundColor='2'
+               icon='add'
+               cta={{ handleClick }}
+            />
          )}
-         {href && <IconButton iconSize='4rem' backgroundColor='2' icon='add' link={href} />}
+         {href && (
+            <IconButton
+               iconSize='3rem'
+               backgroundColor='2'
+               strokeWidth='64'
+               icon='add'
+               link={href}
+            />
+         )}
       </div>
    );
 };

@@ -4,7 +4,7 @@ the theme ID to its child therefore the sub-components should not be worried abo
 handling outer or local storage state
 ********************************/
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // comps
 import { BibleChapter } from "../layouts/bible_chapter";
@@ -28,7 +28,6 @@ type TReadBibleTemplateProps = {
 };
 export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) => {
    // state;
-   const [scrollYDis, setscrollYDis] = useState<number>(0);
    const [scrollingDir, setscrollingDir] = useState<string>("none");
    let themeClass = "";
    const [search, setsearch] = useState<string>("");
@@ -36,15 +35,17 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
    // the number of results found when searching
    const [totalSearchResults, settotalSearchResults] = useState<number>(0);
 
-   const handleHeader = (e: any) => {
+   let scrollYDis = useRef<number>(0);
+   const handleHeader = () => {
       if (!search) {
-         const distance = e.target.scrollTop;
-         const isScrollingDown = scrollYDis - distance > 0 ? true : false;
-         setscrollYDis(distance);
+         const distance = window.scrollY;
+         const isScrollingDown = scrollYDis.current - distance > 0 ? true : false;
+         scrollYDis.current = distance;
          setscrollingDir(isScrollingDown ? "down" : "up");
       }
    };
 
+   console.log("i am rerendered");
    switch (readingPrefs?.theme) {
       case "1":
          themeClass = styles.firstTheme;
@@ -80,13 +81,20 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
       setsearch(val);
    };
 
+   useEffect(() => {
+      window.addEventListener("scroll", handleHeader);
+      return () => {
+         window.removeEventListener("scroll", handleHeader);
+      };
+   }, []);
+
    return (
-      <div className={styles.mainWrapper} onScroll={handleHeader}>
+      <div className={styles.mainWrapper}>
          {readingPrefs && (
             <div
-               className={`${styles.header} ${themeClass} ${
-                  scrollingDir === "up" && styles.scrollingUp
-               } ${scrollingDir === "down" && styles.scrollingDown}`}>
+               className={`${styles.header} ${scrollingDir === "up" && styles.scrollingUp} ${
+                  scrollingDir === "down" && styles.scrollingDown
+               }`}>
                <ReadBibleHeader
                   whiteBorder={readingPrefs?.theme > "4"}
                   theme={readingPrefs?.theme}

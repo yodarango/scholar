@@ -9,6 +9,7 @@ import { Parragraph } from "../../Typography/parragraph";
 
 // styles
 import styles from "./menu_primary_option.module.css";
+import { FONT_COLOR } from "../../../../constants/tokens";
 
 type TMenuPrimaryOptionProps = {
    iconType: string;
@@ -37,7 +38,7 @@ export const MenuPrimaryOption = ({
 
    switch (optionProperties.iconShadow) {
       case "1":
-         shadowClr = "2px 2px 6px #F1EAFF";
+         shadowClr = `2px 2px 6px ${FONT_COLOR}`;
          break;
 
       case "2":

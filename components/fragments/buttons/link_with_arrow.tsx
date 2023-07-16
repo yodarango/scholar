@@ -6,6 +6,7 @@ import { Parragraph } from "../Typography/parragraph";
 
 // styles
 import styles from "./link_with_arrow.module.css";
+import { FONT_COLOR, THIRD_COLOR } from "../../../constants/tokens";
 
 type TLinkWithArrowProps = {
    title: string;
@@ -44,8 +45,12 @@ export const LinkWithArrow = ({
                   )}
                </div>
                <div className={styles.icon}>
-                  {!color && quiet && <Icon name='arrowForthLong' color='#5C5470' size='2rem' />}
-                  {!color && !quiet && <Icon name='arrowForthLong' color='#F1EAFF' size='2rem' />}
+                  {!color && quiet && (
+                     <Icon name='arrowForthLong' color={THIRD_COLOR} size='2rem' />
+                  )}
+                  {!color && !quiet && (
+                     <Icon name='arrowForthLong' color={FONT_COLOR} size='2rem' />
+                  )}
                   {color && <Icon name='arrowForthLong' color={color} size='2rem' />}
                </div>
             </a>
