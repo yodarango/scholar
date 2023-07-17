@@ -19,7 +19,6 @@
 .input:-webkit-autofill:focus, 
 .input:-webkit-autofill:active {
    outline: none;
-   border: none;
    font-family: "Open Sans", sans-serif;
    font-weight: 400;
    padding: 0 var(--spacing-s);
@@ -28,13 +27,18 @@
    display: flex;
    align-items: center;
    justify-content: center;
-   background: linear-gradient(-10deg, var(--third-color), var(--secondary-color));
    border-radius: 3em;
    color: var(--font-color);
 }
 
+.input {
+   background: var(--secondary-color);
+   border: 2px solid var(--third-color);
+}
+
 .input::placeholder {
-   color: var(--third-color);
+   color: var(--font-color);
+   opacity: 0.5;
 }
 
 .customHeight .input {

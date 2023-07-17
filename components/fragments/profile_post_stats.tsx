@@ -20,7 +20,7 @@ export const ProfilePostStats = ({
             <Icon name={icon} color={iconColor} size='2rem' />
          </div>
          <div className={styles.text}>
-            <Parragraph text={`${totalPosts} ${contentType}`} size='xsmall' />
+            <Parragraph text={`${totalPosts} ${contentType}`} size='small' />
          </div>
       </div>
    );

@@ -7,6 +7,7 @@ import { Parragraph } from "../Typography/parragraph";
 
 // styles
 import styles from "./settings_field_button.module.css";
+import { FONT_COLOR } from "../../../constants/tokens";
 
 type TSettingsFieldButtonprops = {
    label: string;
@@ -29,12 +30,12 @@ export const SettingsFieldButton = ({
             <Link href={link}>
                <a className={styles.button}>
                   <div className={styles.label}>
-                     <Parragraph text={label} size='small' />
+                     <Parragraph text={label} size='main' />
                   </div>
                   <div className={styles.value}>
                      {value && <Parragraph text={value} size='small' />}
                      <div className={styles.icon}>
-                        <Icon name='arrowForth' color='#F1EAFF' size='2rem' strokeWidth='64' />
+                        <Icon name='arrowForth' color={FONT_COLOR} size='3rem' strokeWidth='64' />
                      </div>
                   </div>
                </a>
@@ -44,12 +45,12 @@ export const SettingsFieldButton = ({
          {cta && (
             <div className={styles.button} onClick={cta.handleClick}>
                <div className={styles.label}>
-                  <Parragraph text={label} size='small' />
+                  <Parragraph text={label} size='main' />
                </div>
                <div className={styles.value}>
                   {value && <Parragraph text={value} size='small' />}
                   <div className={styles.icon}>
-                     <Icon name='arrowForth' color='#F1EAFF' size='2rem' strokeWidth='64' />
+                     <Icon name='arrowForth' color={FONT_COLOR} size='3rem' strokeWidth='64' />
                   </div>
                </div>
             </div>

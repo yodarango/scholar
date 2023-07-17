@@ -29,11 +29,12 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
    const [showModal, setshowModal] = useState<boolean>(false);
    const [currSignature, setcurrSignature] = useState<string>("");
    const [loading, setloading] = useState<string>("done");
-   const [notification, setnotification] = useState<{
-      title: string;
-      body: string;
-      type: string;
-   } | null>(null);
+   const [notification, setnotification] =
+      useState<{
+         title: string;
+         body: string;
+         type: string;
+      } | null>(null);
 
    // update the signature
    const handeUpdateSignature = async () => {
@@ -93,6 +94,7 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
                         <InputPrimary
                            maxL={80}
                            placeholder='signature'
+                           fontSize='main'
                            value={signature}
                            type='text'
                            cta={{ handleValue: (value: string) => setcurrSignature(value) }}

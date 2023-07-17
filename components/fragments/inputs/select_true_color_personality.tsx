@@ -32,7 +32,7 @@ export const SelectTrueColorPersonality = ({
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.label}>
-            <Parragraph text={label} size='small' />
+            <Parragraph text={label} size='main' />
          </div>
          <div className={styles.colors}>
             {colors.map((item, index: number) => (

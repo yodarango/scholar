@@ -47,11 +47,12 @@ type TGeneralSettings = {
 export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
    // state
    const [generalSettings, setgeneralSettings] = useState<ThandleUpdateSettings>(settingsDefaults);
-   const [notification, setnotification] = useState<{
-      title: string;
-      body: string;
-      type: string;
-   } | null>(null);
+   const [notification, setnotification] =
+      useState<{
+         title: string;
+         body: string;
+         type: string;
+      } | null>(null);
    const [loading, setloaading] = useState<string>("loading");
 
    const getData = async () => {
@@ -122,6 +123,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                      }}
                      maxL={150}
                      placeholder='Church I attend'
+                     fontSize='main'
                      type='text'
                      value={generalSettings.my_church}
                   />
@@ -134,6 +136,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                      }}
                      maxL={150}
                      placeholder='My ministry is'
+                     fontSize='main'
                      type='text'
                      value={generalSettings.my_ministry}
                   />
@@ -146,6 +149,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                      }}
                      maxL={150}
                      placeholder='My favorite verse'
+                     fontSize='main'
                      type='text'
                      value={generalSettings.my_favorite_verse}
                   />
@@ -158,6 +162,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                      }}
                      maxL={150}
                      placeholder='My job'
+                     fontSize='main'
                      type='text'
                      value={generalSettings.my_job}
                   />
@@ -170,6 +175,7 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                      }}
                      maxL={150}
                      placeholder='My favorite color'
+                     fontSize='main'
                      type='text'
                      value={generalSettings.my_favorite_color}
                   />

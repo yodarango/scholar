@@ -14,7 +14,7 @@ export const AboutMeItem = ({ emoji, value, initialValue }: TAboutMeItemProps) =
             <Parragraph text={emoji} size='xxxlarge' lineHieght='1em' />
          </div>
          <div className={styles.value}>
-            <Parragraph text={value ? value : initialValue} size='small' lineHieght='1em' />
+            <Parragraph text={value ? value : initialValue} size='main' lineHieght='1.5em' />
          </div>
       </div>
    );

@@ -68,7 +68,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
                         textType='text'
                         iconType='icon'
                         optionProperties={{
-                           icon: <Icon name={option.icon} size='2rem' color={option.color} />,
+                           icon: <Icon name={option.icon} size='3rem' color={option.color} />,
                            iconShadow: option.color,
                            text: option.description
                         }}
@@ -84,7 +84,7 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
                               textType='text'
                               iconType='icon'
                               optionProperties={{
-                                 icon: <Icon name={option.icon} size='2rem' color={option.color} />,
+                                 icon: <Icon name={option.icon} size='3rem' color={option.color} />,
                                  iconShadow: option.color,
                                  text: option.description
                               }}

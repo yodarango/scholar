@@ -19,7 +19,7 @@ type TInputPrimaryProps = {
 };
 
 export const InputPrimary = ({
-   fontSize,
+   fontSize = "main",
    textColor,
    darkText = false,
    bold = false,
