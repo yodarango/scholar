@@ -418,10 +418,12 @@ export const BibleChapter = ({
                               }}>
                               <span
                                  onClick={() =>
-                                    setshowReadingMenu({
-                                       verseNumber: `${index}`,
-                                       verseContent: verse.text
-                                    })
+                                    !showReadingMenu
+                                       ? setshowReadingMenu({
+                                            verseNumber: `${index}`,
+                                            verseContent: verse.text
+                                         })
+                                       : setshowReadingMenu(undefined)
                                  }
                                  className={`${styles.verseNumber} ${
                                     index > 99 && styles.bigVerseNumber

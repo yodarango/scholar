@@ -29,6 +29,11 @@
    left: calc(-50vw + 50%);
 }
 
+.topScrolling .content {
+   width: var(--global-wrapper-width);
+   margin: auto;
+}
+
 .topScrolling .verseFilter {
    background-color: var(--secondary-color);
 }

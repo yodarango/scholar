@@ -45,7 +45,6 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
       }
    };
 
-   console.log("i am rerendered");
    switch (readingPrefs?.theme) {
       case "1":
          themeClass = styles.firstTheme;

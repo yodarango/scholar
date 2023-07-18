@@ -1,5 +1,6 @@
 .mainWrapper {
    width: var(--global-wrapper-width);
+   max-width: var(--main-wrapper-max-width);
    margin: auto;
 }
 

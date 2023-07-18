@@ -2,6 +2,7 @@
 -  Content holder that is rendered directly from a page or from a high level component.
 **********************************************************************************************************/
 // comps
+import { useEffect } from "react";
 import { CloseContent } from "../../../fragments/buttons/close_content";
 import { CategoryTag } from "../../../fragments/chunks/category_tag";
 import { Icon } from "../../../fragments/chunks/icons";
@@ -43,6 +44,15 @@ export const SecondaryStack = ({
          withOnScrollEvt(makeCall);
       }
    };
+
+   useEffect(() => {
+      const body = document.getElementById("__next");
+      if (body) body.style.display = "none";
+
+      return () => {
+         if (body) body.style.display = "block";
+      };
+   }, []);
 
    return (
       <div className={styles.mainWrapper}>

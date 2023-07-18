@@ -68,7 +68,7 @@ export const SelectReadingSettings = ({ cta, themeStyle }: TSelectReadingSetting
                      { value: "9", title: `url(${READING_THEME_BACKGROUNDS[5]}) center/cover` }
                   ]}
                   optionProperties={{
-                     icon: <Icon color={FONT_COLOR} size='2rem' name='brush' />,
+                     icon: <Icon color={FONT_COLOR} size='3rem' name='brush' />,
                      iconShadow: FONT_COLOR,
                      text: "Theme"
                   }}

@@ -47,7 +47,7 @@ export default function RegisterTemplate() {
 
          <div className='main-wrapper'>
             <div className={styles.top}>
-               <img className={styles.logo} src='/images/branding/logo_round_pow_small.png' />
+               <img className={styles.logo} src='/images/branding/logo_round_white_1000.webp' />
             </div>
 
             <section className={styles.inputs}>

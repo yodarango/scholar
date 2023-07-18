@@ -26,6 +26,9 @@ export const ChangeAvatar = ({ avatar, userAuthority = 1 }: TChangeAvatarProps) 
                   actionName='Back'
                   cta={{ handleClose: () => setshowModal(false) }}>
                   <AvatarChooser cta={{ updateAvatar: (value: string) => setavtr(value) }} />
+                  <div className='spacer--l'></div>
+                  <div className='spacer--l'></div>
+                  <div className='spacer--l'></div>
                </FourthStack>
             </Portal>
          )}

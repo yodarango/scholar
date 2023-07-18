@@ -100,6 +100,7 @@ export const BibleVersionScripture = ({
    // handle the chapter selection: close the modal, update the state, and push to the router
    const handleChapterSelection = (content: any) => {
       location.href = `/read/${userSignature}?chapter-id=${content}`;
+      document.title = content?.reference;
 
       setshowModal(0);
 

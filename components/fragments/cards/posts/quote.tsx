@@ -85,14 +85,14 @@ export const Quote = ({ quote, type = 0, className = "" }: TQuoteProps) => {
                   <Header
                      color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
                      type={3}
-                     size={type === 1 ? "main" : "xxsmall"}
+                     size={type === 1 ? "main" : "small"}
                      text={quote?.body}
                      align='center'
                   />
                   <div className={styles.author}>
                      <Parragraph
                         color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
-                        size={type === 1 ? "small" : "xxsmall"}
+                        size={type === 1 ? "small" : "xsmall"}
                         text={`—	${quote.creator?.signature}`}
                         align='center'
                      />

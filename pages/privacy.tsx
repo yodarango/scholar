@@ -1,8 +1,9 @@
-import { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // comps
 import { PrimaryStack } from "../components/layouts/stacks/templates/primary_stack";
+import Head from "next/head";
+import HeadContent from "../SEO/head_content";
 
 const Privacy = () => {
    const policy = `
@@ -68,6 +69,9 @@ word-break: break-word !important;
 
    return (
       <>
+         <Head key='folder-single'>
+            <HeadContent title='Privacy Policy' />
+         </Head>
          <PrimaryStack title='Privacy Notice' cta={{ handleClose: () => router.back() }}>
             <div
                className={`main-wrapper`}

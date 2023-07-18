@@ -24,11 +24,12 @@ import { Notification } from "../../../components/fragments/popups/notification"
 import { useUserAuth } from "../../../hooks/use_user_auth";
 
 export default function LoginTemplate() {
-   const [notification, setnotification] = useState<{
-      title: string;
-      body: string;
-      type: string;
-   } | null>(null);
+   const [notification, setnotification] =
+      useState<{
+         title: string;
+         body: string;
+         type: string;
+      } | null>(null);
 
    const [data, setdata] = useState<{ signature: string; password: string }>({
       signature: "",
@@ -100,7 +101,7 @@ export default function LoginTemplate() {
 
          <div className='main-wrapper'>
             <div className={styles.top}>
-               <img className={styles.logo} src='/images/branding/logo_round_pow_small.png' />
+               <img className={styles.logo} src='/images/branding/logo_round_white_1000.webp' />
             </div>
 
             <section className={styles.inputs}>

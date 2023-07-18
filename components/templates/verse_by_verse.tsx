@@ -113,7 +113,7 @@ export const VerseByVerse = () => {
 
          <div className={`${styles.top} ${styles.topScrolling}`}>
             {!hiddenView && (
-               <>
+               <div className={styles.content}>
                   <div className={styles.verseFilter}>
                      <div className={styles.verse}>
                         <DailyVerseModal
@@ -134,7 +134,7 @@ export const VerseByVerse = () => {
                      )}
                   </div>
                   <div className={`${styles.shadow} ${styles.hiddenShadow}`}></div>
-               </>
+               </div>
             )}
             <div
                className={`${styles.hideVerseView} ${hiddenView ? styles.isHidden : ""} `}

@@ -6,11 +6,14 @@ import { QuoteEditor } from "../../../../components/templates/content/quote_edit
 
 // styles
 import styles from "./index.module.css";
+// import global from "../../../page_global.module.css";
 import { handleGetQuote } from "../../../../helpers/functions/posts/quote_get";
 import { TQuote } from "../../../../types/posts";
 import { RoundLoader } from "../../../../components/fragments/chunks/round_loader";
 import { REQUEST_TYPE_IS_EDIT_QUOTE } from "../../../../helpers/functions/posts/content_post";
 import { UseIsAuth } from "../../../../hooks/use_check_auth";
+import Head from "next/head";
+import HeadContent from "../../../../SEO/head_content";
 
 const Index = () => {
    const router = useRouter();
@@ -37,7 +40,10 @@ const Index = () => {
 
    return (
       <UseIsAuth redirect='/login'>
-         <div className={styles.mainWrapper}>
+         <Head key='edit-quote-page'>
+            <HeadContent title='Edit Quote' />
+         </Head>
+         <div className={`${styles.mainWrapper} `}>
             {loading === "done" && (
                <QuoteEditor
                   requestType={REQUEST_TYPE_IS_EDIT_QUOTE}

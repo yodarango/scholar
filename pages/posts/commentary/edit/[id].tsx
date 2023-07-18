@@ -9,10 +9,13 @@ import { RoundLoader } from "../../../../components/fragments/chunks/round_loade
 
 // styles
 import styles from "./index.module.css";
+import global from "../../../page_global.module.css";
 
 // type
 import { REQUEST_TYPE_IS_EDIT_COMMENTARY } from "../../../../helpers/functions/posts/content_post";
 import { UseIsAuth } from "../../../../hooks/use_check_auth";
+import HeadContent from "../../../../SEO/head_content";
+import Head from "next/head";
 
 const EditCommentary = () => {
    const router = useRouter();
@@ -58,7 +61,10 @@ const EditCommentary = () => {
 
    return (
       <UseIsAuth redirect='/login'>
-         <div className={styles.mainWrapper}>
+         <Head key='commentary-page-edit'>
+            <HeadContent title='Edit commentary' />
+         </Head>
+         <div className={`${styles.mainWrapper} ${global.mainWrapper}`}>
             {loading === "done" && (
                <CommentaryTextEditor
                   requestType={REQUEST_TYPE_IS_EDIT_COMMENTARY}

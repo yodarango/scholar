@@ -13,6 +13,8 @@ import { getLSBibleSettings } from "../../../helpers/browser/ls_bible_settings";
 // types
 import { ReadingPreferences } from "../../../types/browser/local_storage";
 import { UseIsAuth } from "../../../hooks/use_check_auth";
+import Head from "next/head";
+import HeadContent from "../../../SEO/head_content";
 
 const Read = () => {
    // router
@@ -70,6 +72,9 @@ const Read = () => {
 
    return (
       <main className={`${styles.mainWrapper} ${themeClass}`}>
+         <Head key='read-page'>
+            <HeadContent title='Bible' />
+         </Head>
          <div className={styles.readBibleTemplate}>
             {readingPrefs && (
                <ReadBibleModal cta={{ handleTheme, handleFont }} readingPrefs={readingPrefs} />

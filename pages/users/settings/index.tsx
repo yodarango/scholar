@@ -12,6 +12,8 @@ import Privacy from "../../privacy";
 import { PrivacySettings } from "../../../components/templates/account/privacy_settings";
 import { BackLink } from "../../../components/fragments/buttons/back_link";
 import { PreferenceSettings } from "../../../components/templates/account/preference_settings";
+import Head from "next/head";
+import HeadContent from "../../../SEO/head_content";
 
 const NO_SECTION_SELECTED = 0;
 const Index = () => {
@@ -19,6 +21,9 @@ const Index = () => {
 
    return (
       <div className={styles.mainWrapper}>
+         <Head key='settings-page'>
+            <HeadContent title='Settings' />
+         </Head>
          <div className={styles.header}>
             <Header type={2} text='Settings' size='large' className={styles.title} quiet />
             <BackLink link='/users/@me' iconLeft title='Back' />

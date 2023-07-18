@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BackLink } from "../../../fragments/buttons/back_link";
 import { Header } from "../../../fragments/Typography/header";
 import styles from "./fourth_stack.module.css";
@@ -11,6 +12,15 @@ type TFourthStackProps = {
    };
 };
 export const FourthStack = ({ cta, actionName, title, children }: TFourthStackProps) => {
+   useEffect(() => {
+      const body = document.getElementById("__next");
+      if (body) body.style.display = "none";
+
+      return () => {
+         if (body) body.style.display = "block";
+      };
+   }, []);
+
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.header}>

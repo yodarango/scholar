@@ -10,8 +10,8 @@ import styles from "../page_global.module.css";
 const Billing = () => {
    return (
       <>
-         <Head>
-            <HeadContent />
+         <Head key='billing-page'>
+            <HeadContent title='Billing' />
          </Head>
          <div className={styles.mainWrapper}>
             <div className={styles.close}>

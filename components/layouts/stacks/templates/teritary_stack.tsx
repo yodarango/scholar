@@ -6,6 +6,7 @@
 **********************************************************************************************************/
 
 // comps
+import { useEffect } from "react";
 import { Icon } from "../../../fragments/chunks/icons";
 import { ToggleMenu } from "../../../fragments/chunks/toggle_menu";
 import { Header } from "../../../fragments/Typography/header";
@@ -26,6 +27,14 @@ export const TeritaryStack = ({
    children,
    hasNotifications = false
 }: TTeritaryStackprops) => {
+   useEffect(() => {
+      const body = document.getElementById("__next");
+      if (body) body.style.display = "none";
+
+      return () => {
+         if (body) body.style.display = "block";
+      };
+   }, []);
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.gradientBkg}>

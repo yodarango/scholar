@@ -8,6 +8,12 @@
    overflow-y: scroll;
 }
 
+.content {
+   max-width: var(--main-wrapper-max-width);
+   width: var(--global-wrapper-width);
+   margin: auto;
+}
+
 .topIntro {
    margin: 8rem auto var(--spacing-m);
 }

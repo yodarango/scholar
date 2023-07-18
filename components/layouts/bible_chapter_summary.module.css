@@ -12,7 +12,8 @@
 }
 
 .contentWrapper {
-   width: 90%;
+   width: var(--global-wrapper-width);
+   max-width: var(--main-wrapper-max-width);
    margin: 0 auto;
 }
 

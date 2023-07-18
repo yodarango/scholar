@@ -14,7 +14,7 @@
 }
 
 .commentary {
-   min-width: 30.5rem;
+   min-width: 35rem;
    flex-grow: 0;
    flex-shrink: 0;
    margin-left: var(--spacing-xs);

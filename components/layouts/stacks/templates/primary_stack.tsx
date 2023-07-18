@@ -6,6 +6,7 @@
    as in post createion
 **********************************************************************************************************/
 // comps
+import { useEffect } from "react";
 import { FONT_COLOR } from "../../../../constants/tokens";
 import { CloseContent } from "../../../fragments/buttons/close_content";
 import { Icon } from "../../../fragments/chunks/icons";
@@ -27,6 +28,14 @@ type TPrimaryStackprops = {
 };
 
 export const PrimaryStack = ({ title, children, cta, icon, link }: TPrimaryStackprops) => {
+   useEffect(() => {
+      const body = document.getElementById("__next");
+      if (body) body.style.display = "none";
+
+      return () => {
+         if (body) body.style.display = "block";
+      };
+   }, []);
    return (
       <Portal>
          <div className={styles.mainWrapper}>

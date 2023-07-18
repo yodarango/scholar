@@ -255,7 +255,7 @@ const AvatarChooser = ({ cta }: avatarChooserProps) => {
                                  handleAvatarSelection(avatarChooserPopUpState)
                            }}
                            optionProperties={{
-                              icon: <Icon name='checkmark' color={FONT_COLOR} />,
+                              icon: <Icon name='checkmark' color={FONT_COLOR} size='3rem' />,
                               text: "Set as avatar",
                               iconShadow: FONT_COLOR
                            }}
@@ -276,7 +276,7 @@ const AvatarChooser = ({ cta }: avatarChooserProps) => {
                         textType='text'
                         cta={{ handleOptionClick: () => setAvatarChooserPopUpState(false) }}
                         optionProperties={{
-                           icon: <Icon name='close' color='#ff4d62' />,
+                           icon: <Icon name='close' color='#ff4d62' size='3rem' />,
                            text: "Cancel",
                            descColor: DANGER_COLOR,
                            iconShadow: DANGER_COLOR

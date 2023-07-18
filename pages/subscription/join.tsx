@@ -16,41 +16,41 @@ import styles from "../page_global.module.css";
 
 const GoPro = () => {
    // router
-   const router = useRouter();
+   //const router = useRouter();
 
-   const [loadingState, setLoadingState] = useState<string>("loading");
+   // const [loadingState, setLoadingState] = useState<string>("loading");
 
-   //  check if user is a patron
-   // Check if the user is a patron to redirect them correctly
-   const checkIfUserPatron = async () => {
-      try {
-         const { data } = await client.query({
-            query: CHECK_IF_PATRON_ACCOUNT
-         });
+   // //  check if user is a patron
+   // // Check if the user is a patron to redirect them correctly
+   // const checkIfUserPatron = async () => {
+   //    try {
+   //       const { data } = await client.query({
+   //          query: CHECK_IF_PATRON_ACCOUNT
+   //       });
 
-         if (data.user_has_stripe_account > 0) {
-            router.replace("/subscription/billing");
-         } else if (data.user_has_stripe_account === 0) {
-            setLoadingState("done");
-         } else if (data.user_has_stripe_account === -1) {
-            router.replace("/login");
-         } else {
-            setLoadingState("error");
-         }
-      } catch (error) {
-         console.error(error);
-         setLoadingState("error");
-      }
-   };
+   //       if (data.user_has_stripe_account > 0) {
+   //          router.replace("/subscription/billing");
+   //       } else if (data.user_has_stripe_account === 0) {
+   //          setLoadingState("done");
+   //       } else if (data.user_has_stripe_account === -1) {
+   //          router.replace("/login");
+   //       } else {
+   //          setLoadingState("error");
+   //       }
+   //    } catch (error) {
+   //       console.error(error);
+   //       setLoadingState("error");
+   //    }
+   // };
 
-   useEffect(() => {
-      //checkIfUserPatron();
-   }, []);
+   // useEffect(() => {
+   //    //checkIfUserPatron();
+   // }, []);
 
    return (
       <>
-         <Head key='payment-apge'>
-            <HeadContent />
+         <Head key='join-page'>
+            <HeadContent title='Join' />
          </Head>
          <div className={styles.mainWrapper}>
             <JoinTemplate />

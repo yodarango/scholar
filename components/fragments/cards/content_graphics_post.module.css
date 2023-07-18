@@ -10,8 +10,10 @@
    overflow: scroll;
    scroll-snap-type: both mandatory;
    scroll-padding: 1rem;
-   width: 90vw;
-   height: 90vw;
+   width: 100%;
+   max-width: var(--main-wrapper-max-width);
+   height: 94vw /* 1rem = column gap */;
+   max-height: var(--main-wrapper-max-width);
    margin: auto;
 }
 

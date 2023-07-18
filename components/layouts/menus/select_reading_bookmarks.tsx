@@ -26,7 +26,7 @@ import {
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 import { CONTENT_LAST_ID } from "../../../constants/defaults";
-import { DANGER_COLOR_SECONDARY, SAFE_COLOR } from "../../../constants/tokens";
+import { DANGER_COLOR_SECONDARY, FONT_COLOR, SAFE_COLOR } from "../../../constants/tokens";
 import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 import { SmallLoader } from "../../fragments/chunks/small_loader";
 import { FeedBackMascot } from "../../common/feedback/feedback_mascot";
@@ -122,7 +122,7 @@ export const SelectReadingBookmarks = ({
                   textType='text'
                   iconType='icon'
                   optionProperties={{
-                     icon: <Icon name={status.icon} size='2rem' color={status.color} />,
+                     icon: <Icon name={status.icon} size='3rem' color={status.color} />,
                      iconShadow: status.color,
                      text: status.text,
                      descColor: status.color
@@ -140,8 +140,8 @@ export const SelectReadingBookmarks = ({
                      textType='text'
                      iconType='icon'
                      optionProperties={{
-                        icon: <Icon name='bookmarkFilled' size='2rem' color='#F1EAFF' />,
-                        iconShadow: "#F1EAFF",
+                        icon: <Icon name='bookmarkFilled' size='3rem' color={FONT_COLOR} />,
+                        iconShadow: FONT_COLOR,
                         text: bookmark.CHAPTER_ID
                            ? parseChapterId(bookmark.CHAPTER_ID)
                            : "Error loading bookmark"

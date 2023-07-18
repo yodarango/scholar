@@ -203,6 +203,8 @@ export const TrustedUserApplicationForm = () => {
                      cta={{ handleClick: handleFormSubmission }}
                      htmlType='button'
                   />
+                  <div className='spacer--l'></div>
+                  <div className='spacer--l'></div>
                </div>
             )}
             {loading === "loading" && <SmallLoader />}

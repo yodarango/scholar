@@ -37,10 +37,6 @@ export const PostComment = ({
 
    const handleToggleModal = (val: boolean) => {
       setshowCommentariesOfPost(val);
-
-      const body = document.getElementById("__next");
-      if (val && body) body.style.display = "none";
-      else if (body) body.style.display = "block";
    };
 
    return (

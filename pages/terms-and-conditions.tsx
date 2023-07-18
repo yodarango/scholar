@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { useRef, useEffect } from "react";
 import { PrimaryStack } from "../components/layouts/stacks/templates/primary_stack";
+import Head from "next/head";
+import HeadContent from "../SEO/head_content";
 
 const TermsAndConditions = () => {
    // router
@@ -254,6 +256,9 @@ Calibri;color:#ffffff;mso-themecolor:text1;mso-themetint:166;"><bdt class="block
    return (
       <>
          <PrimaryStack title='Terms and conditions' cta={{ handleClose: () => router.back() }}>
+            <Head key='terms-and-conditions'>
+               <HeadContent title='Terms and Conditions' />
+            </Head>
             <div
                style={{
                   padding: `3rem 0`,

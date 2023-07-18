@@ -11,7 +11,7 @@ import { client } from "../../apollo-client";
 import { GET_ORDER_SUCCESS_DATA } from "../../graphql/billing/billing";
 
 // styles
-import styles from "./success.module.css";
+import styles from "../page_global.module.css";
 import { SuccessTemplate } from "../../components/templates/subscription/success";
 import { Confetti } from "../../components/fragments/feedback/confetti";
 
@@ -54,8 +54,8 @@ const Success = () => {
    //! coming from checkout = name and email
    return (
       <>
-         <Head>
-            <HeadContent />
+         <Head key='success-page'>
+            <HeadContent title='Thank you for your support' />
          </Head>
          {!isLoggedIn && (
             <div className={styles.mainWrapper}>
