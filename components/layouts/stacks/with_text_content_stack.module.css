@@ -18,7 +18,7 @@
    width: 100%;
    background-position: center;
    background-size: cover;
-   padding: var(--spacing-l) var(--spacing-l) 0;
+   /* padding: var(--spacing-l) var(--spacing-l) 0; */
 }
 
 .topLayerColorBkg {
@@ -33,16 +33,24 @@
 }
 
 .postInfo {
+   max-width: var(--main-wrapper-max-width);
+   width: var(--global-wrapper-width);
+   padding-top: var(--spacing-m);
+   margin: auto;
    position: relative;
    z-index: 1;
 }
 
 .subWrapper {
-   width: 100%;
+   width: var(--global-wrapper-width);
+   margin: auto;
+   max-width: var(--main-wrapper-max-width);
    z-index: 2;
    height: calc(100vh - 16.5rem); /* 100 - (distance from top) */
    position: fixed;
    top: 16.5rem;
+   left: 0;
+   right: 0;
    border-top-left-radius: 2.5em;
    border-top-right-radius: 2.5em;
    background-color: var(--primary-color);
@@ -50,8 +58,8 @@
 
 .contentHolder {
    height: 100%;
-   width: 90%;
-   margin: auto;
+   width: 100%;
+   margin: 0;
    padding: var(--spacing-m) 0 var(--spacing-l);
    overflow-y: scroll;
    font-size: var(--fs-main);
@@ -65,7 +73,7 @@
 }
 
 .title {
-   width: 90%;
+   width: 100%;
    margin: var(--spacing-m) auto 0;
 }
 

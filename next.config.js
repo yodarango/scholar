@@ -2,13 +2,13 @@ module.exports = {
    images: {
       domains: ["drive.google.com", "res.cloudinary.com", "images.unsplash.com"]
    },
-   webpack(config) {
-      config.module.rules.push({
-         test: /\.stories\.tsx$/,
-         use: "null-loader"
-      });
+   distDir: "build"
 
-      return config;
-   }
    //swcMinify: true
 };
+
+// const nextConfig = {
+//    distDir: "build"
+// };
+
+// module.exports = nextConfig;

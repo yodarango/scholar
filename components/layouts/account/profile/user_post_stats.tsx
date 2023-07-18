@@ -33,7 +33,7 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
          contentType: "commentaries"
       },
       {
-         icon: "think",
+         icon: "article",
          iconColor: THIRD_COLOR_ACCENT,
          totalPosts: "article_count",
          contentType: "articles"

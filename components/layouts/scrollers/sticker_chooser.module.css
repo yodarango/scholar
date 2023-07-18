@@ -48,12 +48,16 @@
    position: relative;
    width: 4rem;
    height: 4rem;
-   background-color: royalblue;
+   background-color: rgba(255, 255, 255, 0.1);
    margin: 0;
    margin-bottom: var(--spacing-xs);
    margin-right: var(--spacing-xs);
    cursor: pointer;
    overflow: hidden;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 1em;
 }
 
 .sticker img {

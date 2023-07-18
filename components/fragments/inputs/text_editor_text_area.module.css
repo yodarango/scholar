@@ -71,7 +71,7 @@
    position: relative;
    width: 2rem;
    height: 2rem;
-   background-color: var(--third-color);
+   background-image: linear-gradient(-10deg, var(--gradient-1--light), var(--gradient-1--dark));
    border-radius: 50%;
    display: flex;
    align-items: center;

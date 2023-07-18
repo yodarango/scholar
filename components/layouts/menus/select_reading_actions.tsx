@@ -21,6 +21,7 @@ export type TSelectPostRatingMenuProps = {
    cta: {
       handleCloseModal: () => void;
       handleHighlightVerse: ({ color, VERSE_ID, highlight_type }: ThandlePostHighlight) => void;
+      handleStickerChoice: (sticker: string, PostId: string, id: string) => void;
    };
 };
 
@@ -113,6 +114,7 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                         reference: `${data.reference}:${data.verseNumber}`,
                         content: data.verseContent
                      }}
+                     withSticker
                      requestType={REQUEST_TYPE_IS_NEW_COMMENTARY}
                      userAuthority={1}
                      userId='123'
@@ -121,7 +123,18 @@ export const SelectReadingActions = ({ cta, data }: TSelectPostRatingMenuProps) 
                      verseCitation={`${data.reference}:${data.verseNumber}`}
                      verseContent={data.verseContent}
                      verseId={`${data.id}.${data.verseNumber}`}
-                     cta={{ handleCloseModal: cta.handleCloseModal }}
+                     cta={{
+                        handleCloseModal: cta.handleCloseModal,
+                        handleStickerChoice: (sticker, postId) => {
+                           cta.handleStickerChoice
+                              ? cta.handleStickerChoice(
+                                   sticker,
+                                   postId,
+                                   `${data.id}.${data.verseNumber}`
+                                )
+                              : undefined;
+                        }
+                     }}
                   />
                </div>
             </div>

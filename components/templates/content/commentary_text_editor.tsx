@@ -51,6 +51,7 @@ type TCommentaryTextEditorProps = {
    };
    cta?: {
       handleCloseModal: () => void;
+      handleStickerChoice?: (sticker: string, postId: string) => void;
    };
 };
 
@@ -83,11 +84,12 @@ export const CommentaryTextEditor = ({
    const router = useRouter();
 
    // state
-   const [notification, setnotification] = useState<null | {
-      title: string;
-      body: string;
-      type: string;
-   }>(null);
+   const [notification, setnotification] =
+      useState<null | {
+         title: string;
+         body: string;
+         type: string;
+      }>(null);
    const [loading, setloading] = useState("done");
    const [openModal, setOpenModal] = useState(false);
 
@@ -159,6 +161,7 @@ export const CommentaryTextEditor = ({
       } else if (post?.success) {
          setloading("disabled");
          setnotification({ title: post?.success.title, body: post?.success?.body, type: "2" });
+         cta && cta.handleStickerChoice && cta.handleStickerChoice(post.data.sticker, post.data.ID);
       }
    };
 

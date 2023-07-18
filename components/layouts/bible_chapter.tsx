@@ -88,7 +88,7 @@ export const BibleChapter = ({
    const [chapterTitle, setchapterTitle] = useState<string>("");
 
    const [chapterRefVars, setchapterRefVars] = useState<any>(null);
-   const [commentaries, setcommentaries] = useState([]);
+   const [commentaries, setcommentaries] = useState<any>([]);
    const [commentaryModal, setcommentaryModal] = useState<string>("none");
    const [notification, setnotification] =
       useState<null | {
@@ -221,6 +221,10 @@ export const BibleChapter = ({
 
       // close modal
       setshowReadingMenu(undefined);
+   };
+
+   const handleStickerChoice = (sticker: string, ID: string, VERSE_ID: string) => {
+      setcommentaries((prev: any) => [...prev, { ID, sticker, VERSE_ID }]);
    };
 
    // update font
@@ -364,7 +368,8 @@ export const BibleChapter = ({
                         data={{ ...data, ...showReadingMenu }}
                         cta={{
                            handleCloseModal: () => setshowReadingMenu(undefined),
-                           handleHighlightVerse
+                           handleHighlightVerse,
+                           handleStickerChoice
                         }}
                      />
                   )}
@@ -437,10 +442,11 @@ export const BibleChapter = ({
                                  {verse.text}
                                  {commentary && (
                                     <span
-                                       style={{ backgroundImage: `url(${commentary.sticker})` }}
+                                       // style={{ backgroundImage: `url(${commentary.sticker})` }}
                                        className={styles.commentarySticker}
-                                       onClick={() => setcommentaryModal(commentary.ID)}
-                                    />
+                                       onClick={() => setcommentaryModal(commentary.ID)}>
+                                       {commentary.sticker}
+                                    </span>
                                  )}
                               </p>
                            </div>

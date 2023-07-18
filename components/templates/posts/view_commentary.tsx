@@ -24,7 +24,6 @@ type TViewCommentary = {
 
 export const ViewCommentary = ({ cta, withEdit, commentaryID, userId }: TViewCommentary) => {
    const router = useRouter();
-   const ID = router?.query && router?.query.id ? router?.query.id : commentaryID;
 
    const handleCloseModal = cta?.handleClose ? cta.handleClose : () => router.back();
 
@@ -44,7 +43,11 @@ export const ViewCommentary = ({ cta, withEdit, commentaryID, userId }: TViewCom
    };
 
    useEffect(() => {
-      if (router.isReady) getData({ USER_ID: userId, ID });
+      if (router.isReady && router.query) {
+         const ID = router.query.id ? router?.query.id : commentaryID;
+         const user = userId === "@me" ? {} : { USER_ID: userId };
+         getData({ ...user, ID });
+      }
    }, [router.isReady]);
 
    // post references

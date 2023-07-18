@@ -52,7 +52,10 @@ export const dataHandler = async (
          data[requestType.toLowerCase()]?.ID &&
          data[requestType.toLowerCase()].__typename === type
       ) {
-         return { success: notificationMessages.postSuccess };
+         return {
+            success: notificationMessages.postSuccess,
+            data: data[requestType.toLowerCase()]
+         };
       } else if (data[requestType.toLowerCase()].__typename === "ExceedsPostCount") {
          return { error: errorMessages.posts.maxPostCount };
       } else if (data[requestType.toLowerCase()].__typename === "NotAuthorized") {

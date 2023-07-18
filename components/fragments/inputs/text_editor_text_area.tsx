@@ -113,14 +113,15 @@ export const TextEditorTextArea = ({
                )}
                {sticker && (
                   <div className={styles.sticker}>
-                     <Image
+                     {/* <Image
                         src={
                            s.find((s) => s.path === currentSticker)?.path ||
                            COMMENTARY_STICKER_DEFAULT
                         }
                         alt={s.find((s) => s.path === currentSticker)?.path || ""}
                         layout='fill'
-                     />
+                     /> */}
+                     <Parragraph text={sticker} size='large' />
                   </div>
                )}
             </div>

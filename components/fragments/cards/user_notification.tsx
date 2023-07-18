@@ -7,6 +7,11 @@ import { Icon } from "../chunks/icons";
 // styles
 import styles from "./user_notification.module.css";
 import { FONT_COLOR } from "../../../constants/tokens";
+import {
+   POST_TYPE_ARTICLE,
+   POST_TYPE_COMMENTARY,
+   POST_TYPE_QUOTE
+} from "../../../constants/defaults";
 
 // types
 
@@ -24,19 +29,19 @@ export const UserNotifications = ({ body, postType, postId, isOpen }: any) => {
       <Link href={`/posts/${type}/${postId}`}>
          <a>
             <div className={styles.mainWrapper}>
-               {postType === 0 && (
+               {postType === POST_TYPE_COMMENTARY && (
                   <div className={`${styles.icon}`}>
                      <Icon name='comment' color={FONT_COLOR} size='2rem' />
                   </div>
                )}
-               {postType === 1 && (
+               {postType === POST_TYPE_QUOTE && (
                   <div className={`${styles.icon}`}>
                      <Icon name='quote' color={FONT_COLOR} size='2rem' />
                   </div>
                )}
-               {postType === 2 && (
+               {postType === POST_TYPE_ARTICLE && (
                   <div className={`${styles.icon}`}>
-                     <Icon name='think' color={FONT_COLOR} size='2rem' />
+                     <Icon name='article' color={FONT_COLOR} size='2rem' />
                   </div>
                )}
                {postType === 3 && (

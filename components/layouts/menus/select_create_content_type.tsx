@@ -30,7 +30,7 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
       },
       {
          url: "article",
-         icon: "think",
+         icon: "article",
          description: "Article",
          color: "#F1EAFF"
       }

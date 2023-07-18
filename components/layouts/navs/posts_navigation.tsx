@@ -53,7 +53,7 @@ export const PostsNavigation = ({ cta }: TPostsNavigationProps) => {
             onMouseLeave={() => sethoverState(0)}
             onClick={() => handleClick(3)}>
             <Icon
-               name='think'
+               name='article'
                size='3rem'
                color={hoverState === 3 || activeState === 3 ? FONT_COLOR : THIRD_COLOR}
             />
