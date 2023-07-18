@@ -20,7 +20,7 @@ export type TOptionButtonProps = {
    buttonSize?: string;
    link?: string;
    shadowColor?: string;
-   cta?: React.MouseEventHandler<HTMLButtonElement>;
+   cta?: () => void;
 };
 
 export const OptionButton = ({

@@ -69,7 +69,7 @@ export const SermonNotesWFilter = ({ cta }: TCommentariesByBookProps) => {
             </div>
          </div>
          <section className={styles.posts}>
-            <SermonNotesGrid filters={{ tag: tagFilter }} />
+            <SermonNotesGrid />
          </section>
       </PrimaryStack>
    );

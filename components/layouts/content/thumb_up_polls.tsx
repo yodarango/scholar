@@ -7,7 +7,7 @@ import { Header } from "../../fragments/Typography/header";
 import styles from "./fast_facts.module.css";
 
 // types
-import { TThumbsUpDownPoll } from "../../types/wigo_content";
+import { TThumbsUpDownPoll } from "../../../types/interactive";
 
 type TThumbsUpPollProps = {
    content: TThumbsUpDownPoll;
@@ -24,7 +24,7 @@ export const ThumbsUpPoll = ({ content }: TThumbsUpPollProps) => {
             </div>
          </div>
          <div className={styles.thumbsUp}>
-            <ThumbsUpDownPoll content={content} />
+            <ThumbsUpDownPoll />
          </div>
       </div>
    );

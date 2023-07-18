@@ -12,7 +12,7 @@ import styles from "./pagination.module.css";
 import { Icon } from "../chunks/icons";
 
 // helpers
-import { handleBibleChapterPagination } from "../../helpers/router/paginate_bible_passage";
+import { handleBibleChapterPagination } from "../../../helpers/router/paginate_bible_passage";
 
 type TpaginationProps = {
    forContent: string;

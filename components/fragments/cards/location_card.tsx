@@ -9,7 +9,7 @@ import { Header } from "../Typography/header";
 import styles from "./location_card.module.css";
 
 // types
-import { TLocation } from "../../types/libray_content";
+import { TLocation } from "../../../types/libray_content";
 
 type TLocationProps = {
    location: TLocation;

@@ -5,7 +5,7 @@ import {
    PREFERENCES_SECTION,
    PRIVACY_SECTION,
    SettingsSections
-} from "./components/settings_sections";
+} from "../../../components/layouts/account/settings/settings_sections";
 import styles from "./index.module.css";
 import { Header } from "../../../components/fragments/Typography/header";
 import Privacy from "../../privacy";

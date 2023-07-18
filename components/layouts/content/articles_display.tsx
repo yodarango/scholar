@@ -1,13 +1,13 @@
 // comps
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
-import { ArticlesOneLineCarrousel } from "../scrollers/articles_one_line_carrousel";
+import { ArticlesOneLineCarrousel } from "../scrollers/user_content/articles_one_line_carrousel";
 
 // styles
 import styles from "./fast_facts.module.css";
 
 // types
-import { TArticle } from "../../types/posts";
+import { TArticle } from "../../../types/posts";
 
 type TArticlesDisplayProps = {
    articles: TArticle[];

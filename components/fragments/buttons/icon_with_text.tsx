@@ -11,7 +11,7 @@ type TIconWithTextProps = {
    link?: string;
    icon: string;
    cta?: {
-      handleClick: React.MouseEventHandler<HTMLButtonElement>;
+      handleClick: () => void;
    };
 };
 
@@ -20,7 +20,11 @@ export const IconWithText = ({ title, buttonColor, icon, cta, link }: TIconWithT
       <div className={styles.mainWrapper}>
          {cta && (
             <div className={styles.icon}>
-               <IconButton backgroundColor={buttonColor} icon={icon} cta={cta.handleClick} />
+               <IconButton
+                  backgroundColor={buttonColor}
+                  icon={icon}
+                  cta={{ handleClick: cta.handleClick }}
+               />
             </div>
          )}
          {link && (

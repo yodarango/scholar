@@ -1,16 +1,15 @@
-import client from "../../../apollo-client";
-import { DELETE_ONE_SEMRON_POST } from "../../../graphql/posts/sermon_notes";
+import { client } from "../../../apollo-client";
 
 export const handleDeleteSermonNote = async (id: string) => {
    try {
-      const { data } = await client.mutate({
-         mutation: DELETE_ONE_SEMRON_POST,
-         variables: { ID: id }
-      });
+      // const { data } = await client.mutate({
+      //    mutation: DELETE_ONE_SEMRON_POST,
+      //    variables: { ID: id }
+      // });
 
-      if (data.x) {
-         return data.x;
-      }
+      // if (data.x) {
+      //    return data.x;
+      // }
 
       return "Something went wrong!";
    } catch (error) {

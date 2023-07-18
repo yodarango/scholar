@@ -1,13 +1,13 @@
 // comps
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
-import { SermonNoteOneLineCarrousel } from "../scrollers/sermon_note_one_line_carrousel";
+import { SermonNoteOneLineCarrousel } from "../scrollers/user_content/sermon_note_one_line_carrousel";
 
 // styles
 import styles from "./fast_facts.module.css";
 
 // types
-import { TSermonNote } from "../../types/posts";
+import { TSermonNote } from "../../../types/posts";
 
 type TSermonNoteDisplayProps = {
    sermonNotes: TSermonNote[];

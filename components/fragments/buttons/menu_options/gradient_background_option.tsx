@@ -27,7 +27,7 @@ export const GradientBackgroundOption = ({
          {background && (
             <div className={styles.mainWrapper} onClick={() => cta.handleClick(background)}>
                <div className={styles.option}>
-                  <GradientBackground background={background} />
+                  <GradientBackground background={background} cta={{ handleSelection: () => {} }} />
                </div>
                <div className={styles.text}>
                   <Parragraph text={text} size='main' />
@@ -37,7 +37,10 @@ export const GradientBackgroundOption = ({
          {backgroundCustom && (
             <div className={styles.mainWrapper} onClick={() => cta.handleClick(backgroundCustom)}>
                <div className={styles.option}>
-                  <GradientBackground backgroundCustom={backgroundCustom} />
+                  <GradientBackground
+                     backgroundCustom={backgroundCustom}
+                     cta={{ handleSelection: () => {} }}
+                  />
                </div>
                <div className={styles.text}>
                   <Parragraph text={text} size='main' />

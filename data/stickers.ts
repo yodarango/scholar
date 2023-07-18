@@ -1,4 +1,4 @@
-type Sticker = {
+export type Sticker = {
    id: number;
    name: string;
    path: string;
@@ -6,7 +6,7 @@ type Sticker = {
    categories: string[];
 };
 
-const stickers: Sticker[] = [
+export const stickers: Sticker[] = [
    {
       id: 1,
       name: "Sticker 1",
