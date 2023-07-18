@@ -42,7 +42,6 @@ export const ChangeSignature = ({ signature, cta }: TChangeUsernameProps) => {
       try {
          const { data, title, body, type } = await handleUpdateSignature(currSignature);
 
-         console.log(data);
          setnotification({
             title: title,
             body: body,

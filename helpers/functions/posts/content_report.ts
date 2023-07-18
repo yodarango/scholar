@@ -32,8 +32,6 @@ export const reportCommentary: any = async (
       });
       const key = Object.keys(data)[0];
 
-      console.log(data);
-
       if (data) {
          if (data[key]?.__typename === "NotAuthorized") {
             return { error: { ...errorMessages.auth.pleaseLogin, type: "4" } };

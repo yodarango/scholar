@@ -38,7 +38,6 @@ export const BillingTemplate = () => {
          } else if (data.customer_portal.__typename === "Failed_Order") {
             router.push("/subscription/join");
          }
-         console.log(data);
       } catch (error) {
          setuserData(null);
          setloading("error");

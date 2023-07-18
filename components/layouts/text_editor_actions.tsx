@@ -158,7 +158,7 @@ export const TextEditorActions = ({
                      handleClose: () => setShowFoldersList(false),
                      handleFolderSelection: (id: string | number) => {
                         cta.handleFolderSelection && cta.handleFolderSelection(id);
-                        console.log(id);
+
                         setCurrentFolderId(id);
                         setShowFoldersList(false);
                      }

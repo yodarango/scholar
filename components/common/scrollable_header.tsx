@@ -17,8 +17,6 @@ export const ScrollableHeader = ({ children, height, cta }: TScrollableHeader) =
       let moving = window.scrollY;
 
       if (position > 20) {
-         console.log(position, moving);
-
          setVisible(position > moving);
          setPosition(moving);
       }

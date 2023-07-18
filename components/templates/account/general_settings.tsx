@@ -109,7 +109,6 @@ export const GeneralSettings = ({ onGoBack }: TGeneralSettings) => {
                      signature={generalSettings.signature}
                      cta={{
                         updateSignature: (signature) => {
-                           console.log(signature);
                            setgeneralSettings({ ...generalSettings, signature });
                         }
                      }}

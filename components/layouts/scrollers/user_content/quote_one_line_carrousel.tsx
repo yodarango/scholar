@@ -42,7 +42,7 @@ export const QuoteOneLineCarrousel = ({
    const fetchData = async (variables: TgetQuoteVariables) => {
       try {
          const { data, status } = await handleGetQuote(variables);
-         console.log(data);
+
          data && setquotesArr(data);
          setloading(status);
       } catch (error) {

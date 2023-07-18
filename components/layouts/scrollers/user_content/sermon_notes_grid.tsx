@@ -124,7 +124,7 @@ export const SermonNotesGrid = () => {
                      <div key={index} className={styles.child}>
                         <SermonNote
                            cta={{
-                              handleDelete: () => console.log("handle show post")
+                              handleDelete: () => {}
                            }}
                            sermonNote={sermonNote}
                         />

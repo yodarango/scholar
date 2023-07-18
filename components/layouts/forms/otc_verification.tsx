@@ -95,7 +95,7 @@ export const OTCVerification = ({
          }
       } catch (error) {
          setSmallLoader("");
-         console.log(error);
+         console.error(error);
       }
    };
 

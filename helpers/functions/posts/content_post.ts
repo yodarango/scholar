@@ -48,7 +48,6 @@ export const dataHandler = async (
          variables
       });
 
-      console.log(data[requestType.toLowerCase()]);
       if (
          data[requestType.toLowerCase()]?.ID &&
          data[requestType.toLowerCase()].__typename === type

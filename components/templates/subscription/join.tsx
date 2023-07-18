@@ -38,12 +38,11 @@ export const JoinTemplate = () => {
             }
          });
 
-         console.log(data);
          if (data.create_checkout_session) {
             router.replace(data.create_checkout_session);
          }
-      } catch (err) {
-         console.log(err);
+      } catch (error) {
+         console.error(error);
       }
    };
 

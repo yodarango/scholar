@@ -42,7 +42,7 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
       try {
          setLoading("loadingSmall");
          const { data, error, status } = await useKeepImageToVerse({ ID: createImage?.ID });
-         console.log(data);
+
          if (status === "done") {
             setNotification(notificationMessages.AIImageCreated);
             setImageKept(true);
@@ -60,7 +60,7 @@ export const ImageFromVerseEditor = ({ verseData, onClose }: TImageFromVerseEdit
       setCreateImage({});
       try {
          const { data, error, status } = await getImageFromBibleVerse(verseData.orgId, imgPrompt);
-         console.log(data);
+
          if (data && status === "done") {
             setCreateImage(data);
             setLoading("done");

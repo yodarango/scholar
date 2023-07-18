@@ -1,3 +1,5 @@
+//#MIGHT DELETE
+
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
 import { Icon } from "../../fragments/chunks/icons";
@@ -80,15 +82,14 @@ export const SelectStarRating = ({ cta }: TSelectStarProps) => {
    //  --------------- handle the selection ----------
    const handleReviewSelection = (rating: number) => {
       // send review to db
-      console.log(rating);
    };
 
    return (
       <>
-         <PrimaryMenuBkg
+         {/* <PrimaryMenuBkg
             title='Rate content'
             color='1'
-            cta={cta.handleCloseModal}
+            cta={{ handleClose: cta.handleCloseModal }}
             content={menuOptions.map((option, index) => (
                <div className={styles.menuOption} key={index}>
                   <MenuPrimaryOption
@@ -115,7 +116,7 @@ export const SelectStarRating = ({ cta }: TSelectStarProps) => {
                   />
                </div>
             ))}
-         />
+         /> */}
       </>
    );
 };

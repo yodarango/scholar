@@ -64,7 +64,7 @@ export const DailyVerseCard = memo(
                setloading("done");
             }
          } catch (error) {
-            console.log(error);
+            console.error(error);
          }
       };
 

@@ -8,7 +8,7 @@ import { ContentReviews } from "../content_reviews";
 
 //styles
 import styles from "./library_content.module.css";
-import { SelectStarRating } from "../../layouts/menus/select_star_rating";
+// import { SelectStarRating } from "../../layouts/menus/select_star_rating";
 
 type TLibraryContentProps = {
    id: string;
@@ -38,15 +38,13 @@ export const LibraryContent = ({
    const [showContentReviewMenu, setshowContentReviewMenu] = useState<boolean>(false);
 
    // ------------------ open the preview modal
-   const handleShowDescriptionModal = (id: string) => {
-      console.log(id);
-   };
+   const handleShowDescriptionModal = (id: string) => {};
 
    return (
       <>
-         {showContentReviewMenu && (
+         {/* {showContentReviewMenu && (
             <SelectStarRating cta={{ handleCloseModal: () => setshowContentReviewMenu(false) }} />
-         )}
+         )} */}
          <div className={styles.mainWrapper}>
             {showDescriptionModal && (
                <div className={styles.image} onClick={() => handleShowDescriptionModal(id)}>

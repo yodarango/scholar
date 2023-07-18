@@ -6,7 +6,7 @@ import { Parragraph } from "./Typography/parragraph";
 
 // styles
 import styles from "./content_reviews.module.css";
-import { SelectStarRating } from "../layouts/menus/select_star_rating";
+// import { SelectStarRating } from "../layouts/menus/select_star_rating";
 
 type TReviewContentProps = {
    stars: number;

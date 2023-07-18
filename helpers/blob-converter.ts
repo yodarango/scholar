@@ -9,6 +9,5 @@ export const handleFileConvertion = (file: any, size: number) =>
             resolve(e.target?.result);
          };
          reader.readAsDataURL(file);
-         console.log(file);
       }
    });

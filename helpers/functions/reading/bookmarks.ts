@@ -40,7 +40,7 @@ export const handlePostBookMark = async (CHAPTER_ID: string | number) => {
          query: POST_BOOKMARK,
          variables: { CHAPTER_ID }
       });
-      console.log(data);
+
       if (data.new_bookmark.__typename === "Bookmark" && data.new_bookmark?.ID) {
          return { data, status: "done", error: null };
       } else if (data.new_bookmark.__typename === "NotAuthorized") {

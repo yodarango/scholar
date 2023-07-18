@@ -15,7 +15,6 @@ export type TUserStatsProps = {
 };
 
 export const UserStats = ({ user_summary }: TUserStatsProps) => {
-   //console.log(user_summary);
    const {
       signature = "",
       avatar = "",
