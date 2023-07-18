@@ -112,7 +112,7 @@ export const SelectPostRatingMenu = ({
          ? "rate_commentary"
          : contentType === POST_TYPE_QUOTE
          ? "rate_quote"
-         : "rate_thought";
+         : "rate_article";
    const handleRating = async (variables: TrateContent) => {
       cta.handleCloseModal();
       try {

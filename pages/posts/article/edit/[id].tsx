@@ -22,13 +22,13 @@ const EditArticle = () => {
    const router = useRouter();
    const ID: any = router?.query && router?.query.id ? router?.query.id : "1";
 
-   const [thought, setthought] = useState<TArticle | null>(null);
+   const [article, setarticle] = useState<TArticle | null>(null);
    const [loading, setloading] = useState<string>("loading");
 
    const getData = async () => {
       try {
          const { data, status } = await handleGetArticles({ ID }, true);
-         if (data) setthought(data);
+         if (data) setarticle(data);
 
          setloading(status);
       } catch (error) {
@@ -43,8 +43,8 @@ const EditArticle = () => {
 
    // post references
    const postReferneces: any =
-      thought?.referenced_verses && thought.referenced_verses.length > 0
-         ? thought.referenced_verses
+      article?.referenced_verses && article.referenced_verses.length > 0
+         ? article.referenced_verses
          : [];
 
    return (
@@ -56,19 +56,19 @@ const EditArticle = () => {
             {loading === "done" && (
                <ArticleTextEditor
                   requestType={REQUEST_TYPE_IS_EDIT_ARTICLE}
-                  ID={thought?.ID}
-                  body={thought?.body}
-                  titleDefaultValue={thought?.title}
-                  postImage={thought?.post_image}
+                  ID={article?.ID}
+                  body={article?.body}
+                  titleDefaultValue={article?.title}
+                  postImage={article?.post_image}
                   userAuthority={
-                     thought?.creator?.authority_level ? thought?.creator?.authority_level : 1
+                     article?.creator?.authority_level ? article?.creator?.authority_level : 1
                   }
-                  userId={thought?.creator?.ID ? thought?.creator?.ID : "0"}
-                  username={thought?.creator?.signature ? thought.creator?.signature : ""}
-                  avatar={thought?.creator?.avatar ? thought?.creator?.avatar : ""}
-                  postPostedOnDate={thought?.posted_on}
-                  postCreatedDate={thought?.created_date}
-                  postCategory={thought?.category_tags}
+                  userId={article?.creator?.ID ? article?.creator?.ID : "0"}
+                  username={article?.creator?.signature ? article.creator?.signature : ""}
+                  avatar={article?.creator?.avatar ? article?.creator?.avatar : ""}
+                  postPostedOnDate={article?.posted_on}
+                  postCreatedDate={article?.created_date}
+                  postCategory={article?.category_tags}
                   postReferences={postReferneces}
                />
             )}

@@ -4,7 +4,7 @@
    justify-content: flex-start;
    column-gap: var(--spacing-xs);
    margin-bottom: var(--spacing-l);
-   position: fixed;
+   position: absolute;
    background-color: var(--primary-color);
    z-index: 5;
    width: 100%;

@@ -50,6 +50,7 @@
    opacity: 1;
    background: transparent;
    color: var(--font-color);
+   border: none;
 }
 
 .input.transparent::placeholder {

@@ -28,10 +28,10 @@ export const postContentComment = async (
    try {
       const { data } = await client.mutate({
          mutation: CONTENT,
-         variables
+         variables: { ...variables }
       });
       if (data && data.commentary_comment) return data.commentary_comment;
-      else if (data && data.thought_comment) return data.thought_comment;
+      else if (data && data.article_comment) return data.article_comment;
       else if (data && data.quote_comment) return data.quote_comment;
    } catch (error) {
       console.error(error);

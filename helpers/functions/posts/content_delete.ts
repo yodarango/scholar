@@ -43,8 +43,8 @@ export const useDeleteContent = () => {
          if (data.delete_one_commentary)
             setData({ ...data.delete_one_commentary, status: "success" });
          else if (data.delete_one_quote) setData({ ...data.delete_one_quote, status: "success" });
-         else if (data.delete_one_thought)
-            setData({ ...data.delete_one_thought, status: "success" });
+         else if (data.delete_one_article)
+            setData({ ...data.delete_one_article, status: "success" });
          else if (data.delete_folder) setData({ ...data.delete_folder, status: "success" });
 
          setData({ ID: null, error: "something went wrong", status: "error" });

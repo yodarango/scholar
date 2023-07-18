@@ -14,12 +14,12 @@ export const handleGetArticleIn24 = async () => {
          variables: {}
       });
 
-      if (!data.thought_in_24) {
+      if (!data.article_in_24) {
          return { data: null, status: "error" };
       }
 
       //  format the data into commentary: { user:{}}
-      const thought = data.thought_in_24.map((c: any) => ({
+      const article = data.article_in_24.map((c: any) => ({
          ...c,
          creator: {
             ID: c.USER_ID,
@@ -32,15 +32,15 @@ export const handleGetArticleIn24 = async () => {
             avatar: c.avatar
          },
          comments: {
-            total_count: c.total_comment_count
+            total_comment_count: c.total_comment_count
          },
          approvals: {
-            average_count: c.average_rating_count,
-            total_count: c.total_rating_count
+            average_rating_count: c.average_rating_count,
+            total_rating_count: c.total_rating_count
          }
       }));
 
-      return { data: thought, status: "done" };
+      return { data: article, status: "done" };
    } catch (error) {
       console.error(error);
       return { data: null, status: "error" };
@@ -70,6 +70,10 @@ const mapTheUser = (c: any) => {
       },
       comments: {
          total_count: c.total_comment_count
+      },
+      approvals: {
+         average_count: c.average_rating_count,
+         total_count: c.total_rating_count
       }
    };
 };
@@ -81,18 +85,18 @@ export const handleGetArticles = async (variables: TgetArticlesVariables, isEdit
          variables
       });
 
-      if (!data.thought && !data.edit_thought) {
+      if (!data.article && !data.edit_article) {
          return { data: null, status: "error" };
       } else {
-         let thought: any = [];
+         let article: any = [];
 
          if (isEdit) {
-            thought = mapTheUser(data.edit_thought);
+            article = mapTheUser(data.edit_article);
          } else {
-            thought = data.thought.map(mapTheUser);
+            article = data.article.map(mapTheUser);
          }
 
-         return { data: thought, status: "done" };
+         return { data: article, status: "done" };
       }
    } catch (error) {
       console.error(error);

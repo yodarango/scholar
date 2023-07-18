@@ -11,10 +11,11 @@ export type TrateContent = {
 };
 
 export const rateContent = async (variables: TrateContent, contentType: EnumContentType) => {
+   console.log(variables, contentType);
    const RATE_CONTENT =
       contentType === 1 ? RATE_COMMENT : contentType === 2 ? RATE_QUOTE : RATE_ARTICLE;
    const queryName =
-      contentType === 1 ? "rate_comment" : contentType === 2 ? "rate_quote" : "rate_thought";
+      contentType === 1 ? "rate_commentary" : contentType === 2 ? "rate_quote" : "rate_article";
    const responseName =
       contentType === 1
          ? "Commentary_Rating"

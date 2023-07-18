@@ -9,9 +9,15 @@ import { UseIsAuth } from "../../../../hooks/use_check_auth";
 import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 import Head from "next/head";
 import HeadContent from "../../../../SEO/head_content";
+import { useEffect, useState } from "react";
 
 const NewArticle = () => {
-   const user = loggedInUser();
+   const [user, setUser] = useState<any>(null);
+
+   useEffect(() => {
+      const user = loggedInUser();
+      setUser(user);
+   }, []);
 
    return (
       <UseIsAuth redirect='/login'>

@@ -33,7 +33,7 @@ export const SermonNoteOneLineCarrousel = ({
 
    // will only run if the post was deleted successfully
    const handleDelete = (id: string) => {
-      const updatedArr = sermonNotesArr?.filter((thought) => thought.ID !== id);
+      const updatedArr = sermonNotesArr?.filter((article) => article.ID !== id);
       setsermonNotesArr(updatedArr);
    };
 

@@ -43,11 +43,13 @@
 
 .contentHolder {
    height: 96%;
-   width: 90%;
+   width: var(--global-wrapper-width);
+   max-width: var(--main-wrapper-max-width);
    margin: auto;
    padding: var(--spacing-l) 0 0; /*was var(--spacing-l) 0; added spacer div instead*/
    overflow-y: scroll;
    overflow-x: visible;
+   position: relative;
 }
 
 .close {

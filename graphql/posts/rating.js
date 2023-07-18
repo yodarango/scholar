@@ -24,7 +24,7 @@ export const RATE_COMMENT = gql`
 
 export const RATE_ARTICLE = gql`
    mutation ($POST_ID: ID, $rating: Int, $USER_ID: ID) {
-      rate_thought(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
+      rate_article(data: { POST_ID: $POST_ID, rating: $rating, USER_ID: $USER_ID }) {
          ... on Article_Approval {
             status
          }
@@ -83,7 +83,7 @@ export const GET_QUOTE_APPROVALS = gql`
 
 export const GET_ARTICLE_APPROVALS = gql`
    query ($ARTICLE_ID: ID) {
-      thought_approvals(ARTICLE_ID: $ARTICLE_ID) {
+      article_approvals(ARTICLE_ID: $ARTICLE_ID) {
          total_count
          average_count
       }

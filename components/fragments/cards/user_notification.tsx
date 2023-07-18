@@ -17,7 +17,7 @@ export const UserNotifications = ({ body, postType, postId, isOpen }: any) => {
          : postType === 1
          ? "quote"
          : postType === 2
-         ? "thought"
+         ? "article"
          : "sermon-note";
 
    return (

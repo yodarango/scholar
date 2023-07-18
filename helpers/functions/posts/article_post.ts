@@ -32,9 +32,9 @@ export const dataHandler = async (post: THandlePostArticle) => {
          }
       });
 
-      if (data.thought.__typename === "Article") {
+      if (data.article.__typename === "Article") {
          return { success: notificationMessages.postSuccess };
-      } else if (data.thought.__typename === "ExceedsPostCount") {
+      } else if (data.article.__typename === "ExceedsPostCount") {
          return { error: errorMessages.posts.maxPostCount };
       } else {
          return { error: errorMessages.posts.failToPostCommentary };

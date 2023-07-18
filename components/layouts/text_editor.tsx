@@ -1,5 +1,5 @@
 /**************************************************************************************** 
-- renders the a text editor for either the thought or commentary type.
+- renders the a text editor for either the article or commentary type.
 - if cta.closeModal is passed than the "x" button will be rendered and called on Click()
 - if closeHref is passed then the modal will redirect to the route specified in the 
    router.query.close prop

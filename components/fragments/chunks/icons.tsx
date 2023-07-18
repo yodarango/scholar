@@ -1348,7 +1348,7 @@ export const Icon = ({ name, strokeWidth, color = FONT_COLOR, size = "2rem" }: T
          );
          break;
 
-      case "thought":
+      case "article":
          icon = (
             <svg viewBox=' 0 0 16 16'>
                <path

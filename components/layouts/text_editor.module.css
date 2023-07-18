@@ -4,6 +4,7 @@
    display: grid;
    grid-template-columns: 100%;
    grid-template-rows: auto 10rem calc(20rem + var(--spacing-m)); /* textarea tags bottom spacer*/
+   position: relative;
 }
 
 .close {
@@ -35,7 +36,7 @@
 
 .editorActions {
    width: 100%;
-   position: fixed;
+   position: absolute;
    bottom: 0;
    left: 0;
    z-index: 15;

@@ -35,14 +35,14 @@ export const WigoFeed = () => {
          (c: TCommentary) => c.POST_TYPE === POST_TYPE_COMMENTARY.toString()
       );
       const quotes = posts.filter((c: TCommentary) => c.POST_TYPE === POST_TYPE_QUOTE.toString());
-      const thoughts = posts.filter(
+      const articles = posts.filter(
          (c: TCommentary) => c.POST_TYPE === POST_TYPE_ARTICLE.toString()
       );
 
       if (commentaries.length > 0)
          setvariables((prev) => ({ ...prev, cID: commentaries.at(-1).ID }));
       if (quotes.length > 0) setvariables((prev) => ({ ...prev, qID: quotes.at(-1).ID }));
-      if (thoughts.length > 0) setvariables((prev) => ({ ...prev, tID: thoughts.at(-1).ID }));
+      if (articles.length > 0) setvariables((prev) => ({ ...prev, tID: articles.at(-1).ID }));
    };
 
    // fetch data
@@ -113,7 +113,7 @@ export const WigoFeed = () => {
                else if (post.POST_TYPE === POST_TYPE_ARTICLE?.toString())
                   return (
                      <div className={styles.post} key={index}>
-                        <Article thought={post} />{" "}
+                        <Article article={post} />{" "}
                      </div>
                   );
             })}

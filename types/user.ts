@@ -1,6 +1,6 @@
 export type TAllPosts = {
    commentaries_approval_total_count: number;
-   thought_approval_total_count: number;
+   article_approval_total_count: number;
    quote_approval_total_count: number;
 };
 
@@ -34,7 +34,7 @@ export type TUser = {
 
 export type TpostSummary = {
    commentary_count: number;
-   thought_count: number;
+   article_count: number;
    sermon_count: number;
    quote_count: number;
 };

@@ -35,8 +35,8 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
       {
          icon: "think",
          iconColor: THIRD_COLOR_ACCENT,
-         totalPosts: "thought_count",
-         contentType: "thoughts"
+         totalPosts: "article_count",
+         contentType: "articles"
       },
       {
          icon: "quote",
@@ -55,12 +55,12 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
    // get data
    const [data, setdata] = useState<TpostSummary | any>({
       commentary_count: 0,
-      thought_count: 0,
+      article_count: 0,
       quote_count: 0,
       sermon_count: 0
    });
 
-   const { commentary_count, thought_count, quote_count, sermon_count } = data;
+   const { commentary_count, article_count, quote_count, sermon_count } = data;
 
    const getData = async (variables?: TgetPostsSummaryVariables) => {
       try {
@@ -82,7 +82,7 @@ export const UserPostStats = ({ userID }: TUserPostStatsProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.graph}>
-            <ProfileStatsGraph content={{ commentary_count, thought_count, quote_count }} />
+            <ProfileStatsGraph content={{ commentary_count, article_count, quote_count }} />
          </div>
          <div className={styles.stats}>
             {contentStats.map((item, index) => (

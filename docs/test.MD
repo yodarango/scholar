@@ -152,7 +152,7 @@
 
 1. ✅ if count lower than 20, pagination btn does not show for comments, thougths or sermons
 2. ✅ if count lower than 50, pagination btn does not show quote
-3. ✅ thoughts and comentaries are toggled successfully
+3. ✅ articles and comentaries are toggled successfully
 4. ✅ content for Monday shows correctly and if it does not then placeholder ad shows
 5. ✅ content for Tuesday shows correctly and if it does not then placeholder ad shows
 6. ✅ content for Wednesday shows correctly and if it does not then placeholder ad shows
@@ -207,7 +207,7 @@
 15.   ✅ Notification is created for story
 16.   ✅ Notification is created for commentary comment/ approval
 17.   ✅ Notification is created for quote comment/ approval
-18.   ✅ Notification is created for thought comment/ approval
+18.   ✅ Notification is created for article comment/ approval
 19.   ✅ If user has story then the button does not load
 
 **PERMISSIONS**

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_ARTICLES = gql`
    query ($ID: ID, $USER_ID: ID, $category_tags: String, $body: String, $last_id: ID) {
-      thought(
+      article(
          ID: $ID
          USER_ID: $USER_ID
          category_tags: $category_tags
@@ -31,7 +31,7 @@ export const GET_ARTICLES = gql`
 
 export const GET_EDIT_ARTICLES = gql`
    query ($ID: ID) {
-      edit_thought(ID: $ID) {
+      edit_article(ID: $ID) {
          ID
          body
          title
@@ -54,7 +54,7 @@ export const GET_EDIT_ARTICLES = gql`
 
 export const GET_ARTICLE_IN_24 = gql`
    query {
-      thought_in_24 {
+      article_in_24 {
          ID
          body
          USER_ID
@@ -81,8 +81,8 @@ export const GET_ARTICLE_IN_24 = gql`
 
 export const WIGO_REQUEST_MORE_ARTICLES = gql`
    query ($last_id: ID) {
-      # thought
-      thought(last_id: $last_id) {
+      # article
+      article(last_id: $last_id) {
          ID
          title
          body
@@ -109,7 +109,7 @@ export const WIGO_REQUEST_MORE_ARTICLES = gql`
 
 export const SHOW_COMMENTS_OF_ARTICLES = gql`
    query ($ID: ID, $showComment: Boolean) {
-      thought(ID: $ID) {
+      article(ID: $ID) {
          comments(showComment: $showComment) {
             ID
             body
@@ -137,7 +137,7 @@ export const CREATE_NEW_ARTICLE = gql`
       $title: String
       $post_image: String
    ) {
-      thought(
+      article(
          data: {
             body: $body
             category_tags: $category_tags
@@ -172,7 +172,7 @@ export const EDIT_ARTICLE = gql`
       $post_image: String
       $ID: ID
    ) {
-      edit_thought(
+      edit_article(
          data: {
             ID: $ID
             body: $body
@@ -190,7 +190,7 @@ export const EDIT_ARTICLE = gql`
 //  DELETING ROUTES
 export const DELETE_ONE_ARTICLE = gql`
    mutation ($ID: ID) {
-      delete_one_thought(ID: $ID) {
+      delete_one_article(ID: $ID) {
          ... on Article {
             ID
          }

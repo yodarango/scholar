@@ -8,7 +8,7 @@
 }
 
 .textArea {
-   position: absolute;
+   position: relative;
    bottom: var(--spacing-m);
    left: 0;
    width: 100%;

@@ -68,6 +68,10 @@ export const PostRating = ({
          return;
       }
 
+      console.log("value", value);
+      console.log("status", status);
+      console.log("rating", rating);
+
       const newCount = rating ? rating?.totalCount + 1 : 0;
 
       // update the count only if it was an insertion and not and an update in the DB

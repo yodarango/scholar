@@ -1,5 +1,5 @@
 /**************************************************************************************** 
-- displays a grid of thoughts.
+- displays a grid of articles.
 ****************************************************************************************/
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -31,7 +31,7 @@ export const ArticlesGrid = () => {
    const router = useRouter();
 
    // components
-   const [thoughts, setthougts] = useState<TArticle[]>([]);
+   const [articles, setthougts] = useState<TArticle[]>([]);
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
@@ -88,9 +88,9 @@ export const ArticlesGrid = () => {
          {loading === "done" && (
             <div className={styles.gridWrapper}>
                <GridPrimary>
-                  {thoughts.map((thought: TArticle, index: number) => (
+                  {articles.map((article: TArticle, index: number) => (
                      <div key={index} className={styles.child}>
-                        <Article thought={thought} />
+                        <Article article={article} />
                      </div>
                   ))}
                </GridPrimary>
@@ -114,7 +114,7 @@ export const ArticlesGrid = () => {
             </div>
          )}
 
-         {routerSearchKeys.length > 0 && thoughts.length === 0 && loading === "done" && (
+         {routerSearchKeys.length > 0 && articles.length === 0 && loading === "done" && (
             <div className={styles.error}>
                <ResourceNotFound />
             </div>

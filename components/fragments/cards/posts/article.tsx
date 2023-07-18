@@ -26,20 +26,20 @@ import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
 
 type TArticleProps = {
-   thought: TArticle;
+   article: TArticle;
 
    cta?: {
       handleDelete: (id: string | number) => void;
    };
 };
 
-export const Article = ({ cta, thought }: TArticleProps) => {
+export const Article = ({ cta, article }: TArticleProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
-   const [postImage, setPostImage] = useState<string>(thought.post_image);
+   const [postImage, setPostImage] = useState<string>(article.post_image);
 
    // parse the Category ID
-   const categoryId = thought?.category_tags.split(" ")[0].replace("#", "");
+   const categoryId = article?.category_tags.split(" ")[0].replace("#", "");
 
    const { handleDelete, data } = useDeleteContent();
 
@@ -71,13 +71,13 @@ export const Article = ({ cta, thought }: TArticleProps) => {
                      cta={{
                         handleDelete: (id: number | string) => handleDelete(id, POST_TYPE_ARTICLE)
                      }}
-                     postType='thought'
-                     contentType={EnumContentType.thought}
-                     username={thought?.creator?.signature}
-                     userAuthority={thought?.creator?.authority_level}
-                     avatar={thought?.creator?.avatar}
-                     userId={thought?.creator?.ID}
-                     postId={thought?.ID}
+                     postType='article'
+                     contentType={EnumContentType.article}
+                     username={article?.creator?.signature}
+                     userAuthority={article?.creator?.authority_level}
+                     avatar={article?.creator?.avatar}
+                     userId={article?.creator?.ID}
+                     postId={article?.ID}
                      withCategoryTag={categoryId}
                      postSettingsOptions={{
                         showShareopton: true,
@@ -90,7 +90,7 @@ export const Article = ({ cta, thought }: TArticleProps) => {
                </div>
 
                {/* -------------------- post image ------------ */}
-               <Link href={`/posts/article/${thought?.ID}`}>
+               <Link href={`/posts/article/${article?.ID}`}>
                   <a>
                      <div className={styles.image}>
                         <Image
@@ -103,8 +103,8 @@ export const Article = ({ cta, thought }: TArticleProps) => {
 
                      {/* -------------------- post header and desc ------------ */}
                      <div className={styles.titleDesc}>
-                        <Header type={3} size='small' lineHieght='1.2em' text={thought?.title} />
-                        <Parragraph text={thought?.body} size='small' lineHieght='1.2em' />
+                        <Header type={3} size='small' lineHieght='1.2em' text={article?.title} />
+                        <Parragraph text={article?.body} size='small' lineHieght='1.2em' />
                      </div>
                   </a>
                </Link>
@@ -113,13 +113,13 @@ export const Article = ({ cta, thought }: TArticleProps) => {
                <div className={styles.footer}>
                   <div className={styles.reactions}>
                      <PostReactions
-                        postId={thought?.ID}
-                        userId={thought?.creator?.ID}
+                        postId={article?.ID}
+                        userId={article?.creator?.ID}
                         contentType={3}
-                        totalComments={thought?.comments?.total_count}
+                        totalComments={article?.comments?.total_count}
                         postRating={{
-                           totalCount: thought?.approvals?.total_count,
-                           averageCount: thought?.approvals?.average_count
+                           totalCount: article?.approvals?.total_count,
+                           averageCount: article?.approvals?.average_count
                         }}
                      />
                   </div>
@@ -128,8 +128,8 @@ export const Article = ({ cta, thought }: TArticleProps) => {
                      <TimeStamp
                         colorId={categoryId}
                         quiet={false}
-                        time={thought?.created_date}
-                        niceTime={thought?.posted_on}
+                        time={article?.created_date}
+                        niceTime={article?.posted_on}
                      />
                   </div>
                </div>

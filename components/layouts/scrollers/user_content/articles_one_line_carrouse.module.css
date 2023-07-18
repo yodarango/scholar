@@ -13,7 +13,7 @@
    padding: var(--spacing-xxs) 0;
 }
 
-.thought {
+.article {
    width: 35rem;
    flex-grow: 0;
    flex-shrink: 0;

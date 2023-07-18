@@ -82,8 +82,10 @@ export const TextEditorVerseSelection = ({
          } else {
             setverseData(null);
             setLoading("done");
+            setbuttonTitle("Select scripture");
          }
       } else if (readyData) {
+         setbuttonTitle("Change scripture");
          setLoading("done");
          setverseData(readyData);
       } else if (verseID) {
@@ -93,6 +95,7 @@ export const TextEditorVerseSelection = ({
          setLoading("done");
       }
    };
+
    useEffect(() => {
       if (router.isReady) setIdToFetch();
    }, [router.isReady, router.query]);

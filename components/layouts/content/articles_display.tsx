@@ -10,9 +10,9 @@ import styles from "./fast_facts.module.css";
 import { TArticle } from "../../types/posts";
 
 type TArticlesDisplayProps = {
-   thoughts: TArticle[];
+   articles: TArticle[];
 };
-export const ArticlesDisplay = ({ thoughts }: TArticlesDisplayProps) => {
+export const ArticlesDisplay = ({ articles }: TArticlesDisplayProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
@@ -24,8 +24,8 @@ export const ArticlesDisplay = ({ thoughts }: TArticlesDisplayProps) => {
             </div>
          </div>
 
-         <div className={styles.thoughts}>
-            <ArticlesOneLineCarrousel thoughts={thoughts} />
+         <div className={styles.articles}>
+            <ArticlesOneLineCarrousel articles={articles} />
          </div>
       </div>
    );

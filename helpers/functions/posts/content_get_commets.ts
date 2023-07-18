@@ -38,7 +38,7 @@ export const getPostComments = async (
       });
       if (data.commentary_comments) return { data: data.commentary_comments, status: "done" };
       else if (data.quote_comments) return { data: data.quote_comments, status: "done" };
-      else if (data.thought_comments) return { data: data.thought_comments, status: "done" };
+      else if (data.article_comments) return { data: data.article_comments, status: "done" };
       return { data: null, status: "error" };
    } catch (error) {
       console.error(error);

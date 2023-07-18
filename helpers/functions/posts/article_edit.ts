@@ -22,8 +22,8 @@ export const handleEditArticle = async (
             referenced_verses: referencedVerses
          }
       });
-      if (data.edit_thought) {
-         return data.edit_thought;
+      if (data.edit_article) {
+         return data.edit_article;
       } else {
          return errorMessages.posts.failToPostCommentary;
       }

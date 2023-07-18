@@ -1,4 +1,5 @@
 .mainWrapper {
    width: var(--global-wrapper-width);
+   max-width: var(--main-wrapper-max-width);
    margin: 0 auto calc(6rem + var(--spacing-m)); /* navigation height + spacing*/
 }

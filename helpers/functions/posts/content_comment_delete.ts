@@ -23,7 +23,7 @@ export const deleteContentComment = async (id: string | number, type: EnumConten
       });
       if (data.delete_commentary_comment) return data.delete_commentary_comment;
       else if (data.delete_quote_comment) return data.delete_quote_comment;
-      else if (data.delete_thought_comment) return data.delete_thought_comment;
+      else if (data.delete_article_comment) return data.delete_article_comment;
       return "something went wrong";
    } catch (error) {
       console.error(error);

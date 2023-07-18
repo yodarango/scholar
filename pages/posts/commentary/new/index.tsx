@@ -11,9 +11,6 @@ import HeadContent from "../../../../SEO/head_content";
 import Head from "next/head";
 
 const NewCommentary = () => {
-   useEffect(() => {
-      // get the user data
-   }, []);
    return (
       <UseIsAuth redirect='/login'>
          <Head key='new-commentary-page'>

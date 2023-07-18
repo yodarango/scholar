@@ -10,7 +10,7 @@ import {
 export enum EnumContentType {
    commentary = POST_TYPE_COMMENTARY,
    quote = POST_TYPE_QUOTE,
-   thought = POST_TYPE_ARTICLE,
+   article = POST_TYPE_ARTICLE,
    sermonNote = POST_TYPE_SERMON_NOTE,
    folder = CONTENT_TYPE_FOLDER,
    contentComment = CONTENT_TYPE_CONTENT_COMMENT

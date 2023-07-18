@@ -21,7 +21,7 @@ export const GET_POSTS_SUMMARY = gql`
    query ($ID: ID) {
       get_posts_summary(ID: $ID) {
          commentary_count
-         thought_count
+         article_count
          sermon_count
          quote_count
       }

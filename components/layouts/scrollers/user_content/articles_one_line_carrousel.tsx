@@ -30,22 +30,22 @@ import { Empty } from "../../../common/feedback/empty";
 type TArticlesOneLineCarrouselProps = {
    loadingState?: string;
    userID?: string | number;
-   thoughts?: TArticle[];
+   articles?: TArticle[];
 };
 
 export const ArticlesOneLineCarrousel = ({
-   thoughts,
+   articles,
    userID,
    loadingState = "loading"
 }: TArticlesOneLineCarrouselProps) => {
    const router = useRouter();
    // state
-   const [thoughtsArr, setArticlesArr] = useState<TArticle[] | undefined>(thoughts);
+   const [articlesArr, setArticlesArr] = useState<TArticle[] | undefined>(articles);
    const [loading, setloading] = useState<string>(loadingState);
 
    // will only run if the post was deleted successfully
    const handleDelete = (id: string | number) => {
-      const updatedArr = thoughtsArr?.filter((thought) => thought.ID !== id);
+      const updatedArr = articlesArr?.filter((article) => article.ID !== id);
       setArticlesArr(updatedArr);
    };
 
@@ -67,13 +67,13 @@ export const ArticlesOneLineCarrousel = ({
          const USER_ID =
             router?.query?.signature === "@me" ? undefined : (router?.query?.signature as string);
          if (!router?.query?.view) {
-            if (!thoughts) {
+            if (!articles) {
                fetchData({
                   USER_ID: userID ? userID : USER_ID,
                   last_id: CONTENT_LAST_ID
                });
             } else {
-               setArticlesArr(thoughts);
+               setArticlesArr(articles);
                setloading(loadingState);
             }
          }
@@ -84,9 +84,9 @@ export const ArticlesOneLineCarrousel = ({
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <div className={styles.carrousel}>
-               {thoughtsArr?.map((thought: TArticle, index: number) => (
-                  <div className={styles.thought} key={index}>
-                     <Article thought={thought} cta={{ handleDelete }} />
+               {articlesArr?.map((article: TArticle, index: number) => (
+                  <div className={styles.article} key={index}>
+                     <Article article={article} cta={{ handleDelete }} />
                   </div>
                ))}
             </div>
@@ -97,7 +97,7 @@ export const ArticlesOneLineCarrousel = ({
             </div>
          )}
 
-         {loading === "done" && thoughtsArr?.length === 0 && (
+         {loading === "done" && articlesArr?.length === 0 && (
             <div className={styles.error}>
                <Empty />
             </div>

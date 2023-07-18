@@ -104,7 +104,8 @@ export const TextAreaPrimary = ({
       if (e.target.value === "" || e.target.value === undefined) {
          setcurrTextAreaHeight(height);
       }
-      if (heightInt < scrollableHeight && heightInt < maxHeight) {
+
+      if (heightInt < scrollableHeight && heightInt < Number(maxHeight)) {
          setcurrTextAreaHeight(`${scrollableHeight}rem`);
       } else if (heightInt >= scrollableHeight && heightInt > 10) {
          setscrollableHeight(0);

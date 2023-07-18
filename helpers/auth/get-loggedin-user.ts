@@ -2,7 +2,7 @@ import { TUser } from "../../types/user";
 import { parseJwt } from "./decodeJWT";
 
 export const loggedInUser: () => TUser | null = () => {
-   if (window !== undefined) {
+   if (typeof window !== undefined) {
       const user: string | null = localStorage.getItem("auth");
       if (user) {
          const jwt = JSON.parse(user).auth;
@@ -14,7 +14,7 @@ export const loggedInUser: () => TUser | null = () => {
 };
 
 export const loggedInStatus = () => {
-   if (window !== undefined) {
+   if (typeof window !== undefined) {
       const user: string | null = localStorage.getItem("auth");
       if (user) {
          return true;

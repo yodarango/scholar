@@ -24,7 +24,7 @@ export const GET_COMMENTARY_COMMENTS = gql`
 
 export const GET_ARTICLE_COMMENTS = gql`
    query ($ID: ID, $ARTICLE_ID: ID, $USER_ID: ID, $last_id: ID) {
-      thought_comments(ID: $ID, ARTICLE_ID: $ARTICLE_ID, USER_ID: $USER_ID, last_id: $last_id) {
+      article_comments(ID: $ID, ARTICLE_ID: $ARTICLE_ID, USER_ID: $USER_ID, last_id: $last_id) {
          ID
          ARTICLE_ID
          USER_ID
@@ -59,7 +59,7 @@ export const GET_QUOTE_COMMENTS = gql`
 //  POST ROUTES
 export const CREATE_COMMENTARY_COMMENT = gql`
    mutation ($ID: ID, $POST_ID: ID, $body: String, $USER_ID: ID) {
-      commentary_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
+      commentary_comment(data: { ID: $ID, body: $body, USER_ID: $USER_ID, POST_ID: $POST_ID }) {
          ... on Commentary_Comment {
             ID
             body
@@ -107,7 +107,7 @@ export const CREATE_QUOTE_COMMENT = gql`
 
 export const CREATE_ARTICLE_COMMENT = gql`
    mutation ($ID: ID, $POST_ID: ID, $body: String, $USER_ID: ID) {
-      thought_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
+      article_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
          ... on Article_Comment {
             ID
             body
@@ -145,6 +145,6 @@ export const DELETE_QUOTE_COMMENT = gql`
 
 export const DELETE_ARTICLE_COMMENT = gql`
    mutation ($ID: ID) {
-      delete_thought_comment(ID: $ID)
+      delete_article_comment(ID: $ID)
    }
 `;

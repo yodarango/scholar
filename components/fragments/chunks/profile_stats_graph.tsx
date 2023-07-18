@@ -4,7 +4,7 @@ import styles from "./profile_stats_graph.module.css";
 type TProfileStatsGraphProps = {
    content: {
       commentary_count: number;
-      thought_count: number;
+      article_count: number;
       quote_count: number;
       // sermon_count: number;
    };
@@ -13,15 +13,15 @@ export const ProfileStatsGraph = ({ content }: TProfileStatsGraphProps) => {
    // ref
    const canvas = useRef<HTMLCanvasElement>(null);
 
-   let { commentary_count, thought_count, quote_count } = content;
+   let { commentary_count, article_count, quote_count } = content;
 
-   let data = [commentary_count, thought_count, quote_count];
+   let data = [commentary_count, article_count, quote_count];
 
    let colors = ["#B293FE", "#533CA3", "#F1EAFF"];
 
    let total = 0;
 
-   if (commentary_count === 0 && thought_count === 0 && quote_count === 0) {
+   if (commentary_count === 0 && article_count === 0 && quote_count === 0) {
       data = [1];
       colors = ["#7350EC"];
    }

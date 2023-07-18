@@ -78,7 +78,10 @@ export const SearchInput = ({
    return (
       <>
          {cta?.handleOnChange && stretchSearchInput && (
-            <div className={`${styles.mainWrapper} ${className}`}>
+            <div
+               className={`${styles.mainWrapper} ${className} ${
+                  cta.handleSearchGo ? styles.wButton : ""
+               }`}>
                <input
                   autoFocus={iconButton ? true : false}
                   type='type'
@@ -108,13 +111,14 @@ export const SearchInput = ({
             </div>
          )}
          {cta.handleSearchGo && stretchSearchInput && (
-            <div className={`${styles.mainWrapper} ${styles.mainWrapperWBtn} ${className}`}>
+            <div
+               className={`${styles.mainWrapper} ${styles.mainWrapperWBtn} ${className} ${styles.wButton}`}>
                <input
                   autoFocus={iconButton ? true : false}
                   type='type'
                   maxLength={maxL}
                   role='hidden'
-                  className={styles.inputBtn}
+                  className={`${styles.inputBtn} ${styles.wButtonInput}`}
                   placeholder={placeholder}
                   defaultValue={initialValue}
                   ref={input}

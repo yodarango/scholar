@@ -12,7 +12,8 @@
 }
 
 .commenaryEditor {
-   width: 94%;
+   width: var(--global-wrapper-width);
+   max-width: var(--main-wrapper-max-width);
    height: 100%;
    margin: 0 auto;
 }
