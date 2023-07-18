@@ -33,7 +33,7 @@ export type TCommentary = {
    approvals: TRating;
 };
 
-export type TThought = {
+export type TArticle = {
    ID: string;
    POST_TYPE: number | number;
    title: string;

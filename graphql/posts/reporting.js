@@ -28,10 +28,10 @@ export const REPORT_QUOTE = gql`
    }
 `;
 
-export const REPORT_THOUGHT = gql`
+export const REPORT_ARTICLE = gql`
    mutation ($POST_ID: ID, $USER_ID: ID) {
       report_thought(data: { POST_ID: $POST_ID, USER_ID: $USER_ID }) {
-         ... on Thought_Report {
+         ... on Article_Report {
             ID
          }
 

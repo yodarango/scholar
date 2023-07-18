@@ -32,7 +32,7 @@ export const NavigationMain = ({ children }: any) => {
          const shouldNotRenderRouters = [
             "/commentary",
             "/quote",
-            "/thought",
+            "/article",
             "/sermon-note",
             "/login",
             "/register",

@@ -17,7 +17,7 @@ export const CommentariesDisplay = ({ commentaries }: TCommentariesDisplayProps)
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
             <div>
-               <Header type={3} text='Thoughts' size='large' quiet={true} />
+               <Header type={3} text='Articles' size='large' quiet={true} />
             </div>
             <div>
                <LinkWithArrow title='See all' link={"/posts/Commentary"} />

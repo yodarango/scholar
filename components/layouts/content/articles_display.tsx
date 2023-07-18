@@ -1,31 +1,31 @@
 // comps
 import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
 import { Header } from "../../fragments/Typography/header";
-import { ThoughtsOneLineCarrousel } from "../scrollers/thoughts_one_line_carrousel";
+import { ArticlesOneLineCarrousel } from "../scrollers/articles_one_line_carrousel";
 
 // styles
 import styles from "./fast_facts.module.css";
 
 // types
-import { TThought } from "../../types/posts";
+import { TArticle } from "../../types/posts";
 
-type TThoughtsDisplayProps = {
-   thoughts: TThought[];
+type TArticlesDisplayProps = {
+   thoughts: TArticle[];
 };
-export const ThoughtsDisplay = ({ thoughts }: TThoughtsDisplayProps) => {
+export const ArticlesDisplay = ({ thoughts }: TArticlesDisplayProps) => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
             <div>
-               <Header type={3} text='Thoughts' size='large' quiet={true} />
+               <Header type={3} text='Articles' size='large' quiet={true} />
             </div>
             <div>
-               <LinkWithArrow title='See all' link={"/posts/thought"} />
+               <LinkWithArrow title='See all' link={"/posts/article"} />
             </div>
          </div>
 
          <div className={styles.thoughts}>
-            <ThoughtsOneLineCarrousel thoughts={thoughts} />
+            <ArticlesOneLineCarrousel thoughts={thoughts} />
          </div>
       </div>
    );

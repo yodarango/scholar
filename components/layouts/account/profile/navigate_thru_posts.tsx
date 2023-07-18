@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { PostsNavigation } from "../../navs/posts_navigation";
 import { CommentaryOneLineCarrousel } from "../../scrollers/user_content/commentaries_one_line_carrousel";
 import { QuoteOneLineCarrousel } from "../../scrollers/user_content/quote_one_line_carrousel";
-import { ThoughtsOneLineCarrousel } from "../../scrollers/user_content/thoughts_one_line_carrousel";
+import { ArticlesOneLineCarrousel } from "../../scrollers/user_content/articles_one_line_carrousel";
 import { LinkWithArrow } from "../../../fragments/buttons/link_with_arrow";
 import { Header } from "../../../fragments/Typography/header";
 
@@ -32,7 +32,7 @@ export const NavigateThruPosts = () => {
    const [postType, setpostType] = useState<number>(1); // concerned only with the OneLineScrollers
    const [currentView, setcurrentView] = useState<number>(0); // concerned only with the views
 
-   const headerTitles = ["Commentaries", "Quotes", "Thoughts", "images"];
+   const headerTitles = ["Commentaries", "Quotes", "Articles", "images"];
    const headerLinks = ["1", "2", "3", "4"];
 
    // if there is a query.view that means that one of the models is open,
@@ -77,7 +77,7 @@ export const NavigateThruPosts = () => {
             </div>
             {postType === 1 && <CommentaryOneLineCarrousel />}
             {postType === 2 && <QuoteOneLineCarrousel />}
-            {postType === 3 && <ThoughtsOneLineCarrousel />}
+            {postType === 3 && <ArticlesOneLineCarrousel />}
             {postType === 4 && <ImagesFromVerseGrid isHorizontal />}
          </div>
          <ProfilePosts type={currentView} cta={{ handleClose: handleLayerClose }} />

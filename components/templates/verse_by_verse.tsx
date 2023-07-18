@@ -101,7 +101,7 @@ export const VerseByVerse = () => {
          <YouNeedToLoginModal open={openModal} onClose={() => setOpenModal(false)} />
          <div className={styles.addBtn}>
             <IconButton
-               iconSize='4rem'
+               iconSize='3rem'
                backgroundColor='2'
                icon='add'
                cta={{ handleClick: handleClick }}

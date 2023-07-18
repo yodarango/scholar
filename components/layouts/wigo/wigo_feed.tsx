@@ -3,13 +3,13 @@ import {
    CONTENT_LAST_ID,
    POST_TYPE_COMMENTARY,
    POST_TYPE_QUOTE,
-   POST_TYPE_THOUGHT
+   POST_TYPE_ARTICLE
 } from "../../../constants/defaults";
 import { useState, useEffect, useRef } from "react";
 import styles from "./wigo_feed.module.css";
 import { Commentary } from "../../fragments/cards/posts/commentary";
 import { Quote } from "../../fragments/cards/posts/quote";
-import { Thought } from "../../fragments/cards/posts/thought";
+import { Article } from "../../fragments/cards/posts/article";
 import { TCommentary } from "../../../types/posts";
 import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { Primary } from "../../fragments/buttons/primary";
@@ -36,7 +36,7 @@ export const WigoFeed = () => {
       );
       const quotes = posts.filter((c: TCommentary) => c.POST_TYPE === POST_TYPE_QUOTE.toString());
       const thoughts = posts.filter(
-         (c: TCommentary) => c.POST_TYPE === POST_TYPE_THOUGHT.toString()
+         (c: TCommentary) => c.POST_TYPE === POST_TYPE_ARTICLE.toString()
       );
 
       if (commentaries.length > 0)
@@ -110,10 +110,10 @@ export const WigoFeed = () => {
                         <Quote quote={post} />{" "}
                      </div>
                   );
-               else if (post.POST_TYPE === POST_TYPE_THOUGHT?.toString())
+               else if (post.POST_TYPE === POST_TYPE_ARTICLE?.toString())
                   return (
                      <div className={styles.post} key={index}>
-                        <Thought thought={post} />{" "}
+                        <Article thought={post} />{" "}
                      </div>
                   );
             })}

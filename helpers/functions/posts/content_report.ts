@@ -4,7 +4,7 @@ import {
    REPORT_COMMENTARY,
    REPORT_QUOTE,
    REPORT_SERMON_NOTE,
-   REPORT_THOUGHT
+   REPORT_ARTICLE
 } from "../../../graphql/posts/reporting";
 import { EnumContentType } from "../../../types/enums";
 
@@ -22,7 +22,7 @@ export const reportCommentary: any = async (
          : type === 2
          ? REPORT_QUOTE
          : type === 3
-         ? REPORT_THOUGHT
+         ? REPORT_ARTICLE
          : REPORT_SERMON_NOTE;
 
    try {

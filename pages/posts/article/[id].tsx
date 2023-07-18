@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { ViewThought } from "../../../components/templates/posts/view_thought";
+import { ViewArticle } from "../../../components/templates/posts/view_article";
 import styles from "../../page_global.module.css";
 import HeadContent from "../../../SEO/head_content";
 
@@ -9,7 +9,7 @@ const Index = () => {
          <Head key='article-single-page'>
             <HeadContent title='Article' />
          </Head>
-         <ViewThought />
+         <ViewArticle />
       </div>
    );
 };

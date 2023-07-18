@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 // comps
 import { GridPrimary } from "../grid_primary";
-import { Thought } from "../../../fragments/cards/posts/thought";
+import { Article } from "../../../fragments/cards/posts/article";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 import { SmallLoader } from "../../../fragments/chunks/small_loader";
@@ -16,27 +16,27 @@ import { Primary } from "../../../fragments/buttons/primary";
 import styles from "./commentaries_grid.module.css";
 
 // types
-import { TThought } from "../../../../types/posts";
+import { TArticle } from "../../../../types/posts";
 
 // helpers
 import {
-   handleGetThoughts,
-   TgetThoughtsVariables
-} from "../../../../helpers/functions/posts/thought_get";
+   handleGetArticles,
+   TgetArticlesVariables
+} from "../../../../helpers/functions/posts/article_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 import { Error } from "../../../common/feedback/error";
 
-export const ThoughtsGrid = () => {
+export const ArticlesGrid = () => {
    // router
    const router = useRouter();
 
    // components
-   const [thoughts, setthougts] = useState<TThought[]>([]);
+   const [thoughts, setthougts] = useState<TArticle[]>([]);
    const [loading, setloading] = useState<string>("loading");
    const [showloadMore, setshowloadMore] = useState<boolean>(true);
    const [smallLoader, setsmallLoader] = useState<boolean>(false);
    const [routerSearchKeys, setRouterSearchKeys] = useState<string[]>([]);
-   const [queryVariables, setqueryVariables] = useState<TgetThoughtsVariables>({
+   const [queryVariables, setqueryVariables] = useState<TgetArticlesVariables>({
       last_id: CONTENT_LAST_ID
    });
 
@@ -51,7 +51,7 @@ export const ThoughtsGrid = () => {
 
       if (variables?.category) variables.category_tags = variables.category;
       try {
-         const { data, status } = await handleGetThoughts(variables);
+         const { data, status } = await handleGetArticles(variables);
          if (data) {
             setthougts(data);
             data.length > 0 && setqueryVariables({ last_id: data[data.length - 1].ID });
@@ -88,9 +88,9 @@ export const ThoughtsGrid = () => {
          {loading === "done" && (
             <div className={styles.gridWrapper}>
                <GridPrimary>
-                  {thoughts.map((thought: TThought, index: number) => (
+                  {thoughts.map((thought: TArticle, index: number) => (
                      <div key={index} className={styles.child}>
-                        <Thought thought={thought} />
+                        <Article thought={thought} />
                      </div>
                   ))}
                </GridPrimary>

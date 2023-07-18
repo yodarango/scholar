@@ -1,4 +1,4 @@
-import { RATE_COMMENT, RATE_QUOTE, RATE_THOUGHT } from "../../../graphql/posts/rating";
+import { RATE_COMMENT, RATE_QUOTE, RATE_ARTICLE } from "../../../graphql/posts/rating";
 import { client } from "../../../apollo-client";
 
 // type
@@ -12,7 +12,7 @@ export type TrateContent = {
 
 export const rateContent = async (variables: TrateContent, contentType: EnumContentType) => {
    const RATE_CONTENT =
-      contentType === 1 ? RATE_COMMENT : contentType === 2 ? RATE_QUOTE : RATE_THOUGHT;
+      contentType === 1 ? RATE_COMMENT : contentType === 2 ? RATE_QUOTE : RATE_ARTICLE;
    const queryName =
       contentType === 1 ? "rate_comment" : contentType === 2 ? "rate_quote" : "rate_thought";
    const responseName =
@@ -20,7 +20,7 @@ export const rateContent = async (variables: TrateContent, contentType: EnumCont
          ? "Commentary_Rating"
          : contentType === 2
          ? "Quote_Approval"
-         : "Thought_Approval";
+         : "Article_Approval";
    try {
       const { data } = await client.mutate({
          mutation: RATE_CONTENT,

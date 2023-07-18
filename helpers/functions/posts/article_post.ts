@@ -1,14 +1,14 @@
 import { client } from "../../../apollo-client";
-import { CREATE_NEW_THOUGHT } from "../../../graphql/posts/thoughts";
+import { CREATE_NEW_ARTICLE } from "../../../graphql/posts/articles";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
 import { notificationMessages } from "../../../data/notification_messages";
 
 // constants
-import { DEFAULT_THOUGHT_IMAGE } from "../../../constants/defaults";
+import { DEFAULT_ARTICLE_IMAGE } from "../../../constants/defaults";
 
-export type THandlePostThought = {
+export type THandlePostArticle = {
    title: string;
    body: string;
    categoryTag: string;
@@ -16,13 +16,13 @@ export type THandlePostThought = {
    postImage: string; // not in DB implement this field
 };
 
-export const dataHandler = async (post: THandlePostThought) => {
+export const dataHandler = async (post: THandlePostArticle) => {
    let { body, title, categoryTag, referencedVerses, postImage } = post;
 
-   if (!postImage) postImage = DEFAULT_THOUGHT_IMAGE;
+   if (!postImage) postImage = DEFAULT_ARTICLE_IMAGE;
    try {
       const { data } = await client.mutate({
-         mutation: CREATE_NEW_THOUGHT,
+         mutation: CREATE_NEW_ARTICLE,
          variables: {
             body,
             title,
@@ -32,7 +32,7 @@ export const dataHandler = async (post: THandlePostThought) => {
          }
       });
 
-      if (data.thought.__typename === "Thought") {
+      if (data.thought.__typename === "Article") {
          return { success: notificationMessages.postSuccess };
       } else if (data.thought.__typename === "ExceedsPostCount") {
          return { error: errorMessages.posts.maxPostCount };
@@ -45,7 +45,7 @@ export const dataHandler = async (post: THandlePostThought) => {
    }
 };
 
-export const handlePostThought = async (post: THandlePostThought) => {
+export const handlePostArticle = async (post: THandlePostArticle) => {
    try {
       if (!post.categoryTag) return { error: errorMessages.posts.missingCategoryTag };
       if (!post.title) return { error: errorMessages.posts.missingTitle };

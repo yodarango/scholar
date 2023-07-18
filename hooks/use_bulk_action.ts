@@ -11,14 +11,14 @@ import {
    CONTENT_TYPE_FOLDER,
    POST_TYPE_COMMENTARY,
    POST_TYPE_QUOTE,
-   POST_TYPE_THOUGHT
+   POST_TYPE_ARTICLE
 } from "../constants/defaults";
 
 type contentType =
    | typeof CONTENT_TYPE_FOLDER
    | typeof POST_TYPE_COMMENTARY
    | typeof POST_TYPE_QUOTE
-   | typeof POST_TYPE_THOUGHT;
+   | typeof POST_TYPE_ARTICLE;
 
 type TUseBulkActionVariables = {
    action: string;

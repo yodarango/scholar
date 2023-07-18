@@ -18,7 +18,7 @@ export const PostFilter = () => {
             <Parragraph quiet size='main' align='center' text='Quotes' href='/posts/quote' />
          </div>
          <div className={styles.link}>
-            <Parragraph quiet size='main' align='center' text='Thoughts' href='/posts/thought' />
+            <Parragraph quiet size='main' align='center' text='Articles' href='/posts/article' />
          </div>
       </div>
    );

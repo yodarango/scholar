@@ -2,7 +2,7 @@ import { client } from "../../../apollo-client";
 import {
    GET_COMMENTARY_COMMENTS,
    GET_QUOTE_COMMENTS,
-   GET_THOUGHT_COMMENTS
+   GET_ARTICLE_COMMENTS
 } from "../../../graphql/posts/comments";
 import { EnumContentType } from "../../../types/enums";
 
@@ -11,7 +11,7 @@ export type TgetPostComments = {
    USER_ID?: string | number;
    COMMENTARY_ID?: string | number;
    QUOTE_ID?: string | number;
-   THOUGHT_ID?: string | number;
+   ARTICLE_ID?: string | number;
    POST_ID?: string | number;
    last_id?: string | number;
 };
@@ -27,8 +27,8 @@ export const getPostComments = async (
       CTYPE = GET_QUOTE_COMMENTS;
       variables.QUOTE_ID = variables.POST_ID;
    } else {
-      CTYPE = GET_THOUGHT_COMMENTS;
-      variables.THOUGHT_ID = variables.POST_ID;
+      CTYPE = GET_ARTICLE_COMMENTS;
+      variables.ARTICLE_ID = variables.POST_ID;
    }
 
    try {

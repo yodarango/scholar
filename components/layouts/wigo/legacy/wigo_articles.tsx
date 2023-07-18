@@ -1,26 +1,26 @@
 // components
-import { LinkWithArrow } from "../../fragments/buttons/link_with_arrow";
-import { Header } from "../../fragments/Typography/header";
-import { ThoughtsOneLineCarrousel } from "../scrollers/user_content/thoughts_one_line_carrousel";
+import { LinkWithArrow } from "../../../fragments/buttons/link_with_arrow";
+import { Header } from "../../../fragments/Typography/header";
+import { ArticlesOneLineCarrousel } from "../../scrollers/user_content/articles_one_line_carrousel";
 
 // styles
 import styles from "./wigo_thoughts.module.css";
 
 // types
-import { TThought } from "../../../types/posts";
+import { TArticle } from "../../../../types/posts";
 import { useEffect, useState } from "react";
 
 // helpers
-import { handleGetThoughtIn24 } from "../../../helpers/functions/posts/thought_get";
+import { handleGetArticleIn24 } from "../../../../helpers/functions/posts/article_get";
 
-export const WigoThoughts = () => {
-   const [thoughts, setthoughts] = useState<TThought[]>([]);
+export const WigoArticles = () => {
+   const [thoughts, setthoughts] = useState<TArticle[]>([]);
    const [loading, setloading] = useState<string>("loading");
 
    // fetch data
    const fetchData = async () => {
       try {
-         const { data, status } = await handleGetThoughtIn24();
+         const { data, status } = await handleGetArticleIn24();
          data && setthoughts(data);
 
          setloading(status);
@@ -39,14 +39,14 @@ export const WigoThoughts = () => {
       <div className={styles.mainWrapper}>
          <div className={styles.top}>
             <div>
-               <Header type={3} text='Thoughts' size='large' quiet={true} />
+               <Header type={3} text='Articles' size='large' quiet={true} />
             </div>
             <div>
-               <LinkWithArrow title='See all' link={"/posts/thought"} />
+               <LinkWithArrow title='See all' link={"/posts/article"} />
             </div>
          </div>
          <div className={styles.carrousel}>
-            <ThoughtsOneLineCarrousel thoughts={thoughts} loadingState={loading} />
+            <ArticlesOneLineCarrousel thoughts={thoughts} loadingState={loading} />
          </div>
       </div>
    );

@@ -1,6 +1,6 @@
 // comps
-import { ThoughtTextEditor } from "../../../../components/templates/content/thought_text_editor";
-import { REQUEST_TYPE_IS_NEW_THOUGHT } from "../../../../helpers/functions/posts/content_post";
+import { ArticleTextEditor } from "../../../../components/templates/content/article_text_editor";
+import { REQUEST_TYPE_IS_NEW_ARTICLE } from "../../../../helpers/functions/posts/content_post";
 
 // styles
 import styles from "./index.module.css";
@@ -10,7 +10,7 @@ import { loggedInUser } from "../../../../helpers/auth/get-loggedin-user";
 import Head from "next/head";
 import HeadContent from "../../../../SEO/head_content";
 
-const NewThought = () => {
+const NewArticle = () => {
    const user = loggedInUser();
 
    return (
@@ -19,8 +19,8 @@ const NewThought = () => {
             <HeadContent title='New article' />
          </Head>
          <div className={`${styles.mainWrapper} ${global.mainWrapper}`}>
-            <ThoughtTextEditor
-               requestType={REQUEST_TYPE_IS_NEW_THOUGHT}
+            <ArticleTextEditor
+               requestType={REQUEST_TYPE_IS_NEW_ARTICLE}
                avatar={user?.avatar || "/images/user_avatars/males/10.png"}
                username='Username'
                userAuthority={1}
@@ -31,4 +31,4 @@ const NewThought = () => {
    );
 };
 
-export default NewThought;
+export default NewArticle;

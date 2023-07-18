@@ -12,15 +12,15 @@ import { PrimaryStack } from "./templates/primary_stack";
 import { CategoryTag } from "../../fragments/chunks/category_tag";
 
 // styles
-import styles from "./thoughts_w_filter.module.css";
-import { ThoughtsGrid } from "../scrollers/user_content/thoughts_grid";
+import styles from "./articles_w_filter.module.css";
+import { ArticlesGrid } from "../scrollers/user_content/articles_grid";
 
 type TCommentariesByBookProps = {
    cta: {
       handleClose: () => void;
    };
 };
-export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
+export const ArticlesWFilter = ({ cta }: TCommentariesByBookProps) => {
    // router
    const router = useRouter();
 
@@ -55,7 +55,7 @@ export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
 
    return (
       <PrimaryStack
-         title='Thoughts'
+         title='Articles'
          cta={{ handleClose: cta.handleClose, handleScroll: handleHeader }}>
          <div
             className={`${styles.filters} ${scrollingDir === "up" && styles.scrollingUp} ${
@@ -70,7 +70,7 @@ export const ThoughtsWFilter = ({ cta }: TCommentariesByBookProps) => {
             </div>
          </div>
          <section className={styles.posts}>
-            <ThoughtsGrid />
+            <ArticlesGrid />
          </section>
       </PrimaryStack>
    );

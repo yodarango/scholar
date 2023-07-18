@@ -66,7 +66,7 @@ export const PostCommentTextArea = ({
          ? "Commentary_Comment"
          : contentType === POST_TYPE_QUOTE
          ? "Quote_Comment"
-         : "Thought_Comment";
+         : "Article_Comment";
 
    const handlePostComment = async () => {
       setloading("loading");

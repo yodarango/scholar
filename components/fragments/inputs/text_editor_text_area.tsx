@@ -6,7 +6,7 @@ import { Icon } from "../chunks/icons";
 import styles from "./text_editor_text_area.module.css";
 import { StickerChooser } from "../../layouts/scrollers/sticker_chooser";
 import Image from "next/image";
-import { COMMENTARY_STICKER_DEFAULT, POST_TYPE_THOUGHT } from "../../../constants/defaults";
+import { COMMENTARY_STICKER_DEFAULT, POST_TYPE_ARTICLE } from "../../../constants/defaults";
 
 type TTextEditorTextAreaProps = {
    withTitle?: boolean;
@@ -128,7 +128,7 @@ export const TextEditorTextArea = ({
          <textarea
             maxLength={maxLength}
             className={`${styles.textArea} ${
-               contentType === POST_TYPE_THOUGHT ? styles.textAreaThought : ""
+               contentType === POST_TYPE_ARTICLE ? styles.textAreaArticle : ""
             }`}
             defaultValue={defaultValue ? defaultValue : ""}
             placeholder={placeHolder}

@@ -4,12 +4,12 @@ import {
    CONTENT_TYPE_FOLDER,
    POST_TYPE_COMMENTARY,
    POST_TYPE_QUOTE,
-   POST_TYPE_THOUGHT
+   POST_TYPE_ARTICLE
 } from "../../../constants/defaults";
 import { DELETE_ONE_COMMENTARY } from "../../../graphql/posts/commentaries";
 import { DELETE_FOLDER } from "../../../graphql/posts/folders";
 import { DELETE_ONE_QUOTE } from "../../../graphql/posts/quotes";
-import { DELETE_ONE_THOUGHT } from "../../../graphql/posts/thoughts";
+import { DELETE_ONE_ARTICLE } from "../../../graphql/posts/articles";
 import { EnumContentType } from "../../../types/enums";
 
 export const useDeleteContent = () => {
@@ -24,8 +24,8 @@ export const useDeleteContent = () => {
          case POST_TYPE_QUOTE:
             CTYPE = DELETE_ONE_QUOTE;
             break;
-         case POST_TYPE_THOUGHT:
-            CTYPE = DELETE_ONE_THOUGHT;
+         case POST_TYPE_ARTICLE:
+            CTYPE = DELETE_ONE_ARTICLE;
             break;
          case CONTENT_TYPE_FOLDER:
             CTYPE = DELETE_FOLDER;

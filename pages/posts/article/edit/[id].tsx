@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { handleGetThoughts } from "../../../../helpers/functions/posts/thought_get";
+import { handleGetArticles } from "../../../../helpers/functions/posts/article_get";
 
 // comps
-import { ThoughtTextEditor } from "../../../../components/templates/content/thought_text_editor";
+import { ArticleTextEditor } from "../../../../components/templates/content/article_text_editor";
 import { RoundLoader } from "../../../../components/fragments/chunks/round_loader";
 
 // styles
@@ -12,22 +12,22 @@ import styles from "./index.module.css";
 import global from "../../../page_global.module.css";
 
 // types
-import { TThought } from "../../../../types/posts";
-import { REQUEST_TYPE_IS_EDIT_THOUGHT } from "../../../../helpers/functions/posts/content_post";
+import { TArticle } from "../../../../types/posts";
+import { REQUEST_TYPE_IS_EDIT_ARTICLE } from "../../../../helpers/functions/posts/content_post";
 import { UseIsAuth } from "../../../../hooks/use_check_auth";
 import HeadContent from "../../../../SEO/head_content";
 import Head from "next/head";
 
-const EditThought = () => {
+const EditArticle = () => {
    const router = useRouter();
    const ID: any = router?.query && router?.query.id ? router?.query.id : "1";
 
-   const [thought, setthought] = useState<TThought | null>(null);
+   const [thought, setthought] = useState<TArticle | null>(null);
    const [loading, setloading] = useState<string>("loading");
 
    const getData = async () => {
       try {
-         const { data, status } = await handleGetThoughts({ ID }, true);
+         const { data, status } = await handleGetArticles({ ID }, true);
          if (data) setthought(data);
 
          setloading(status);
@@ -54,8 +54,8 @@ const EditThought = () => {
          </Head>
          <div className={`${styles.mainWrapper} ${global.mainWrapper}`}>
             {loading === "done" && (
-               <ThoughtTextEditor
-                  requestType={REQUEST_TYPE_IS_EDIT_THOUGHT}
+               <ArticleTextEditor
+                  requestType={REQUEST_TYPE_IS_EDIT_ARTICLE}
                   ID={thought?.ID}
                   body={thought?.body}
                   titleDefaultValue={thought?.title}
@@ -82,4 +82,4 @@ const EditThought = () => {
    );
 };
 
-export default EditThought;
+export default EditArticle;

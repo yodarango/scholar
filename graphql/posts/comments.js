@@ -22,11 +22,11 @@ export const GET_COMMENTARY_COMMENTS = gql`
    }
 `;
 
-export const GET_THOUGHT_COMMENTS = gql`
-   query ($ID: ID, $THOUGHT_ID: ID, $USER_ID: ID, $last_id: ID) {
-      thought_comments(ID: $ID, THOUGHT_ID: $THOUGHT_ID, USER_ID: $USER_ID, last_id: $last_id) {
+export const GET_ARTICLE_COMMENTS = gql`
+   query ($ID: ID, $ARTICLE_ID: ID, $USER_ID: ID, $last_id: ID) {
+      thought_comments(ID: $ID, ARTICLE_ID: $ARTICLE_ID, USER_ID: $USER_ID, last_id: $last_id) {
          ID
-         THOUGHT_ID
+         ARTICLE_ID
          USER_ID
          posted_on
          body
@@ -105,10 +105,10 @@ export const CREATE_QUOTE_COMMENT = gql`
    }
 `;
 
-export const CREATE_THOUGHT_COMMENT = gql`
+export const CREATE_ARTICLE_COMMENT = gql`
    mutation ($ID: ID, $POST_ID: ID, $body: String, $USER_ID: ID) {
       thought_comment(data: { ID: $ID, POST_ID: $POST_ID, body: $body, USER_ID: $USER_ID }) {
-         ... on Thought_Comment {
+         ... on Article_Comment {
             ID
             body
             creator_avatar
@@ -143,7 +143,7 @@ export const DELETE_QUOTE_COMMENT = gql`
    }
 `;
 
-export const DELETE_THOUGHT_COMMENT = gql`
+export const DELETE_ARTICLE_COMMENT = gql`
    mutation ($ID: ID) {
       delete_thought_comment(ID: $ID)
    }

@@ -14,26 +14,26 @@ import { Header } from "../../Typography/header";
 import { Parragraph } from "../../Typography/parragraph";
 
 // styles
-import styles from "./thought.module.css";
+import styles from "./article.module.css";
 
 // types
-import { TThought } from "../../../../types/posts";
-import { POST_TYPE_THOUGHT, THO_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
+import { TArticle } from "../../../../types/posts";
+import { POST_TYPE_ARTICLE, THO_DEFAULT_IMG_PLACEHOLDER } from "../../../../constants/defaults";
 import { EnumContentType } from "../../../../types/enums";
 import { useDeleteContent } from "../../../../helpers/functions/posts/content_delete";
 import Portal from "../../../hoc/potal";
 import { Notification } from "../../popups/notification";
 import { errorMessages } from "../../../../data/error_messages";
 
-type TThoughtProps = {
-   thought: TThought;
+type TArticleProps = {
+   thought: TArticle;
 
    cta?: {
       handleDelete: (id: string | number) => void;
    };
 };
 
-export const Thought = ({ cta, thought }: TThoughtProps) => {
+export const Article = ({ cta, thought }: TArticleProps) => {
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
    const [postImage, setPostImage] = useState<string>(thought.post_image);
@@ -69,7 +69,7 @@ export const Thought = ({ cta, thought }: TThoughtProps) => {
                <div className={styles.header}>
                   <PostCardHeader
                      cta={{
-                        handleDelete: (id: number | string) => handleDelete(id, POST_TYPE_THOUGHT)
+                        handleDelete: (id: number | string) => handleDelete(id, POST_TYPE_ARTICLE)
                      }}
                      postType='thought'
                      contentType={EnumContentType.thought}
@@ -90,7 +90,7 @@ export const Thought = ({ cta, thought }: TThoughtProps) => {
                </div>
 
                {/* -------------------- post image ------------ */}
-               <Link href={`/posts/thought/${thought?.ID}`}>
+               <Link href={`/posts/article/${thought?.ID}`}>
                   <a>
                      <div className={styles.image}>
                         <Image

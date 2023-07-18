@@ -7,22 +7,22 @@ import { RoundLoader } from "../../fragments/chunks/round_loader";
 import { ResourceNotFound } from "../../common/feedback/resource_not_found";
 
 // types
-import { TThought } from "../../../types/posts";
-import { handleGetThoughts } from "../../../helpers/functions/posts/thought_get";
+import { TArticle } from "../../../types/posts";
+import { handleGetArticles } from "../../../helpers/functions/posts/article_get";
 
 // styles
-import styles from "./view_thought.module.css";
+import styles from "./view_article.module.css";
 
-export const ViewThought = () => {
+export const ViewArticle = () => {
    const router = useRouter();
    const ID = router?.query && router?.query.id ? router?.query.id : "1";
 
-   const [thought, setthought] = useState<TThought | null>(null);
+   const [thought, setthought] = useState<TArticle | null>(null);
    const [loading, setloading] = useState<string>("loading");
 
    const getData = async (variables: any) => {
       try {
-         const { data, status } = await handleGetThoughts(variables);
+         const { data, status } = await handleGetArticles(variables);
          if (data) setthought(data[0]);
 
          setloading(status);

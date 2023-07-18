@@ -1,11 +1,11 @@
 // components
 import { SearchInputWCat } from "../../fragments/search_input_w_cat";
-import { ThoughtsGrid } from "../../layouts/scrollers/user_content/thoughts_grid";
+import { ArticlesGrid } from "../../layouts/scrollers/user_content/articles_grid";
 
 // styles
 import styles from "./quotes_all.module.css";
 
-export const ThoughtsAll = () => {
+export const ArticlesAll = () => {
    return (
       <div className={styles.mainWrapper}>
          <div className={styles.searchFilter}>
@@ -14,7 +14,7 @@ export const ThoughtsAll = () => {
             </div>
          </div>
          <div className={styles.postsWrapper}>
-            <ThoughtsGrid />
+            <ArticlesGrid />
          </div>
       </div>
    );

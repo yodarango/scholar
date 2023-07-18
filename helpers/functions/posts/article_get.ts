@@ -1,16 +1,16 @@
 // graphQl
 import { client } from "../../../apollo-client";
 import {
-   GET_EDIT_THOUGHTS,
-   GET_THOUGHTS,
-   GET_THOUGHT_IN_24
-} from "../../../graphql/posts/thoughts";
+   GET_EDIT_ARTICLES,
+   GET_ARTICLES,
+   GET_ARTICLE_IN_24
+} from "../../../graphql/posts/articles";
 
 // fetch data
-export const handleGetThoughtIn24 = async () => {
+export const handleGetArticleIn24 = async () => {
    try {
       const { data } = await client.query({
-         query: GET_THOUGHT_IN_24,
+         query: GET_ARTICLE_IN_24,
          variables: {}
       });
 
@@ -47,7 +47,7 @@ export const handleGetThoughtIn24 = async () => {
    }
 };
 
-export type TgetThoughtsVariables = {
+export type TgetArticlesVariables = {
    ID?: string;
    USER_ID?: string | number;
    category_tags?: string;
@@ -73,8 +73,8 @@ const mapTheUser = (c: any) => {
       }
    };
 };
-export const handleGetThoughts = async (variables: TgetThoughtsVariables, isEdit?: boolean) => {
-   const QUERY = isEdit ? GET_EDIT_THOUGHTS : GET_THOUGHTS;
+export const handleGetArticles = async (variables: TgetArticlesVariables, isEdit?: boolean) => {
+   const QUERY = isEdit ? GET_EDIT_ARTICLES : GET_ARTICLES;
    try {
       const { data } = await client.query({
          query: QUERY,

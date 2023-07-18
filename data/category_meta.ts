@@ -8,8 +8,8 @@ export const valuesType = [
       key: "Quote"
    },
    {
-      title: "Thought",
-      key: "Thought"
+      title: "Article",
+      key: "Article"
    },
    {
       title: "Sermon Notes",

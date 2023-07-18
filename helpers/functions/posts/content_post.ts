@@ -2,12 +2,12 @@
  * Very flexible  and complex function. It is used to edit and create all kinds of posts.
  * The four arguments are:
  *    - variables: the fields to save to DB
- *    - type: The name of the content (Commentary, Thought, Quote)
+ *    - type: The name of the content (Commentary, Article, Quote)
  *    - requestType: the name of the graphql query
  ****************************************************************************************/
 
 import { client } from "../../../apollo-client";
-import { CREATE_NEW_THOUGHT, EDIT_THOUGHT } from "../../../graphql/posts/thoughts";
+import { CREATE_NEW_ARTICLE, EDIT_ARTICLE } from "../../../graphql/posts/articles";
 import { CREATE_NEW_COMMENTARY, EDIT_COMMENTARY } from "../../../graphql/posts/commentaries";
 import { CREATE_NEW_QUOTE, EDIT_QUOTE } from "../../../graphql/posts/quotes";
 
@@ -16,7 +16,7 @@ import { errorMessages } from "../../../data/error_messages";
 import { notificationMessages } from "../../../data/notification_messages";
 
 // constants
-import { DEFAULT_THOUGHT_IMAGE, DEFAULT_COMMENTARY_IMAGE } from "../../../constants/defaults";
+import { DEFAULT_ARTICLE_IMAGE, DEFAULT_COMMENTARY_IMAGE } from "../../../constants/defaults";
 
 export type THandlePostContent = {
    ID?: string;
@@ -69,8 +69,8 @@ export const dataHandler = async (
 
 export const REQUEST_TYPE_IS_EDIT_COMMENTARY = "edit_commentary"; // pass this to edit or create new post
 export const REQUEST_TYPE_IS_NEW_COMMENTARY = "commentary";
-export const REQUEST_TYPE_IS_EDIT_THOUGHT = "edit_thought"; // pass this to edit or create new post
-export const REQUEST_TYPE_IS_NEW_THOUGHT = "thought";
+export const REQUEST_TYPE_IS_EDIT_ARTICLE = "edit_thought"; // pass this to edit or create new post
+export const REQUEST_TYPE_IS_NEW_ARTICLE = "thought";
 export const REQUEST_TYPE_IS_EDIT_QUOTE = "edit_quote"; // pass this to edit or create new post
 export const REQUEST_TYPE_IS_NEW_QUOTE = "quote";
 
@@ -84,14 +84,14 @@ export const handlePostContent = async (
       ? variables.category_tags?.toString().replaceAll(", ", "")
       : "";
    try {
-      if (type === "Thought") {
-         QUERY = requestType === REQUEST_TYPE_IS_EDIT_THOUGHT ? EDIT_THOUGHT : CREATE_NEW_THOUGHT;
+      if (type === "Article") {
+         QUERY = requestType === REQUEST_TYPE_IS_EDIT_ARTICLE ? EDIT_ARTICLE : CREATE_NEW_ARTICLE;
 
          variables.referenced_verses = variables
             ? variables?.referenced_verses?.toString().replaceAll(", ", "")
             : "";
 
-         if (!variables.post_image) variables.post_image = DEFAULT_THOUGHT_IMAGE;
+         if (!variables.post_image) variables.post_image = DEFAULT_ARTICLE_IMAGE;
          if (!variables.category_tags) return { error: errorMessages.posts.missingCategoryTag };
          if (!variables.title) return { error: errorMessages.posts.missingTitle };
          if (!variables.body || variables.body === "")

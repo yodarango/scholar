@@ -2,7 +2,7 @@ import { client } from "../../../apollo-client";
 import {
    CREATE_COMMENTARY_COMMENT,
    CREATE_QUOTE_COMMENT,
-   CREATE_THOUGHT_COMMENT
+   CREATE_ARTICLE_COMMENT
 } from "../../../graphql/posts/comments";
 
 // types
@@ -24,7 +24,7 @@ export const postContentComment = async (
          ? CREATE_COMMENTARY_COMMENT
          : contentType === 2
          ? CREATE_QUOTE_COMMENT
-         : CREATE_THOUGHT_COMMENT;
+         : CREATE_ARTICLE_COMMENT;
    try {
       const { data } = await client.mutate({
          mutation: CONTENT,

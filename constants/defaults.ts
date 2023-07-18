@@ -30,7 +30,7 @@ export const QUERY_WAS_UPDATE = 1;
 // content type
 export const POST_TYPE_COMMENTARY = 1;
 export const POST_TYPE_QUOTE = 2;
-export const POST_TYPE_THOUGHT = 3;
+export const POST_TYPE_ARTICLE = 3;
 export const POST_TYPE_SERMON_NOTE = 4;
 export const CONTENT_TYPE_FOLDER = 5;
 export const CONTENT_TYPE_CONTENT_COMMENT = 6;
@@ -41,14 +41,14 @@ export const BULK_ACTION_PRIVATE = "private";
 export const BULK_ACTION_PUBLIC = "public";
 
 // images
-export const DEFAULT_THOUGHT_IMAGE = "/images/thoughts/default.png";
+export const DEFAULT_ARTICLE_IMAGE = "/images/articles/default.png";
 export const DEFAULT_COMMENTARY_IMAGE = "/images/commentary/default.png";
 export const DEFAULT_QUOTE_BACKGROUND = "#quote-bkg--0";
 
 // amount of records per query to return from db calls
 export const COMMENTARIES_PER_QUERY = 20;
 export const QUOTES_PER_QUERY = 20;
-export const THOUGHTS_PER_QUERY = 20;
+export const ARTICLES_PER_QUERY = 20;
 export const SERMON_NOTES_PER_QUERY = 20;
 export const POST_COMMENTS_PER_QUERY = 20;
 export const CONTENT_PER_QUERY_24 = 10;

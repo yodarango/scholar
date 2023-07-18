@@ -31,7 +31,7 @@ export const SelectCreateContentType = ({ cta }: TSelectCreateContentTypeProps) 
       {
          url: "thought",
          icon: "think",
-         description: "Thought",
+         description: "Article",
          color: "#F1EAFF"
       }
       // #remove_sermon_notes for now

@@ -8,7 +8,7 @@ import Portal from "../../hoc/potal";
 import { Notification } from "../../fragments/popups/notification";
 
 // styles
-import styles from "./thought_text_editor.module.css";
+import styles from "./article_text_editor.module.css";
 
 // helpers
 import {
@@ -19,9 +19,9 @@ import { getRandomQuote } from "../../../helpers/get_random_quote";
 
 // helpers
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
-import { POST_TYPE_THOUGHT } from "../../../constants/defaults";
+import { POST_TYPE_ARTICLE } from "../../../constants/defaults";
 
-type TThoughtTextEditorProps = {
+type TArticleTextEditorProps = {
    ID?: string; // if the id is not passed the the editor will create new post
    userId: string;
    username: string;
@@ -38,7 +38,7 @@ type TThoughtTextEditorProps = {
    requestType: string;
 };
 
-export const ThoughtTextEditor = ({
+export const ArticleTextEditor = ({
    ID,
    userId,
    username,
@@ -52,14 +52,15 @@ export const ThoughtTextEditor = ({
    postCreatedDate = "",
    postCategory = "",
    postReferences = []
-}: TThoughtTextEditorProps) => {
+}: TArticleTextEditorProps) => {
    // state
    // postReferencedVerses do not update on reducer changing
-   const [notification, setnotification] = useState<null | {
-      title: string;
-      body: string;
-      type: string;
-   }>(null);
+   const [notification, setnotification] =
+      useState<null | {
+         title: string;
+         body: string;
+         type: string;
+      }>(null);
    const [loading, setloading] = useState("done");
    const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
@@ -114,7 +115,7 @@ export const ThoughtTextEditor = ({
    const handlePost = async () => {
       setloading("loading");
 
-      const post = await handlePostContent(state, "Thought", requestType);
+      const post = await handlePostContent(state, "Article", requestType);
 
       if (post?.error) {
          setnotification({ title: post?.error.title, body: post?.error.body, type: "4" });
@@ -179,7 +180,7 @@ export const ThoughtTextEditor = ({
                   userId={userId}
                   username={username}
                   avatar={avatar}
-                  contentType={POST_TYPE_THOUGHT}
+                  contentType={POST_TYPE_ARTICLE}
                   postPostedOnDate={postPostedOnDate || postDate.posted}
                   postCreatedDate={postCreatedDate || postDate.created}
                   postCategory={state.category_tags}

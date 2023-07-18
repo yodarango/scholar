@@ -10,54 +10,54 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // comps
-import { Thought } from "../../../fragments/cards/posts/thought";
+import { Article } from "../../../fragments/cards/posts/article";
 import { RoundLoader } from "../../../fragments/chunks/round_loader";
 import { ResourceNotFound } from "../../../common/feedback/resource_not_found";
 
 // styles
-import styles from "./thoughts_one_line_carrouse.module.css";
+import styles from "./articles_one_line_carrouse.module.css";
 
 //helpers
-import { TThought } from "../../../../types/posts";
+import { TArticle } from "../../../../types/posts";
 import {
-   handleGetThoughts,
-   TgetThoughtsVariables
-} from "../../../../helpers/functions/posts/thought_get";
+   handleGetArticles,
+   TgetArticlesVariables
+} from "../../../../helpers/functions/posts/article_get";
 import { CONTENT_LAST_ID } from "../../../../constants/defaults";
 import { Error } from "../../../common/feedback/error";
 import { Empty } from "../../../common/feedback/empty";
 
-type TThoughtsOneLineCarrouselProps = {
+type TArticlesOneLineCarrouselProps = {
    loadingState?: string;
    userID?: string | number;
-   thoughts?: TThought[];
+   thoughts?: TArticle[];
 };
 
-export const ThoughtsOneLineCarrousel = ({
+export const ArticlesOneLineCarrousel = ({
    thoughts,
    userID,
    loadingState = "loading"
-}: TThoughtsOneLineCarrouselProps) => {
+}: TArticlesOneLineCarrouselProps) => {
    const router = useRouter();
    // state
-   const [thoughtsArr, setThoughtsArr] = useState<TThought[] | undefined>(thoughts);
+   const [thoughtsArr, setArticlesArr] = useState<TArticle[] | undefined>(thoughts);
    const [loading, setloading] = useState<string>(loadingState);
 
    // will only run if the post was deleted successfully
    const handleDelete = (id: string | number) => {
       const updatedArr = thoughtsArr?.filter((thought) => thought.ID !== id);
-      setThoughtsArr(updatedArr);
+      setArticlesArr(updatedArr);
    };
 
    // fetch data
-   const fetchData = async (variables: TgetThoughtsVariables) => {
+   const fetchData = async (variables: TgetArticlesVariables) => {
       try {
-         const { data, status } = await handleGetThoughts(variables);
-         data && setThoughtsArr(data);
+         const { data, status } = await handleGetArticles(variables);
+         data && setArticlesArr(data);
          setloading(status);
       } catch (error) {
          console.error(error);
-         setThoughtsArr([]);
+         setArticlesArr([]);
          setloading("error");
       }
    };
@@ -73,7 +73,7 @@ export const ThoughtsOneLineCarrousel = ({
                   last_id: CONTENT_LAST_ID
                });
             } else {
-               setThoughtsArr(thoughts);
+               setArticlesArr(thoughts);
                setloading(loadingState);
             }
          }
@@ -84,9 +84,9 @@ export const ThoughtsOneLineCarrousel = ({
       <div className={styles.mainWrapper}>
          {loading === "done" && (
             <div className={styles.carrousel}>
-               {thoughtsArr?.map((thought: TThought, index: number) => (
+               {thoughtsArr?.map((thought: TArticle, index: number) => (
                   <div className={styles.thought} key={index}>
-                     <Thought thought={thought} cta={{ handleDelete }} />
+                     <Article thought={thought} cta={{ handleDelete }} />
                   </div>
                ))}
             </div>

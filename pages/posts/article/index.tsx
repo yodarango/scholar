@@ -1,7 +1,7 @@
 // components
 import { useRouter } from "next/router";
 import { PrimaryStackHeader } from "../../../components/layouts/stacks/headers/primary_stack_header";
-import { ThoughtsAll } from "../../../components/templates/content/thoughts_all";
+import { ArticlesAll } from "../../../components/templates/content/articles_all";
 
 // styles
 import styles from "./index.module.css";
@@ -17,7 +17,7 @@ const Index = () => {
          </Head>
          <PrimaryStackHeader title='Articles' cta={{ handleClose: () => router.push("/") }} />
          <div className={styles.posts}>
-            <ThoughtsAll />
+            <ArticlesAll />
          </div>
       </div>
    );

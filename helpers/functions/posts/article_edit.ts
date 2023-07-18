@@ -1,10 +1,10 @@
-import client from "../../../apollo-client";
-import { EDIT_THOUGHT } from "../../../graphql/posts/thoughts";
+import { client } from "../../../apollo-client";
+import { EDIT_ARTICLE } from "../../../graphql/posts/articles";
 
 // data
 import { errorMessages } from "../../../data/error_messages";
 
-export const handleEditThought = async (
+export const handleEditArticle = async (
    ID: string,
    body: string,
    title: string,
@@ -13,7 +13,7 @@ export const handleEditThought = async (
 ) => {
    try {
       const { data } = await client.mutate({
-         mutation: EDIT_THOUGHT,
+         mutation: EDIT_ARTICLE,
          variables: {
             ID,
             body,

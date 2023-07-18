@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_THOUGHTS = gql`
+export const GET_ARTICLES = gql`
    query ($ID: ID, $USER_ID: ID, $category_tags: String, $body: String, $last_id: ID) {
       thought(
          ID: $ID
@@ -29,7 +29,7 @@ export const GET_THOUGHTS = gql`
    }
 `;
 
-export const GET_EDIT_THOUGHTS = gql`
+export const GET_EDIT_ARTICLES = gql`
    query ($ID: ID) {
       edit_thought(ID: $ID) {
          ID
@@ -52,7 +52,7 @@ export const GET_EDIT_THOUGHTS = gql`
    }
 `;
 
-export const GET_THOUGHT_IN_24 = gql`
+export const GET_ARTICLE_IN_24 = gql`
    query {
       thought_in_24 {
          ID
@@ -79,7 +79,7 @@ export const GET_THOUGHT_IN_24 = gql`
    }
 `;
 
-export const WIGO_REQUEST_MORE_THOUGHTS = gql`
+export const WIGO_REQUEST_MORE_ARTICLES = gql`
    query ($last_id: ID) {
       # thought
       thought(last_id: $last_id) {
@@ -107,7 +107,7 @@ export const WIGO_REQUEST_MORE_THOUGHTS = gql`
    }
 `;
 
-export const SHOW_COMMENTS_OF_THOUGHTS = gql`
+export const SHOW_COMMENTS_OF_ARTICLES = gql`
    query ($ID: ID, $showComment: Boolean) {
       thought(ID: $ID) {
          comments(showComment: $showComment) {
@@ -129,7 +129,7 @@ export const SHOW_COMMENTS_OF_THOUGHTS = gql`
 `;
 
 // POST ROUTES
-export const CREATE_NEW_THOUGHT = gql`
+export const CREATE_NEW_ARTICLE = gql`
    mutation (
       $body: String
       $category_tags: String
@@ -146,7 +146,7 @@ export const CREATE_NEW_THOUGHT = gql`
             post_image: $post_image
          }
       ) {
-         ... on Thought {
+         ... on Article {
             ID
             USER_ID
          }
@@ -163,7 +163,7 @@ export const CREATE_NEW_THOUGHT = gql`
 `;
 
 // EDIT
-export const EDIT_THOUGHT = gql`
+export const EDIT_ARTICLE = gql`
    mutation (
       $body: String
       $category_tags: String
@@ -188,10 +188,10 @@ export const EDIT_THOUGHT = gql`
 `;
 
 //  DELETING ROUTES
-export const DELETE_ONE_THOUGHT = gql`
+export const DELETE_ONE_ARTICLE = gql`
    mutation ($ID: ID) {
       delete_one_thought(ID: $ID) {
-         ... on Thought {
+         ... on Article {
             ID
          }
          ... on NotAuthorized {

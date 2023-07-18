@@ -2,11 +2,11 @@ import { client } from "../../../apollo-client";
 import {
    POST_TYPE_COMMENTARY,
    POST_TYPE_QUOTE,
-   POST_TYPE_THOUGHT
+   POST_TYPE_ARTICLE
 } from "../../../constants/defaults";
 import { DELETE_COMMENTARY_COMMENT } from "../../../graphql/posts/comments";
 import { DELETE_QUOTE_COMMENT } from "../../../graphql/posts/comments";
-import { DELETE_THOUGHT_COMMENT } from "../../../graphql/posts/comments";
+import { DELETE_ARTICLE_COMMENT } from "../../../graphql/posts/comments";
 import { EnumContentType } from "../../../types/enums";
 
 export const deleteContentComment = async (id: string | number, type: EnumContentType) => {
@@ -15,7 +15,7 @@ export const deleteContentComment = async (id: string | number, type: EnumConten
          ? DELETE_COMMENTARY_COMMENT
          : type === POST_TYPE_QUOTE
          ? DELETE_QUOTE_COMMENT
-         : DELETE_THOUGHT_COMMENT;
+         : DELETE_ARTICLE_COMMENT;
    try {
       const { data } = await client.mutate({
          mutation: CTYPE,
