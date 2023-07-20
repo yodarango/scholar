@@ -29,6 +29,7 @@ type TCommentaryProps = {
 };
 
 export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps) => {
+   const [isUsingDefaultImage, setIsUsingDefaultImage] = useState<boolean>(false);
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
    const [postImage, setpostImage] = useState<string>(
@@ -88,12 +89,16 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                {/* ----------------- post thumbnail ----------- */}
                <Link href={`/posts/commentary/${commentary?.ID}`}>
                   <a>
-                     <div className={styles.image}>
+                     <div
+                        className={`${styles.image} ${isUsingDefaultImage ? styles.noImage : ""}`}>
                         <Image
                            src={postImage}
                            layout='fill'
                            alt='background cover for a book of the bible'
-                           onError={() => setpostImage(COM_DEFAULT_IMG_PLACEHOLDER)}
+                           onError={() => {
+                              setIsUsingDefaultImage(true);
+                              setpostImage(COM_DEFAULT_IMG_PLACEHOLDER);
+                           }}
                         />
                         {commentary.is_private && (
                            <div className={styles.imageIcon} id={categoryId}>

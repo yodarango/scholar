@@ -34,6 +34,7 @@ type TArticleProps = {
 };
 
 export const Article = ({ cta, article }: TArticleProps) => {
+   const [isUsingDefaultImage, setIsUsingDefaultImage] = useState<boolean>(false);
    const [isDeleted, setisDeleted] = useState<boolean>(false);
    const [notification, setNotification] = useState(false);
    const [postImage, setPostImage] = useState<string>(article.post_image);
@@ -92,12 +93,16 @@ export const Article = ({ cta, article }: TArticleProps) => {
                {/* -------------------- post image ------------ */}
                <Link href={`/posts/article/${article?.ID}`}>
                   <a>
-                     <div className={styles.image}>
+                     <div
+                        className={`${styles.image} ${isUsingDefaultImage ? styles.noImage : ""}`}>
                         <Image
                            src={postImage}
                            layout='fill'
                            alt='post thumbnail'
-                           onError={() => setPostImage(THO_DEFAULT_IMG_PLACEHOLDER)}
+                           onError={() => {
+                              setIsUsingDefaultImage(true);
+                              setPostImage(THO_DEFAULT_IMG_PLACEHOLDER);
+                           }}
                         />
                      </div>
 

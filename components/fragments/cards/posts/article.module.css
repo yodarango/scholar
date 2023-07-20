@@ -24,13 +24,17 @@
    border-radius: 1em;
    height: 25.1rem;
    margin-bottom: var(--spacing-xs);
-   background-color: #ffffff60;
+   background-color: white;
    overflow: hidden;
 }
 
 .image img {
    object-fit: cover;
    object-position: center;
+}
+
+.noImage img {
+   object-fit: contain;
 }
 
 .titleDesc {

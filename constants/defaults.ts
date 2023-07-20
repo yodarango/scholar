@@ -1,9 +1,9 @@
 import { english } from "../data/supported_bible_versions/english";
 
 // posts
-export const COM_DEFAULT_IMG_PLACEHOLDER = "/images/branding/logo_round_pow_small.png";
-export const THO_DEFAULT_IMG_PLACEHOLDER = "/images/branding/logo_round_pow_small.png";
-export const COMMENTARY_STICKER_DEFAULT = "/images/branding/logo_round_pow_small.png";
+export const COM_DEFAULT_IMG_PLACEHOLDER = "/images/branding/logo_round_white_1000.webp";
+export const THO_DEFAULT_IMG_PLACEHOLDER = "/images/branding/logo_round_white_1000.webp";
+export const COMMENTARY_STICKER_DEFAULT = "/images/branding/logo_round_white_1000.webp";
 
 // BIBLE READING
 export const DEFAULT_BIBLE_SETTINGS = {
