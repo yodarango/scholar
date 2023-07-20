@@ -9,13 +9,15 @@ import HeadContent from "../SEO/head_content";
 
 export default function Login() {
    return (
-      <UseIsNotAuth redirect='/users/@me'>
+      <>
          <Head key='login-page'>
             <HeadContent title='Login' />
          </Head>
-         <div className={styles.mainWrapper}>
-            <LoginTemplate />
-         </div>
-      </UseIsNotAuth>
+         <UseIsNotAuth redirect='/users/@me'>
+            <div className={styles.mainWrapper}>
+               <LoginTemplate />
+            </div>
+         </UseIsNotAuth>
+      </>
    );
 }

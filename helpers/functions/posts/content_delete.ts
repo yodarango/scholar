@@ -39,6 +39,7 @@ export const useDeleteContent = () => {
             mutation: CTYPE,
             variables: { ID: id }
          });
+         console.log(data);
 
          if (data.delete_one_commentary)
             setData({ ...data.delete_one_commentary, status: "success" });
@@ -46,8 +47,7 @@ export const useDeleteContent = () => {
          else if (data.delete_one_article)
             setData({ ...data.delete_one_article, status: "success" });
          else if (data.delete_folder) setData({ ...data.delete_folder, status: "success" });
-
-         setData({ ID: null, error: "something went wrong", status: "error" });
+         else setData({ ID: null, error: "something went wrong", status: "error" });
       } catch (error) {
          console.error(error);
          setData({ ID: null, error: "something went wrong", status: "error" });

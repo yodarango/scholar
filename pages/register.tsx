@@ -6,13 +6,15 @@ import HeadContent from "../SEO/head_content";
 
 export default function Register() {
    return (
-      <UseIsNotAuth redirect='/users/@me'>
+      <>
          <Head key='register-page'>
             <HeadContent title='Register' />
          </Head>
-         <div className={styles.mainWrapper}>
-            <RegisterTemplate />
-         </div>
-      </UseIsNotAuth>
+         <UseIsNotAuth redirect='/users/@me'>
+            <div className={styles.mainWrapper}>
+               <RegisterTemplate />
+            </div>
+         </UseIsNotAuth>
+      </>
    );
 }
