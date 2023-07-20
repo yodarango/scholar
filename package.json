@@ -6,8 +6,8 @@
    "scripts": {
       "dev": "next dev",
       "build": "next build",
-      "start": "next start -p 3003",
-      "prod": "pm2 start --name=scholar-fe npm -- start --watch",
+      "start": "next start -p 3001",
+      "prod": "pm2 start --name=shrood_fe npm -- start --watch",
       "storybook": "start-storybook -p 6006 -s ./public",
       "build-storybook": "build-storybook -s public"
    },
