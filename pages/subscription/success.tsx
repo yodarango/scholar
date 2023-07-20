@@ -14,6 +14,7 @@ import { GET_ORDER_SUCCESS_DATA } from "../../graphql/billing/billing";
 import styles from "../page_global.module.css";
 import { SuccessTemplate } from "../../components/templates/subscription/success";
 import { Confetti } from "../../components/fragments/feedback/confetti";
+import { useUserAuth } from "../../hooks/use_user_auth";
 
 const Success = () => {
    // router
@@ -32,10 +33,7 @@ const Success = () => {
          });
 
          if (data.order_success.__typename === "Successful_Order") {
-            const today = Date.now();
-            const expTime = new Date(today + 1209600000);
-
-            document.cookie = `authorization=${data.order_success.token}; expires=${expTime}; path=/`;
+            useUserAuth(data.order_success.token, false);
             setcheckout(data.order_success);
          } else if (data.order_success.__typename === "Failed_Order") {
             setFailedTransaction(data.order_success.message);

@@ -13,6 +13,8 @@ import { Parragraph } from "../../fragments/Typography/parragraph";
 // styles
 import styles from "./billing.module.css";
 import { ResourceNotFound } from "../../common/feedback/resource_not_found";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
+import { loggedInUser } from "../../../helpers/auth/get-loggedin-user";
 
 export const BillingTemplate = () => {
    // state
@@ -77,7 +79,7 @@ export const BillingTemplate = () => {
                         <Parragraph
                            text={`Stripe is used in all
                      transactions to keep your billing information secure and private. To access
-                     your Stripe portal click the button below`}
+                     your Stripe portal click the button below. For help email help@shrood.app.`}
                            size='main'
                            align='center'
                         />

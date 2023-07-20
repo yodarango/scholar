@@ -4,7 +4,7 @@
  * domain=${window.location.hostname}; path=/`; 👍
  * **********************************************/
 
-export const useUserAuth = (token: string) => {
+export const useUserAuth = (token: string, redirect: boolean = true) => {
    const tokenExpiration = 86_400_000 * 93; // roughly three months
    const today = Date.now();
    const expTime = today + tokenExpiration;
@@ -13,5 +13,5 @@ export const useUserAuth = (token: string) => {
       expiresIn: expTime
    };
    localStorage.setItem("auth", JSON.stringify(jwtAuth));
-   location.href = "/users/@me";
+   if (redirect) location.href = "/users/@me";
 };

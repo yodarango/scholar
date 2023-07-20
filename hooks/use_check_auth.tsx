@@ -39,7 +39,6 @@ export const UseIsAuth = ({ redirect, children }: TUseCheckAuthProps) => {
                   setRender(true);
                }
             } else if (!isLoggedIn.data.is_user_logged_in) {
-               console.log("not logged in");
                useLogout(); //make sure to clean LS
                location.href = redirect;
             } else {

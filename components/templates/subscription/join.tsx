@@ -13,27 +13,36 @@ import { Parragraph } from "../../fragments/Typography/parragraph";
 import styles from "./join.module.css";
 import { CloseContent } from "../../fragments/buttons/close_content";
 import { UlListPrimary } from "../../fragments/lists/ul_list_primary";
-import { CHECKOUT_MODE_PAYMENT } from "../../../constants/common";
-import { useContext } from "react";
+import { CHECKOUT_MODE_PAYMENT, CHECKOUT_MODE_SUBSCRIPTION } from "../../../constants/common";
+import { useContext, useState } from "react";
 import { UserContext } from "../../../context";
+import { YouNeedToLoginModal } from "../../common/modals/you_need_to_login_modal";
 
 export const JoinTemplate = () => {
    const userCtx = useContext(UserContext);
+   const [modal, setModal] = useState<boolean>(false);
+
    const { user } = userCtx;
 
    // router
    const router = useRouter();
 
    //  create a session
-   const oneTimePurchase = process.env.NEXT_PUBLIC_STRIPE_CUSTOM_ONE_TIME_ID;
-   const stdSubscription = process.env.NEXT_PUBLIC_STRIPE_SUBSCRIPTION_ID;
+   const oneTimePurchase = 1;
+   const stdSubscription = 2;
+   const premiumSubscription = 3;
 
-   const handleCheckout = async (price_id: string | undefined, payment_mode: string) => {
+   const handleCheckout = async (price_id: number, payment_mode: string) => {
+      if (!user?.ID) {
+         setModal(true);
+         return;
+      }
+
       try {
          const { data } = await client.mutate({
             mutation: CREATE_CHECKOUT_SESSION,
             variables: {
-               price_id: price_id || "",
+               price_id: price_id || 0,
                payment_mode
             }
          });
@@ -48,6 +57,7 @@ export const JoinTemplate = () => {
 
    return (
       <div className={styles.mainWrapper}>
+         <YouNeedToLoginModal open={modal} onClose={() => setModal(false)} />
          <div className={styles.close}>
             <CloseContent cta={{ handleClick: () => router.push("/") }} />
          </div>
@@ -58,20 +68,34 @@ export const JoinTemplate = () => {
             <>
                <Parragraph
                   size='main'
-                  text='Running an app requires, time, and sacrifice. If you have enjoyed this app, consider helping financially and in exchange get access to premium features '
+                  text='Running an app requires, time, and sacrifice. If you have enjoyed this app, consider helping financially and in exchange get access to premium features. No worries, you can cancel anytime!'
                   className={styles.textButtonTop}
                />
                <div className={styles.button}>
                   <Primary
-                     title='Support with only 3.99/mo'
+                     title='Support with only 4.99/mo'
                      type='2'
                      cta={{
-                        handleClick: () => handleCheckout(stdSubscription, CHECKOUT_MODE_PAYMENT)
+                        handleClick: () =>
+                           handleCheckout(stdSubscription, CHECKOUT_MODE_SUBSCRIPTION)
                      }}
                   />
                </div>
                <div className={`${styles.cancel} ${styles.cancelFirst}`}>
-                  <Parragraph italics size='small' align='center' text='Cancel anytime!' />
+                  <Parragraph italics size='small' align='center' text='(Standard patron)' />
+               </div>
+               <div className={styles.button}>
+                  <Primary
+                     title='Support with only 10.99/mo'
+                     type='2'
+                     cta={{
+                        handleClick: () =>
+                           handleCheckout(premiumSubscription, CHECKOUT_MODE_SUBSCRIPTION)
+                     }}
+                  />
+               </div>
+               <div className={`${styles.cancel} ${styles.cancelFirst}`}>
+                  <Parragraph italics size='small' align='center' text='(Premium patron)' />
                </div>
 
                <div className={styles.button}>
@@ -84,10 +108,11 @@ export const JoinTemplate = () => {
                   />
                </div>
                <div className={styles.cancel}>
-                  <Parragraph italics size='small' align='center' text='Thank you, in advance!' />
+                  <Parragraph italics size='small' align='center' text='(Thank you, in advance!)' />
                </div>
             </>
          )}
+
          {user?.is_patron && (
             <>
                <Parragraph
@@ -96,13 +121,7 @@ export const JoinTemplate = () => {
                   className={styles.textButtonTop}
                />
                <div className={styles.button}>
-                  <Primary
-                     title='Go to billing'
-                     type='2'
-                     cta={{
-                        handleClick: () => handleCheckout(oneTimePurchase, CHECKOUT_MODE_PAYMENT)
-                     }}
-                  />
+                  <Primary title='Go to billing' type='2' href='/subscription/billing' />
                </div>
             </>
          )}
@@ -126,6 +145,7 @@ export const JoinTemplate = () => {
                      "Bring new features",
                      "Continue to grow and improve"
                   ]}
+                  icon='checkmark'
                />
             </div>
          </section>
@@ -133,12 +153,7 @@ export const JoinTemplate = () => {
          {/* Benefits of being a patron */}
          <section className={`${styles.section} ${styles.section2}`}>
             <div className={styles.secTitle}>
-               <Header
-                  quiet
-                  size='large'
-                  text='Are there any benefits to the being a patron?'
-                  type={4}
-               />
+               <Header quiet size='large' text='Standard Patron benefits' type={4} />
             </div>
 
             {/* patron benefits list */}
@@ -147,15 +162,34 @@ export const JoinTemplate = () => {
                   items={[
                      "Unlimited posts",
                      "Unlimited reactions to posts",
+                     "unlimited post folders",
                      "First access to upcoming features"
                   ]}
                   icon='checkmarkFilled'
                />
             </div>
          </section>
-         <div className={styles.button}>
+
+         <section className={`${styles.section} ${styles.section2}`}>
+            <div className={styles.secTitle}>
+               <Header quiet size='large' text='Standard Patron benefits' type={4} />
+            </div>
+
+            {/* patron benefits list */}
+            <div className={styles.secList}>
+               <UlListPrimary
+                  items={[
+                     "All standard patron benefits",
+                     "text to image generation",
+                     `upcoming "smart" features`
+                  ]}
+                  icon='checkmarkFilled'
+               />
+            </div>
+         </section>
+         {/* <div className={styles.button}>
             <Primary title='Who is behind Shrood?' type='1' cta={{ handleClick: () => {} }} />
-         </div>
+         </div> */}
          <div className='spacer--page-bottom'></div>
       </div>
    );

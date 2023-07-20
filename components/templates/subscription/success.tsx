@@ -26,7 +26,7 @@ export const SuccessTemplate = ({ email, name }: TSuccessProps) => {
             </div>
             <div className={styles.parragraph}>
                <Parragraph
-                  text={`thank you ${name} for keeping Shrood alive! a confirmation email has been sent to ${email}`}
+                  text={`thank you ${name} for keeping Shrood alive! A confirmation email from stripe will be sent to ${email}`}
                   size='main'
                   align='center'
                />

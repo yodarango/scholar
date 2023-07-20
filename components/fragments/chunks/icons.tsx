@@ -995,17 +995,6 @@ export const Icon = ({ name, strokeWidth, color = FONT_COLOR, size = "2rem" }: T
 
       case "menuWithDot":
          icon = (
-            // <svg viewBox='0 0 512 512'>
-            //    <path
-            //       fill='none'
-            //       stroke={color}
-            //       strokeLinecap='round'
-            //       strokeMiterlimit='10'
-            //       strokeWidth={strokeWidth ? strokeWidth : "32"}
-            //       d='M80 160h352M80 256h352M80 352h352'
-            //    />
-            //    <circle cx='19' cy='5' r='5' fill='#FF4D62' />
-            // </svg>
             <svg viewBox='0 0 24 17' fill='none'>
                <path
                   d='M2 8.66675H22'
@@ -1054,6 +1043,38 @@ export const Icon = ({ name, strokeWidth, color = FONT_COLOR, size = "2rem" }: T
                />
             </svg>
          );
+         break;
+
+      case "wallet":
+         icon = (
+            <svg viewBox='0 0 512 512'>
+               <rect
+                  x='48'
+                  y='144'
+                  rx='48'
+                  ry='48'
+                  width='416'
+                  height='288'
+                  fill='none'
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+                  stroke={color}
+               />
+               <path
+                  d='M411.36 144v-30A50 50 0 00352 64.9L88.64 109.85A50 50 0 0048 159v49'
+                  fill='none'
+                  stroke={color}
+                  strokeLinejoin='round'
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+               />
+               <path
+                  strokeWidth={strokeWidth ? strokeWidth : "32"}
+                  fill={color}
+                  d='M368 320a32 32 0 1132-32 32 32 0 01-32 32z'
+               />
+            </svg>
+         );
+
          break;
 
       case "parragraph":

@@ -1,6 +1,12 @@
 import Link from "next/link";
-import { BUG_REPORT, PRIVACY, USER_SETTINGS, USER_VERIFICATION } from "../../../constants/routes";
-import { FONT_COLOR } from "../../../constants/tokens";
+import {
+   BUG_REPORT,
+   PRIVACY,
+   USER_BILLING,
+   USER_SETTINGS,
+   USER_VERIFICATION
+} from "../../../constants/routes";
+import { DANGER_COLOR, DANGER_COLOR_SECONDARY, FONT_COLOR } from "../../../constants/tokens";
 
 // comps
 import { MenuPrimaryOption } from "../../fragments/buttons/menu_options/menu_primary_option";
@@ -30,6 +36,12 @@ export const SelectProfileOptions = ({ cta, userHasNotifications }: TSelectProfi
          url: USER_SETTINGS,
          icon: "settings",
          description: "Settings",
+         color: FONT_COLOR
+      },
+      {
+         url: USER_BILLING,
+         icon: "wallet",
+         description: "Billing",
          color: FONT_COLOR
       },
       {
