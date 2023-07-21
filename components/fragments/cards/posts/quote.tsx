@@ -37,7 +37,6 @@ export const Quote = ({ quote, type = 0, className = "" }: TQuoteProps) => {
    const { handleDelete, data } = useDeleteContent();
 
    useEffect(() => {
-      console.log(data);
       if (data && data.ID) {
          setisDeleted(true);
       } else if (data && data.error) {

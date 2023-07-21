@@ -39,7 +39,6 @@ export const useDeleteContent = () => {
             mutation: CTYPE,
             variables: { ID: id }
          });
-         console.log(data);
 
          if (data.delete_one_commentary)
             setData({ ...data.delete_one_commentary, status: "success" });
