@@ -45,11 +45,13 @@ import { YouNeedToLoginModal } from "../common/modals/you_need_to_login_modal";
 import { loggedInUser } from "../../helpers/auth/get-loggedin-user";
 import { getColorContrast } from "../../helpers/getColorContrast";
 import { Parragraph } from "../fragments/Typography/parragraph";
+import { Pagination } from "../fragments/buttons/pagination";
 
 type chapterProps = {
    chapterId: string | string[]; // string[] is only to satisfy next router type
    searchText?: string; //finds a string within a verse
    fontSize?: string;
+   scrollingDir?: string;
    versionId: string;
    theme?: string;
    userId?: string;
@@ -63,6 +65,7 @@ export const BibleChapter = ({
    versionId,
    fontSize = "main",
    searchText,
+   scrollingDir,
    theme = "1",
    userId,
    cta
@@ -457,6 +460,19 @@ export const BibleChapter = ({
             </div>
          )}
 
+         {scrollingDir === "down" && (
+            <Pagination
+               type='3'
+               top='80vh'
+               forContent='read'
+               onGoBack={() =>
+                  router.push({ query: { ...router.query, ["chapter-id"]: data?.previous?.id } })
+               }
+               onGoForth={() =>
+                  router.push({ query: { ...router.query, ["chapter-id"]: data?.next?.id } })
+               }
+            />
+         )}
          {commentaryModal !== "none" && (
             <PortalTernary>
                <ViewCommentary

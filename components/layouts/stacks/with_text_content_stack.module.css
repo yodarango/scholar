@@ -21,6 +21,11 @@
    /* padding: var(--spacing-l) var(--spacing-l) 0; */
 }
 
+.imgBkg.isHidden {
+   top: -10rem;
+   transition: top 0.5s ease;
+}
+
 .topLayerColorBkg {
    background-color: var(--primary-color);
    opacity: 0.6;
@@ -42,8 +47,8 @@
 }
 
 .subWrapper {
-   width: var(--global-wrapper-width);
-   margin: auto;
+   width: 100%;
+   margin: 0;
    max-width: var(--main-wrapper-max-width);
    z-index: 2;
    height: calc(100vh - 16.5rem); /* 100 - (distance from top) */
@@ -56,6 +61,11 @@
    background-color: var(--primary-color);
 }
 
+.subWrapper.isHidden {
+   height: calc(100vh - 2rem);
+   top: 0rem;
+   transition: top 0.5s ease;
+}
 .contentHolder {
    height: 100%;
    width: 100%;
@@ -204,4 +214,40 @@
 .contentHolder em {
    font-family: var(--primary-font);
    font-size: var(--fs-main);
+}
+
+.hideVerseView {
+   position: relative;
+   bottom: -16.5rem; /*heigh of the image*/
+   height: 0.2rem;
+   left: 0;
+   right: 0;
+   width: 80%;
+   /* background-color: var(--third-color); */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 3;
+   margin: auto;
+}
+
+.hideVerseView div {
+   background-color: var(--third-color);
+   width: 5rem;
+   height: 2.5rem;
+   border-radius: 1em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+}
+
+.hideVerseView.isHidden {
+   bottom: -1rem;
+}
+
+.hideVerseView.isHidden > div {
+   height: 2.5rem;
+   rotate: 180deg;
+   transform: translateY(-0.5rem);
 }

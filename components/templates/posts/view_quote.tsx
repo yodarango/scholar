@@ -85,7 +85,7 @@ export const ViewQuote = () => {
                   <div className={styles.author}>
                      <Parragraph
                         size={"small"}
-                        text={`—	${quote.author}`}
+                        text={`—	${quote.author || quote.creator.signature}`}
                         align='right'
                         color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
                      />

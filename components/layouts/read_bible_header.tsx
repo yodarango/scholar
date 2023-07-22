@@ -60,14 +60,14 @@ export const ReadBibleHeader = ({
             <>
                <div className={styles.language}>
                   <BibleLanguage
-                     className={themeClass}
+                     className={styles.firstTheme} //setting first time for now because the header is glassed
                      whiteBorder={whiteBorder}
                      langIcon={langIcon}
                   />
                </div>
                <div className={styles.versionScripture}>
                   <BibleVersionScripture
-                     className={themeClass}
+                     className={styles.firstTheme} //setting first time for now because the header is glassed
                      whiteBorder={whiteBorder}
                      versionId={versionId}
                      versionName={versionName}

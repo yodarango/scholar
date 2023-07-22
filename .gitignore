@@ -41,4 +41,4 @@ env.js
 #/public/images
 
 # server config
-apollo-client.js
+/apollo-client.js

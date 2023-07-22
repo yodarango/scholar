@@ -28,7 +28,7 @@ export const getLSBibleSettings = (router: any) => {
          localStorage.setItem("reading-preferences", JSON.stringify(updateScripture));
 
          data = updateScripture;
-      } else if (!LSParsed.chapterId && !router.query["chapter-id"]) {
+      } else if (!LSParsed.chapterId && !router.query["chapter-id"] && LSParsed.scriptureRef) {
          /*********************************************************************************
           * If we have a LS settings but no chapter ID in them that mean we need to add it,
           * Since we have an LS obj that means we have a chapter reference  there. Get the

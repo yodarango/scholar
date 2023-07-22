@@ -123,6 +123,7 @@ export const ReadBibleModal = ({ cta, readingPrefs }: TReadBibleTemplateProps) =
          <div className={styles.chapter}>
             {readingPrefs && (
                <BibleChapter
+                  scrollingDir={scrollingDir}
                   searchText={search}
                   versionId={readingPrefs.versionId}
                   chapterId={readingPrefs.chapterId}

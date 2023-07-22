@@ -3,7 +3,7 @@
 -  The stack is composed of several small components, which can be rendered optionally by simply passing the
    corresponding props
 **********************************************************************************************************/
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 // comps
@@ -18,6 +18,7 @@ import { VerseRefTagWrapper } from "../../fragments/verse_ref_tag_wrapper";
 
 // styles
 import styles from "./with_text_content_stack.module.css";
+import { Icon } from "../../fragments/chunks/icons";
 
 type TPrimaryStackprops = {
    title: string;
@@ -71,6 +72,7 @@ export const WithTextContentStack = ({
    const [contentWrapperClass, setcontentWrapperClass] =
       useState(""); /* adds a new class to content holder*/
    const [isEditable, setIsEditable] = useState(false);
+   const [hiddenView, setHiddenView] = useState<boolean>(false);
 
    // toggle the classes and state of the referenced verses
    const handleShowVerseRefs = () => {
@@ -90,48 +92,56 @@ export const WithTextContentStack = ({
    return (
       <div className={styles.mainWrapper}>
          {/* header */}
-         <div className={styles.imgBkg} style={{ backgroundImage: `url(${postImage})` }}>
-            <div className={styles.topLayerColorBkg}></div>
-            <div className={styles.close}>
-               {cta.handleCloseModal && !closeHref && (
-                  <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
-               )}
-               {closeHref && !cta.handleCloseModal && <CloseContent href={closeHref} />}
-            </div>
+         {!hiddenView && (
+            <div className={`${styles.imgBkg} `} style={{ backgroundImage: `url(${postImage})` }}>
+               <div className={styles.topLayerColorBkg}></div>
+               <div className={styles.close}>
+                  {cta.handleCloseModal && !closeHref && (
+                     <CloseContent cta={{ handleClick: cta.handleCloseModal }} />
+                  )}
+                  {closeHref && !cta.handleCloseModal && <CloseContent href={closeHref} />}
+               </div>
 
-            {withEdit && (
-               <div className={styles.edit}>
-                  <IconButton
-                     icon='edit'
-                     cta={{
-                        handleClick: () => {
-                           if (cta.handleEdit) cta.handleEdit();
-                           else setIsEditable(!isEditable);
-                        }
-                     }}
-                     backgroundColor={isEditable ? "2" : "1"}
-                     iconColor='#F1EAFF'
+               {withEdit && (
+                  <div className={styles.edit}>
+                     <IconButton
+                        icon='edit'
+                        cta={{
+                           handleClick: () => {
+                              if (cta.handleEdit) cta.handleEdit();
+                              else setIsEditable(!isEditable);
+                           }
+                        }}
+                        backgroundColor={isEditable ? "2" : "1"}
+                        iconColor='#F1EAFF'
+                     />
+                  </div>
+               )}
+
+               {/*  post info */}
+               <div className={styles.postInfo}>
+                  <SeePostInfo
+                     cta={{ handleClickOnAvatar: cta.handleClickOnAvatar }}
+                     userAuthority={userAuthority}
+                     userId={userId}
+                     username={username}
+                     avatar={avatar}
+                     postCategory={postCategory}
+                     postPostedOnDate={postPostedOnDate}
+                     postCreatedDate={postCreatedDate}
                   />
                </div>
-            )}
-
-            {/*  post info */}
-            <div className={styles.postInfo}>
-               <SeePostInfo
-                  cta={{ handleClickOnAvatar: cta.handleClickOnAvatar }}
-                  userAuthority={userAuthority}
-                  userId={userId}
-                  username={username}
-                  avatar={avatar}
-                  postCategory={postCategory}
-                  postPostedOnDate={postPostedOnDate}
-                  postCreatedDate={postCreatedDate}
-               />
+            </div>
+         )}
+         <div
+            className={`${styles.hideVerseView} ${hiddenView ? styles.isHidden : ""} `}
+            onClick={() => setHiddenView(!hiddenView)}>
+            <div>
+               <Icon name='arrowTop' />
             </div>
          </div>
-
          {/* sub wrapper where content is held */}
-         <div className={styles.subWrapper}>
+         <div className={`${styles.subWrapper} ${hiddenView ? styles.isHidden : ""}`}>
             <div className={styles.title}>
                <Header text={title} size='large' type={2} />
             </div>

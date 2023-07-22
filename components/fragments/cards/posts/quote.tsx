@@ -93,7 +93,7 @@ export const Quote = ({ quote, type = 0, className = "" }: TQuoteProps) => {
                      <Parragraph
                         color={darkContext ? PRIMARY_COLOR : FONT_COLOR}
                         size={type === 1 ? "small" : "xsmall"}
-                        text={`—	${quote.creator?.signature}`}
+                        text={`—	${quote.author || quote.creator?.signature}`}
                         align='center'
                      />
                   </div>

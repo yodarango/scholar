@@ -13,11 +13,14 @@ import { Icon } from "../chunks/icons";
 
 // helpers
 import { handleBibleChapterPagination } from "../../../helpers/router/paginate_bible_passage";
+import { FONT_COLOR } from "../../../constants/tokens";
 
 type TpaginationProps = {
    forContent: string;
-   goBack: string | null | undefined;
-   goForth: string | null | undefined;
+   goBack?: string;
+   goForth?: string;
+   onGoBack?: () => void;
+   onGoForth?: () => void;
    top?: string;
    left?: string;
    right?: string;
@@ -28,6 +31,8 @@ export const Pagination = ({
    forContent,
    goBack,
    goForth,
+   onGoBack,
+   onGoForth,
    type,
    top = "70vh",
    left = "1rem",
@@ -50,31 +55,63 @@ export const Pagination = ({
       }
    }, [router.isReady, router.query]);
 
-   return (
-      <>
-         {showBackwarButton && (
-            <Link href={showBackwarButton}>
-               <a
-                  className={`${styles.left} ${
-                     type === "1" ? styles.primary : type === "3" ? styles.secondary : styles.third
-                  }`}
-                  style={{ top: top, left: left }}>
-                  <Icon name='arrowBack' color='#F1EAFF' size='2rem' strokeWidth='64' />
-               </a>
-            </Link>
-         )}
+   if (goBack && goForth) {
+      return (
+         <>
+            {showBackwarButton && (
+               <Link href={showBackwarButton}>
+                  <a
+                     className={`${styles.left} ${
+                        type === "1"
+                           ? styles.primary
+                           : type === "3"
+                           ? styles.secondary
+                           : styles.third
+                     }`}
+                     style={{ top: top, left: left }}>
+                     <Icon name='arrowBack' color={FONT_COLOR} size='2rem' strokeWidth='64' />
+                  </a>
+               </Link>
+            )}
 
-         {showForwardButton && (
-            <Link href={showForwardButton}>
-               <a
-                  className={`${styles.right} ${
-                     type === "1" ? styles.primary : type === "3" ? styles.secondary : styles.third
-                  }`}
-                  style={{ top: top, right: right }}>
-                  <Icon name='arrowForth' color='#F1EAFF' size='2rem' strokeWidth='64' />
-               </a>
-            </Link>
-         )}
-      </>
-   );
+            {showForwardButton && (
+               <Link href={showForwardButton}>
+                  <a
+                     className={`${styles.right} ${
+                        type === "1"
+                           ? styles.primary
+                           : type === "3"
+                           ? styles.secondary
+                           : styles.third
+                     }`}
+                     style={{ top: top, right: right }}>
+                     <Icon name='arrowForth' color={FONT_COLOR} size='2rem' strokeWidth='64' />
+                  </a>
+               </Link>
+            )}
+         </>
+      );
+   } else if (onGoBack && onGoForth) {
+      return (
+         <>
+            <button
+               onClick={onGoBack}
+               className={`${styles.left} ${
+                  type === "1" ? styles.primary : type === "3" ? styles.secondary : styles.third
+               }`}
+               style={{ top: top, left: left }}>
+               <Icon name='arrowBack' color={FONT_COLOR} size='2rem' strokeWidth='64' />
+            </button>
+
+            <button
+               onClick={onGoForth}
+               className={`${styles.right} ${
+                  type === "1" ? styles.primary : type === "3" ? styles.secondary : styles.third
+               }`}
+               style={{ top: top, right: right }}>
+               <Icon name='arrowForth' color={FONT_COLOR} size='2rem' strokeWidth='64' />
+            </button>
+         </>
+      );
+   } else return <></>;
 };

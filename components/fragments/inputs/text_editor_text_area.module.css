@@ -2,7 +2,7 @@
    position: relative;
    width: 100%;
    height: 100%;
-   border-top: 0.3rem solid var(--third-color);
+   /* border-top: 0.3rem solid var(--third-color); */
 }
 
 .title {

@@ -20,6 +20,7 @@ import { getRandomQuote } from "../../../helpers/get_random_quote";
 // helpers
 import { MM_DD_YYYY } from "../../../helpers/Time/dateFormats";
 import { POST_TYPE_ARTICLE } from "../../../constants/defaults";
+import { Icon } from "../../fragments/chunks/icons";
 
 type TArticleTextEditorProps = {
    ID?: string; // if the id is not passed the the editor will create new post
@@ -62,6 +63,7 @@ export const ArticleTextEditor = ({
          type: string;
       }>(null);
    const [loading, setloading] = useState("done");
+   const [hiddenView, setHiddenView] = useState<boolean>(false);
    const postDate = { created: `${new Date()}`, posted: MM_DD_YYYY("/") };
 
    const post: any = {
@@ -150,23 +152,32 @@ export const ArticleTextEditor = ({
             )}
          </Portal>
          <div className={styles.mainWrapper}>
-            <div className={styles.topInfo}>
-               <TextEditorTopInfo
-                  userAuthority={userAuthority}
-                  userId={userId}
-                  username={username}
-                  avatar={avatar}
-                  postImgBkg={postImage}
-                  postPostedOnDate={postPostedOnDate}
-                  postCreatedDate={postCreatedDate}
-                  postCategory={state.category_tags}
-                  cta={{
-                     handleCloseModal: () => router.back(),
-                     handleImageBkgSelection
-                  }}
-               />
+            <div className={`${styles.topInfo} ${hiddenView ? styles.isHidden : ""}`}>
+               {!hiddenView && (
+                  <TextEditorTopInfo
+                     userAuthority={userAuthority}
+                     userId={userId}
+                     username={username}
+                     avatar={avatar}
+                     postImgBkg={postImage}
+                     postPostedOnDate={postPostedOnDate}
+                     postCreatedDate={postCreatedDate}
+                     postCategory={state.category_tags}
+                     cta={{
+                        handleCloseModal: () => router.back(),
+                        handleImageBkgSelection
+                     }}
+                  />
+               )}
+               <div
+                  className={`${styles.hideVerseView} ${hiddenView ? styles.isHidden : ""} `}
+                  onClick={() => setHiddenView(!hiddenView)}>
+                  <div>
+                     <Icon name='arrowTop' />
+                  </div>
+               </div>
             </div>
-            <div className={styles.textEditor}>
+            <div className={`${styles.textEditor}  ${hiddenView ? styles.isHidden : ""}`}>
                <TextEditor
                   includeIsPrivate={false}
                   bodyPlaceHolder={getRandomQuote(1)}
