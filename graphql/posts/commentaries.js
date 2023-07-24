@@ -31,7 +31,7 @@ export const GET_COMMENTARIES = gql`
          category_tags
          referenced_verses
          verse_citation
-         created_date
+         created_on
          posted_on
          post_image
          is_private
@@ -60,7 +60,7 @@ export const GET_COMMENTARIES_IN_24 = gql`
          category_tags
          referenced_verses
          verse_citation
-         created_date
+         created_on
          post_image
          posted_on
          is_private
@@ -102,7 +102,7 @@ export const GET_COMMENTARIES_BY_BOOK = gql`
          category_tags
          referenced_verses
          verse_citation
-         created_date
+         created_on
          posted_on
          is_private
          comments {
@@ -126,7 +126,7 @@ export const GET_EDIT_COMMENTARY = gql`
          category_tags
          referenced_verses
          verse_citation
-         created_date
+         created_on
          posted_on
          post_image
          is_private

@@ -69,7 +69,7 @@ export const ViewQuote = () => {
                         username={quote.creator.signature}
                         avatar={quote.creator.avatar}
                         postPostedOnDate={quote.posted_on}
-                        postCreatedDate={quote.created_date}
+                        postCreatedDate={quote.created_on}
                      />
                   </div>
                </div>

@@ -15,7 +15,7 @@ export const GET_ARTICLES = gql`
          USER_ID
          category_tags
          posted_on
-         created_date
+         created_on
          referenced_verses
          post_image
          signature
@@ -38,7 +38,7 @@ export const GET_EDIT_ARTICLES = gql`
          USER_ID
          category_tags
          posted_on
-         created_date
+         created_on
          referenced_verses
          post_image
          signature

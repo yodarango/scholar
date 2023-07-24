@@ -71,7 +71,7 @@ export const ViewCommentary = ({ cta, withEdit, commentaryID, userId }: TViewCom
                   username={commentary.creator.signature}
                   avatar={commentary.creator.avatar}
                   postPostedOnDate={commentary.posted_on}
-                  postCreatedDate={commentary.created_date}
+                  postCreatedDate={commentary.created_on}
                   postCategory={commentary.category_tags}
                   withEdit={withEdit}
                />

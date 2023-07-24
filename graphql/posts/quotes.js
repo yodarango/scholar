@@ -16,7 +16,7 @@ export const GET_QUOTE = gql`
          author
          background
          posted_on
-         created_date
+         created_on
          # creator {
          USER_ID
          signature
@@ -44,7 +44,7 @@ export const GET_QUOTE_IN_24 = gql`
          category_tags
          author
          background
-         created_date
+         created_on
          posted_on
          # creator {
          USER_ID
@@ -72,7 +72,7 @@ export const GET_EDIT_QUOTE = gql`
          category_tags
          author
          background
-         created_date
+         created_on
          posted_on
          USER_ID
          signature

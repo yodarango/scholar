@@ -8,7 +8,7 @@ export type TCommentary = {
    category_tags: string;
    referenced_verses: string;
    posted_on: string;
-   created_date: string;
+   created_on: string;
    date: string;
    verse_citation: string;
    post_image: string;
@@ -41,7 +41,7 @@ export type TArticle = {
    category_tags: string;
    referenced_verses: string;
    posted_on: string;
-   created_date: string;
+   created_on: string;
    date: string;
    post_image: string;
    creator: {
@@ -90,7 +90,7 @@ export type TQuote = {
    author: string;
    background: string;
    posted_on?: string;
-   created_date?: string;
+   created_on?: string;
    date: string;
    creator: {
       ID: string;

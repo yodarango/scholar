@@ -16,7 +16,7 @@ export const GET_ALL_POSTS = gql`
          verse_citation
          author
          background
-         created_date
+         created_on
          posted_on
          is_private
          total_posts

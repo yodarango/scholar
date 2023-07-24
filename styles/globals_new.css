@@ -85,7 +85,7 @@
 
 :root {
    /* --------------- font ---------- */
-   --primary-font: "Open Sans", sans-serif;
+   --primary-font: system-ui, -apple-system, "Open Sans", sans-serif;
    --quote-font--1: rumba-extra, sans-serif; /*400*/
    --quote-font--2: coniferous, sans-serif; /*600*/
    --quote-font--3: rough-love, sans-serif; /*400*/

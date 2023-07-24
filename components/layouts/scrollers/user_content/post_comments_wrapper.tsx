@@ -110,7 +110,7 @@ export const PostCommentsWrapper = ({
                            userAuthority: comment?.creator_authority_level,
                            postType: "1",
                            widthTimeStamp: {
-                              time: comment?.created_date || "",
+                              time: comment?.created_on || "",
                               niceTime: comment?.posted_on || "",
                               quiet: false
                            }

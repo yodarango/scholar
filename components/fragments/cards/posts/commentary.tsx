@@ -134,7 +134,7 @@ export const Commentary = ({ commentary, customWidth = false }: TCommentaryProps
                   <div className={styles.timeStamp}>
                      <TimeStamp
                         colorId={categoryId}
-                        time={commentary?.created_date}
+                        time={commentary?.created_on}
                         niceTime={commentary?.posted_on}
                      />
                   </div>

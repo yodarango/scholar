@@ -57,7 +57,7 @@ export const ViewArticle = () => {
                   username={article.creator.signature}
                   avatar={article.creator.avatar}
                   postPostedOnDate={article.posted_on}
-                  postCreatedDate={article.created_date}
+                  postCreatedDate={article.created_on}
                   postCategory={article.category_tags}
                />
             </div>

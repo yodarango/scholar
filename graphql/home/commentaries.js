@@ -24,7 +24,7 @@ export const GET_COMMENTARIES = gql`
          category_tags
          referenced_verses
          verse_citation
-         created_date
+         created_on
          posted_on
          creator {
             ID

@@ -67,7 +67,7 @@ const EditArticle = () => {
                   username={article?.creator?.signature ? article.creator?.signature : ""}
                   avatar={article?.creator?.avatar ? article?.creator?.avatar : ""}
                   postPostedOnDate={article?.posted_on}
-                  postCreatedDate={article?.created_date}
+                  postCreatedDate={article?.created_on}
                   postCategory={article?.category_tags}
                   postReferences={postReferneces}
                />

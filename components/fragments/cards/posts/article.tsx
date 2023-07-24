@@ -133,7 +133,7 @@ export const Article = ({ cta, article }: TArticleProps) => {
                      <TimeStamp
                         colorId={categoryId}
                         quiet={false}
-                        time={article?.created_date}
+                        time={article?.created_on}
                         niceTime={article?.posted_on}
                      />
                   </div>

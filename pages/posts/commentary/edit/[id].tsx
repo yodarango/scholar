@@ -79,7 +79,7 @@ const EditCommentary = () => {
                   username={commentary?.creator?.signature ? commentary?.creator?.signature : ""}
                   avatar={commentary?.creator?.avatar ? commentary?.creator?.avatar : ""}
                   postPostedOnDate={commentary?.posted_on}
-                  postCreatedDate={commentary?.created_date}
+                  postCreatedDate={commentary?.created_on}
                   postCategory={commentary?.category_tags}
                   postReferences={postReferneces}
                   postPrivacy={commentary?.is_private}

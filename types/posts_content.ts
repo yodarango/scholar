@@ -8,7 +8,7 @@ export type TComment = {
    creator_authority_level: number;
    creator_id: string;
    posted_on?: string;
-   created_date?: string;
+   created_on?: string;
 };
 
 export type TRating = {

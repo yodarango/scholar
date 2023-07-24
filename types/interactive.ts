@@ -38,6 +38,6 @@ export type TFastFacts = {
    ID: string;
    type: string;
    images: string;
-   created_date?: string;
+   created_on?: string;
    posted_on?: string;
 };
