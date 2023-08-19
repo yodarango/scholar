@@ -1,14 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_POSTS = gql`
-   query ($cID: ID, $qID: ID, $tID: ID) {
-      all_posts(cID: $cID, qID: $qID, tID: $tID) {
+   query ($last_id: ID) {
+      posts(last_id: $last_id) {
          ID
          POST_TYPE
          VERSE_ID
-         AUTHORITY_LEVEL
          body
-         folder_id
+         FOLDER_ID
          folder_name
          category_tags
          post_image
@@ -19,18 +18,18 @@ export const GET_ALL_POSTS = gql`
          created_on
          posted_on
          is_private
-         total_posts
          USER_ID
          signature
-         authority_level
-         approval_rating
-         first_name
-         last_name
-         my_church
          avatar
          total_comment_count
          average_rating_count
          total_rating_count
+         creator {
+            authority_level
+            signature
+            avatar
+            ID
+         }
       }
    }
 `;

@@ -16,12 +16,12 @@ export const handleGetAllPosts = async (variables: TgetAllPostsVaribles) => {
          variables
       });
 
-      if (!data.all_posts) {
+      if (!data.posts) {
          return { data: null, status: "error" };
       }
 
       //  format the data into commentary: { user:{}}
-      const posts = data.all_posts.map((p: any) => ({
+      const posts = data.posts.map((p: any) => ({
          ...p,
          creator: {
             ID: p.USER_ID,
