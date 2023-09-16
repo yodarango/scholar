@@ -54,7 +54,7 @@ export const client = new ApolloClient({
    // uri: "https://be.shrood.app/api",
    //uri: "http://192.168.1.16:4000/api",
    //uri: "http://192.168.1.12:4000/api", //home
-   uri: "http://localhost:4000/api",
+   uri: "http://localhost:3003/api",
    //uri: "http://172.20.10.3:4000/api", // phone
    cache: new InMemoryCache(),
    defaultOptions: defaultOptions,
